@@ -1,0 +1,2 @@
+/Users/shinilkim/flutterProjects/memory_game/android/app/.cxx/Debug/62c3x6x3/x86/CMakeFiles/edit_cache.dir
+/Users/shinilkim/flutterProjects/memory_game/android/app/.cxx/Debug/62c3x6x3/x86/CMakeFiles/rebuild_cache.dir

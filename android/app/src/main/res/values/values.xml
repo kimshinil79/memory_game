@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MemoryGame</string>
+    <!-- ... -->
+
+    <!-- Firebase 설정 -->
+    <string name="google_api_key" translatable="false">AIzaSyBQU0E1f22uhk9SqDF3unJ1qv5ELAwrnTs</string>
+    <string name="firebase_database_url" translatable="false">memorygame-61d03.appspot.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">529352933631</string>
+    <string name="google_app_id" translatable="false">1:529352933631:android:045a0abf3e366b38ce0cca</string>
+    <string name="project_id" translatable="false">memorygame-61d03</string>
+</resources>
