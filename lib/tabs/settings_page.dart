@@ -6,7 +6,18 @@ import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final Function(int) updateNumberOfPlayers;
+  final Function(String) updateGridSize;
+  final int numberOfPlayers;
+  final String gridSize;
+
+  const SettingsPage({
+    super.key,
+    required this.updateNumberOfPlayers,
+    required this.updateGridSize,
+    required this.numberOfPlayers,
+    required this.gridSize,
+  });
 
   @override
   _SettingsPageState createState() => _SettingsPageState();

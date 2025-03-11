@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
+import '../providers/brain_health_provider.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -406,7 +407,35 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       print('Game completed in: $_elapsedTime seconds'); // 디버깅용
     }
 
+    // 두뇌 건강 점수 추가
+    _updateBrainHealthScore(_elapsedTime);
+
     _showCompletionDialog(_elapsedTime);
+  }
+
+  Future<void> _updateBrainHealthScore(int elapsedTime) async {
+    // 매치된 카드 쌍의 개수 계산
+    final int totalMatches = gameImages.length ~/ 2;
+
+    try {
+      // Brain Health Provider에 게임 완료 정보 추가
+      final brainHealthProvider =
+          Provider.of<BrainHealthProvider>(context, listen: false);
+      final int pointsEarned = await brainHealthProvider.addGameCompletion(
+          totalMatches, elapsedTime);
+
+      // 점수 획득 토스트 메시지 표시 (선택적)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('두뇌 건강 점수 $pointsEarned점을 획득했습니다!'),
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      print('두뇌 건강 점수 업데이트 오류: $e');
+    }
   }
 
   void _showCompletionDialog(int elapsedTime) {

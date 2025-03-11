@@ -46,6 +46,8 @@ dependencies:
   provider: ^6.1.2
   country_icons: ^3.0.0
   flag: ^7.0.0
+  fl_chart: ^0.64.0
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:

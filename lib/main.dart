@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'tabs/memory_game_page.dart';
 import 'tabs/test_page.dart';
 import 'tabs/settings_page.dart';
+import 'tabs/brain_health_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'providers/language_provider.dart';
+import 'providers/brain_health_provider.dart';
 import 'package:flag/flag.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +18,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => BrainHealthProvider()),
       ],
       child: MyApp(),
     ),
@@ -273,8 +276,46 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void updateNumberOfPlayers(int newNumberOfPlayers) {
+    setState(() {
+      numberOfPlayers = newNumberOfPlayers;
+      currentPlayerIndex = 0;
+      resetScores();
+    });
+  }
+
+  void updateGridSize(String newGridSize) {
+    setState(() {
+      gridSize = newGridSize;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> _pages = [
+      MemoryGamePage(
+        key: _memoryGameKey,
+        numberOfPlayers: numberOfPlayers,
+        gridSize: gridSize,
+        updateFlipCount: updateFlipCount,
+        updatePlayerScore: updatePlayerScore,
+        nextPlayer: nextPlayer,
+        currentPlayer: players[currentPlayerIndex],
+        playerScores: playerScores,
+        resetScores: resetScores,
+        isTimeAttackMode: true,
+        timeLimit: 60,
+      ),
+      TestPage(),
+      BrainHealthPage(),
+      SettingsPage(
+        updateNumberOfPlayers: updateNumberOfPlayers,
+        updateGridSize: updateGridSize,
+        numberOfPlayers: numberOfPlayers,
+        gridSize: gridSize,
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Consumer<LanguageProvider>(
@@ -324,54 +365,66 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
             ),
+          if (_currentIndex == 2)
+            Consumer<BrainHealthProvider>(
+              builder: (context, brainHealthProvider, child) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.psychology,
+                        color: _getBrainHealthColor(
+                            brainHealthProvider.preventionLevel),
+                        size: 24,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '${brainHealthProvider.brainHealthScore}',
+                        style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: _getBrainHealthColor(
+                              brainHealthProvider.preventionLevel),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          MemoryGamePage(
-            key: _memoryGameKey,
-            numberOfPlayers: numberOfPlayers,
-            gridSize: gridSize,
-            updateFlipCount: updateFlipCount,
-            updatePlayerScore: updatePlayerScore,
-            nextPlayer: nextPlayer,
-            currentPlayer: players[currentPlayerIndex],
-            playerScores: playerScores,
-            resetScores: resetScores,
-          ),
-          const TestPage(),
-          const SettingsPage(),
-        ],
-      ),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.games),
             label: 'Game',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
+            icon: Icon(Icons.school),
             label: 'Test',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.psychology),
+            label: '두뇌 건강',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
         ],
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
-        showUnselectedLabels: true,
       ),
     );
   }
@@ -738,5 +791,22 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
     );
+  }
+
+  Color _getBrainHealthColor(int level) {
+    switch (level) {
+      case 1:
+        return Colors.redAccent;
+      case 2:
+        return Colors.orangeAccent;
+      case 3:
+        return Colors.amber;
+      case 4:
+        return Colors.lightGreen;
+      case 5:
+        return Colors.green;
+      default:
+        return Colors.blue;
+    }
   }
 }
