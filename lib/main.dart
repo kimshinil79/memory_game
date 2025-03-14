@@ -380,7 +380,6 @@ class _MainScreenState extends State<MainScreen> {
       'de-DE': 'German (Deutsch)',
       'it-IT': 'Italian (Italiano)',
       'pt-PT': 'Portuguese (Portugal)',
-      'pt-BR': 'Portuguese (Brazil)',
       'ru-RU': 'Russian (Русский)',
       'nl-NL': 'Dutch (Nederlands)',
       'pl-PL': 'Polish (Polski)',
@@ -398,13 +397,6 @@ class _MainScreenState extends State<MainScreen> {
       'hr-HR': 'Croatian (Hrvatski)',
       'sl-SI': 'Slovenian (Slovenščina)',
       'lt-LT': 'Lithuanian (Lietuvių)',
-      'lv-LV': 'Latvian (Latviešu)',
-      'et-EE': 'Estonian (Eesti)',
-      'is-IS': 'Icelandic (Íslenska)',
-      'ca-ES': 'Catalan (Català)',
-      'eu-ES': 'Basque (Euskara)',
-      'gl-ES': 'Galician (Galego)',
-      'cy-GB': 'Welsh (Cymraeg)',
 
       // 중동어
       'ar-SA': 'Arabic (Saudi Arabia) (العربية)',

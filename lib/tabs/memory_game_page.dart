@@ -1126,6 +1126,50 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         return punjabiItemList[word] ?? word;
       case 'ur-PK':
         return urduItemList[word] ?? word;
+      case 'ur-IN':
+        return urduItemList[word] ?? word;
+      case 'ur-AR':
+        return urduItemList[word] ?? word;
+      case 'ur-SA':
+        return urduItemList[word] ?? word;
+      case 'ur-AE':
+        return urduItemList[word] ?? word;
+      case 'sv-SE':
+        return swedishItemList[word] ?? word;
+      case 'no-NO':
+        return norwegianItemList[word] ?? word;
+      case 'da-DK':
+        return danishItemList[word] ?? word;
+      case 'fi-FI':
+        return finnishItemList[word] ?? word;
+      case 'nb-NO':
+        return norwegianItemList[word] ?? word;
+      case 'bg-BG':
+        return bulgarianItemList[word] ?? word;
+      case 'el-GR':
+        return greekItemList[word] ?? word;
+      case 'ro-RO':
+        return romanianItemList[word] ?? word;
+      case 'sk-SK':
+        return slovakItemList[word] ?? word;
+      case 'uk-UA':
+        return ukrainianItemList[word] ?? word;
+      case 'hr-HR':
+        return croatianItemList[word] ?? word;
+      case 'sl-SI':
+        return slovenianItemList[word] ?? word;
+      case 'fa-IR':
+        return persianItemList[word] ?? word;
+      case 'he-IL':
+        return hebrewItemList[word] ?? word;
+      case 'mn-MN':
+        return mongolianItemList[word] ?? word;
+      case 'sq-AL':
+        return albanianItemList[word] ?? word;
+      case 'sr-RS':
+        return serbianItemList[word] ?? word;
+      case 'uz-UZ':
+        return uzbekItemList[word] ?? word;
 
       case 'ko-KR':
         return korItemList[word] ?? word;
