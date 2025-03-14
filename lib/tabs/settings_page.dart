@@ -27,10 +27,60 @@ class _SettingsPageState extends State<SettingsPage> {
   User? _user;
   String? _nickname;
 
+  // 기존 데이터 마이그레이션 도우미 함수
+  Future<void> _migrateUserData() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null && user.email != null) {
+        String uid = user.uid;
+        String emailPrefix = user.email!.split('@')[0];
+        String oldDocumentId = '$emailPrefix$uid';
+        String newDocumentId = uid;
+
+        // 이미 신규 문서가 있는지 확인
+        DocumentSnapshot newUserDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(newDocumentId)
+            .get();
+
+        // 기존 문서 확인
+        DocumentSnapshot oldUserDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(oldDocumentId)
+            .get();
+
+        // 신규 문서가 없고 기존 문서가 있는 경우 마이그레이션 진행
+        if (!newUserDoc.exists && oldUserDoc.exists) {
+          // 기존 데이터 복사
+          Map<String, dynamic> userData =
+              oldUserDoc.data() as Map<String, dynamic>;
+
+          // 신규 문서에 저장
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(newDocumentId)
+              .set(userData);
+
+          print(
+              'User data migrated from old ID ($oldDocumentId) to new ID ($newDocumentId)');
+
+          // 필요에 따라 기존 문서 삭제 (선택적)
+          // await FirebaseFirestore.instance.collection('users').doc(oldDocumentId).delete();
+          // print('Old document deleted');
+        }
+      }
+    } catch (e) {
+      print('Error during data migration: $e');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _checkCurrentUser();
+    _migrateUserData(); // 데이터 마이그레이션 시도
+
+    // 인증 상태 변경 감지
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         setState(() {
@@ -47,8 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String uid = user.uid;
-      String emailPrefix = user.email!.split('@')[0];
-      String documentId = '$emailPrefix$uid';
+      String documentId = uid;
 
       try {
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -299,12 +348,12 @@ class _SettingsPageState extends State<SettingsPage> {
       );
 
       String uid = userCredential.user!.uid;
-      String emailPrefix = email.split('@')[0];
-      String documentId = '$emailPrefix$uid';
+      String documentId = uid;
 
       await FirebaseFirestore.instance.collection('users').doc(documentId).set({
         'email': email,
         'nickname': nickname,
+        'language': 'en',
       });
 
       Navigator.of(context).pop();

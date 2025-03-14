@@ -63,7 +63,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   late Animation<Color?> _colorAnimation;
 
   final Color instagramGradientStart = Color(0xFF833AB4);
-  final Color instagramGradientEnd = Color(0xFFF77737);
+  final Color instagramGradientEnd = Color(0xFFE1306C);
 
   //final translator = GoogleTranslator();
   String targetLanguage = 'en';
@@ -87,10 +87,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   @override
   void initState() {
     super.initState();
-    //_loadUserLanguage();
-    _initializeGameWrapper();
+
+    // 기존 초기화 코드
+    _loadUserLanguage();
+    _initializeGameWrapper(); // 게임 초기화
     flutterTts.setLanguage("en-US");
-    //_subscribeToLanguageChanges();
+    _subscribeToLanguageChanges();
 
     _animationController = AnimationController(
       vsync: this,
@@ -110,8 +112,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         String uid = user.uid;
-        String emailPrefix = user.email!.split('@')[0];
-        String documentId = '$emailPrefix$uid';
+        // String emailPrefix = user.email!.split('@')[0];
+        String documentId = uid; // uid만 사용
 
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
             .collection('users')
@@ -126,7 +128,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         }
       }
     } catch (e) {
-      print('언어 설정을 불러오는 중 오류 발생: $e');
+      print("Failed to load user language: $e");
     }
   }
 
@@ -134,15 +136,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String uid = user.uid;
-      String emailPrefix = user.email!.split('@')[0];
-      String documentId = '$emailPrefix$uid';
+      // String emailPrefix = user.email!.split('@')[0];
+      String documentId = uid; // uid만 사용
 
       _languageSubscription?.cancel(); // 기존 구독이 있다면 취소
       _languageSubscription = FirebaseFirestore.instance
           .collection('users')
           .doc(documentId)
           .snapshots()
-          .listen((DocumentSnapshot snapshot) {
+          .listen((snapshot) {
         if (snapshot.exists && snapshot.data() != null) {
           setState(() {
             targetLanguage =
@@ -407,7 +409,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       print('Game completed in: $_elapsedTime seconds'); // 디버깅용
     }
 
-    // 두뇌 건강 점수 추가
+    // Brain Health Score update
     _updateBrainHealthScore(_elapsedTime);
 
     _showCompletionDialog(_elapsedTime);
@@ -427,14 +429,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       // 점수 획득 토스트 메시지 표시 (선택적)
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('두뇌 건강 점수 $pointsEarned점을 획득했습니다!'),
+          content: Text('You earned $pointsEarned Brain Health points!'),
           duration: Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.green,
         ),
       );
     } catch (e) {
-      print('두뇌 건강 점수 업데이트 오류: $e');
+      print('Error updating Brain Health score: $e');
     }
   }
 
@@ -1074,6 +1076,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     print('language in getLocalizedWord function: $language');
 
     switch (language) {
+      case 'af-ZA':
+        return afrikaansItemList[word] ?? word;
+      case 'am-ET':
+        return amharicItemList[word] ?? word;
+      case 'zu-ZA':
+        return zuluItemList[word] ?? word;
+      case 'sw-KE':
+        return swahiliItemList[word] ?? word;
+      case 'hi-IN':
+        return hindiItemList[word] ?? word;
       case 'ko-KR':
         return korItemList[word] ?? word;
       case 'es-ES':
@@ -1116,8 +1128,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      String emailPrefix = user.email!.split('@')[0];
-      String documentId = '$emailPrefix${user.uid}';
+      // String emailPrefix = user.email!.split('@')[0];
+      // String documentId = '$emailPrefix${user.uid}';
+      String documentId = user.uid; // uid만 사용
 
       DocumentReference userDoc =
           FirebaseFirestore.instance.collection('users').doc(documentId);

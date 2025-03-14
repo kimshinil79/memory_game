@@ -13,27 +13,129 @@ class BrainHealthPage extends StatefulWidget {
 }
 
 class _BrainHealthPageState extends State<BrainHealthPage> {
+  bool _isRefreshing = false;
+
+  Future<void> _refreshData(BuildContext context) async {
+    if (_isRefreshing) return;
+
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    try {
+      await Provider.of<BrainHealthProvider>(context, listen: false)
+          .refreshData();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to refresh data: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isRefreshing = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BrainHealthProvider>(
       builder: (context, brainHealthProvider, child) {
         return Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          body: RefreshIndicator(
+            onRefresh: () => _refreshData(context),
+            child: Stack(
               children: [
-                _buildHeader(brainHealthProvider),
-                SizedBox(height: 24),
-                _buildBrainHealthProgress(brainHealthProvider),
-                SizedBox(height: 32),
-                _buildInfoCards(brainHealthProvider),
-                SizedBox(height: 32),
-                _buildBenefitsSection(),
-                SizedBox(height: 32),
-                _buildActivityChart(brainHealthProvider),
+                SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(brainHealthProvider),
+                      SizedBox(height: 24),
+                      _buildBrainHealthProgress(brainHealthProvider),
+                      SizedBox(height: 32),
+                      _buildInfoCards(brainHealthProvider),
+                      SizedBox(height: 32),
+                      _buildBenefitsSection(),
+                      SizedBox(height: 32),
+                      _buildActivityChart(brainHealthProvider),
+                      SizedBox(height: 80), // Extra space at bottom
+                    ],
+                  ),
+                ),
+
+                // Loading Indicator
+                if (brainHealthProvider.isLoading || _isRefreshing)
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: Center(
+                      child: Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(height: 16),
+                              Text(
+                                'Loading data...',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // Error message
+                if (brainHealthProvider.error != null &&
+                    !brainHealthProvider.isLoading &&
+                    !_isRefreshing)
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      color: Colors.red.shade400,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Icon(Icons.error_outline, color: Colors.white),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              brainHealthProvider.error!,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.refresh, color: Colors.white),
+                            onPressed: () => _refreshData(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
               ],
             ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _refreshData(context),
+            tooltip: 'Refresh Data',
+            child: Icon(Icons.refresh),
+            backgroundColor: Colors.purple,
           ),
         );
       },
@@ -45,7 +147,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '두뇌 건강 대시보드',
+          'Brain Health Dashboard',
           style: GoogleFonts.notoSans(
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -54,7 +156,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
         ),
         SizedBox(height: 8),
         Text(
-          '메모리 게임을 플레이하여 두뇌 건강을 향상시키세요!',
+          'Play memory games to improve your brain health!',
           style: GoogleFonts.notoSans(
             fontSize: 16,
             color: Colors.black54,
@@ -100,7 +202,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '두뇌 건강 지수',
+              'Brain Health Index',
               style: GoogleFonts.notoSans(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -123,7 +225,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                     ),
                   ),
                   Text(
-                    '레벨 $level',
+                    'Level $level',
                     style: GoogleFonts.notoSans(
                       fontSize: 16,
                     ),
@@ -137,14 +239,14 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
             SizedBox(height: 20),
             level < 5
                 ? Text(
-                    '다음 레벨까지 $pointsToNext 포인트 필요',
+                    'You need $pointsToNext points to reach the next level',
                     style: GoogleFonts.notoSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   )
                 : Text(
-                    '최고 레벨 달성! 계속 유지하세요',
+                    'Highest level achieved! Keep it up',
                     style: GoogleFonts.notoSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -153,7 +255,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                   ),
             SizedBox(height: 16),
             Text(
-              '총 Brain Health 점수: ${provider.brainHealthScore}',
+              'Total Brain Health Score: ${provider.brainHealthScore}',
               style: GoogleFonts.notoSans(fontSize: 16),
             ),
           ],
@@ -167,7 +269,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '게임 통계',
+          'Game Statistics',
           style: GoogleFonts.notoSans(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -180,7 +282,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
             Expanded(
               child: _buildStatCard(
                 icon: Icons.sports_esports,
-                title: '게임 수',
+                title: 'Games Played',
                 value: '${provider.totalGamesPlayed}',
                 color: Colors.blue,
               ),
@@ -189,7 +291,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
             Expanded(
               child: _buildStatCard(
                 icon: Icons.find_in_page,
-                title: '찾은 매치',
+                title: 'Matches Found',
                 value: '${provider.totalMatchesFound}',
                 color: Colors.purple,
               ),
@@ -202,9 +304,10 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
             Expanded(
               child: _buildStatCard(
                 icon: Icons.speed,
-                title: '최고 시간',
-                value:
-                    provider.bestTime > 0 ? '${provider.bestTime}초' : '기록 없음',
+                title: 'Best Time',
+                value: provider.bestTime > 0
+                    ? '${provider.bestTime}s'
+                    : 'No record',
                 color: Colors.orange,
               ),
             ),
@@ -212,7 +315,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
             Expanded(
               child: _buildStatCard(
                 icon: Icons.leaderboard,
-                title: '예방 효과',
+                title: 'Prevention Effect',
                 value: '${provider.preventionPercentage.toStringAsFixed(1)}%',
                 color: Colors.green,
               ),
@@ -266,7 +369,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '두뇌 게임의 이점',
+          'Benefits of Brain Games',
           style: GoogleFonts.notoSans(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -284,26 +387,30 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
               children: [
                 _buildBenefitItem(
                   icon: Icons.memory,
-                  title: '단기 기억력 향상',
-                  description: '메모리 게임은 단기 기억력과 기억 용량을 효과적으로 강화시킵니다.',
+                  title: 'Short-term Memory Improvement',
+                  description:
+                      'Memory games effectively strengthen short-term memory and memory capacity.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.psychology,
-                  title: '인지 기능 개선',
-                  description: '규칙적인 두뇌 활동은 인지 기능을 유지하고 개선하는 데 도움을 줍니다.',
+                  title: 'Cognitive Function Enhancement',
+                  description:
+                      'Regular brain activity helps maintain and improve cognitive functions.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.timer,
-                  title: '반응 시간 단축',
-                  description: '빠른 매칭은 반응 시간과 처리 속도를 향상시킵니다.',
+                  title: 'Response Time Reduction',
+                  description:
+                      'Quick matching improves reaction time and processing speed.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.healing,
-                  title: '치매 예방',
-                  description: '정기적인 두뇌 운동은 치매 및 인지 감퇴의 위험을 줄이는 데 도움이 됩니다.',
+                  title: 'Dementia Prevention',
+                  description:
+                      'Regular brain exercises help reduce the risk of dementia and cognitive decline.',
                 ),
               ],
             ),
@@ -353,22 +460,20 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
   }
 
   Widget _buildActivityChart(BrainHealthProvider provider) {
-    // 더미 데이터 - 실제 앱에서는 이 부분을 사용자의 활동 데이터로 대체
-    final List<FlSpot> spots = [
-      FlSpot(0, 0),
-      FlSpot(1, provider.brainHealthScore * 0.2),
-      FlSpot(2, provider.brainHealthScore * 0.4),
-      FlSpot(3, provider.brainHealthScore * 0.5),
-      FlSpot(4, provider.brainHealthScore * 0.7),
-      FlSpot(5, provider.brainHealthScore * 0.8),
-      FlSpot(6, provider.brainHealthScore.toDouble()),
-    ];
+    // 실제 데이터를 사용하여 그래프 데이터 생성
+    List<ScoreRecord> weeklyData = provider.getWeeklyData();
+    final List<FlSpot> spots = [];
+
+    // 각 데이터 포인트를 FlSpot으로 변환
+    for (int i = 0; i < weeklyData.length; i++) {
+      spots.add(FlSpot(i.toDouble(), weeklyData[i].score.toDouble()));
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '두뇌 건강 진행도',
+          'Brain Health Progress',
           style: GoogleFonts.notoSans(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -418,12 +523,25 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                     reservedSize: 30,
                     interval: 1,
                     getTitlesWidget: (value, meta) {
-                      const titles = ['시작', '1주', '2주', '3주', '4주', '5주', '현재'];
-                      if (value >= 0 && value < titles.length) {
+                      // 날짜 기반 X축 라벨 생성
+                      if (value.toInt() >= 0 &&
+                          value.toInt() < weeklyData.length) {
+                        DateTime date = weeklyData[value.toInt()].date;
+                        String label;
+
+                        if (value.toInt() == 0) {
+                          label = 'Start';
+                        } else if (value.toInt() == weeklyData.length - 1) {
+                          label = 'Now';
+                        } else {
+                          // 날짜 포맷팅 (월/일)
+                          label = '${date.month}/${date.day}';
+                        }
+
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
-                            titles[value.toInt()],
+                            label,
                             style: GoogleFonts.notoSans(
                               fontSize: 12,
                               color: Colors.black54,
@@ -456,11 +574,9 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                 show: false,
               ),
               minX: 0,
-              maxX: 6,
+              maxX: (weeklyData.length - 1).toDouble(),
               minY: 0,
-              maxY: provider.brainHealthScore * 1.2 > 0
-                  ? provider.brainHealthScore * 1.2
-                  : 100,
+              maxY: _calculateMaxY(weeklyData),
               lineBarsData: [
                 LineChartBarData(
                   spots: spots,
@@ -502,5 +618,20 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
         ),
       ],
     );
+  }
+
+  // Y 축 최대값 계산
+  double _calculateMaxY(List<ScoreRecord> data) {
+    if (data.isEmpty) return 100;
+
+    double maxScore = 0;
+    for (var record in data) {
+      if (record.score > maxScore) {
+        maxScore = record.score.toDouble();
+      }
+    }
+
+    // 최대값의 20% 여유 공간 추가
+    return maxScore * 1.2;
   }
 }
