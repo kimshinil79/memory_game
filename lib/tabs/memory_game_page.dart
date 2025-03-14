@@ -1086,6 +1086,47 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         return swahiliItemList[word] ?? word;
       case 'hi-IN':
         return hindiItemList[word] ?? word;
+      case 'bn-IN':
+        return bengaliItemList[word] ?? word;
+      case 'id-ID':
+        return indonesianItemList[word] ?? word;
+      case 'km-KH':
+        return khmerItemList[word] ?? word;
+      case 'ne-NP':
+        return nepaliItemList[word] ?? word;
+      case 'si-LK':
+        return sinhalaItemList[word] ?? word;
+      case 'th-TH':
+        return thaiItemList[word] ?? word;
+      case 'my-MM':
+        return myanmarItemList[word] ?? word;
+      case 'lo-LA':
+        return laoItemList[word] ?? word;
+      case 'fil-PH':
+        return filipinoItemList[word] ?? word;
+      case 'ms-MY':
+        return malayItemList[word] ?? word;
+      case 'jv-ID':
+        return javaneseItemList[word] ?? word;
+      case 'su-ID':
+        return sundaneseItemList[word] ?? word;
+      case 'ta-IN':
+        return tamilItemList[word] ?? word;
+      case 'te-IN':
+        return teluguItemList[word] ?? word;
+      case 'ml-IN':
+        return malayalamItemList[word] ?? word;
+      case 'gu-IN':
+        return gujaratiItemList[word] ?? word;
+      case 'kn-IN':
+        return kannadaItemList[word] ?? word;
+      case 'mr-IN':
+        return marathiItemList[word] ?? word;
+      case 'pa-IN':
+        return punjabiItemList[word] ?? word;
+      case 'ur-PK':
+        return urduItemList[word] ?? word;
+
       case 'ko-KR':
         return korItemList[word] ?? word;
       case 'es-ES':

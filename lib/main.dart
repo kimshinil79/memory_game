@@ -375,15 +375,8 @@ class _MainScreenState extends State<MainScreen> {
 
       // 유럽어
       'en-US': 'English (US)',
-      'en-GB': 'English (UK)',
-      'en-AU': 'English (Australia)',
-      'en-CA': 'English (Canada)',
-      'en-IN': 'English (India)',
       'es-ES': 'Spanish (Spain)',
-      'es-MX': 'Spanish (Mexico)',
-      'es-US': 'Spanish (US)',
       'fr-FR': 'French (France)',
-      'fr-CA': 'French (Canada)',
       'de-DE': 'German (Deutsch)',
       'it-IT': 'Italian (Italiano)',
       'pt-PT': 'Portuguese (Portugal)',
@@ -415,10 +408,6 @@ class _MainScreenState extends State<MainScreen> {
 
       // 중동어
       'ar-SA': 'Arabic (Saudi Arabia) (العربية)',
-      'ar-AE': 'Arabic (UAE) (العربية)',
-      'ar-EG': 'Arabic (Egypt) (العربية)',
-      'ar-KW': 'Arabic (Kuwait) (العربية)',
-      'ar-QA': 'Arabic (Qatar) (العربية)',
       'fa-IR': 'Persian (فارسی)',
       'he-IL': 'Hebrew (עברית)',
       'tr-TR': 'Turkish (Türkçe)',
