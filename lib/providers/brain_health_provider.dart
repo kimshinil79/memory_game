@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // StreamSubscription을 위한 import
+import 'dart:convert'; // For jsonEncode and jsonDecode
 
 class ScoreRecord {
   final DateTime date;
@@ -30,6 +31,7 @@ class BrainHealthProvider with ChangeNotifier {
   int _totalGamesPlayed = 0;
   int _totalMatchesFound = 0;
   int _bestTime = 0; // 초 단위, 0은 아직 기록 없음을 의미
+  Map<String, int> _bestTimesByGridSize = {};
   List<ScoreRecord> _scoreHistory = [];
   bool _isLoading = false;
   String? _error;
@@ -42,9 +44,15 @@ class BrainHealthProvider with ChangeNotifier {
   int get totalGamesPlayed => _totalGamesPlayed;
   int get totalMatchesFound => _totalMatchesFound;
   int get bestTime => _bestTime;
+  Map<String, int> get bestTimesByGridSize => _bestTimesByGridSize;
   List<ScoreRecord> get scoreHistory => _scoreHistory;
   bool get isLoading => _isLoading;
   String? get error => _error;
+
+  // Get best time for a specific grid size
+  int getBestTimeForGrid(String gridSize) {
+    return _bestTimesByGridSize[gridSize] ?? 0;
+  }
 
   // 치매 예방 효과를 백분율로 계산 (최대 100%)
   double get preventionPercentage {
@@ -176,6 +184,8 @@ class BrainHealthProvider with ChangeNotifier {
         brainHealthData['totalMatchesFound'] =
             oldData['totalMatchesFound'] ?? 0;
         brainHealthData['bestTime'] = oldData['bestTime'] ?? 0;
+        brainHealthData['bestTimesByGridSize'] =
+            oldData['bestTimesByGridSize'] ?? {};
         brainHealthData['updated'] = FieldValue.serverTimestamp();
 
         // users 컬렉션에 업데이트
@@ -261,6 +271,7 @@ class BrainHealthProvider with ChangeNotifier {
                 'totalGamesPlayed': _totalGamesPlayed,
                 'totalMatchesFound': _totalMatchesFound,
                 'bestTime': _bestTime,
+                'bestTimesByGridSize': _bestTimesByGridSize,
                 'created': FieldValue.serverTimestamp(),
               }
             };
@@ -300,6 +311,7 @@ class BrainHealthProvider with ChangeNotifier {
                 'totalGamesPlayed': _totalGamesPlayed,
                 'totalMatchesFound': _totalMatchesFound,
                 'bestTime': _bestTime,
+                'bestTimesByGridSize': _bestTimesByGridSize,
                 'created': FieldValue.serverTimestamp(),
               };
             }
@@ -381,6 +393,14 @@ class BrainHealthProvider with ChangeNotifier {
       _totalMatchesFound = prefs.getInt('totalMatchesFound') ?? 0;
       _bestTime = prefs.getInt('bestTime') ?? 0;
 
+      // Load best times by grid size
+      String? bestTimesJson = prefs.getString('bestTimesByGridSize');
+      if (bestTimesJson != null) {
+        final Map<String, dynamic> jsonData = jsonDecode(bestTimesJson);
+        _bestTimesByGridSize =
+            jsonData.map((key, value) => MapEntry(key, value as int));
+      }
+
       // 로컬에서 점수 기록 가져오기
       List<String>? scoreHistory = prefs.getStringList('scoreHistory');
       if (scoreHistory != null && scoreHistory.isNotEmpty) {
@@ -428,6 +448,7 @@ class BrainHealthProvider with ChangeNotifier {
             'totalGamesPlayed': _totalGamesPlayed,
             'totalMatchesFound': _totalMatchesFound,
             'bestTime': _bestTime,
+            'bestTimesByGridSize': _bestTimesByGridSize,
             'created': FieldValue.serverTimestamp(),
           }
         });
@@ -443,6 +464,16 @@ class BrainHealthProvider with ChangeNotifier {
         int firebaseGames = brainHealthData['totalGamesPlayed'] ?? 0;
         int firebaseMatches = brainHealthData['totalMatchesFound'] ?? 0;
         int firebaseBestTime = brainHealthData['bestTime'] ?? 0;
+
+        // Load best times by grid size from Firebase
+        Map<String, int> firebaseBestTimesByGridSize = {};
+        if (brainHealthData.containsKey('bestTimesByGridSize')) {
+          final Map<String, dynamic> fbBestTimes =
+              brainHealthData['bestTimesByGridSize'] as Map<String, dynamic>? ??
+                  {};
+          firebaseBestTimesByGridSize =
+              fbBestTimes.map((key, value) => MapEntry(key, value as int));
+        }
 
         // 더 큰 값을 선택하여 데이터 동기화
         bool dataChanged = false;
@@ -468,6 +499,17 @@ class BrainHealthProvider with ChangeNotifier {
           _bestTime = firebaseBestTime;
           dataChanged = true;
         }
+
+        // Merge best times by grid size (keeping the faster times)
+        firebaseBestTimesByGridSize.forEach((gridSize, time) {
+          if (time > 0 &&
+              (!_bestTimesByGridSize.containsKey(gridSize) ||
+                  _bestTimesByGridSize[gridSize] == 0 ||
+                  time < _bestTimesByGridSize[gridSize]!)) {
+            _bestTimesByGridSize[gridSize] = time;
+            dataChanged = true;
+          }
+        });
 
         print('Firebase data comparison completed. Data changed: $dataChanged');
         print('Current score: $_brainHealthScore, Games: $_totalGamesPlayed');
@@ -600,50 +642,49 @@ class BrainHealthProvider with ChangeNotifier {
   }
 
   Future<void> _saveData() async {
+    if (_disposed) return;
+
     try {
-      // 로컬에 저장
+      print('Saving brain health data...');
+      // 로컬 저장소에 데이터 저장
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt('brainHealthScore', _brainHealthScore);
       await prefs.setInt('totalGamesPlayed', _totalGamesPlayed);
       await prefs.setInt('totalMatchesFound', _totalMatchesFound);
       await prefs.setInt('bestTime', _bestTime);
 
-      print(
-          'Local data saved. Score: $_brainHealthScore, Games: $_totalGamesPlayed, Matches: $_totalMatchesFound');
+      // Save best times by grid size
+      await prefs.setString(
+          'bestTimesByGridSize', jsonEncode(_bestTimesByGridSize));
 
-      // Firebase에 저장
+      print('Data saved to local storage');
+
+      // Firebase에 데이터 저장
       if (_userId != null) {
         try {
-          print('Saving core data to Firebase for user: $_userId');
-
-          Map<String, dynamic> brainHealthData = {
-            'brainHealthScore': _brainHealthScore,
-            'totalGamesPlayed': _totalGamesPlayed,
-            'totalMatchesFound': _totalMatchesFound,
-            'bestTime': _bestTime,
-            'updated': FieldValue.serverTimestamp(),
-          };
-
+          print('Saving brain health data to Firebase: $_userId');
           await FirebaseFirestore.instance
               .collection('users')
               .doc(_userId)
-              .set({'brain_health': brainHealthData}, SetOptions(merge: true));
-
-          print('Firebase core data saved successfully: $brainHealthData');
+              .update({
+            'brain_health.brainHealthScore': _brainHealthScore,
+            'brain_health.totalGamesPlayed': _totalGamesPlayed,
+            'brain_health.totalMatchesFound': _totalMatchesFound,
+            'brain_health.bestTime': _bestTime,
+            'brain_health.bestTimesByGridSize': _bestTimesByGridSize,
+            'brain_health.lastUpdated': FieldValue.serverTimestamp(),
+          });
+          print('Brain health data saved to Firebase');
         } catch (e) {
-          print('Failed to save core data to Firebase: $e');
-          // 로컬에는 저장되었으므로 Firebase 저장 실패는 무시할 수 있음
+          print('Failed to save data to Firebase: $e');
+          // Firebase 저장 실패 시 필요한 복구 로직을 추가할 수 있음
+          // 로컬에는 이미 저장되었으므로 사용자 데이터는 손실되지 않음
         }
       } else {
-        print(
-            'Cannot save to Firebase: No user ID available. Will try to authenticate on next refresh.');
-        // 다음 기회에 인증을 시도하기 위해 인증 상태를 초기화
-        _ensureUserAuthenticated();
+        print('Cannot save to Firebase: No user ID available');
       }
     } catch (e) {
       print('Data save error: $e');
-      // 상위에서 처리할 수 있도록 예외 다시 던지기
-      throw e;
     }
   }
 
@@ -694,10 +735,12 @@ class BrainHealthProvider with ChangeNotifier {
   }
 
   // 게임 완료 시 점수 추가
-  Future<int> addGameCompletion(int matchesFound, int timeInSeconds) async {
+  Future<int> addGameCompletion(
+      int matchesFound, int timeInSeconds, String gridSize) async {
     if (_disposed) return 0;
 
-    print('Adding game completion: matches=$matchesFound, time=$timeInSeconds');
+    print(
+        'Adding game completion: matches=$matchesFound, time=$timeInSeconds, grid=$gridSize');
 
     // 사용자 인증 확인
     if (_userId == null) {
@@ -713,9 +756,17 @@ class BrainHealthProvider with ChangeNotifier {
     _totalGamesPlayed++;
     _totalMatchesFound += matchesFound;
 
-    // 시간 기록 (더 빠른 시간만 저장)
+    // 시간 기록 (더 빠른 시간만 저장) - 전체 최고 기록
     if (_bestTime == 0 || (timeInSeconds < _bestTime && timeInSeconds > 0)) {
       _bestTime = timeInSeconds;
+    }
+
+    // 그리드 크기별 최고 기록 업데이트
+    if (!_bestTimesByGridSize.containsKey(gridSize) ||
+        _bestTimesByGridSize[gridSize] == 0 ||
+        (timeInSeconds < _bestTimesByGridSize[gridSize]! &&
+            timeInSeconds > 0)) {
+      _bestTimesByGridSize[gridSize] = timeInSeconds;
     }
 
     // 점수 계산 로직
@@ -1010,6 +1061,8 @@ class BrainHealthProvider with ChangeNotifier {
                     'totalGamesPlayed': prevData['totalGamesPlayed'] ?? 0,
                     'totalMatchesFound': prevData['totalMatchesFound'] ?? 0,
                     'bestTime': prevData['bestTime'] ?? 0,
+                    'bestTimesByGridSize':
+                        prevData['bestTimesByGridSize'] ?? {},
                     'transferredFrom': previousUserId,
                     'transferredAt': FieldValue.serverTimestamp(),
                   }
@@ -1026,6 +1079,7 @@ class BrainHealthProvider with ChangeNotifier {
                 _totalGamesPlayed = prevData['totalGamesPlayed'] ?? 0;
                 _totalMatchesFound = prevData['totalMatchesFound'] ?? 0;
                 _bestTime = prevData['bestTime'] ?? 0;
+                _bestTimesByGridSize = prevData['bestTimesByGridSize'] ?? {};
 
                 // 점수 기록 이전
                 try {

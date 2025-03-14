@@ -299,19 +299,10 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
           ],
         ),
         SizedBox(height: 16),
+        _buildBestTimesCard(provider),
+        SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildStatCard(
-                icon: Icons.speed,
-                title: 'Best Time',
-                value: provider.bestTime > 0
-                    ? '${provider.bestTime}s'
-                    : 'No record',
-                color: Colors.orange,
-              ),
-            ),
-            SizedBox(width: 16),
             Expanded(
               child: _buildStatCard(
                 icon: Icons.leaderboard,
@@ -323,6 +314,108 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildBestTimesCard(BrainHealthProvider provider) {
+    // Get all recorded grid sizes
+    final gridSizes = provider.bestTimesByGridSize.keys.toList();
+    gridSizes.sort(); // Sort grid sizes for consistent display
+
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.speed, color: Colors.orange, size: 28),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Best Times',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            if (gridSizes.isEmpty)
+              Text(
+                'No records yet',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
+              )
+            else
+              Column(
+                children: [
+                  // Overall best time
+                  if (provider.bestTime > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Overall Best:',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            '${provider.bestTime}s',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  Divider(),
+                  // Individual grid size best times
+                  ...gridSizes.map((gridSize) {
+                    final time = provider.bestTimesByGridSize[gridSize] ?? 0;
+                    if (time <= 0)
+                      return SizedBox.shrink(); // Skip if no record
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '$gridSize Grid:',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            '${time}s',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ],
+              ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -460,25 +553,84 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
   }
 
   Widget _buildActivityChart(BrainHealthProvider provider) {
-    // 실제 데이터를 사용하여 그래프 데이터 생성
-    List<ScoreRecord> weeklyData = provider.getWeeklyData();
-    final List<FlSpot> spots = [];
+    // 원본 데이터 가져오기
+    List<ScoreRecord> originalData = provider.getWeeklyData();
 
-    // 각 데이터 포인트를 FlSpot으로 변환
-    for (int i = 0; i < weeklyData.length; i++) {
-      spots.add(FlSpot(i.toDouble(), weeklyData[i].score.toDouble()));
+    // 처리된 데이터를 저장할 리스트
+    List<ScoreRecord> processedData = [];
+
+    if (originalData.isNotEmpty) {
+      // 오늘 날짜 구하기
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+
+      // 날짜별 최고 점수를 저장할 맵 (오늘 제외)
+      Map<String, ScoreRecord> highestScoreByDay = {};
+
+      // 오늘 데이터 따로 저장
+      List<ScoreRecord> todayData = [];
+
+      // 데이터 분류
+      for (var record in originalData) {
+        final recordDate =
+            DateTime(record.date.year, record.date.month, record.date.day);
+
+        // 오늘 데이터인지 확인
+        if (recordDate == today) {
+          todayData.add(record);
+        } else {
+          // 지난 날짜의 경우, 날짜별 최고 점수만 저장
+          String dateKey =
+              '${recordDate.year}-${recordDate.month}-${recordDate.day}';
+
+          if (!highestScoreByDay.containsKey(dateKey) ||
+              record.score > highestScoreByDay[dateKey]!.score) {
+            highestScoreByDay[dateKey] = record;
+          }
+        }
+      }
+
+      // 지난 날짜의 최고 점수들을 날짜순으로 정렬
+      List<ScoreRecord> pastDaysData = highestScoreByDay.values.toList();
+      pastDaysData.sort((a, b) => a.date.compareTo(b.date));
+
+      // 오늘 데이터를 시간순으로 정렬
+      todayData.sort((a, b) => a.date.compareTo(b.date));
+
+      // 최종 처리된 데이터 생성 (지난 날짜 + 오늘)
+      processedData = [...pastDaysData, ...todayData];
+    }
+
+    // 그래프 데이터 포인트 생성
+    final List<FlSpot> spots = [];
+    for (int i = 0; i < processedData.length; i++) {
+      spots.add(FlSpot(i.toDouble(), processedData[i].score.toDouble()));
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Brain Health Progress',
-          style: GoogleFonts.notoSans(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Brain Health Progress',
+              style: GoogleFonts.notoSans(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            if (processedData.isNotEmpty)
+              Text(
+                _getDateRangeText(processedData),
+                style: GoogleFonts.notoSans(
+                  fontSize: 12,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+          ],
         ),
         SizedBox(height: 16),
         Container(
@@ -496,128 +648,333 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
               ),
             ],
           ),
-          child: LineChart(
-            LineChartData(
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                horizontalInterval: 50,
-                getDrawingHorizontalLine: (value) {
-                  return FlLine(
-                    color: Colors.grey.withOpacity(0.2),
-                    strokeWidth: 1,
-                  );
-                },
-              ),
-              titlesData: FlTitlesData(
-                show: true,
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 30,
-                    interval: 1,
-                    getTitlesWidget: (value, meta) {
-                      // 날짜 기반 X축 라벨 생성
-                      if (value.toInt() >= 0 &&
-                          value.toInt() < weeklyData.length) {
-                        DateTime date = weeklyData[value.toInt()].date;
-                        String label;
-
-                        if (value.toInt() == 0) {
-                          label = 'Start';
-                        } else if (value.toInt() == weeklyData.length - 1) {
-                          label = 'Now';
-                        } else {
-                          // 날짜 포맷팅 (월/일)
-                          label = '${date.month}/${date.day}';
-                        }
-
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            label,
-                            style: GoogleFonts.notoSans(
-                              fontSize: 12,
-                              color: Colors.black54,
-                            ),
-                          ),
+          child: processedData.isEmpty
+              ? Center(
+                  child: Text(
+                    'No data available yet',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                )
+              : LineChart(
+                  LineChartData(
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: false,
+                      horizontalInterval: 50,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                          color: Colors.grey.withOpacity(0.2),
+                          strokeWidth: 1,
                         );
-                      }
-                      return Text('');
-                    },
-                  ),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: 100,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        value.toInt().toString(),
-                        style: GoogleFonts.notoSans(
-                          fontSize: 12,
-                          color: Colors.black54,
+                      },
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 40,
+                          interval: 1,
+                          getTitlesWidget: (value, meta) {
+                            // 날짜 기반 X축 라벨 생성
+                            if (value.toInt() >= 0 &&
+                                value.toInt() < processedData.length) {
+                              final record = processedData[value.toInt()];
+                              final date = record.date;
+                              final now = DateTime.now();
+                              final today =
+                                  DateTime(now.year, now.month, now.day);
+                              final recordDate =
+                                  DateTime(date.year, date.month, date.day);
+                              String label;
+
+                              // 오늘 데이터인 경우 시간 표시
+                              if (recordDate == today) {
+                                // 시간 포맷 (오전/오후 구분)
+                                final hour = date.hour;
+                                final minute =
+                                    date.minute.toString().padLeft(2, '0');
+                                if (hour == 0) {
+                                  label = '12:$minute AM';
+                                } else if (hour < 12) {
+                                  label = '$hour:$minute AM';
+                                } else if (hour == 12) {
+                                  label = '12:$minute PM';
+                                } else {
+                                  label = '${hour - 12}:$minute PM';
+                                }
+                              } else {
+                                // 지난 날짜는 날짜만 표시
+                                label = _formatDate(date);
+                              }
+
+                              // 데이터 포인트 수에 따라 표시 여부 결정
+                              if (processedData.length <= 5) {
+                                // 데이터가 적으면 모두 표시
+                              } else if (processedData.length <= 10) {
+                                // 데이터가 중간 정도면 일부만 표시
+                                if (recordDate != today &&
+                                    value.toInt() % 2 != 0) {
+                                  return const SizedBox.shrink();
+                                }
+                              } else {
+                                // 데이터가 많으면 더 적게 표시
+                                if (recordDate != today &&
+                                    value.toInt() != 0 &&
+                                    value.toInt() != processedData.length - 1 &&
+                                    value.toInt() % 3 != 0) {
+                                  return const SizedBox.shrink();
+                                }
+                              }
+
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      label,
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color: recordDate == today
+                                            ? Colors.purple.shade700
+                                            : Colors.black54,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    // 점수 표시
+                                    Text(
+                                      '${record.score}',
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 10,
+                                        color: recordDate == today
+                                            ? Colors.purple.shade700
+                                                .withOpacity(0.8)
+                                            : Colors.black45,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          },
                         ),
-                      );
-                    },
-                    reservedSize: 40,
-                  ),
-                ),
-              ),
-              borderData: FlBorderData(
-                show: false,
-              ),
-              minX: 0,
-              maxX: (weeklyData.length - 1).toDouble(),
-              minY: 0,
-              maxY: _calculateMaxY(weeklyData),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: spots,
-                  isCurved: true,
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue.withOpacity(0.7),
-                      Colors.purpleAccent.withOpacity(0.7),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 100,
+                          getTitlesWidget: (value, meta) {
+                            return Text(
+                              value.toInt().toString(),
+                              style: GoogleFonts.notoSans(
+                                fontSize: 12,
+                                color: Colors.black54,
+                              ),
+                            );
+                          },
+                          reservedSize: 40,
+                        ),
+                      ),
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    minX: 0,
+                    maxX: (processedData.length - 1).toDouble(),
+                    minY: 0,
+                    maxY: _calculateMaxY(processedData),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: spots,
+                        isCurved: true,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.blue.withOpacity(0.7),
+                            Colors.purpleAccent.withOpacity(0.7),
+                          ],
+                        ),
+                        barWidth: 4,
+                        isStrokeCapRound: true,
+                        dotData: FlDotData(
+                          show: true,
+                          getDotPainter: (spot, percent, barData, index) {
+                            // 오늘 데이터는 다른 색상으로 표시
+                            if (index < processedData.length) {
+                              final date = processedData[index].date;
+                              final now = DateTime.now();
+                              final today =
+                                  DateTime(now.year, now.month, now.day);
+                              final recordDate =
+                                  DateTime(date.year, date.month, date.day);
+
+                              return FlDotCirclePainter(
+                                radius: recordDate == today ? 7 : 6,
+                                color: recordDate == today
+                                    ? Colors.purple.shade700
+                                    : Colors.purpleAccent,
+                                strokeWidth: 2,
+                                strokeColor: Colors.white,
+                              );
+                            }
+                            return FlDotCirclePainter(
+                              radius: 6,
+                              color: Colors.purpleAccent,
+                              strokeWidth: 2,
+                              strokeColor: Colors.white,
+                            );
+                          },
+                        ),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.blue.withOpacity(0.3),
+                              Colors.purpleAccent.withOpacity(0.1),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                  barWidth: 4,
-                  isStrokeCapRound: true,
-                  dotData: FlDotData(
-                    show: true,
-                    getDotPainter: (spot, percent, barData, index) {
-                      return FlDotCirclePainter(
-                        radius: 6,
-                        color: Colors.purpleAccent,
-                        strokeWidth: 2,
-                        strokeColor: Colors.white,
-                      );
-                    },
-                  ),
-                  belowBarData: BarAreaData(
-                    show: true,
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.blue.withOpacity(0.3),
-                        Colors.purpleAccent.withOpacity(0.1),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                    lineTouchData: LineTouchData(
+                      enabled: true,
+                      touchTooltipData: LineTouchTooltipData(
+                        tooltipBgColor: Colors.blueAccent.withOpacity(0.8),
+                        tooltipRoundedRadius: 8,
+                        tooltipPadding: EdgeInsets.all(8),
+                        getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                          return touchedSpots.map((spot) {
+                            final int index = spot.x.toInt();
+                            if (index >= 0 && index < processedData.length) {
+                              final record = processedData[index];
+                              final date = record.date;
+                              final now = DateTime.now();
+                              final today =
+                                  DateTime(now.year, now.month, now.day);
+                              final recordDate =
+                                  DateTime(date.year, date.month, date.day);
+
+                              String tooltip;
+                              if (recordDate == today) {
+                                // 오늘 데이터는 시간 포함하여 상세 표시
+                                final dateText = _formatDateDetailed(date);
+                                final hourFormatted =
+                                    date.hour.toString().padLeft(2, '0');
+                                final minuteFormatted =
+                                    date.minute.toString().padLeft(2, '0');
+                                tooltip =
+                                    'Today at $hourFormatted:$minuteFormatted\nScore: ${record.score}';
+                              } else {
+                                // 과거 데이터는 일자만 표시
+                                final dateText = _formatDateDetailed(date);
+                                tooltip =
+                                    'Date: $dateText\nBest Score: ${record.score}';
+                              }
+
+                              return LineTooltipItem(
+                                tooltip,
+                                GoogleFonts.notoSans(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                            return null;
+                          }).toList();
+                        },
+                      ),
+                      getTouchedSpotIndicator: (barData, spotIndexes) {
+                        return spotIndexes.map((spotIndex) {
+                          return TouchedSpotIndicatorData(
+                            FlLine(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                              dashArray: [3, 3],
+                            ),
+                            FlDotData(
+                              getDotPainter: (spot, percent, barData, index) {
+                                return FlDotCirclePainter(
+                                  radius: 8,
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                  strokeColor: Colors.purpleAccent,
+                                );
+                              },
+                            ),
+                          );
+                        }).toList();
+                      },
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
         ),
       ],
     );
+  }
+
+  // 상세 날짜 포맷 (툴팁용)
+  String _formatDateDetailed(DateTime date) {
+    final now = DateTime.now();
+
+    if (date.year == now.year) {
+      // 올해 안이면 년도 생략
+      return '${date.month}월 ${date.day}일';
+    } else {
+      // 년도가 다르면 년도 포함
+      return '${date.year}년 ${date.month}월 ${date.day}일';
+    }
+  }
+
+  // 날짜 범위 텍스트 생성
+  String _getDateRangeText(List<ScoreRecord> data) {
+    if (data.isEmpty) return '';
+
+    // 첫 번째와 마지막 데이터의 날짜
+    final firstDate = data.first.date;
+    final lastDate = data.last.date;
+
+    // 간단한 날짜 포맷
+    String formatCompactDate(DateTime date) {
+      return '${date.month}/${date.day}';
+    }
+
+    return '${formatCompactDate(firstDate)} - ${formatCompactDate(lastDate)}';
+  }
+
+  // 날짜 포맷팅 메서드
+  String _formatDate(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    final dateToCheck = DateTime(date.year, date.month, date.day);
+
+    if (dateToCheck == today) {
+      return 'Today';
+    } else if (dateToCheck == yesterday) {
+      return 'Yesterday';
+    } else if (now.difference(date).inDays < 7) {
+      // 1주일 이내
+      List<String> weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return weekdays[date.weekday - 1];
+    } else if (date.year == now.year) {
+      // 올해 안에 있는 날짜
+      return '${date.month}/${date.day}';
+    } else {
+      // 작년 이전 날짜
+      return '${date.year}.${date.month}';
+    }
   }
 
   // Y 축 최대값 계산

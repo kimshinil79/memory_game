@@ -405,13 +405,6 @@ class _MainScreenState extends State<MainScreen> {
       'tr-TR': 'Turkish (Türkçe)',
 
       // 기타 지역어
-      'az-AZ': 'Azerbaijani (Azərbaycan)',
-      'be-BY': 'Belarusian (Беларуская)',
-      'hy-AM': 'Armenian (Հայերեն)',
-      'ka-GE': 'Georgian (ქართული)',
-      'kk-KZ': 'Kazakh (Қазақ)',
-      'ky-KG': 'Kyrgyz (Кыргызча)',
-      'mk-MK': 'Macedonian (Македонски)',
       'mn-MN': 'Mongolian (Монгол)',
       'sq-AL': 'Albanian (Shqip)',
       'sr-RS': 'Serbian (Српски)',
@@ -910,8 +903,8 @@ class _MainScreenState extends State<MainScreen> {
           ),
           child: Row(
             children: [
-              Icon(Icons.person, size: 16, color: Colors.purple),
-              SizedBox(width: 4),
+              // Icon(Icons.person, size: 16, color: Colors.purple),
+              // SizedBox(width: 4),
               Text(
                 _nickname ?? 'User',
                 style: TextStyle(

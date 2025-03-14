@@ -424,7 +424,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       final brainHealthProvider =
           Provider.of<BrainHealthProvider>(context, listen: false);
       final int pointsEarned = await brainHealthProvider.addGameCompletion(
-          totalMatches, elapsedTime);
+          totalMatches, elapsedTime, widget.gridSize);
 
       // 점수 획득 토스트 메시지 표시 (선택적)
       ScaffoldMessenger.of(context).showSnackBar(
@@ -933,75 +933,73 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           Expanded(
             child: Container(
               width: MediaQuery.of(context).size.width * 2 / 3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: widget.playerScores.entries
-                    .take(widget.numberOfPlayers)
-                    .map((entry) {
-                  return Flexible(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: entry.key == widget.currentPlayer
-                            ? Colors.white.withOpacity(0.2)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          '${entry.key}: ${entry.value}',
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+              child: widget.numberOfPlayers > 1
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: widget.playerScores.entries
+                          .take(widget.numberOfPlayers)
+                          .map((entry) {
+                        // Determine player name based on position
+                        String displayName = entry.key;
+                        if (widget.playerScores.keys
+                                .toList()
+                                .indexOf(entry.key) ==
+                            0) {
+                          // First player - try to get user's nickname
+                          User? user = FirebaseAuth.instance.currentUser;
+                          if (user != null &&
+                              user.displayName != null &&
+                              user.displayName!.isNotEmpty) {
+                            displayName = user.displayName!;
+                          } else {
+                            // If no display name, try to get email
+                            displayName = user?.email?.split('@')[0] ?? 'You';
+                          }
+                        } else {
+                          // For other players, use predefined names
+                          int playerIndex = widget.playerScores.keys
+                              .toList()
+                              .indexOf(entry.key);
+
+                          // Use these names for AI players in this specific order
+                          List<String> aiPlayerNames = [
+                            "Genious",
+                            "Cute",
+                            "Lovely"
+                          ];
+                          if (playerIndex > 0 &&
+                              playerIndex <= aiPlayerNames.length) {
+                            displayName = aiPlayerNames[playerIndex - 1];
+                          }
+                        }
+
+                        return Flexible(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: entry.key == widget.currentPlayer
+                                  ? Colors.white.withOpacity(0.2)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '$displayName: ${entry.value}',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
+                        );
+                      }).toList(),
+                    )
+                  : Container(), // If only 1 player, don't show any player names
             ),
           ),
-          if (widget.isTimeAttackMode) ...[
-            GestureDetector(
-              onTap: isGameStarted ? null : _showTimeSettingDialog,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                padding: EdgeInsets.all(2),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      value: _remainingTime / _gameTimeLimit,
-                      backgroundColor: Colors.white.withOpacity(0.2),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        _remainingTime < 10
-                            ? timerWarningColor
-                            : timerNormalColor,
-                      ),
-                      strokeWidth: 4,
-                    ),
-                    Text(
-                      '$_remainingTime',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: _remainingTime < 10
-                            ? timerWarningColor
-                            : timerNormalColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
         ],
       ),
     );
@@ -1311,7 +1309,62 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             },
             child: Column(
               children: [
-                buildScoreBoard(),
+                if (widget.numberOfPlayers > 1) buildScoreBoard(),
+                if (widget.isTimeAttackMode) ...[
+                  GestureDetector(
+                    onTap: isGameStarted ? null : _showTimeSettingDialog,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Time Remaining: ',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              Text(
+                                '$_remainingTime seconds',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: _remainingTime < 10
+                                      ? timerWarningColor
+                                      : timerNormalColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (!isGameStarted)
+                            Icon(
+                              Icons.settings_outlined,
+                              size: 18,
+                              color: Colors.black45,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  LinearProgressIndicator(
+                    value: _remainingTime / _gameTimeLimit,
+                    backgroundColor: Colors.white.withOpacity(0.2),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      _remainingTime < 10
+                          ? timerWarningColor
+                          : timerNormalColor,
+                    ),
+                    minHeight: 3.0, // Make the progress bar thin
+                  ),
+                ] else ...[
+                  SizedBox(
+                      height:
+                          8), // Add some spacing when not in time attack mode
+                ],
                 Expanded(
                   child: GridView.builder(
                     padding: EdgeInsets.all(0), // 카드 주변 여백
