@@ -96,11 +96,12 @@ class BrainHealthProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      // 먼저 로컬 데이터 로드
-      await _loadLocalData();
-
-      // 사용자 인증 확인
+      // 먼저 사용자 인증 확인 - userId 확보
       await _ensureUserAuthenticated();
+      if (_disposed) return; // dispose 체크 추가
+
+      // 사용자 ID가 확인된 후에 로컬 데이터 로드
+      await _loadLocalData();
       if (_disposed) return; // dispose 체크 추가
 
       // 데이터 마이그레이션 확인 (brain_health_users에서 users로 이전)
@@ -264,14 +265,14 @@ class BrainHealthProvider with ChangeNotifier {
           if (!userDoc.exists) {
             print('Creating new user document in Firebase');
 
-            // 기본 사용자 데이터
+            // 기본 사용자 데이터 - 항상 0으로 시작
             Map<String, dynamic> userData = {
               'brain_health': {
-                'brainHealthScore': _brainHealthScore,
-                'totalGamesPlayed': _totalGamesPlayed,
-                'totalMatchesFound': _totalMatchesFound,
-                'bestTime': _bestTime,
-                'bestTimesByGridSize': _bestTimesByGridSize,
+                'brainHealthScore': 0,
+                'totalGamesPlayed': 0,
+                'totalMatchesFound': 0,
+                'bestTime': 0,
+                'bestTimesByGridSize': {},
                 'created': FieldValue.serverTimestamp(),
               }
             };
@@ -388,38 +389,72 @@ class BrainHealthProvider with ChangeNotifier {
   Future<void> _loadLocalData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      _brainHealthScore = prefs.getInt('brainHealthScore') ?? 0;
-      _totalGamesPlayed = prefs.getInt('totalGamesPlayed') ?? 0;
-      _totalMatchesFound = prefs.getInt('totalMatchesFound') ?? 0;
-      _bestTime = prefs.getInt('bestTime') ?? 0;
 
-      // Load best times by grid size
-      String? bestTimesJson = prefs.getString('bestTimesByGridSize');
-      if (bestTimesJson != null) {
-        final Map<String, dynamic> jsonData = jsonDecode(bestTimesJson);
-        _bestTimesByGridSize =
-            jsonData.map((key, value) => MapEntry(key, value as int));
+      // 사용자 ID가 있는 경우에만 해당 사용자의 데이터 로드
+      if (_userId != null) {
+        print('Loading local data for user: $_userId');
+
+        // 사용자별 키 생성
+        final userKeyPrefix = 'user_${_userId}_';
+
+        _brainHealthScore =
+            prefs.getInt('${userKeyPrefix}brainHealthScore') ?? 0;
+        _totalGamesPlayed =
+            prefs.getInt('${userKeyPrefix}totalGamesPlayed') ?? 0;
+        _totalMatchesFound =
+            prefs.getInt('${userKeyPrefix}totalMatchesFound') ?? 0;
+        _bestTime = prefs.getInt('${userKeyPrefix}bestTime') ?? 0;
+
+        // Load best times by grid size
+        String? bestTimesJson =
+            prefs.getString('${userKeyPrefix}bestTimesByGridSize');
+        if (bestTimesJson != null) {
+          final Map<String, dynamic> jsonData = jsonDecode(bestTimesJson);
+          _bestTimesByGridSize =
+              jsonData.map((key, value) => MapEntry(key, value as int));
+        } else {
+          _bestTimesByGridSize = {};
+        }
+
+        // 로컬에서 점수 기록 가져오기
+        List<String>? scoreHistory =
+            prefs.getStringList('${userKeyPrefix}scoreHistory');
+        if (scoreHistory != null && scoreHistory.isNotEmpty) {
+          _scoreHistory = scoreHistory.map((item) {
+            // Format: "timestamp|score"
+            List<String> parts = item.split('|');
+            int timestamp = int.parse(parts[0]);
+            int score = int.parse(parts[1]);
+            return ScoreRecord(
+              DateTime.fromMillisecondsSinceEpoch(timestamp),
+              score,
+            );
+          }).toList();
+        } else {
+          _scoreHistory = [];
+        }
+
+        print(
+            'Local data loaded for user $_userId. Score: $_brainHealthScore, Games: $_totalGamesPlayed');
+      } else {
+        // 사용자 ID가 없는 경우 초기화
+        print('No user ID available, initializing with default values');
+        _brainHealthScore = 0;
+        _totalGamesPlayed = 0;
+        _totalMatchesFound = 0;
+        _bestTime = 0;
+        _bestTimesByGridSize = {};
+        _scoreHistory = [];
       }
-
-      // 로컬에서 점수 기록 가져오기
-      List<String>? scoreHistory = prefs.getStringList('scoreHistory');
-      if (scoreHistory != null && scoreHistory.isNotEmpty) {
-        _scoreHistory = scoreHistory.map((item) {
-          // Format: "timestamp|score"
-          List<String> parts = item.split('|');
-          int timestamp = int.parse(parts[0]);
-          int score = int.parse(parts[1]);
-          return ScoreRecord(
-            DateTime.fromMillisecondsSinceEpoch(timestamp),
-            score,
-          );
-        }).toList();
-      }
-
-      print(
-          'Local data loaded. Score: $_brainHealthScore, Games: $_totalGamesPlayed');
     } catch (e) {
       print('Local data load error: $e');
+      // 에러 발생 시 초기값으로 설정
+      _brainHealthScore = 0;
+      _totalGamesPlayed = 0;
+      _totalMatchesFound = 0;
+      _bestTime = 0;
+      _bestTimesByGridSize = {};
+      _scoreHistory = [];
     }
   }
 
@@ -439,6 +474,9 @@ class BrainHealthProvider with ChangeNotifier {
       // 사용자 문서 가져오기
       DocumentSnapshot userDoc = await userRef.get();
 
+      // 데이터 변경 여부 추적
+      bool dataChanged = false;
+
       // 사용자 문서가 없으면 초기 문서 생성
       if (!userDoc.exists) {
         print('Creating new user document in Firebase during load');
@@ -456,62 +494,67 @@ class BrainHealthProvider with ChangeNotifier {
       } else {
         // 기존 문서에서 데이터 로드
         final userData = userDoc.data() as Map<String, dynamic>;
-        final brainHealthData =
-            userData['brain_health'] as Map<String, dynamic>? ?? {};
 
-        // Firebase와 로컬 데이터 비교 후 더 큰 값 사용
-        int firebaseScore = brainHealthData['brainHealthScore'] ?? 0;
-        int firebaseGames = brainHealthData['totalGamesPlayed'] ?? 0;
-        int firebaseMatches = brainHealthData['totalMatchesFound'] ?? 0;
-        int firebaseBestTime = brainHealthData['bestTime'] ?? 0;
+        if (userData.containsKey('brain_health')) {
+          final brainHealthData =
+              userData['brain_health'] as Map<String, dynamic>;
 
-        // Load best times by grid size from Firebase
-        Map<String, int> firebaseBestTimesByGridSize = {};
-        if (brainHealthData.containsKey('bestTimesByGridSize')) {
-          final Map<String, dynamic> fbBestTimes =
-              brainHealthData['bestTimesByGridSize'] as Map<String, dynamic>? ??
-                  {};
-          firebaseBestTimesByGridSize =
-              fbBestTimes.map((key, value) => MapEntry(key, value as int));
-        }
-
-        // 더 큰 값을 선택하여 데이터 동기화
-        bool dataChanged = false;
-
-        if (firebaseScore > _brainHealthScore) {
-          _brainHealthScore = firebaseScore;
-          dataChanged = true;
-        }
-
-        if (firebaseGames > _totalGamesPlayed) {
-          _totalGamesPlayed = firebaseGames;
-          dataChanged = true;
-        }
-
-        if (firebaseMatches > _totalMatchesFound) {
-          _totalMatchesFound = firebaseMatches;
-          dataChanged = true;
-        }
-
-        // 베스트 타임은 더 작은 값이 더 좋음 (0은 기록 없음 의미)
-        if (firebaseBestTime > 0 &&
-            (_bestTime == 0 || firebaseBestTime < _bestTime)) {
-          _bestTime = firebaseBestTime;
-          dataChanged = true;
-        }
-
-        // Merge best times by grid size (keeping the faster times)
-        firebaseBestTimesByGridSize.forEach((gridSize, time) {
-          if (time > 0 &&
-              (!_bestTimesByGridSize.containsKey(gridSize) ||
-                  _bestTimesByGridSize[gridSize] == 0 ||
-                  time < _bestTimesByGridSize[gridSize]!)) {
-            _bestTimesByGridSize[gridSize] = time;
-            dataChanged = true;
+          // Firebase 데이터를 메모리로 로드
+          if (brainHealthData.containsKey('brainHealthScore')) {
+            int firebaseScore = brainHealthData['brainHealthScore'] ?? 0;
+            if (_brainHealthScore != firebaseScore) {
+              _brainHealthScore = firebaseScore;
+              dataChanged = true;
+            }
           }
-        });
 
-        print('Firebase data comparison completed. Data changed: $dataChanged');
+          if (brainHealthData.containsKey('totalGamesPlayed')) {
+            int firebaseGames = brainHealthData['totalGamesPlayed'] ?? 0;
+            if (_totalGamesPlayed != firebaseGames) {
+              _totalGamesPlayed = firebaseGames;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('totalMatchesFound')) {
+            int firebaseMatches = brainHealthData['totalMatchesFound'] ?? 0;
+            if (_totalMatchesFound != firebaseMatches) {
+              _totalMatchesFound = firebaseMatches;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('bestTime')) {
+            int firebaseBestTime = brainHealthData['bestTime'] ?? 0;
+            if (firebaseBestTime > 0 &&
+                (_bestTime == 0 || firebaseBestTime < _bestTime)) {
+              _bestTime = firebaseBestTime;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('bestTimesByGridSize')) {
+            final fbBestTimes = brainHealthData['bestTimesByGridSize']
+                    as Map<String, dynamic>? ??
+                {};
+
+            Map<String, int> firebaseBestTimesByGridSize =
+                fbBestTimes.map((key, value) => MapEntry(key, value as int));
+
+            firebaseBestTimesByGridSize.forEach((gridSize, time) {
+              if (time > 0 &&
+                  (!_bestTimesByGridSize.containsKey(gridSize) ||
+                      _bestTimesByGridSize[gridSize] == 0 ||
+                      time < _bestTimesByGridSize[gridSize]!)) {
+                _bestTimesByGridSize[gridSize] = time;
+                dataChanged = true;
+              }
+            });
+          }
+        }
+
+        print(
+            'Firebase data loaded for user $_userId. Data changed: $dataChanged');
         print('Current score: $_brainHealthScore, Games: $_totalGamesPlayed');
       }
 
@@ -521,120 +564,40 @@ class BrainHealthProvider with ChangeNotifier {
           .orderBy('date', descending: false)
           .get();
 
-      print('Loaded ${scoreSnapshot.docs.length} score records from Firebase');
+      print(
+          'Loaded ${scoreSnapshot.docs.length} score records from Firebase for user $_userId');
 
-      // Firebase의 점수 기록을 맵으로 변환 (빠른 검색을 위해)
-      Map<String, ScoreRecord> firebaseScoresMap = {};
+      // Firebase의 점수 기록이 있으면 로컬 메모리의 점수 기록을 대체
       if (scoreSnapshot.docs.isNotEmpty) {
+        _scoreHistory = [];
         for (var doc in scoreSnapshot.docs) {
           ScoreRecord record =
               ScoreRecord.fromMap(doc.data() as Map<String, dynamic>);
-          String key = '${record.date.millisecondsSinceEpoch}';
-          firebaseScoresMap[key] = record;
+          _scoreHistory.add(record);
         }
-      }
 
-      // 로컬 기록을 맵으로 변환
-      Map<String, ScoreRecord> localScoresMap = {};
-      for (var record in _scoreHistory) {
-        String key = '${record.date.millisecondsSinceEpoch}';
-        localScoresMap[key] = record;
-      }
-
-      // 로컬에만 있는 기록 식별
-      List<ScoreRecord> recordsToUpload = [];
-      for (var key in localScoresMap.keys) {
-        if (!firebaseScoresMap.containsKey(key)) {
-          recordsToUpload.add(localScoresMap[key]!);
-        }
-      }
-
-      // Firebase에만 있는 기록 식별
-      List<ScoreRecord> recordsToDownload = [];
-      for (var key in firebaseScoresMap.keys) {
-        if (!localScoresMap.containsKey(key)) {
-          recordsToDownload.add(firebaseScoresMap[key]!);
-        }
-      }
-
-      print(
-          'Found ${recordsToUpload.length} local records to upload to Firebase');
-      print(
-          'Found ${recordsToDownload.length} Firebase records to download to local');
-
-      // 로컬에만 있는 기록을 Firebase에 업로드
-      if (recordsToUpload.isNotEmpty) {
-        int uploadCount = 0;
-        for (var record in recordsToUpload) {
-          try {
-            await userRef
-                .collection('brain_health_history')
-                .add(record.toMap());
-            uploadCount++;
-          } catch (e) {
-            print('Error uploading record to Firebase: $e');
-          }
-        }
-        print(
-            'Successfully uploaded $uploadCount/${recordsToUpload.length} records to Firebase');
-      }
-
-      // Firebase에만 있는 기록을 로컬에 다운로드
-      if (recordsToDownload.isNotEmpty) {
-        _scoreHistory.addAll(recordsToDownload);
-        print(
-            'Added ${recordsToDownload.length} records from Firebase to local history');
-      }
-
-      // 모든 스코어 기록을 날짜순으로 정렬
-      if (recordsToDownload.isNotEmpty || recordsToUpload.isNotEmpty) {
+        // 점수 기록 날짜순 정렬
         _scoreHistory.sort((a, b) => a.date.compareTo(b.date));
 
         // 로컬 스토리지에 업데이트된 기록 저장
         final prefs = await SharedPreferences.getInstance();
+        final userKeyPrefix = 'user_${_userId}_';
         List<String> formattedHistory = _scoreHistory.map((record) {
           return "${record.date.millisecondsSinceEpoch}|${record.score}";
         }).toList();
 
-        await prefs.setStringList('scoreHistory', formattedHistory);
+        await prefs.setStringList(
+            '${userKeyPrefix}scoreHistory', formattedHistory);
         print(
-            'Updated local storage with ${_scoreHistory.length} merged score records');
+            'Updated local storage with ${_scoreHistory.length} score records for user $_userId');
+        dataChanged = true;
       }
 
-      // 최종 스코어가 현재 스코어 기록의 마지막 항목 스코어와 일치하는지 확인
-      if (_scoreHistory.isNotEmpty) {
-        ScoreRecord lastRecord = _scoreHistory.last;
-        if (lastRecord.score != _brainHealthScore) {
-          print(
-              'Fixing inconsistency: Last score record (${lastRecord.score}) != current score ($_brainHealthScore)');
-
-          // 기록이 없거나 일치하지 않으면 현재 상태를 새 기록으로 추가
-          ScoreRecord newRecord =
-              ScoreRecord(DateTime.now(), _brainHealthScore);
-          _scoreHistory.add(newRecord);
-
-          // Firebase에도 추가
-          try {
-            await userRef
-                .collection('brain_health_history')
-                .add(newRecord.toMap());
-            print('Added new score record to fix inconsistency');
-          } catch (e) {
-            print('Error adding consistency fix record: $e');
-          }
-
-          // 로컬 스토리지 업데이트
-          final prefs = await SharedPreferences.getInstance();
-          List<String> formattedHistory = _scoreHistory.map((record) {
-            return "${record.date.millisecondsSinceEpoch}|${record.score}";
-          }).toList();
-
-          await prefs.setStringList('scoreHistory', formattedHistory);
-        }
+      // 변경된 데이터가 있으면 로컬에 저장
+      if (dataChanged) {
+        print('Saving updated data to local storage');
+        await _saveData();
       }
-
-      // 최신 데이터로 로컬 저장소 업데이트
-      await _saveData();
     } catch (e) {
       print('Firebase data load error: $e');
       _error = 'Failed to load data from server: $e';
@@ -645,22 +608,30 @@ class BrainHealthProvider with ChangeNotifier {
     if (_disposed) return;
 
     try {
-      print('Saving brain health data...');
-      // 로컬 저장소에 데이터 저장
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('brainHealthScore', _brainHealthScore);
-      await prefs.setInt('totalGamesPlayed', _totalGamesPlayed);
-      await prefs.setInt('totalMatchesFound', _totalMatchesFound);
-      await prefs.setInt('bestTime', _bestTime);
-
-      // Save best times by grid size
-      await prefs.setString(
-          'bestTimesByGridSize', jsonEncode(_bestTimesByGridSize));
-
-      print('Data saved to local storage');
-
-      // Firebase에 데이터 저장
+      // 사용자 ID가 있는 경우에만 저장
       if (_userId != null) {
+        print('Saving brain health data for user: $_userId...');
+
+        // 사용자별 키 생성
+        final userKeyPrefix = 'user_${_userId}_';
+
+        // 로컬 저장소에 데이터 저장
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setInt(
+            '${userKeyPrefix}brainHealthScore', _brainHealthScore);
+        await prefs.setInt(
+            '${userKeyPrefix}totalGamesPlayed', _totalGamesPlayed);
+        await prefs.setInt(
+            '${userKeyPrefix}totalMatchesFound', _totalMatchesFound);
+        await prefs.setInt('${userKeyPrefix}bestTime', _bestTime);
+
+        // Save best times by grid size
+        await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
+            jsonEncode(_bestTimesByGridSize));
+
+        print('Data saved to local storage for user: $_userId');
+
+        // Firebase에 데이터 저장
         try {
           print('Saving brain health data to Firebase: $_userId');
           await FirebaseFirestore.instance
@@ -674,14 +645,14 @@ class BrainHealthProvider with ChangeNotifier {
             'brain_health.bestTimesByGridSize': _bestTimesByGridSize,
             'brain_health.lastUpdated': FieldValue.serverTimestamp(),
           });
-          print('Brain health data saved to Firebase');
+          print('Brain health data saved to Firebase for user: $_userId');
         } catch (e) {
           print('Failed to save data to Firebase: $e');
           // Firebase 저장 실패 시 필요한 복구 로직을 추가할 수 있음
           // 로컬에는 이미 저장되었으므로 사용자 데이터는 손실되지 않음
         }
       } else {
-        print('Cannot save to Firebase: No user ID available');
+        print('Cannot save data: No user ID available');
       }
     } catch (e) {
       print('Data save error: $e');
@@ -689,44 +660,48 @@ class BrainHealthProvider with ChangeNotifier {
   }
 
   Future<void> _saveScoreRecord(ScoreRecord record) async {
+    if (_userId == null) {
+      print('Cannot save score record: No user ID available');
+      return;
+    }
+
     try {
+      // 사용자별 키 생성
+      final userKeyPrefix = 'user_${_userId}_';
+
       // 로컬에 저장
       final prefs = await SharedPreferences.getInstance();
-      List<String> scoreHistory = prefs.getStringList('scoreHistory') ?? [];
+      List<String> scoreHistory =
+          prefs.getStringList('${userKeyPrefix}scoreHistory') ?? [];
 
       // Format: "timestamp|score"
       String newRecord =
           "${record.date.millisecondsSinceEpoch}|${record.score}";
       scoreHistory.add(newRecord);
 
-      await prefs.setStringList('scoreHistory', scoreHistory);
+      await prefs.setStringList('${userKeyPrefix}scoreHistory', scoreHistory);
 
       // 메모리에 기록 업데이트
       _scoreHistory.add(record);
 
       print(
-          'Score record saved locally: date=${record.date}, score=${record.score}');
+          'Score record saved locally for user $_userId: date=${record.date}, score=${record.score}');
 
       // Firebase에 저장 시도
-      if (_userId != null) {
-        try {
-          print('Saving score record to Firebase for user: $_userId');
-          DocumentReference docRef = await FirebaseFirestore.instance
-              .collection('users')
-              .doc(_userId)
-              .collection('brain_health_history')
-              .add(record.toMap());
+      try {
+        print('Saving score record to Firebase for user: $_userId');
+        DocumentReference docRef = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_userId)
+            .collection('brain_health_history')
+            .add(record.toMap());
 
-          print(
-              'Score record saved to Firebase successfully. Doc ID: ${docRef.id}');
-        } catch (e) {
-          print('Failed to save score record to Firebase: $e');
-          // Firebase 저장 실패 시 필요한 복구 로직을 추가할 수 있음
-          // 로컬에는 이미 저장되었으므로 사용자 데이터는 손실되지 않음
-        }
-      } else {
         print(
-            'Cannot save score to Firebase: No user ID available. Will try again on next refresh.');
+            'Score record saved to Firebase successfully for user $_userId. Doc ID: ${docRef.id}');
+      } catch (e) {
+        print('Failed to save score record to Firebase: $e');
+        // Firebase 저장 실패 시 필요한 복구 로직을 추가할 수 있음
+        // 로컬에는 이미 저장되었으므로 사용자 데이터는 손실되지 않음
       }
     } catch (e) {
       print('Score record save error: $e');
@@ -886,7 +861,7 @@ class BrainHealthProvider with ChangeNotifier {
           _userId = user.uid;
           print('User ID changed from $previousUserId to $_userId');
 
-          // 로컬 데이터를 새 사용자 계정으로 마이그레이션
+          // 새 사용자는 기본값(0)으로 시작 - 데이터 마이그레이션 없음
           _migrateDataToNewUser(previousUserId);
         }
       } else {
@@ -899,25 +874,32 @@ class BrainHealthProvider with ChangeNotifier {
   Future<void> _migrateDataToNewUser(String? previousUserId) async {
     if (_disposed) return;
 
-    print('Migrating local data to new user account');
+    print('User ID changed to $_userId - loading user-specific data');
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      // 이미 로컬 데이터가 로드되어 있다고 가정
+      // 기존 사용자 데이터 초기화
+      _brainHealthScore = 0;
+      _totalGamesPlayed = 0;
+      _totalMatchesFound = 0;
+      _bestTime = 0;
+      _bestTimesByGridSize = {};
+      _scoreHistory = [];
 
-      // 새 사용자의 Firebase 데이터 로드
+      // 현재 사용자의 로컬 데이터가 있으면 로드
+      await _loadLocalData();
+      if (_disposed) return; // dispose 체크 추가
+
+      // Firebase에서 사용자 데이터 로드
       await _loadFirebaseData();
       if (_disposed) return; // dispose 체크 추가
 
-      // 변경된 데이터를 Firebase에 저장
-      await _saveData();
-
-      print('Data migration completed successfully');
+      print('User-specific data loaded successfully for user $_userId');
     } catch (e) {
-      print('Data migration error: $e');
-      _error = 'Failed to migrate data: $e';
+      print('Error loading user-specific data: $e');
+      _error = 'Failed to load user data: $e';
     } finally {
       if (!_disposed) {
         // dispose 체크 추가
@@ -1048,7 +1030,7 @@ class BrainHealthProvider with ChangeNotifier {
                   prevUserDoc.data() as Map<String, dynamic>;
 
               // 이전 계정의 점수 데이터를 새 익명 계정으로 복사 (옵션)
-              bool shouldTransferData = true; // 이 값을 false로 설정하면 데이터 이전을 건너뜀
+              bool shouldTransferData = false; // 데이터 이전을 건너뜀 - 새 계정은 항상 0에서 시작
 
               if (shouldTransferData) {
                 // 익명 계정에 기존 데이터 복사
@@ -1140,6 +1122,68 @@ class BrainHealthProvider with ChangeNotifier {
     };
   }
 
+  // 현재 Brain Health 점수 가져오기
+  Future<int> getCurrentPoints() async {
+    // 사용자 인증 확인
+    if (_userId == null) {
+      print('No user ID found, attempting to authenticate first');
+      await _ensureUserAuthenticated();
+      if (_userId == null || _disposed) {
+        print(
+            'Warning: Unable to get user ID, returning only local brain health score');
+        if (_disposed) return 0;
+      }
+    }
+
+    // 오프라인 상태에서도 동작하도록 로컬 값 반환
+    return _brainHealthScore;
+  }
+
+  // Brain Health 점수 차감
+  Future<bool> deductPoints(int points) async {
+    if (_disposed) return false;
+    if (points <= 0) return true; // 차감할 점수가 0 이하면 성공으로 간주
+
+    // 사용자 인증 확인
+    if (_userId == null) {
+      print('No user ID found, attempting to authenticate first');
+      await _ensureUserAuthenticated();
+      if (_userId == null || _disposed) {
+        print('Warning: Unable to get user ID, cannot deduct points');
+        return false;
+      }
+    }
+
+    // 현재 점수가 차감할 점수보다 적으면 실패
+    if (_brainHealthScore < points) {
+      print('Not enough points: current=$_brainHealthScore, required=$points');
+      return false;
+    }
+
+    // 점수 차감
+    _brainHealthScore -= points;
+
+    // 데이터 저장
+    try {
+      print(
+          'Saving updated brain health score after deduction: $_brainHealthScore');
+      await _saveData();
+      if (_disposed) return true;
+
+      // 점수 차감 기록 저장
+      await _saveScoreRecord(ScoreRecord(DateTime.now(), _brainHealthScore));
+      if (_disposed) return true;
+
+      print(
+          'Points deducted successfully: -$points, new score: $_brainHealthScore');
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print('Error while deducting points: $e');
+      return false;
+    }
+  }
+
   // 명시적으로 데이터 동기화 요청
   Future<void> syncData() async {
     if (_disposed) return;
@@ -1184,5 +1228,60 @@ class BrainHealthProvider with ChangeNotifier {
     _disposed = true;
     _authStateSubscription?.cancel();
     super.dispose();
+  }
+
+  // 사용자 랭킹 데이터를 가져오는 메서드
+  Future<List<Map<String, dynamic>>> getUserRankings() async {
+    if (_disposed) return [];
+
+    try {
+      // Firestore에서 상위 10명의 사용자 랭킹을 가져옵니다
+      QuerySnapshot rankingSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('brain_health.brainHealthScore', descending: true)
+          .limit(10)
+          .get();
+
+      List<Map<String, dynamic>> rankings = [];
+      int rank = 1;
+
+      for (var doc in rankingSnapshot.docs) {
+        Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+        Map<String, dynamic> brainHealthData = {};
+
+        // brain_health 필드가 있는지 확인
+        if (userData.containsKey('brain_health') &&
+            userData['brain_health'] is Map) {
+          brainHealthData = userData['brain_health'] as Map<String, dynamic>;
+        }
+
+        // 사용자 정보 가져오기
+        String displayName = 'Anonymous';
+        if (userData.containsKey('displayName') &&
+            userData['displayName'] != null) {
+          displayName = userData['displayName'];
+        } else if (userData.containsKey('email') && userData['email'] != null) {
+          displayName = userData['email'].toString().split('@')[0];
+        }
+
+        // 현재 사용자인지 확인
+        bool isCurrentUser = doc.id == _userId;
+
+        rankings.add({
+          'rank': rank,
+          'userId': doc.id,
+          'displayName': displayName,
+          'score': brainHealthData['brainHealthScore'] ?? 0,
+          'isCurrentUser': isCurrentUser,
+        });
+
+        rank++;
+      }
+
+      return rankings;
+    } catch (e) {
+      print('Error fetching user rankings: $e');
+      return [];
+    }
   }
 }

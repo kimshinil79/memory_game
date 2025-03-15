@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
+import 'utils/route_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Memory Game',
+      navigatorObservers: [routeObserver],
       theme: ThemeData(
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
@@ -69,9 +71,14 @@ class _MainScreenState extends State<MainScreen> {
   };
   int currentPlayerIndex = 0;
   UniqueKey _memoryGameKey = UniqueKey();
+  MemoryGamePage? _memoryGamePage;
   User? _user;
   String? _nickname;
   StreamSubscription<User?>? _authSubscription;
+
+  // Add gradient color constants
+  final Color instagramGradientStart = Color(0xFF833AB4);
+  final Color instagramGradientEnd = Color(0xFFF77737);
 
   @override
   void initState() {
@@ -662,8 +669,26 @@ class _MainScreenState extends State<MainScreen> {
 
   void updatePlayerScore(String player, int score) {
     setState(() {
-      playerScores[player] = score;
+      // Apply grid size multiplier to the score
+      int multiplier = getGridSizeMultiplier(gridSize);
+      playerScores[player] = score * multiplier;
     });
+  }
+
+  // Calculate score multiplier based on grid size
+  int getGridSizeMultiplier(String gridSize) {
+    switch (gridSize) {
+      case '4x4':
+        return 1; // Base multiplier
+      case '6x4':
+        return 2; // Double points for 6x4 grid
+      case '6x6':
+        return 3; // Triple points for 6x6 grid
+      case '8x6':
+        return 4; // Quadruple points for 8x6 grid
+      default:
+        return 1;
+    }
   }
 
   void nextPlayer() {
@@ -696,27 +721,32 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Create MemoryGamePage instance and save reference
+    _memoryGamePage = MemoryGamePage(
+      key: _memoryGameKey,
+      numberOfPlayers: numberOfPlayers,
+      gridSize: gridSize,
+      updateFlipCount: updateFlipCount,
+      updatePlayerScore: updatePlayerScore,
+      nextPlayer: nextPlayer,
+      currentPlayer: players[currentPlayerIndex],
+      playerScores: playerScores,
+      resetScores: resetScores,
+      isTimeAttackMode: true,
+      timeLimit: 60,
+    );
+
     List<Widget> _pages = [
-      MemoryGamePage(
-        key: _memoryGameKey,
-        numberOfPlayers: numberOfPlayers,
-        gridSize: gridSize,
-        updateFlipCount: updateFlipCount,
-        updatePlayerScore: updatePlayerScore,
-        nextPlayer: nextPlayer,
-        currentPlayer: players[currentPlayerIndex],
-        playerScores: playerScores,
-        resetScores: resetScores,
-        isTimeAttackMode: true,
-        timeLimit: 60,
-      ),
-      TestPage(),
+      _memoryGamePage!,
       BrainHealthPage(),
+      TestPage(),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: _currentIndex == 0 ? 100 : 70,
+        elevation: 0,
+        toolbarHeight: _currentIndex == 0 ? 90 : 60,
+        backgroundColor: Colors.white,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -724,90 +754,96 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 Text(
                   'Memory Game',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
                 ),
-                SizedBox(width: 12),
-                GestureDetector(
-                  onTap: () => _showLanguageSelectionDialog(context),
-                  child: Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Consumer<LanguageProvider>(
-                      builder: (context, languageProvider, child) {
-                        return Flag.fromString(
-                          _getCountryCode(languageProvider.currentLanguage),
-                          height: 20,
-                          width: 20,
-                        );
-                      },
-                    ),
+                if (_currentIndex != 1) ...[
+                  const SizedBox(width: 8),
+                  Container(
+                    height: 24,
+                    width: 1,
+                    color: Colors.grey.withOpacity(0.3),
                   ),
-                ),
-              ],
-            ),
-            if (_currentIndex == 0)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Row(
-                  children: [
-                    OutlinedButton.icon(
-                      icon: Icon(Icons.people, size: 16),
-                      label: Text(
-                          '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}'),
-                      onPressed: _showPlayerSelectionDialog,
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.purple.shade200),
-                        visualDensity: VisualDensity.compact,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    OutlinedButton.icon(
-                      icon: Icon(Icons.grid_on, size: 16),
-                      label: Text(gridSize),
-                      onPressed: _showGridSizeSelectionDialog,
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.purple.shade200),
-                        visualDensity: VisualDensity.compact,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Container(
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () => _showLanguageSelectionDialog(context),
+                    child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.purple.shade100,
-                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.flip, size: 16),
-                          SizedBox(width: 4),
+                          Consumer<LanguageProvider>(
+                            builder: (context, languageProvider, child) {
+                              return Flag.fromString(
+                                _getCountryCode(
+                                    languageProvider.currentLanguage),
+                                height: 16,
+                                width: 24,
+                                borderRadius: 4,
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(Icons.keyboard_arrow_down,
+                              size: 16, color: Colors.black54),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+            if (_currentIndex == 0) ...[
+              const SizedBox(height: 8),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildControlButton(
+                      icon: Icons.people,
+                      label:
+                          '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}',
+                      onTap: _showPlayerSelectionDialog,
+                    ),
+                    const SizedBox(width: 8),
+                    _buildControlButton(
+                      icon: Icons.grid_on,
+                      label: gridSize,
+                      onTap: _showGridSizeSelectionDialog,
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            instagramGradientStart,
+                            instagramGradientEnd
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.flip, size: 16, color: Colors.white),
+                          const SizedBox(width: 4),
                           Text(
                             '$flipCount',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w600,
                               fontSize: 14,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -816,28 +852,37 @@ class _MainScreenState extends State<MainScreen> {
                   ],
                 ),
               ),
+            ],
           ],
         ),
         actions: [
-          if (_currentIndex == 2)
+          if (_currentIndex == 1)
             Consumer<BrainHealthProvider>(
               builder: (context, brainHealthProvider, child) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                return Container(
+                  margin: EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _getBrainHealthColor(
+                            brainHealthProvider.preventionLevel)
+                        .withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.psychology,
                         color: _getBrainHealthColor(
                             brainHealthProvider.preventionLevel),
-                        size: 24,
+                        size: 20,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 4),
                       Text(
                         '${brainHealthProvider.brainHealthScore}',
                         style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
                           color: _getBrainHealthColor(
                               brainHealthProvider.preventionLevel),
                         ),
@@ -847,14 +892,16 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
-          // Add login/logout button
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: EdgeInsets.only(right: 16),
             child: _buildUserProfileButton(),
           ),
         ],
       ),
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -868,18 +915,54 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.games),
+            icon: Icon(Icons.grid_on),
             label: 'Game',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Test',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.psychology),
             label: 'Brain Health',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_books),
+            label: 'Test',
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildControlButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: Colors.black87),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: GoogleFonts.montserrat(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -887,37 +970,45 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildUserProfileButton() {
     if (_user == null) {
       return IconButton(
-        icon: Icon(Icons.login, color: Colors.black),
+        icon: Icon(Icons.login, color: Colors.black87, size: 20),
         onPressed: () => _showSignInDialog(context),
         tooltip: 'Sign In',
       );
-    } else {
-      return InkWell(
-        onTap: () => _showAccountEditDialog(context),
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.purple.shade50,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            children: [
-              // Icon(Icons.person, size: 16, color: Colors.purple),
-              // SizedBox(width: 4),
-              Text(
-                _nickname ?? 'User',
-                style: TextStyle(
-                  color: Colors.purple.shade700,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
     }
+
+    return InkWell(
+      onTap: () => _showAccountEditDialog(context),
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              instagramGradientStart.withOpacity(0.1),
+              instagramGradientEnd.withOpacity(0.1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.person_outline, size: 16, color: instagramGradientEnd),
+            const SizedBox(width: 4),
+            Text(
+              _nickname ?? 'User',
+              style: GoogleFonts.montserrat(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: instagramGradientEnd,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _showAccountEditDialog(BuildContext context) {
@@ -1578,6 +1669,17 @@ class _MainScreenState extends State<MainScreen> {
                                       : Colors.grey.shade700,
                                 ),
                               ),
+                              SizedBox(height: 4),
+                              Text(
+                                '×${getGridSizeMultiplier(value)} points',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: value == gridSize
+                                      ? Colors.white.withOpacity(0.9)
+                                      : Colors.grey.shade600,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -1640,6 +1742,17 @@ class _MainScreenState extends State<MainScreen> {
                                   color: value == gridSize
                                       ? Colors.white
                                       : Colors.grey.shade700,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '×${getGridSizeMultiplier(value)} points',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: value == gridSize
+                                      ? Colors.white.withOpacity(0.9)
+                                      : Colors.grey.shade600,
                                 ),
                               ),
                             ],

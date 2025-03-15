@@ -55,13 +55,16 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                     children: [
                       _buildHeader(brainHealthProvider),
                       SizedBox(height: 24),
+                      _buildActivityChart(brainHealthProvider),
+                      SizedBox(height: 32),
                       _buildBrainHealthProgress(brainHealthProvider),
                       SizedBox(height: 32),
+                      _buildUserRankings(brainHealthProvider),
+                      SizedBox(height: 32),
+
                       _buildInfoCards(brainHealthProvider),
                       SizedBox(height: 32),
                       _buildBenefitsSection(),
-                      SizedBox(height: 32),
-                      _buildActivityChart(brainHealthProvider),
                       SizedBox(height: 80), // Extra space at bottom
                     ],
                   ),
@@ -990,5 +993,169 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
 
     // 최대값의 20% 여유 공간 추가
     return maxScore * 1.2;
+  }
+
+  // 사용자 랭킹 섹션 위젯
+  Widget _buildUserRankings(BrainHealthProvider provider) {
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: provider.getUserRankings(),
+      builder: (context, snapshot) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'User Rankings',
+                style: GoogleFonts.notoSans(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 16),
+              if (snapshot.connectionState == ConnectionState.waiting)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              else if (snapshot.hasError)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Failed to load rankings',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 16,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                )
+              else if (!snapshot.hasData || snapshot.data!.isEmpty)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'No ranking data available',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Column(
+                  children: [
+                    // 랭킹 헤더
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                              width: 40,
+                              child: Text('Rank',
+                                  style: GoogleFonts.notoSans(
+                                      fontWeight: FontWeight.bold))),
+                          SizedBox(width: 8),
+                          Expanded(
+                              child: Text('User',
+                                  style: GoogleFonts.notoSans(
+                                      fontWeight: FontWeight.bold))),
+                          SizedBox(
+                              width: 80,
+                              child: Text('Score',
+                                  style: GoogleFonts.notoSans(
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.end)),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    // 랭킹 목록
+                    ...snapshot.data!.map((ranking) {
+                      bool isCurrentUser = ranking['isCurrentUser'] ?? false;
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 8.0),
+                        decoration: BoxDecoration(
+                          color: isCurrentUser
+                              ? Colors.blue.withOpacity(0.1)
+                              : null,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                              child: Text(
+                                '#${ranking['rank']}',
+                                style: GoogleFonts.notoSans(
+                                  fontWeight: isCurrentUser
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: _getRankColor(ranking['rank']),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                ranking['displayName'],
+                                style: GoogleFonts.notoSans(
+                                  fontWeight: isCurrentUser
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                              child: Text(
+                                '${ranking['score']}',
+                                style: GoogleFonts.notoSans(
+                                  fontWeight: isCurrentUser
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // 랭킹에 따른 색상 반환
+  Color _getRankColor(int rank) {
+    if (rank == 1) return Colors.amber.shade700; // 금메달
+    if (rank == 2) return Colors.blueGrey.shade400; // 은메달
+    if (rank == 3) return Colors.brown.shade400; // 동메달
+    return Colors.black87; // 기본 색상
   }
 }
