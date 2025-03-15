@@ -585,7 +585,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _showCompletionDialog(_elapsedTime);
   }
 
-  Future<void> _updateBrainHealthScore(int elapsedTime) async {
+  Future<int> _updateBrainHealthScore(int elapsedTime) async {
     // 매치된 카드 쌍의 개수 계산
     final int totalMatches = gameImages.length ~/ 2;
 
@@ -596,27 +596,26 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       final int pointsEarned = await brainHealthProvider.addGameCompletion(
           totalMatches, elapsedTime, widget.gridSize);
 
-      // 점수 획득 토스트 메시지 표시 (선택적)
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('You earned $pointsEarned Brain Health points!'),
-          duration: Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.green,
-        ),
-      );
+      // 점수 획득 정보를 completion dialog에서 표시하기 위해 반환
+      return pointsEarned;
     } catch (e) {
       print('Error updating Brain Health score: $e');
+      return 0;
     }
   }
 
-  void _showCompletionDialog(int elapsedTime) {
+  void _showCompletionDialog(int elapsedTime) async {
     String languageCode =
         Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    String gridSize = widget.gridSize; // 현재 그리드 크기
+    String gridSize = widget.gridSize;
+
+    // 게임 통계 업데이트 및 획득 점수 가져오기
+    final int pointsEarned = await _updateBrainHealthScore(elapsedTime);
 
     // 게임 통계 업데이트
     _updateGameStatistics(languageCode, gridSize, elapsedTime, flipCount);
+
+    if (!mounted) return;
 
     showDialog(
       context: context,
@@ -646,10 +645,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 16),
                 if (widget.isTimeAttackMode) ...[
                   Text(
-                    "Elapsed Time: ${elapsedTime} seconds",
+                    "Time: ${elapsedTime} seconds",
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
                       color: Colors.white,
@@ -657,6 +656,42 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     textAlign: TextAlign.center,
                   ),
                 ],
+                SizedBox(height: 8),
+                Text(
+                  "Flips: $flipCount",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.psychology,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        "+$pointsEarned points",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 24),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
