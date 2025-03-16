@@ -48,6 +48,7 @@ dependencies:
   flag: ^7.0.0
   fl_chart: ^0.64.0
   percent_indicator: ^4.2.3
+  flutter_phoenix: ^1.1.1
 
 dev_dependencies:
   flutter_test:
