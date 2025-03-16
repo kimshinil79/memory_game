@@ -84,6 +84,9 @@ class _MainScreenState extends State<MainScreen> {
   User? _user;
   String? _nickname;
   String? _profileImageUrl;
+  int? _userAge;
+  String? _userGender;
+  String? _userCountryCode;
   StreamSubscription<User?>? _authSubscription;
 
   // Add gradient color constants
@@ -138,7 +141,9 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             _user = user;
             _nickname = userData['nickname'] as String?;
-            _profileImageUrl = userData['profileImage'] as String?;
+            _userAge = userData['age'] as int?;
+            _userGender = userData['gender'] as String?;
+            _userCountryCode = userData['country'] as String?;
           });
         }
       } else {
@@ -146,7 +151,9 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             _user = user;
             _nickname = null;
-            _profileImageUrl = null;
+            _userAge = null;
+            _userGender = null;
+            _userCountryCode = null;
           });
         }
       }
@@ -155,7 +162,9 @@ class _MainScreenState extends State<MainScreen> {
         setState(() {
           _user = user;
           _nickname = null;
-          _profileImageUrl = null;
+          _userAge = null;
+          _userGender = null;
+          _userCountryCode = null;
         });
       }
     }
@@ -476,13 +485,7 @@ class _MainScreenState extends State<MainScreen> {
           code.startsWith('fil') ||
           code.startsWith('jv') ||
           code.startsWith('su') ||
-          code.startsWith('ta') ||
-          code.startsWith('te') ||
-          code.startsWith('ml') ||
-          code.startsWith('gu') ||
-          code.startsWith('kn') ||
-          code.startsWith('mr') ||
-          code.startsWith('pa')) {
+          code.startsWith('ta')) {
         groupedLanguages['Asian Languages']!.add(entry);
       } else if (code.startsWith('en') ||
           code.startsWith('es') ||
@@ -1043,113 +1046,527 @@ class _MainScreenState extends State<MainScreen> {
   void _showAccountEditDialog(BuildContext context) {
     final TextEditingController nicknameController =
         TextEditingController(text: _nickname);
+    final TextEditingController ageController =
+        TextEditingController(text: _userAge?.toString());
+
+    String? selectedGender = _userGender;
+    String? selectedCountryCode = _userCountryCode;
+    Country? selectedCountry;
+
+    // 국가 코드에 해당하는 Country 객체 찾기
+    if (_userCountryCode != null) {
+      selectedCountry = countries.firstWhere(
+        (country) => country.code == _userCountryCode,
+        orElse: () => countries.first, // null 대신 기본값 반환
+      );
+    }
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(24),
-            width: 320,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Edit Profile',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: 16),
-                TextField(
-                  controller: nicknameController,
-                  decoration: InputDecoration(
-                    labelText: 'Nickname',
-                    hintText: 'Enter your nickname',
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(Icons.person_outline),
-                  ),
-                ),
-                SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (_user != null &&
-                              nicknameController.text.isNotEmpty) {
-                            try {
-                              // 닉네임 업데이트
-                              await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(_user!.uid)
-                                  .update(
-                                      {'nickname': nicknameController.text});
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (dialogContext, setState) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(24),
+                  width: 350,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: nicknameController,
+                        decoration: InputDecoration(
+                          labelText: 'Nickname',
+                          hintText: 'Enter your nickname',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.person_outline),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: ageController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Age',
+                          hintText: 'Enter your age',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.cake_outlined),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      // Gender selection
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              selectedGender == null
+                                  ? 'Select Gender'
+                                  : 'Gender: $selectedGender',
+                              style: TextStyle(
+                                color: selectedGender == null
+                                    ? Colors.grey[600]
+                                    : Colors.black,
+                                fontWeight: selectedGender == null
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedGender = 'Male';
+                                      });
+                                    },
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: selectedGender == 'Male'
+                                              ? [
+                                                  Colors.blue.shade700,
+                                                  Colors.blue.shade500
+                                                ]
+                                              : [Colors.white, Colors.white],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: selectedGender == 'Male'
+                                            ? [
+                                                BoxShadow(
+                                                  color: Colors.blue.shade700
+                                                      .withOpacity(0.3),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
+                                                )
+                                              ]
+                                            : [],
+                                        border: Border.all(
+                                          color: selectedGender == 'Male'
+                                              ? Colors.blue.shade700
+                                              : Colors.grey.shade300,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.male,
+                                            size: 18,
+                                            color: selectedGender == 'Male'
+                                                ? Colors.white
+                                                : Colors.blue.shade700,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'Male',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: selectedGender == 'Male'
+                                                  ? Colors.white
+                                                  : Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedGender = 'Female';
+                                      });
+                                    },
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: selectedGender == 'Female'
+                                              ? [
+                                                  Colors.pink.shade700,
+                                                  Colors.pink.shade500
+                                                ]
+                                              : [Colors.white, Colors.white],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: selectedGender == 'Female'
+                                            ? [
+                                                BoxShadow(
+                                                  color: Colors.pink.shade700
+                                                      .withOpacity(0.3),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
+                                                )
+                                              ]
+                                            : [],
+                                        border: Border.all(
+                                          color: selectedGender == 'Female'
+                                              ? Colors.pink.shade700
+                                              : Colors.grey.shade300,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.female,
+                                            size: 18,
+                                            color: selectedGender == 'Female'
+                                                ? Colors.white
+                                                : Colors.pink.shade700,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'Female',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: selectedGender == 'Female'
+                                                  ? Colors.white
+                                                  : Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      // Country selection
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    selectedCountry == null
+                                        ? 'Select Country'
+                                        : 'Country: ${selectedCountry!.name}',
+                                    style: TextStyle(
+                                      color: selectedCountry == null
+                                          ? Colors.grey[600]
+                                          : Colors.black,
+                                      fontWeight: selectedCountry == null
+                                          ? FontWeight.normal
+                                          : FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                if (selectedCountry != null)
+                                  Flag.fromString(
+                                    selectedCountry!.code,
+                                    height: 24,
+                                    width: 32,
+                                    borderRadius: 4,
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                _showCountrySelectionDialog(dialogContext,
+                                    (Country country) {
+                                  setState(() {
+                                    selectedCountry = country;
+                                    selectedCountryCode = country.code;
+                                  });
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.purple,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side:
+                                      BorderSide(color: Colors.purple.shade200),
+                                ),
+                              ),
+                              child: Text('Change Country'),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                if (_user != null &&
+                                    nicknameController.text.isNotEmpty &&
+                                    ageController.text.isNotEmpty &&
+                                    selectedGender != null &&
+                                    selectedCountryCode != null) {
+                                  try {
+                                    // 로딩 대화상자 표시
+                                    showDialog(
+                                      context: dialogContext,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext loadingContext) {
+                                        return Dialog(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                CircularProgressIndicator(),
+                                                SizedBox(width: 20),
+                                                Text("Updating profile..."),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
 
-                              // UI 업데이트
-                              setState(() {
-                                _nickname = nicknameController.text;
-                              });
+                                    // 프로필 업데이트
+                                    await FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(_user!.uid)
+                                        .update({
+                                      'nickname': nicknameController.text,
+                                      'age': int.parse(ageController.text),
+                                      'gender': selectedGender,
+                                      'country': selectedCountryCode,
+                                    });
 
-                              Navigator.of(context).pop();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content:
-                                        Text('Profile updated successfully')),
-                              );
-                            } catch (e) {
-                              print('Error updating profile: $e');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text('Failed to update profile')),
-                              );
-                            }
-                          }
+                                    // UI 업데이트
+                                    setState(() {
+                                      _nickname = nicknameController.text;
+                                      _userAge = int.parse(ageController.text);
+                                      _userGender = selectedGender;
+                                      _userCountryCode = selectedCountryCode;
+                                    });
+
+                                    // 로딩 다이얼로그 닫기
+                                    Navigator.of(dialogContext).pop();
+
+                                    // 프로필 편집 다이얼로그 닫기
+                                    Navigator.of(dialogContext).pop();
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Profile updated successfully')),
+                                    );
+                                  } catch (e) {
+                                    // 로딩 다이얼로그가 열려있으면 닫기
+                                    Navigator.of(dialogContext).pop();
+
+                                    print('Error updating profile: $e');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text('Failed to update profile')),
+                                    );
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(dialogContext)
+                                      .showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            Text('Please fill in all fields')),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.purple,
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(vertical: 12),
+                              ),
+                              child: Text('Update Profile'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          Navigator.of(dialogContext).pop();
+                          _showSignOutConfirmDialog(context);
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                          foregroundColor: Colors.white,
+                        icon: Icon(Icons.logout, size: 18),
+                        label: Text('Sign Out'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.red.shade700,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          side: BorderSide(color: Colors.red.shade200),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 20),
                         ),
-                        child: Text('Update Profile'),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showCountrySelectionDialog(
+      BuildContext context, Function(Country) onSelect) {
+    TextEditingController searchController = TextEditingController();
+    List<Country> filteredCountries = List.from(countries);
+
+    void filterCountries(String query) {
+      if (query.trim().isEmpty) {
+        filteredCountries = List.from(countries);
+      } else {
+        filteredCountries = countries
+            .where((country) =>
+                country.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Container(
+                width: 300,
+                height: 450,
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'Select Country',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search country...',
+                        prefixIcon: Icon(Icons.search),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 12,
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          filterCountries(value);
+                        });
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredCountries.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: Flag.fromString(
+                              filteredCountries[index].code,
+                              height: 24,
+                              width: 32,
+                              borderRadius: 4,
+                            ),
+                            title: Text(filteredCountries[index].name),
+                            onTap: () {
+                              onSelect(filteredCountries[index]);
+                              Navigator.of(dialogContext).pop();
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                      },
+                      child: Text('Cancel'),
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
-                OutlinedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    _showSignOutConfirmDialog(context);
-                  },
-                  icon: Icon(Icons.logout, size: 18),
-                  label: Text('Sign Out'),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.red.shade700,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    side: BorderSide(color: Colors.red.shade200),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
@@ -1363,261 +1780,123 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  void _showSignUpDialog(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController nicknameController = TextEditingController();
-    final TextEditingController ageController = TextEditingController();
-    String? selectedGender;
-    Country? selectedCountry;
-
-    // Clean up the controllers when the dialog is closed
-    void dispose() {
-      emailController.dispose();
-      passwordController.dispose();
-      nicknameController.dispose();
-      ageController.dispose();
+  Color _getBrainHealthColor(int level) {
+    switch (level) {
+      case 1:
+        return Colors.redAccent;
+      case 2:
+        return Colors.orangeAccent;
+      case 3:
+        return Colors.amber;
+      case 4:
+        return Colors.lightGreen;
+      case 5:
+        return Colors.green;
+      default:
+        return Colors.blue;
     }
-
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        // Use dialogContext instead of context
-        return StatefulBuilder(
-          builder: (dialogContext, setState) {
-            // Use dialogContext here too
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  width: 300,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Create Account',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        controller: nicknameController,
-                        decoration: InputDecoration(
-                          hintText: 'Nickname',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        controller: ageController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Age',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: selectedGender,
-                            hint: Text('Select Gender'),
-                            items:
-                                ['Male', 'Female', 'Other'].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedGender = newValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<Country>(
-                            isExpanded: true,
-                            value: selectedCountry,
-                            hint: Text('Select Country'),
-                            items: countries.map((Country country) {
-                              return DropdownMenuItem<Country>(
-                                value: country,
-                                child: Text(country.name),
-                              );
-                            }).toList(),
-                            onChanged: (Country? newValue) {
-                              setState(() {
-                                selectedCountry = newValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (selectedGender == null) {
-                            ScaffoldMessenger.of(dialogContext).showSnackBar(
-                              SnackBar(
-                                  content: Text('Please select your gender')),
-                            );
-                            return;
-                          }
-                          if (selectedCountry == null) {
-                            ScaffoldMessenger.of(dialogContext).showSnackBar(
-                              SnackBar(
-                                  content: Text('Please select your country')),
-                            );
-                            return;
-                          }
-                          if (ageController.text.isEmpty) {
-                            ScaffoldMessenger.of(dialogContext).showSnackBar(
-                              SnackBar(content: Text('Please enter your age')),
-                            );
-                            return;
-                          }
-                          _signUp(
-                            dialogContext,
-                            emailController.text,
-                            passwordController.text,
-                            nicknameController.text,
-                            int.tryParse(ageController.text) ?? 0,
-                            selectedGender!,
-                            selectedCountry!.code,
-                          );
-                        },
-                        child: Text('Create Account'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          minimumSize: Size(double.infinity, 50),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    ).then((_) => dispose()); // Clean up controllers when dialog is closed
   }
 
-  Future<void> _signUp(
-    BuildContext context,
-    String email,
-    String password,
-    String nickname,
-    int age,
-    String gender,
-    String countryCode,
-  ) async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      String uid = userCredential.user!.uid;
-
-      Map<String, dynamic> userData = {
-        'email': email,
-        'nickname': nickname,
-        'age': age,
-        'gender': gender,
-        'country': countryCode,
-        'language': 'en',
-      };
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .set(userData);
-
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Account created successfully.')),
-      );
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = 'An error occurred during account creation.';
-      if (e.code == 'weak-password') {
-        errorMessage = 'The password is too weak.';
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = 'The email address is already in use.';
-      } else if (e.code == 'invalid-email') {
-        errorMessage = 'The email address is invalid.';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('An error occurred during account creation: $e')),
-      );
-    }
+  void _showLoginRequiredDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.purple.shade50,
+                  ),
+                  child: Icon(
+                    Icons.lock_outline_rounded,
+                    size: 40,
+                    color: Colors.purple.shade400,
+                  ),
+                ),
+                SizedBox(height: 24),
+                Text(
+                  'Login Required',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Please sign in to play the Memory Game',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                SizedBox(height: 32),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Colors.grey.shade300),
+                          ),
+                        ),
+                        child: Text(
+                          'Cancel',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _showSignInDialog(context);
+                        },
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          backgroundColor: Colors.purple.shade50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Sign In',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.purple.shade400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _showPlayerSelectionDialog() {
@@ -2006,122 +2285,551 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Color _getBrainHealthColor(int level) {
-    switch (level) {
-      case 1:
-        return Colors.redAccent;
-      case 2:
-        return Colors.orangeAccent;
-      case 3:
-        return Colors.amber;
-      case 4:
-        return Colors.lightGreen;
-      case 5:
-        return Colors.green;
-      default:
-        return Colors.blue;
+  void _showSignUpDialog(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController nicknameController = TextEditingController();
+    final TextEditingController ageController = TextEditingController();
+    final TextEditingController countrySearchController =
+        TextEditingController();
+
+    String? selectedGender;
+    Country? selectedCountry;
+    List<Country> filteredCountries = List.from(countries);
+
+    // Clean up the controllers when the dialog is closed
+    void dispose() {
+      emailController.dispose();
+      passwordController.dispose();
+      nicknameController.dispose();
+      ageController.dispose();
+      countrySearchController.dispose();
     }
+
+    // Filter countries based on search text
+    void filterCountries(String query) {
+      if (query.trim().isEmpty) {
+        filteredCountries = List.from(countries);
+      } else {
+        filteredCountries = countries
+            .where((country) =>
+                country.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (dialogContext, setState) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  width: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: nicknameController,
+                        decoration: InputDecoration(
+                          hintText: 'Nickname',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: ageController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: 'Age',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      // Gender selection
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              selectedGender == null
+                                  ? 'Select Gender'
+                                  : 'Gender: $selectedGender',
+                              style: TextStyle(
+                                color: selectedGender == null
+                                    ? Colors.grey[600]
+                                    : Colors.black,
+                                fontWeight: selectedGender == null
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedGender = 'Male';
+                                      });
+                                    },
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: selectedGender == 'Male'
+                                              ? [
+                                                  Colors.blue.shade700,
+                                                  Colors.blue.shade500
+                                                ]
+                                              : [Colors.white, Colors.white],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: selectedGender == 'Male'
+                                            ? [
+                                                BoxShadow(
+                                                  color: Colors.blue.shade700
+                                                      .withOpacity(0.3),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
+                                                )
+                                              ]
+                                            : [],
+                                        border: Border.all(
+                                          color: selectedGender == 'Male'
+                                              ? Colors.blue.shade700
+                                              : Colors.grey.shade300,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.male,
+                                            size: 18,
+                                            color: selectedGender == 'Male'
+                                                ? Colors.white
+                                                : Colors.blue.shade700,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'Male',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: selectedGender == 'Male'
+                                                  ? Colors.white
+                                                  : Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedGender = 'Female';
+                                      });
+                                    },
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: selectedGender == 'Female'
+                                              ? [
+                                                  Colors.pink.shade700,
+                                                  Colors.pink.shade500
+                                                ]
+                                              : [Colors.white, Colors.white],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: selectedGender == 'Female'
+                                            ? [
+                                                BoxShadow(
+                                                  color: Colors.pink.shade700
+                                                      .withOpacity(0.3),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
+                                                )
+                                              ]
+                                            : [],
+                                        border: Border.all(
+                                          color: selectedGender == 'Female'
+                                              ? Colors.pink.shade700
+                                              : Colors.grey.shade300,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.female,
+                                            size: 18,
+                                            color: selectedGender == 'Female'
+                                                ? Colors.white
+                                                : Colors.pink.shade700,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'Female',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: selectedGender == 'Female'
+                                                  ? Colors.white
+                                                  : Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      // Country search field
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              selectedCountry == null
+                                  ? 'Select Country'
+                                  : 'Country: ${selectedCountry!.name}',
+                              style: TextStyle(
+                                color: selectedCountry == null
+                                    ? Colors.grey[600]
+                                    : Colors.black,
+                                fontWeight: selectedCountry == null
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            TextField(
+                              controller: countrySearchController,
+                              decoration: InputDecoration(
+                                hintText: 'Search country...',
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide.none,
+                                ),
+                                suffixIcon: Icon(Icons.search, size: 20),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  filterCountries(value);
+                                });
+                              },
+                            ),
+                            SizedBox(height: 8),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxHeight: 150,
+                              ),
+                              child: filteredCountries.isEmpty
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'No countries found',
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: filteredCountries.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedCountry =
+                                                  filteredCountries[index];
+                                              countrySearchController.clear();
+                                              filterCountries('');
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 8,
+                                              horizontal: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Colors.grey[300]!,
+                                                  width: 0.5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Flag.fromString(
+                                                  filteredCountries[index].code,
+                                                  height: 16,
+                                                  width: 24,
+                                                  borderRadius: 4,
+                                                ),
+                                                SizedBox(width: 8),
+                                                Expanded(
+                                                  child: Text(
+                                                    filteredCountries[index]
+                                                        .name,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (selectedGender == null) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please select your gender')),
+                            );
+                            return;
+                          }
+                          if (selectedCountry == null) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please select your country')),
+                            );
+                            return;
+                          }
+                          if (ageController.text.isEmpty) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(content: Text('Please enter your age')),
+                            );
+                            return;
+                          }
+                          _signUp(
+                            dialogContext,
+                            emailController.text,
+                            passwordController.text,
+                            nicknameController.text,
+                            int.tryParse(ageController.text) ?? 0,
+                            selectedGender!,
+                            selectedCountry!.code,
+                          );
+                        },
+                        child: Text('Create Account'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    ).then((_) => dispose()); // Clean up controllers when dialog is closed
   }
 
-  void _showLoginRequiredDialog(BuildContext context) {
+  Future<void> _signUp(
+    BuildContext context,
+    String email,
+    String password,
+    String nickname,
+    int age,
+    String gender,
+    String countryCode,
+  ) async {
+    // 로딩 대화상자 표시
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(24),
-            child: Column(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.purple.shade50,
-                  ),
-                  child: Icon(
-                    Icons.lock_outline_rounded,
-                    size: 40,
-                    color: Colors.purple.shade400,
-                  ),
-                ),
-                SizedBox(height: 24),
-                Text(
-                  'Login Required',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Please sign in to play the Memory Game',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                SizedBox(height: 32),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey.shade300),
-                          ),
-                        ),
-                        child: Text(
-                          'Cancel',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          _showSignInDialog(context);
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.purple.shade50,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'Sign In',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.purple.shade400,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("Creating account..."),
               ],
             ),
           ),
         );
       },
     );
+
+    try {
+      // Firebase 인증으로 사용자 생성
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      String uid = userCredential.user!.uid;
+
+      Map<String, dynamic> userData = {
+        'email': email,
+        'nickname': nickname,
+        'age': age,
+        'gender': gender,
+        'country': countryCode,
+        'language': 'en',
+      };
+
+      // Firestore에 사용자 데이터 저장
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set(userData);
+
+      // 로딩 대화상자 닫기
+      Navigator.of(context).pop();
+
+      // 회원가입 대화상자 닫기
+      Navigator.of(context).pop();
+
+      // 성공 메시지 표시
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Account created successfully.')),
+      );
+
+      // 인증 상태를 강제로 새로고침하여 UI 업데이트 촉진
+      _initializeAuth();
+    } on FirebaseAuthException catch (e) {
+      // 로딩 대화상자 닫기
+      Navigator.of(context).pop();
+
+      String errorMessage = 'An error occurred during account creation.';
+      if (e.code == 'weak-password') {
+        errorMessage = 'The password is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The email address is already in use.';
+      } else if (e.code == 'invalid-email') {
+        errorMessage = 'The email address is invalid.';
+      }
+
+      print('Firebase Auth Error: ${e.code} - ${e.message}');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } catch (e) {
+      // 로딩 대화상자 닫기
+      Navigator.of(context).pop();
+
+      print('Signup error: $e');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('An error occurred during account creation: $e')),
+      );
+    }
   }
 }

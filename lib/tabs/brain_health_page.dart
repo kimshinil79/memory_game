@@ -61,7 +61,6 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                       SizedBox(height: 32),
                       _buildUserRankings(brainHealthProvider),
                       SizedBox(height: 32),
-
                       _buildInfoCards(brainHealthProvider),
                       SizedBox(height: 32),
                       _buildBenefitsSection(),

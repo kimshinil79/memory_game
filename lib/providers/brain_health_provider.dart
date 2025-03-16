@@ -1257,7 +1257,9 @@ class BrainHealthProvider with ChangeNotifier {
 
         // 사용자 정보 가져오기
         String displayName = 'Anonymous';
-        if (userData.containsKey('displayName') &&
+        if (userData.containsKey('nickname') && userData['nickname'] != null) {
+          displayName = userData['nickname'];
+        } else if (userData.containsKey('displayName') &&
             userData['displayName'] != null) {
           displayName = userData['displayName'];
         } else if (userData.containsKey('email') && userData['email'] != null) {

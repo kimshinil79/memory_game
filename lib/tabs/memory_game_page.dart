@@ -579,8 +579,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       _elapsedTime = DateTime.now().difference(_gameStartTime!).inSeconds;
     }
 
-    // Brain Health Score update
-    _updateBrainHealthScore(_elapsedTime);
+    // Brain Health Score update은 _showCompletionDialog에서만 수행
 
     _showCompletionDialog(_elapsedTime);
   }
