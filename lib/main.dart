@@ -13,10 +13,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'utils/route_observer.dart';
+import 'data/countries.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  try {
+    print('Initializing Firebase app...');
+    await Firebase.initializeApp();
+    print('Firebase app initialized successfully');
+  } catch (e) {
+    print('Firebase initialization error: $e');
+  }
+
   runApp(
     MultiProvider(
       providers: [
@@ -74,6 +83,7 @@ class _MainScreenState extends State<MainScreen> {
   MemoryGamePage? _memoryGamePage;
   User? _user;
   String? _nickname;
+  String? _profileImageUrl;
   StreamSubscription<User?>? _authSubscription;
 
   // Add gradient color constants
@@ -122,18 +132,30 @@ class _MainScreenState extends State<MainScreen> {
       DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-      if (mounted) {
-        setState(() {
-          _user = user;
-          _nickname = userDoc.exists ? userDoc['nickname'] : null;
-        });
+      if (userDoc.exists) {
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        if (mounted) {
+          setState(() {
+            _user = user;
+            _nickname = userData['nickname'] as String?;
+            _profileImageUrl = userData['profileImage'] as String?;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _user = user;
+            _nickname = null;
+            _profileImageUrl = null;
+          });
+        }
       }
     } catch (e) {
-      print('Error fetching user profile: $e');
       if (mounted) {
         setState(() {
           _user = user;
           _nickname = null;
+          _profileImageUrl = null;
         });
       }
     }
@@ -148,61 +170,48 @@ class _MainScreenState extends State<MainScreen> {
         String oldDocumentId = '$emailPrefix$uid';
         String newDocumentId = uid;
 
-        // Check if new document already exists
         DocumentSnapshot newUserDoc = await FirebaseFirestore.instance
             .collection('users')
             .doc(newDocumentId)
             .get();
 
-        // Check old document
         DocumentSnapshot oldUserDoc = await FirebaseFirestore.instance
             .collection('users')
             .doc(oldDocumentId)
             .get();
 
-        // If new document doesn't exist but old does, migrate data
         if (!newUserDoc.exists && oldUserDoc.exists) {
-          // Copy old data
           Map<String, dynamic> userData =
               oldUserDoc.data() as Map<String, dynamic>;
 
-          // Save to new document
           await FirebaseFirestore.instance
               .collection('users')
               .doc(newDocumentId)
               .set(userData);
-
-          print(
-              'User data migrated from old ID ($oldDocumentId) to new ID ($newDocumentId)');
         }
       }
     } catch (e) {
-      print('Error during data migration: $e');
+      // Error handling without print
     }
   }
 
   Future<void> _signOut() async {
     try {
-      // UI에서 로그아웃 상태 먼저 반영
       setState(() {
         _user = null;
         _nickname = null;
       });
 
-      // 그 다음 Firebase 로그아웃 실행
       await FirebaseAuth.instance.signOut();
 
-      // MemoryGamePage 리셋 (필요시)
       setState(() {
         _memoryGameKey = UniqueKey();
       });
     } catch (e) {
-      print('Error signing out: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to sign out. Please try again.')),
       );
 
-      // 에러 발생시 현재 사용자 정보 다시 확인
       _initializeAuth();
     }
   }
@@ -353,7 +362,6 @@ class _MainScreenState extends State<MainScreen> {
             .update({'language': languageCode});
       }
     } catch (e) {
-      print('Error updating language: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to update language setting')),
       );
@@ -1020,20 +1028,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.person_outline, size: 16, color: instagramGradientEnd),
-            const SizedBox(width: 4),
-            Text(
-              _nickname ?? 'User',
-              style: GoogleFonts.montserrat(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: instagramGradientEnd,
-              ),
-            ),
-          ],
+        child: Text(
+          _nickname ?? 'User',
+          style: GoogleFonts.montserrat(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: instagramGradientEnd,
+          ),
         ),
       ),
     );
@@ -1056,40 +1057,22 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.purple.shade100,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: Colors.purple.shade700,
-                  ),
-                ),
-                SizedBox(height: 16),
                 Text(
-                  'Account Settings',
+                  'Edit Profile',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
                 SizedBox(height: 16),
-                Text(
-                  _user?.email ?? 'No email',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-                SizedBox(height: 24),
                 TextField(
                   controller: nicknameController,
                   decoration: InputDecoration(
                     labelText: 'Nickname',
                     hintText: 'Enter your nickname',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
@@ -1384,94 +1367,212 @@ class _MainScreenState extends State<MainScreen> {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController nicknameController = TextEditingController();
+    final TextEditingController ageController = TextEditingController();
+    String? selectedGender;
+    Country? selectedCountry;
+
+    // Clean up the controllers when the dialog is closed
+    void dispose() {
+      emailController.dispose();
+      passwordController.dispose();
+      nicknameController.dispose();
+      ageController.dispose();
+    }
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(20),
-            width: 300,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+      builder: (BuildContext dialogContext) {
+        // Use dialogContext instead of context
+        return StatefulBuilder(
+          builder: (dialogContext, setState) {
+            // Use dialogContext here too
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  width: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: nicknameController,
+                        decoration: InputDecoration(
+                          hintText: 'Nickname',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: ageController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: 'Age',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: selectedGender,
+                            hint: Text('Select Gender'),
+                            items:
+                                ['Male', 'Female', 'Other'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedGender = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<Country>(
+                            isExpanded: true,
+                            value: selectedCountry,
+                            hint: Text('Select Country'),
+                            items: countries.map((Country country) {
+                              return DropdownMenuItem<Country>(
+                                value: country,
+                                child: Text(country.name),
+                              );
+                            }).toList(),
+                            onChanged: (Country? newValue) {
+                              setState(() {
+                                selectedCountry = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (selectedGender == null) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please select your gender')),
+                            );
+                            return;
+                          }
+                          if (selectedCountry == null) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please select your country')),
+                            );
+                            return;
+                          }
+                          if (ageController.text.isEmpty) {
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(content: Text('Please enter your age')),
+                            );
+                            return;
+                          }
+                          _signUp(
+                            dialogContext,
+                            emailController.text,
+                            passwordController.text,
+                            nicknameController.text,
+                            int.tryParse(ageController.text) ?? 0,
+                            selectedGender!,
+                            selectedCountry!.code,
+                          );
+                        },
+                        child: Text('Create Account'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20),
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: nicknameController,
-                  decoration: InputDecoration(
-                    hintText: 'Nickname',
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () => _signUp(
-                    context,
-                    emailController.text,
-                    passwordController.text,
-                    nicknameController.text,
-                  ),
-                  child: Text('Create Account'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    minimumSize: Size(double.infinity, 50),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
-    );
+    ).then((_) => dispose()); // Clean up controllers when dialog is closed
   }
 
-  Future<void> _signUp(BuildContext context, String email, String password,
-      String nickname) async {
+  Future<void> _signUp(
+    BuildContext context,
+    String email,
+    String password,
+    String nickname,
+    int age,
+    String gender,
+    String countryCode,
+  ) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -1481,11 +1582,19 @@ class _MainScreenState extends State<MainScreen> {
 
       String uid = userCredential.user!.uid;
 
-      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+      Map<String, dynamic> userData = {
         'email': email,
         'nickname': nickname,
+        'age': age,
+        'gender': gender,
+        'country': countryCode,
         'language': 'en',
-      });
+      };
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set(userData);
 
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
