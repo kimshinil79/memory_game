@@ -25,6 +25,11 @@ class _TestPageState extends State<TestPage>
   final FlutterTts flutterTts = FlutterTts();
   bool isTestSubmitted = false;
 
+  // Tutorial related variables
+  bool _showTutorial = false;
+  bool _doNotShowAgain = false;
+  final String _tutorialPrefKey = 'testPageTutorialShown';
+
   late AnimationController _animationController;
 
   final Color instagramGradientStart = Color(0xFF833AB4);
@@ -37,6 +42,7 @@ class _TestPageState extends State<TestPage>
     super.initState();
     initializeQuestions();
     _loadLanguageAndInitTts();
+    _checkTutorialStatus(); // Check if tutorial should be shown
 
     _animationController = AnimationController(
       vsync: this,
@@ -436,50 +442,56 @@ class _TestPageState extends State<TestPage>
         ),
         elevation: 8,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE8F3F9), // 연한 하늘색
-              Color(0xFFF5E6FA), // 연한 보라색
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              buildQuestionIndicator(),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 40),
-                      SizedBox(height: 20),
-                      GridView.count(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        children: questionOptions[currentQuestion]
-                            .map((option) => buildOptionCard(option))
-                            .toList(),
-                      ),
-                      SizedBox(height: 30),
-                      buildControlButtons(),
-                    ],
-                  ),
-                ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE8F3F9), // 연한 하늘색
+                  Color(0xFFF5E6FA), // 연한 보라색
+                ],
               ),
-              buildBottomButtons(),
-            ],
+            ),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  buildQuestionIndicator(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 40),
+                          SizedBox(height: 20),
+                          GridView.count(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.2,
+                            mainAxisSpacing: 15,
+                            crossAxisSpacing: 15,
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            children: questionOptions[currentQuestion]
+                                .map((option) => buildOptionCard(option))
+                                .toList(),
+                          ),
+                          SizedBox(height: 30),
+                          buildControlButtons(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  buildBottomButtons(),
+                ],
+              ),
+            ),
           ),
-        ),
+          // Show tutorial overlay if needed
+          if (_showTutorial) _buildTutorialOverlay(),
+        ],
       ),
     );
   }
@@ -489,5 +501,208 @@ class _TestPageState extends State<TestPage>
     flutterTts.stop();
     _animationController.dispose();
     super.dispose();
+  }
+
+  // Check if tutorial should be shown
+  Future<void> _checkTutorialStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final tutorialShown = prefs.getBool(_tutorialPrefKey) ?? false;
+
+    setState(() {
+      _showTutorial = !tutorialShown;
+    });
+  }
+
+  // Save tutorial preference
+  Future<void> _saveTutorialPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_tutorialPrefKey, true);
+  }
+
+  // Close tutorial overlay
+  void _closeTutorial() {
+    setState(() {
+      _showTutorial = false;
+    });
+
+    if (_doNotShowAgain) {
+      _saveTutorialPreference();
+    }
+  }
+
+  // Tutorial overlay
+  Widget _buildTutorialOverlay() {
+    return Container(
+      color: Colors.black54,
+      width: double.infinity,
+      height: double.infinity,
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.7,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Test Tab Tutorial",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: instagramGradientStart,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildTutorialItem(
+                        icon: Icons.quiz,
+                        title: "Visual Memory Test",
+                        description:
+                            "Test your memory with 10 questions. Select the image that matches the correct word.",
+                      ),
+                      _buildTutorialItem(
+                        icon: Icons.volume_up,
+                        title: "Audio Assistance",
+                        description:
+                            "Tap the sound icon to hear the correct word. The audio plays in your selected language.",
+                      ),
+                      _buildTutorialItem(
+                        icon: Icons.format_list_numbered,
+                        title: "Question Navigation",
+                        description:
+                            "Use the number indicators at the top to navigate between questions or use the arrow buttons.",
+                      ),
+                      _buildTutorialItem(
+                        icon: Icons.check_circle_outline,
+                        title: "Select and Submit",
+                        description:
+                            "Select an image for each question. Once all questions are answered, the Submit button appears.",
+                      ),
+                      _buildTutorialItem(
+                        icon: Icons.auto_graph,
+                        title: "Results and Progress",
+                        description:
+                            "After submitting, view your score and restart with a new test if desired.",
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _doNotShowAgain,
+                        onChanged: (value) {
+                          setState(() {
+                            _doNotShowAgain = value ?? false;
+                          });
+                        },
+                        activeColor: instagramGradientStart,
+                      ),
+                      Text(
+                        "Do not show again",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 14,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: instagramGradientStart,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    ),
+                    child: Text(
+                      "Got it!",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: _closeTutorial,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Individual tutorial item
+  Widget _buildTutorialItem({
+    required IconData icon,
+    required String title,
+    required String description,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: instagramGradientStart.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: instagramGradientStart,
+              size: 20,
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: instagramGradientStart,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  description,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 13,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

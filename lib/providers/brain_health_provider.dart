@@ -1266,6 +1266,12 @@ class BrainHealthProvider with ChangeNotifier {
           displayName = userData['email'].toString().split('@')[0];
         }
 
+        // 국가 코드 가져오기
+        String countryCode = 'un'; // UN 플래그를 기본값으로 설정
+        if (userData.containsKey('country') && userData['country'] != null) {
+          countryCode = userData['country'].toString().toLowerCase();
+        }
+
         // 현재 사용자인지 확인
         bool isCurrentUser = doc.id == _userId;
 
@@ -1275,6 +1281,7 @@ class BrainHealthProvider with ChangeNotifier {
           'displayName': displayName,
           'score': brainHealthData['brainHealthScore'] ?? 0,
           'isCurrentUser': isCurrentUser,
+          'countryCode': countryCode, // 국가 코드 추가
         });
 
         rank++;

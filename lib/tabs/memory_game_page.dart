@@ -94,6 +94,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   final FlutterTts flutterTts = FlutterTts();
   int flipCount = 0;
 
+  // 튜토리얼 관련 변수
+  bool _showTutorial = false;
+  bool _doNotShowAgain = false;
+  final String _tutorialPrefKey = 'memory_game_tutorial_shown';
+
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation;
 
@@ -135,6 +140,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 기존 초기화 코드
     _loadUserLanguage();
+    _checkTutorialStatus(); // 튜토리얼 표시 여부 확인
     _initializeGameWrapper(); // 게임 초기화
     flutterTts.setLanguage("en-US");
     _subscribeToLanguageChanges();
@@ -831,44 +837,27 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           : false,
       child: GestureDetector(
         onTap: () => onCardTap(index),
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          decoration: BoxDecoration(
-            color: cardFlips[index] ? Colors.white : Colors.grey[200],
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              if (!cardFlips[index])
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(2, 2),
-                ),
-            ],
+        child: Card(
+          elevation: 4, // 그림자 효과 추가
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // 모서리 둥글게
           ),
-          child: cardFlips[index]
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'assets/pictureDB/${gameImages[index]}.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+          key: ValueKey(index),
+          color: Colors.white,
+          child: Center(
+            child: cardFlips[index]
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/pictureDB/${gameImages[index]}.jpg',
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                )
-              : Center(
-                  child: Image.asset(
+                  )
+                : Image.asset(
                     'assets/icon/memoryGame.png',
-                    width: 40,
-                    height: 40,
+                    fit: BoxFit.cover,
                   ),
-                ),
+          ),
         ),
       ),
     );
@@ -1200,6 +1189,34 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     return true;
   }
 
+  // 튜토리얼 표시 여부 확인
+  Future<void> _checkTutorialStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool tutorialShown = prefs.getBool(_tutorialPrefKey) ?? false;
+
+    if (!tutorialShown) {
+      setState(() {
+        _showTutorial = true;
+      });
+    }
+  }
+
+  // 튜토리얼 표시 여부 저장
+  Future<void> _saveTutorialPreference() async {
+    if (_doNotShowAgain) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_tutorialPrefKey, true);
+    }
+  }
+
+  // 튜토리얼 닫기
+  void _closeTutorial() {
+    setState(() {
+      _showTutorial = false;
+    });
+    _saveTutorialPreference();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(
@@ -1225,138 +1242,274 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           ),
         ),
         child: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              await initializeGame();
-            },
-            child: Column(
-              children: [
-                if (widget.numberOfPlayers > 1) buildScoreBoard(),
-                if (widget.isTimeAttackMode) ...[
-                  // Add timer bar
-                  Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
+            children: [
+              RefreshIndicator(
+                onRefresh: () async {
+                  await initializeGame();
+                },
+                child: Column(
+                  children: [
+                    if (widget.numberOfPlayers > 1) buildScoreBoard(),
+                    if (widget.isTimeAttackMode) ...[
+                      // Add timer bar
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: Column(
                           children: [
-                            Text(
-                              'Time: $_remainingTime s',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: _remainingTime < 10
-                                    ? Colors.red
-                                    : Colors.black87,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: _isAddTimeButtonEnabled()
-                                  ? _addExtraTime
-                                  : null,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      _isAddTimeButtonEnabled()
-                                          ? instagramGradientStart
-                                          : Colors.grey.shade400,
-                                      _isAddTimeButtonEnabled()
-                                          ? instagramGradientEnd
-                                          : Colors.grey.shade600,
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Time: $_remainingTime s',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: _remainingTime < 10
+                                        ? Colors.red
+                                        : Colors.black87,
                                   ),
-                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.add_circle_outline,
-                                        color: Colors.white, size: 14),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      '+30',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                if (widget.isTimeAttackMode) ...[
+                                  // 메인 화면에서 시간 추가 버튼 추가
+                                  ElevatedButton.icon(
+                                    onPressed: _canAddTime &&
+                                            isGameStarted &&
+                                            _elapsedTime >= _timeAddMinElapsed
+                                        ? _addExtraTime
+                                        : null,
+                                    icon: Icon(Icons.add, size: 16),
+                                    label: Text('+30s'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: _canAddTime &&
+                                              isGameStarted &&
+                                              _elapsedTime >= _timeAddMinElapsed
+                                          ? instagramGradientStart
+                                          : Colors.grey,
+                                      foregroundColor: Colors.white,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      minimumSize: Size(60, 32),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
                                     ),
-                                  ],
+                                  ),
+                                ]
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Container(
+                              width: double.infinity,
+                              child: LinearProgressIndicator(
+                                value: _remainingTime / _gameTimeLimit,
+                                backgroundColor: Colors.grey.shade200,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  _remainingTime < 10
+                                      ? Colors.red
+                                      : Colors.blue,
                                 ),
+                                minHeight: 6,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 4),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(3),
-                          child: LinearProgressIndicator(
-                            value: _remainingTime / _gameTimeLimit,
-                            backgroundColor: Colors.grey.shade200,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              _remainingTime < 10 ? Colors.red : Colors.blue,
-                            ),
-                            minHeight: 6,
-                          ),
+                      ),
+                    ] else ...[
+                      SizedBox(
+                          height:
+                              8), // Add some spacing when not in time attack mode
+                    ],
+                    Expanded(
+                      child: GridView.builder(
+                        physics: AlwaysScrollableScrollPhysics(), // 스크롤 가능하게 설정
+                        padding: EdgeInsets.all(8),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              int.parse(widget.gridSize.split('x')[1]),
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
                         ),
-                      ],
+                        itemCount: gameImages.length,
+                        itemBuilder: (context, index) {
+                          return buildCard(index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // 튜토리얼 오버레이
+              if (_showTutorial) _buildTutorialOverlay(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 튜토리얼 오버레이 위젯
+  Widget _buildTutorialOverlay() {
+    return Container(
+      color: Colors.black.withOpacity(0.7),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '메모리 게임 안내',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: instagramGradientStart,
+                  ),
+                ),
+                SizedBox(height: 20),
+                _buildTutorialItem(
+                  Icons.grid_on,
+                  '카드 선택',
+                  '카드를 탭하여 뒤집고, 같은 그림을 찾아 짝을 맞추세요.',
+                ),
+                SizedBox(height: 15),
+                _buildTutorialItem(
+                  Icons.timer,
+                  '시간 제한',
+                  '제한 시간 내에 모든 카드의 짝을 맞추세요. 빨리 맞출수록 높은 점수를 얻습니다.',
+                ),
+                SizedBox(height: 15),
+                _buildTutorialItem(
+                  Icons.add_circle_outline,
+                  '시간 추가',
+                  '게임 중 "+30s" 버튼을 눌러 시간을 추가할 수 있습니다. (브레인 헬스 점수 차감)',
+                ),
+                SizedBox(height: 15),
+                _buildTutorialItem(
+                  Icons.refresh,
+                  '새 게임',
+                  '화면을 아래로 당겨 새로운 게임을 시작할 수 있습니다.',
+                ),
+                SizedBox(height: 15),
+                _buildTutorialItem(
+                  Icons.language,
+                  '언어 선택',
+                  '상단 메뉴의 국기를 클릭하여 다양한 언어로 게임을 즐길 수 있습니다.',
+                ),
+                SizedBox(height: 15),
+                _buildTutorialItem(
+                  Icons.people,
+                  '멀티플레이어',
+                  '1~4명까지 플레이어 수를 변경하여 친구들과 함께 게임을 즐길 수 있습니다.',
+                ),
+                SizedBox(height: 25),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _doNotShowAgain,
+                      onChanged: (value) {
+                        setState(() {
+                          _doNotShowAgain = value ?? false;
+                        });
+                      },
+                      activeColor: instagramGradientStart,
+                    ),
+                    Text(
+                      '다시 보지 않기',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: _closeTutorial,
+                  child: Text(
+                    '게임 시작하기',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
-                ] else ...[
-                  SizedBox(
-                      height:
-                          8), // Add some spacing when not in time attack mode
-                ],
-                Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.all(0), // 카드 주변 여백
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: int.parse(widget.gridSize.split('x')[1]),
-                      crossAxisSpacing: 0, // 가로 방향 카드 간격
-                      mainAxisSpacing: 0, // 세로 방향 카드 간격
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: instagramGradientStart,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 12,
                     ),
-                    itemCount: gameImages.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => onCardTap(index),
-                        child: Card(
-                          elevation: 4, // 그림자 효과 추가
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // 모서리 둥글게
-                          ),
-                          key: ValueKey(index),
-                          color: Colors.white,
-                          child: Center(
-                            child: cardFlips[index]
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.asset(
-                                      'assets/pictureDB/${gameImages[index]}.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/icon/memoryGame.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                      );
-                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+
+  // 튜토리얼 항목 위젯
+  Widget _buildTutorialItem(IconData icon, String title, String description) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: instagramGradientStart.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
+            icon,
+            color: instagramGradientStart,
+            size: 24,
+          ),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                description,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
