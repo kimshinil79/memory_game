@@ -424,59 +424,67 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ],
+                Spacer(),
+                _buildUserProfileButton(),
               ],
             ),
             if (_currentIndex == 0) ...[
               const SizedBox(height: 8),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _buildControlButton(
-                      icon: Icons.people,
-                      label:
-                          '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}',
-                      onTap: _showPlayerSelectionDialog,
-                    ),
-                    const SizedBox(width: 8),
-                    _buildControlButton(
-                      icon: Icons.grid_on,
-                      label: gridSize,
-                      onTap: _showGridSizeSelectionDialog,
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            instagramGradientStart,
-                            instagramGradientEnd
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+              Row(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Row(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.flip, size: 16, color: Colors.white),
-                          const SizedBox(width: 4),
-                          Text(
-                            '$flipCount',
-                            style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Colors.white,
+                          _buildControlButton(
+                            icon: Icons.people,
+                            label:
+                                '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}',
+                            onTap: _showPlayerSelectionDialog,
+                          ),
+                          const SizedBox(width: 8),
+                          _buildControlButton(
+                            icon: Icons.grid_on,
+                            label: gridSize,
+                            onTap: _showGridSizeSelectionDialog,
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  instagramGradientStart,
+                                  instagramGradientEnd
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.flip, size: 16, color: Colors.white),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '$flipCount',
+                                  style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ],
@@ -518,10 +526,7 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: _buildUserProfileButton(),
-          ),
+          SizedBox(width: 16),
         ],
       ),
       body: IndexedStack(

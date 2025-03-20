@@ -13,6 +13,7 @@ import '../providers/language_provider.dart';
 import '../providers/brain_health_provider.dart';
 import '../utils/route_observer.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flag/flag.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -1253,64 +1254,97 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     if (widget.numberOfPlayers > 1) buildScoreBoard(),
                     if (widget.isTimeAttackMode) ...[
                       // Add timer bar
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
-                        child: Column(
+                      SizedBox(
+                        height: 75, // 전체 영역의 고정 높이 설정
+                        child: Row(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.stretch, // 세로 방향으로 확장
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Time: $_remainingTime s',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: _remainingTime < 10
-                                        ? Colors.red
-                                        : Colors.black87,
-                                  ),
-                                ),
-                                if (widget.isTimeAttackMode) ...[
-                                  // 메인 화면에서 시간 추가 버튼 추가
-                                  ElevatedButton.icon(
-                                    onPressed: _canAddTime &&
-                                            isGameStarted &&
-                                            _elapsedTime >= _timeAddMinElapsed
-                                        ? _addExtraTime
-                                        : null,
-                                    icon: Icon(Icons.add, size: 16),
-                                    label: Text('+30s'),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: _canAddTime &&
-                                              isGameStarted &&
-                                              _elapsedTime >= _timeAddMinElapsed
-                                          ? instagramGradientStart
-                                          : Colors.grey,
-                                      foregroundColor: Colors.white,
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      minimumSize: Size(60, 32),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
+                            Expanded(
+                              flex: 4, // 타이머 영역이 4/5 차지
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    top: 8.0,
+                                    bottom: 8.0,
+                                    left: 16.0,
+                                    right: 4.0),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center, // 수직 중앙 정렬
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Time: $_remainingTime s',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: _remainingTime < 10
+                                                ? Colors.red
+                                                : Colors.black87,
+                                          ),
+                                        ),
+                                        if (widget.isTimeAttackMode) ...[
+                                          // 메인 화면에서 시간 추가 버튼 추가
+                                          ElevatedButton.icon(
+                                            onPressed: _canAddTime &&
+                                                    isGameStarted &&
+                                                    _elapsedTime >=
+                                                        _timeAddMinElapsed
+                                                ? _addExtraTime
+                                                : null,
+                                            icon: Icon(Icons.add, size: 16),
+                                            label: Text('+30s'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: _canAddTime &&
+                                                      isGameStarted &&
+                                                      _elapsedTime >=
+                                                          _timeAddMinElapsed
+                                                  ? instagramGradientStart
+                                                  : Colors.grey,
+                                              foregroundColor: Colors.white,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8),
+                                              minimumSize: Size(60, 32),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                              ),
+                                            ),
+                                          ),
+                                        ]
+                                      ],
+                                    ),
+                                    SizedBox(height: 4),
+                                    Container(
+                                      width: double.infinity,
+                                      child: LinearProgressIndicator(
+                                        value: _remainingTime / _gameTimeLimit,
+                                        backgroundColor: Colors.grey.shade200,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          _remainingTime < 10
+                                              ? Colors.red
+                                              : Colors.blue,
+                                        ),
+                                        minHeight: 6,
                                       ),
                                     ),
-                                  ),
-                                ]
-                              ],
-                            ),
-                            SizedBox(height: 4),
-                            Container(
-                              width: double.infinity,
-                              child: LinearProgressIndicator(
-                                value: _remainingTime / _gameTimeLimit,
-                                backgroundColor: Colors.grey.shade200,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  _remainingTime < 10
-                                      ? Colors.red
-                                      : Colors.blue,
+                                  ],
                                 ),
-                                minHeight: 6,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1, // Fight 버튼 영역이 1/5 차지
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    top: 8.0,
+                                    bottom: 8.0,
+                                    left: 4.0,
+                                    right: 16.0),
+                                child: _buildFightButton(),
                               ),
                             ),
                           ],
@@ -1558,5 +1592,545 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   bool getGameStartedStatus() {
     return true;
+  }
+
+  // Fight 버튼 위젯
+  Widget _buildFightButton() {
+    return ElevatedButton(
+      onPressed: () {
+        _showOpponentSelectionDialog(context);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 61, 137, 224),
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 16),
+        minimumSize: Size(double.infinity, 55),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Fight!',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          Icon(Icons.sports_mma, size: 16, color: Colors.white),
+        ],
+      ),
+    );
+  }
+
+  // 상대 선택 대화상자
+  void _showOpponentSelectionDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // 선택된 사용자와 그리드 크기를 위한 변수
+        String? selectedUser;
+        String selectedGrid = widget.gridSize; // 현재 그리드 크기를 기본값으로 설정
+        String searchQuery = '';
+        List<Map<String, dynamic>> filteredUsers = [];
+        bool isLoading = true;
+
+        return StatefulBuilder(builder: (context, setState) {
+          // 사용자 목록을 로드하는 함수
+          void loadUsers() async {
+            setState(() => isLoading = true);
+
+            try {
+              // 현재 사용자 ID 가져오기
+              String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
+
+              // Firestore에서 사용자 목록 가져오기
+              QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+                  .collection('users')
+                  .orderBy('nickname')
+                  .get();
+
+              List<Map<String, dynamic>> users = [];
+
+              for (var doc in querySnapshot.docs) {
+                Map<String, dynamic> userData =
+                    doc.data() as Map<String, dynamic>;
+                // 현재 사용자는 제외
+                if (doc.id != currentUserId &&
+                    userData.containsKey('nickname')) {
+                  users.add({
+                    'id': doc.id,
+                    'nickname': userData['nickname'] ?? 'Unknown',
+                    'country': userData['country'],
+                  });
+                }
+              }
+
+              // 검색어로 필터링
+              if (searchQuery.isNotEmpty) {
+                filteredUsers = users
+                    .where((user) => user['nickname']
+                        .toString()
+                        .toLowerCase()
+                        .contains(searchQuery.toLowerCase()))
+                    .toList();
+              } else {
+                filteredUsers = users;
+              }
+
+              setState(() => isLoading = false);
+            } catch (e) {
+              print('Error loading users: $e');
+              setState(() {
+                isLoading = false;
+                filteredUsers = [];
+              });
+
+              // 에러 알림
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Failed to load users. Please try again.'),
+                backgroundColor: Colors.red,
+              ));
+            }
+          }
+
+          // 처음 대화상자가 열릴 때 사용자 목록 로드
+          if (isLoading && filteredUsers.isEmpty) {
+            loadUsers();
+          }
+
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Container(
+              width: double.maxFinite,
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.8,
+                maxWidth: 340,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 대화상자 헤더
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Select Opponent',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 검색 텍스트 필드
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search users...',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Colors.purple),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 16),
+                          ),
+                          onChanged: (value) {
+                            // 검색어가 변경될 때마다 필터링
+                            setState(() {
+                              searchQuery = value;
+                              loadUsers(); // 검색어로 사용자 목록 다시 로드
+                            });
+                          },
+                        ),
+
+                        SizedBox(height: 16),
+
+                        // 사용자 목록 레이블
+                        Text(
+                          'Registered Users',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // 사용자 목록
+                        Container(
+                          height: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: isLoading
+                              ? Center(child: CircularProgressIndicator())
+                              : filteredUsers.isEmpty
+                                  ? Center(child: Text('No users found'))
+                                  : ListView.builder(
+                                      itemCount: filteredUsers.length,
+                                      itemBuilder: (context, index) {
+                                        final user = filteredUsers[index];
+                                        final bool isSelected =
+                                            selectedUser == user['id'];
+
+                                        return ListTile(
+                                          leading: user['country'] != null
+                                              ? Container(
+                                                  width: 40,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: isSelected
+                                                          ? Colors.purple
+                                                          : Colors
+                                                              .grey.shade300,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                    boxShadow: isSelected
+                                                        ? [
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .purple
+                                                                  .withOpacity(
+                                                                      0.3),
+                                                              spreadRadius: 1,
+                                                              blurRadius: 2,
+                                                            )
+                                                          ]
+                                                        : null,
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                    child: Flag.fromString(
+                                                      user['country']
+                                                          .toString()
+                                                          .toLowerCase(),
+                                                      height: 30,
+                                                      width: 40,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                )
+                                              : CircleAvatar(
+                                                  backgroundColor: isSelected
+                                                      ? Colors.purple
+                                                      : Colors.grey.shade200,
+                                                  child: Text(
+                                                    user['nickname']
+                                                        .toString()
+                                                        .substring(0, 1)
+                                                        .toUpperCase(),
+                                                    style: TextStyle(
+                                                      color: isSelected
+                                                          ? Colors.white
+                                                          : Colors.black54,
+                                                    ),
+                                                  ),
+                                                ),
+                                          title: Text(
+                                            user['nickname'].toString(),
+                                            style: TextStyle(
+                                              fontWeight: isSelected
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                            ),
+                                          ),
+                                          trailing: isSelected
+                                              ? Icon(Icons.check_circle,
+                                                  color: Colors.purple)
+                                              : null,
+                                          onTap: () {
+                                            setState(() {
+                                              selectedUser = user['id'];
+                                            });
+                                          },
+                                          tileColor: isSelected
+                                              ? Colors.purple.withOpacity(0.1)
+                                              : null,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                        ),
+
+                        SizedBox(height: 24),
+
+                        // 그리드 선택 레이블
+                        Text(
+                          'Select Grid Size',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // 그리드 선택 버튼들 - 첫 번째 행 (4x4, 6x4)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: ['4x4', '6x4'].map((String value) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() => selectedGrid = value);
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: value == selectedGrid
+                                          ? [
+                                              Color(0xFF833AB4),
+                                              Color(0xFFF77737)
+                                            ]
+                                          : [
+                                              Colors.grey.shade200,
+                                              Colors.grey.shade300
+                                            ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 8,
+                                        offset: Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.grid_4x4,
+                                        size: 28,
+                                        color: value == selectedGrid
+                                            ? Colors.white
+                                            : Colors.grey.shade700,
+                                      ),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: value == selectedGrid
+                                              ? Colors.white
+                                              : Colors.grey.shade700,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        '×${_getGridSizeMultiplier(value)} points',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: value == selectedGrid
+                                              ? Colors.white.withOpacity(0.9)
+                                              : Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+
+                        SizedBox(height: 16),
+
+                        // 그리드 선택 버튼들 - 두 번째 행 (6x6, 8x6)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: ['6x6', '8x6'].map((String value) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() => selectedGrid = value);
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: value == selectedGrid
+                                          ? [
+                                              Color(0xFF833AB4),
+                                              Color(0xFFF77737)
+                                            ]
+                                          : [
+                                              Colors.grey.shade200,
+                                              Colors.grey.shade300
+                                            ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 8,
+                                        offset: Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.grid_on,
+                                        size: 28,
+                                        color: value == selectedGrid
+                                            ? Colors.white
+                                            : Colors.grey.shade700,
+                                      ),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: value == selectedGrid
+                                              ? Colors.white
+                                              : Colors.grey.shade700,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        '×${_getGridSizeMultiplier(value)} points',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: value == selectedGrid
+                                              ? Colors.white.withOpacity(0.9)
+                                              : Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+
+                        SizedBox(height: 24),
+
+                        // 확인 버튼
+                        Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: selectedUser == null
+                                ? null
+                                : () {
+                                    Navigator.of(context).pop();
+                                    // 선택된 사용자의 닉네임 찾기
+                                    String selectedNickname = filteredUsers
+                                        .firstWhere((user) =>
+                                            user['id'] ==
+                                            selectedUser)['nickname']
+                                        .toString();
+                                    _startMultiplayerGame(selectedUser!,
+                                        selectedGrid, selectedNickname);
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                              foregroundColor: Colors.white,
+                              disabledBackgroundColor: Colors.grey.shade300,
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Fight!!',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  // 그리드 크기별 점수 배율 계산
+  int _getGridSizeMultiplier(String gridSize) {
+    switch (gridSize) {
+      case '4x4':
+        return 1; // 기본 배율
+      case '6x4':
+        return 3; // 6x4 그리드는 3배 점수
+      case '6x6':
+        return 5; // 6x6 그리드는 5배 점수
+      case '8x6':
+        return 8; // 8x6 그리드는 8배 점수
+      default:
+        return 1;
+    }
+  }
+
+  // 멀티플레이어 게임 시작 메서드
+  void _startMultiplayerGame(
+      String opponentId, String gridSize, String opponentNickname) {
+    // 멀티플레이어 게임 시작 로직
+    print(
+        'Starting multiplayer game with opponent $opponentId ($opponentNickname) on grid $gridSize');
+    // 게임 화면으로 이동하거나 게임 시작 로직 추가
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Starting game with $opponentNickname! Multiplayer will be implemented soon.'),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 }
