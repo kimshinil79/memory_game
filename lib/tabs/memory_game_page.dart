@@ -849,7 +849,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
-                      'assets/pictureDB/${gameImages[index]}.jpg',
+                      'assets/pictureDB_webp/${gameImages[index]}.webp',
                       fit: BoxFit.cover,
                     ),
                   )

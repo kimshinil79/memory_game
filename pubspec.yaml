@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,8 +70,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
   assets:
     - assets/pictureDB/
+    - assets/pictureDB_webp/
     - lib/item_list.dart
     - assets/icon/icon.png
     - assets/icon/memoryGame.png
@@ -110,8 +114,8 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_launcher_icons:
-  android: true
+  android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/memoryGame.png"
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/icon/memoryGame.png"
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true

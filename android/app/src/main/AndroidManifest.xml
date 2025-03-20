@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="메모리게임"
+        android:label="Memory Game"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"

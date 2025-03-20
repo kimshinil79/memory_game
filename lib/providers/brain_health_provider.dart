@@ -800,10 +800,10 @@ class BrainHealthProvider with ChangeNotifier {
 
   // 실제 데이터만 사용하여 주간 데이터 가져오기
   List<ScoreRecord> getWeeklyData() {
-    // 기록이 없으면 빈 리스트 반환
+    // 기록이 없는 경우 기본값 반환
     if (_scoreHistory.isEmpty) {
-      print('No score history available for brain health progress');
-      return [];
+      print('No score history available, starting with default data');
+      return [ScoreRecord(DateTime.now(), 0)]; // 기본값으로 0점 반환
     }
 
     // 데이터 정렬 (날짜순)
@@ -1226,8 +1226,43 @@ class BrainHealthProvider with ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
-    _authStateSubscription?.cancel();
-    super.dispose();
+
+    // 리소스 정리
+    try {
+      // Firebase 리스너 정리
+      _authStateSubscription?.cancel();
+
+      // 메모리 정리
+      _scoreHistory.clear();
+      _bestTimesByGridSize.clear();
+
+      print('BrainHealthProvider resources cleaned up successfully');
+    } catch (e) {
+      print('Error during resource cleanup: $e');
+    } finally {
+      super.dispose();
+    }
+  }
+
+  // 에러 핸들링 개선
+  void _handleError(String operation, dynamic error) {
+    final errorMessage = 'Error during $operation: $error';
+    print(errorMessage);
+    _error = errorMessage;
+
+    // 에러가 발생해도 앱이 계속 작동하도록 기본값 설정
+    if (operation == 'data_load') {
+      _brainHealthScore = 0;
+      _totalGamesPlayed = 0;
+      _totalMatchesFound = 0;
+      _bestTime = 0;
+      _bestTimesByGridSize = {};
+      _scoreHistory = [];
+    }
+
+    if (!_disposed) {
+      notifyListeners();
+    }
   }
 
   // 사용자 랭킹 데이터를 가져오는 메서드
