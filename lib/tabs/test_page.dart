@@ -329,7 +329,7 @@ class _TestPageState extends State<TestPage>
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.asset(
-            'assets/pictureDB/$option.jpg',
+            'assets/pictureDB_webp/$option.webp',
             fit: BoxFit.cover,
           ),
         ),

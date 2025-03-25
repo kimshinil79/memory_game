@@ -681,95 +681,140 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                     ],
                   ),
                 )
-              : LineChart(
-                  LineChartData(
-                    gridData: FlGridData(show: false),
-                    titlesData: FlTitlesData(
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: (value, meta) {
-                            if (value.toInt() >= 0 &&
-                                value.toInt() < weeklyData.length) {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(
-                                  _getShortDate(weeklyData[value.toInt()].date),
-                                  style: GoogleFonts.notoSans(
-                                    fontSize: 12,
-                                    color: Colors.black54,
-                                  ),
+              : Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  child: LineChart(
+                    LineChartData(
+                      gridData: FlGridData(show: false),
+                      titlesData: FlTitlesData(
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            interval: 500,
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                value.toInt().toString(),
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 12,
+                                  color: Colors.black54,
                                 ),
                               );
-                            }
-                            return Text('');
-                          },
-                        ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          interval: 100,
-                          getTitlesWidget: (value, meta) {
-                            return Text(
-                              value.toInt().toString(),
-                              style: GoogleFonts.notoSans(
-                                fontSize: 12,
-                                color: Colors.black54,
-                              ),
-                            );
-                          },
-                          reservedSize: 40,
-                        ),
-                      ),
-                    ),
-                    borderData: FlBorderData(show: false),
-                    minX: 0,
-                    maxX: (spots.length - 1).toDouble(),
-                    minY: 0,
-                    maxY: _calculateMaxY(weeklyData),
-                    lineBarsData: [
-                      LineChartBarData(
-                        spots: spots,
-                        isCurved: true,
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.blue.shade300,
-                            Colors.blue.shade500,
-                          ],
-                        ),
-                        barWidth: 3,
-                        isStrokeCapRound: true,
-                        dotData: FlDotData(
-                          show: true,
-                          getDotPainter: (spot, percent, barData, index) {
-                            return FlDotCirclePainter(
-                              radius: 4,
-                              color: Colors.white,
-                              strokeWidth: 2,
-                              strokeColor: Colors.blue.shade500,
-                            );
-                          },
-                        ),
-                        belowBarData: BarAreaData(
-                          show: true,
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.blue.shade200.withOpacity(0.3),
-                              Colors.blue.shade200.withOpacity(0.0),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                            },
+                            reservedSize: 40,
                           ),
                         ),
                       ),
-                    ],
+                      borderData: FlBorderData(show: false),
+                      minX: 0,
+                      maxX: (spots.length - 1).toDouble(),
+                      minY: 0,
+                      maxY: _calculateMaxY(weeklyData),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: spots,
+                          isCurved: true,
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.blue.shade300,
+                              Colors.blue.shade500,
+                            ],
+                          ),
+                          barWidth: 3,
+                          isStrokeCapRound: true,
+                          dotData: FlDotData(
+                            show: true,
+                            getDotPainter: (spot, percent, barData, index) {
+                              return FlDotCirclePainter(
+                                radius: 4,
+                                color: Colors.white,
+                                strokeWidth: 2,
+                                strokeColor: Colors.blue.shade500,
+                              );
+                            },
+                          ),
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue.shade200.withOpacity(0.3),
+                                Colors.blue.shade200.withOpacity(0.0),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                        ),
+                      ],
+                      lineTouchData: LineTouchData(
+                        touchTooltipData: LineTouchTooltipData(
+                          tooltipBgColor: Colors.blue.shade700,
+                          getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                            return touchedSpots.map((LineBarSpot spot) {
+                              final index = spot.x.toInt();
+                              final date = weeklyData[index].date;
+                              final score = weeklyData[index].score;
+                              final formattedDate =
+                                  '${date.month}/${date.day}/${date.year.toString().substring(2)}';
+
+                              return LineTooltipItem(
+                                '$formattedDate\n',
+                                GoogleFonts.notoSans(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: 'Score: $score',
+                                    style: GoogleFonts.notoSans(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList();
+                          },
+                          fitInsideHorizontally: true,
+                          fitInsideVertically: true,
+                          tooltipMargin: 8,
+                          tooltipPadding: EdgeInsets.all(8),
+                          tooltipRoundedRadius: 8,
+                          showOnTopOfTheChartBoxArea: true,
+                        ),
+                        handleBuiltInTouches: true,
+                        touchSpotThreshold: 20,
+                        getTouchedSpotIndicator:
+                            (LineChartBarData barData, List<int> spotIndexes) {
+                          return spotIndexes.map((spotIndex) {
+                            return TouchedSpotIndicatorData(
+                              FlLine(
+                                  color: Colors.blue.shade300, strokeWidth: 2),
+                              FlDotData(
+                                getDotPainter: (spot, percent, barData, index) {
+                                  return FlDotCirclePainter(
+                                    radius: 6,
+                                    color: Colors.white,
+                                    strokeWidth: 3,
+                                    strokeColor: Colors.blue.shade700,
+                                  );
+                                },
+                              ),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ),
                   ),
                 ),
         ),
@@ -779,7 +824,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
 
   // Y 축 최대값 계산
   double _calculateMaxY(List<ScoreRecord> data) {
-    if (data.isEmpty) return 100;
+    if (data.isEmpty) return 400; // 기본값 400으로 설정
 
     double maxScore = 0;
     for (var record in data) {
@@ -788,8 +833,15 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
       }
     }
 
-    // 최대값의 10% 여유 공간 추가
-    return maxScore * 1.1;
+    // 최대값을 깔끔한 숫자로 올림
+    if (maxScore <= 100) return 200;
+    if (maxScore <= 200) return 400;
+    if (maxScore <= 400) return 600;
+    if (maxScore <= 600) return 800;
+    if (maxScore <= 800) return 1000;
+
+    // 1000 이상인 경우 500 단위로 올림
+    return (maxScore / 500).ceil() * 500;
   }
 
   // 사용자 랭킹 섹션 위젯
@@ -1025,49 +1077,42 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '브레인 헬스 대시보드',
+                  'Brain Health Dashboard',
                   style: GoogleFonts.notoSans(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: tutorialColor,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 15),
                 _buildTutorialItem(
                   Icons.psychology,
-                  '브레인 헬스 지수',
-                  '메모리 게임을 통해 향상된 두뇌 건강 점수를 확인할 수 있습니다. 레벨이 올라갈수록 치매 예방 효과가 증가합니다.',
+                  'Brain Health Index',
+                  'Check your brain health score improved through memory games. Higher levels increase dementia prevention effect.',
                   tutorialColor,
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.bar_chart,
-                  '활동 그래프',
-                  '시간 경과에 따른 브레인 헬스 점수의 변화를 그래프로 확인할 수 있습니다.',
+                  'Activity Graph',
+                  'View changes in your brain health score over time through the graph.',
                   tutorialColor,
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.emoji_events,
-                  '랭킹 시스템',
-                  '다른 사용자들과 브레인 헬스 점수를 비교하고 순위를 확인할 수 있습니다. 상위 랭킹에 도전해보세요!',
+                  'Ranking System',
+                  'Compare your brain health score with other users and check your ranking.',
                   tutorialColor,
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.assessment,
-                  '게임 통계',
-                  '플레이한 게임 수, 찾은, 매치 수, 최고 기록 등 다양한 통계를 확인할 수 있습니다.',
+                  'Game Statistics',
+                  'Check various statistics such as games played, matches found, and best records.',
                   tutorialColor,
                 ),
                 SizedBox(height: 15),
-                _buildTutorialItem(
-                  Icons.refresh,
-                  '데이터 새로고침',
-                  '화면을 아래로 당기거나 새로고침 버튼을 눌러 데이터를 업데이트할 수 있습니다.',
-                  tutorialColor,
-                ),
-                SizedBox(height: 25),
                 Row(
                   children: [
                     Checkbox(
@@ -1080,7 +1125,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                       activeColor: tutorialColor,
                     ),
                     Text(
-                      '다시 보지 않기',
+                      'Don\'t show again',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
@@ -1091,7 +1136,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                 ElevatedButton(
                   onPressed: _closeTutorial,
                   child: Text(
-                    '확인했습니다',
+                    'Got it!',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -1132,10 +1177,10 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
           child: Icon(
             icon,
             color: color,
-            size: 24,
+            size: 20,
           ),
         ),
-        SizedBox(width: 12),
+        SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1144,16 +1189,16 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 15,
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 4),
+              SizedBox(height: 2),
               Text(
                 description,
                 style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 14,
+                  fontSize: 13,
                 ),
               ),
             ],

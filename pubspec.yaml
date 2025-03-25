@@ -52,6 +52,10 @@ dependencies:
   percent_indicator: ^4.2.3
   flutter_phoenix: ^1.1.1
 
+  # Added for FCM push notifications
+  firebase_messaging: ^15.2.4
+  flutter_local_notifications: ^19.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,7 +76,7 @@ dev_dependencies:
 flutter:
   generate: true
   assets:
-    - assets/pictureDB/
+    #- assets/pictureDB/
     - assets/pictureDB_webp/
     - lib/item_list.dart
     - assets/icon/icon.png
