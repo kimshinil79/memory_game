@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/language_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/rendering.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final int totalQuestions = 10;
   List<List<String>> questionOptions = [];
   List<String> correctAnswers = [];
@@ -413,6 +414,7 @@ class _TestPageState extends State<TestPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -705,4 +707,7 @@ class _TestPageState extends State<TestPage>
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

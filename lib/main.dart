@@ -14,9 +14,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'utils/route_observer.dart';
 import 'data/countries.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'l10n/l10n.dart';
-import 'l10n/app_localizations.dart';
 import 'widgets/player_selection_dialog.dart';
 import 'widgets/grid_selection_dialog.dart';
 import 'widgets/country_selection_dialog.dart';
@@ -34,6 +31,7 @@ import 'services/fcm_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'item_list.dart' as images;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'services/memory_game_service.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -80,12 +78,21 @@ void main() async {
   }
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => LanguageProvider()),
-        ChangeNotifierProvider(create: (_) => BrainHealthProvider()),
-      ],
-      child: MyApp(),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Memory Game',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => LanguageProvider()),
+          ChangeNotifierProvider(create: (_) => BrainHealthProvider()),
+          ChangeNotifierProvider(create: (context) => MemoryGameService()),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -95,54 +102,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    // Initialize FCM after first frame is rendered
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        // FCM 서비스 초기화 (services/fcm_service.dart에 구현되어 있음)
-        FCMService().initialize(context);
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Memory Game',
-      navigatorObservers: [routeObserver],
-      theme: ThemeData(
-        primaryColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-        textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      supportedLocales: L10n.all,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      home: MainScreen(),
-    );
-  }
-}
-
-class MainScreen extends StatefulWidget {
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   String selectedLanguage = 'en-US';
   int _currentIndex = 0;
   int numberOfPlayers = 1;
@@ -155,6 +115,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     'Cute': 0,
     'Lovely': 0
   };
+
+  // 다른 멤버 변수들
   int currentPlayerIndex = 0;
   UniqueKey _memoryGameKey = UniqueKey();
   MemoryGamePage? _memoryGamePage;
@@ -165,6 +127,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   String? _userGender;
   String? _userCountryCode;
   StreamSubscription<User?>? _authSubscription;
+  MemoryGameService? _memoryGameService;
 
   // FCM 메시지 구독
   StreamSubscription? _fcmMessageSubscription;
@@ -186,6 +149,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   bool isLocalNotificationsInitialized = false;
+  bool isMultiplayerMode = false;
 
   @override
   void initState() {
@@ -203,10 +167,29 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
     // Firestore 게임 수락 알림 구독
     _listenForGameAcceptedNotifications();
+
+    // MemoryGameService 초기화 - 바로 초기화하도록 변경
+    try {
+      _memoryGameService =
+          Provider.of<MemoryGameService>(context, listen: false);
+    } catch (e) {
+      print('MemoryGameService 초기화 오류: $e');
+      // 나중에 다시 시도
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _memoryGameService =
+              Provider.of<MemoryGameService>(context, listen: false);
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
+    // dispose 안에 추가 - null 체크 추가
+    if (_memoryGameService != null) {
+      _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
+    }
     // 구독 해제
     _authSubscription?.cancel();
     _fcmMessageSubscription?.cancel();
@@ -395,25 +378,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void updatePlayerScore(String player, int score) {
     setState(() {
       // Apply grid size multiplier to the score
-      int multiplier = getGridSizeMultiplier(gridSize);
+      int multiplier = _memoryGameService?.getGridSizeMultiplier(gridSize) ?? 1;
       playerScores[player] = score * multiplier;
     });
-  }
-
-  // Calculate score multiplier based on grid size
-  int getGridSizeMultiplier(String gridSize) {
-    switch (gridSize) {
-      case '4x4':
-        return 1; // Base multiplier
-      case '6x4':
-        return 3; // Triple points for 6x4 grid
-      case '6x6':
-        return 5; // 5x points for 6x6 grid
-      case '8x6':
-        return 8; // 8x points for 8x6 grid
-      default:
-        return 1;
-    }
   }
 
   void nextPlayer() {
@@ -440,6 +407,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   void updateGridSize(String newGridSize) {
     setState(() {
+      if (_memoryGameService != null) {
+        _memoryGameService!.gridSize = newGridSize;
+      }
+      // UI에 반영하기 위해 로컬 변수도 업데이트
       gridSize = newGridSize;
     });
   }
@@ -987,8 +958,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       Map<String, dynamic> gameSessionData =
           gameSessionDoc.data() as Map<String, dynamic>;
 
-      // 그리드 크기 설정
-      String gridSize = gameSessionData['gridSize']?.toString() ?? '4x4';
+      // 그리드 크기 설정 - 문자열 그대로 사용(예: "4x6")
+      String gridSizeStr = gameSessionData['gridSize']?.toString() ?? '4x4';
 
       // player1(sender) 정보 가져오기
       Map<String, dynamic> player1 = gameSessionData['player1'] ?? {};
@@ -998,7 +969,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       // 멀티플레이어 게임을 위한 MemoryGamePage 초기화
       _resetAndStartMultiplayerGame(
         gameId: gameId,
-        gridSize: gridSize,
+        gridSize: gridSizeStr,
         opponentId: senderId,
         opponentNickname: senderNickname,
       );
@@ -1242,6 +1213,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       TestPage(),
     ];
 
+    // Return Scaffold directly since MaterialApp is now in main()
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -1412,14 +1384,17 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: (index) {
           _changeTab(index);
         },
+        selectedItemColor: Color(0xFF833AB4),
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        elevation: 8,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.grid_on),
@@ -1427,10 +1402,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.psychology),
-            label: 'Brain Health',
+            label: 'Health',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
+            icon: Icon(Icons.science),
             label: 'Test',
           ),
         ],
@@ -1653,10 +1628,37 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   }
 
   void _showGridSizeSelectionDialog() async {
-    final selectedGridSize = await GridSelectionDialog.show(context, gridSize);
+    if (_memoryGameService == null) return;
+
+    final selectedGridSize =
+        await GridSelectionDialog.show(context, _memoryGameService!.gridSize);
     if (selectedGridSize != null) {
       setState(() {
+        // MemoryGameService에 그리드 크기 설정
+        _memoryGameService!.gridSize = selectedGridSize;
+
+        // UI 변경을 위해 기존 변수도 업데이트
         gridSize = selectedGridSize;
+
+        // 게임 페이지 업데이트
+        if (_currentIndex == 0) {
+          _memoryGamePage = MemoryGamePage(
+            key: _memoryGameKey,
+            numberOfPlayers: numberOfPlayers,
+            gridSize: gridSize,
+            updateFlipCount: updateFlipCount,
+            updatePlayerScore: updatePlayerScore,
+            nextPlayer: nextPlayer,
+            currentPlayer: players[currentPlayerIndex],
+            playerScores: playerScores,
+            resetScores: resetScores,
+            isTimeAttackMode: true,
+            timeLimit: isMultiplayerMode ? 180 : 60,
+            isMultiplayerMode: isMultiplayerMode,
+            gameId: _currentGameId,
+            myPlayerId: _user?.uid,
+          );
+        }
       });
     }
   }
@@ -1673,25 +1675,16 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     setState(() {
       _currentIndex = index;
 
-      // 게임 탭으로 전환하고 멀티플레이어 모드인 경우, 메모리 게임 페이지를 새로 생성
+      // 특별한 경우(멀티플레이어 게임 참가, 게임 ID 변경 등)에만 메모리 게임 페이지를 갱신
+      // 그 외 일반적인 탭 이동에서는 기존 상태 유지를 위해 페이지를 다시 생성하지 않음
       if (_currentIndex == 0 && numberOfPlayers > 1 && _currentGameId != null) {
-        print('게임 탭으로 전환 - 멀티플레이어 게임 업데이트');
-        _memoryGamePage = MemoryGamePage(
-          key: _memoryGameKey,
-          numberOfPlayers: numberOfPlayers,
-          gridSize: gridSize,
-          updateFlipCount: updateFlipCount,
-          updatePlayerScore: updatePlayerScore,
-          nextPlayer: nextPlayer,
-          currentPlayer: players[currentPlayerIndex],
-          playerScores: playerScores,
-          resetScores: resetScores,
-          isTimeAttackMode: true,
-          timeLimit: 180, // 멀티플레이어는 3분으로 설정
-          isMultiplayerMode: true,
-          gameId: _currentGameId,
-          myPlayerId: _user?.uid,
-        );
+        // 멀티플레이어 게임 ID가 변경되었을 때만 업데이트
+        if (_memoryGamePage == null ||
+            (_memoryGamePage!.gameId != _currentGameId) ||
+            (_memoryGamePage!.isMultiplayerMode != isMultiplayerMode)) {
+          print('게임 탭으로 전환 - 멀티플레이어 게임 업데이트 (상태 변경 감지)');
+          _memoryGamePage = _buildMemoryGamePage();
+        }
       }
     });
   }
@@ -1837,25 +1830,26 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       }
 
       // 게임 세션 정보 가져오기
-      DocumentSnapshot gameDoc = await FirebaseFirestore.instance
+      DocumentSnapshot gameSessionDoc = await FirebaseFirestore.instance
           .collection('game_sessions')
           .doc(gameId)
           .get();
 
-      if (!gameDoc.exists) {
+      if (!gameSessionDoc.exists) {
         print('게임 세션이 존재하지 않습니다: $gameId');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('게임 정보를 찾을 수 없습니다'), backgroundColor: Colors.red));
         return;
       }
 
-      Map<String, dynamic> gameData = gameDoc.data() as Map<String, dynamic>;
+      Map<String, dynamic> gameSessionData =
+          gameSessionDoc.data() as Map<String, dynamic>;
 
-      // 그리드 크기 설정 - 문자열 그대로 사용(예: "6x4")
-      String gridSizeStr = gameData['gridSize']?.toString() ?? '4x4';
+      // 그리드 크기 설정 - 문자열 그대로 사용(예: "4x6")
+      String gridSizeStr = gameSessionData['gridSize']?.toString() ?? '4x4';
 
       // player2 정보 가져오기
-      Map<String, dynamic> player2 = gameData['player2'] ?? {};
+      Map<String, dynamic> player2 = gameSessionData['player2'] ?? {};
       String receiverId = player2['id'] ?? '';
       String receiverNickname = player2['nickname'] ?? '상대방';
 
@@ -1874,6 +1868,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         currentPlayerIndex = 0;
 
         // 그리드 크기 업데이트
+        if (_memoryGameService != null) {
+          _memoryGameService!.gridSize = gridSizeStr;
+        }
+        // UI 변경을 위해 로컬 변수도 업데이트
         gridSize = gridSizeStr;
 
         // 새 게임 생성
@@ -1955,27 +1953,26 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     setState(() {
       // 멀티플레이어 모드로 설정
       numberOfPlayers = 2;
-
-      // 플레이어 이름 설정 (자신과 상대방)
       players = [_nickname ?? '나', opponentNickname];
-
-      // 점수 초기화
       playerScores = {players[0]: 0, players[1]: 0};
-
-      // 시작 플레이어 설정
       currentPlayerIndex = 0;
 
       // 그리드 크기 업데이트
-      this.gridSize = gridSize;
+      if (_memoryGameService != null) {
+        _memoryGameService!.gridSize = gridSize;
+      }
+      // UI 변경을 위해 로컬 변수도 업데이트
+      gridSize = gridSize;
 
       // 현재 게임 ID 설정
       _currentGameId = gameId;
+      isMultiplayerMode = true;
 
-      // 새 게임 페이지 생성
+      // 새 게임 생성
       _memoryGamePage = MemoryGamePage(
         key: UniqueKey(),
         numberOfPlayers: 2,
-        gridSize: this.gridSize,
+        gridSize: gridSize,
         updateFlipCount: updateFlipCount,
         updatePlayerScore: updatePlayerScore,
         nextPlayer: nextPlayer,
@@ -2004,5 +2001,40 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     });
 
     print('멀티플레이어 게임 초기화 완료');
+  }
+
+  // 새로운 메서드 추가
+  void _onGridSizeChanged(String newGridSize) {
+    if (mounted) {
+      setState(() {
+        // UI 변경을 위해 로컬 변수 업데이트
+        gridSize = newGridSize;
+
+        // 그리드 크기가 변경될 때 필요한 작업 수행
+        if (_currentIndex == 0) {
+          _memoryGamePage = _buildMemoryGamePage();
+        }
+      });
+    }
+  }
+
+  // _memoryGamePage 생성 로직을 분리하는 helper 메서드 추가
+  MemoryGamePage _buildMemoryGamePage() {
+    return MemoryGamePage(
+      key: _memoryGameKey,
+      numberOfPlayers: numberOfPlayers,
+      gridSize: gridSize,
+      updateFlipCount: updateFlipCount,
+      updatePlayerScore: updatePlayerScore,
+      nextPlayer: nextPlayer,
+      currentPlayer: players[currentPlayerIndex],
+      playerScores: playerScores,
+      resetScores: resetScores,
+      isTimeAttackMode: true,
+      timeLimit: isMultiplayerMode ? 180 : 60, // 멀티플레이어는 3분, 그 외는 60초
+      isMultiplayerMode: isMultiplayerMode,
+      gameId: _currentGameId,
+      myPlayerId: _user?.uid,
+    );
   }
 }

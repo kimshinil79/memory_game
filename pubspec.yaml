@@ -30,8 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -74,7 +72,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  generate: true
+  generate: false
   assets:
     #- assets/pictureDB/
     - assets/pictureDB_webp/

@@ -14,6 +14,7 @@ import '../providers/brain_health_provider.dart';
 import '../utils/route_observer.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flag/flag.dart';
+import '../services/memory_game_service.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -152,6 +153,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   // 탭 활성화 상태 추적
   bool _isTabActive = true;
 
+  // late를 제거하고 nullable로 선언
+  MemoryGameService? _memoryGameService;
+
   @override
   void initState() {
     super.initState();
@@ -175,6 +179,27 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     _loadGameTimeLimit();
 
+    // 서비스 초기화
+    try {
+      _memoryGameService =
+          Provider.of<MemoryGameService>(context, listen: false);
+      if (_memoryGameService != null) {
+        _memoryGameService!.addGridChangeListener(_onGridSizeChanged);
+      }
+    } catch (e) {
+      print('MemoryGameService 초기화 오류: $e');
+      // 나중에 다시 시도
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _memoryGameService =
+              Provider.of<MemoryGameService>(context, listen: false);
+          if (_memoryGameService != null) {
+            _memoryGameService!.addGridChangeListener(_onGridSizeChanged);
+          }
+        }
+      });
+    }
+
     // 멀티플레이어 모드일 경우 추가 초기화
     if (widget.isMultiplayerMode && widget.gameId != null) {
       _loadMultiplayerData();
@@ -183,6 +208,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 앱 생명주기 관찰자 등록
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  // 그리드 사이즈 변경 리스너
+  void _onGridSizeChanged(String newGridSize) {
+    if (mounted) {
+      // 게임 초기화
+      setState(() {
+        _initializeGameWrapper();
+      });
+    }
   }
 
   // 앱 생명주기 변경 처리
@@ -724,10 +759,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           List<dynamic> matchedCards = lastAction['cards'];
           print('일치 카드: $matchedCards');
 
-          // 매치 성공 효과음
-          // if (lastAction['playerId'] != widget.myPlayerId) {
-          //   audioPlayer.play(AssetSource('sounds/match_success.mp3'), volume: 0.3);
-          // }
+          // 매치된 카드에 별 애니메이션 표시
+          if (matchedCards.length == 2) {
+            for (var index in matchedCards) {
+              if (index is int && index < cardAnimationTriggers.length) {
+                _triggerStarAnimation(index);
+              }
+            }
+          }
 
           // 매치 성공 시 selectedCards 초기화
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -1049,6 +1088,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   @override
   void dispose() {
+    // null 체크 추가
+    if (_memoryGameService != null) {
+      _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
+    }
     _languageSubscription?.cancel(); // null 체크 추가
     _gameSubscription?.cancel(); // 멀티플레이어 게임 구독 취소
     _timer?.cancel();
@@ -1159,10 +1202,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     widget.resetScores();
 
     List<String> dimensions = widget.gridSize.split('x');
-    // 그리드 크기 파싱: 표기법은 "가로x세로"이지만 UI에서는 세로x가로로 사용해야 함
-    // 따라서 첫 번째 숫자(가로)를 gridColumns로, 두 번째 숫자(세로)를 gridRows로 할당
-    gridColumns = int.parse(dimensions[0]); // 가로를 열 수로 설정
-    gridRows = int.parse(dimensions[1]); // 세로를 행 수로 설정
+    // 그리드 크기 파싱: 표기법은 "열x행" 형태임
+    // 첫 번째 숫자는 열(column) 수, 두 번째 숫자는 행(row) 수로 할당
+    gridColumns = int.parse(dimensions[0]); // 첫 번째 숫자를 열 수로 설정
+    gridRows = int.parse(dimensions[1]); // 두 번째 숫자를 행 수로 설정
 
     flipCount = 0;
     widget.updateFlipCount(flipCount);
@@ -1255,7 +1298,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       setState(() {
         cardAnimationTriggers[index] = true;
       });
-      Future.delayed(Duration(milliseconds: 1000), () {
+      Future.delayed(Duration(milliseconds: 500), () {
         if (mounted && index < cardAnimationTriggers.length) {
           setState(() {
             cardAnimationTriggers[index] = false;
@@ -1297,11 +1340,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         _startTimer();
       }
 
-      // 로컬 UI 업데이트
+      // 로컬 UI 업데이트 - 별 애니메이션 트리거 제거
       setState(() {
         cardFlips[index] = true;
         selectedCards.add(index);
-        _triggerStarAnimation(index);
+        // 카드 선택 시 별 애니메이션 트리거하지 않음
       });
 
       // 멀티플레이어 모드에서는 Firestore 업데이트
@@ -1381,6 +1424,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   void checkMatch() {
     setState(() {
       if (gameImages[selectedCards[0]] == gameImages[selectedCards[1]]) {
+        // 카드가 매치될 때 양쪽 카드에 별 애니메이션 트리거
+        _triggerStarAnimation(selectedCards[0]);
+        _triggerStarAnimation(selectedCards[1]);
+
         // 멀티플레이어 모드에서는 점수 업데이트를 Firestore에 반영
         if (widget.isMultiplayerMode) {
           _updateMatchInFirestore(true);
@@ -1855,11 +1902,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         return 60; // 4x4는 1분
       case '5x5':
         return 120; // 5x5는 2분
-      case '6x4':
-        return 120; // 6x4는 2분
+      case '4x6':
+        return 120; // 4x6는 2분
       case '6x6':
         return 180; // 6x6는 3분
-      case '8x6':
+      case '6x8':
         return 240; // 6x8는 4분
       default:
         return 60; // 기본값 1분
@@ -2020,13 +2067,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               CrossAxisAlignment.stretch, // 세로 방향으로 확장
                           children: [
                             Expanded(
-                              flex: 4, // 타이머 영역이 4/5 차지
+                              flex: 4, // 전체 너비 차지하도록 변경
                               child: Container(
                                 margin: EdgeInsets.only(
                                     top: 8.0,
                                     bottom: 8.0,
                                     left: 16.0,
-                                    right: 4.0),
+                                    right: 16.0),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.center, // 수직 중앙 정렬
@@ -2095,17 +2142,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 1, // Fight 버튼 영역이 1/5 차지
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                    top: 8.0,
-                                    bottom: 8.0,
-                                    left: 4.0,
-                                    right: 16.0),
-                                child: _buildFightButton(),
-                              ),
-                            ),
+                            // Fight 버튼 영역 제거
                           ],
                         ),
                       ),
@@ -2120,7 +2157,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                         padding: EdgeInsets.all(4),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: int.parse(widget.gridSize.split(
-                              'x')[0]), // 가로(첫 번째 숫자)를 crossAxisCount로 설정
+                              'x')[0]), // 첫 번째 숫자(열 수)를 crossAxisCount로 설정
                           crossAxisSpacing: 0,
                           mainAxisSpacing: 0,
                         ),
@@ -2339,681 +2376,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   bool getGameStartedStatus() {
     return true;
-  }
-
-  // Fight 버튼 위젯
-  Widget _buildFightButton() {
-    return ElevatedButton(
-      onPressed: () {
-        _showOpponentSelectionDialog(context);
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 61, 137, 224),
-        foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 16),
-        minimumSize: Size(double.infinity, 55),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Fight!',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          Icon(Icons.sports_mma, size: 16, color: Colors.white),
-        ],
-      ),
-    );
-  }
-
-  // 상대 선택 대화상자
-  void _showOpponentSelectionDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // 선택된 사용자와 그리드 크기를 위한 변수
-        String? selectedUser;
-        String selectedGrid = widget.gridSize; // 현재 그리드 크기를 기본값으로 설정
-        String searchQuery = '';
-        List<Map<String, dynamic>> filteredUsers = [];
-        bool isLoading = true;
-
-        return StatefulBuilder(builder: (context, setState) {
-          // 사용자 목록을 로드하는 함수
-          void loadUsers() async {
-            setState(() => isLoading = true);
-
-            try {
-              // 현재 사용자 ID 가져오기
-              String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
-
-              // Firestore에서 사용자 목록 가져오기
-              QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-                  .collection('users')
-                  .orderBy('nickname')
-                  .get();
-
-              List<Map<String, dynamic>> users = [];
-
-              for (var doc in querySnapshot.docs) {
-                Map<String, dynamic> userData =
-                    doc.data() as Map<String, dynamic>;
-                // 현재 사용자는 제외
-                if (doc.id != currentUserId &&
-                    userData.containsKey('nickname')) {
-                  users.add({
-                    'id': doc.id,
-                    'nickname': userData['nickname'] ?? 'Unknown',
-                    'country': userData['country'],
-                  });
-                }
-              }
-
-              // 검색어로 필터링
-              if (searchQuery.isNotEmpty) {
-                filteredUsers = users
-                    .where((user) => user['nickname']
-                        .toString()
-                        .toLowerCase()
-                        .contains(searchQuery.toLowerCase()))
-                    .toList();
-              } else {
-                filteredUsers = users;
-              }
-
-              setState(() => isLoading = false);
-            } catch (e) {
-              print('Error loading users: $e');
-              setState(() {
-                isLoading = false;
-                filteredUsers = [];
-              });
-
-              // 에러 알림
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Failed to load users. Please try again.'),
-                backgroundColor: Colors.red,
-              ));
-            }
-          }
-
-          // 처음 대화상자가 열릴 때 사용자 목록 로드
-          if (isLoading && filteredUsers.isEmpty) {
-            loadUsers();
-          }
-
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              width: double.maxFinite,
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.8,
-                maxWidth: 340,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // 대화상자 헤더
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Select Opponent',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // 검색 텍스트 필드
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search users...',
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.purple),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 16),
-                          ),
-                          onChanged: (value) {
-                            // 검색어가 변경될 때마다 필터링
-                            setState(() {
-                              searchQuery = value;
-                              loadUsers(); // 검색어로 사용자 목록 다시 로드
-                            });
-                          },
-                        ),
-
-                        SizedBox(height: 16),
-
-                        // 사용자 목록 레이블
-                        Text(
-                          'Registered Users',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        SizedBox(height: 12),
-
-                        // 사용자 목록
-                        Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: isLoading
-                              ? Center(child: CircularProgressIndicator())
-                              : filteredUsers.isEmpty
-                                  ? Center(child: Text('No users found'))
-                                  : ListView.builder(
-                                      itemCount: filteredUsers.length,
-                                      itemBuilder: (context, index) {
-                                        final user = filteredUsers[index];
-                                        final bool isSelected =
-                                            selectedUser == user['id'];
-
-                                        return ListTile(
-                                          leading: user['country'] != null
-                                              ? Container(
-                                                  width: 40,
-                                                  height: 30,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: isSelected
-                                                          ? Colors.purple
-                                                          : Colors
-                                                              .grey.shade300,
-                                                      width: 1,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    boxShadow: isSelected
-                                                        ? [
-                                                            BoxShadow(
-                                                              color: Colors
-                                                                  .purple
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              spreadRadius: 1,
-                                                              blurRadius: 2,
-                                                            )
-                                                          ]
-                                                        : null,
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    child: Flag.fromString(
-                                                      user['country']
-                                                          .toString()
-                                                          .toLowerCase(),
-                                                      height: 30,
-                                                      width: 40,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                )
-                                              : CircleAvatar(
-                                                  backgroundColor: isSelected
-                                                      ? Colors.purple
-                                                      : Colors.grey.shade200,
-                                                  child: Text(
-                                                    user['nickname']
-                                                        .toString()
-                                                        .substring(0, 1)
-                                                        .toUpperCase(),
-                                                    style: TextStyle(
-                                                      color: isSelected
-                                                          ? Colors.white
-                                                          : Colors.black54,
-                                                    ),
-                                                  ),
-                                                ),
-                                          title: Text(
-                                            user['nickname'].toString(),
-                                            style: TextStyle(
-                                              fontWeight: isSelected
-                                                  ? FontWeight.bold
-                                                  : FontWeight.normal,
-                                            ),
-                                          ),
-                                          trailing: isSelected
-                                              ? Icon(Icons.check_circle,
-                                                  color: Colors.purple)
-                                              : null,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedUser = user['id'];
-                                            });
-                                          },
-                                          tileColor: isSelected
-                                              ? Colors.purple.withOpacity(0.1)
-                                              : null,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                        ),
-
-                        SizedBox(height: 24),
-
-                        // 그리드 선택 레이블
-                        Text(
-                          'Select Grid Size',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        SizedBox(height: 12),
-
-                        // 그리드 선택 버튼들 - 첫 번째 행 (4x4, 6x4)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: ['4x4', '6x4'].map((String value) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() => selectedGrid = value);
-                                },
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: value == selectedGrid
-                                          ? [
-                                              Color(0xFF833AB4),
-                                              Color(0xFFF77737)
-                                            ]
-                                          : [
-                                              Colors.grey.shade200,
-                                              Colors.grey.shade300
-                                            ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 8,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.grid_4x4,
-                                        size: 28,
-                                        color: value == selectedGrid
-                                            ? Colors.white
-                                            : Colors.grey.shade700,
-                                      ),
-                                      SizedBox(height: 6),
-                                      Text(
-                                        value,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: value == selectedGrid
-                                              ? Colors.white
-                                              : Colors.grey.shade700,
-                                        ),
-                                      ),
-                                      SizedBox(height: 2),
-                                      Text(
-                                        '×${_getGridSizeMultiplier(value)} points',
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                          color: value == selectedGrid
-                                              ? Colors.white.withOpacity(0.9)
-                                              : Colors.grey.shade600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-
-                        SizedBox(height: 16),
-
-                        // 그리드 선택 버튼들 - 두 번째 행 (6x6, 8x6)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: ['6x6', '8x6'].map((String value) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() => selectedGrid = value);
-                                },
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: value == selectedGrid
-                                          ? [
-                                              Color(0xFF833AB4),
-                                              Color(0xFFF77737)
-                                            ]
-                                          : [
-                                              Colors.grey.shade200,
-                                              Colors.grey.shade300
-                                            ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 8,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.grid_on,
-                                        size: 28,
-                                        color: value == selectedGrid
-                                            ? Colors.white
-                                            : Colors.grey.shade700,
-                                      ),
-                                      SizedBox(height: 6),
-                                      Text(
-                                        value,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: value == selectedGrid
-                                              ? Colors.white
-                                              : Colors.grey.shade700,
-                                        ),
-                                      ),
-                                      SizedBox(height: 2),
-                                      Text(
-                                        '×${_getGridSizeMultiplier(value)} points',
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                          color: value == selectedGrid
-                                              ? Colors.white.withOpacity(0.9)
-                                              : Colors.grey.shade600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-
-                        SizedBox(height: 24),
-
-                        // 확인 버튼
-                        Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: selectedUser == null
-                                ? null
-                                : () {
-                                    Navigator.of(context).pop();
-                                    // 선택된 사용자의 닉네임 찾기
-                                    String selectedNickname = filteredUsers
-                                        .firstWhere((user) =>
-                                            user['id'] ==
-                                            selectedUser)['nickname']
-                                        .toString();
-                                    _startMultiplayerGame(selectedUser!,
-                                        selectedGrid, selectedNickname);
-                                  },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple,
-                              foregroundColor: Colors.white,
-                              disabledBackgroundColor: Colors.grey.shade300,
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: Text(
-                              'Fight!!',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-      },
-    );
-  }
-
-  // 그리드 크기별 점수 배율 계산
-  int _getGridSizeMultiplier(String gridSize) {
-    switch (gridSize) {
-      case '4x4':
-        return 1; // 기본 배율
-      case '6x4':
-        return 3; // 6x4 그리드는 3배 점수
-      case '6x6':
-        return 5; // 6x6 그리드는 5배 점수
-      case '8x6':
-        return 8; // 8x6 그리드는 8배 점수
-      default:
-        return 1;
-    }
-  }
-
-  // 멀티플레이어 게임 시작 메서드
-  void _startMultiplayerGame(
-      String opponentId, String gridSize, String opponentNickname) async {
-    try {
-      // Get current user info
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('You must be logged in to send challenges')),
-        );
-        return;
-      }
-
-      // Get current user's nickname
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUser.uid)
-          .get();
-
-      String senderNickname = 'Unknown Player';
-      if (userDoc.exists) {
-        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-        senderNickname = userData['nickname'] ??
-            (currentUser.displayName ??
-                currentUser.email?.split('@')[0] ??
-                'Unknown Player');
-      }
-
-      // Show loading indicator
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Row(
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(width: 20),
-                Text("Sending challenge request...")
-              ],
-            ),
-          );
-        },
-      );
-
-      // Get opponent's FCM token first
-      String? fcmToken;
-      DocumentSnapshot tokenDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(opponentId)
-          .collection('tokens')
-          .doc('fcm')
-          .get();
-
-      if (tokenDoc.exists && tokenDoc.data() != null) {
-        Map<String, dynamic> tokenData =
-            tokenDoc.data() as Map<String, dynamic>;
-        fcmToken = tokenData['token'];
-        print(
-            'FCM Token retrieved: ${fcmToken != null ? fcmToken.substring(0, 10) + "..." : "null"}');
-      } else {
-        print(
-            'FCM Token document does not exist or is empty for user: $opponentId');
-      }
-
-      // Create a unique challenge ID
-      String challengeId =
-          FirebaseFirestore.instance.collection('challenges').doc().id;
-
-      // Get timestamp
-      final timestamp = FieldValue.serverTimestamp();
-
-      // Create challenge document
-      await FirebaseFirestore.instance
-          .collection('challenges')
-          .doc(challengeId)
-          .set({
-        'senderId': currentUser.uid,
-        'senderNickname': senderNickname,
-        'receiverId': opponentId,
-        'receiverNickname': opponentNickname,
-        'gridSize': gridSize,
-        'status': 'pending', // pending, accepted, rejected, completed
-        'timestamp': timestamp,
-        'language': Provider.of<LanguageProvider>(context, listen: false)
-            .currentLanguage,
-        'expiresAt': DateTime.now()
-            .add(Duration(hours: 24))
-            .millisecondsSinceEpoch, // Expires in 24 hours
-      });
-
-      // Also add to the receiver's notifications collection for easier querying
-      Map<String, dynamic> notificationData = {
-        'type': 'challenge',
-        'challengeId': challengeId,
-        'senderId': currentUser.uid,
-        'senderNickname': senderNickname,
-        'gridSize': gridSize,
-        'status': 'pending',
-        'read': false,
-        'timestamp': timestamp,
-      };
-
-      // FCM 토큰이 있을 경우에만 포함
-      if (fcmToken != null && fcmToken.isNotEmpty) {
-        notificationData['recipientFcmToken'] = fcmToken;
-        print(
-            'Added FCM token to notification document: ${fcmToken.substring(0, 10)}...');
-      } else {
-        print(
-            'WARNING: FCM token is missing, push notification will not be sent');
-      }
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(opponentId)
-          .collection('notifications')
-          .doc(challengeId)
-          .set(notificationData);
-
-      // Close loading dialog
-      Navigator.of(context).pop();
-
-      // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Challenge request sent to $opponentNickname!'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 3),
-        ),
-      );
-
-      // Challenge notifications 컬렉션에 문서가 생성되었으므로
-      // _sendChallengeNotification 함수 호출은 더 이상 필요하지 않음
-      // 이미 FCM 토큰이 포함되어 있어 Cloud Function이 자동으로 트리거됨
-    } catch (e) {
-      // Close loading dialog if open
-      if (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
-
-      print('Error sending challenge: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to send challenge. Please try again.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
   }
 
   void showWinnerDialog() {

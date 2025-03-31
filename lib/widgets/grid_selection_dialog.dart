@@ -25,7 +25,7 @@ class GridSelectionDialog {
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: ['4x4', '6x4'].map((String value) {
+                  children: ['4x4', '4x6'].map((String value) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: InkWell(
@@ -97,7 +97,7 @@ class GridSelectionDialog {
                 SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: ['6x6', '8x6'].map((String value) {
+                  children: ['6x6', '6x8'].map((String value) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: InkWell(
@@ -202,12 +202,12 @@ class GridSelectionDialog {
     switch (gridSize) {
       case '4x4':
         return 1; // Base multiplier
-      case '6x4':
-        return 3; // Triple points for 6x4 grid
+      case '4x6':
+        return 3; // Triple points for 4x6 grid
       case '6x6':
         return 5; // 5x points for 6x6 grid
-      case '8x6':
-        return 8; // 8x points for 8x6 grid
+      case '6x8':
+        return 8; // 8x points for 6x8 grid
       default:
         return 1;
     }

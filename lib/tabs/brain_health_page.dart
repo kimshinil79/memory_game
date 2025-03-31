@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../providers/brain_health_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flag/flag.dart'; // 국기 표시용 패키지 import
+import 'package:flutter/rendering.dart';
 
 class BrainHealthPage extends StatefulWidget {
   const BrainHealthPage({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class BrainHealthPage extends StatefulWidget {
   State<BrainHealthPage> createState() => _BrainHealthPageState();
 }
 
-class _BrainHealthPageState extends State<BrainHealthPage> {
+class _BrainHealthPageState extends State<BrainHealthPage>
+    with AutomaticKeepAliveClientMixin {
   bool _isRefreshing = false;
 
   // 튜토리얼 관련 변수
@@ -81,6 +83,7 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Consumer<BrainHealthProvider>(
       builder: (context, brainHealthProvider, child) {
         return Scaffold(
@@ -187,6 +190,9 @@ class _BrainHealthPageState extends State<BrainHealthPage> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   Widget _buildHeader(BrainHealthProvider provider) {
     return Column(
