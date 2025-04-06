@@ -9,19 +9,28 @@ import '../../providers/language_provider.dart';
 
 class LanguageDialog {
   static Future<void> show(BuildContext context) {
+    // 다이얼로그를 표시하기 전에 LanguageProvider 인스턴스를 가져옵니다
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+
     return showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        child: LanguageSelectionContent(),
+        child: LanguageSelectionContent(languageProvider: languageProvider),
       ),
     );
   }
 }
 
 class LanguageSelectionContent extends StatelessWidget {
+  final LanguageProvider languageProvider;
+
+  LanguageSelectionContent({Key? key, required this.languageProvider})
+      : super(key: key);
+
   final Map<String, String> languageNames = {
     // Asian Languages
     'ko-KR': '한국어 (Korean)',
@@ -366,22 +375,45 @@ class LanguageSelectionContent extends StatelessWidget {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('selectedLanguage', languageCode);
 
-      // Update Provider
-      final languageProvider =
-          Provider.of<LanguageProvider>(context, listen: false);
-      languageProvider.setLanguage(languageCode);
+      // Provider 접근에 전달받은 languageProvider 사용
+      await languageProvider.setLanguage(languageCode);
 
       // Update Firebase if user is logged in
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .update({'language': languageCode});
+        try {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .update({'language': languageCode});
+        } catch (firebaseError) {
+          print('Firebase update error: $firebaseError');
+          // Firebase 업데이트 실패해도 앱의 언어는 변경 완료된 상태로 유지
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  'User profile update failed, but language has been changed.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          // Firebase 오류지만 언어 변경은 성공했으므로 오류를 throw하지 않고 반환
+          return;
+        }
       }
-    } catch (e) {
+
+      // 성공 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update language setting')),
+        SnackBar(
+          content: Text('Language updated successfully'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      print('Language update error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content:
+                Text('Failed to update language setting: ${e.toString()}')),
       );
     }
   }

@@ -11,15 +11,19 @@ class ProfileEditDialog {
     required int? userAge,
     required String? userGender,
     required String? userCountryCode,
+    String? shortPW,
   }) {
     final TextEditingController nicknameController =
         TextEditingController(text: nickname);
     final TextEditingController ageController =
         TextEditingController(text: userAge?.toString());
+    final TextEditingController shortPasswordController =
+        TextEditingController(text: shortPW);
 
     String? selectedGender = userGender;
     String? selectedCountryCode = userCountryCode;
     Country? selectedCountry;
+    String? shortPasswordError;
 
     // 국가 코드에 해당하는 Country 객체 찾기
     if (userCountryCode != null) {
@@ -41,6 +45,20 @@ class ProfileEditDialog {
                 setState(() {
                   selectedCountry = country;
                   selectedCountryCode = country.code;
+                });
+              }
+            }
+
+            // Short password validation
+            void validateShortPassword() {
+              if (shortPasswordController.text.length != 2 ||
+                  !RegExp(r'^[0-9]+$').hasMatch(shortPasswordController.text)) {
+                setState(() {
+                  shortPasswordError = 'Must be a 2-digit number';
+                });
+              } else {
+                setState(() {
+                  shortPasswordError = null;
                 });
               }
             }
@@ -277,6 +295,32 @@ class ProfileEditDialog {
                           ],
                         ),
                       ),
+                      SizedBox(height: 16),
+                      // Short Password (PIN)
+                      TextField(
+                        controller: shortPasswordController,
+                        keyboardType: TextInputType.number,
+                        onChanged: (_) => validateShortPassword(),
+                        maxLength: 2,
+                        decoration: InputDecoration(
+                          labelText: 'Multi-Game PIN',
+                          hintText: 'Enter 2-digit PIN',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.pin_outlined),
+                          errorText: shortPasswordError,
+                          counterText: "",
+                          helperText: "2-digit PIN for multiplayer games",
+                          helperStyle: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 24),
                       Row(
                         children: [
@@ -300,11 +344,18 @@ class ProfileEditDialog {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
+                                // Validate before submission
+                                validateShortPassword();
+                                if (shortPasswordError != null) {
+                                  return;
+                                }
+
                                 final updatedData = {
                                   'nickname': nicknameController.text,
                                   'age': int.tryParse(ageController.text),
                                   'gender': selectedGender,
                                   'country': selectedCountryCode,
+                                  'shortPW': shortPasswordController.text,
                                 };
                                 Navigator.of(dialogContext).pop(updatedData);
                               },

@@ -12,9 +12,8 @@ import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
 import '../providers/brain_health_provider.dart';
 import '../utils/route_observer.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flag/flag.dart';
 import '../services/memory_game_service.dart';
+import 'package:flag/flag.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -32,6 +31,8 @@ class MemoryGamePage extends StatefulWidget {
   final bool isMultiplayerMode;
   final String? gameId;
   final String? myPlayerId;
+  final List<Map<String, dynamic>> selectedPlayers;
+  final Map<String, dynamic> currentUserInfo;
 
   MemoryGamePage({
     Key? key,
@@ -48,6 +49,14 @@ class MemoryGamePage extends StatefulWidget {
     this.isMultiplayerMode = false,
     this.gameId,
     this.myPlayerId,
+    this.selectedPlayers = const [],
+    this.currentUserInfo = const {
+      'nickname': 'Me',
+      'country': 'us',
+      'gender': 'unknown',
+      'age': 0,
+      'brainHealthScore': 0
+    },
   }) : super(key: key ?? GlobalKey<State<MemoryGamePage>>());
 
   // Added methods to be called from main.dart
@@ -70,11 +79,13 @@ class MemoryGamePage extends StatefulWidget {
   // 탭이 보이게 될 때 호출되는 메서드
   void onTabVisible() {
     _stateKey.currentState?.onTabVisible();
+    print('탭이 보이게 될 때 호출되는 메서드');
   }
 
   // 탭이 보이지 않게 될 때 호출되는 메서드
   void onTabInvisible() {
     _stateKey.currentState?.onTabInvisible();
+    print('탭이 보이지 않게 될 때 호출되는 메서드');
   }
 
   @override
@@ -156,6 +167,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   // late를 제거하고 nullable로 선언
   MemoryGameService? _memoryGameService;
 
+  // Add a field to store the IndexedStack reference
+  IndexedStack? _parentIndexedStack;
+
   @override
   void initState() {
     super.initState();
@@ -164,7 +178,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _loadUserLanguage();
     _checkTutorialStatus(); // 튜토리얼 표시 여부 확인
     _initializeGameWrapper(); // 게임 초기화
-    flutterTts.setLanguage("en-US");
+    // flutterTts.setLanguage("en-US"); // 오류가 있는 부분 제거
     _subscribeToLanguageChanges();
 
     _animationController = AnimationController(
@@ -179,26 +193,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     _loadGameTimeLimit();
 
-    // 서비스 초기화
-    try {
-      _memoryGameService =
-          Provider.of<MemoryGameService>(context, listen: false);
-      if (_memoryGameService != null) {
-        _memoryGameService!.addGridChangeListener(_onGridSizeChanged);
-      }
-    } catch (e) {
-      print('MemoryGameService 초기화 오류: $e');
-      // 나중에 다시 시도
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) {
-          _memoryGameService =
-              Provider.of<MemoryGameService>(context, listen: false);
-          if (_memoryGameService != null) {
-            _memoryGameService!.addGridChangeListener(_onGridSizeChanged);
-          }
-        }
-      });
-    }
+    // MemoryGameService 초기화 (한 번만)
+    _initializeMemoryGameService();
 
     // 멀티플레이어 모드일 경우 추가 초기화
     if (widget.isMultiplayerMode && widget.gameId != null) {
@@ -208,6 +204,80 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 앱 생명주기 관찰자 등록
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  // MemoryGameService 초기화 메서드
+  void _initializeMemoryGameService() {
+    try {
+      _memoryGameService =
+          Provider.of<MemoryGameService>(context, listen: false);
+
+      // 그리드 크기 변경 리스너 등록
+      _memoryGameService?.addGridChangeListener(_onGridSizeChanged);
+
+      // 멀티플레이어 게임에서 턴 변경 리스너 등록
+      _memoryGameService?.addPlayerTurnChangeListener(_onPlayerTurnChanged);
+
+      // 점수 변경 리스너 등록
+      _memoryGameService?.addScoreChangeListener(_onScoreChanged);
+
+      // 로컬 멀티플레이어 모드에서 게임 초기화
+      if (widget.numberOfPlayers > 1 && !widget.isMultiplayerMode) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _memoryGameService?.initializeGame();
+          print('로컬 멀티플레이어 게임 초기화: 플레이어 ${widget.numberOfPlayers}명');
+        });
+      }
+
+      print('MemoryGameService 초기화 성공');
+    } catch (e) {
+      print('MemoryGameService 초기화 오류: $e');
+      // 나중에 다시 시도
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _memoryGameService =
+              Provider.of<MemoryGameService>(context, listen: false);
+          if (_memoryGameService != null) {
+            _memoryGameService!.addGridChangeListener(_onGridSizeChanged);
+            _memoryGameService!
+                .addPlayerTurnChangeListener(_onPlayerTurnChanged);
+            _memoryGameService!.addScoreChangeListener(_onScoreChanged);
+
+            // 로컬 멀티플레이어 모드에서 게임 초기화
+            if (widget.numberOfPlayers > 1 && !widget.isMultiplayerMode) {
+              _memoryGameService!.initializeGame();
+              print('로컬 멀티플레이어 게임 초기화(재시도): 플레이어 ${widget.numberOfPlayers}명');
+            }
+          }
+        }
+      });
+    }
+  }
+
+  // UI 초기화 메서드
+  void _initializeUI() {
+    // 애니메이션 컨트롤러 초기화
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+    );
+
+    _colorAnimation = ColorTween(
+      begin: instagramGradientStart,
+      end: instagramGradientEnd,
+    ).animate(_animationController);
+
+    // 텍스트 음성 변환 초기화 - 기존 인스턴스 사용
+    flutterTts.setLanguage("en-US");
+
+    // 언어 설정
+    targetLanguage = 'en-US';
+
+    // 추가 초기화
+    _loadUserLanguage();
+    _checkTutorialStatus(); // 튜토리얼 표시 여부 확인
+    _subscribeToLanguageChanges();
+    _loadGameTimeLimit();
   }
 
   // 그리드 사이즈 변경 리스너
@@ -1091,7 +1161,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // null 체크 추가
     if (_memoryGameService != null) {
       _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
+
+      // 멀티플레이어 게임에서 턴 변경 리스너 제거
+      _memoryGameService?.removePlayerTurnChangeListener(_onPlayerTurnChanged);
+
+      // 점수 변경 리스너 제거
+      _memoryGameService?.removeScoreChangeListener(_onScoreChanged);
     }
+
     _languageSubscription?.cancel(); // null 체크 추가
     _gameSubscription?.cancel(); // 멀티플레이어 게임 구독 취소
     _timer?.cancel();
@@ -1102,14 +1179,25 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 앱 생명주기 관찰자 제거
     WidgetsBinding.instance.removeObserver(this);
 
+    // Clear the stored reference to IndexedStack
+    _parentIndexedStack = null;
+
     super.dispose();
   }
 
   @override
-  void didUpdateWidget(MemoryGamePage oldWidget) {
+  void didUpdateWidget(covariant MemoryGamePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Only reinitialize the game if the grid size has changed
+
+    // 그리드 크기가 변경되었을 때 게임 재시작
     if (widget.gridSize != oldWidget.gridSize) {
+      _initializeGameWrapper();
+    }
+
+    // 플레이어 수나 선택된 플레이어가 변경되었을 때 게임 재시작
+    if (widget.numberOfPlayers != oldWidget.numberOfPlayers ||
+        !_arePlayerListsEqual(
+            widget.selectedPlayers, oldWidget.selectedPlayers)) {
       _initializeGameWrapper();
     }
 
@@ -1120,16 +1208,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 현재 위젯이 보이는지 확인 (IndexedStack에서 현재 표시되는 탭인지)
     bool isCurrentlyVisible = true; // 기본적으로 보이는 것으로 가정
 
-    // 부모 위젯 구조를 확인하여 현재 위젯이 보이는지 확인
-    BuildContext? context = this.context;
-    if (context != null) {
-      // 부모 위젯 중에 IndexedStack이 있는지 확인
-      IndexedStack? indexedStack =
-          context.findAncestorWidgetOfExactType<IndexedStack>();
-      if (indexedStack != null) {
-        // 현재 인덱스가 0(메모리 게임 탭)인지 확인
-        isCurrentlyVisible = indexedStack.index == 0;
-      }
+    // Use the stored IndexedStack reference instead of finding it again
+    if (_parentIndexedStack != null) {
+      // 현재 인덱스가 0(메모리 게임 탭)인지 확인
+      isCurrentlyVisible = _parentIndexedStack!.index == 0;
     }
 
     // 탭 가시성이 변경되었을 때 타이머 제어
@@ -1149,9 +1231,26 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
   }
 
+  // 두 플레이어 목록이 동일한지 비교하는 헬퍼 메서드
+  bool _arePlayerListsEqual(
+      List<Map<String, dynamic>> list1, List<Map<String, dynamic>> list2) {
+    if (list1.length != list2.length) return false;
+
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i]['id'] != list2[i]['id']) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Store a reference to the parent IndexedStack
+    _parentIndexedStack = context.findAncestorWidgetOfExactType<IndexedStack>();
+
     final languageProvider = Provider.of<LanguageProvider>(context);
     if (targetLanguage != languageProvider.currentLanguage) {
       setState(() {
@@ -1281,6 +1380,25 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       // Don't set isGameStarted to true here
       // Wait for first card click instead
     });
+
+    // 로컬 멀티플레이어 모드에서 MemoryGameService 초기화
+    if (widget.numberOfPlayers > 1 && !widget.isMultiplayerMode) {
+      print('로컬 멀티플레이어 초기화 시작: 총 플레이어 수 = ${widget.numberOfPlayers}');
+
+      // 서비스 초기화 확인
+      if (_memoryGameService == null) {
+        print('서비스가 초기화되지 않았습니다. 다시 초기화합니다.');
+        _memoryGameService =
+            Provider.of<MemoryGameService>(context, listen: false);
+      }
+
+      // 게임 초기화
+      _memoryGameService?.initializeGame();
+
+      // 서비스 상태 확인을 위한 출력
+      print('게임 초기화 후 현재 턴: ${_memoryGameService?.currentPlayerIndex}');
+      print('게임 초기화 후 점수 상태: ${_memoryGameService?.playerScores}');
+    }
   }
 
   // 기본 게임 이미지 초기화 메소드 (싱글플레이어 모드 또는 로드 실패 시)
@@ -1423,7 +1541,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   void checkMatch() {
     setState(() {
-      if (gameImages[selectedCards[0]] == gameImages[selectedCards[1]]) {
+      bool isMatch =
+          gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
+
+      if (isMatch) {
         // 카드가 매치될 때 양쪽 카드에 별 애니메이션 트리거
         _triggerStarAnimation(selectedCards[0]);
         _triggerStarAnimation(selectedCards[1]);
@@ -1431,6 +1552,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         // 멀티플레이어 모드에서는 점수 업데이트를 Firestore에 반영
         if (widget.isMultiplayerMode) {
           _updateMatchInFirestore(true);
+        } else if (widget.numberOfPlayers > 1) {
+          // 로컬 멀티플레이어 모드에서는 memory_game_service를 통해 점수와 턴 관리
+          print('매치 성공: memory_game_service.handleCardMatchResult(true) 호출 전');
+          _memoryGameService?.handleCardMatchResult(true);
         } else {
           // 싱글플레이어 모드에서는 로컬 점수 업데이트
           widget.updatePlayerScore(widget.currentPlayer,
@@ -1466,9 +1591,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         // 멀티플레이어 모드에서는 턴 변경을 Firestore에 반영
         if (widget.isMultiplayerMode) {
           _updateMatchInFirestore(false);
+        } else if (widget.numberOfPlayers > 1) {
+          // 로컬 멀티플레이어 모드에서는 memory_game_service를 통해 턴 관리
+          print('매치 실패: memory_game_service.handleCardMatchResult(false) 호출 전');
+          _memoryGameService?.handleCardMatchResult(false);
+          print(
+              '매치 실패: 턴 변경 후 현재 플레이어 = ${_memoryGameService?.currentPlayerIndex}');
+          // widget.nextPlayer() 호출 제거 - memory_game_service에서 모든 턴 관리 담당
         } else {
-          // 싱글플레이어 모드에서는 로컬 턴 변경
-          widget.nextPlayer();
+          // 싱글플레이어 모드에서는 로컬 턴 변경 없음
         }
 
         selectedCards.clear();
@@ -2061,89 +2192,87 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     if (widget.isTimeAttackMode) ...[
                       // Add timer bar
                       SizedBox(
-                        height: 75, // 전체 영역의 고정 높이 설정
-                        child: Row(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.stretch, // 세로 방향으로 확장
-                          children: [
-                            Expanded(
-                              flex: 4, // 전체 너비 차지하도록 변경
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                    top: 8.0,
-                                    bottom: 8.0,
-                                    left: 16.0,
-                                    right: 16.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center, // 수직 중앙 정렬
+                        height: 45, // 높이 줄임
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 4.0),
+                          child: Row(
+                            children: [
+                              // 시간 표시 텍스트
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: _getColorByTimeRatio(
+                                          _remainingTime / _gameTimeLimit)
+                                      .withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Time: $_remainingTime s',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                            color: _remainingTime < 10
-                                                ? Colors.red
-                                                : Colors.black87,
-                                          ),
-                                        ),
-                                        if (widget.isTimeAttackMode) ...[
-                                          // 메인 화면에서 시간 추가 버튼 추가
-                                          ElevatedButton.icon(
-                                            onPressed: _canAddTime &&
-                                                    isGameStarted &&
-                                                    _elapsedTime >=
-                                                        _timeAddMinElapsed
-                                                ? _addExtraTime
-                                                : null,
-                                            icon: Icon(Icons.add, size: 16),
-                                            label: Text('+30s'),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: _canAddTime &&
-                                                      isGameStarted &&
-                                                      _elapsedTime >=
-                                                          _timeAddMinElapsed
-                                                  ? instagramGradientStart
-                                                  : Colors.grey,
-                                              foregroundColor: Colors.white,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 8),
-                                              minimumSize: Size(60, 32),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                              ),
-                                            ),
-                                          ),
-                                        ]
-                                      ],
+                                    Icon(
+                                      Icons.timer,
+                                      size: 16,
+                                      color: _getColorByTimeRatio(
+                                          _remainingTime / _gameTimeLimit),
                                     ),
-                                    SizedBox(height: 4),
-                                    Container(
-                                      width: double.infinity,
-                                      child: LinearProgressIndicator(
-                                        value: _remainingTime / _gameTimeLimit,
-                                        backgroundColor: Colors.grey.shade200,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          _remainingTime < 10
-                                              ? Colors.red
-                                              : Colors.blue,
-                                        ),
-                                        minHeight: 6,
+                                    SizedBox(width: 4),
+                                    Text(
+                                      '$_remainingTime s',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: _getColorByTimeRatio(
+                                            _remainingTime / _gameTimeLimit),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            // Fight 버튼 영역 제거
-                          ],
+                              SizedBox(width: 10),
+                              // 프로그레스 바
+                              Expanded(
+                                child: LinearProgressIndicator(
+                                  value: _remainingTime / _gameTimeLimit,
+                                  backgroundColor: Colors.grey.shade200,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    _getColorByTimeRatio(
+                                        _remainingTime / _gameTimeLimit),
+                                  ),
+                                  minHeight: 8,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              // 시간 추가 버튼
+                              if (widget.isTimeAttackMode)
+                                ElevatedButton.icon(
+                                  onPressed: _canAddTime &&
+                                          isGameStarted &&
+                                          _elapsedTime >= _timeAddMinElapsed
+                                      ? _addExtraTime
+                                      : null,
+                                  icon: Icon(Icons.add, size: 14),
+                                  label: Text('+30s',
+                                      style: TextStyle(fontSize: 12)),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: _canAddTime &&
+                                            isGameStarted &&
+                                            _elapsedTime >= _timeAddMinElapsed
+                                        ? instagramGradientStart
+                                        : Colors.grey,
+                                    foregroundColor: Colors.white,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    minimumSize: Size(50, 30),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     ] else ...[
@@ -2418,9 +2547,33 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     String gridSize = widget.gridSize;
 
     // 게임 통계 업데이트 및 획득 점수 가져오기
-    final int pointsEarned = await _updateBrainHealthScore(elapsedTime);
+    // 이전에 계산된 기본 pointsEarned를 사용합니다.
+    int basePointsEarned = await _updateBrainHealthScore(elapsedTime);
 
-    // 게임 통계 업데이트
+    // 로컬 멀티플레이어 승자 결정
+    String winner = 'Tie';
+    int winningScore = 0;
+    if (widget.numberOfPlayers > 1) {
+      var sortedScores = widget.playerScores.entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value));
+      if (sortedScores.isNotEmpty &&
+          (sortedScores.length == 1 ||
+              sortedScores[0].value > sortedScores[1].value)) {
+        winner = sortedScores[0].key; // 승자 이름
+        winningScore = sortedScores[0].value; // 승자 점수 (배율 적용 전)
+      }
+    }
+
+    // 플레이어 수에 따른 점수 배율 계산
+    int multiplier = 1;
+    if (widget.numberOfPlayers > 1) {
+      multiplier = widget.numberOfPlayers;
+    }
+
+    // 최종 점수 계산 (기본 획득 점수 * 배율)
+    int finalPointsEarned = basePointsEarned * multiplier;
+
+    // 게임 통계 업데이트 (기본 점수 기준)
     _updateGameStatistics(languageCode, gridSize, elapsedTime, flipCount);
 
     if (!mounted) return;
@@ -2446,34 +2599,51 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Congratulations!",
+                  // 로컬 멀티플레이어일 경우 승자 표시, 싱글이면 "Congratulations!"
+                  widget.numberOfPlayers > 1
+                      ? (winner != 'Tie' ? "Winner: $winner!" : "It's a Tie!")
+                      : "Congratulations!",
                   style: GoogleFonts.montserrat(
-                    fontSize: 28,
+                    fontSize: 24, // 글씨 크기 조정
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 16),
                 if (widget.isTimeAttackMode) ...[
                   Text(
                     "Time: ${elapsedTime} seconds",
                     style: GoogleFonts.montserrat(
-                      fontSize: 20,
+                      fontSize: 18, // 글씨 크기 조정
                       color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(height: 8),
                 ],
-                SizedBox(height: 8),
                 Text(
                   "Flips: $flipCount",
                   style: GoogleFonts.montserrat(
-                    fontSize: 20,
+                    fontSize: 18, // 글씨 크기 조정
                     color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 12),
+                // 로컬 멀티플레이어 점수 계산 설명 추가
+                if (widget.numberOfPlayers > 1) ...[
+                  Text(
+                    "(${widget.numberOfPlayers} Players: Score x$multiplier)",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8),
+                ],
+                // 최종 획득 점수 표시 (Health Score)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
@@ -2484,13 +2654,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        Icons.psychology,
+                        Icons.psychology, // 아이콘 변경 또는 유지
                         color: Colors.white,
                         size: 20,
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "+$pointsEarned points",
+                        // 최종 점수 표시
+                        "Health Score: +$finalPointsEarned",
                         style: GoogleFonts.montserrat(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -2565,13 +2736,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                           .map((entry) {
                         // Determine player name based on position
                         String displayName = entry.key;
+                        bool isCurrentPlayerTurn = false;
+                        int playerIndex = widget.playerScores.keys
+                            .toList()
+                            .indexOf(entry.key);
+                        int score = 0;
 
                         if (widget.isMultiplayerMode) {
                           // 멀티플레이어 모드에서는 실제 닉네임 표시
-                          int playerIndex = widget.playerScores.keys
-                              .toList()
-                              .indexOf(entry.key);
-
                           if (playerIndex == 0) {
                             displayName = _myNickname ?? 'You';
                           } else {
@@ -2579,38 +2751,142 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                           }
 
                           // 현재 턴 표시 (내 턴일 때와 상대방 턴일 때)
-                          bool isCurrentPlayerTurn =
+                          isCurrentPlayerTurn =
                               (playerIndex == 0 && _isMyTurn) ||
                                   (playerIndex == 1 && !_isMyTurn);
 
+                          // 온라인 멀티플레이어 모드에서는 widget의 점수 사용
+                          score = entry.value;
+
                           return Flexible(
+                            flex: isCurrentPlayerTurn
+                                ? 70
+                                : 30 ~/ (widget.playerScores.length - 1),
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
+                                  horizontal: isCurrentPlayerTurn
+                                      ? 12
+                                      : (widget.numberOfPlayers == 2 ? 4 : 2),
+                                  vertical: isCurrentPlayerTurn
+                                      ? 6
+                                      : (widget.numberOfPlayers == 2 ? 2 : 1)),
+                              margin: EdgeInsets.all(isCurrentPlayerTurn
+                                  ? 3
+                                  : (widget.numberOfPlayers == 2 ? 2 : 1)),
                               decoration: BoxDecoration(
                                 color: isCurrentPlayerTurn
-                                    ? Colors.white.withOpacity(0.2)
+                                    ? null
                                     : Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
+                                gradient: isCurrentPlayerTurn
+                                    ? LinearGradient(
+                                        colors: [
+                                          instagramGradientStart
+                                              .withOpacity(0.3),
+                                          instagramGradientEnd.withOpacity(0.3)
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      )
+                                    : null,
+                                borderRadius: BorderRadius.circular(
+                                    isCurrentPlayerTurn ? 20 : 10),
+                                boxShadow: isCurrentPlayerTurn
+                                    ? [
+                                        BoxShadow(
+                                          color: instagramGradientStart
+                                              .withOpacity(0.3),
+                                          blurRadius: 8,
+                                          spreadRadius: 1,
+                                        )
+                                      ]
+                                    : null,
                               ),
                               child: Column(
                                 children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      '$displayName: ${entry.value}',
-                                      style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
+                                  isCurrentPlayerTurn
+                                      ? FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            '$displayName: ${entry.value}',
+                                            style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        )
+                                      : Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Transform.scale(
+                                              scale: 0.7,
+                                              child:
+                                                  _buildPlayerFlag(entry.key),
+                                            ),
+                                            SizedBox(width: 1),
+                                            // 플레이어 수에 따라 이름 표시 방식 변경
+                                            if (widget.numberOfPlayers ==
+                                                2) ...[
+                                              Text(
+                                                displayName.length > 5
+                                                    ? displayName.substring(
+                                                            0, 5) +
+                                                        "..."
+                                                    : displayName,
+                                                style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white70,
+                                                  fontSize: 10, // 2명일 때는 더 크게
+                                                ),
+                                              ),
+                                              SizedBox(width: 1),
+                                            ] else if (widget.numberOfPlayers ==
+                                                3) ...[
+                                              Text(
+                                                displayName.length > 3
+                                                    ? displayName.substring(
+                                                            0, 3) +
+                                                        ".."
+                                                    : displayName,
+                                                style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white70,
+                                                  fontSize: 7,
+                                                ),
+                                              ),
+                                              SizedBox(width: 1),
+                                            ],
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 2, vertical: 1),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white
+                                                    .withOpacity(0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                              ),
+                                              child: Text(
+                                                '${entry.value}',
+                                                style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white60,
+                                                  fontSize:
+                                                      widget.numberOfPlayers ==
+                                                              2
+                                                          ? 9
+                                                          : 7,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                   if (isCurrentPlayerTurn)
                                     Text(
                                       'Playing...',
                                       style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
+                                        fontSize: 14,
+                                        color: Colors.yellow,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                 ],
@@ -2618,58 +2894,150 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                             ),
                           );
                         } else {
-                          // 기존 싱글플레이어 모드 코드 유지
-                          if (widget.playerScores.keys
-                                  .toList()
-                                  .indexOf(entry.key) ==
-                              0) {
-                            // First player - try to get user's nickname
+                          // 로컬 멀티플레이어 모드
+                          // 현재 플레이어 인덱스 확인
+                          isCurrentPlayerTurn = playerIndex ==
+                              _memoryGameService?.currentPlayerIndex;
+
+                          // 닉네임 설정
+                          if (playerIndex == 0) {
+                            // 첫 번째 플레이어 - 현재 사용자 닉네임 사용
                             User? user = FirebaseAuth.instance.currentUser;
                             if (user != null &&
                                 user.displayName != null &&
                                 user.displayName!.isNotEmpty) {
                               displayName = user.displayName!;
                             } else {
-                              // If no display name, try to get email
                               displayName = user?.email?.split('@')[0] ?? 'You';
                             }
                           } else {
-                            // For other players, use predefined names
-                            int playerIndex = widget.playerScores.keys
-                                .toList()
-                                .indexOf(entry.key);
-
-                            // Use these names for AI players in this specific order
-                            List<String> aiPlayerNames = [
-                              "Genious",
-                              "Cute",
-                              "Lovely"
-                            ];
+                            // 다른 플레이어들 - 선택된 플레이어 닉네임 사용
                             if (playerIndex > 0 &&
-                                playerIndex <= aiPlayerNames.length) {
-                              displayName = aiPlayerNames[playerIndex - 1];
+                                playerIndex <= widget.selectedPlayers.length) {
+                              displayName =
+                                  widget.selectedPlayers[playerIndex - 1]
+                                      ['nickname'] as String;
+                            } else {
+                              displayName = 'Player ${playerIndex + 1}';
                             }
                           }
 
+                          // memory_game_service에서 점수 가져오기
+                          score =
+                              _memoryGameService?.getPlayerScore(playerIndex) ??
+                                  0;
+
                           return Flexible(
-                            child: Container(
+                            flex: isCurrentPlayerTurn
+                                ? 70
+                                : 30 ~/ (widget.playerScores.length - 1),
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: entry.key == widget.currentPlayer
-                                    ? Colors.white.withOpacity(0.2)
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  '$displayName: ${entry.value}',
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                                  horizontal: isCurrentPlayerTurn
+                                      ? 1
+                                      : (widget.numberOfPlayers == 2 ? 2 : 0)),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: isCurrentPlayerTurn
+                                        ? 2
+                                        : (widget.numberOfPlayers == 2 ? 2 : 0),
+                                    vertical: isCurrentPlayerTurn
+                                        ? 6
+                                        : (widget.numberOfPlayers == 2
+                                            ? 2
+                                            : 1)),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                      isCurrentPlayerTurn ? 16 : 10),
                                 ),
+                                child: isCurrentPlayerTurn
+                                    // 현재 차례 플레이어: 더 크게 표시
+                                    ? Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          _buildPlayerFlag(entry.key),
+                                          SizedBox(width: 1),
+                                          Flexible(
+                                            child: Text(
+                                              displayName, // fullname 사용
+                                              style: GoogleFonts.montserrat(
+                                                color: Colors.blue[800],
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18, // 크기 더 증가
+                                                letterSpacing: 0.5,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          SizedBox(width: 1),
+                                          Text(
+                                            "($score)",
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.black87,
+                                              fontSize: 16, // 크기 더 증가
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    // 대기 중인 플레이어: 훨씬 작게 표시
+                                    : Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Transform.scale(
+                                            scale: 0.7,
+                                            child: _buildPlayerFlag(entry.key),
+                                          ),
+                                          SizedBox(width: 1),
+                                          // 플레이어 수에 따라 이름 표시 방식 변경
+                                          if (widget.numberOfPlayers == 2) ...[
+                                            Text(
+                                              displayName.length > 5
+                                                  ? displayName.substring(
+                                                          0, 5) +
+                                                      "..."
+                                                  : displayName,
+                                              style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.blue[800],
+                                                fontSize: 10, // 2명일 때는 더 크게
+                                              ),
+                                            ),
+                                            SizedBox(width: 1),
+                                          ] else if (widget.numberOfPlayers ==
+                                              3) ...[
+                                            Text(
+                                              displayName.length > 3
+                                                  ? displayName.substring(
+                                                          0, 3) +
+                                                      ".."
+                                                  : displayName,
+                                              style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.blue[800],
+                                                fontSize: 7,
+                                              ),
+                                            ),
+                                            SizedBox(width: 1),
+                                          ],
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 2, vertical: 1),
+                                            child: Text(
+                                              '$score',
+                                              style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black87,
+                                                fontSize:
+                                                    widget.numberOfPlayers == 2
+                                                        ? 9
+                                                        : 7,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                               ),
                             ),
                           );
@@ -2817,5 +3185,96 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         });
       }
     }
+  }
+
+  Widget _buildPlayerFlag(String playerName) {
+    String countryCode = 'un'; // 기본값으로 UN 국가 코드 사용
+
+    // 첫 번째 플레이어(현재 사용자)인 경우
+    if (widget.playerScores.keys.toList().indexOf(playerName) == 0) {
+      countryCode = widget.currentUserInfo['country'] as String? ?? 'un';
+    }
+    // 다른 플레이어인 경우
+    else {
+      int playerIndex =
+          widget.playerScores.keys.toList().indexOf(playerName) - 1;
+      if (playerIndex >= 0 && playerIndex < widget.selectedPlayers.length) {
+        countryCode =
+            widget.selectedPlayers[playerIndex]['country'] as String? ?? 'un';
+      }
+    }
+
+    // 소문자로 된 국가 코드를 대문자로 변환
+    countryCode = countryCode.toUpperCase();
+
+    return Flag.fromString(
+      countryCode,
+      height: 16,
+      width: 24,
+      borderRadius: 2,
+      flagSize: FlagSize.size_4x3,
+      fit: BoxFit.cover,
+    );
+  }
+
+  // 플레이어의 국가명을 반환하는 메서드
+  String _getPlayerCountry(String playerName) {
+    String countryCode = 'Unknown';
+
+    // 첫 번째 플레이어(현재 사용자)인 경우
+    if (widget.playerScores.keys.toList().indexOf(playerName) == 0) {
+      countryCode = widget.currentUserInfo['country'] as String? ?? 'un';
+    }
+    // 다른 플레이어인 경우
+    else {
+      int playerIndex =
+          widget.playerScores.keys.toList().indexOf(playerName) - 1;
+      if (playerIndex >= 0 && playerIndex < widget.selectedPlayers.length) {
+        countryCode =
+            widget.selectedPlayers[playerIndex]['country'] as String? ?? 'un';
+      }
+    }
+
+    // 국가 코드를 국가명으로 변환 (간단하게)
+    Map<String, String> countryNames = {
+      'us': 'United States',
+      'kr': 'South Korea',
+      'jp': 'Japan',
+      'cn': 'China',
+      'gb': 'United Kingdom',
+      'fr': 'France',
+      'de': 'Germany',
+      'it': 'Italy',
+      'es': 'Spain',
+      'ru': 'Russia',
+      'ca': 'Canada',
+      'au': 'Australia',
+      'un': 'Unknown'
+    };
+
+    return countryNames[countryCode.toLowerCase()] ?? 'Unknown';
+  }
+
+  // 플레이어 턴이 변경되었을 때 호출되는 메서드
+  void _onPlayerTurnChanged(int newPlayerIndex) {
+    setState(() {
+      // UI 업데이트
+    });
+  }
+
+  // 점수가 변경되었을 때 호출되는 메서드
+  void _onScoreChanged(Map<int, int> scores) {
+    setState(() {
+      // UI 업데이트
+    });
+  }
+
+  // 시간 비율에 따른 색상 계산 함수 추가
+  Color _getColorByTimeRatio(double ratio) {
+    if (ratio > 0.6) return Colors.green; // 60% 이상: 녹색
+    if (ratio > 0.4) return Colors.blue; // 40% 이상: 파란색
+    if (ratio > 0.25) return Colors.amber; // 25% 이상: 노란색
+    if (ratio > 0.1) return Colors.orange; // 10% 이상: 주황색
+    return Colors.red; // 10% 미만: 빨간색
   }
 }

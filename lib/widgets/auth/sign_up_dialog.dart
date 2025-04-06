@@ -8,12 +8,18 @@ class SignUpDialog {
   static Future<Map<String, dynamic>?> show(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+    final TextEditingController shortPasswordController =
+        TextEditingController();
     final TextEditingController nicknameController = TextEditingController();
     final TextEditingController ageController = TextEditingController();
 
     String? selectedGender;
     Country? selectedCountry;
     String? selectedCountryCode;
+    String? passwordError;
+    String? shortPasswordError;
 
     return showDialog<Map<String, dynamic>?>(
       context: context,
@@ -27,6 +33,33 @@ class SignUpDialog {
                 setState(() {
                   selectedCountry = country;
                   selectedCountryCode = country.code;
+                });
+              }
+            }
+
+            // Password validation
+            void validatePassword() {
+              if (passwordController.text != confirmPasswordController.text) {
+                setState(() {
+                  passwordError = 'Passwords do not match';
+                });
+              } else {
+                setState(() {
+                  passwordError = null;
+                });
+              }
+            }
+
+            // Short password validation
+            void validateShortPassword() {
+              if (shortPasswordController.text.length != 2 ||
+                  !RegExp(r'^[0-9]+$').hasMatch(shortPasswordController.text)) {
+                setState(() {
+                  shortPasswordError = 'Must be a 2-digit number';
+                });
+              } else {
+                setState(() {
+                  shortPasswordError = null;
                 });
               }
             }
@@ -279,6 +312,7 @@ class SignUpDialog {
                       TextField(
                         controller: passwordController,
                         obscureText: true,
+                        onChanged: (_) => validatePassword(),
                         decoration: InputDecoration(
                           hintText: 'Password',
                           filled: true,
@@ -288,6 +322,47 @@ class SignUpDialog {
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon: Icon(Icons.lock_outline),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: confirmPasswordController,
+                        obscureText: true,
+                        onChanged: (_) => validatePassword(),
+                        decoration: InputDecoration(
+                          hintText: 'Confirm Password',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.lock_outline),
+                          errorText: passwordError,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: shortPasswordController,
+                        keyboardType: TextInputType.number,
+                        onChanged: (_) => validateShortPassword(),
+                        maxLength: 2,
+                        decoration: InputDecoration(
+                          hintText: 'Multi-Game PIN (2 digits)',
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.pin_outlined),
+                          errorText: shortPasswordError,
+                          counterText: "",
+                          helperText: "2-digit PIN for multiplayer games",
+                          helperStyle: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
                         ),
                       ),
                       SizedBox(height: 24),
@@ -313,6 +388,14 @@ class SignUpDialog {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
+                                // Validate passwords before submission
+                                validatePassword();
+                                validateShortPassword();
+                                if (passwordError != null ||
+                                    shortPasswordError != null) {
+                                  return;
+                                }
+
                                 final userData = {
                                   'email': emailController.text,
                                   'password': passwordController.text,
@@ -320,6 +403,7 @@ class SignUpDialog {
                                   'age': int.tryParse(ageController.text),
                                   'gender': selectedGender,
                                   'country': selectedCountryCode,
+                                  'shortPW': shortPasswordController.text,
                                 };
                                 Navigator.of(dialogContext).pop(userData);
                               },

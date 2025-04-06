@@ -82,6 +82,204 @@ class BrainHealthProvider with ChangeNotifier {
     return pointsNeeded.ceil();
   }
 
+  // 새로운 뇌 건강 지수 계산 (사용자 나이, 최근 게임 활동, 그리드별 시간, 뒤집기 횟수 기반)
+  Future<Map<String, dynamic>> calculateBrainHealthIndex() async {
+    // 로그아웃 상태나 데이터 로드 중 안전한 호출을 위한 오류 처리
+    try {
+      // 기본 지수 값 (70에서 50으로 낮춤)
+      double baseIndex = 50.0;
+
+      // 현재 날짜
+      DateTime now = DateTime.now();
+
+      // 사용자 나이 가져오기 (Firebase 사용자 정보에서)
+      int userAge = 30; // 기본값 30
+
+      if (_userId != null) {
+        try {
+          DocumentSnapshot userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(_userId)
+              .get();
+
+          if (userDoc.exists) {
+            Map<String, dynamic> userData =
+                userDoc.data() as Map<String, dynamic>;
+            if (userData.containsKey('age')) {
+              userAge = userData['age'] as int;
+            } else {
+              // Firebase에 age 필드가 없는 경우 SharedPreferences에서 시도
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              userAge = prefs.getInt('user_age') ?? 30;
+            }
+          }
+        } catch (e) {
+          print('Error fetching user age from Firebase: $e');
+          // 오류 발생 시 SharedPreferences에서 시도
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          userAge = prefs.getInt('user_age') ?? 30;
+        }
+      } else {
+        // 로그인되지 않은 경우 SharedPreferences에서 가져옴
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        userAge = prefs.getInt('user_age') ?? 30;
+      }
+
+      // 나이 기반 조정 (35세 이상부터 점수 감소, 효과 증가)
+      double ageAdjustment = 0;
+      if (userAge > 35) {
+        ageAdjustment = (userAge - 35) * 0.3; // 나이가 많을수록 지수 감소 (0.2에서 0.3으로 증가)
+        ageAdjustment = ageAdjustment.clamp(0, 20); // 최대 감소량 15에서 20으로 증가
+      }
+
+      // 지난 일주일간 게임 활동 평가
+      int recentGames = 0;
+
+      // 점수 기록에서 최근 활동 확인
+      for (ScoreRecord record in _scoreHistory) {
+        if (now.difference(record.date).inDays <= 7) {
+          recentGames++;
+        }
+      }
+
+      // 최근 게임 활동 기반 조정 (보상 감소)
+      double activityAdjustment = recentGames * 1.0; // 게임당 1.5점에서 1.0점으로 감소
+      activityAdjustment = activityAdjustment.clamp(0, 12); // 최대 15점에서 12점으로 감소
+
+      // 그리드 크기별 성능 평가
+      double gridPerformance = 0;
+
+      // 각 그리드 크기별 점수 계산 (난이도 증가)
+      for (String gridSize in _bestTimesByGridSize.keys) {
+        int? bestTime = _bestTimesByGridSize[gridSize];
+        if (bestTime != null && bestTime > 0) {
+          // 그리드 크기에 따른 기대 시간 (초 단위) - 조금 더 엄격한 기준 적용
+          int expectedTime;
+          switch (gridSize) {
+            case "2x2":
+              expectedTime = 10; // 15에서 10으로 감소
+              break;
+            case "4x2":
+            case "2x4":
+              expectedTime = 25; // 30에서 25로 감소
+              break;
+            case "4x3":
+            case "3x4":
+              expectedTime = 50; // 60에서 50으로 감소
+              break;
+            case "4x4":
+              expectedTime = 75; // 90에서 75로 감소
+              break;
+            case "5x4":
+            case "4x5":
+              expectedTime = 100; // 120에서 100으로 감소
+              break;
+            case "6x5":
+            case "5x6":
+              expectedTime = 150; // 180에서 150으로 감소
+              break;
+            default:
+              expectedTime = 50;
+          }
+
+          // 기대 시간보다 빠를수록 더 높은 점수 (보상 감소)
+          double timeFactor =
+              (expectedTime / bestTime).clamp(0.5, 1.8); // 최대 보상 2.0에서 1.8로 감소
+          gridPerformance += timeFactor * 1.5; // 가중치 2에서 1.5로 감소
+        }
+      }
+
+      // 그리드 성능 점수 제한
+      gridPerformance = gridPerformance.clamp(0, 18); // 최대 20에서 18로 감소
+
+      // 추가: 플레이 횟수에 따른 보너스 (지속적인 플레이 필요)
+      double persistenceBonus = 0;
+      if (_totalGamesPlayed >= 5) persistenceBonus = 2;
+      if (_totalGamesPlayed >= 10) persistenceBonus = 4;
+      if (_totalGamesPlayed >= 20) persistenceBonus = 7;
+      if (_totalGamesPlayed >= 50) persistenceBonus = 10;
+      if (_totalGamesPlayed >= 100) persistenceBonus = 15;
+
+      // 최종 지수 계산 (로그 함수 적용으로 상위 점수대 진입 어렵게)
+      double rawIndex = baseIndex -
+          ageAdjustment +
+          activityAdjustment +
+          gridPerformance +
+          persistenceBonus;
+
+      // 로그 함수를 사용해 높은 점수대에서 진행이 느려지도록 조정
+      // 85점 이상부터 점수 획득이 급격히 어려워짐
+      double finalIndex = rawIndex;
+      if (rawIndex > 85) {
+        double excess = rawIndex - 85;
+        double logFactor =
+            1 + (0.5 * (1 - (1 / (1 + 0.1 * excess)))); // 로그 기반 감쇠 함수
+        finalIndex = 85 + (excess / logFactor);
+      }
+
+      finalIndex = finalIndex.clamp(0, 100);
+
+      // 지수 레벨 계산 (1-5) - 상위 레벨 기준 상향
+      int indexLevel;
+      if (finalIndex < 35) {
+        // 40에서 35로 감소
+        indexLevel = 1;
+      } else if (finalIndex < 60) {
+        // 55에서 60으로 증가
+        indexLevel = 2;
+      } else if (finalIndex < 80) {
+        // 70에서 80으로 증가
+        indexLevel = 3;
+      } else if (finalIndex < 95) {
+        // 85에서 95로 증가
+        indexLevel = 4;
+      } else {
+        indexLevel = 5;
+      }
+
+      // 다음 레벨까지 필요한 포인트 계산
+      double pointsToNext = 0;
+      if (indexLevel < 5) {
+        List<double> thresholds = [0, 35, 60, 80, 95, 100]; // 기준 업데이트
+        pointsToNext = thresholds[indexLevel] - finalIndex;
+        pointsToNext = pointsToNext.abs().ceil().toDouble();
+      }
+
+      return {
+        'brainHealthIndex': finalIndex,
+        'indexLevel': indexLevel,
+        'pointsToNextLevel': pointsToNext,
+        'ageComponent': ageAdjustment,
+        'activityComponent': activityAdjustment,
+        'performanceComponent': gridPerformance,
+        'persistenceBonus': persistenceBonus, // 추가: 지속적 플레이 보너스
+        'details': {
+          'age': userAge,
+          'recentGames': recentGames,
+          'totalGames': _totalGamesPlayed, // 추가: 전체 게임 수
+          'gridPerformances': _bestTimesByGridSize,
+        }
+      };
+    } catch (e) {
+      print('Error calculating brain health index: $e');
+      return {
+        'brainHealthIndex': 0,
+        'indexLevel': 1,
+        'pointsToNextLevel': 0,
+        'ageComponent': 0,
+        'activityComponent': 0,
+        'performanceComponent': 0,
+        'persistenceBonus': 0,
+        'details': {
+          'age': 30,
+          'recentGames': 0,
+          'totalGames': 0,
+          'gridPerformances': {},
+        }
+      };
+    }
+  }
+
   BrainHealthProvider() {
     _initialize();
     _setupAuthListener();

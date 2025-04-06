@@ -108,13 +108,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   int numberOfPlayers = 1;
   String gridSize = '4x4';
   int flipCount = 0;
-  List<String> players = ['Genius', 'Idiot', 'Cute', 'Lovely'];
-  Map<String, int> playerScores = {
-    'Genius': 0,
-    'Idiot': 0,
-    'Cute': 0,
-    'Lovely': 0
-  };
+
+  // 기존 하드코딩된 플레이어 리스트 대신 실제 유저 정보를 담을 리스트로 변경
+  List<Map<String, dynamic>> selectedPlayerData = [];
+  // 선택된 플레이어 닉네임 리스트 (UI 표시용)
+  List<String> players = [''];
+
+  Map<String, int> playerScores = {'': 0};
 
   // 다른 멤버 변수들
   int currentPlayerIndex = 0;
@@ -126,6 +126,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   int? _userAge;
   String? _userGender;
   String? _userCountryCode;
+  String? _shortPW;
   StreamSubscription<User?>? _authSubscription;
   MemoryGameService? _memoryGameService;
 
@@ -237,6 +238,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userAge = userData['age'] as int?;
             _userGender = userData['gender'] as String?;
             _userCountryCode = userData['country'] as String?;
+            _shortPW = userData['shortPW'] as String?;
           });
         }
       } else {
@@ -247,6 +249,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userAge = null;
             _userGender = null;
             _userCountryCode = null;
+            _shortPW = null;
           });
         }
       }
@@ -258,6 +261,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           _userAge = null;
           _userGender = null;
           _userCountryCode = null;
+          _shortPW = null;
         });
       }
     }
@@ -344,21 +348,93 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   Future<void> _signOut() async {
     try {
+      // 1. 메모리 게임 관련 리소스 정리
+      if (_memoryGamePage != null) {
+        // 메모리 게임 페이지가 있는 경우 상태 정리 시도
+        try {
+          // 타이머 종료
+          _gameTimer?.cancel();
+
+          // Firestore 구독 취소
+          _fcmMessageSubscription?.cancel();
+
+          // 현재 멀티플레이어 게임 상태 초기화
+          _currentGameId = null;
+          isMultiplayerMode = false;
+
+          // 메모리 게임 서비스 초기화
+          if (_memoryGameService != null) {
+            _memoryGameService!.gridSize = '4x4'; // 기본값으로 리셋
+          }
+        } catch (gameError) {
+          print('메모리 게임 리소스 정리 중 오류: $gameError');
+          // 오류가 발생해도 로그아웃은 계속 진행
+        }
+      }
+
+      // 2. 상태 초기화 (첫 번째 단계)
       setState(() {
+        // 사용자 정보 초기화
         _user = null;
         _nickname = null;
+        _userAge = null;
+        _userGender = null;
+        _userCountryCode = null;
+        _shortPW = null;
+
+        // 게임 상태 초기화
+        numberOfPlayers = 1;
+        players = [''];
+        playerScores = {'': 0};
+        currentPlayerIndex = 0;
+        gridSize = '4x4'; // 그리드 크기도 초기화
       });
 
+      // 3. Firebase 로그아웃 수행
       await FirebaseAuth.instance.signOut();
 
-      setState(() {
-        _memoryGameKey = UniqueKey();
+      // 4. UI 업데이트를 마이크로태스크 큐에 추가하여 프레임 경합 방지
+      Future.microtask(() {
+        if (mounted) {
+          // 메모리 게임 페이지 완전히 재생성
+          setState(() {
+            // 새로운 키로 메모리 게임을 강제로 재생성
+            _memoryGameKey = UniqueKey();
+            _memoryGamePage = null; // 기존 인스턴스 명시적으로 해제
+          });
+
+          // 별도의 마이크로태스크로 메모리 게임 페이지 다시 생성
+          Future.microtask(() {
+            if (mounted) {
+              setState(() {
+                _memoryGamePage = _buildMemoryGamePage();
+              });
+            }
+          });
+        }
       });
-    } catch (e) {
+
+      // 5. 로그아웃 성공 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign out. Please try again.')),
+        SnackBar(
+          content: Text('로그아웃되었습니다.'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      print('로그아웃 중 오류 발생: $e');
+
+      // 오류 메시지 표시
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('로그아웃 중 오류가 발생했습니다: $e'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 3),
+        ),
       );
 
+      // 인증 상태 초기화 재시도
       _initializeAuth();
     }
   }
@@ -391,6 +467,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   void resetScores() {
     setState(() {
+      playerScores.clear();
       for (String player in players) {
         playerScores[player] = 0;
       }
@@ -1186,14 +1263,28 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         updateFlipCount: updateFlipCount,
         updatePlayerScore: updatePlayerScore,
         nextPlayer: nextPlayer,
-        currentPlayer: players[currentPlayerIndex],
+        currentPlayer: players.isNotEmpty && currentPlayerIndex < players.length
+            ? players[currentPlayerIndex]
+            : '',
         playerScores: playerScores,
         resetScores: resetScores,
         isTimeAttackMode: true,
-        timeLimit: numberOfPlayers > 1 ? 180 : 60, // 멀티플레이어는 3분, 싱글플레이어는 1분
-        isMultiplayerMode: numberOfPlayers > 1,
-        gameId: numberOfPlayers > 1 ? _getCurrentGameId() : null,
+        timeLimit: isMultiplayerMode ? 180 : 60, // 멀티플레이어는 3분, 그 외는 60초
+        isMultiplayerMode: isMultiplayerMode,
+        gameId: _currentGameId,
         myPlayerId: _user?.uid,
+        // 플레이어 목록 정보 추가
+        selectedPlayers: _memoryGameService?.selectedPlayers ?? [],
+        currentUserInfo: {
+          'id': _user?.uid ?? 'me',
+          'nickname': _nickname ?? '나',
+          'country': _userCountryCode ?? 'us',
+          'gender': _userGender ?? 'unknown',
+          'age': _userAge ?? 0,
+          'brainHealthScore':
+              Provider.of<BrainHealthProvider>(context, listen: false)
+                  .brainHealthScore,
+        },
       );
     }
 
@@ -1217,7 +1308,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        toolbarHeight: _currentIndex == 0 ? 90 : 60,
+        toolbarHeight: (_currentIndex == 0 && _user != null) ? 90 : 60,
         backgroundColor: Colors.white,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1278,7 +1369,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 _buildUserProfileButton(),
               ],
             ),
-            if (_currentIndex == 0) ...[
+            if (_currentIndex == 0 && _user != null) ...[
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -1288,43 +1379,53 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       child: Row(
                         children: [
                           _buildControlButton(
-                            icon: Icons.people,
+                            icon: Icons.group_rounded,
                             label:
                                 '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}',
                             onTap: _showPlayerSelectionDialog,
                           ),
                           const SizedBox(width: 8),
                           _buildControlButton(
-                            icon: Icons.grid_on,
+                            icon: Icons.dashboard_rounded,
                             label: gridSize,
                             onTap: _showGridSizeSelectionDialog,
                           ),
                           const SizedBox(width: 8),
-                          Container(
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
+                                horizontal: 14, vertical: 8),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  instagramGradientStart,
-                                  instagramGradientEnd
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.purple.withOpacity(0.3),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 6,
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                              border: Border.all(
+                                color: Color(0xFF833AB4),
+                                width: 2,
                               ),
-                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.flip, size: 16, color: Colors.white),
-                                const SizedBox(width: 4),
+                                Icon(
+                                  Icons.flip_rounded,
+                                  size: 18,
+                                  color: Color(0xFF833AB4),
+                                ),
+                                const SizedBox(width: 6),
                                 Text(
                                   '$flipCount',
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
-                                    color: Colors.white,
+                                    color: Color(0xFF833AB4),
                                   ),
                                 ),
                               ],
@@ -1343,37 +1444,43 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           if (_currentIndex == 1)
             Consumer<BrainHealthProvider>(
               builder: (context, brainHealthProvider, child) {
-                return Container(
-                  margin: EdgeInsets.only(right: 8),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _getBrainHealthColor(
-                            brainHealthProvider.preventionLevel)
-                        .withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.psychology,
-                        color: _getBrainHealthColor(
-                            brainHealthProvider.preventionLevel),
-                        size: 20,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${brainHealthProvider.brainHealthScore}',
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                // 로그인 상태일 때만 Brain Health Score 표시
+                if (_user != null) {
+                  return Container(
+                    margin: EdgeInsets.only(right: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: _getBrainHealthColor(
+                              brainHealthProvider.preventionLevel)
+                          .withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.psychology,
                           color: _getBrainHealthColor(
                               brainHealthProvider.preventionLevel),
+                          size: 20,
                         ),
-                      ),
-                    ],
-                  ),
-                );
+                        const SizedBox(width: 4),
+                        Text(
+                          '${brainHealthProvider.brainHealthScore}',
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: _getBrainHealthColor(
+                                brainHealthProvider.preventionLevel),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  // 로그인하지 않은 경우 빈 컨테이너 반환
+                  return Container();
+                }
               },
             ),
           SizedBox(width: 16),
@@ -1443,6 +1550,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       userAge: _userAge,
       userGender: _userGender,
       userCountryCode: _userCountryCode,
+      shortPW: _shortPW,
     );
 
     if (result != null) {
@@ -1461,6 +1569,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             'age': result['age'],
             'gender': result['gender'],
             'country': result['country'],
+            'shortPW': result['shortPW'],
           });
 
           setState(() {
@@ -1468,6 +1577,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userAge = result['age'];
             _userGender = result['gender'];
             _userCountryCode = result['country'];
+            _shortPW = result['shortPW'];
           });
         }
       } catch (e) {
@@ -1564,6 +1674,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             'age': userData['age'],
             'gender': userData['gender'],
             'country': userData['country'],
+            'shortPW': userData['shortPW'],
           });
 
           setState(() {
@@ -1616,14 +1727,64 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _showPlayerSelectionDialog() async {
+    if (_memoryGameService == null) return;
+
     final selectedPlayers =
-        await PlayerSelectionDialog.show(context, numberOfPlayers);
+        await PlayerSelectionDialog.show(context, _memoryGameService!);
     if (selectedPlayers != null) {
-      setState(() {
-        numberOfPlayers = selectedPlayers;
-        currentPlayerIndex = 0;
-        resetScores();
-      });
+      try {
+        // 현재 사용자 정보 가져오기
+        Map<String, dynamic> currentUserInfo =
+            await _memoryGameService!.getCurrentUserInfo();
+
+        setState(() {
+          // 유저 수 설정 (본인 포함)
+          numberOfPlayers = selectedPlayers.length + 1;
+
+          // 선택된 유저 정보 저장
+          selectedPlayerData = selectedPlayers;
+
+          // 플레이어 이름 리스트 업데이트 (본인 포함)
+          players = [currentUserInfo['nickname']];
+          for (var player in selectedPlayers) {
+            players.add(player['nickname'] as String);
+          }
+
+          // 총 플레이어 수 로그
+          print('총 플레이어 수: $numberOfPlayers (본인 포함)');
+          print('플레이어 목록: $players');
+          print('현재 사용자 정보: $currentUserInfo');
+          print('선택된 플레이어 정보:');
+          for (var player in selectedPlayers) {
+            print(
+                '- ${player['nickname']} (국가: ${player['country']}, 성별: ${player['gender']}, 나이: ${player['age']}, 점수: ${player['brainHealthScore']})');
+          }
+
+          // 점수 초기화
+          playerScores = {};
+          for (var playerName in players) {
+            playerScores[playerName] = 0;
+          }
+
+          currentPlayerIndex = 0;
+
+          // 게임 페이지 업데이트
+          if (_currentIndex == 0) {
+            _memoryGamePage = _buildMemoryGamePage();
+          }
+        });
+
+        // 플레이어가 변경되었음을 사용자에게 알림
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('플레이어가 변경되어 새 게임이 시작됩니다'),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ));
+      } catch (e) {
+        print('플레이어 정보 설정 중 오류 발생: $e');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('플레이어 정보 설정 중 오류가 발생했습니다.')));
+      }
     }
   }
 
@@ -1640,26 +1801,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         // UI 변경을 위해 기존 변수도 업데이트
         gridSize = selectedGridSize;
 
-        // 게임 페이지 업데이트
+        // 게임 페이지 업데이트 - 공통 메서드 사용
         if (_currentIndex == 0) {
-          _memoryGamePage = MemoryGamePage(
-            key: _memoryGameKey,
-            numberOfPlayers: numberOfPlayers,
-            gridSize: gridSize,
-            updateFlipCount: updateFlipCount,
-            updatePlayerScore: updatePlayerScore,
-            nextPlayer: nextPlayer,
-            currentPlayer: players[currentPlayerIndex],
-            playerScores: playerScores,
-            resetScores: resetScores,
-            isTimeAttackMode: true,
-            timeLimit: isMultiplayerMode ? 180 : 60,
-            isMultiplayerMode: isMultiplayerMode,
-            gameId: _currentGameId,
-            myPlayerId: _user?.uid,
-          );
+          _memoryGamePage = _buildMemoryGamePage();
         }
       });
+
+      // 그리드 크기가 변경되었음을 사용자에게 알림
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('그리드 크기가 변경되어 새 게임이 시작됩니다'),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.green,
+      ));
     }
   }
 
@@ -1874,6 +2027,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         // UI 변경을 위해 로컬 변수도 업데이트
         gridSize = gridSizeStr;
 
+        // 현재 게임 ID 설정
+        _currentGameId = gameId;
+        isMultiplayerMode = true;
+
         // 새 게임 생성
         _memoryGamePage = MemoryGamePage(
           key: UniqueKey(),
@@ -1890,6 +2047,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           isMultiplayerMode: true,
           gameId: gameId,
           myPlayerId: _user?.uid,
+          // 플레이어 목록 정보 추가
+          selectedPlayers: _memoryGameService?.selectedPlayers ?? [],
+          currentUserInfo: {
+            'id': _user?.uid ?? 'me',
+            'nickname': _nickname ?? '나',
+            'country': _userCountryCode ?? 'us',
+            'gender': _userGender ?? 'unknown',
+            'age': _userAge ?? 0,
+            'brainHealthScore':
+                Provider.of<BrainHealthProvider>(context, listen: false)
+                    .brainHealthScore,
+          },
         );
 
         // 게임 화면으로 전환
@@ -1984,6 +2153,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         isMultiplayerMode: true,
         gameId: gameId,
         myPlayerId: _user?.uid,
+        // 플레이어 목록 정보 추가
+        selectedPlayers: _memoryGameService?.selectedPlayers ?? [],
+        currentUserInfo: {
+          'id': _user?.uid ?? 'me',
+          'nickname': _nickname ?? '나',
+          'country': _userCountryCode ?? 'us',
+          'gender': _userGender ?? 'unknown',
+          'age': _userAge ?? 0,
+          'brainHealthScore':
+              Provider.of<BrainHealthProvider>(context, listen: false)
+                  .brainHealthScore,
+        },
       );
 
       // 게임 화면으로 전환
@@ -2027,7 +2208,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       updateFlipCount: updateFlipCount,
       updatePlayerScore: updatePlayerScore,
       nextPlayer: nextPlayer,
-      currentPlayer: players[currentPlayerIndex],
+      currentPlayer: players.isNotEmpty && currentPlayerIndex < players.length
+          ? players[currentPlayerIndex]
+          : '',
       playerScores: playerScores,
       resetScores: resetScores,
       isTimeAttackMode: true,
@@ -2035,6 +2218,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       isMultiplayerMode: isMultiplayerMode,
       gameId: _currentGameId,
       myPlayerId: _user?.uid,
+      // 플레이어 목록 정보 추가
+      selectedPlayers: _memoryGameService?.selectedPlayers ?? [],
+      currentUserInfo: {
+        'id': _user?.uid ?? 'me',
+        'nickname': _nickname ?? '나',
+        'country': _userCountryCode ?? 'us',
+        'gender': _userGender ?? 'unknown',
+        'age': _userAge ?? 0,
+        'brainHealthScore':
+            Provider.of<BrainHealthProvider>(context, listen: false)
+                .brainHealthScore,
+      },
     );
   }
 }
