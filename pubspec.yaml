@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: ^15.2.4
   flutter_local_notifications: ^19.0.0
   lottie: ^3.3.1
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,15 @@ flutter:
     - lib/item_list.dart
     - assets/icon/icon.png
     - assets/icon/memoryGame.png
+    - assets/icon/level1_brain.png
+    - assets/icon/level2_brain.png
+    - assets/icon/level3_brain.png
+    - assets/icon/level4_brain.png
+    - assets/icon/level5_brain.png
+    - assets/icon/rainbowBrain.png
+    - assets/icon/brain.png
+    - assets/icon/memory.png
+    - assets/icon/exam.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

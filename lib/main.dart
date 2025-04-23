@@ -56,13 +56,16 @@ void main() async {
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
       ),
     );
 
     // 렌더링 성능 최적화
     await SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.edgeToEdge,
-      overlays: [SystemUiOverlay.top],
+      // SystemUiMode.edgeToEdge,
+      SystemUiMode
+          .immersiveSticky, // Change to immersiveSticky to hide system buttons
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
   }
 
@@ -108,6 +111,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   int numberOfPlayers = 1;
   String gridSize = '4x4';
   int flipCount = 0;
+
+  // PageController 추가
+  late PageController _pageController;
 
   // 기존 하드코딩된 플레이어 리스트 대신 실제 유저 정보를 담을 리스트로 변경
   List<Map<String, dynamic>> selectedPlayerData = [];
@@ -157,6 +163,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
+    // PageController 초기화
+    _pageController = PageController(initialPage: _currentIndex);
+
     // 앱 시작 시 자동 로그인 확인
     _initializeAuth();
 
@@ -187,6 +196,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    // PageController 해제
+    _pageController.dispose();
+
     // dispose 안에 추가 - null 체크 추가
     if (_memoryGameService != null) {
       _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
@@ -240,6 +252,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userCountryCode = userData['country'] as String?;
             _shortPW = userData['shortPW'] as String?;
           });
+
+          // Set nationality in LanguageProvider based on user's country code
+          if (_userCountryCode != null) {
+            final languageProvider =
+                Provider.of<LanguageProvider>(context, listen: false);
+            await languageProvider.setNationality(_userCountryCode!);
+          }
         }
       } else {
         if (mounted) {
@@ -1308,214 +1327,309 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        toolbarHeight: (_currentIndex == 0 && _user != null) ? 90 : 60,
-        backgroundColor: Colors.white,
+        toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white,
+                Color(0xFFF5F5F5),
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Text(
-                  'Memory Game',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+                ShaderMask(
+                  shaderCallback: (bounds) => LinearGradient(
+                    colors: [
+                      instagramGradientStart,
+                      instagramGradientEnd,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: Consumer<LanguageProvider>(
+                    builder: (context, languageProvider, child) {
+                      final translations = languageProvider.getUITranslations();
+                      return Text(
+                        translations['app_title'] ?? 'Memory Game',
+                        style: GoogleFonts.montserrat(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
                   ),
                 ),
-                if (_currentIndex != 1) ...[
-                  const SizedBox(width: 8),
-                  Container(
-                    height: 24,
-                    width: 1,
-                    color: Colors.grey.withOpacity(0.3),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () => _showLanguageSelectionDialog(context),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Consumer<LanguageProvider>(
-                            builder: (context, languageProvider, child) {
-                              String countryCode = languageProvider
-                                  .currentLanguage
-                                  .split('-')
-                                  .last
-                                  .toLowerCase();
-                              return Flag.fromString(
-                                countryCode,
-                                height: 16,
-                                width: 24,
-                                borderRadius: 4,
-                              );
-                            },
-                          ),
-                          const SizedBox(width: 4),
-                          Icon(Icons.keyboard_arrow_down,
-                              size: 16, color: Colors.black54),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
                 Spacer(),
                 _buildUserProfileButton(),
               ],
             ),
             if (_currentIndex == 0 && _user != null) ...[
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          _buildControlButton(
+              const SizedBox(height: 12),
+              Container(
+                height: 44,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: Row(
+                    children: [
+                      Consumer<LanguageProvider>(
+                        builder: (context, languageProvider, child) {
+                          final translations =
+                              languageProvider.getUITranslations();
+                          final playerText = numberOfPlayers > 1
+                              ? (translations['players'] ?? 'Players')
+                              : (translations['player'] ?? 'Player');
+
+                          return _buildControlButton(
                             icon: Icons.group_rounded,
-                            label:
-                                '$numberOfPlayers Player${numberOfPlayers > 1 ? 's' : ''}',
+                            label: '$numberOfPlayers $playerText',
                             onTap: _showPlayerSelectionDialog,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      _buildControlButton(
+                        icon: Icons.dashboard_rounded,
+                        label: gridSize,
+                        onTap: _showGridSizeSelectionDialog,
+                      ),
+                      const SizedBox(width: 10),
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              instagramGradientStart.withOpacity(0.9),
+                              instagramGradientEnd.withOpacity(0.9),
+                            ],
                           ),
-                          const SizedBox(width: 8),
-                          _buildControlButton(
-                            icon: Icons.dashboard_rounded,
-                            label: gridSize,
-                            onTap: _showGridSizeSelectionDialog,
-                          ),
-                          const SizedBox(width: 8),
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
-                            decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                              color: instagramGradientStart.withOpacity(0.2),
+                              offset: Offset(0, 3),
+                              blurRadius: 6,
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.flip_rounded,
+                              size: 18,
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.purple.withOpacity(0.3),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 6,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                              border: Border.all(
-                                color: Color(0xFF833AB4),
-                                width: 2,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              '$flipCount',
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Colors.white,
                               ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.flip_rounded,
-                                  size: 18,
-                                  color: Color(0xFF833AB4),
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  '$flipCount',
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Color(0xFF833AB4),
-                                  ),
-                                ),
-                              ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                          width: 30), // Increased from 10 to 20 pixels
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: GestureDetector(
+                          onTap: () => _showLanguageSelectionDialog(context),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: Colors.grey.withOpacity(0.2),
+                                width: 1,
+                              ),
+                            ),
+                            child: Consumer<LanguageProvider>(
+                              builder: (context, languageProvider, child) {
+                                // ui 언어 기반 컨트리 코드 사용 (nationality와 동일함)
+                                String currentLanguage =
+                                    languageProvider.currentLanguage;
+                                String forFlag =
+                                    currentLanguage.split('-')[1].toLowerCase();
+                                return Flag.fromString(
+                                  forFlag,
+                                  height: 18,
+                                  width: 28,
+                                  borderRadius: 4,
+                                );
+                              },
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ],
         ),
         actions: [
-          if (_currentIndex == 1)
-            Consumer<BrainHealthProvider>(
-              builder: (context, brainHealthProvider, child) {
-                // 로그인 상태일 때만 Brain Health Score 표시
-                if (_user != null) {
-                  return Container(
-                    margin: EdgeInsets.only(right: 8),
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: _getBrainHealthColor(
-                              brainHealthProvider.preventionLevel)
-                          .withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.psychology,
-                          color: _getBrainHealthColor(
-                              brainHealthProvider.preventionLevel),
-                          size: 20,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${brainHealthProvider.brainHealthScore}',
-                          style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: _getBrainHealthColor(
-                                brainHealthProvider.preventionLevel),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  // 로그인하지 않은 경우 빈 컨테이너 반환
-                  return Container();
-                }
-              },
-            ),
           SizedBox(width: 16),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
+      body: PageView(
+        controller: _pageController,
+        physics: const PageScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         children: _pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          _changeTab(index);
-        },
-        selectedItemColor: Color(0xFF833AB4),
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        elevation: 8,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_on),
-            label: 'Game',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(18),
+            topRight: Radius.circular(18),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.psychology),
-            label: 'Health',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.science),
-            label: 'Test',
-          ),
-        ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: Offset(0, -3),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () => _changeTab(0),
+                child: SizedBox(
+                  // The Game tab has 20px overflow
+                  height: 44,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: _currentIndex == 0
+                              ? Color(0xFF833AB4).withOpacity(0.1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.asset(
+                          'assets/icon/memory.png',
+                          width: 24,
+                          height: 24,
+                          color: _currentIndex == 0
+                              ? Color(0xFF833AB4)
+                              : Colors.grey.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () => _changeTab(1),
+                child: SizedBox(
+                  // Health tab has 12px overflow
+                  height: 52,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: _currentIndex == 1
+                              ? Color(0xFF833AB4).withOpacity(0.1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.asset(
+                          'assets/icon/brain.png',
+                          width: 26,
+                          height: 26,
+                          color: _currentIndex == 1
+                              ? Color(0xFF833AB4)
+                              : Colors.grey.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () => _changeTab(2),
+                child: SizedBox(
+                  // Test tab has 12px overflow
+                  height: 52,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: _currentIndex == 2
+                              ? Color(0xFF833AB4).withOpacity(0.1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.asset(
+                          'assets/icon/exam.png',
+                          width: 26,
+                          height: 26,
+                          color: _currentIndex == 2
+                              ? Color(0xFF833AB4)
+                              : Colors.grey.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1544,12 +1658,34 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _showAccountEditDialog(BuildContext context) async {
+    // Get user document to retrieve birthday
+    Timestamp? userBirthday;
+    if (_user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_user!.uid)
+            .get();
+
+        if (userDoc.exists) {
+          Map<String, dynamic> userData =
+              userDoc.data() as Map<String, dynamic>;
+          if (userData.containsKey('birthday')) {
+            userBirthday = userData['birthday'] as Timestamp;
+          }
+        }
+      } catch (e) {
+        print('Error fetching user birthday: $e');
+      }
+    }
+
     final result = await ProfileEditDialog.show(
       context,
       nickname: _nickname,
       userAge: _userAge,
       userGender: _userGender,
       userCountryCode: _userCountryCode,
+      userBirthday: userBirthday,
       shortPW: _shortPW,
     );
 
@@ -1566,6 +1702,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               .doc(_user!.uid)
               .update({
             'nickname': result['nickname'],
+            'birthday': result['birthday'],
             'age': result['age'],
             'gender': result['gender'],
             'country': result['country'],
@@ -1579,6 +1716,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userCountryCode = result['country'];
             _shortPW = result['shortPW'];
           });
+
+          // Show success message if password was changed
+          if (result.containsKey('passwordChanged') &&
+              result['passwordChanged'] == true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Profile and password updated successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Profile updated successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
         }
       } catch (e) {
         print('Profile update error: $e');
@@ -1671,7 +1826,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               .doc(userCredential.user!.uid)
               .set({
             'nickname': userData['nickname'],
-            'age': userData['age'],
+            'birthday': userData['birthday'],
             'gender': userData['gender'],
             'country': userData['country'],
             'shortPW': userData['shortPW'],
@@ -1680,7 +1835,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           setState(() {
             _user = userCredential.user;
             _nickname = userData['nickname'];
-            _userAge = userData['age'];
+            // Calculate age from birthday
+            _userAge = userData['birthday'] != null
+                ? (DateTime.now()
+                            .difference(userData['birthday'].toDate())
+                            .inDays /
+                        365)
+                    .floor()
+                : null;
             _userGender = userData['gender'];
             _userCountryCode = userData['country'];
           });
@@ -1736,6 +1898,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         // 현재 사용자 정보 가져오기
         Map<String, dynamic> currentUserInfo =
             await _memoryGameService!.getCurrentUserInfo();
+
+        print('플레이어 선택 대화상자 결과: ${selectedPlayers.length}명 선택됨');
+
+        // 선택된 플레이어를 서비스에 직접 설정 (이중 설정이지만 안전하게)
+        if (_memoryGameService != null) {
+          _memoryGameService!.selectedPlayers = selectedPlayers;
+        }
 
         setState(() {
           // 유저 수 설정 (본인 포함)
@@ -1827,6 +1996,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void _changeTab(int index) {
     setState(() {
       _currentIndex = index;
+
+      // PageController를 사용하여 애니메이션으로 페이지 전환
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
 
       // 특별한 경우(멀티플레이어 게임 참가, 게임 ID 변경 등)에만 메모리 게임 페이지를 갱신
       // 그 외 일반적인 탭 이동에서는 기존 상태 유지를 위해 페이지를 다시 생성하지 않음
@@ -2201,6 +2377,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   // _memoryGamePage 생성 로직을 분리하는 helper 메서드 추가
   MemoryGamePage _buildMemoryGamePage() {
+    final selectedPlayers = _memoryGameService?.selectedPlayers ?? [];
+
+    // 선택된 플레이어 로그 출력
+    print('_buildMemoryGamePage - 선택된 플레이어 수: ${selectedPlayers.length}');
+    for (var player in selectedPlayers) {
+      print(' - 플레이어: ${player['nickname']} (국가: ${player['country']})');
+    }
+
     return MemoryGamePage(
       key: _memoryGameKey,
       numberOfPlayers: numberOfPlayers,
@@ -2219,7 +2403,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       gameId: _currentGameId,
       myPlayerId: _user?.uid,
       // 플레이어 목록 정보 추가
-      selectedPlayers: _memoryGameService?.selectedPlayers ?? [],
+      selectedPlayers: selectedPlayers,
       currentUserInfo: {
         'id': _user?.uid ?? 'me',
         'nickname': _nickname ?? '나',

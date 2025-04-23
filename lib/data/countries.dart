@@ -92,7 +92,6 @@ const List<Country> countries = [
   Country('KZ', 'Kazakhstan'),
   Country('KE', 'Kenya'),
   Country('KI', 'Kiribati'),
-  Country('KP', 'North Korea'),
   Country('KR', 'South Korea'),
   Country('KW', 'Kuwait'),
   Country('KG', 'Kyrgyzstan'),

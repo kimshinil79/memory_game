@@ -8,28 +8,56 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../providers/language_provider.dart';
 
 class LanguageDialog {
-  static Future<void> show(BuildContext context) {
+  static Future<void> show(BuildContext context) async {
     // 다이얼로그를 표시하기 전에 LanguageProvider 인스턴스를 가져옵니다
     final languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
 
+    // 다이얼로그를 표시하기 전에 데이터를 미리 가져옵니다
+    try {
+      // 이미 로딩 중이 아닐 경우에만 호출
+      if (!languageProvider.isLoadingCountry) {
+        await languageProvider.getUserCountryFromFirebase();
+      }
+    } catch (e) {
+      print('Error pre-loading country data: $e');
+    }
+
     return showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (BuildContext context) => Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(28),
         ),
+        elevation: 10,
+        backgroundColor: Colors.white,
         child: LanguageSelectionContent(languageProvider: languageProvider),
       ),
     );
   }
 }
 
-class LanguageSelectionContent extends StatelessWidget {
+class LanguageSelectionContent extends StatefulWidget {
   final LanguageProvider languageProvider;
 
   LanguageSelectionContent({Key? key, required this.languageProvider})
       : super(key: key);
+
+  @override
+  _LanguageSelectionContentState createState() =>
+      _LanguageSelectionContentState();
+}
+
+class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   final Map<String, String> languageNames = {
     // Asian Languages
@@ -96,48 +124,171 @@ class LanguageSelectionContent extends StatelessWidget {
     Map<String, List<MapEntry<String, String>>> groupedLanguages =
         _groupLanguages();
 
+    // Current language (from provider)
+    String currentLanguage = widget.languageProvider.currentLanguage;
+    // Check if currently loading country data
+    bool isLoading = widget.languageProvider.isLoadingCountry;
+
+    // LanguageProvider를 통해 번역 텍스트 가져오기
+    Map<String, String> translations =
+        widget.languageProvider.getTranslations(currentLanguage);
+
+    // 로딩 상태를 더이상 체크하지 않고 항상 컨텐츠를 보여줍니다.
+    // 로딩 표시는 다이얼로그 표시 전에 처리합니다.
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20),
       width: double.maxFinite,
+      padding: EdgeInsets.all(28),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Select Language',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          // Header with gradient text
+          ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds),
+            child: Text(
+              translations['select_language'] ?? 'Select Language',
+              style: GoogleFonts.poppins(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+
+          // Search box
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.grey.shade200, width: 1.5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 6,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            child: Row(
+              children: [
+                Icon(Icons.search, color: Colors.grey.shade400, size: 20),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText:
+                          translations['search_language'] ?? 'Search language',
+                      hintStyle: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: Colors.grey.shade400,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.grey.shade800,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value.toLowerCase();
+                      });
+                    },
+                  ),
+                ),
+                if (_searchController.text.isNotEmpty)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _searchController.clear();
+                        _searchQuery = '';
+                      });
+                    },
+                    child: Icon(Icons.close,
+                        color: Colors.grey.shade400, size: 20),
+                  ),
+              ],
             ),
           ),
           SizedBox(height: 20),
-          Expanded(
+
+          // Language list
+          Container(
+            height: 400,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.grey.shade200, width: 1.5),
+            ),
             child: DefaultTabController(
               length: groupedLanguages.length + 1,
               child: Column(
                 children: [
-                  TabBar(
-                    isScrollable: true,
-                    labelColor: Colors.purple,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(text: 'All'),
-                      ...groupedLanguages.keys
-                          .map((group) => Tab(text: group))
-                          .toList(),
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TabBar(
+                      isScrollable: true,
+                      labelColor: Color(0xFF833AB4),
+                      unselectedLabelColor: Colors.grey.shade600,
+                      labelStyle: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                      ),
+                      unselectedLabelStyle: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                      ),
+                      indicator: UnderlineTabIndicator(
+                        borderSide: BorderSide(
+                          width: 3,
+                          color: Color(0xFF833AB4),
+                        ),
+                      ),
+                      tabs: [
+                        Tab(text: translations['all'] ?? 'All'),
+                        ...groupedLanguages.keys.map((group) => Tab(
+                            text: widget.languageProvider
+                                .getTranslatedGroupName(group)))
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: TabBarView(
                       children: [
-                        _buildLanguageList(context, [
-                          ...languageNames.entries.toList()
-                            ..sort((a, b) => a.value.compareTo(b.value))
-                        ]),
+                        _buildLanguageList(
+                          context,
+                          [
+                            ...languageNames.entries.toList()
+                              ..sort((a, b) => a.value.compareTo(b.value))
+                          ],
+                          currentLanguage,
+                        ),
                         ...groupedLanguages.values
                             .map(
-                              (languages) =>
-                                  _buildLanguageList(context, languages),
+                              (languages) => _buildLanguageList(
+                                context,
+                                languages,
+                                currentLanguage,
+                              ),
                             )
                             .toList(),
                       ],
@@ -147,25 +298,35 @@ class LanguageSelectionContent extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+          SizedBox(height: 24),
+
+          // Cancel button
+          InkWell(
+            onTap: () => Navigator.of(context).pop(),
+            borderRadius: BorderRadius.circular(24),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFF833AB4).withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               child: Text(
-                'Cancel',
-                style: TextStyle(
+                translations['cancel'] ?? 'Cancel',
+                style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -176,48 +337,143 @@ class LanguageSelectionContent extends StatelessWidget {
   }
 
   Widget _buildLanguageList(
-      BuildContext context, List<MapEntry<String, String>> languages) {
-    return ListView.builder(
-      itemCount: languages.length,
-      itemBuilder: (context, index) {
-        String languageCode = languages[index].key;
-        String languageName = languages[index].value;
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.grey.withOpacity(0.1),
-          ),
-          child: ListTile(
-            leading: Flag.fromString(
-              _getCountryCode(languageCode),
-              height: 30,
-              width: 40,
-              fit: BoxFit.cover,
-              borderRadius: 8,
+    BuildContext context,
+    List<MapEntry<String, String>> languages,
+    String currentLanguage,
+  ) {
+    // Filter languages if search query exists
+    if (_searchQuery.isNotEmpty) {
+      languages = languages.where((entry) {
+        return entry.value.toLowerCase().contains(_searchQuery);
+      }).toList();
+    }
+
+    return languages.isEmpty
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search_off,
+                  size: 48,
+                  color: Colors.grey.shade400,
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'No languages found',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ],
             ),
-            title: Text(
-              languageName,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            onTap: () {
-              _updateLanguage(context, languageCode);
-              Navigator.of(context).pop();
+          )
+        : ListView.builder(
+            padding: EdgeInsets.all(8),
+            itemCount: languages.length,
+            itemBuilder: (context, index) {
+              String languageCode = languages[index].key;
+              String languageName = languages[index].value;
+              bool isSelected = languageCode == currentLanguage;
+
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                decoration: BoxDecoration(
+                  gradient: isSelected
+                      ? LinearGradient(
+                          colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                  color: isSelected ? null : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isSelected
+                          ? Color(0xFF833AB4).withOpacity(0.2)
+                          : Colors.black.withOpacity(0.03),
+                      blurRadius: isSelected ? 6 : 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      _updateLanguage(context, languageCode);
+                    },
+                    borderRadius: BorderRadius.circular(16),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: Row(
+                        children: [
+                          // Flag
+                          Container(
+                            width: 38,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 2,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Flag.fromString(
+                                _getCountryCode(languageCode),
+                                height: 26,
+                                width: 38,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 14),
+
+                          // Language name
+                          Expanded(
+                            child: Text(
+                              languageName,
+                              style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.grey.shade800,
+                              ),
+                            ),
+                          ),
+
+                          // Selected indicator
+                          if (isSelected)
+                            Container(
+                              width: 26,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                              child: Icon(
+                                Icons.check,
+                                color: Color(0xFF833AB4),
+                                size: 20,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
             },
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-          ),
-        );
-      },
-    );
+          );
   }
 
   Map<String, List<MapEntry<String, String>>> _groupLanguages() {
@@ -371,49 +627,27 @@ class LanguageSelectionContent extends StatelessWidget {
   Future<void> _updateLanguage(
       BuildContext context, String languageCode) async {
     try {
-      // Update SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('selectedLanguage', languageCode);
+      // 현재 사용자 정보 가져오기
+      User? currentUser = FirebaseAuth.instance.currentUser;
 
-      // Provider 접근에 전달받은 languageProvider 사용
-      await languageProvider.setLanguage(languageCode);
+      // LanguageProvider를 사용하여 언어 업데이트
+      await widget.languageProvider.setLanguage(languageCode);
 
-      // Update Firebase if user is logged in
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        try {
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .update({'language': languageCode});
-        } catch (firebaseError) {
-          print('Firebase update error: $firebaseError');
-          // Firebase 업데이트 실패해도 앱의 언어는 변경 완료된 상태로 유지
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                  'User profile update failed, but language has been changed.'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-          // Firebase 오류지만 언어 변경은 성공했으므로 오류를 throw하지 않고 반환
-          return;
-        }
+      // 로그인한 사용자가 있으면 Firestore에도 업데이트
+      if (currentUser != null) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .update({'language': languageCode});
       }
 
-      // 성공 메시지 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Language updated successfully'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      // 이전 화면으로 돌아가기
+      Navigator.of(context).pop();
     } catch (e) {
-      print('Language update error: $e');
+      print('Failed to update language: $e');
+      // 에러 처리 - 필요하면 사용자에게 알림
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content:
-                Text('Failed to update language setting: ${e.toString()}')),
+        SnackBar(content: Text('Failed to update language')),
       );
     }
   }

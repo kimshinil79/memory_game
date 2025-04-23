@@ -13,6 +13,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/auth/auth_dialogs.dart'; // LoginRequiredDialog 추가
 import '../widgets/auth/sign_in_dialog.dart'; // SignInDialog 추가
 import '../widgets/auth/sign_up_dialog.dart'; // SignUpDialog 추가
+import 'package:intl/intl.dart';
+import '../providers/language_provider.dart';
 
 class BrainHealthPage extends StatefulWidget {
   const BrainHealthPage({Key? key}) : super(key: key);
@@ -68,8 +70,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   void _showAgeInputDialog() async {
     final prefs = await SharedPreferences.getInstance();
     int currentAge = prefs.getInt('user_age') ?? 30;
+    DateTime? currentBirthday;
 
-    // Firebase에서 나이 가져오기 시도
+    // Firebase에서 생일 가져오기 시도
     final User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       try {
@@ -81,115 +84,221 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         if (userDoc.exists) {
           Map<String, dynamic> userData =
               userDoc.data() as Map<String, dynamic>;
-          if (userData.containsKey('age')) {
+          if (userData.containsKey('birthday')) {
+            currentBirthday = (userData['birthday'] as Timestamp).toDate();
+            // Calculate age from birthday
+            currentAge =
+                (DateTime.now().difference(currentBirthday!).inDays / 365)
+                    .floor();
+          } else if (userData.containsKey('age')) {
             currentAge = userData['age'] as int;
+            // Calculate an approximate birth date
+            currentBirthday = DateTime(DateTime.now().year - currentAge, 1, 1);
           }
         }
       } catch (e) {
-        print('Error fetching age from Firebase: $e');
+        print('Error fetching birthday from Firebase: $e');
       }
     }
 
     // 텍스트 컨트롤러 초기화
-    final TextEditingController controller =
-        TextEditingController(text: currentAge.toString());
+    final TextEditingController controller = TextEditingController();
+    if (currentBirthday != null) {
+      controller.text = DateFormat('yyyy-MM-dd').format(currentBirthday);
+    }
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Update Your Age',
-            style: GoogleFonts.notoSans(fontWeight: FontWeight.bold)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Your age helps us calculate a more accurate Brain Health Index.',
-              style: GoogleFonts.notoSans(fontSize: 14),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: controller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Age',
-                border: OutlineInputBorder(),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              ),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            ),
-          ],
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              // 나이 값 확인 및 저장
-              final String text = controller.text.trim();
-              int? age = int.tryParse(text);
-
-              if (age != null && age > 0 && age < 120) {
-                // SharedPreferences에 저장
-                await prefs.setInt('user_age', age);
-
-                // Firebase에도 저장
-                final User? user = FirebaseAuth.instance.currentUser;
-                if (user != null) {
-                  try {
-                    await FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(user.uid)
-                        .set({'age': age}, SetOptions(merge: true));
-                    print('Age updated in Firebase');
-                  } catch (e) {
-                    print('Error updating age in Firebase: $e');
-                    // 문서가 존재하지 않을 경우 set으로 생성 시도
-                    try {
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(user.uid)
-                          .set({'age': age}, SetOptions(merge: true));
-                      print('Age created in Firebase');
-                    } catch (e) {
-                      print('Error creating age in Firebase: $e');
-                    }
-                  }
-                }
-
-                Navigator.pop(context);
-
-                // Brain Health 데이터 새로고침
-                if (mounted) {
-                  setState(() {});
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Age updated successfully'),
-                      backgroundColor: Colors.green,
-                      duration: Duration(seconds: 2),
+        elevation: 8,
+        child: Container(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 헤더 부분
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.purple.shade100,
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  );
-                }
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Please enter a valid age (1-120)'),
-                    backgroundColor: Colors.red,
-                    duration: Duration(seconds: 2),
+                    child: Icon(
+                      Icons.cake,
+                      color: Colors.purple.shade700,
+                      size: 24,
+                    ),
                   ),
-                );
-              }
-            },
-            child: Text('Save'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
-              foregroundColor: Colors.white,
-            ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'Update Your Birthday',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.purple.shade800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+
+              // 설명 텍스트
+              Text(
+                'Your birthday helps us calculate a more accurate Brain Health Index.',
+                style: GoogleFonts.notoSans(
+                  fontSize: 14,
+                  color: Colors.black54,
+                ),
+              ),
+              SizedBox(height: 24),
+
+              // 생일 입력 필드
+              GestureDetector(
+                onTap: () async {
+                  final DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: currentBirthday != null
+                        ? currentBirthday!
+                        : DateTime(DateTime.now().year - currentAge, 1, 1),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Colors.purple.shade400,
+                            onPrimary: Colors.white,
+                            onSurface: Colors.black,
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
+                  if (picked != null) {
+                    controller.text = DateFormat('yyyy-MM-dd').format(picked);
+                    currentBirthday = picked;
+                  }
+                },
+                child: AbsorbPointer(
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      labelText: 'Birthday',
+                      labelStyle: TextStyle(color: Colors.purple.shade400),
+                      filled: true,
+                      fillColor: Colors.grey.shade50,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: Colors.purple.shade400),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      prefixIcon: Icon(Icons.cake_outlined,
+                          color: Colors.purple.shade400),
+                      suffixIcon: Icon(Icons.calendar_today,
+                          color: Colors.purple.shade400),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 24),
+
+              // 액션 버튼
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.grey.shade700,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    ),
+                    child: Text(
+                      'Cancel',
+                      style: GoogleFonts.notoSans(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (currentBirthday != null) {
+                        // Calculate age from birthday
+                        int age = (DateTime.now()
+                                    .difference(currentBirthday!)
+                                    .inDays /
+                                365)
+                            .floor();
+
+                        // SharedPreferences에 저장
+                        await prefs.setInt('user_age', age);
+
+                        // Firebase에도 저장
+                        final User? user = FirebaseAuth.instance.currentUser;
+                        if (user != null) {
+                          try {
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user.uid)
+                                .set({
+                              'birthday': Timestamp.fromDate(currentBirthday!),
+                              'age': age // For backward compatibility
+                            }, SetOptions(merge: true));
+                            print('Birthday updated in Firebase');
+                          } catch (e) {
+                            print('Error updating birthday in Firebase: $e');
+                          }
+                        }
+
+                        Navigator.pop(context);
+
+                        // Brain Health 데이터 새로고침
+                        setState(() {
+                          _refreshData(context);
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple.shade400,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Update',
+                      style: GoogleFonts.notoSans(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -280,7 +389,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                               CircularProgressIndicator(),
                               SizedBox(height: 16),
                               Text(
-                                'Loading data...',
+                                Provider.of<LanguageProvider>(context,
+                                            listen: false)
+                                        .getUITranslations()['loading_data'] ??
+                                    'Loading data...',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -333,7 +445,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           floatingActionButton: isLoggedIn
               ? FloatingActionButton(
                   onPressed: () => _refreshData(context),
-                  tooltip: 'Refresh Data',
+                  tooltip: Provider.of<LanguageProvider>(context, listen: false)
+                          .getUITranslations()['refresh_data'] ??
+                      'Refresh Data',
                   child: Icon(Icons.refresh),
                   backgroundColor: Colors.purple,
                 )
@@ -347,11 +461,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   bool get wantKeepAlive => true;
 
   Widget _buildHeader(BrainHealthProvider provider) {
+    // 언어 제공자에서 번역 가져오기
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Brain Health Dashboard',
+          translations['brain_health_dashboard'] ?? 'Brain Health Dashboard',
           style: GoogleFonts.notoSans(
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -360,7 +478,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         ),
         SizedBox(height: 8),
         Text(
-          'Play memory games to improve your brain health!',
+          translations['play_memory_games_description'] ??
+              'Play memory games to improve your brain health!',
           style: GoogleFonts.notoSans(
             fontSize: 16,
             color: Colors.black54,
@@ -371,6 +490,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   }
 
   Widget _buildBrainHealthProgress(BrainHealthProvider provider) {
+    // 언어 제공자에서 번역 가져오기
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
     return FutureBuilder<Map<String, dynamic>>(
       future: provider.calculateBrainHealthIndex(),
       builder: (context, snapshot) {
@@ -386,7 +509,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Brain Health Index',
+                      translations['brain_health_index_title'] ??
+                          'Brain Health Index',
                       style: GoogleFonts.notoSans(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -395,7 +519,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     SizedBox(height: 24),
                     CircularProgressIndicator(),
                     SizedBox(height: 16),
-                    Text('Calculating your Brain Health Index...',
+                    Text(
+                        translations['calculating_brain_health_index'] ??
+                            'Calculating your Brain Health Index...',
                         style: GoogleFonts.notoSans(fontSize: 16)),
                   ],
                 ),
@@ -417,7 +543,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   children: [
                     Icon(Icons.error_outline, size: 48, color: Colors.red),
                     SizedBox(height: 16),
-                    Text('Error calculating Brain Health Index',
+                    Text(
+                        translations['error_calculating_index'] ??
+                            'Error calculating Brain Health Index',
                         style: GoogleFonts.notoSans(fontSize: 16)),
                   ],
                 ),
@@ -466,19 +594,58 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Brain Health Index',
-                  style: GoogleFonts.notoSans(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      translations['brain_health_index_title'] ??
+                          'Brain Health Index',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: progressColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: progressColor.withOpacity(0.5),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: progressColor,
+                            size: 16,
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                            '${brainHealthIndex.toStringAsFixed(1)}',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: progressColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Age: ${data['details']?['age'] ?? 30}',
+                      '${translations['age'] ?? 'Age'}: ${data['details']?['age'] ?? 30}',
                       style: GoogleFonts.notoSans(
                         fontSize: 14,
                         color: Colors.black54,
@@ -502,7 +669,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 size: 12, color: Colors.grey.shade700),
                             SizedBox(width: 4),
                             Text(
-                              'Update',
+                              translations['update'] ?? 'Update',
                               style: GoogleFonts.notoSans(
                                 fontSize: 12,
                                 color: Colors.grey.shade700,
@@ -523,15 +690,13 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   center: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        '${brainHealthIndex.toStringAsFixed(1)}',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Image.asset(
+                        'assets/icon/level${indexLevel}_brain.png',
+                        width: 40,
+                        height: 40,
                       ),
                       Text(
-                        'Level $indexLevel',
+                        '${translations['level'] ?? 'Level'} $indexLevel',
                         style: GoogleFonts.notoSans(
                           fontSize: 16,
                         ),
@@ -545,14 +710,17 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 SizedBox(height: 20),
                 indexLevel < 5
                     ? Text(
-                        'You need ${pointsToNext.toInt()} points to reach the next level',
+                        translations['points_to_next_level']?.replaceFirst(
+                                '{points}', pointsToNext.toInt().toString()) ??
+                            'You need ${pointsToNext.toInt()} points to reach the next level',
                         style: GoogleFonts.notoSans(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       )
                     : Text(
-                        'Maximum level reached',
+                        translations['maximum_level_reached'] ??
+                            'Maximum level reached',
                         style: GoogleFonts.notoSans(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -573,7 +741,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Index Components',
+                        translations['index_components'] ?? 'Index Components',
                         style: GoogleFonts.notoSans(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -581,33 +749,73 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                       SizedBox(height: 12),
                       _buildIndexComponent(
-                        'Age Factor',
+                        translations['age_factor'] ?? 'Age Factor',
                         data['ageComponent'] as double? ?? 0.0,
                         Icons.person,
                         Colors.blue,
                         isNegative: true,
                       ),
                       _buildIndexComponent(
-                        'Recent Activity',
+                        translations['recent_activity'] ?? 'Recent Activity',
                         data['activityComponent'] as double? ?? 0.0,
                         Icons.trending_up,
                         Colors.green,
                       ),
                       _buildIndexComponent(
-                        'Game Performance',
+                        translations['game_performance'] ?? 'Game Performance',
                         data['performanceComponent'] as double? ?? 0.0,
                         Icons.psychology,
                         Colors.purple,
                       ),
                       _buildIndexComponent(
-                        'Persistence Bonus',
+                        translations['persistence_bonus'] ??
+                            'Persistence Bonus',
                         data['persistenceBonus'] as double? ?? 0.0,
                         Icons.emoji_events,
                         Colors.amber,
                       ),
+                      _buildIndexComponent(
+                        translations['inactivity_penalty'] ??
+                            'Inactivity Penalty',
+                        data['inactivityPenalty'] as double? ?? 0.0,
+                        Icons.timer_off,
+                        Colors.redAccent,
+                        isNegative: true,
+                      ),
                     ],
                   ),
                 ),
+
+                // Add inactivity warning if needed
+                if ((data['daysSinceLastGame'] as int? ?? 0) > 0)
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.red.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.warning_amber_rounded, color: Colors.red),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            translations['inactivity_warning']?.replaceFirst(
+                                    '{days}',
+                                    data['daysSinceLastGame'].toString()) ??
+                                'You haven\'t played for ${data['daysSinceLastGame']} day(s). Your score is decreasing each day!',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.red.shade700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
@@ -902,7 +1110,11 @@ class _BrainHealthPageState extends State<BrainHealthPage>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.blue, size: 24),
+          Image.asset(
+            'assets/icon/rainbowBrain.png',
+            width: 24,
+            height: 24,
+          ),
           SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -935,6 +1147,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     final List<ScoreRecord> weeklyData = provider.getWeeklyData();
     final List<FlSpot> spots = [];
 
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     // 데이터가 있는 경우에만 처리
     if (weeklyData.isNotEmpty) {
       for (int i = 0; i < weeklyData.length; i++) {
@@ -949,7 +1165,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Brain Health Progress',
+              translations['brain_health_progress'] ?? 'Brain Health Progress',
               style: GoogleFonts.notoSans(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -995,7 +1211,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Welcome to Brain Health!',
+                        translations['welcome_to_brain_health'] ??
+                            'Welcome to Brain Health!',
                         style: GoogleFonts.notoSans(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -1004,7 +1221,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Start playing memory games\nto track your progress',
+                        translations['start_playing_memory_games'] ??
+                            'Start playing memory games\nto track your progress',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.notoSans(
                           fontSize: 14,
@@ -1107,7 +1325,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Score: $score',
+                                    text:
+                                        '${translations['score'] ?? 'Score'}: $score',
                                     style: GoogleFonts.notoSans(
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
@@ -1179,6 +1398,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
 
   // 사용자 랭킹 섹션 위젯
   Widget _buildUserRankings(BrainHealthProvider provider) {
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: provider.getUserRankings(),
       builder: (context, snapshot) {
@@ -1199,13 +1422,63 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'User Rankings',
-                style: GoogleFonts.notoSans(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+              Row(
+                children: [
+                  Text(
+                    translations['user_rankings'] ?? 'User Rankings',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  Spacer(),
+                  Consumer<BrainHealthProvider>(
+                    builder: (context, brainHealthProvider, child) {
+                      if (brainHealthProvider.preventionLevel > 0) {
+                        return Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: _getBrainHealthColor(
+                                    brainHealthProvider.preventionLevel)
+                                .withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: _getBrainHealthColor(
+                                      brainHealthProvider.preventionLevel)
+                                  .withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.psychology,
+                                color: _getBrainHealthColor(
+                                    brainHealthProvider.preventionLevel),
+                                size: 16,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '${brainHealthProvider.brainHealthScore}',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: _getBrainHealthColor(
+                                      brainHealthProvider.preventionLevel),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ],
               ),
               SizedBox(height: 16),
               if (snapshot.connectionState == ConnectionState.waiting)
@@ -1220,7 +1493,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'Failed to load rankings',
+                      translations['failed_to_load_rankings'] ??
+                          'Failed to load rankings',
                       style: GoogleFonts.notoSans(
                         fontSize: 16,
                         color: Colors.red,
@@ -1233,7 +1507,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'No ranking data available',
+                      translations['no_ranking_data'] ??
+                          'No ranking data available',
                       style: GoogleFonts.notoSans(
                         fontSize: 16,
                         color: Colors.black54,
@@ -1252,20 +1527,36 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         children: [
                           SizedBox(
                               width: 40,
-                              child: Text('Rank',
+                              child: Text(translations['rank'] ?? 'Rank',
                                   style: GoogleFonts.notoSans(
                                       fontWeight: FontWeight.bold))),
                           SizedBox(width: 8),
                           Expanded(
                               child: Padding(
                             padding: const EdgeInsets.only(left: 4.0),
-                            child: Text('User',
+                            child: Text(translations['user'] ?? 'User',
                                 style: GoogleFonts.notoSans(
                                     fontWeight: FontWeight.bold)),
                           )),
+                          // 뇌 이미지에 대한 설명 추가
+                          InkWell(
+                            onTap: () => _showBrainLevelInfo(context),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.purple.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              padding: EdgeInsets.all(4),
+                              child: Icon(
+                                Icons.help_outline,
+                                color: Colors.purple,
+                                size: 16,
+                              ),
+                            ),
+                          ),
                           SizedBox(
                               width: 80,
-                              child: Text('Score',
+                              child: Text(translations['score'] ?? 'Score',
                                   style: GoogleFonts.notoSans(
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.end)),
@@ -1276,6 +1567,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     // 랭킹 목록
                     ...snapshot.data!.map((ranking) {
                       bool isCurrentUser = ranking['isCurrentUser'] ?? false;
+                      // Calculate brain health level (1-5) based on score
+                      int brainHealthLevel =
+                          _calculateBrainHealthLevel(ranking['score']);
+
                       return Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 8.0),
@@ -1347,6 +1642,16 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
+                                  // Brain level icon
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, right: 4.0),
+                                    child: Image.asset(
+                                      'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
+                                      width: 18,
+                                      height: 18,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -1375,6 +1680,18 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     );
   }
 
+  // Calculate brain health level based on score
+  int _calculateBrainHealthLevel(int score) {
+    // Assuming 1000 points is the maximum (based on the provider code)
+    double percentage = (score / 1000.0) * 100;
+
+    if (percentage < 20) return 1;
+    if (percentage < 40) return 2;
+    if (percentage < 60) return 3;
+    if (percentage < 80) return 4;
+    return 5;
+  }
+
   // 랭킹에 따른 색상 반환
   Color _getRankColor(int rank) {
     if (rank == 1) return Colors.amber.shade700; // 금메달
@@ -1386,6 +1703,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   // 튜토리얼 오버레이 위젯
   Widget _buildTutorialOverlay() {
     final Color tutorialColor = Colors.purple.shade500;
+
+    // 번역을 위한 LanguageProvider 사용
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
 
     return Container(
       color: Colors.black.withOpacity(0.7),
@@ -1410,7 +1731,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Brain Health Dashboard',
+                  translations['brain_health_dashboard'] ??
+                      'Brain Health Dashboard',
                   style: GoogleFonts.notoSans(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -1420,29 +1742,34 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 SizedBox(height: 15),
                 _buildTutorialItem(
                   Icons.psychology,
-                  'Brain Health Index',
-                  'Check your brain health score improved through memory games. Higher levels increase dementia prevention effect.',
+                  translations['brain_health_index_title'] ??
+                      'Brain Health Index',
+                  translations['brain_health_index_desc'] ??
+                      'Check your brain health score improved through memory games. Higher levels increase dementia prevention effect.',
                   tutorialColor,
                 ),
                 SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.bar_chart,
-                  'Activity Graph',
-                  'View changes in your brain health score over time through the graph.',
+                  translations['activity_graph_title'] ?? 'Activity Graph',
+                  translations['activity_graph_desc'] ??
+                      'View changes in your brain health score over time through the graph.',
                   tutorialColor,
                 ),
                 SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.emoji_events,
-                  'Ranking System',
-                  'Compare your brain health score with other users and check your ranking.',
+                  translations['ranking_system_title'] ?? 'Ranking System',
+                  translations['ranking_system_desc'] ??
+                      'Compare your brain health score with other users and check your ranking.',
                   tutorialColor,
                 ),
                 SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.assessment,
-                  'Game Statistics',
-                  'Check various statistics such as games played, matches found, and best records.',
+                  translations['game_statistics_title'] ?? 'Game Statistics',
+                  translations['game_statistics_desc'] ??
+                      'Check various statistics such as games played, matches found, and best records.',
                   tutorialColor,
                 ),
                 SizedBox(height: 15),
@@ -1458,7 +1785,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       activeColor: tutorialColor,
                     ),
                     Text(
-                      'Don\'t show again',
+                      translations['dont_show_again'] ?? 'Don\'t show again',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
@@ -1469,7 +1796,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ElevatedButton(
                   onPressed: _closeTutorial,
                   child: Text(
-                    'Got it!',
+                    translations['got_it'] ?? 'Got it!',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -1558,10 +1885,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     final yesterday = DateTime(now.year, now.month, now.day - 1);
     final dateToCheck = DateTime(date.year, date.month, date.day);
 
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     if (dateToCheck == today) {
-      return 'Today';
+      return translations['today'] ?? 'Today';
     } else if (dateToCheck == yesterday) {
-      return 'Yesterday';
+      return translations['yesterday'] ?? 'Yesterday';
     } else {
       return '${date.month}/${date.day}';
     }
@@ -1569,6 +1900,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
 
   // 로그인 권장 메시지 위젯
   Widget _buildLoginPrompt(BuildContext context) {
+    // Get the language provider to access translations
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final translations = languageProvider.getUITranslations();
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 24),
       padding: EdgeInsets.all(20),
@@ -1593,7 +1928,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           ),
           SizedBox(height: 16),
           Text(
-            'Start Tracking Your Brain Health',
+            translations['start_tracking_brain_health'] ??
+                'Start Tracking Your Brain Health',
             textAlign: TextAlign.center,
             style: GoogleFonts.notoSans(
               fontSize: 20,
@@ -1603,7 +1939,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           ),
           SizedBox(height: 12),
           Text(
-            'Sign in to record your brain health score and track your progress. Play memory games to improve your cognitive abilities.',
+            translations['login_prompt_desc'] ??
+                'Sign in to record your brain health score and track your progress. Play memory games to improve your cognitive abilities.',
             textAlign: TextAlign.center,
             style: GoogleFonts.notoSans(
               fontSize: 16,
@@ -1622,7 +1959,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               ),
             ),
             child: Text(
-              'Sign In',
+              translations['sign_in'] ?? 'Sign In',
               style: GoogleFonts.notoSans(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -1633,7 +1970,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           TextButton(
             onPressed: () => _showSignUpDialog(context),
             child: Text(
-              'Create Account',
+              translations['create_account'] ?? 'Create Account',
               style: GoogleFonts.notoSans(
                 fontSize: 14,
                 color: Colors.purple.shade700,
@@ -1754,5 +2091,361 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     } catch (e) {
       print('Error showing sign up dialog: $e');
     }
+  }
+
+  Color _getBrainHealthColor(int level) {
+    switch (level) {
+      case 1:
+        return Colors.redAccent;
+      case 2:
+        return Colors.orangeAccent;
+      case 3:
+        return Colors.amber;
+      case 4:
+        return Colors.lightGreen;
+      case 5:
+        return Colors.green;
+      default:
+        return Colors.blue;
+    }
+  }
+
+  void _showBrainLevelInfo(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isSmallScreen = screenSize.width < 350;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          elevation: 12,
+          insetPadding: EdgeInsets.symmetric(
+            horizontal: isSmallScreen ? 16 : 24,
+            vertical: 24,
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 500,
+              maxHeight: MediaQuery.of(context).size.height * 0.8,
+            ),
+            child: Container(
+              padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.white, Colors.grey.shade50],
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header with improved styling
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(isSmallScreen ? 8 : 10),
+                        decoration: BoxDecoration(
+                          color: Colors.purple.shade100,
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.purple.shade100.withOpacity(0.5),
+                              blurRadius: 8,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.psychology,
+                          color: Colors.purple.shade700,
+                          size: isSmallScreen ? 20 : 24,
+                        ),
+                      ),
+                      SizedBox(width: isSmallScreen ? 12 : 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Brain Level Guide',
+                              style: GoogleFonts.notoSans(
+                                fontSize: isSmallScreen ? 18 : 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.purple.shade800,
+                              ),
+                            ),
+                            Text(
+                              'Understand what each level means',
+                              style: GoogleFonts.notoSans(
+                                fontSize: isSmallScreen ? 12 : 13,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.close,
+                              color: Colors.grey.shade700,
+                              size: isSmallScreen ? 18 : 20),
+                          onPressed: () => Navigator.pop(context),
+                          padding: EdgeInsets.all(isSmallScreen ? 6 : 8),
+                          constraints: BoxConstraints(),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: isSmallScreen ? 16 : 24),
+
+                  // Divider with improved styling
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.purple.shade100, Colors.transparent],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: isSmallScreen ? 16 : 24),
+
+                  // Scrollable content area
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          _buildBrainLevelItemEnhanced(
+                            context,
+                            'assets/icon/level5_brain.png',
+                            'Hot Brain (Level 5)',
+                            'Your brain is operating at peak performance!',
+                            'You\'re a memory master - even elephants are taking notes.',
+                            Colors.green,
+                            5,
+                          ),
+                          SizedBox(height: isSmallScreen ? 12 : 18),
+                          _buildBrainLevelItemEnhanced(
+                            context,
+                            'assets/icon/level4_brain.png',
+                            'Gold Brain (Level 4)',
+                            'Excellent cognitive function and memory.',
+                            'Almost superhuman memory - you probably remember where you left your keys!',
+                            Colors.lightGreen,
+                            4,
+                          ),
+                          SizedBox(height: isSmallScreen ? 12 : 18),
+                          _buildBrainLevelItemEnhanced(
+                            context,
+                            'assets/icon/level3_brain.png',
+                            'Silver Brain (Level 3)',
+                            'Good brain health with room for improvement.',
+                            'Your brain is warming up - like a computer booting up in the morning.',
+                            Colors.amber,
+                            3,
+                          ),
+                          SizedBox(height: isSmallScreen ? 12 : 18),
+                          _buildBrainLevelItemEnhanced(
+                            context,
+                            'assets/icon/level2_brain.png',
+                            'Bronze Brain (Level 2)',
+                            'Average cognitive function - more games needed!',
+                            'Your brain is a bit sleepy - time for some mental coffee!',
+                            Colors.orangeAccent,
+                            2,
+                          ),
+                          SizedBox(height: isSmallScreen ? 12 : 18),
+                          _buildBrainLevelItemEnhanced(
+                            context,
+                            'assets/icon/level1_brain.png',
+                            'Black Brain (Level 1)',
+                            'Just starting your brain health journey.',
+                            'Everyone starts somewhere - your brain is stretching after a long nap!',
+                            Colors.redAccent,
+                            1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: isSmallScreen ? 16 : 24),
+
+                  // Footer note
+                  Container(
+                    padding: EdgeInsets.all(isSmallScreen ? 10 : 12),
+                    decoration: BoxDecoration(
+                      color: Colors.purple.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.purple.shade100),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.lightbulb_outline,
+                          color: Colors.purple.shade400,
+                          size: isSmallScreen ? 18 : 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Keep playing memory games to increase your brain level!',
+                            style: GoogleFonts.notoSans(
+                              fontSize: isSmallScreen ? 12 : 13,
+                              color: Colors.purple.shade800,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: isSmallScreen ? 16 : 24),
+
+                  // Button with improved styling
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.purple.shade400,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: isSmallScreen ? 24 : 32,
+                            vertical: isSmallScreen ? 12 : 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 3,
+                        shadowColor: Colors.purple.shade200,
+                      ),
+                      child: Text(
+                        'Got it!',
+                        style: GoogleFonts.notoSans(
+                          fontWeight: FontWeight.bold,
+                          fontSize: isSmallScreen ? 14 : 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBrainLevelItemEnhanced(
+    BuildContext context,
+    String imagePath,
+    String title,
+    String description,
+    String funComment,
+    Color color,
+    int level,
+  ) {
+    final isSmallScreen = MediaQuery.of(context).size.width < 350;
+
+    return Container(
+      padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+        border: Border.all(color: color.withOpacity(0.2), width: 1),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(isSmallScreen ? 6 : 8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Image.asset(
+              imagePath,
+              width: isSmallScreen ? 24 : 30,
+              height: isSmallScreen ? 24 : 30,
+            ),
+          ),
+          SizedBox(width: isSmallScreen ? 10 : 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.notoSans(
+                    fontSize: isSmallScreen ? 14 : 16,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+                SizedBox(height: isSmallScreen ? 2 : 4),
+                Text(
+                  description,
+                  style: GoogleFonts.notoSans(
+                    fontSize: isSmallScreen ? 13 : 14,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: isSmallScreen ? 2 : 4),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: isSmallScreen ? 4 : 6,
+                      horizontal: isSmallScreen ? 8 : 10),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: color.withOpacity(0.1)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: isSmallScreen ? 1 : 2),
+                        child: Icon(Icons.emoji_emotions_outlined,
+                            size: isSmallScreen ? 12 : 14, color: color),
+                      ),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          funComment,
+                          style: GoogleFonts.notoSans(
+                            fontSize: isSmallScreen ? 11 : 12,
+                            color: Colors.grey.shade700,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

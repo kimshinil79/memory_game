@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
+import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/countries.dart';
 import '../country_selection_dialog.dart';
 
@@ -13,13 +15,14 @@ class SignUpDialog {
     final TextEditingController shortPasswordController =
         TextEditingController();
     final TextEditingController nicknameController = TextEditingController();
-    final TextEditingController ageController = TextEditingController();
+    final TextEditingController birthdayController = TextEditingController();
 
     String? selectedGender;
     Country? selectedCountry;
     String? selectedCountryCode;
     String? passwordError;
     String? shortPasswordError;
+    DateTime? selectedBirthday;
 
     return showDialog<Map<String, dynamic>?>(
       context: context,
@@ -112,18 +115,50 @@ class SignUpDialog {
                         ),
                       ),
                       SizedBox(height: 16),
-                      TextField(
-                        controller: ageController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Age',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
+                      GestureDetector(
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: dialogContext,
+                            initialDate:
+                                selectedBirthday ?? DateTime(2000, 1, 1),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                    primary: Colors.purple.shade400,
+                                    onPrimary: Colors.white,
+                                    onSurface: Colors.black,
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (picked != null) {
+                            setState(() {
+                              selectedBirthday = picked;
+                              birthdayController.text =
+                                  DateFormat('yyyy-MM-dd').format(picked);
+                            });
+                          }
+                        },
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: birthdayController,
+                            decoration: InputDecoration(
+                              hintText: 'Birthday',
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: Icon(Icons.cake_outlined),
+                              suffixIcon: Icon(Icons.calendar_today),
+                            ),
                           ),
-                          prefixIcon: Icon(Icons.cake_outlined),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -400,7 +435,9 @@ class SignUpDialog {
                                   'email': emailController.text,
                                   'password': passwordController.text,
                                   'nickname': nicknameController.text,
-                                  'age': int.tryParse(ageController.text),
+                                  'birthday': selectedBirthday != null
+                                      ? Timestamp.fromDate(selectedBirthday!)
+                                      : null,
                                   'gender': selectedGender,
                                   'country': selectedCountryCode,
                                   'shortPW': shortPasswordController.text,

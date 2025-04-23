@@ -33,8 +33,12 @@ class _TestPageState extends State<TestPage>
 
   late AnimationController _animationController;
 
-  final Color instagramGradientStart = Color(0xFF833AB4);
-  final Color instagramGradientEnd = Color(0xFFF77737);
+  // Updated colors for a more refreshing and modern look
+  final Color primaryColor = Color(0xFF5B86E5);
+  final Color secondaryColor = Color(0xFF36D1DC);
+  final Color accentColor = Color(0xFFFF9190);
+  final Color bgColorLight = Color(0xFFF8FDFF);
+  final Color bgColorDark = Color(0xFFEDF7FC);
 
   String _currentLanguage = '';
 
@@ -180,61 +184,112 @@ class _TestPageState extends State<TestPage>
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 8,
           child: Container(
             padding: EdgeInsets.all(24),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [instagramGradientStart, instagramGradientEnd],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                colors: [Colors.white, bgColorLight],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Test Result',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: primaryColor.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    score > 7
+                        ? Icons.emoji_events
+                        : score > 4
+                            ? Icons.thumb_up
+                            : Icons.emoji_emotions,
+                    size: 40,
+                    color: score > 7
+                        ? Color(0xFFFFC107)
+                        : score > 4
+                            ? primaryColor
+                            : accentColor,
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 20),
                 Text(
-                  'Your score is $score / $totalQuestions.',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    color: Colors.white70,
+                  'Test Result',
+                  style: GoogleFonts.poppins(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'Your score',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: Colors.black54,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 24),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    disabledBackgroundColor: Colors.white,
-                    foregroundColor: instagramGradientStart,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '$score',
+                      style: GoogleFonts.poppins(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                      ),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  ),
-                  child: Text(
-                    "Confirm",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      ' / $totalQuestions',
+                      style: GoogleFonts.poppins(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black45,
+                      ),
                     ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      elevation: 4,
+                      shadowColor: primaryColor.withOpacity(0.5),
+                    ),
+                    child: Text(
+                      "Continue",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        isTestSubmitted = true;
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    setState(() {
-                      isTestSubmitted = true;
-                    });
-                  },
                 ),
               ],
             ),
@@ -268,34 +323,44 @@ class _TestPageState extends State<TestPage>
           totalQuestions,
           (index) => GestureDetector(
             onTap: () => goToQuestion(index),
-            child: Container(
-              width: 30,
-              height: 30,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              width: 28,
+              height: 28,
               decoration: BoxDecoration(
                 color: index == currentQuestion
-                    ? instagramGradientStart
+                    ? primaryColor
                     : isTestSubmitted
                         ? userAnswers[index] == correctAnswers[index]
-                            ? Colors.green
-                            : Colors.red
+                            ? Color(0xFF4CAF50)
+                            : Color(0xFFFF5252)
                         : userAnswers[index] != null
-                            ? Colors.grey
-                            : Colors.grey[300],
-                borderRadius: BorderRadius.circular(15),
+                            ? Color(0xFFBBDEFB)
+                            : Colors.white,
+                borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 5,
-                    offset: Offset(0, 2),
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 3,
+                    offset: Offset(0, 1),
                   ),
                 ],
+                border: Border.all(
+                  color: index == currentQuestion
+                      ? Colors.transparent
+                      : Colors.grey.withOpacity(0.2),
+                  width: 1,
+                ),
               ),
               child: Center(
                 child: Text(
                   '${index + 1}',
-                  style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.poppins(
+                    color: index == currentQuestion || isTestSubmitted
+                        ? Colors.white
+                        : Colors.black54,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -307,31 +372,79 @@ class _TestPageState extends State<TestPage>
   }
 
   Widget buildOptionCard(String option) {
+    bool isSelected = userAnswers[currentQuestion] == option;
+    bool isCorrect =
+        isTestSubmitted && option == correctAnswers[currentQuestion];
+    bool isWrong = isTestSubmitted &&
+        isSelected &&
+        option != correctAnswers[currentQuestion];
+
     return GestureDetector(
-      onTap: () => selectAnswer(option),
+      onTap: isTestSubmitted ? null : () => selectAnswer(option),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
           border: Border.all(
-            color: userAnswers[currentQuestion] == option
-                ? instagramGradientStart
-                : Colors.transparent,
+            color: isSelected
+                ? isWrong
+                    ? Color(0xFFFF5252)
+                    : isCorrect
+                        ? Color(0xFF4CAF50)
+                        : primaryColor
+                : isCorrect && isTestSubmitted
+                    ? Color(0xFF4CAF50)
+                    : Colors.transparent,
             width: 3,
           ),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black12,
-              blurRadius: 4,
-              offset: Offset(2, 2),
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 8,
+              offset: Offset(0, 3),
             ),
           ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            'assets/pictureDB_webp/$option.webp',
-            fit: BoxFit.cover,
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Image.asset(
+                  'assets/pictureDB_webp/$option.webp',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              if (isTestSubmitted)
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: isCorrect
+                          ? Color(0xFF4CAF50)
+                          : isWrong
+                              ? Color(0xFFFF5252)
+                              : Colors.transparent,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      isCorrect
+                          ? Icons.check
+                          : isWrong
+                              ? Icons.close
+                              : null,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),
@@ -339,73 +452,122 @@ class _TestPageState extends State<TestPage>
   }
 
   Widget buildControlButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          onPressed: () => navigateQuestion(-1),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: instagramGradientStart,
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(16),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: currentQuestion > 0 ? () => navigateQuestion(-1) : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: primaryColor,
+              elevation: 3,
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(16),
+              shadowColor: Colors.black26,
+            ),
+            child: Icon(Icons.arrow_back_ios, color: primaryColor, size: 18),
           ),
-          child: Icon(Icons.arrow_back_ios, color: Colors.white),
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.volume_up,
-            size: 50,
-            color: instagramGradientStart,
+          Container(
+            height: 65,
+            width: 65,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [primaryColor, secondaryColor],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: primaryColor.withOpacity(0.4),
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.volume_up,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () => playAudio(currentQuestion),
+            ),
           ),
-          onPressed: () => playAudio(currentQuestion),
-        ),
-        ElevatedButton(
-          onPressed: () => navigateQuestion(1),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: instagramGradientEnd,
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(16),
+          ElevatedButton(
+            onPressed: currentQuestion < totalQuestions - 1
+                ? () => navigateQuestion(1)
+                : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: primaryColor,
+              elevation: 3,
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(16),
+              shadowColor: Colors.black26,
+            ),
+            child: Icon(Icons.arrow_forward_ios, color: primaryColor, size: 18),
           ),
-          child: Icon(Icons.arrow_forward_ios, color: Colors.white),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget buildBottomButtons() {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬 추가
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (allAnswered && !isTestSubmitted)
-            ElevatedButton(
-              child: Text('Submit',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 18, color: Colors.white)),
+            Expanded(
+              child: ElevatedButton(
+                child: Text(
+                  'Submit',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  elevation: 5,
+                  shadowColor: primaryColor.withOpacity(0.5),
+                ),
+                onPressed: showResultDialog,
+              ),
+            ),
+          if (allAnswered && !isTestSubmitted) SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              child: Text(
+                'New Test',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
+                ),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: instagramGradientStart,
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
+                elevation: 3,
+                shadowColor: Colors.black.withOpacity(0.1),
+                side:
+                    BorderSide(color: primaryColor.withOpacity(0.5), width: 1),
               ),
-              onPressed: showResultDialog,
+              onPressed: initializeQuestions,
             ),
-          SizedBox(width: 10),
-          ElevatedButton(
-            child:
-                Text('New Test', style: GoogleFonts.montserrat(fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: instagramGradientStart,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              side: BorderSide(color: instagramGradientStart, width: 2),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            onPressed: initializeQuestions,
           ),
         ],
       ),
@@ -418,69 +580,89 @@ class _TestPageState extends State<TestPage>
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [instagramGradientStart, instagramGradientEnd],
+              colors: [primaryColor, secondaryColor],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
           ),
         ),
-        title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-            colors: [Colors.white, Colors.white70],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ).createShader(bounds),
-          child: Text(
-            'Show Your Skills! 🎯',
-            style: GoogleFonts.rubikVinyl(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
-            ),
+        title: Text(
+          'Memory Test',
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            letterSpacing: 0.5,
           ),
         ),
-        elevation: 8,
       ),
       body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xFFE8F3F9), // 연한 하늘색
-                  Color(0xFFF5E6FA), // 연한 보라색
+                  bgColorLight,
+                  bgColorDark,
                 ],
               ),
             ),
             child: SafeArea(
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   buildQuestionIndicator(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(height: 40),
+                          Container(
+                            margin: EdgeInsets.only(top: 30, bottom: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.lightbulb_outline,
+                                  color: primaryColor,
+                                  size: 18,
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  "Question ${currentQuestion + 1}",
+                                  style: GoogleFonts.poppins(
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           SizedBox(height: 20),
                           GridView.count(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
-                            childAspectRatio: 1.2,
-                            mainAxisSpacing: 15,
-                            crossAxisSpacing: 15,
-                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            childAspectRatio: 1.1,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
                             children: questionOptions[currentQuestion]
                                 .map((option) => buildOptionCard(option))
                                 .toList(),
                           ),
-                          SizedBox(height: 30),
                           buildControlButtons(),
                         ],
                       ),
@@ -491,7 +673,6 @@ class _TestPageState extends State<TestPage>
               ),
             ),
           ),
-          // Show tutorial overlay if needed
           if (_showTutorial) _buildTutorialOverlay(),
         ],
       ),
@@ -541,15 +722,15 @@ class _TestPageState extends State<TestPage>
       child: Center(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: Colors.black26,
-                blurRadius: 10,
-                offset: Offset(0, 4),
+                blurRadius: 15,
+                offset: Offset(0, 5),
               ),
             ],
           ),
@@ -561,16 +742,29 @@ class _TestPageState extends State<TestPage>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Container(
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.school,
+                      color: primaryColor,
+                      size: 30,
+                    ),
+                  ),
+                  SizedBox(height: 16),
                   Text(
-                    "Test Tab Tutorial",
-                    style: GoogleFonts.montserrat(
+                    "How to Play",
+                    style: GoogleFonts.poppins(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: instagramGradientStart,
+                      color: primaryColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -606,46 +800,56 @@ class _TestPageState extends State<TestPage>
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 20),
                   Row(
                     children: [
-                      Checkbox(
-                        value: _doNotShowAgain,
-                        onChanged: (value) {
-                          setState(() {
-                            _doNotShowAgain = value ?? false;
-                          });
-                        },
-                        activeColor: instagramGradientStart,
+                      Transform.scale(
+                        scale: 0.9,
+                        child: Checkbox(
+                          value: _doNotShowAgain,
+                          onChanged: (value) {
+                            setState(() {
+                              _doNotShowAgain = value ?? false;
+                            });
+                          },
+                          activeColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                        ),
                       ),
                       Text(
-                        "Do not show again",
-                        style: GoogleFonts.montserrat(
+                        "Don't show again",
+                        style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.black87,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: instagramGradientStart,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                  SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                        elevation: 5,
+                        shadowColor: primaryColor.withOpacity(0.5),
                       ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    ),
-                    child: Text(
-                      "Got it!",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                      child: Text(
+                        "Start Learning",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
+                      onPressed: _closeTutorial,
                     ),
-                    onPressed: _closeTutorial,
                   ),
                 ],
               ),
@@ -663,41 +867,42 @@ class _TestPageState extends State<TestPage>
     required String description,
   }) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(6),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: instagramGradientStart.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              color: primaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
               icon,
-              color: instagramGradientStart,
+              color: primaryColor,
               size: 20,
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.montserrat(
+                  style: GoogleFonts.poppins(
                     fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: instagramGradientStart,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 2),
+                SizedBox(height: 4),
                 Text(
                   description,
-                  style: GoogleFonts.montserrat(
+                  style: GoogleFonts.poppins(
                     fontSize: 13,
-                    color: Colors.black87,
+                    color: Colors.black54,
+                    height: 1.4,
                   ),
                 ),
               ],

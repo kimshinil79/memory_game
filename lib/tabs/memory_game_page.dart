@@ -14,6 +14,9 @@ import '../providers/brain_health_provider.dart';
 import '../utils/route_observer.dart';
 import '../services/memory_game_service.dart';
 import 'package:flag/flag.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/rendering.dart';
+import 'dart:math';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -98,6 +101,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         WidgetsBindingObserver,
         TabNavigationObserver,
         AutomaticKeepAliveClientMixin {
+  // 아이템 관련 상수 추가
+  static const double ITEM_DROP_CHANCE = 0.2; // 20% 확률로 아이템 드롭
+  static const String ITEM_SHAKE = 'shake';
+
+  // 아이템 관련 상태 변수 추가
+  bool _showItemPopup = false;
+  String _currentItem = '';
+  Timer? _itemPopupTimer;
+  bool _itemUsedInCurrentGame = false; // 현재 게임에서 아이템 사용 여부 추적
+
   List<bool> cardAnimationTriggers = [];
 
   bool isInitialized = false;
@@ -128,6 +141,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   bool _showTutorial = false;
   bool _doNotShowAgain = false;
   final String _tutorialPrefKey = 'memory_game_tutorial_shown';
+  SharedPreferences? prefs;
 
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation;
@@ -136,7 +150,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   final Color instagramGradientEnd = Color(0xFFF77737);
 
   //final translator = GoogleTranslator();
-  String targetLanguage = 'en';
+  String targetLanguage = 'en-US';
 
   Timer? _timer;
   int _remainingTime = 60; // 기본 남은 시간 설정
@@ -174,6 +188,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   void initState() {
     super.initState();
 
+    // 선택된 플레이어 정보 디버그 출력
+    print(
+        'MemoryGamePage initState - 선택된 플레이어 수: ${widget.selectedPlayers.length}');
+    for (var i = 0; i < widget.selectedPlayers.length; i++) {
+      var player = widget.selectedPlayers[i];
+      print('선택된 플레이어 #$i: ${player['nickname']} (국가: ${player['country']})');
+    }
+
     // 기존 초기화 코드
     _loadUserLanguage();
     _checkTutorialStatus(); // 튜토리얼 표시 여부 확인
@@ -198,8 +220,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 멀티플레이어 모드일 경우 추가 초기화
     if (widget.isMultiplayerMode && widget.gameId != null) {
-      _loadMultiplayerData();
-      _subscribeToGameState();
+      //_loadMultiplayerData();
+      //_subscribeToGameState();
     }
 
     // 앱 생명주기 관찰자 등록
@@ -393,10 +415,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             .doc(documentId)
             .get();
 
-        if (userDoc.exists && userDoc.data() != null) {
+        if (userDoc.exists && userDoc.data() != null && mounted) {
           setState(() {
             targetLanguage =
-                (userDoc.data() as Map<String, dynamic>)['language'] ?? 'ko';
+                (userDoc.data() as Map<String, dynamic>)['language'] ?? 'ko-KR';
           });
         }
       }
@@ -418,10 +440,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           .doc(documentId)
           .snapshots()
           .listen((snapshot) {
-        if (snapshot.exists && snapshot.data() != null) {
+        if (snapshot.exists && snapshot.data() != null && mounted) {
           setState(() {
             targetLanguage =
-                (snapshot.data() as Map<String, dynamic>)['language'] ?? 'ko';
+                (snapshot.data() as Map<String, dynamic>)['language'] ??
+                    'ko-KR';
           });
         }
       });
@@ -429,6 +452,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   void _showTimeUpDialog() {
+    if (!mounted) return;
+
+    // 번역 텍스트를 위한 언어 제공자
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -450,7 +479,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Time's Up!",
+                  translations['times_up'] ?? "Time's Up!",
                   style: GoogleFonts.montserrat(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -463,7 +492,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     backgroundColor: Colors.white,
                     foregroundColor: instagramGradientStart,
                   ),
-                  child: Text("Retry"),
+                  child: Text(translations['retry'] ?? "Retry"),
                   onPressed: () {
                     Navigator.of(context).pop();
                     initializeGame();
@@ -477,685 +506,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     );
   }
 
-  // 멀티플레이어 게임 데이터 로드
-  Future<void> _loadMultiplayerData() async {
-    if (!widget.isMultiplayerMode ||
-        widget.gameId == null ||
-        widget.myPlayerId == null) return;
-
-    try {
-      // 게임 세션 정보 가져오기
-      DocumentSnapshot gameDoc = await FirebaseFirestore.instance
-          .collection('game_sessions')
-          .doc(widget.gameId)
-          .get();
-
-      if (gameDoc.exists && gameDoc.data() != null) {
-        Map<String, dynamic> gameData = gameDoc.data() as Map<String, dynamic>;
-
-        // 플레이어 정보 설정
-        // 플레이어 정보 설정 - 데이터 구조에 따라 적절하게 변경
-        if (gameData.containsKey('player1') &&
-            gameData.containsKey('player2')) {
-          // 새로운 데이터 구조 (player1, player2 객체)
-          Map<String, dynamic> player1 = gameData['player1'] ?? {};
-          Map<String, dynamic> player2 = gameData['player2'] ?? {};
-
-          String player1Id = player1['id'] ?? '';
-          String player2Id = player2['id'] ?? '';
-
-          setState(() {
-            // 상대방 ID 설정
-            _opponentId =
-                player1Id == widget.myPlayerId ? player2Id : player1Id;
-
-            // 닉네임 설정
-            _myNickname = player1Id == widget.myPlayerId
-                ? player1['nickname'] ?? 'Player 1'
-                : player2['nickname'] ?? 'Player 2';
-
-            _opponentNickname = player1Id == widget.myPlayerId
-                ? player2['nickname'] ?? 'Player 2'
-                : player1['nickname'] ?? 'Player 1';
-
-            // 현재 턴 설정
-            _currentTurn = gameData['currentTurn'] ?? player1Id;
-            _isMyTurn = _currentTurn == widget.myPlayerId;
-          });
-        } else {
-          // 기존 데이터 구조 (player1Id, player2Id)
-          String player1Id = gameData['player1Id'] ?? '';
-          String player2Id = gameData['player2Id'] ?? '';
-
-          setState(() {
-            // 상대방 ID 설정
-            _opponentId =
-                player1Id == widget.myPlayerId ? player2Id : player1Id;
-
-            // 닉네임 설정
-            _myNickname = player1Id == widget.myPlayerId
-                ? gameData['player1Nickname'] ?? 'Player 1'
-                : gameData['player2Nickname'] ?? 'Player 2';
-
-            _opponentNickname = player1Id == widget.myPlayerId
-                ? gameData['player2Nickname'] ?? 'Player 2'
-                : gameData['player1Nickname'] ?? 'Player 1';
-
-            // 현재 턴 설정
-            _currentTurn = gameData['currentTurn'] ?? player1Id;
-            _isMyTurn = _currentTurn == widget.myPlayerId;
-          });
-        }
-
-        // 디버그 정보 출력
-        print(
-            '멀티플레이어 게임 로드: 내 ID=${widget.myPlayerId}, 턴=${_currentTurn}, 내 턴=${_isMyTurn}');
-      }
-    } catch (e) {
-      print('멀티플레이어 게임 데이터 로드 오류: $e');
-    }
-  }
-
-  // Firestore에서 게임 상태 구독
-  void _subscribeToGameState() {
-    if (!widget.isMultiplayerMode || widget.gameId == null) {
-      print('게임 상태 구독 불가: 멀티플레이어가 아니거나 게임 ID가 없음');
-      return;
-    }
-
-    // 디버그 정보 출력
-    print('게임 상태 구독 시작: 게임 ID=${widget.gameId}');
-
-    // 기존 구독 취소
-    _gameSubscription?.cancel();
-
-    _gameSubscription = FirebaseFirestore.instance
-        .collection('game_sessions')
-        .doc(widget.gameId)
-        .snapshots()
-        .listen((snapshot) {
-      if (snapshot.exists && snapshot.data() != null) {
-        Map<String, dynamic> gameData = snapshot.data() as Map<String, dynamic>;
-
-        // 마지막 업데이트 시간 출력 (있는 경우)
-        if (gameData.containsKey('lastUpdated') &&
-            gameData['lastUpdated'] != null) {
-          print('Firestore 데이터 수신: lastUpdated=${gameData['lastUpdated']}');
-        } else {
-          print('Firestore 데이터 수신: 타임스탬프 정보 없음');
-        }
-
-        // UI 업데이트를 즉시 실행하여 지연 시간 최소화
-        if (mounted) {
-          // 중요: 상태 업데이트를 메인 스레드에서 즉시 처리
-          setState(() {
-            _updateGameStateFromFirestore(gameData);
-          });
-        }
-      } else {
-        print('경고: 게임 데이터가 없거나 삭제됨 - gameId=${widget.gameId}');
-      }
-    }, onError: (error) {
-      print('게임 상태 구독 오류: $error');
-
-      // 오류 발생 시 UI에 알림
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Connection error. Please check your network.'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 3),
-          ),
-        );
-      }
-
-      // 오류 후 재연결 시도 - 5초 후 다시 구독 시도
-      Future.delayed(Duration(seconds: 5), () {
-        if (mounted) {
-          print('재연결 시도 중...');
-          _subscribeToGameState();
-        }
-      });
-    });
-  }
-
-  // Firestore 데이터로 게임 상태 업데이트
-  void _updateGameStateFromFirestore(Map<String, dynamic> gameData) {
-    try {
-      // 직접 호출 시 마운트되지 않은 상태일 수 있으므로 확인
-      if (!mounted) return;
-
-      // 디버그 정보 출력
-      print(
-          '게임 상태 업데이트 시작: gameId=${widget.gameId}, myId=${widget.myPlayerId}');
-      print('업데이트 시간: ${DateTime.now().toIso8601String()}');
-
-      // 플레이어 정보 가져오기
-      Map<String, dynamic> player1 = gameData['player1'] ?? {};
-      Map<String, dynamic> player2 = gameData['player2'] ?? {};
-      String player1Id = player1['id'] ?? '';
-      String player2Id = player2['id'] ?? '';
-
-      // 현재 턴 업데이트
-      String currentTurn = gameData['currentTurn'] ?? '';
-      bool previousTurn = _isMyTurn; // 이전 턴 상태 저장
-      _isMyTurn = currentTurn == widget.myPlayerId;
-      _currentTurn = currentTurn;
-
-      // 턴이 변경되었으면 알림
-      if (previousTurn != _isMyTurn && mounted) {
-        if (_isMyTurn) {
-          // 시각적, 청각적 피드백 추가
-          _animationController.forward(from: 0);
-          // 오디오 플레이 - 호환성 이슈로 제거
-          // audioPlayer.play(AssetSource('sounds/notification.mp3'), volume: 0.5);
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Your turn now!'),
-              backgroundColor: Colors.green,
-              duration: Duration(seconds: 1),
-            ),
-          );
-        }
-      }
-
-      // 상대방 정보 설정
-      _opponentId = player1Id == widget.myPlayerId ? player2Id : player1Id;
-      _myNickname = player1Id == widget.myPlayerId
-          ? player1['nickname'] ?? 'Player 1'
-          : player2['nickname'] ?? 'Player 2';
-      _opponentNickname = player1Id == widget.myPlayerId
-          ? player2['nickname'] ?? 'Player 2'
-          : player1['nickname'] ?? 'Player 1';
-
-      // 게임 보드 상태 업데이트
-      if (gameData.containsKey('board') && gameData['board'] is List) {
-        List<dynamic> boardData = gameData['board'];
-
-        // 디버그 정보 - 보드 데이터 크기 확인
-        print(
-            '보드 데이터 크기: ${boardData.length}, 카드 플립 크기: ${cardFlips.length}, 게임 이미지 크기: ${gameImages.length}');
-
-        // 게임 이미지 리스트 업데이트 (중요!)
-        // 항상 서버에서 최신 이미지 ID 목록 가져오기
-        if (gameImages.isEmpty || gameImages.length != boardData.length) {
-          gameImages = List.generate(boardData.length, (index) {
-            if (index < boardData.length && boardData[index] is Map) {
-              Map<String, dynamic> cardData =
-                  boardData[index] as Map<String, dynamic>;
-              return cardData['imageId'] as String? ?? 'default';
-            }
-            return 'default';
-          });
-          print('게임 이미지 리스트 업데이트됨: ${gameImages.length}개');
-        }
-
-        // 보드 데이터가 cardFlips 보다 많으면 cardFlips 크기 조정
-        if (boardData.length > cardFlips.length) {
-          cardFlips = List.generate(boardData.length,
-              (i) => i < cardFlips.length ? cardFlips[i] : false);
-          cardAnimationTriggers = List.generate(
-              boardData.length,
-              (i) => i < cardAnimationTriggers.length
-                  ? cardAnimationTriggers[i]
-                  : false);
-
-          print('카드 플립 배열 크기 조정됨: ${cardFlips.length}개');
-        }
-
-        // 카드 상태 변경 여부 플래그
-        bool hasCardStateChanged = false;
-
-        // 카드 상태 업데이트
-        for (int i = 0; i < boardData.length && i < cardFlips.length; i++) {
-          if (boardData[i] is Map) {
-            Map<String, dynamic> cardData =
-                boardData[i] as Map<String, dynamic>;
-
-            // 이전 상태와 다를 경우에만 업데이트하여 불필요한 렌더링 방지
-            bool newFlipState = cardData['isFlipped'] ?? false;
-
-            // 카드 상태가 변경되었으면 디버그 정보 출력
-            if (cardFlips[i] != newFlipState) {
-              print(
-                  '카드 $i 상태 변경: ${cardFlips[i]} -> $newFlipState, lastFlippedBy=${cardData['lastFlippedBy']}');
-
-              hasCardStateChanged = true;
-              cardFlips[i] = newFlipState;
-
-              // 상대방이 카드를 뒤집었을 때 애니메이션 효과 추가
-              // null-safety 처리 추가
-              String? lastFlippedBy = cardData['lastFlippedBy'] as String?;
-              if (newFlipState &&
-                  !selectedCards.contains(i) &&
-                  lastFlippedBy != null &&
-                  lastFlippedBy != widget.myPlayerId) {
-                _triggerStarAnimation(i);
-
-                // 애니메이션 및 소리 효과
-                // audioPlayer.play(AssetSource('sounds/card_flip.mp3'), volume: 0.3);
-
-                // 디버그 - 애니메이션 트리거됨
-                print('카드 $i에 애니메이션 트리거 - 상대방이 뒤집음');
-              }
-
-              // 상대방이 뒤집은 카드를 selectedCards에 추가
-              if (newFlipState && !selectedCards.contains(i)) {
-                // 이미 매치된 카드는 selectedCards에 추가하지 않음
-                if (cardData['matchedBy'] == null) {
-                  selectedCards.add(i);
-                  print('카드 $i를 selectedCards에 추가: $selectedCards');
-
-                  // 두 카드가 선택되면 매치 여부 확인
-                  if (selectedCards.length == 2) {
-                    // 이미 Firestore에서 매치 결과가 처리되므로
-                    // 여기서는 UI 업데이트를 위한 로직만 실행
-                    flipCount++;
-                    widget.updateFlipCount(flipCount);
-                  }
-                }
-              }
-            }
-
-            // 매치된 카드 정보 업데이트 - null-safety 처리 추가
-            var matchedByValue = cardData['matchedBy'];
-            // matchedBy가 존재하고 빈 문자열이 아닌 경우에만 처리
-            if (matchedByValue != null &&
-                matchedByValue is String &&
-                matchedByValue.isNotEmpty) {
-              // 매치된 카드는 계속 뒤집힌 상태로 유지
-              if (!cardFlips[i]) {
-                print('매치된 카드 $i 강제 뒤집기: matchedBy=$matchedByValue');
-                cardFlips[i] = true;
-                hasCardStateChanged = true;
-              }
-            }
-          }
-        }
-
-        // 카드 상태가 변경되었으면 UI 새로고침 강제
-        if (hasCardStateChanged && mounted) {
-          print('카드 상태 변경되어 UI 리프레시 강제');
-        }
-      } else {
-        print('경고: 게임 데이터에 보드 정보가 없거나 형식이 잘못됨');
-      }
-
-      // 점수 업데이트
-      int player1Score = player1['score'] ?? 0;
-      int player2Score = player2['score'] ?? 0;
-
-      if (widget.myPlayerId == player1Id) {
-        widget.updatePlayerScore(widget.currentPlayer, player1Score);
-        widget.updatePlayerScore(
-            widget.playerScores.keys.elementAt(1), player2Score);
-      } else {
-        widget.updatePlayerScore(widget.currentPlayer, player2Score);
-        widget.updatePlayerScore(
-            widget.playerScores.keys.elementAt(1), player1Score);
-      }
-
-      // 매치 결과 처리 (불일치인 경우 카드 다시 뒤집기)
-      if (gameData.containsKey('lastAction') && gameData['lastAction'] is Map) {
-        Map<String, dynamic> lastAction = gameData['lastAction'];
-        String actionType = lastAction['type'] ?? '';
-
-        // 액션 정보 출력
-        print('마지막 액션: $actionType, 플레이어: ${lastAction['playerId']}');
-
-        if (actionType == 'mismatch' && lastAction.containsKey('cards')) {
-          List<dynamic> mismatchedCards = lastAction['cards'];
-          print('불일치 카드: $mismatchedCards');
-
-          // 약간의 지연 후에 불일치 카드 뒤집기
-          if (mismatchedCards.length == 2) {
-            Future.delayed(const Duration(milliseconds: 500), () {
-              if (mounted) {
-                setState(() {
-                  for (var index in mismatchedCards) {
-                    if (index is int && index < cardFlips.length) {
-                      print('불일치 카드 다시 뒤집기: $index');
-                      cardFlips[index] = false;
-                    }
-                  }
-                  selectedCards.clear();
-                  print('selectedCards 초기화');
-                });
-              }
-            });
-          }
-        } else if (actionType == 'match' && lastAction.containsKey('cards')) {
-          List<dynamic> matchedCards = lastAction['cards'];
-          print('일치 카드: $matchedCards');
-
-          // 매치된 카드에 별 애니메이션 표시
-          if (matchedCards.length == 2) {
-            for (var index in matchedCards) {
-              if (index is int && index < cardAnimationTriggers.length) {
-                _triggerStarAnimation(index);
-              }
-            }
-          }
-
-          // 매치 성공 시 selectedCards 초기화
-          Future.delayed(const Duration(milliseconds: 300), () {
-            if (mounted) {
-              setState(() {
-                selectedCards.clear();
-                print('일치 후 selectedCards 초기화');
-              });
-            }
-          });
-        }
-      }
-
-      // 게임 종료 체크
-      if (gameData['gameState'] == 'completed' &&
-          cardFlips.every((flip) => flip)) {
-        _timer?.cancel(); // 타이머 중지
-        if (_gameStartTime != null) {
-          _elapsedTime = DateTime.now().difference(_gameStartTime!).inSeconds;
-        }
-
-        // 게임 완료 다이얼로그 표시
-        Future.delayed(Duration(milliseconds: 500), () {
-          if (mounted) {
-            _showMultiplayerGameCompleteDialog();
-          }
-        });
-      }
-    } catch (e) {
-      // 예기치 않은 오류 처리
-      print('게임 상태 업데이트 중 오류: $e');
-    }
-  }
-
-  // 멀티플레이어 모드에서 카드 상태 Firestore에 업데이트
-  Future<void> _updateCardStateInFirestore(int index, bool flipped) async {
-    if (!widget.isMultiplayerMode ||
-        widget.gameId == null ||
-        widget.myPlayerId == null) {
-      print('카드 상태 업데이트 불가: 멀티플레이어 모드가 아니거나 유효하지 않은 ID');
-      return;
-    }
-
-    try {
-      // 디버그 정보 상세화
-      final requestTime = DateTime.now().toIso8601String();
-      print(
-          '카드 $index 상태 업데이트 시작 [시간: $requestTime]: flipped=$flipped, player=${widget.myPlayerId}');
-
-      // 즉시 로컬 UI에도 반영 (Firebase 업데이트 대기 없이)
-      if (mounted) {
-        setState(() {
-          // 로컬 UI 먼저 업데이트
-          if (index < cardFlips.length) {
-            cardFlips[index] = flipped;
-            print('로컬 카드 상태 즉시 업데이트: 카드 $index -> $flipped');
-          }
-        });
-      }
-
-      // 현재 게임 데이터를 가져와서 board 내의 해당 카드 정보를 유지하면서 업데이트
-      DocumentSnapshot gameDoc = await FirebaseFirestore.instance
-          .collection('game_sessions')
-          .doc(widget.gameId)
-          .get();
-
-      if (gameDoc.exists && gameDoc.data() != null) {
-        Map<String, dynamic> gameData = gameDoc.data() as Map<String, dynamic>;
-        if (gameData.containsKey('board') && gameData['board'] is List) {
-          List<dynamic> boardData =
-              List.from(gameData['board'] as List<dynamic>);
-
-          // 카드 인덱스가 유효한지 확인
-          if (index < boardData.length && boardData[index] is Map) {
-            // 기존 카드 데이터 유지하면서 isFlipped와 lastFlippedBy만 업데이트
-            Map<String, dynamic> cardData =
-                Map.from(boardData[index] as Map<String, dynamic>);
-            cardData['isFlipped'] = flipped;
-            cardData['lastFlippedBy'] = widget.myPlayerId;
-
-            // 보드 배열 업데이트
-            boardData[index] = cardData;
-
-            // 업데이트할 데이터 준비 - 전체 보드 배열을 업데이트
-            Map<String, dynamic> updateData = {
-              'board': boardData,
-              'lastMoveTime': FieldValue.serverTimestamp(),
-              'lastAction': {
-                'type': 'flip',
-                'cardIndex': index,
-                'playerId': widget.myPlayerId,
-                'timestamp': FieldValue.serverTimestamp(),
-              },
-              'lastUpdated': FieldValue.serverTimestamp(),
-            };
-
-            // Firebase에 업데이트 - 배치 모드로 실행
-            await FirebaseFirestore.instance
-                .collection('game_sessions')
-                .doc(widget.gameId)
-                .update(updateData);
-
-            final responseTime = DateTime.now().toIso8601String();
-            print('카드 $index 상태 업데이트 완료 [시간: $responseTime]');
-          } else {
-            print('오류: 카드 인덱스 $index가 유효하지 않습니다. 보드 크기: ${boardData.length}');
-            throw Exception('유효하지 않은 카드 인덱스');
-          }
-        } else {
-          print('오류: 게임 데이터에 보드 정보가 없거나 유효하지 않습니다');
-          throw Exception('보드 데이터가 유효하지 않습니다');
-        }
-      } else {
-        print('오류: 게임 데이터를 찾을 수 없습니다');
-        throw Exception('게임 데이터를 찾을 수 없습니다');
-      }
-
-      // 업데이트 후 확인 (선택 사항 - 디버깅을 위한 용도)
-      DocumentSnapshot updatedDoc = await FirebaseFirestore.instance
-          .collection('game_sessions')
-          .doc(widget.gameId)
-          .get();
-
-      if (updatedDoc.exists && updatedDoc.data() != null) {
-        Map<String, dynamic> data = updatedDoc.data() as Map<String, dynamic>;
-        if (data.containsKey('board') && data['board'] is List) {
-          List<dynamic> board = data['board'];
-          if (index < board.length && board[index] is Map) {
-            Map<String, dynamic> card = board[index];
-            bool currentState = card['isFlipped'] ?? false;
-            String? lastFlippedBy = card['lastFlippedBy'] as String?;
-            String? imageId = card['imageId'] as String?;
-
-            print(
-                '확인: 카드 $index 현재 상태 = $currentState, 마지막 플레이어 = $lastFlippedBy, imageId = $imageId');
-
-            // 서버 상태와 로컬 상태가 일치하는지 확인
-            if (currentState != cardFlips[index]) {
-              print(
-                  '경고: 서버-로컬 상태 불일치! 로컬=${cardFlips[index]}, 서버=$currentState');
-
-              // 불일치하면 서버 상태로 강제 업데이트
-              if (mounted) {
-                setState(() {
-                  cardFlips[index] = currentState;
-                  print('로컬 상태를 서버 상태로 동기화: 카드 $index -> $currentState');
-                });
-              }
-            }
-          }
-        }
-      }
-    } catch (e) {
-      print('카드 상태 업데이트 오류: $e');
-
-      // 오류 시 UI에 알림
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('카드 상태 업데이트 중 오류가 발생했습니다. 다시 시도하세요.'),
-            backgroundColor: Colors.orange,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-    }
-  }
-
-  // 멀티플레이어 모드에서 매치된 카드 업데이트 및 턴 변경
-  Future<void> _updateMatchInFirestore(bool isMatch) async {
-    if (!widget.isMultiplayerMode ||
-        widget.gameId == null ||
-        widget.myPlayerId == null ||
-        selectedCards.length != 2) return;
-
-    try {
-      DocumentSnapshot gameDoc = await FirebaseFirestore.instance
-          .collection('game_sessions')
-          .doc(widget.gameId)
-          .get();
-
-      if (gameDoc.exists && gameDoc.data() != null) {
-        Map<String, dynamic> gameData = gameDoc.data() as Map<String, dynamic>;
-
-        // 플레이어 정보 가져오기
-        Map<String, dynamic> player1 = gameData['player1'] ?? {};
-        Map<String, dynamic> player2 = gameData['player2'] ?? {};
-        String player1Id = player1['id'] ?? '';
-        String player2Id = player2['id'] ?? '';
-
-        // 현재 플레이어의 ID 및 점수 필드 결정
-        String currentPlayerId = widget.myPlayerId ?? '';
-        String scoreField = '';
-        String nextTurnPlayerId = '';
-
-        if (currentPlayerId == player1Id) {
-          scoreField = 'player1.score';
-          nextTurnPlayerId = player2Id;
-        } else if (currentPlayerId == player2Id) {
-          scoreField = 'player2.score';
-          nextTurnPlayerId = player1Id;
-        } else {
-          print('현재 플레이어 ID를 찾을 수 없습니다: $currentPlayerId');
-          return;
-        }
-
-        int currentScore = currentPlayerId == player1Id
-            ? (player1['score'] as int?) ?? 0
-            : (player2['score'] as int?) ?? 0;
-
-        Map<String, dynamic> updateData = {
-          'lastAction': {
-            'type': isMatch ? 'match' : 'mismatch',
-            'cards': selectedCards,
-            'playerId': currentPlayerId,
-            'timestamp': FieldValue.serverTimestamp(),
-          },
-          'lastMoveTime': FieldValue.serverTimestamp(),
-        };
-
-        if (isMatch) {
-          // 매치 성공 시 점수 증가 및 턴 유지
-          updateData[scoreField] = currentScore + 1;
-          updateData['lastMatchedBy'] = currentPlayerId;
-
-          // 보드 데이터 가져와서 업데이트
-          if (gameData.containsKey('board') && gameData['board'] is List) {
-            List<dynamic> boardData =
-                List.from(gameData['board'] as List<dynamic>);
-
-            // 매치된 카드들 업데이트
-            for (int cardIndex in selectedCards) {
-              if (cardIndex < boardData.length && boardData[cardIndex] is Map) {
-                // 기존 카드 데이터 복사하고 matchedBy 필드만 업데이트
-                Map<String, dynamic> cardData =
-                    Map.from(boardData[cardIndex] as Map<String, dynamic>);
-                cardData['matchedBy'] = currentPlayerId;
-
-                // 업데이트된 카드 데이터를 배열에 다시 저장
-                boardData[cardIndex] = cardData;
-              }
-            }
-
-            // 업데이트 데이터에 전체 보드 추가
-            updateData['board'] = boardData;
-          }
-        } else {
-          // 매치 실패 시 턴 변경
-          updateData['currentTurn'] = nextTurnPlayerId;
-
-          // 보드 데이터 가져와서 업데이트
-          if (gameData.containsKey('board') && gameData['board'] is List) {
-            List<dynamic> boardData =
-                List.from(gameData['board'] as List<dynamic>);
-
-            // 매치 실패한 카드들 업데이트 - isFlipped를 false로 설정
-            for (int cardIndex in selectedCards) {
-              if (cardIndex < boardData.length && boardData[cardIndex] is Map) {
-                // 기존 카드 데이터 복사하고 isFlipped 필드 업데이트
-                Map<String, dynamic> cardData =
-                    Map.from(boardData[cardIndex] as Map<String, dynamic>);
-                cardData['isFlipped'] = false;
-                cardData['matchedBy'] = null;
-
-                // 업데이트된 카드 데이터를 배열에 다시 저장
-                boardData[cardIndex] = cardData;
-              }
-            }
-
-            // 업데이트 데이터에 전체 보드 추가
-            updateData['board'] = boardData;
-          }
-        }
-
-        await FirebaseFirestore.instance
-            .collection('game_sessions')
-            .doc(widget.gameId)
-            .update(updateData);
-
-        // 모든 카드가 매치되었는지 확인
-        bool allMatched = true;
-        if (gameData.containsKey('board') && gameData['board'] is List) {
-          List<dynamic> board = gameData['board'] ?? [];
-
-          for (var card in board) {
-            if (card is Map<String, dynamic> && card['matchedBy'] == null) {
-              allMatched = false;
-              break;
-            }
-          }
-
-          // 게임 종료 조건
-          if (allMatched) {
-            await FirebaseFirestore.instance
-                .collection('game_sessions')
-                .doc(widget.gameId)
-                .update({
-              'gameState': 'completed',
-              'completedAt': FieldValue.serverTimestamp(),
-            });
-          }
-        }
-      }
-    } catch (e) {
-      print('매치 업데이트 오류: $e');
-
-      // UI에 오류 알림 표시
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('게임 진행 중 오류가 발생했습니다. 다시 시도하세요.'),
-            backgroundColor: Colors.orange,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-    }
-  }
-
   @override
   void dispose() {
     // null 체크 추가
@@ -1163,7 +513,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
 
       // 멀티플레이어 게임에서 턴 변경 리스너 제거
-      _memoryGameService?.removePlayerTurnChangeListener(_onPlayerTurnChanged);
+      //_memoryGameService?.removePlayerTurnChangeListener(_onPlayerTurnChanged);
 
       // 점수 변경 리스너 제거
       _memoryGameService?.removeScoreChangeListener(_onScoreChanged);
@@ -1252,7 +602,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _parentIndexedStack = context.findAncestorWidgetOfExactType<IndexedStack>();
 
     final languageProvider = Provider.of<LanguageProvider>(context);
-    if (targetLanguage != languageProvider.currentLanguage) {
+    if (targetLanguage != languageProvider.currentLanguage && mounted) {
       setState(() {
         targetLanguage = languageProvider.currentLanguage;
       });
@@ -1269,14 +619,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             _gameStartTime =
                 null; // Don't set game start time until first card click
           });
-          // Don't start timer here, wait for first card click
+          // Don't start timer here, wait for first card click instead
           // _startTimer();
         }
       } catch (e) {
         print('Error initializing game: $e');
-        setState(() {
-          hasError = true;
-        });
+        if (mounted) {
+          setState(() {
+            hasError = true;
+          });
+        }
       }
     });
   }
@@ -1284,6 +636,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   Future<void> initializeGame() async {
     // 타이머 취소 추가
     _timer?.cancel();
+
+    if (!mounted) return;
 
     setState(() {
       // 그리드 크기에 맞게 시간 설정
@@ -1296,6 +650,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       _gameStartTime = null; // 게임 시작 시간 초기화
       _canAddTime = true; // 시간 추가 버튼 초기화
       isGameStarted = false; // Reset game started state
+      _itemUsedInCurrentGame = false; // 아이템 사용 상태 초기화
     });
 
     widget.resetScores();
@@ -1353,15 +708,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           }
 
           // 멀티플레이어 게임 세션 구독
-          _subscribeToGameState();
+          //_subscribeToGameState();
 
           // 플레이어 정보 로드
-          await _loadMultiplayerData();
+          //await _loadMultiplayerData();
         } else {
           // 게임 세션 정보가 없으면 오류 표시
-          setState(() {
-            hasError = true;
-          });
+          if (mounted) {
+            setState(() {
+              hasError = true;
+            });
+          }
         }
       } catch (e) {
         print('멀티플레이어 게임 초기화 오류: $e');
@@ -1374,6 +731,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
 
     await Future.delayed(Duration(milliseconds: 500));
+
+    if (!mounted) return;
 
     setState(() {
       isInitialized = true;
@@ -1413,6 +772,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   void _triggerStarAnimation(int index) {
     if (index >= 0 && index < cardAnimationTriggers.length) {
+      if (!mounted) return;
+
       setState(() {
         cardAnimationTriggers[index] = true;
       });
@@ -1450,6 +811,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       // 첫 번째 카드를 클릭할 때만 타이머 시작
       if (!isGameStarted && widget.isTimeAttackMode) {
+        if (!mounted) return;
+
         setState(() {
           isGameStarted = true;
           _remainingTime = _gameTimeLimit;
@@ -1459,6 +822,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       }
 
       // 로컬 UI 업데이트 - 별 애니메이션 트리거 제거
+      if (!mounted) return;
+
       setState(() {
         cardFlips[index] = true;
         selectedCards.add(index);
@@ -1469,7 +834,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       if (widget.isMultiplayerMode &&
           widget.gameId != null &&
           widget.myPlayerId != null) {
-        await _updateCardStateInFirestore(index, true);
+        //await _updateCardStateInFirestore(index, true);
 
         // 두 카드가 선택되었으면 매치 여부 확인
         if (selectedCards.length == 2) {
@@ -1485,7 +850,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               selectedCards[1] < gameImages.length) {
             bool isMatch =
                 gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
-            await _updateMatchInFirestore(isMatch);
+            //await _updateMatchInFirestore(isMatch);
           }
         }
       } else {
@@ -1494,6 +859,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           // 번역된 단어 가져오기 및 발음
           if (index < gameImages.length) {
             final translatedWord = getLocalizedWord(gameImages[index]);
+            print('targetLanguage: $targetLanguage');
             await flutterTts.setLanguage(targetLanguage);
             await flutterTts.speak(translatedWord);
           }
@@ -1540,6 +906,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   void checkMatch() {
+    if (!mounted) return;
+
     setState(() {
       bool isMatch =
           gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
@@ -1549,9 +917,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         _triggerStarAnimation(selectedCards[0]);
         _triggerStarAnimation(selectedCards[1]);
 
+        // 아이템 드롭 처리 추가
+        _handleItemDrop();
+
         // 멀티플레이어 모드에서는 점수 업데이트를 Firestore에 반영
         if (widget.isMultiplayerMode) {
-          _updateMatchInFirestore(true);
+          //_updateMatchInFirestore(true);
         } else if (widget.numberOfPlayers > 1) {
           // 로컬 멀티플레이어 모드에서는 memory_game_service를 통해 점수와 턴 관리
           print('매치 성공: memory_game_service.handleCardMatchResult(true) 호출 전');
@@ -1590,7 +961,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
         // 멀티플레이어 모드에서는 턴 변경을 Firestore에 반영
         if (widget.isMultiplayerMode) {
-          _updateMatchInFirestore(false);
+          //_updateMatchInFirestore(false);
         } else if (widget.numberOfPlayers > 1) {
           // 로컬 멀티플레이어 모드에서는 memory_game_service를 통해 턴 관리
           print('매치 실패: memory_game_service.handleCardMatchResult(false) 호출 전');
@@ -1666,7 +1037,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 24),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 8),
                   padding: EdgeInsets.all(12),
@@ -1811,11 +1182,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   String getLocalizedWord(String word) {
-    final language =
-        Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    print('language in getLocalizedWord function: $language');
+    // 기존 TranslationService 코드 제거, LanguageProvider 직접 사용
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+    final languageCode = languageProvider.currentLanguage;
 
-    switch (language) {
+    switch (languageCode) {
       case 'af-ZA':
         return afrikaansItemList[word] ?? word;
       case 'am-ET':
@@ -2048,7 +1420,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   Future<void> _addExtraTime() async {
     // 게임이 시작되지 않았거나, 쿨다운 중이면 리턴
     if (!_canAddTime || !isGameStarted) return;
-
     // 게임 시작 후 최소 경과 시간 체크
     if (_gameStartTime != null) {
       int elapsedSeconds = DateTime.now().difference(_gameStartTime!).inSeconds;
@@ -2129,21 +1500,23 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 튜토리얼 표시 여부 확인
   Future<void> _checkTutorialStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool tutorialShown = prefs.getBool(_tutorialPrefKey) ?? false;
+    prefs = await SharedPreferences.getInstance();
+    bool tutorialShown = prefs?.getBool(_tutorialPrefKey) ?? false;
 
-    if (!tutorialShown) {
-      setState(() {
-        _showTutorial = true;
-      });
-    }
+    setState(() {
+      _showTutorial = !tutorialShown;
+    });
   }
 
   // 튜토리얼 표시 여부 저장
   Future<void> _saveTutorialPreference() async {
     if (_doNotShowAgain) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(_tutorialPrefKey, true);
+      if (prefs != null) {
+        await prefs!.setBool(_tutorialPrefKey, true);
+      } else {
+        prefs = await SharedPreferences.getInstance();
+        await prefs!.setBool(_tutorialPrefKey, true);
+      }
     }
   }
 
@@ -2299,7 +1672,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                   ],
                 ),
               ),
-
+              // 아이템 팝업 추가
+              _buildItemPopup(),
               // 튜토리얼 오버레이
               if (_showTutorial) _buildTutorialOverlay(),
             ],
@@ -2311,106 +1685,83 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 튜토리얼 오버레이 위젯
   Widget _buildTutorialOverlay() {
+    if (!_showTutorial) return const SizedBox.shrink();
+
+    // 언어 번역 가져오기
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
     return Container(
       color: Colors.black.withOpacity(0.7),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 5),
-                ),
-              ],
-            ),
+      child: Center(
+        child: Card(
+          color: Colors.white,
+          margin: const EdgeInsets.all(20),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Memory Game Guide',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
+                  translations['memory_game_guide'] ?? 'Memory Game Guide',
+                  style: const TextStyle(
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: instagramGradientStart,
+                    color: Colors.blue,
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 20),
                 _buildTutorialItem(
-                  Icons.grid_on,
-                  'Card Selection',
-                  'Tap cards to flip and find matching pairs.',
-                ),
-                SizedBox(height: 10),
+                    Icons.touch_app,
+                    translations['card_selection_title'] ?? 'Card Selection',
+                    translations['card_selection_desc'] ??
+                        'Tap cards to flip and find matching pairs.'),
                 _buildTutorialItem(
-                  Icons.timer,
-                  'Time Limit',
-                  'Match all pairs within time limit. Faster matching earns higher score.',
-                ),
-                SizedBox(height: 10),
+                    Icons.timer,
+                    translations['time_limit_title'] ?? 'Time Limit',
+                    translations['time_limit_desc'] ??
+                        'Match all pairs within time limit. Faster matching earns higher score.'),
                 _buildTutorialItem(
-                  Icons.add_circle_outline,
-                  'Add Time',
-                  'Tap "+30s" to add time (costs Brain Health points).',
-                ),
-                SizedBox(height: 10),
+                    Icons.add_alarm,
+                    translations['add_time_title'] ?? 'Add Time',
+                    translations['add_time_desc'] ??
+                        'Tap "+30s" to add time (costs Brain Health points).'),
                 _buildTutorialItem(
-                  Icons.people,
-                  'Multiplayer',
-                  'Change player count (1-4) to play with friends.',
-                ),
-                SizedBox(height: 15),
+                    Icons.people,
+                    translations['multiplayer_title'] ?? 'Multiplayer',
+                    translations['multiplayer_desc'] ??
+                        'Change player count (1-4) to play with friends.'),
+                const SizedBox(height: 20),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Checkbox(
-                      value: _doNotShowAgain,
-                      onChanged: (value) {
+                    TextButton(
+                      onPressed: () {
                         setState(() {
-                          _doNotShowAgain = value ?? false;
+                          _showTutorial = false;
+                          prefs?.setBool('showMemoryGameTutorial', false);
                         });
                       },
-                      activeColor: instagramGradientStart,
-                    ),
-                    Text(
-                      'Don\'t show again',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
+                      child: Text(
+                        translations['dont_show_again'] ?? 'Don\'t show again',
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _showTutorial = false;
+                        });
+                      },
+                      child: Text(translations['start_game'] ?? 'Start Game'),
+                    ),
                   ],
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: _closeTutorial,
-                  child: Text(
-                    'Start Game',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: instagramGradientStart,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -2458,6 +1809,115 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         ),
       ],
     );
+  }
+
+  // 아이템 팝업 위젯
+  Widget _buildItemPopup() {
+    if (!_showItemPopup) return SizedBox.shrink();
+
+    return Positioned(
+      top: MediaQuery.of(context).size.height * 0.4,
+      left: 0,
+      right: 0,
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [instagramGradientStart, instagramGradientEnd],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                color: instagramGradientStart.withOpacity(0.5),
+                blurRadius: 15,
+                spreadRadius: 2,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.shuffle,
+                color: Colors.white,
+                size: 40,
+              ),
+              SizedBox(height: 10),
+              Text(
+                Provider.of<LanguageProvider>(context)
+                        .getUITranslations()['random_shake'] ??
+                    'Random Shake!!',
+                style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 아이템 드롭 처리
+  void _handleItemDrop() {
+    // 이미 아이템을 사용했으면 리턴
+    if (_itemUsedInCurrentGame) return;
+
+    if (Random().nextDouble() < ITEM_DROP_CHANCE) {
+      setState(() {
+        _currentItem = ITEM_SHAKE;
+        _showItemPopup = true;
+        _itemUsedInCurrentGame = true; // 아이템 사용 표시
+      });
+
+      // 2초 후 팝업 숨기기
+      _itemPopupTimer?.cancel();
+      _itemPopupTimer = Timer(Duration(seconds: 2), () {
+        if (mounted) {
+          setState(() {
+            _showItemPopup = false;
+          });
+        }
+      });
+
+      // Shake 아이템 효과 적용
+      _applyShakeItem();
+    }
+  }
+
+  // Shake 아이템 효과 적용
+  void _applyShakeItem() {
+    // 매치되지 않은 카드들의 인덱스 찾기
+    List<int> unmatchedIndices = [];
+    for (int i = 0; i < cardFlips.length; i++) {
+      if (!cardFlips[i]) {
+        unmatchedIndices.add(i);
+      }
+    }
+
+    // 매치되지 않은 카드들의 이미지 ID 저장
+    List<String> unmatchedImages = [];
+    for (int index in unmatchedIndices) {
+      unmatchedImages.add(gameImages[index]);
+    }
+
+    // 이미지 순서 섞기
+    unmatchedImages.shuffle();
+
+    // 섞인 이미지를 다시 할당
+    for (int i = 0; i < unmatchedIndices.length; i++) {
+      gameImages[unmatchedIndices[i]] = unmatchedImages[i];
+    }
+
+    // UI 업데이트
+    setState(() {});
   }
 
   // Override TabNavigationObserver methods
@@ -2521,22 +1981,226 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _showCompletionDialog(_elapsedTime);
   }
 
-  Future<int> _updateBrainHealthScore(int elapsedTime) async {
+  Future<Map<String, dynamic>> _updateBrainHealthScore(int elapsedTime) async {
     // 매치된 카드 쌍의 개수 계산
     final int totalMatches = gameImages.length ~/ 2;
+    int pointsEarned = 0;
 
     try {
+      // 로컬 멀티플레이어 모드에서 승자 결정
+      String winner = "";
+      bool isLoggedInUserWinner = true;
+      List<String> tiedPlayers = []; // 동점자 목록 저장 변수 추가
+
+      if (widget.numberOfPlayers > 1 &&
+          !widget.isMultiplayerMode &&
+          _memoryGameService != null) {
+        // 승자 결정
+        List<MapEntry<String, int>> scoreEntries = [];
+
+        // 첫 번째 플레이어(현재 사용자) 정보 추가
+        User? user = FirebaseAuth.instance.currentUser;
+        String currentUserName =
+            user?.displayName ?? user?.email?.split('@')[0] ?? 'You';
+        int currentUserScore = _memoryGameService!.getPlayerScore(0);
+        scoreEntries.add(MapEntry(currentUserName, currentUserScore));
+
+        // 나머지 플레이어 정보 추가
+        for (int i = 0; i < widget.selectedPlayers.length; i++) {
+          String playerName = widget.selectedPlayers[i]['nickname'] as String;
+          int playerScore = _memoryGameService!.getPlayerScore(i + 1);
+          scoreEntries.add(MapEntry(playerName, playerScore));
+        }
+
+        // 점수 기준으로 내림차순 정렬
+        scoreEntries.sort((a, b) => b.value.compareTo(a.value));
+
+        print(
+            '정렬된 점수: ${scoreEntries.map((e) => "${e.key}: ${e.value}").join(', ')}');
+
+        // 승자 결정
+        if (scoreEntries.isNotEmpty &&
+            (scoreEntries.length == 1 ||
+                scoreEntries[0].value > scoreEntries[1].value)) {
+          winner = scoreEntries[0].key;
+          isLoggedInUserWinner = (winner == currentUserName);
+          print('승자: $winner, 로그인된 유저가 우승자인가? $isLoggedInUserWinner');
+        } else {
+          // 동점 상황 처리
+          int highestScore = scoreEntries[0].value;
+          for (var entry in scoreEntries) {
+            if (entry.value == highestScore) {
+              tiedPlayers.add(entry.key);
+            } else {
+              break; // 같은 점수가 아니면 중단
+            }
+          }
+
+          print('동점 플레이어: ${tiedPlayers.join(', ')}');
+          winner = 'Tie';
+          isLoggedInUserWinner = tiedPlayers.contains(currentUserName);
+          print(
+              '동점 상황: ${tiedPlayers.length}명이 동점, 로그인된 유저가 동점자인가? $isLoggedInUserWinner');
+        }
+      }
+
       // Brain Health Provider에 게임 완료 정보 추가
       final brainHealthProvider =
           Provider.of<BrainHealthProvider>(context, listen: false);
-      final int pointsEarned = await brainHealthProvider.addGameCompletion(
+
+      // 기본 점수 계산 (배수 적용 전)
+      int basePointsEarned = brainHealthProvider.calculateGameCompletionPoints(
           totalMatches, elapsedTime, widget.gridSize);
 
-      // 점수 획득 정보를 completion dialog에서 표시하기 위해 반환
-      return pointsEarned;
+      // 멀티플레이어 배수 적용
+      int multiplier = widget.numberOfPlayers > 1 ? widget.numberOfPlayers : 1;
+      int finalPointsEarned = basePointsEarned;
+      if (multiplier > 1 && !widget.isMultiplayerMode) {
+        finalPointsEarned = basePointsEarned * multiplier;
+        print(
+            '멀티플레이어 배수 적용: $basePointsEarned × $multiplier = $finalPointsEarned');
+      }
+
+      // 동점인 경우 점수 분배
+      int dividedPoints = finalPointsEarned;
+      if (winner == 'Tie' && tiedPlayers.isNotEmpty) {
+        dividedPoints = (finalPointsEarned / tiedPlayers.length).floor();
+        print(
+            '동점자 ${tiedPlayers.length}명에게 점수 분배: $finalPointsEarned ÷ ${tiedPlayers.length} = $dividedPoints');
+      }
+
+      if (isLoggedInUserWinner) {
+        print('로그인된 유저가 우승자입니다. 점수를 업데이트합니다.');
+        // 로그인된 유저는 멀티플레이어 배수가 적용된 점수를 Firebase에 업데이트
+        if (widget.numberOfPlayers > 1 && !widget.isMultiplayerMode) {
+          // 멀티플레이어인 경우 playerCount 인수 전달
+          if (winner == 'Tie') {
+            // 동점인 경우 분배된 점수를 업데이트
+            pointsEarned = await brainHealthProvider.addGameCompletion(
+                totalMatches,
+                elapsedTime,
+                widget.gridSize,
+                widget.numberOfPlayers,
+                dividedPoints); // 분배된 점수 전달
+            print('로그인된 유저에게 추가된 점수(동점 분배 적용): $pointsEarned');
+          } else {
+            pointsEarned = await brainHealthProvider.addGameCompletion(
+                totalMatches,
+                elapsedTime,
+                widget.gridSize,
+                widget.numberOfPlayers);
+            print('로그인된 유저에게 추가된 점수(멀티플레이어 배수 적용): $pointsEarned');
+          }
+        } else {
+          // 싱글플레이어인 경우 기본 호출 방식 유지
+          pointsEarned = await brainHealthProvider.addGameCompletion(
+              totalMatches, elapsedTime, widget.gridSize);
+          print('로그인된 유저에게 추가된 점수: $pointsEarned');
+        }
+      } else {
+        print('로그인된 유저가 우승자가 아닙니다. 점수를 업데이트하지 않습니다.');
+        // 팝업창 표시를 위한 계산된 점수 사용
+        pointsEarned = winner == 'Tie' ? dividedPoints : finalPointsEarned;
+        print('계산된 점수(DB 업데이트 안 함): $pointsEarned');
+      }
+
+      // 로컬 멀티플레이어에서 로그인되지 않은 유저가 우승한 경우 Firebase에 동일한 점수 업데이트
+      if (widget.numberOfPlayers > 1 &&
+          !widget.isMultiplayerMode &&
+          _memoryGameService != null) {
+        if (winner == 'Tie') {
+          // 동점인 경우 각 동점자에게 분배된 점수 업데이트
+          for (int i = 0; i < widget.selectedPlayers.length; i++) {
+            String playerName = widget.selectedPlayers[i]['nickname'] as String;
+            if (tiedPlayers.contains(playerName)) {
+              String playerId = widget.selectedPlayers[i]['id'] as String;
+              print(
+                  '동점 플레이어에게 분배된 점수 업데이트 - 플레이어: $playerName, ID: $playerId, 점수: $dividedPoints');
+
+              // 동점 플레이어에게 분배된 점수 업데이트
+              _updateFirebaseDirectly(playerId, dividedPoints);
+            }
+          }
+        } else if (!isLoggedInUserWinner) {
+          // 동점이 아니고 로그인된 유저가 우승자가 아닌 경우
+          // 승자의 인덱스 찾기
+          for (int i = 0; i < widget.selectedPlayers.length; i++) {
+            if (widget.selectedPlayers[i]['nickname'] == winner) {
+              String playerId = widget.selectedPlayers[i]['id'] as String;
+              print(
+                  '팝업창 계산 점수로 직접 업데이트 - 플레이어: $winner, ID: $playerId, 점수: $finalPointsEarned');
+
+              // 팝업창에서 계산된 점수로 Firebase 직접 업데이트
+              _updateFirebaseDirectly(playerId, finalPointsEarned);
+              break;
+            }
+          }
+        }
+      }
+
+      // 점수 및 승자 정보를 completion dialog에서 표시하기 위해 반환
+      return {
+        'points': pointsEarned,
+        'winner': winner,
+        'isLoggedInUserWinner': isLoggedInUserWinner,
+      };
     } catch (e) {
       print('Error updating Brain Health score: $e');
-      return 0;
+      return {
+        'points': 0,
+        'winner': '',
+        'isLoggedInUserWinner': false,
+      };
+    }
+  }
+
+  // Firebase 점수 직접 업데이트 메서드
+  Future<void> _updateFirebaseDirectly(String playerId, int score) async {
+    try {
+      print('Firebase 점수 직접 업데이트 시작 - ID: $playerId, 점수: $score');
+
+      // Firebase에서 플레이어 문서 가져오기
+      DocumentSnapshot playerDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .get();
+
+      if (!playerDoc.exists) {
+        print('플레이어 문서가 존재하지 않습니다: $playerId');
+        return;
+      }
+
+      Map<String, dynamic> playerData =
+          playerDoc.data() as Map<String, dynamic>;
+
+      // 현재 brain_health 데이터 가져오기
+      Map<String, dynamic> brainHealth = {};
+      if (playerData.containsKey('brain_health') &&
+          playerData['brain_health'] is Map) {
+        brainHealth = Map<String, dynamic>.from(playerData['brain_health']);
+      }
+
+      // 현재 brainHealthScore 가져오기
+      int currentScore = 0;
+      if (brainHealth.containsKey('brainHealthScore')) {
+        currentScore = brainHealth['brainHealthScore'] as int;
+      }
+
+      // 점수 업데이트
+      int newScore = currentScore + score;
+      brainHealth['brainHealthScore'] = newScore;
+      print('점수 직접 업데이트: $currentScore → $newScore (+$score)');
+
+      // Firebase에 업데이트된 brain_health 저장
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .update({'brain_health': brainHealth});
+
+      print('플레이어 $playerId의 점수 직접 업데이트 완료: $newScore');
+    } catch (e) {
+      print('점수 직접 업데이트 오류: $e');
+      print(StackTrace.current);
     }
   }
 
@@ -2547,21 +2211,32 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     String gridSize = widget.gridSize;
 
     // 게임 통계 업데이트 및 획득 점수 가져오기
-    // 이전에 계산된 기본 pointsEarned를 사용합니다.
-    int basePointsEarned = await _updateBrainHealthScore(elapsedTime);
+    Map<String, dynamic> result = await _updateBrainHealthScore(elapsedTime);
+    int basePointsEarned = result['points'];
+    String winner = result['winner'];
+    bool isLoggedInUserWinner = result['isLoggedInUserWinner'];
 
-    // 로컬 멀티플레이어 승자 결정
-    String winner = 'Tie';
+    // 번역 텍스트를 위한 언어 제공자
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
+    // winningScore 계산
     int winningScore = 0;
-    if (widget.numberOfPlayers > 1) {
-      var sortedScores = widget.playerScores.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
-      if (sortedScores.isNotEmpty &&
-          (sortedScores.length == 1 ||
-              sortedScores[0].value > sortedScores[1].value)) {
-        winner = sortedScores[0].key; // 승자 이름
-        winningScore = sortedScores[0].value; // 승자 점수 (배율 적용 전)
-      }
+
+    if (widget.numberOfPlayers > 1 && winner != 'Tie' && winner.isNotEmpty) {
+      // Firebase에 저장되는 실제 점수 계산
+      final brainHealthProvider =
+          Provider.of<BrainHealthProvider>(context, listen: false);
+      // 매치된 카드 쌍의 개수 계산
+      final int totalMatches = gameImages.length ~/ 2;
+
+      // 승자의 표시 점수 계산 - 실제 Brain Health에 적용되는 점수 계산 방식 사용
+      int calculatedScore = brainHealthProvider.calculateGameCompletionPoints(
+          totalMatches, elapsedTime, widget.gridSize);
+
+      // 멀티플레이어 점수 배율 적용
+      int multiplier = widget.numberOfPlayers;
+      winningScore = calculatedScore * multiplier;
     }
 
     // 플레이어 수에 따른 점수 배율 계산
@@ -2570,8 +2245,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       multiplier = widget.numberOfPlayers;
     }
 
-    // 최종 점수 계산 (기본 획득 점수 * 배율)
-    int finalPointsEarned = basePointsEarned * multiplier;
+    // 최종 점수 계산 (팝업창에 표시할 점수)
+    int finalPointsEarned = basePointsEarned;
 
     // 게임 통계 업데이트 (기본 점수 기준)
     _updateGameStatistics(languageCode, gridSize, elapsedTime, flipCount);
@@ -2601,8 +2276,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                 Text(
                   // 로컬 멀티플레이어일 경우 승자 표시, 싱글이면 "Congratulations!"
                   widget.numberOfPlayers > 1
-                      ? (winner != 'Tie' ? "Winner: $winner!" : "It's a Tie!")
-                      : "Congratulations!",
+                      ? (winner != 'Tie' && winner.isNotEmpty
+                          ? translations['winner']
+                                  ?.replaceAll('{name}', winner) ??
+                              "Winner: $winner!"
+                          : winner == 'Tie'
+                              ? translations['its_a_tie'] ?? "It's a Tie!"
+                              : translations['congratulations'] ??
+                                  "Congratulations!")
+                      : translations['congratulations'] ?? "Congratulations!",
                   style: GoogleFonts.montserrat(
                     fontSize: 24, // 글씨 크기 조정
                     fontWeight: FontWeight.bold,
@@ -2611,9 +2293,22 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 16),
+                if (winner == 'Tie' && widget.numberOfPlayers > 1)
+                  Text(
+                    translations['points_divided'] ??
+                        "Points are divided equally among tied players!",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (winner == 'Tie' && widget.numberOfPlayers > 1)
+                  SizedBox(height: 8),
                 if (widget.isTimeAttackMode) ...[
                   Text(
-                    "Time: ${elapsedTime} seconds",
+                    (translations['time_seconds'] ?? "Time: {seconds} seconds")
+                        .replaceAll('{seconds}', elapsedTime.toString()),
                     style: GoogleFonts.montserrat(
                       fontSize: 18, // 글씨 크기 조정
                       color: Colors.white,
@@ -2623,7 +2318,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                   SizedBox(height: 8),
                 ],
                 Text(
-                  "Flips: $flipCount",
+                  (translations['flips'] ?? "Flips: {count}")
+                      .replaceAll('{count}', flipCount.toString()),
                   style: GoogleFonts.montserrat(
                     fontSize: 18, // 글씨 크기 조정
                     color: Colors.white,
@@ -2634,7 +2330,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                 // 로컬 멀티플레이어 점수 계산 설명 추가
                 if (widget.numberOfPlayers > 1) ...[
                   Text(
-                    "(${widget.numberOfPlayers} Players: Score x$multiplier)",
+                    winner == 'Tie'
+                        ? translations['points_divided_explanation'] ??
+                            "(Points divided among tied players)"
+                        : (translations['players_score_multiplier'] ??
+                                "({players} Players: Score x{multiplier})")
+                            .replaceAll(
+                                '{players}', widget.numberOfPlayers.toString())
+                            .replaceAll('{multiplier}', multiplier.toString()),
                     style: GoogleFonts.montserrat(
                       fontSize: 16,
                       color: Colors.white.withOpacity(0.8),
@@ -2661,7 +2364,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                       SizedBox(width: 8),
                       Text(
                         // 최종 점수 표시
-                        "Health Score: +$finalPointsEarned",
+                        (translations['health_score'] ??
+                                "Health Score: +{points}")
+                            .replaceAll(
+                                '{points}', finalPointsEarned.toString()),
                         style: GoogleFonts.montserrat(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -2682,7 +2388,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   ),
                   child: Text(
-                    "New Game",
+                    translations['new_game'] ?? "New Game",
                     style: GoogleFonts.montserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -3153,7 +2859,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       });
 
       // 게임 세션 구독 시작
-      _subscribeToGameState();
+      //_subscribeToGameState();
 
       // 알림 표시
       if (mounted) {
@@ -3193,6 +2899,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 첫 번째 플레이어(현재 사용자)인 경우
     if (widget.playerScores.keys.toList().indexOf(playerName) == 0) {
       countryCode = widget.currentUserInfo['country'] as String? ?? 'un';
+      print('플레이어 국기: $playerName(나) - 국가코드: $countryCode');
     }
     // 다른 플레이어인 경우
     else {
@@ -3201,6 +2908,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       if (playerIndex >= 0 && playerIndex < widget.selectedPlayers.length) {
         countryCode =
             widget.selectedPlayers[playerIndex]['country'] as String? ?? 'un';
+        print(
+            '플레이어 국기: $playerName - 국가코드: $countryCode (selectedPlayers[$playerIndex])');
+      } else {
+        print(
+            '플레이어 국기 오류: $playerName - 인덱스 범위 초과 ($playerIndex vs ${widget.selectedPlayers.length})');
       }
     }
 
@@ -3257,6 +2969,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 플레이어 턴이 변경되었을 때 호출되는 메서드
   void _onPlayerTurnChanged(int newPlayerIndex) {
+    if (!mounted) return;
+
     setState(() {
       // UI 업데이트
     });
@@ -3264,6 +2978,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 점수가 변경되었을 때 호출되는 메서드
   void _onScoreChanged(Map<int, int> scores) {
+    if (!mounted) return;
+
     setState(() {
       // UI 업데이트
     });

@@ -39,6 +39,8 @@ class BrainHealthProvider with ChangeNotifier {
   StreamSubscription<User?>? _authStateSubscription;
   bool _migrationChecked = false; // 마이그레이션 확인 여부
   bool _disposed = false; // dispose 상태 추적
+  int _brainHealthIndexLevel = 1; // BHI 레벨 추가 (기본값 1)
+  double _brainHealthIndex = 0.0; // BHI 값 추가 (기본값 0.0)
 
   int get brainHealthScore => _brainHealthScore;
   int get totalGamesPlayed => _totalGamesPlayed;
@@ -48,6 +50,8 @@ class BrainHealthProvider with ChangeNotifier {
   List<ScoreRecord> get scoreHistory => _scoreHistory;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  int get brainHealthIndexLevel => _brainHealthIndexLevel; // BHI 레벨 getter 추가
+  double get brainHealthIndex => _brainHealthIndex; // BHI 값 getter 추가
 
   // Get best time for a specific grid size
   int getBestTimeForGrid(String gridSize) {
@@ -86,8 +90,8 @@ class BrainHealthProvider with ChangeNotifier {
   Future<Map<String, dynamic>> calculateBrainHealthIndex() async {
     // 로그아웃 상태나 데이터 로드 중 안전한 호출을 위한 오류 처리
     try {
-      // 기본 지수 값 (70에서 50으로 낮춤)
-      double baseIndex = 50.0;
+      // 기본 지수 값 (50에서 60으로 상향)
+      double baseIndex = 60.0;
 
       // 현재 날짜
       DateTime now = DateTime.now();
@@ -105,8 +109,34 @@ class BrainHealthProvider with ChangeNotifier {
           if (userDoc.exists) {
             Map<String, dynamic> userData =
                 userDoc.data() as Map<String, dynamic>;
-            if (userData.containsKey('age')) {
+            // 먼저 birthday 필드가 있는지 확인
+            if (userData.containsKey('birthday') &&
+                userData['birthday'] != null) {
+              try {
+                // birthday에서 나이 계산
+                DateTime birthDate =
+                    (userData['birthday'] as Timestamp).toDate();
+                userAge =
+                    (DateTime.now().difference(birthDate).inDays / 365).floor();
+                // 계산된 나이가 비정상적으로 크거나 작을 경우 기본값 사용
+                if (userAge < 0 || userAge > 120) {
+                  userAge = 30;
+                }
+              } catch (e) {
+                print('Error calculating age from birthday: $e');
+                // 오류 발생 시 age 필드 확인
+                if (userData.containsKey('age')) {
+                  userAge = userData['age'] as int;
+                }
+              }
+            }
+            // birthday가 없고 age 필드가 있는 경우
+            else if (userData.containsKey('age')) {
               userAge = userData['age'] as int;
+              // 값이 비정상적으로 크거나 작을 경우 기본값 사용
+              if (userAge < 0 || userAge > 120) {
+                userAge = 30;
+              }
             } else {
               // Firebase에 age 필드가 없는 경우 SharedPreferences에서 시도
               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -128,25 +158,54 @@ class BrainHealthProvider with ChangeNotifier {
       // 나이 기반 조정 (35세 이상부터 점수 감소, 효과 증가)
       double ageAdjustment = 0;
       if (userAge > 35) {
-        ageAdjustment = (userAge - 35) * 0.3; // 나이가 많을수록 지수 감소 (0.2에서 0.3으로 증가)
-        ageAdjustment = ageAdjustment.clamp(0, 20); // 최대 감소량 15에서 20으로 증가
+        ageAdjustment = (userAge - 35) * 0.3; // 나이가 많을수록 지수 감소
+        ageAdjustment = ageAdjustment.clamp(0, 20); // 최대 감소량 20
       }
 
       // 지난 일주일간 게임 활동 평가
       int recentGames = 0;
+      List<DateTime> recentGameDates = [];
 
       // 점수 기록에서 최근 활동 확인
       for (ScoreRecord record in _scoreHistory) {
         if (now.difference(record.date).inDays <= 7) {
           recentGames++;
+          recentGameDates.add(record.date);
         }
       }
 
-      // 최근 게임 활동 기반 조정 (보상 감소)
-      double activityAdjustment = recentGames * 1.0; // 게임당 1.5점에서 1.0점으로 감소
-      activityAdjustment = activityAdjustment.clamp(0, 12); // 최대 15점에서 12점으로 감소
+      // 최근 게임 활동 기반 조정 (보상 증가)
+      double activityAdjustment = recentGames * 1.5; // 게임당 1.0점에서 1.5점으로 증가
+      activityAdjustment = activityAdjustment.clamp(0, 15); // 최대 12점에서 15점으로 증가
 
-      // 그리드 크기별 성능 평가
+      // 연속 활동 부재에 대한 패널티 추가
+      double inactivityPenalty = 0;
+      int levelDropDueToInactivity = 0; // 비활동으로 인한 레벨 감소 추적
+
+      // 최근 게임 날짜 정렬
+      recentGameDates.sort((a, b) => b.compareTo(a)); // 최신 날짜가 앞으로 오도록 정렬
+
+      // 마지막 게임 이후 지난 일수 계산
+      int daysSinceLastGame = 0;
+      if (recentGameDates.isNotEmpty) {
+        daysSinceLastGame = now.difference(recentGameDates.first).inDays;
+      } else {
+        daysSinceLastGame = 7; // 최근 기록이 없으면 최대 패널티
+      }
+
+      // 비활동 패널티 계산 (하루만 안해도 패널티 적용)
+      if (daysSinceLastGame > 0) {
+        // 하루마다 2점씩 감소 (기존 1점에서 2점으로 증가)
+        inactivityPenalty = daysSinceLastGame * 2.0;
+        // 최대 패널티 제한 (기존 10점에서 20점으로 증가)
+        inactivityPenalty = inactivityPenalty.clamp(0, 20);
+
+        // 하루라도 건너뛰면 레벨 감소 추적
+        levelDropDueToInactivity =
+            daysSinceLastGame.clamp(0, 4); // 최대 4단계까지만 떨어지도록 제한
+      }
+
+      // 그리드 성능 평가
       double gridPerformance = 0;
 
       // 각 그리드 크기별 점수 계산 (난이도 증가)
@@ -205,7 +264,8 @@ class BrainHealthProvider with ChangeNotifier {
           ageAdjustment +
           activityAdjustment +
           gridPerformance +
-          persistenceBonus;
+          persistenceBonus -
+          inactivityPenalty; // 비활동 패널티 적용
 
       // 로그 함수를 사용해 높은 점수대에서 진행이 느려지도록 조정
       // 85점 이상부터 점수 획득이 급격히 어려워짐
@@ -237,6 +297,9 @@ class BrainHealthProvider with ChangeNotifier {
         indexLevel = 5;
       }
 
+      // 비활동으로 인한 레벨 감소 적용
+      indexLevel = (indexLevel - levelDropDueToInactivity).clamp(1, 5);
+
       // 다음 레벨까지 필요한 포인트 계산
       double pointsToNext = 0;
       if (indexLevel < 5) {
@@ -252,11 +315,15 @@ class BrainHealthProvider with ChangeNotifier {
         'ageComponent': ageAdjustment,
         'activityComponent': activityAdjustment,
         'performanceComponent': gridPerformance,
-        'persistenceBonus': persistenceBonus, // 추가: 지속적 플레이 보너스
+        'persistenceBonus': persistenceBonus,
+        'inactivityPenalty': inactivityPenalty, // 비활동 패널티 정보 추가
+        'daysSinceLastGame': daysSinceLastGame, // 마지막 게임 이후 경과일 추가
+        'levelDropDueToInactivity':
+            levelDropDueToInactivity, // 비활동으로 인한 레벨 감소 추가
         'details': {
           'age': userAge,
           'recentGames': recentGames,
-          'totalGames': _totalGamesPlayed, // 추가: 전체 게임 수
+          'totalGames': _totalGamesPlayed,
           'gridPerformances': _bestTimesByGridSize,
         }
       };
@@ -270,6 +337,9 @@ class BrainHealthProvider with ChangeNotifier {
         'activityComponent': 0,
         'performanceComponent': 0,
         'persistenceBonus': 0,
+        'inactivityPenalty': 0,
+        'daysSinceLastGame': 7,
+        'levelDropDueToInactivity': 0,
         'details': {
           'age': 30,
           'recentGames': 0,
@@ -471,6 +541,8 @@ class BrainHealthProvider with ChangeNotifier {
                 'totalMatchesFound': 0,
                 'bestTime': 0,
                 'bestTimesByGridSize': {},
+                'brainHealthIndexLevel': 1, // BHI 레벨 추가
+                'brainHealthIndex': 0.0, // BHI 값 추가
                 'created': FieldValue.serverTimestamp(),
               }
             };
@@ -511,6 +583,7 @@ class BrainHealthProvider with ChangeNotifier {
                 'totalMatchesFound': _totalMatchesFound,
                 'bestTime': _bestTime,
                 'bestTimesByGridSize': _bestTimesByGridSize,
+                'brainHealthIndexLevel': _brainHealthIndexLevel,
                 'created': FieldValue.serverTimestamp(),
               };
             }
@@ -602,6 +675,12 @@ class BrainHealthProvider with ChangeNotifier {
         _totalMatchesFound =
             prefs.getInt('${userKeyPrefix}totalMatchesFound') ?? 0;
         _bestTime = prefs.getInt('${userKeyPrefix}bestTime') ?? 0;
+        _brainHealthIndexLevel =
+            prefs.getInt('${userKeyPrefix}brainHealthIndexLevel') ??
+                1; // BHI 레벨 로드
+        _brainHealthIndex =
+            prefs.getDouble('${userKeyPrefix}brainHealthIndex') ??
+                0.0; // BHI 값 로드
 
         // Load best times by grid size
         String? bestTimesJson =
@@ -643,6 +722,8 @@ class BrainHealthProvider with ChangeNotifier {
         _bestTime = 0;
         _bestTimesByGridSize = {};
         _scoreHistory = [];
+        _brainHealthIndexLevel = 1; // BHI 레벨 초기화
+        _brainHealthIndex = 0.0; // BHI 값 초기화
       }
     } catch (e) {
       print('Local data load error: $e');
@@ -653,6 +734,8 @@ class BrainHealthProvider with ChangeNotifier {
       _bestTime = 0;
       _bestTimesByGridSize = {};
       _scoreHistory = [];
+      _brainHealthIndexLevel = 1; // BHI 레벨 초기화
+      _brainHealthIndex = 0.0; // BHI 값 초기화
     }
   }
 
@@ -685,6 +768,8 @@ class BrainHealthProvider with ChangeNotifier {
             'totalMatchesFound': _totalMatchesFound,
             'bestTime': _bestTime,
             'bestTimesByGridSize': _bestTimesByGridSize,
+            'brainHealthIndexLevel': _brainHealthIndexLevel,
+            'brainHealthIndex': _brainHealthIndex,
             'created': FieldValue.serverTimestamp(),
           }
         });
@@ -748,6 +833,25 @@ class BrainHealthProvider with ChangeNotifier {
                 dataChanged = true;
               }
             });
+          }
+
+          // BHI 레벨 로드
+          if (brainHealthData.containsKey('brainHealthIndexLevel')) {
+            int firebaseBHILevel =
+                brainHealthData['brainHealthIndexLevel'] ?? 1;
+            if (_brainHealthIndexLevel != firebaseBHILevel) {
+              _brainHealthIndexLevel = firebaseBHILevel;
+              dataChanged = true;
+            }
+          }
+
+          // BHI 값 로드
+          if (brainHealthData.containsKey('brainHealthIndex')) {
+            double firebaseBHI = brainHealthData['brainHealthIndex'] ?? 0.0;
+            if (_brainHealthIndex != firebaseBHI) {
+              _brainHealthIndex = firebaseBHI;
+              dataChanged = true;
+            }
           }
         }
 
@@ -822,6 +926,10 @@ class BrainHealthProvider with ChangeNotifier {
         await prefs.setInt(
             '${userKeyPrefix}totalMatchesFound', _totalMatchesFound);
         await prefs.setInt('${userKeyPrefix}bestTime', _bestTime);
+        await prefs.setInt('${userKeyPrefix}brainHealthIndexLevel',
+            _brainHealthIndexLevel); // BHI 레벨 저장
+        await prefs.setDouble(
+            '${userKeyPrefix}brainHealthIndex', _brainHealthIndex); // BHI 값 저장
 
         // Save best times by grid size
         await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
@@ -841,6 +949,8 @@ class BrainHealthProvider with ChangeNotifier {
             'brain_health.totalMatchesFound': _totalMatchesFound,
             'brain_health.bestTime': _bestTime,
             'brain_health.bestTimesByGridSize': _bestTimesByGridSize,
+            'brain_health.brainHealthIndexLevel': _brainHealthIndexLevel,
+            'brain_health.brainHealthIndex': _brainHealthIndex, // BHI 값 저장
             'brain_health.lastUpdated': FieldValue.serverTimestamp(),
           });
           print('Brain health data saved to Firebase for user: $_userId');
@@ -907,42 +1017,9 @@ class BrainHealthProvider with ChangeNotifier {
     }
   }
 
-  // 게임 완료 시 점수 추가
-  Future<int> addGameCompletion(
-      int matchesFound, int timeInSeconds, String gridSize) async {
-    if (_disposed) return 0;
-
-    print(
-        'Adding game completion: matches=$matchesFound, time=$timeInSeconds, grid=$gridSize');
-
-    // 사용자 인증 확인
-    if (_userId == null) {
-      print('No user ID found, attempting to authenticate first');
-      await _ensureUserAuthenticated();
-      if (_userId == null || _disposed) {
-        print(
-            'Warning: Still unable to get user ID, data will only be saved locally');
-        if (_disposed) return 0;
-      }
-    }
-
-    _totalGamesPlayed++;
-    _totalMatchesFound += matchesFound;
-
-    // 시간 기록 (더 빠른 시간만 저장) - 전체 최고 기록
-    if (_bestTime == 0 || (timeInSeconds < _bestTime && timeInSeconds > 0)) {
-      _bestTime = timeInSeconds;
-    }
-
-    // 그리드 크기별 최고 기록 업데이트
-    if (!_bestTimesByGridSize.containsKey(gridSize) ||
-        _bestTimesByGridSize[gridSize] == 0 ||
-        (timeInSeconds < _bestTimesByGridSize[gridSize]! &&
-            timeInSeconds > 0)) {
-      _bestTimesByGridSize[gridSize] = timeInSeconds;
-    }
-
-    // 점수 계산 로직
+  // 게임 완료 시 점수 계산 (Firebase 업데이트 없이 점수만 계산)
+  int calculateGameCompletionPoints(
+      int matchesFound, int timeInSeconds, String gridSize) {
     // 기본 점수: 매치당 2점
     int baseScore = matchesFound * 2;
 
@@ -960,25 +1037,147 @@ class BrainHealthProvider with ChangeNotifier {
 
     // 총 획득 점수
     int pointsEarned = baseScore + timeBonus;
+    return pointsEarned;
+  }
+
+  // 게임 완료 시 점수 추가
+  Future<int> addGameCompletion(
+      int matchesFound, int timeInSeconds, String gridSize,
+      [int playerCount = 1, int? customPoints]) async {
+    if (_disposed) return 0;
+
+    print(
+        'Adding game completion: matches=$matchesFound, time=$timeInSeconds, grid=$gridSize, playerCount=$playerCount, customPoints=$customPoints');
+
+    // 사용자 인증 확인
+    if (_userId == null) {
+      print('No user ID found, attempting to authenticate first');
+      await _ensureUserAuthenticated();
+      if (_userId == null || _disposed) {
+        print(
+            'Warning: Still unable to get user ID, data will only be saved locally');
+        if (_disposed) return 0;
+      }
+    }
+
+    // 로컬 데이터 먼저 업데이트
+    _totalGamesPlayed++;
+    _totalMatchesFound += matchesFound;
+
+    // 시간 기록 (더 빠른 시간만 저장) - 전체 최고 기록
+    if (_bestTime == 0 || (timeInSeconds < _bestTime && timeInSeconds > 0)) {
+      _bestTime = timeInSeconds;
+    }
+
+    // 그리드 크기별 최고 기록 업데이트
+    if (!_bestTimesByGridSize.containsKey(gridSize) ||
+        _bestTimesByGridSize[gridSize] == 0 ||
+        (timeInSeconds < _bestTimesByGridSize[gridSize]! &&
+            timeInSeconds > 0)) {
+      _bestTimesByGridSize[gridSize] = timeInSeconds;
+    }
+
+    // 점수 계산
+    int pointsEarned = customPoints ??
+        calculateGameCompletionPoints(matchesFound, timeInSeconds, gridSize);
+
+    // 커스텀 점수가 없을 때만 멀티플레이어 배수 적용
+    if (customPoints == null && playerCount > 1) {
+      pointsEarned *= playerCount;
+      print('멀티플레이어 배수 적용: $pointsEarned (${playerCount}명)');
+    }
+
     _brainHealthScore += pointsEarned;
 
-    // 점수 기록 저장
+    // 로컬 데이터를 Firebase에 먼저 저장
     try {
+      // 점수 기록 저장
       print('Saving score record with value: ${_brainHealthScore}');
       await _saveScoreRecord(ScoreRecord(DateTime.now(), _brainHealthScore));
       if (_disposed) return pointsEarned;
       print('Score record saved successfully');
+
+      // 기본 데이터 저장
+      print('Saving basic game data to Firebase');
+      await FirebaseFirestore.instance.collection('users').doc(_userId).update({
+        'brain_health.brainHealthScore': _brainHealthScore,
+        'brain_health.totalGamesPlayed': _totalGamesPlayed,
+        'brain_health.totalMatchesFound': _totalMatchesFound,
+        'brain_health.bestTime': _bestTime,
+        'brain_health.bestTimesByGridSize': _bestTimesByGridSize,
+        'brain_health.lastUpdated': FieldValue.serverTimestamp(),
+      });
+      print('Basic game data saved to Firebase');
     } catch (e) {
-      print('Error saving score record: $e');
+      print('Error saving initial game data: $e');
     }
 
+    // Firebase에서 최신 데이터 로드 (다른 기기에서의 업데이트 반영)
     try {
-      print('Saving other game data');
-      await _saveData();
+      print('Fetching latest data from Firebase before calculating BHI');
+      await _loadFirebaseData();
       if (_disposed) return pointsEarned;
-      print('Game data saved successfully');
+      print('Latest data loaded from Firebase');
     } catch (e) {
-      print('Error saving game data: $e');
+      print('Error loading latest data from Firebase: $e');
+      // 오류 발생 시 로컬 데이터로 계속 진행
+    }
+
+    // 최신 데이터로 BHI 계산 및 업데이트
+    try {
+      print(
+          'Calculating Brain Health Index after game completion with latest data');
+      Map<String, dynamic> bhiResult = await calculateBrainHealthIndex();
+      int newBHILevel = bhiResult['indexLevel'] as int;
+      double newBHI = bhiResult['brainHealthIndex'] as double;
+
+      // BHI 레벨 업데이트
+      if (_brainHealthIndexLevel != newBHILevel) {
+        print('BHI Level changed from $_brainHealthIndexLevel to $newBHILevel');
+        _brainHealthIndexLevel = newBHILevel;
+      } else {
+        print('BHI Level unchanged: $_brainHealthIndexLevel');
+      }
+
+      // BHI 값 업데이트
+      if (_brainHealthIndex != newBHI) {
+        print('BHI value changed from $_brainHealthIndex to $newBHI');
+        _brainHealthIndex = newBHI;
+      } else {
+        print('BHI value unchanged: $_brainHealthIndex');
+      }
+
+      // BHI 데이터만 Firebase에 별도 저장
+      print('Saving BHI data to Firebase');
+      await FirebaseFirestore.instance.collection('users').doc(_userId).update({
+        'brain_health.brainHealthIndexLevel': _brainHealthIndexLevel,
+        'brain_health.brainHealthIndex': _brainHealthIndex,
+        'brain_health.lastBHIUpdate': FieldValue.serverTimestamp(),
+      });
+      print('BHI data saved to Firebase');
+    } catch (e) {
+      print('Error calculating and saving BHI: $e');
+    }
+
+    // 로컬 스토리지에 저장
+    try {
+      print('Saving all data to local storage');
+      final prefs = await SharedPreferences.getInstance();
+      final userKeyPrefix = 'user_${_userId}_';
+      await prefs.setInt('${userKeyPrefix}brainHealthScore', _brainHealthScore);
+      await prefs.setInt('${userKeyPrefix}totalGamesPlayed', _totalGamesPlayed);
+      await prefs.setInt(
+          '${userKeyPrefix}totalMatchesFound', _totalMatchesFound);
+      await prefs.setInt('${userKeyPrefix}bestTime', _bestTime);
+      await prefs.setInt(
+          '${userKeyPrefix}brainHealthIndexLevel', _brainHealthIndexLevel);
+      await prefs.setDouble(
+          '${userKeyPrefix}brainHealthIndex', _brainHealthIndex);
+      await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
+          jsonEncode(_bestTimesByGridSize));
+      print('All data saved to local storage');
+    } catch (e) {
+      print('Error saving to local storage: $e');
     }
 
     if (!_disposed) {
@@ -1085,6 +1284,8 @@ class BrainHealthProvider with ChangeNotifier {
       _bestTime = 0;
       _bestTimesByGridSize = {};
       _scoreHistory = [];
+      _brainHealthIndexLevel = 1; // BHI 레벨 초기화
+      _brainHealthIndex = 0.0; // BHI 값 초기화
 
       // 현재 사용자의 로컬 데이터가 있으면 로드
       await _loadLocalData();
@@ -1315,6 +1516,8 @@ class BrainHealthProvider with ChangeNotifier {
       'userId': _userId,
       'isAnonymous': FirebaseAuth.instance.currentUser?.isAnonymous ?? true,
       'brainHealthScore': _brainHealthScore,
+      'brainHealthIndexLevel': _brainHealthIndexLevel, // BHI 레벨 추가
+      'brainHealthIndex': _brainHealthIndex, // BHI 값 추가
       'totalGamesPlayed': _totalGamesPlayed,
       'scoreHistoryCount': _scoreHistory.length,
     };
@@ -1456,6 +1659,8 @@ class BrainHealthProvider with ChangeNotifier {
       _bestTime = 0;
       _bestTimesByGridSize = {};
       _scoreHistory = [];
+      _brainHealthIndexLevel = 1; // BHI 레벨 리셋
+      _brainHealthIndex = 0.0; // BHI 값 리셋
     }
 
     if (!_disposed) {
@@ -1515,6 +1720,8 @@ class BrainHealthProvider with ChangeNotifier {
           'score': brainHealthData['brainHealthScore'] ?? 0,
           'isCurrentUser': isCurrentUser,
           'countryCode': countryCode, // 국가 코드 추가
+          'brainHealthIndexLevel': brainHealthData['brainHealthIndexLevel'] ??
+              1, // Add brainHealthIndexLevel from Firebase
         });
 
         rank++;

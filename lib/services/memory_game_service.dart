@@ -70,32 +70,153 @@ class MemoryGameService extends ChangeNotifier {
     _gameEndTime = DateTime.now().millisecondsSinceEpoch;
     int gameTimeInSeconds = (_gameEndTime - _gameStartTime) ~/ 1000;
     print('게임 완료 시간: $gameTimeInSeconds 초');
+    print('우승자 인덱스: $winnerPlayerIndex, 총 플레이어 수: $totalPlayerCount');
 
-    // 기존 점수 가져오기
+    // 기존 점수 가져오기 (이미 게임 내에서 계산된 매치 성공 수)
     int baseScore = getPlayerScore(winnerPlayerIndex);
+    print('기존 방식 기본 점수: $baseScore');
 
-    // 시간 기반 보너스 점수 계산
+    // 팝업창 방식의 점수 계산 적용
+    // 1. 시간 보너스 계산 (팝업창과 동일한 계산 방식 적용)
     int timeBonus = calculateTimeBonus(gameTimeInSeconds);
+    print('시간 보너스: $timeBonus');
 
-    // 최종 점수 설정 (기본 + 시간 보너스)
-    int finalScore = baseScore + timeBonus;
-
-    // 로컬 멀티플레이어 게임에서 플레이어 수에 따른 승자 점수 배수 적용
-    if (totalPlayerCount > 1) {
-      // 2명: 2배, 3명: 3배, 4명: 4배
-      int multiplier = totalPlayerCount;
-      finalScore = finalScore * multiplier;
-      print('멀티플레이어 승자 보너스: $multiplier배 (${totalPlayerCount}명 참가)');
+    // 2. 매치 성공 개수에 따른 기본 점수 (카드 쌍 수 * 50)
+    // 현재 그리드 크기에 따른 카드 쌍 수 계산
+    int totalPairs = 0;
+    switch (_gridSize) {
+      case '4x4':
+        totalPairs = 8; // 4x4 그리드는 16장의 카드 = 8쌍
+        break;
+      case '4x6':
+        totalPairs = 12; // 4x6 그리드는 24장의 카드 = 12쌍
+        break;
+      case '6x6':
+        totalPairs = 18; // 6x6 그리드는 36장의 카드 = 18쌍
+        break;
+      case '6x8':
+        totalPairs = 24; // 6x8 그리드는 48장의 카드 = 24쌍
+        break;
+      default:
+        totalPairs = 8;
     }
 
+    // 매치 성공 개수에 기반한 기본 점수 (매치당 50점)
+    int matchPointsBase = totalPairs * 50;
+    print('매치 포인트 베이스: $matchPointsBase');
+
+    // 3. 그리드 크기에 따른 계수 적용
+    int gridMultiplier = getGridSizeMultiplier(_gridSize);
+    print('그리드 크기 계수: $gridMultiplier');
+
+    // 4. 최종 기본 점수 계산 (매치 포인트 + 시간 보너스) * 그리드 계수
+    int calculatedBaseScore = (matchPointsBase + timeBonus) * gridMultiplier;
+    print('팝업창 방식 계산된 기본 점수: $calculatedBaseScore');
+
+    // 5. 멀티플레이어 배수 적용
+    int finalScore = calculatedBaseScore;
+    if (totalPlayerCount > 1) {
+      int playerMultiplier = totalPlayerCount;
+      finalScore = calculatedBaseScore * playerMultiplier;
+      print(
+          '멀티플레이어 승자 보너스: $playerMultiplier배 (${totalPlayerCount}명 참가), 최종 점수: $finalScore');
+    }
+
+    // 계산된 점수를 playerScores에 설정
     setPlayerScore(winnerPlayerIndex, finalScore);
+    print('최종 점수: $finalScore, 선택된 플레이어 목록: $_selectedPlayers');
+
+    // 비로그인 플레이어(인덱스가 0이 아닌 플레이어)가 이긴 경우 해당 플레이어의 brainHealthScore 업데이트
+    if (winnerPlayerIndex > 0) {
+      print('비로그인 플레이어 승리 조건 확인: $winnerPlayerIndex > 0');
+      if (winnerPlayerIndex <= _selectedPlayers.length) {
+        print(
+            '선택된 플레이어 범위 내 조건 확인: $winnerPlayerIndex <= ${_selectedPlayers.length}');
+        try {
+          Map<String, dynamic> winnerPlayer =
+              _selectedPlayers[winnerPlayerIndex - 1];
+          print('우승자 플레이어 정보: $winnerPlayer');
+          if (winnerPlayer.containsKey('id')) {
+            String playerId = winnerPlayer['id'];
+            print('우승자 ID: $playerId, 최종 점수: $finalScore');
+            print('⚠️ 점수 업데이트는 memory_game_page.dart에서 직접 처리됩니다.');
+          } else {
+            print('오류: 우승자 정보에 ID가 없습니다!');
+          }
+        } catch (e) {
+          print('우승자 정보 처리 중 오류 발생: $e');
+        }
+      } else {
+        print(
+            '오류: 우승자 인덱스($winnerPlayerIndex)가 선택된 플레이어 수(${_selectedPlayers.length})를 초과합니다!');
+      }
+    } else {
+      print('로그인된 사용자 승리 (인덱스 0)');
+    }
 
     // 리스너들에게 알림
     for (var listener in _timeBasedScoreListeners) {
-      listener(gameTimeInSeconds, baseScore, timeBonus);
+      listener(gameTimeInSeconds, calculatedBaseScore, timeBonus);
     }
 
     return timeBonus;
+  }
+
+  // 우승자의 헬스 점수 업데이트
+  Future<void> updateWinnerHealthScore(String playerId, int score) async {
+    print('우승자 점수 업데이트 시작 - ID: $playerId, 점수: $score');
+    try {
+      // Firebase에서 플레이어 문서 가져오기
+      print('Firebase에서 플레이어 문서 조회 중...');
+      DocumentSnapshot playerDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .get();
+
+      if (!playerDoc.exists) {
+        print('우승자 문서가 존재하지 않습니다: $playerId');
+        return;
+      }
+
+      print('플레이어 문서 조회 성공');
+      Map<String, dynamic> playerData =
+          playerDoc.data() as Map<String, dynamic>;
+      print('플레이어 데이터: $playerData');
+
+      // 현재 brain_health 데이터 가져오기
+      Map<String, dynamic> brainHealth = {};
+      if (playerData.containsKey('brain_health') &&
+          playerData['brain_health'] is Map) {
+        brainHealth = Map<String, dynamic>.from(playerData['brain_health']);
+        print('기존 brain_health 데이터: $brainHealth');
+      } else {
+        print('brain_health 데이터가 없어 새로 생성합니다.');
+      }
+
+      // 현재 brainHealthScore 가져오기
+      int currentScore = 0;
+      if (brainHealth.containsKey('brainHealthScore')) {
+        currentScore = brainHealth['brainHealthScore'] as int;
+      }
+
+      // 점수 업데이트
+      int newScore = currentScore + score;
+      brainHealth['brainHealthScore'] = newScore;
+      print('점수 업데이트: $currentScore → $newScore (+$score)');
+
+      // Firebase에 업데이트된 brain_health 저장
+      print('Firebase에 업데이트된 점수 저장 중...');
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .update({'brain_health': brainHealth});
+
+      print('우승자 $playerId의 brainHealthScore 업데이트 완료: $newScore');
+    } catch (e) {
+      print('우승자 점수 업데이트 오류: $e');
+      // 스택 트레이스 출력
+      print(StackTrace.current);
+    }
   }
 
   // 시간 기반 보너스 점수 계산 메서드
@@ -420,6 +541,19 @@ class MemoryGameService extends ChangeNotifier {
 
   // 선택된 플레이어 목록 setter
   set selectedPlayers(List<Map<String, dynamic>> players) {
+    // null 또는 비어있는 리스트 처리
+    if (players.isEmpty) {
+      print('선택된 플레이어가 없어 목록 초기화');
+      _selectedPlayers = [];
+      notifyListeners();
+
+      // 리스너들에게 변경 알림
+      for (var listener in _playerChangeListeners) {
+        listener(_selectedPlayers);
+      }
+      return;
+    }
+
     // 플레이어 목록이 변경되었는지 확인
     bool playersChanged = _selectedPlayers.length != players.length;
 
@@ -434,10 +568,18 @@ class MemoryGameService extends ChangeNotifier {
       }
     }
 
+    // 선택된 플레이어 로그 출력
+    print('선택된 플레이어 정보 업데이트:');
+    for (var player in players) {
+      print(
+          ' - ${player['nickname'] ?? 'Unknown'} (국가: ${player['country'] ?? 'un'})');
+    }
+
     _selectedPlayers = List.from(players);
 
     // 플레이어 목록이 변경되었으면 게임 초기화
     if (playersChanged) {
+      print('플레이어 목록이 변경되어 게임 초기화');
       initializeGame();
     }
 
