@@ -1691,123 +1691,171 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     final translations = Provider.of<LanguageProvider>(context, listen: false)
         .getUITranslations();
 
+    final Color tutorialColor = Colors.blue.shade500;
+
     return Container(
       color: Colors.black.withOpacity(0.7),
-      child: Center(
-        child: Card(
-          color: Colors.white,
-          margin: const EdgeInsets.all(20),
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   translations['memory_game_guide'] ?? 'Memory Game Guide',
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: GoogleFonts.notoSans(
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: tutorialColor,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 15),
                 _buildTutorialItem(
-                    Icons.touch_app,
-                    translations['card_selection_title'] ?? 'Card Selection',
-                    translations['card_selection_desc'] ??
-                        'Tap cards to flip and find matching pairs.'),
+                  Icons.touch_app,
+                  translations['card_selection_title'] ?? 'Card Selection',
+                  translations['card_selection_desc'] ??
+                      'Tap cards to flip and find matching pairs.',
+                  tutorialColor,
+                ),
+                SizedBox(height: 10),
                 _buildTutorialItem(
-                    Icons.timer,
-                    translations['time_limit_title'] ?? 'Time Limit',
-                    translations['time_limit_desc'] ??
-                        'Match all pairs within time limit. Faster matching earns higher score.'),
+                  Icons.timer,
+                  translations['time_limit_title'] ?? 'Time Limit',
+                  translations['time_limit_desc'] ??
+                      'Match all pairs within time limit. Faster matching earns higher score.',
+                  tutorialColor,
+                ),
+                SizedBox(height: 10),
                 _buildTutorialItem(
-                    Icons.add_alarm,
-                    translations['add_time_title'] ?? 'Add Time',
-                    translations['add_time_desc'] ??
-                        'Tap "+30s" to add time (costs Brain Health points).'),
+                  Icons.add_alarm,
+                  translations['add_time_title'] ?? 'Add Time',
+                  translations['add_time_desc'] ??
+                      'Tap "+30s" to add time (costs Brain Health points).',
+                  tutorialColor,
+                ),
+                SizedBox(height: 10),
                 _buildTutorialItem(
-                    Icons.people,
-                    translations['multiplayer_title'] ?? 'Multiplayer',
-                    translations['multiplayer_desc'] ??
-                        'Change player count (1-4) to play with friends.'),
-                const SizedBox(height: 20),
+                  Icons.people,
+                  translations['multiplayer_title'] ?? 'Multiplayer',
+                  translations['multiplayer_desc'] ??
+                      'Change player count (1-4) to play with friends.',
+                  tutorialColor,
+                ),
+                SizedBox(height: 15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      onPressed: () {
+                    Checkbox(
+                      value: _doNotShowAgain,
+                      onChanged: (value) {
                         setState(() {
-                          _showTutorial = false;
-                          prefs?.setBool('showMemoryGameTutorial', false);
+                          _doNotShowAgain = value ?? false;
                         });
                       },
-                      child: Text(
-                        translations['dont_show_again'] ?? 'Don\'t show again',
-                        style: const TextStyle(color: Colors.grey),
+                      activeColor: tutorialColor,
+                    ),
+                    Text(
+                      translations['dont_show_again'] ?? 'Don\'t show again',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _showTutorial = false;
-                        });
-                      },
-                      child: Text(translations['start_game'] ?? 'Start Game'),
-                    ),
                   ],
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: _closeTutorial,
+                  child: Text(
+                    translations['got_it'] ?? 'Got it!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: tutorialColor,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   // 튜토리얼 항목 위젯
-  Widget _buildTutorialItem(IconData icon, String title, String description) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: instagramGradientStart.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(10),
+  Widget _buildTutorialItem(
+      IconData icon, String title, String description, Color color) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.1)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: color,
+              size: 24,
+            ),
           ),
-          child: Icon(
-            icon,
-            color: instagramGradientStart,
-            size: 20,
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.black87,
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.notoSans(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
                 ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 13,
+                SizedBox(height: 4),
+                Text(
+                  description,
+                  style: GoogleFonts.notoSans(
+                    fontSize: 14,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

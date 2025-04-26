@@ -594,7 +594,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -605,7 +605,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(height: 10),
                     Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -641,47 +641,46 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ),
 
                 SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${translations['age'] ?? 'Age'}: ${data['details']?['age'] ?? 30}',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 14,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    InkWell(
-                      onTap: _showAgeInputDialog,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade300),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.edit,
-                                size: 12, color: Colors.grey.shade700),
-                            SizedBox(width: 4),
-                            Text(
-                              translations['update'] ?? 'Update',
-                              style: GoogleFonts.notoSans(
-                                fontSize: 12,
-                                color: Colors.grey.shade700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       '${translations['age'] ?? 'Age'}: ${data['details']?['age'] ?? 30}',
+                //       style: GoogleFonts.notoSans(
+                //         fontSize: 14,
+                //         color: Colors.black54,
+                //       ),
+                //     ),
+                //     SizedBox(width: 8),
+                //     InkWell(
+                //       onTap: _showAgeInputDialog,
+                //       child: Container(
+                //         padding:
+                //             EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                //         decoration: BoxDecoration(
+                //           color: Colors.grey.shade100,
+                //           borderRadius: BorderRadius.circular(12),
+                //           border: Border.all(color: Colors.grey.shade300),
+                //         ),
+                //         child: Row(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             Icon(Icons.edit,
+                //                 size: 12, color: Colors.grey.shade700),
+                //             SizedBox(width: 4),
+                //             Text(
+                //               translations['update'] ?? 'Update',
+                //               style: GoogleFonts.notoSans(
+                //                 fontSize: 12,
+                //                 color: Colors.grey.shade700,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 CircularPercentIndicator(
                   radius: 80.0,
                   lineWidth: 15.0,
@@ -865,11 +864,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   }
 
   Widget _buildInfoCards(BrainHealthProvider provider) {
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Game Statistics',
+          translations['game_statistics'] ?? 'Game Statistics',
           style: GoogleFonts.notoSans(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -882,7 +885,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             Expanded(
               child: _buildStatCard(
                 icon: Icons.sports_esports,
-                title: 'Games Played',
+                title: translations['games_played'] ?? 'Games Played',
                 value: '${provider.totalGamesPlayed}',
                 color: Colors.blue,
               ),
@@ -891,7 +894,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             Expanded(
               child: _buildStatCard(
                 icon: Icons.find_in_page,
-                title: 'Matches Found',
+                title: translations['matches_found'] ?? 'Matches Found',
                 value: '${provider.totalMatchesFound}',
                 color: Colors.purple,
               ),
@@ -905,6 +908,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   }
 
   Widget _buildBestTimesCard(BrainHealthProvider provider) {
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     // Get all recorded grid sizes
     final gridSizes = provider.bestTimesByGridSize.keys.toList();
     gridSizes.sort(); // Sort grid sizes for consistent display
@@ -923,7 +930,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Best Times',
+                    translations['best_times'] ?? 'Best Times',
                     style: GoogleFonts.notoSans(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -935,7 +942,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             SizedBox(height: 16),
             if (gridSizes.isEmpty)
               Text(
-                'No records yet',
+                translations['no_records_yet'] ?? 'No records yet',
                 style: GoogleFonts.notoSans(
                   fontSize: 16,
                   color: Colors.black54,
@@ -952,7 +959,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Overall Best:',
+                            '${translations['overall_best'] ?? 'Overall Best'}:',
                             style: GoogleFonts.notoSans(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -982,7 +989,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '$gridSize Grid:',
+                            '$gridSize ${translations['grid'] ?? 'Grid'}:',
                             style: GoogleFonts.notoSans(
                               fontSize: 15,
                             ),
@@ -1045,11 +1052,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   }
 
   Widget _buildBenefitsSection() {
+    // Get translations from language provider
+    final translations =
+        Provider.of<LanguageProvider>(context).getUITranslations();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Benefits of Brain Games',
+          translations['benefits_of_brain_games'] ?? 'Benefits of Brain Games',
           style: GoogleFonts.notoSans(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -1067,29 +1078,33 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               children: [
                 _buildBenefitItem(
                   icon: Icons.memory,
-                  title: 'Short-term Memory Improvement',
-                  description:
+                  title: translations['short_term_memory_improvement'] ??
+                      'Short-term Memory Improvement',
+                  description: translations['short_term_memory_desc'] ??
                       'Memory games effectively strengthen short-term memory and memory capacity.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.psychology,
-                  title: 'Cognitive Function Enhancement',
-                  description:
+                  title: translations['cognitive_function_enhancement'] ??
+                      'Cognitive Function Enhancement',
+                  description: translations['cognitive_function_desc'] ??
                       'Regular brain activity helps maintain and improve cognitive functions.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.timer,
-                  title: 'Response Time Reduction',
-                  description:
+                  title: translations['response_time_reduction'] ??
+                      'Response Time Reduction',
+                  description: translations['response_time_desc'] ??
                       'Quick matching improves reaction time and processing speed.',
                 ),
                 Divider(),
                 _buildBenefitItem(
                   icon: Icons.healing,
-                  title: 'Dementia Prevention',
-                  description:
+                  title: translations['dementia_prevention'] ??
+                      'Dementia Prevention',
+                  description: translations['dementia_prevention_desc'] ??
                       'Regular brain exercises help reduce the risk of dementia and cognitive decline.',
                 ),
               ],
@@ -1432,52 +1447,52 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       color: Colors.black87,
                     ),
                   ),
-                  Spacer(),
-                  Consumer<BrainHealthProvider>(
-                    builder: (context, brainHealthProvider, child) {
-                      if (brainHealthProvider.preventionLevel > 0) {
-                        return Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: _getBrainHealthColor(
-                                    brainHealthProvider.preventionLevel)
-                                .withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: _getBrainHealthColor(
-                                      brainHealthProvider.preventionLevel)
-                                  .withOpacity(0.3),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.psychology,
-                                color: _getBrainHealthColor(
-                                    brainHealthProvider.preventionLevel),
-                                size: 16,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                '${brainHealthProvider.brainHealthScore}',
-                                style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: _getBrainHealthColor(
-                                      brainHealthProvider.preventionLevel),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
+                  // Spacer(),
+                  // Consumer<BrainHealthProvider>(
+                  //   builder: (context, brainHealthProvider, child) {
+                  //     if (brainHealthProvider.preventionLevel > 0) {
+                  //       return Container(
+                  //         padding:
+                  //             EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  //         decoration: BoxDecoration(
+                  //           color: _getBrainHealthColor(
+                  //                   brainHealthProvider.preventionLevel)
+                  //               .withOpacity(0.1),
+                  //           borderRadius: BorderRadius.circular(12),
+                  //           border: Border.all(
+                  //             color: _getBrainHealthColor(
+                  //                     brainHealthProvider.preventionLevel)
+                  //                 .withOpacity(0.3),
+                  //             width: 1,
+                  //           ),
+                  //         ),
+                  //         child: Row(
+                  //           mainAxisSize: MainAxisSize.min,
+                  //           children: [
+                  //             Icon(
+                  //               Icons.psychology,
+                  //               color: _getBrainHealthColor(
+                  //                   brainHealthProvider.preventionLevel),
+                  //               size: 16,
+                  //             ),
+                  //             const SizedBox(width: 6),
+                  //             Text(
+                  //               '${brainHealthProvider.brainHealthScore}',
+                  //               style: GoogleFonts.montserrat(
+                  //                 fontWeight: FontWeight.w600,
+                  //                 fontSize: 14,
+                  //                 color: _getBrainHealthColor(
+                  //                     brainHealthProvider.preventionLevel),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       );
+                  //     } else {
+                  //       return Container();
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
               SizedBox(height: 16),

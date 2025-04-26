@@ -42,6 +42,9 @@ class _TestPageState extends State<TestPage>
 
   String _currentLanguage = '';
 
+  // 언어 번역을 저장할 변수
+  late Map<String, String> translations;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +66,8 @@ class _TestPageState extends State<TestPage>
       _currentLanguage = languageProvider.currentLanguage;
       _initTts();
     }
+    // 언어 번역 업데이트
+    translations = languageProvider.getUITranslations();
   }
 
   Future<void> _loadLanguageAndInitTts() async {
@@ -224,7 +229,7 @@ class _TestPageState extends State<TestPage>
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Test Result',
+                  translations['test_result'] ?? 'Test Result',
                   style: GoogleFonts.poppins(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -233,7 +238,7 @@ class _TestPageState extends State<TestPage>
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'Your score',
+                  translations['your_score'] ?? 'Your score',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     color: Colors.black54,
@@ -277,7 +282,7 @@ class _TestPageState extends State<TestPage>
                       shadowColor: primaryColor.withOpacity(0.5),
                     ),
                     child: Text(
-                      "Continue",
+                      translations['continue'] ?? "Continue",
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -525,7 +530,7 @@ class _TestPageState extends State<TestPage>
             Expanded(
               child: ElevatedButton(
                 child: Text(
-                  'Submit',
+                  translations['submit'] ?? 'Submit',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     color: Colors.white,
@@ -548,7 +553,7 @@ class _TestPageState extends State<TestPage>
           Expanded(
             child: ElevatedButton(
               child: Text(
-                'New Test',
+                translations['new_test'] ?? 'New Test',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -577,6 +582,7 @@ class _TestPageState extends State<TestPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -591,7 +597,7 @@ class _TestPageState extends State<TestPage>
           ),
         ),
         title: Text(
-          'Memory Test',
+          translations['memory_test'] ?? 'Memory Test',
           style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w600,
@@ -640,7 +646,7 @@ class _TestPageState extends State<TestPage>
                                 ),
                                 SizedBox(width: 6),
                                 Text(
-                                  "Question ${currentQuestion + 1}",
+                                  "${translations['question'] ?? 'Question'} ${currentQuestion + 1}",
                                   style: GoogleFonts.poppins(
                                     color: primaryColor,
                                     fontWeight: FontWeight.w600,
@@ -742,27 +748,30 @@ class _TestPageState extends State<TestPage>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.school,
-                      color: primaryColor,
-                      size: 30,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    "How to Play",
-                    style: GoogleFonts.poppins(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
-                    ),
-                    textAlign: TextAlign.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: primaryColor.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.school,
+                          color: primaryColor,
+                          size: 30,
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Text(
+                        translations['how_to_play'] ?? 'How to Play',
+                        style: GoogleFonts.poppins(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
                   SizedBox(height: 20),
                   Column(
@@ -770,33 +779,39 @@ class _TestPageState extends State<TestPage>
                     children: [
                       _buildTutorialItem(
                         icon: Icons.quiz,
-                        title: "Visual Memory Test",
-                        description:
-                            "Test your memory with 10 questions. Select the image that matches the correct word.",
+                        title: translations['visual_memory_test'] ??
+                            'Visual Memory Test',
+                        description: translations['visual_memory_test_desc'] ??
+                            'Test your memory with 10 questions. Select the image that matches the correct word.',
                       ),
                       _buildTutorialItem(
                         icon: Icons.volume_up,
-                        title: "Audio Assistance",
-                        description:
-                            "Tap the sound icon to hear the correct word. The audio plays in your selected language.",
+                        title: translations['audio_assistance'] ??
+                            'Audio Assistance',
+                        description: translations['audio_assistance_desc'] ??
+                            'Tap the sound icon to hear the correct word. The audio plays in your selected language.',
                       ),
                       _buildTutorialItem(
                         icon: Icons.format_list_numbered,
-                        title: "Question Navigation",
-                        description:
-                            "Use the number indicators at the top to navigate between questions or use the arrow buttons.",
+                        title: translations['question_navigation'] ??
+                            'Question Navigation',
+                        description: translations['question_navigation_desc'] ??
+                            'Use the number indicators at the top to navigate between questions or use the arrow buttons.',
                       ),
                       _buildTutorialItem(
                         icon: Icons.check_circle_outline,
-                        title: "Select and Submit",
-                        description:
-                            "Select an image for each question. Once all questions are answered, the Submit button appears.",
+                        title: translations['select_and_submit'] ??
+                            'Select and Submit',
+                        description: translations['select_and_submit_desc'] ??
+                            'Select an image for each question. Once all questions are answered, the Submit button appears.',
                       ),
                       _buildTutorialItem(
                         icon: Icons.auto_graph,
-                        title: "Results and Progress",
-                        description:
-                            "After submitting, view your score and restart with a new test if desired.",
+                        title: translations['results_and_progress'] ??
+                            'Results and Progress',
+                        description: translations[
+                                'results_and_progress_desc'] ??
+                            'After submitting, view your score and restart with a new test if desired.',
                       ),
                     ],
                   ),
@@ -819,7 +834,7 @@ class _TestPageState extends State<TestPage>
                         ),
                       ),
                       Text(
-                        "Don't show again",
+                        translations['dont_show_again'] ?? 'Don\'t show again',
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.black87,
@@ -842,7 +857,7 @@ class _TestPageState extends State<TestPage>
                         shadowColor: primaryColor.withOpacity(0.5),
                       ),
                       child: Text(
-                        "Start Learning",
+                        translations['start_learning'] ?? 'Start Learning',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

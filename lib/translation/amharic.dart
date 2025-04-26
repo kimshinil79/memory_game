@@ -1,0 +1,218 @@
+// 암하라어 번역 파일
+const Map<String, String> amTranslations = {
+  'select_language': 'ቋንቋ ምረጥ',
+  'search_language': 'ቋንቋ ፈልግ',
+  'all': 'ሁሉም',
+  'asian_languages': 'የእስያ ቋንቋዎች',
+  'european_languages': 'የአውሮፓ ቋንቋዎች',
+  'middle_eastern_languages': 'የመካከለኛው ምሥራቅ ቋንቋዎች',
+  'african_languages': 'የአፍሪካ ቋንቋዎች',
+  'cancel': 'ሰርዝ',
+  'ok': 'እሺ',
+  'yes': 'አዎ',
+  'no': 'አይ',
+  'save': 'አስቀምጥ',
+  'app_title': 'የማስታወሻ ጨዋታ',
+  'delete': 'ሰርዝ',
+  'edit': 'አርትዕ',
+  'close': 'ዝጋ',
+  'back': 'ተመለስ',
+  'next': 'ቀጣይ',
+  'continue': 'ቀጥል',
+  'settings': 'ቅንብሮች',
+  'profile': 'መገለጫ',
+  'home': 'ዋና ገጽ',
+  'game': 'ጨዋታ',
+  'ranking': 'ደረጃ',
+  'brain_health': 'የአንጎል ጤና',
+  'player': 'ተጫዋች',
+  'players': 'ተጫዋቾች',
+
+  // Player Selection Dialog texts
+  'select_players': 'ተጫዋቾችን ምረጥ',
+  'select_up_to_3_players': 'እስከ 3 ተጨማሪ ተጫዋቾችን ምረጥ',
+  'you_will_be_included': 'እርስዎ ሁልጊዜ ተጫዋች ይሆናሉ',
+  'confirm': 'አረጋግጥ',
+  'retry': 'ደግመው ሞክር',
+  'no_other_users': 'ሌሎች ተጠቃሚዎች አልተገኙም',
+  'failed_to_load_users': 'የተጠቃሚዎች ዝርዝር መጫን አልተሳካም',
+  'country': 'ሀገር',
+  'level': 'ደረጃ',
+  'unknown': 'ያልታወቀ',
+  'unknown_player': 'ያልታወቀ ተጫዋች',
+  'multiplayer_verification': 'የብዙ ተጫዋች ማረጋገጫ',
+  'create_pin': 'PIN ፍጠር',
+  'enter_pin_for': 'PIN አስገባ ለ',
+  'no_pin_for': 'PIN የለም ለ',
+  'create_pin_for_multiplayer': 'ለብዙ ተጫዋች ጨዋታ 2-አሃዝ PIN ፍጠር',
+  'enter_2_digit_pin': '2-አሃዝ ቁጥር አስገባ',
+  'pin_is_2_digits': 'PIN 2 አሃዝ መሆን አለበት',
+  'wrong_pin': 'ስህተት ያለበት PIN',
+
+  // Grid Selection Dialog texts
+  'select_grid_size': 'የፍርግርግ መጠን ምረጥ',
+  'choose_difficulty': 'የአስቸጋሪነት ደረጃ ምረጥ',
+  'multiplier': '×',
+
+  // Profile Edit Dialog texts
+  'edit_profile': 'መገለጫ አርትዕ',
+  'nickname': 'ስም',
+  'enter_nickname': 'ስም አስገባ',
+  'birthday': 'የልደት ቀን',
+  'select_birthday': 'የልደት ቀን ምረጥ',
+  'gender': 'ጾታ',
+  'male': 'ወንድ',
+  'female': 'ሴት',
+  'select_country': 'ሀገር ምረጥ',
+  'multi_game_pin': 'የብዙ ተጫዋች ጨዋታ PIN',
+  'enter_two_digit_pin': '2-አሃዝ PIN አስገባ',
+  'two_digit_pin_helper': 'ይህ PIN ለብዙ ተጫዋች ጨዋታዎች ያገለግላል',
+  'change_password': 'የይለፍ ቃል ቀይር',
+  'current_password': 'የአሁኑ የይለፍ ቃል',
+  'enter_current_password': 'የአሁኑ የይለፍ ቃል አስገባ',
+  'new_password': 'አዲስ የይለፍ ቃል',
+  'enter_new_password': 'አዲስ የይለፍ ቃል አስገባ',
+  'confirm_password': 'የይለፍ ቃል አረጋግጥ',
+  'confirm_new_password': 'አዲስ የይለፍ ቃል አረጋግጥ',
+  'must_be_two_digit': '2 አሃዝ መሆን አለበት',
+  'current_password_required': 'የአሁኑ የይለፍ ቃል ያስፈልጋል',
+  'password_length_error': 'የይለፍ ቃል ቢያንስ 6 ቁምፊ መሆን አለበት',
+  'passwords_do_not_match': 'የይለፍ ቃሎች አይስማሙም',
+  'incorrect_current_password': 'የአሁኑ የይለፍ ቃል ስህተት ነው',
+  'error_changing_password': 'የይለፍ ቃል ለውጥ ስህተት',
+  'error': 'ስህተት',
+  'sign_out': 'ውጣ',
+  'random_shake': 'ካርዶችን አወዛውዝ!!',
+
+  // Completion Dialog texts
+  'congratulations': 'እንኳን ደስ አለህ!',
+  'winner': 'ድል አድራጊ: {name}!',
+  'its_a_tie': 'እኩል ነው!',
+  'points_divided': 'ነጥቦች በእኩል ተጫዋቾች መካከል ተከፋፍለዋል!',
+  'time_seconds': 'ጊዜ: {seconds} ሰከንድ',
+  'flips': 'መዞር: {count}',
+  'players_score_multiplier': '({players} ተጫዋቾች: ነጥቦች x{multiplier})',
+  'points_divided_explanation': '(ነጥቦች በእኩል ተጫዋቾች መካከል ተከፋፍለዋል)',
+  'health_score': 'የአንጎል ጤና ነጥቦች: +{points}',
+  'new_game': 'አዲስ ጨዋታ',
+  'times_up': 'ጊዜው አልቋል!',
+
+  // Tutorial Overlay texts
+  'memory_game_guide': 'የማስታወሻ ጨዋታ መመሪያ',
+  'card_selection_title': 'ካርድ ምርጫ',
+  'card_selection_desc': 'ካርዶችን ለመዞር እና ጥንዶችን ለማግኘት ይንኩ።',
+  'time_limit_title': 'የጊዜ ገደብ',
+  'time_limit_desc': 'በጊዜ ገደብ ውስጥ ሁሉንም ጥንዶች ያግኙ። ፈጣን ጥንዶች ተጨማሪ ነጥቦች ያገኛሉ።',
+  'add_time_title': 'ጊዜ ጨምር',
+  'add_time_desc': 'ጊዜ ለመጨመር "+30s" ይንኩ (የአንጎል ጤና ነጥቦች ያስከፍላል)።',
+  'multiplayer_title': 'ብዙ ተጫዋች',
+  'multiplayer_desc': 'ተጫዋቾችን ቁጥር ቀይር (1-4) ከጓደኞች ጋር ለመጫወት።',
+  'dont_show_again': 'ደግመው አታሳይ',
+  'start_game': 'ጨዋታውን ጀምር',
+
+  // Brain Health Dashboard texts
+  'brain_health_dashboard': 'የአንጎል ጤና ሰሌዳ',
+  'brain_health_index_title': 'የአንጎል ጤና መረጃ',
+  'brain_health_index_desc':
+      'በማስታወሻ ጨዋታ የአንጎል ጤና አመልካችዎን ይከታተሉ። ከፍተኛ ደረጃዎች የዲሜንሺያ መከላከልን ያሳድጋሉ።',
+  'activity_graph_title': 'የእንቅስቃሴ ግራፍ',
+  'activity_graph_desc': 'የአንጎል ጤና አመልካችዎ ከጊዜ ጋር እንዴት እንደሚለወጥ በግራፉ ይመልከቱ።',
+  'ranking_system_title': 'የደረጃ ስርዓት',
+  'ranking_system_desc': 'የአንጎል ጤና አመልካትዎን ከሌሎች ተጠቃሚዎች ጋር ያወዳድሩ እና ደረጃዎን ይፈትሹ።',
+  'game_statistics_title': 'የጨዋታ ስታቲስቲክስ',
+  'game_statistics_desc':
+      'የተጫወቱ ጨዋታዎች፣ የተገኙ ጥንዶች እና ምርጥ ጊዜዎችን ያሉ የተለያዩ ስታቲስቲክስን ይፈትሹ።',
+  'got_it': 'ተረድቻለሁ!',
+
+  // Brain Health Dashboard additional texts
+  'play_memory_games_description': 'የአንጎል ጤናዎን ለማሻሻል የማስታወሻ ጨዋታዎችን ይጫወቱ!',
+  'calculating_brain_health_index': 'የአንጎል ጤና አመልካች እየተሰላ ነው...',
+  'error_calculating_index': 'የአንጎል ጤና አመልካች ስሌት ስህተት',
+  'age': 'ዕድሜ',
+  'update': 'አዘምን',
+  'points_to_next_level': 'ወደ ቀጣዩ ደረጃ ለመድረስ {points} ነጥቦች ያስፈልጉዎታል',
+  'maximum_level_reached': 'ከፍተኛው ደረጃ ተደርሷል',
+  'index_components': 'የአመልካች አካላት',
+  'age_factor': 'የዕድሜ ሁኔታ',
+  'recent_activity': 'የቅርብ ጊዜ እንቅስቃሴ',
+  'game_performance': 'የጨዋታ አፈጻጸም',
+  'persistence_bonus': 'የቆራጥነት ጉርሻ',
+  'inactivity_penalty': 'የማይሰራ ቅጣት',
+  'inactivity_warning': 'ለ {days} ቀናት አልተጫወቱም። አመልካትዎ በየቀኑ ይቀንሳል!',
+  'loading_data': 'ውሂብ እየጫነ ነው...',
+  'refresh_data': 'ውሂብ አዘምን',
+
+  // Login Prompt texts
+  'start_tracking_brain_health': 'የአንጎል ጤና መከታተል ይጀምሩ',
+  'login_prompt_desc':
+      'የአንጎል ጤና አመልካትዎን ለመመዝገብ እና እድገትዎን ለመከታተል ይግቡ። በማስታወሻ ጨዋታዎች የአዕምሮ ችሎታዎን ያሻሽሉ።',
+  'sign_in': 'ግባ',
+  'create_account': 'መለያ ፍጠር',
+
+  // User Rankings texts
+  'user_rankings': 'የተጠቃሚ ደረጃ',
+  'rank': 'ደረጃ',
+  'user': 'ተጠቃሚ',
+  'score': 'ነጥብ',
+  'failed_to_load_rankings': 'ደረጃ መጫን አልተሳካም',
+  'no_ranking_data': 'የደረጃ ውሂብ የለም',
+
+  // Date format texts
+  'today': 'ዛሬ',
+  'yesterday': 'ትናንት',
+
+  // Activity Chart texts
+  'brain_health_progress': 'የአንጎል ጤና እድገት',
+  'welcome_to_brain_health': 'ወደ አንጎል ጤና እንኳን በደህና መጡ!',
+  'start_playing_memory_games': 'የአንጎል ጤናዎን ለመከታተል\nየማስታወሻ ጨዋታዎችን ይጫወቱ',
+  'date_range': 'የቀን ክልል',
+  'last_7_days': 'የመጨረሻዎቹ 7 ቀናት',
+  'last_30_days': 'የመጨረሻዎቹ 30 ቀናት',
+  'all_time': 'ሁሉም ጊዜ',
+
+  // Game Statistics texts
+  'game_statistics': 'የጨዋታ ስታቲስቲክስ',
+  'games_played': 'የተጫወቱ ጨዋታዎች',
+  'matches_found': 'የተገኙ ጥንዶች',
+  'best_times': 'ምርጥ ጊዜዎች',
+  'no_records_yet': 'እስካሁን ምንም ምዝገባ የለም',
+  'grid': 'ፍርግርግ',
+
+  // Benefits Section texts
+  'benefits_of_brain_games': 'የአንጎል ጨዋታዎች ጥቅሞች',
+  'short_term_memory_improvement': 'የአጭር ጊዜ ማስታወሻ ማሻሻል',
+  'short_term_memory_desc':
+      'የማስታወሻ ጨዋታዎች የአጭር ጊዜ ማስታወሻ እና የማስታወሻ አቅምን በውጤታማነት ያጠናክራሉ።',
+  'cognitive_function_enhancement': 'የአዕምሮ ተግባር ማሻሻል',
+  'cognitive_function_desc':
+      'የአንጎል መደበኛ እንቅስቃሴ የአዕምሮ ተግባራትን ለመጠበቅ እና ለማሻሻል ይረዳል።',
+  'response_time_reduction': 'የምላሽ ጊዜ መቀነስ',
+  'response_time_desc': 'ፈጣን ጥንዶች የምላሽ ጊዜ እና የማስተካከል ፍጥነትን ያሻሽላሉ።',
+  'dementia_prevention': 'የዲሜንሺያ መከላከል',
+  'dementia_prevention_desc':
+      'የአንጎል መደበኛ ልምምድ የዲሜንሺያ እና የአዕምሮ መቀነስ አደጋን ለመቀነስ ይረዳል።',
+
+  // Test Page texts
+  'memory_test': 'የማስታወሻ ፈተና',
+  'question': 'ጥያቄ',
+  'visual_memory_test': 'የምስል ማስታወሻ ፈተና',
+  'visual_memory_test_desc':
+      'በ10 ጥያቄዎች ማስታወሻዎን ይፈትሹ። ከትክክለኛው ቃል ጋር የሚስማማውን ምስል ይምረጡ።',
+  'audio_assistance': 'የድምፅ እርዳታ',
+  'audio_assistance_desc':
+      'ትክክለኛውን ቃል ለመስማት የድምፅ አዶን ይንኩ። ድምፁ በተመረጠው ቋንቋ ይጫወታል።',
+  'question_navigation': 'የጥያቄ አሰሳ',
+  'question_navigation_desc':
+      'በላይ ያሉትን የቁጥር አመልካቾች በመጠቀም በጥያቄዎች መካከል ይንቀሳቀሱ ወይም የቀስት ቁልፎችን ይጠቀሙ።',
+  'select_and_submit': 'ምረጥ እና አስገባ',
+  'select_and_submit_desc':
+      'ለእያንዳንዱ ጥያቄ አንድ ምስል ይምረጡ። ሁሉም ጥያቄዎች ከተመለሱ በኋላ፣ የማስገባት ቁልፍ ይታያል።',
+  'results_and_progress': 'ውጤቶች እና እድገት',
+  'results_and_progress_desc': 'ከማስገባት በኋላ፣ ውጤትዎን ይመልከቱ እና ከፈለጉ አዲስ ፈተና ይጀምሩ።',
+  'how_to_play': 'እንዴት እንደሚጫወቱ',
+  'start_learning': 'መማር ይጀምሩ',
+  'test_result': 'የፈተና ውጤት',
+  'your_score': 'ውጤትዎ',
+  'new_test': 'አዲስ ፈተና',
+  'submit': 'አስገባ'
+};

@@ -1,0 +1,218 @@
+// 에리트레아 번역 파일
+
+// Tigrinya translations for Eritrea
+const Map<String, String> tiERTranslations = {
+  'select_language': 'ቋንቋ ምረጽ',
+  'search_language': 'ቋንቋ ምድላው',
+  'all': 'ኩሉ',
+  'asian_languages': 'ኣውሮጳዊ ቋንቋታት',
+  'european_languages': 'ኣውሮጳዊ ቋንቋታት',
+  'middle_eastern_languages': 'ማእከላይ ምብራቕ ቋንቋታት',
+  'african_languages': 'ኣፍሪቃዊ ቋንቋታት',
+  'cancel': 'ምብራር',
+  'ok': 'እወ',
+  'yes': 'እወ',
+  'no': 'ኣይፋል',
+  'save': 'ምዕቃብ',
+  'app_title': 'ዘርኣዊ ጸወታ',
+  'delete': 'ምድምሳስ',
+  'edit': 'ምትዕርራይ',
+  'close': 'ምዕጻው',
+  'back': 'ንድሕሪት',
+  'next': 'ቀጺሉ',
+  'continue': 'ምትዕርራይ',
+  'settings': 'ቅጥዕታት',
+  'profile': 'መለለዪ',
+  'home': 'ቤት',
+  'game': 'ጸወታ',
+  'ranking': 'ምድላው',
+  'brain_health': 'ኣእምሮ ጥዕና',
+  'player': 'ተጻወቲ',
+  'players': 'ተጻወትያን',
+
+  // Player Selection Dialog texts
+  'select_players': 'ተጻወትያን ምረጽ',
+  'select_up_to_3_players': 'ክሳዕ 3 ተጻወትያን ምረጽ',
+  'you_will_be_included': 'ንስኻ ኣብ ዝዀነ እዋን ተጻወቲ ኢኻ',
+  'confirm': 'ምርግጋጽ',
+  'retry': 'ምልላይ',
+  'no_other_users': 'ካልኦት ተጠቃሚታት የለን',
+  'failed_to_load_users': 'ምድላው ተጠቃሚታት ኣይተራእየን',
+  'country': 'ሃገር',
+  'level': 'ደረጃ',
+  'unknown': 'ዘይትፍለጥ',
+  'unknown_player': 'ዘይትፍለጥ ተጻወቲ',
+  'multiplayer_verification': 'ምርግጋጽ ብዙሕ ተጻወትያን',
+  'create_pin': 'PIN ምፍጣር',
+  'enter_pin_for': 'PIN ን',
+  'no_pin_for': 'PIN ን የለን',
+  'create_pin_for_multiplayer': '2 ኣሃዝ PIN ንብዙሕ ተጻወትያን ምፍጣር',
+  'enter_2_digit_pin': '2 ኣሃዝ PIN ምእታው',
+  'pin_is_2_digits': 'PIN 2 ኣሃዝ ክኸውን ኣለዎ',
+  'wrong_pin': 'ብልሽት PIN',
+
+  // Grid Selection Dialog texts
+  'select_grid_size': 'ስፍሓት ሳጹን ምረጽ',
+  'choose_difficulty': 'ዝርዝር ምረጽ',
+  'multiplier': '×',
+
+  // Profile Edit Dialog texts
+  'edit_profile': 'መለለዪ ምትዕርራይ',
+  'nickname': 'ሽም ምስጢር',
+  'enter_nickname': 'ሽም ምስጢር ምእታው',
+  'birthday': 'ዕለተ ልደት',
+  'select_birthday': 'ዕለተ ልደት ምረጽ',
+  'gender': 'ጾታ',
+  'male': 'ተባዕታይ',
+  'female': 'ኣንስተይቲ',
+  'select_country': 'ሃገር ምረጽ',
+  'multi_game_pin': 'PIN ብዙሕ ጸወታ',
+  'enter_two_digit_pin': '2 ኣሃዝ PIN ምእታው',
+  'two_digit_pin_helper': 'እዚ PIN እዚ ኣብ ናይ ብዙሕ ተጻወትያን ኣገልግሎት ይጥቀም',
+  'change_password': 'ይሕጎስ ምትዕርራይ',
+  'current_password': 'ናይ ሕጂ ይሕጎስ',
+  'enter_current_password': 'ናይ ሕጂ ይሕጎስ ምእታው',
+  'new_password': 'ሓድሽ ይሕጎስ',
+  'enter_new_password': 'ሓድሽ ይሕጎስ ምእታው',
+  'confirm_password': 'ይሕጎስ ምርግጋጽ',
+  'confirm_new_password': 'ሓድሽ ይሕጎስ ምርግጋጽ',
+  'must_be_two_digit': '2 ኣሃዝ ክኸውን ኣለዎ',
+  'current_password_required': 'ናይ ሕጂ ይሕጎስ የድልየካ',
+  'password_length_error': 'ይሕጎስ ብዙሕ ክኸውን 6 ፊደላት',
+  'passwords_do_not_match': 'ይሕጎሳት ኣይሰማምዑን',
+  'incorrect_current_password': 'ብልሽት ናይ ሕጂ ይሕጎስ',
+  'error_changing_password': 'ሽግር ኣብ ምትዕርራይ ይሕጎስ',
+  'error': 'ሽግር',
+  'sign_out': 'ምውጻእ',
+  'random_shake': 'ምውሳድ!',
+
+  // Completion Dialog texts
+  'congratulations': 'እንቋዕ ሓጎስ!',
+  'winner': 'ዓወተኛ: {name}!',
+  'its_a_tie': 'ማዕረ!',
+  'points_divided': 'ነጥብታት ኣብ ማዕረ ይካፈሉ!',
+  'time_seconds': 'ሰዓት: {seconds} ካልኢት',
+  'flips': 'ምውሳድ: {count}',
+  'players_score_multiplier': '({players} ተጻወትያን: ነጥብታት ×{multiplier})',
+  'points_divided_explanation': '(ነጥብታት ኣብ ማዕረ ይካፈሉ)',
+  'health_score': 'ነጥብታት ጥዕና ኣእምሮ: +{points}',
+  'new_game': 'ሓድሽ ጸወታ',
+  'times_up': 'ሰዓት ተወዲኡ!',
+
+  // Tutorial Overlay texts
+  'memory_game_guide': 'ሓበሬታ ዘርኣዊ ጸወታ',
+  'card_selection_title': 'ምረጽ ካርድ',
+  'card_selection_desc': 'ንማዕረ ንምርካብ ኣብ ካርድ ጠውቕ።',
+  'time_limit_title': 'ወሰን ሰዓት',
+  'time_limit_desc':
+      'ንማዕረ ኩሉ ቅድሚ ምውዳእ ሰዓት ረክብ። ብቕልጡፍ ንማዕረ ረክብ ንበዚሕ ነጥብታት ንምርካብ።',
+  'add_time_title': 'ሰዓት ምውሳኽ',
+  'add_time_desc': 'ንሰዓት ንምውሳኽ ኣብ "+30s" ጠውቕ (ነጥብታት ጥዕና ኣእምሮ ይወስድ)።',
+  'multiplayer_title': 'ብዙሕ ተጻወትያን',
+  'multiplayer_desc': 'ብዙሕ ተጻወትያን (1-4) ምስ ኣዕሩኽካ ንምጽዋዕ ቁጽሪ ተጻወትያን ቀይር።',
+  'dont_show_again': 'ዳግም ኣይትርኢ',
+  'start_game': 'ጸወታ ምጅማር',
+
+  // Brain Health Dashboard texts
+  'brain_health_dashboard': 'ዳሽቦርድ ጥዕና ኣእምሮ',
+  'brain_health_index_title': 'ምልክት ጥዕና ኣእምሮ',
+  'brain_health_index_desc':
+      'ብዘርኣዊ ጸወታ ምልክት ጥዕና ኣእምሮኻ ምምሕያሽ ተኸታተል። ልዑል ደረጃታት ካብ ምኽርታ ንምክልኻል ይሕግዙ።',
+  'activity_graph_title': 'ራእሲ ግራፍ',
+  'activity_graph_desc': 'ኣብ ግራፍ ምልክት ጥዕና ኣእምሮኻ ከመይ ከም ዝተለወጠ ርኣ።',
+  'ranking_system_title': 'ስርዓት ምድላው',
+  'ranking_system_desc': 'ምልክት ጥዕና ኣእምሮኻ ምስ ካልኦት ተጠቃሚታት ኣወዳድር ከምኡውን ደረጃኻ ርኣ።',
+  'game_statistics_title': 'ስታቲስቲክስ ጸወታ',
+  'game_statistics_desc':
+      'ከም ዝተጻወተ ጸወታታት፣ ዝተረኽበ ማዕረን ዝበለጸ ሰዓታትን ዝኣመሰለ ዝተፈላለየ ስታቲስቲክስ ርኣ።',
+  'got_it': 'ተረዲእኩዎ!',
+
+  // Brain Health Dashboard additional texts
+  'play_memory_games_description': 'ንምምሕያሽ ጥዕና ኣእምሮኻ ዘርኣዊ ጸወታታት ጻወት!',
+  'calculating_brain_health_index': 'ምልክት ጥዕና ኣእምሮ ይሕሰብ...',
+  'error_calculating_index': 'ሽግር ኣብ ምሕሳብ ምልክት ጥዕና ኣእምሮ',
+  'age': 'ዕድመ',
+  'update': 'ምዝማድ',
+  'points_to_next_level': 'ንዝቕጽል ደረጃ {points} ነጥብታት የድልየካ',
+  'maximum_level_reached': 'ዝለዓለ ደረጃ ተበጽሐ',
+  'index_components': 'ኣካላት ምልክት',
+  'age_factor': 'ፋክተር ዕድመ',
+  'recent_activity': 'ቀረባ ንጥፈታት',
+  'game_performance': 'ውጽኢት ጸወታ',
+  'persistence_bonus': 'ቦነስ ትዕግስቲ',
+  'inactivity_penalty': 'ቅጫ ምድምሳስ',
+  'inactivity_warning': 'ካብ {days} መዓልታት ኣይተጻወትካን። ምልክትካ ኣብ መዓልቲ ይንኪ!',
+  'loading_data': 'ዳታ ይጽዓን...',
+  'refresh_data': 'ዳታ ምዝማድ',
+
+  // Login Prompt texts
+  'start_tracking_brain_health': 'ምክትታል ጥዕና ኣእምሮ ምጅማር',
+  'login_prompt_desc':
+      'ምልክት ጥዕና ኣእምሮኻ ንምክትታልን ምዕባለኻ ንምርኣይን እተወ። ብዘርኣዊ ጸወታ ኣእምሮኻ ምምሕያሽ።',
+  'sign_in': 'ምእታው',
+  'create_account': 'ሕሳብ ምፍጣር',
+
+  // User Rankings texts
+  'user_rankings': 'ምድላው ተጠቃሚታት',
+  'rank': 'ደረጃ',
+  'user': 'ተጠቃሚ',
+  'score': 'ነጥብ',
+  'failed_to_load_rankings': 'ሽግር ኣብ ምጽዓን ምድላው',
+  'no_ranking_data': 'ዳታ ምድላው የለን',
+
+  // Date format texts
+  'today': 'ሎሚ',
+  'yesterday': 'ትማሊ',
+
+  // Activity Chart texts
+  'brain_health_progress': 'ምዕባለ ጥዕና ኣእምሮ',
+  'welcome_to_brain_health': 'እንቋዕ ናብ ጥዕና ኣእምሮ!',
+  'start_playing_memory_games': 'ንምክትታል ጥዕና ኣእምሮኻ\nዘርኣዊ ጸወታታት ምጅማር',
+  'date_range': 'ወሰን ዕለት',
+  'last_7_days': 'ዝሓለፈ 7 መዓልታት',
+  'last_30_days': 'ዝሓለፈ 30 መዓልታት',
+  'all_time': 'ኩሉ እዋን',
+
+  // Game Statistics texts
+  'game_statistics': 'ስታቲስቲክስ ጸወታ',
+  'games_played': 'ዝተጻወተ ጸወታታት',
+  'matches_found': 'ዝተረኽበ ማዕረ',
+  'best_times': 'ዝበለጸ ሰዓታት',
+  'no_records_yet': 'ክሳዕ ሕጂ ረክርድ የለን',
+  'grid': 'ሳጹን',
+
+  // Benefits Section texts
+  'benefits_of_brain_games': 'ረብሓታት ጸወታታት ኣእምሮ',
+  'short_term_memory_improvement': 'ምምሕያሽ ሓጺር እዋን ምዝካር',
+  'short_term_memory_desc': 'ዘርኣዊ ጸወታታት ብቑል ሓጺር እዋን ምዝካርን ክእለት ምዝካርን የማምዕ።',
+  'cognitive_function_enhancement': 'ምምሕያሽ ኣእምሮዊ ስራሕ',
+  'cognitive_function_desc': 'ተወሳኺ ኣእምሮዊ ስራሕ ንምክልኻልን ምምሕያሽን ኣእምሮዊ ስራሕ ይሕግዝ።',
+  'response_time_reduction': 'ምንካይ እዋን ምላሽ',
+  'response_time_desc': 'ብቕልጡፍ ማዕረ ምርካብ እዋን ምላሽን ፍጥነት ምስራሕን የማምዕ።',
+  'dementia_prevention': 'ምክልኻል ምኽርታ',
+  'dementia_prevention_desc': 'ተወሳኺ ስልጠና ኣእምሮ ንምክልኻል ምኽርታን ኣእምሮዊ ምድምሳስን ይሕግዝ።',
+
+  // Test Page texts
+  'memory_test': 'ምርመራ ምዝካር',
+  'question': 'ሕቶ',
+  'visual_memory_test': 'ምርመራ ራእይ ምዝካር',
+  'visual_memory_test_desc': 'ምስ 10 ሕቶታት ምዝካርካ ምርመራ። ንትኽክለኛ ቃል ዝሰማምዕ ስእሊ ምረጽ።',
+  'audio_assistance': 'ሓገዝ ድምጺ',
+  'audio_assistance_desc':
+      'ንትኽክለኛ ቃል ንምስማዕ ኣብ ኣይኮን ድምጺ ጠውቕ። ድምጺ ብተመሪጹ ቋንቋ ይድምጽ።',
+  'question_navigation': 'ምንቅስቓስ ሕቶ',
+  'question_navigation_desc':
+      'ኣብ ላዕሊ ዘሎ ቁጽሪ መለክዒታት ወይ ፍላጻታት ብምጥቃም ኣብ ማእከል ሕቶታት ምንቅስቓስ።',
+  'select_and_submit': 'ምረጽን ምልኣኽን',
+  'select_and_submit_desc':
+      'ንነፍሲ ወከፍ ሕቶ ሓደ ስእሊ ምረጽ። ንምልኣኽ ቁልፊ ድሕሪ ምላሽ ኩሉ ሕቶታት ይርአ።',
+  'results_and_progress': 'ውጽኢታትን ምዕባለን',
+  'results_and_progress_desc':
+      'ድሕሪ ምልኣኽ፣ ውጽኢታት ትርኢ ከምኡውን እንተደሊኻ ሓድሽ ምርመራ ክትጅምር ትኽእል።',
+  'how_to_play': 'ከመይ ከም ዝተጻወተ',
+  'start_learning': 'ምጅማር ምምሃር',
+  'test_result': 'ውጽኢት ምርመራ',
+  'your_score': 'ነጥብካ',
+  'new_test': 'ሓድሽ ምርመራ',
+  'submit': 'ምልኣኽ'
+};

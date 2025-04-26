@@ -180,9 +180,19 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
       if (_languageProvider != null) {
         _updateTranslations();
       }
+
+      // LanguageProvider의 변경사항을 감지하는 리스너 추가
+      _languageProvider?.addListener(_updateTranslations);
     } catch (e) {
       print('LanguageProvider 초기화 오류: $e');
     }
+  }
+
+  @override
+  void dispose() {
+    // 리스너 제거
+    _languageProvider?.removeListener(_updateTranslations);
+    super.dispose();
   }
 
   // 번역 업데이트 헬퍼 메서드
@@ -263,24 +273,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     color: Colors.black87,
                   ),
                 ),
-                // 로그아웃 버튼 추가
-                TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(widget.dialogContext).pop({'signOut': true});
-                  },
-                  icon: Icon(Icons.logout, color: Colors.red.shade400),
-                  label: Text(
-                    t('sign_out'),
-                    style: TextStyle(
-                      color: Colors.red.shade400,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    alignment: Alignment.center,
-                  ),
-                ),
+                SizedBox(width: 40), // 오른쪽 공간 (로그아웃 버튼 제거)
               ]),
 
               SizedBox(height: 16),
@@ -518,6 +511,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           if (_languageProvider != null) {
                             await _languageProvider!
                                 .setNationality(country.code);
+                            // 번역 데이터 즉시 업데이트
+                            _updateTranslations();
                           }
                         }
                       },
@@ -670,6 +665,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         Navigator.of(widget.dialogContext).pop();
                       },
                       style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade50,
                         foregroundColor: Colors.grey.shade700,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -718,6 +714,38 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 16),
+              // 로그아웃 버튼을 하단에 추가
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(widget.dialogContext).pop({'signOut': true});
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red.shade50,
+                  foregroundColor: Colors.red.shade400,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.red.shade200),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  minimumSize: Size(double.infinity, 48),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      t('sign_out'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
