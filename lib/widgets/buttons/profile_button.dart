@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:ui';
+import 'package:flag/flag.dart';
 
 class ProfileButton extends StatefulWidget {
   final User? user;
@@ -10,6 +11,7 @@ class ProfileButton extends StatefulWidget {
   final VoidCallback onProfilePressed;
   final Color gradientStart;
   final Color gradientEnd;
+  final String? countryCode;
 
   const ProfileButton({
     Key? key,
@@ -19,6 +21,7 @@ class ProfileButton extends StatefulWidget {
     required this.onProfilePressed,
     required this.gradientStart,
     required this.gradientEnd,
+    this.countryCode,
   }) : super(key: key);
 
   @override
@@ -171,11 +174,21 @@ class _ProfileButtonState extends State<ProfileButton>
                     ),
                   ),
                   child: Center(
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: _isHovered ? 16 : 14,
-                    ),
+                    child: widget.countryCode != null &&
+                            widget.countryCode!.isNotEmpty
+                        ? ClipOval(
+                            child: Flag.fromString(
+                              widget.countryCode!.toLowerCase(),
+                              height: _isHovered ? 20 : 18,
+                              width: _isHovered ? 20 : 18,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Icon(
+                            Icons.person_rounded,
+                            color: Colors.white,
+                            size: _isHovered ? 16 : 14,
+                          ),
                   ),
                 ),
                 const SizedBox(width: 6),

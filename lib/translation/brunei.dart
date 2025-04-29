@@ -21,7 +21,7 @@ const Map<String, String> msBNTranslations = {
   'continue': 'Teruskan',
   'settings': 'Tetapan',
   'profile': 'Profil',
-  'home': 'Utama',
+  'home': 'Laman Utama',
   'game': 'Permainan',
   'ranking': 'Kedudukan',
   'brain_health': 'Kesihatan otak',
@@ -34,24 +34,24 @@ const Map<String, String> msBNTranslations = {
   'you_will_be_included': 'Anda akan sentiasa dimasukkan sebagai pemain',
   'confirm': 'Sahkan',
   'retry': 'Cuba semula',
-  'no_other_users': 'Tiada pengguna lain',
+  'no_other_users': 'Tiada pengguna lain ditemui',
   'failed_to_load_users': 'Gagal memuatkan senarai pengguna',
   'country': 'Negara',
   'level': 'Tahap',
   'unknown': 'Tidak diketahui',
   'unknown_player': 'Pemain tidak diketahui',
-  'multiplayer_verification': 'Pengesahan berbilang pemain',
+  'multiplayer_verification': 'Pengesahan multiplayer',
   'create_pin': 'Cipta PIN',
   'enter_pin_for': 'Masukkan PIN untuk',
   'no_pin_for': 'Tiada PIN untuk',
-  'create_pin_for_multiplayer': 'Cipta PIN 2 digit untuk berbilang pemain',
+  'create_pin_for_multiplayer': 'Cipta PIN 2 digit untuk multiplayer',
   'enter_2_digit_pin': 'Masukkan PIN 2 digit',
   'pin_is_2_digits': 'PIN mestilah 2 digit',
   'wrong_pin': 'PIN salah',
 
   // Grid Selection Dialog texts
   'select_grid_size': 'Pilih saiz grid',
-  'choose_difficulty': 'Pilih tahap kesukaran',
+  'choose_difficulty': 'Pilih kesukaran',
   'multiplier': '×',
 
   // Profile Edit Dialog texts
@@ -59,14 +59,14 @@ const Map<String, String> msBNTranslations = {
   'nickname': 'Nama samaran',
   'enter_nickname': 'Masukkan nama samaran',
   'birthday': 'Tarikh lahir',
-  'select_birthday': 'Pilih tarikh lahir',
+  'select_birthday': 'Pilih tarikh lahir anda',
   'gender': 'Jantina',
   'male': 'Lelaki',
   'female': 'Perempuan',
-  'select_country': 'Pilih negara',
-  'multi_game_pin': 'PIN berbilang pemain',
+  'select_country': 'Pilih negara anda',
+  'multi_game_pin': 'PIN permainan multiplayer',
   'enter_two_digit_pin': 'Masukkan PIN 2 digit',
-  'two_digit_pin_helper': 'PIN ini digunakan untuk sesi berbilang pemain',
+  'two_digit_pin_helper': 'PIN ini digunakan untuk sesi multiplayer',
   'change_password': 'Tukar kata laluan',
   'current_password': 'Kata laluan semasa',
   'enter_current_password': 'Masukkan kata laluan semasa',
@@ -78,8 +78,8 @@ const Map<String, String> msBNTranslations = {
   'current_password_required': 'Kata laluan semasa diperlukan',
   'password_length_error': 'Kata laluan mestilah sekurang-kurangnya 6 aksara',
   'passwords_do_not_match': 'Kata laluan tidak sepadan',
-  'incorrect_current_password': 'Kata laluan semasa salah',
-  'error_changing_password': 'Ralat menukar kata laluan',
+  'incorrect_current_password': 'Kata laluan semasa tidak betul',
+  'error_changing_password': 'Ralat semasa menukar kata laluan',
   'error': 'Ralat',
   'sign_out': 'Log keluar',
   'random_shake': 'Kocok kad!',
@@ -100,13 +100,14 @@ const Map<String, String> msBNTranslations = {
   // Tutorial Overlay texts
   'memory_game_guide': 'Panduan permainan ingatan',
   'card_selection_title': 'Pemilihan kad',
-  'card_selection_desc': 'Klik pada kad untuk mencari pasangan.',
+  'card_selection_desc': 'Sentuh kad untuk mencari pasangan.',
   'time_limit_title': 'Had masa',
   'time_limit_desc':
-      'Cari semua pasangan sebelum masa tamat. Pasangan pantas memberikan lebih banyak mata.',
+      'Cari semua pasangan sebelum masa tamat. Pasangan yang lebih pantas memberikan lebih banyak mata.',
   'add_time_title': 'Tambah masa',
-  'add_time_desc': 'Klik "+30s" untuk menambah masa (kos mata kesihatan otak).',
-  'multiplayer_title': 'Berbilang pemain',
+  'add_time_desc':
+      'Sentuh "+30s" untuk menambah masa (menggunakan mata kesihatan otak).',
+  'multiplayer_title': 'Multiplayer',
   'multiplayer_desc': 'Tukar bilangan pemain (1-4) untuk bermain dengan rakan.',
   'dont_show_again': 'Jangan tunjukkan lagi',
   'start_game': 'Mula permainan',
@@ -115,7 +116,7 @@ const Map<String, String> msBNTranslations = {
   'brain_health_dashboard': 'Papan pemuka kesihatan otak',
   'brain_health_index_title': 'Indeks kesihatan otak',
   'brain_health_index_desc':
-      'Ikuti peningkatan indeks kesihatan otak anda melalui permainan ingatan. Tahap tinggi membantu mencegah demensia.',
+      'Ikuti peningkatan indeks kesihatan otak anda melalui permainan ingatan. Tahap yang lebih tinggi membantu mencegah demensia.',
   'activity_graph_title': 'Graf aktiviti',
   'activity_graph_desc':
       'Lihat bagaimana indeks kesihatan otak anda berubah dari masa ke masa pada graf.',
@@ -131,7 +132,7 @@ const Map<String, String> msBNTranslations = {
   'play_memory_games_description':
       'Main permainan ingatan untuk meningkatkan kesihatan otak anda!',
   'calculating_brain_health_index': 'Mengira indeks kesihatan otak...',
-  'error_calculating_index': 'Ralat mengira indeks kesihatan otak',
+  'error_calculating_index': 'Ralat semasa mengira indeks kesihatan otak',
   'age': 'Umur',
   'update': 'Kemaskini',
   'points_to_next_level': 'Perlu {points} mata untuk tahap seterusnya',
@@ -145,12 +146,12 @@ const Map<String, String> msBNTranslations = {
   'inactivity_warning':
       'Anda tidak bermain selama {days} hari. Indeks anda menurun setiap hari!',
   'loading_data': 'Memuatkan data...',
-  'refresh_data': 'Segarkan data',
+  'refresh_data': 'Kemaskini data',
 
   // Login Prompt texts
   'start_tracking_brain_health': 'Mula mengesan kesihatan otak',
   'login_prompt_desc':
-      'Log masuk untuk mengesan indeks kesihatan otak anda dan melihat kemajuan anda. Tingkatkan kemahiran kognitif anda melalui permainan ingatan.',
+      'Log masuk untuk mengesan indeks kesihatan otak anda dan lihat kemajuan anda. Tingkatkan kemahiran kognitif anda melalui permainan ingatan.',
   'sign_in': 'Log masuk',
   'create_account': 'Cipta akaun',
 
@@ -158,7 +159,7 @@ const Map<String, String> msBNTranslations = {
   'user_rankings': 'Kedudukan pengguna',
   'rank': 'Kedudukan',
   'user': 'Pengguna',
-  'score': 'Skor',
+  'score': 'Mata',
   'failed_to_load_rankings': 'Gagal memuatkan kedudukan',
   'no_ranking_data': 'Tiada data kedudukan',
 
@@ -194,10 +195,10 @@ const Map<String, String> msBNTranslations = {
       'Aktiviti otak yang kerap membantu melindungi dan meningkatkan fungsi kognitif.',
   'response_time_reduction': 'Pengurangan masa tindak balas',
   'response_time_desc':
-      'Pemadanan pantas meningkatkan masa tindak balas dan kelajuan pemprosesan.',
+      'Mencari pasangan dengan pantas meningkatkan masa tindak balas dan kelajuan pemprosesan.',
   'dementia_prevention': 'Pencegahan demensia',
   'dementia_prevention_desc':
-      'Senaman otak yang kerap membantu mengurangkan risiko demensia dan kemerosotan kognitif.',
+      'Latihan otak yang kerap membantu mengurangkan risiko demensia dan kemerosotan kognitif.',
 
   // Test Page texts
   'memory_test': 'Ujian ingatan',
@@ -207,10 +208,10 @@ const Map<String, String> msBNTranslations = {
       'Uji ingatan anda dengan 10 soalan. Pilih imej yang sepadan dengan perkataan yang betul.',
   'audio_assistance': 'Bantuan audio',
   'audio_assistance_desc':
-      'Klik ikon audio untuk mendengar perkataan yang betul. Audio dimainkan dalam bahasa yang dipilih.',
+      'Sentuh ikon audio untuk mendengar perkataan yang betul. Audio dimainkan dalam bahasa yang dipilih.',
   'question_navigation': 'Navigasi soalan',
   'question_navigation_desc':
-      'Gunakan penunjuk berangka di bahagian atas atau anak panah untuk menavigasi antara soalan.',
+      'Gunakan penunjuk berangka di bahagian atas atau butang anak panah untuk navigasi antara soalan.',
   'select_and_submit': 'Pilih dan hantar',
   'select_and_submit_desc':
       'Pilih satu imej untuk setiap soalan. Butang hantar akan muncul selepas menjawab semua soalan.',
@@ -220,7 +221,7 @@ const Map<String, String> msBNTranslations = {
   'how_to_play': 'Cara bermain',
   'start_learning': 'Mula belajar',
   'test_result': 'Keputusan ujian',
-  'your_score': 'Skor anda',
+  'your_score': 'Mata anda',
   'new_test': 'Ujian baru',
   'submit': 'Hantar'
 };

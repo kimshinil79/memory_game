@@ -1,9 +1,9 @@
-// 지부티 번역 파일
+// Comoros translation file
 
-// Djibouti Arabic translations
-const Map<String, String> arDJTranslations = {
+// Comoros Arabic translations
+const Map<String, String> arKMTranslations = {
   'select_language': 'اختر اللغة',
-  'search_language': 'ابحث عن اللغة',
+  'search_language': 'ابحث عن لغة',
   'all': 'الكل',
   'asian_languages': 'اللغات الآسيوية',
   'european_languages': 'اللغات الأوروبية',
@@ -37,7 +37,7 @@ const Map<String, String> arDJTranslations = {
   'confirm': 'تأكيد',
   'retry': 'إعادة المحاولة',
   'no_other_users': 'لم يتم العثور على مستخدمين آخرين',
-  'failed_to_load_users': 'فشل في تحميل قائمة المستخدمين',
+  'failed_to_load_users': 'فشل تحميل قائمة المستخدمين',
   'country': 'البلد',
   'level': 'المستوى',
   'unknown': 'غير معروف',
@@ -109,24 +109,24 @@ const Map<String, String> arDJTranslations = {
   'add_time_title': 'إضافة وقت',
   'add_time_desc': 'انقر على "+30s" لإضافة وقت (يكلف نقاط صحة الدماغ).',
   'multiplayer_title': 'اللعب الجماعي',
-  'multiplayer_desc': 'غير عدد اللاعبين (1-4) للعب مع الأصدقاء.',
+  'multiplayer_desc': 'قم بتغيير عدد اللاعبين (1-4) للعب مع الأصدقاء.',
   'dont_show_again': 'عدم إظهار مرة أخرى',
   'start_game': 'بدء اللعبة',
 
   // Brain Health Dashboard texts
-  'brain_health_dashboard': 'لوحة تحكم صحة الدماغ',
+  'brain_health_dashboard': 'لوحة صحة الدماغ',
   'brain_health_index_title': 'مؤشر صحة الدماغ',
   'brain_health_index_desc':
       'تابع تحسن مؤشر صحة دماغك من خلال ألعاب الذاكرة. المستويات الأعلى تساعد في الوقاية من الخرف.',
   'activity_graph_title': 'رسم بياني للنشاط',
   'activity_graph_desc':
-      'راقب كيف يتغير مؤشر صحة دماغك مع مرور الوقت على الرسم البياني.',
+      'شاهد كيف يتغير مؤشر صحة دماغك مع مرور الوقت على الرسم البياني.',
   'ranking_system_title': 'نظام التصنيف',
   'ranking_system_desc':
       'قارن مؤشر صحة دماغك مع المستخدمين الآخرين وتحقق من ترتيبك.',
   'game_statistics_title': 'إحصائيات اللعبة',
   'game_statistics_desc':
-      'اطلع على إحصائيات متنوعة مثل الألعاب التي تم لعبها والأزواج التي تم العثور عليها وأفضل الأوقات.',
+      'اطلع على إحصائيات متنوعة مثل الألعاب التي لعبتها والأزواج التي وجدتها وأفضل الأوقات.',
   'got_it': 'فهمت!',
 
   // Brain Health Dashboard additional texts
@@ -143,23 +143,23 @@ const Map<String, String> arDJTranslations = {
   'game_performance': 'أداء اللعبة',
   'persistence_bonus': 'مكافأة المثابرة',
   'inactivity_penalty': 'عقوبة عدم النشاط',
-  'inactivity_warning': 'لم تلعب منذ {days} يوماً. ينخفض مؤشرك كل يوم!',
+  'inactivity_warning': 'لم تلعب منذ {days} يوماً. مؤشرك يتناقص كل يوم!',
   'loading_data': 'جاري تحميل البيانات...',
   'refresh_data': 'تحديث البيانات',
 
   // Login Prompt texts
-  'start_tracking_brain_health': 'ابدأ في متابعة صحة دماغك',
+  'start_tracking_brain_health': 'ابدأ تتبع صحة دماغك',
   'login_prompt_desc':
-      'سجل دخولك لمتابعة مؤشر صحة دماغك ورؤية تقدمك. حسّن قدراتك المعرفية من خلال ألعاب الذاكرة.',
+      'سجل دخولك لتتبع مؤشر صحة دماغك ورؤية تقدمك. حسّن مهاراتك المعرفية من خلال ألعاب الذاكرة.',
   'sign_in': 'تسجيل الدخول',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts
   'user_rankings': 'تصنيف المستخدمين',
-  'rank': 'الترتيب',
+  'rank': 'المرتبة',
   'user': 'المستخدم',
   'score': 'النتيجة',
-  'failed_to_load_rankings': 'فشل في تحميل التصنيف',
+  'failed_to_load_rankings': 'فشل تحميل التصنيف',
   'no_ranking_data': 'لا توجد بيانات تصنيف',
 
   // Date format texts
@@ -169,7 +169,7 @@ const Map<String, String> arDJTranslations = {
   // Activity Chart texts
   'brain_health_progress': 'تقدم صحة الدماغ',
   'welcome_to_brain_health': 'مرحباً بك في صحة الدماغ!',
-  'start_playing_memory_games': 'ابدأ في لعب ألعاب الذاكرة\nلمتابعة صحة دماغك',
+  'start_playing_memory_games': 'ابدأ لعب ألعاب الذاكرة\nلتتبع صحة دماغك',
   'date_range': 'الفترة الزمنية',
   'last_7_days': 'آخر 7 أيام',
   'last_30_days': 'آخر 30 يوماً',
@@ -177,8 +177,8 @@ const Map<String, String> arDJTranslations = {
 
   // Game Statistics texts
   'game_statistics': 'إحصائيات اللعبة',
-  'games_played': 'الألعاب التي تم لعبها',
-  'matches_found': 'الأزواج التي تم العثور عليها',
+  'games_played': 'الألعاب التي لعبتها',
+  'matches_found': 'الأزواج التي وجدتها',
   'best_times': 'أفضل الأوقات',
   'no_records_yet': 'لا توجد سجلات حتى الآن',
   'grid': 'الشبكة',

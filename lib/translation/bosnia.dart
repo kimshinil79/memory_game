@@ -1,7 +1,7 @@
 // 보스니아 번역 파일
 
-// Bosnian translations
-const Map<String, String> bsTranslations = {
+// Bosnia and Herzegovina Bosnian translations
+const Map<String, String> bsBATranslations = {
   'select_language': 'Odaberi jezik',
   'search_language': 'Pretraži jezik',
   'all': 'Sve',
@@ -33,11 +33,11 @@ const Map<String, String> bsTranslations = {
   // Player Selection Dialog texts
   'select_players': 'Odaberi igrače',
   'select_up_to_3_players': 'Odaberi do 3 igrača',
-  'you_will_be_included': 'Uvijek ćeš biti uključen kao igrač',
+  'you_will_be_included': 'Uvijek si uključen kao igrač',
   'confirm': 'Potvrdi',
   'retry': 'Pokušaj ponovo',
   'no_other_users': 'Nema drugih korisnika',
-  'failed_to_load_users': 'Greška pri učitavanju liste korisnika',
+  'failed_to_load_users': 'Ne mogu učitati listu korisnika',
   'country': 'Zemlja',
   'level': 'Nivo',
   'unknown': 'Nepoznato',
@@ -46,9 +46,9 @@ const Map<String, String> bsTranslations = {
   'create_pin': 'Kreiraj PIN',
   'enter_pin_for': 'Unesi PIN za',
   'no_pin_for': 'Nema PIN-a za',
-  'create_pin_for_multiplayer': 'Kreiraj 2-znamenkasti PIN za više igrača',
-  'enter_2_digit_pin': 'Unesi 2-znamenkasti PIN',
-  'pin_is_2_digits': 'PIN mora imati 2 znamenke',
+  'create_pin_for_multiplayer': 'Kreiraj dvoznamenkasti PIN za više igrača',
+  'enter_2_digit_pin': 'Unesi dvoznamenkasti PIN',
+  'pin_is_2_digits': 'PIN mora biti dvoznamenkast',
   'wrong_pin': 'Pogrešan PIN',
 
   // Grid Selection Dialog texts
@@ -67,7 +67,7 @@ const Map<String, String> bsTranslations = {
   'female': 'Žensko',
   'select_country': 'Odaberi zemlju',
   'multi_game_pin': 'PIN za više igrača',
-  'enter_two_digit_pin': 'Unesi 2-znamenkasti PIN',
+  'enter_two_digit_pin': 'Unesi dvoznamenkasti PIN',
   'two_digit_pin_helper': 'Ovaj PIN se koristi za sesije s više igrača',
   'change_password': 'Promijeni lozinku',
   'current_password': 'Trenutna lozinka',
@@ -76,7 +76,7 @@ const Map<String, String> bsTranslations = {
   'enter_new_password': 'Unesi novu lozinku',
   'confirm_password': 'Potvrdi lozinku',
   'confirm_new_password': 'Potvrdi novu lozinku',
-  'must_be_two_digit': 'Mora imati 2 znamenke',
+  'must_be_two_digit': 'Mora biti dvoznamenkasto',
   'current_password_required': 'Potrebna je trenutna lozinka',
   'password_length_error': 'Lozinka mora imati najmanje 6 znakova',
   'passwords_do_not_match': 'Lozinke se ne podudaraju',
@@ -89,12 +89,12 @@ const Map<String, String> bsTranslations = {
   // Completion Dialog texts
   'congratulations': 'Čestitamo!',
   'winner': 'Pobjednik: {name}!',
-  'its_a_tie': 'Izjednačeno!',
-  'points_divided': 'Bodovi se dijele u slučaju izjednačenja!',
+  'its_a_tie': 'Neriješeno!',
+  'points_divided': 'Bodovi se dijele u slučaju neriješenog!',
   'time_seconds': 'Vrijeme: {seconds} sekundi',
   'flips': 'Okretanja: {count}',
   'players_score_multiplier': '({players} igrača: bodovi ×{multiplier})',
-  'points_divided_explanation': '(Bodovi se dijele u slučaju izjednačenja)',
+  'points_divided_explanation': '(Bodovi se dijele u slučaju neriješenog)',
   'health_score': 'Bodovi zdravlja mozga: +{points}',
   'new_game': 'Nova igra',
   'times_up': 'Vrijeme je isteklo!',
@@ -102,13 +102,13 @@ const Map<String, String> bsTranslations = {
   // Tutorial Overlay texts
   'memory_game_guide': 'Vodič za igru pamćenja',
   'card_selection_title': 'Odabir karata',
-  'card_selection_desc': 'Klikni na karte da pronađeš parove.',
+  'card_selection_desc': 'Dodirni karte da pronađeš parove.',
   'time_limit_title': 'Vremensko ograničenje',
   'time_limit_desc':
-      'Pronađi sve parove prije isteka vremena. Brzi parovi donose više bodova.',
+      'Pronađi sve parove prije nego što istekne vrijeme. Brži parovi donose više bodova.',
   'add_time_title': 'Dodaj vrijeme',
   'add_time_desc':
-      'Klikni na "+30s" da dodaš vrijeme (košta bodove zdravlja mozga).',
+      'Dodirni "+30s" da dodaš vrijeme (košta bodove zdravlja mozga).',
   'multiplayer_title': 'Više igrača',
   'multiplayer_desc': 'Promijeni broj igrača (1-4) da igraš s prijateljima.',
   'dont_show_again': 'Ne prikazuj ponovo',
@@ -118,7 +118,7 @@ const Map<String, String> bsTranslations = {
   'brain_health_dashboard': 'Nadzorna ploča zdravlja mozga',
   'brain_health_index_title': 'Indeks zdravlja mozga',
   'brain_health_index_desc':
-      'Prati poboljšanje svog indeksa zdravlja mozga kroz igre pamćenja. Visoki nivoi pomažu u prevenciji demencije.',
+      'Prati poboljšanje svog indeksa zdravlja mozga kroz igre pamćenja. Viši nivoi pomažu u prevenciji demencije.',
   'activity_graph_title': 'Graf aktivnosti',
   'activity_graph_desc':
       'Pogledaj kako se tvoj indeks zdravlja mozga mijenja tijekom vremena na grafu.',
@@ -162,7 +162,7 @@ const Map<String, String> bsTranslations = {
   'rank': 'Rang',
   'user': 'Korisnik',
   'score': 'Bodovi',
-  'failed_to_load_rankings': 'Greška pri učitavanju rang liste',
+  'failed_to_load_rankings': 'Ne mogu učitati rang listu',
   'no_ranking_data': 'Nema podataka o rangiranju',
 
   // Date format texts
@@ -189,18 +189,18 @@ const Map<String, String> bsTranslations = {
 
   // Benefits Section texts
   'benefits_of_brain_games': 'Prednosti igara za mozak',
-  'short_term_memory_improvement': 'Poboljšanje kratkotrajnog pamćenja',
+  'short_term_memory_improvement': 'Poboljšanje kratkoročnog pamćenja',
   'short_term_memory_desc':
-      'Igre pamćenja učinkovito poboljšavaju kratkotrajno pamćenje i kapacitet pamćenja.',
+      'Igre pamćenja učinkovito poboljšavaju kratkoročno pamćenje i kapacitet pamćenja.',
   'cognitive_function_enhancement': 'Poboljšanje kognitivnih funkcija',
   'cognitive_function_desc':
       'Redovita aktivnost mozga pomaže u zaštiti i poboljšanju kognitivnih funkcija.',
   'response_time_reduction': 'Smanjenje vremena reakcije',
   'response_time_desc':
-      'Brzo uparivanje poboljšava vrijeme reakcije i brzinu obrade.',
+      'Brzo pronalaženje parova poboljšava vrijeme reakcije i brzinu obrade.',
   'dementia_prevention': 'Prevencija demencije',
   'dementia_prevention_desc':
-      'Redovita vježba mozga pomaže u smanjenju rizika od demencije i kognitivnog pada.',
+      'Redovita vježba mozga pomaže u smanjenju rizika od demencije i kognitivnog propadanja.',
 
   // Test Page texts
   'memory_test': 'Test pamćenja',
@@ -210,20 +210,20 @@ const Map<String, String> bsTranslations = {
       'Testiraj svoje pamćenje s 10 pitanja. Odaberi sliku koja odgovara ispravnoj riječi.',
   'audio_assistance': 'Audio pomoć',
   'audio_assistance_desc':
-      'Klikni na audio ikonu da čuješ ispravnu riječ. Audio se reproducira na odabranom jeziku.',
-  'question_navigation': 'Navigacija pitanja',
+      'Dodirni audio ikonu da čuješ ispravnu riječ. Audio se reproducira na odabranom jeziku.',
+  'question_navigation': 'Navigacija pitanjima',
   'question_navigation_desc':
       'Koristi brojčane indikatore na vrhu ili strelice za navigaciju između pitanja.',
   'select_and_submit': 'Odaberi i pošalji',
   'select_and_submit_desc':
-      'Odaberi sliku za svako pitanje. Gumb za slanje pojavit će se nakon odgovora na sva pitanja.',
+      'Odaberi sliku za svako pitanje. Gumb za slanje će se pojaviti nakon odgovora na sva pitanja.',
   'results_and_progress': 'Rezultati i napredak',
   'results_and_progress_desc':
       'Nakon slanja, vidjet ćeš svoje rezultate i moći ćeš započeti novi test ako želiš.',
   'how_to_play': 'Kako igrati',
   'start_learning': 'Započni učenje',
   'test_result': 'Rezultat testa',
-  'your_score': 'Tvoj rezultat',
+  'your_score': 'Tvoji bodovi',
   'new_test': 'Novi test',
   'submit': 'Pošalji'
 };

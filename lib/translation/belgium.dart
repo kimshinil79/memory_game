@@ -102,10 +102,11 @@ const Map<String, String> nlBETranslations = {
   // Tutorial Overlay texts
   'memory_game_guide': 'Geheugenspel handleiding',
   'card_selection_title': 'Kaartselectie',
-  'card_selection_desc': 'Klik op kaarten om paren te vinden.',
+  'card_selection_desc':
+      'Klik op kaarten om ze om te draaien en paren te vinden.',
   'time_limit_title': 'Tijdslimiet',
   'time_limit_desc':
-      'Vind alle paren voordat de tijd om is. Snelle paren leveren meer punten op.',
+      'Vind alle paren binnen de tijd: hoe sneller je paren vindt, hoe meer punten je krijgt.',
   'add_time_title': 'Tijd toevoegen',
   'add_time_desc':
       'Klik op "+30s" om tijd toe te voegen (kost hersengezondheid punten).',
@@ -122,10 +123,10 @@ const Map<String, String> nlBETranslations = {
       'Volg de verbetering van je hersengezondheid index door geheugenspellen. Hoge niveaus helpen dementie te voorkomen.',
   'activity_graph_title': 'Activiteitengrafiek',
   'activity_graph_desc':
-      'Bekijk hoe je hersengezondheid index verandert in de tijd op de grafiek.',
+      'Bekijk hoe je hersengezondheid index verandert in de loop van de tijd.',
   'ranking_system_title': 'Ranglijst systeem',
   'ranking_system_desc':
-      'Vergelijk je hersengezondheid index met andere gebruikers en bekijk je positie.',
+      'Vergelijk je hersengezondheid index met andere gebruikers en bekijk je ranking.',
   'game_statistics_title': 'Spelstatistieken',
   'game_statistics_desc':
       'Bekijk verschillende statistieken zoals gespeelde spellen, gevonden paren en beste tijden.',

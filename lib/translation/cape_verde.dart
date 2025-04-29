@@ -1,7 +1,7 @@
-// 브라질 번역 파일
+// Cabo Verde translation file
 
-// Brazilian Portuguese translations
-const Map<String, String> ptBRTranslations = {
+// Cape Verde Portuguese translations
+const Map<String, String> ptCVTranslations = {
   'select_language': 'Selecionar idioma',
   'search_language': 'Pesquisar idioma',
   'all': 'Todos',
@@ -14,7 +14,7 @@ const Map<String, String> ptBRTranslations = {
   'yes': 'Sim',
   'no': 'Não',
   'save': 'Salvar',
-  'app_title': 'Jogo da memória',
+  'app_title': 'Jogo da Memória',
   'delete': 'Excluir',
   'edit': 'Editar',
   'close': 'Fechar',
@@ -26,7 +26,7 @@ const Map<String, String> ptBRTranslations = {
   'home': 'Início',
   'game': 'Jogo',
   'ranking': 'Classificação',
-  'brain_health': 'Saúde cerebral',
+  'brain_health': 'Saúde Cerebral',
   'player': 'Jogador',
   'players': 'Jogadores',
 
@@ -42,18 +42,18 @@ const Map<String, String> ptBRTranslations = {
   'level': 'Nível',
   'unknown': 'Desconhecido',
   'unknown_player': 'Jogador desconhecido',
-  'multiplayer_verification': 'Verificação multiplayer',
+  'multiplayer_verification': 'Verificação multijogador',
   'create_pin': 'Criar PIN',
   'enter_pin_for': 'Digite o PIN para',
-  'no_pin_for': 'Nenhum PIN para',
-  'create_pin_for_multiplayer': 'Crie um PIN de 2 dígitos para multiplayer',
+  'no_pin_for': 'Sem PIN para',
+  'create_pin_for_multiplayer': 'Crie um PIN de 2 dígitos para multijogador',
   'enter_2_digit_pin': 'Digite um PIN de 2 dígitos',
   'pin_is_2_digits': 'O PIN deve ter 2 dígitos',
   'wrong_pin': 'PIN incorreto',
 
   // Grid Selection Dialog texts
-  'select_grid_size': 'Selecionar tamanho da grade',
-  'choose_difficulty': 'Escolher dificuldade',
+  'select_grid_size': 'Selecione o tamanho da grade',
+  'choose_difficulty': 'Escolha a dificuldade',
   'multiplier': '×',
 
   // Profile Edit Dialog texts
@@ -66,9 +66,9 @@ const Map<String, String> ptBRTranslations = {
   'male': 'Masculino',
   'female': 'Feminino',
   'select_country': 'Selecione seu país',
-  'multi_game_pin': 'PIN multiplayer',
+  'multi_game_pin': 'PIN multijogador',
   'enter_two_digit_pin': 'Digite um PIN de 2 dígitos',
-  'two_digit_pin_helper': 'Este PIN é usado para sessões multiplayer',
+  'two_digit_pin_helper': 'Este PIN é usado para sessões multijogador',
   'change_password': 'Alterar senha',
   'current_password': 'Senha atual',
   'enter_current_password': 'Digite sua senha atual',
@@ -77,7 +77,7 @@ const Map<String, String> ptBRTranslations = {
   'confirm_password': 'Confirmar senha',
   'confirm_new_password': 'Confirmar nova senha',
   'must_be_two_digit': 'Deve ter 2 dígitos',
-  'current_password_required': 'Senha atual é necessária',
+  'current_password_required': 'Senha atual necessária',
   'password_length_error': 'A senha deve ter pelo menos 6 caracteres',
   'passwords_do_not_match': 'As senhas não coincidem',
   'incorrect_current_password': 'Senha atual incorreta',
@@ -100,35 +100,35 @@ const Map<String, String> ptBRTranslations = {
   'times_up': 'Tempo esgotado!',
 
   // Tutorial Overlay texts
-  'memory_game_guide': 'Guia do jogo da memória',
-  'card_selection_title': 'Seleção de cartas',
+  'memory_game_guide': 'Guia do Jogo da Memória',
+  'card_selection_title': 'Seleção de Cartas',
   'card_selection_desc': 'Toque nas cartas para encontrar pares.',
-  'time_limit_title': 'Limite de tempo',
+  'time_limit_title': 'Limite de Tempo',
   'time_limit_desc':
-      'Encontre todos os pares antes que o tempo acabe. Pares mais rápidos dão mais pontos.',
-  'add_time_title': 'Adicionar tempo',
+      'Encontre todos os pares antes do tempo acabar. Pares mais rápidos valem mais pontos.',
+  'add_time_title': 'Adicionar Tempo',
   'add_time_desc':
       'Toque em "+30s" para adicionar tempo (custa pontos de saúde cerebral).',
-  'multiplayer_title': 'Multiplayer',
+  'multiplayer_title': 'Multijogador',
   'multiplayer_desc':
       'Altere o número de jogadores (1-4) para jogar com amigos.',
   'dont_show_again': 'Não mostrar novamente',
   'start_game': 'Iniciar jogo',
 
   // Brain Health Dashboard texts
-  'brain_health_dashboard': 'Painel de saúde cerebral',
-  'brain_health_index_title': 'Índice de saúde cerebral',
+  'brain_health_dashboard': 'Painel de Saúde Cerebral',
+  'brain_health_index_title': 'Índice de Saúde Cerebral',
   'brain_health_index_desc':
-      'Acompanhe a melhoria do seu índice de saúde cerebral através de jogos de memória. Níveis mais altos ajudam a prevenir demência.',
-  'activity_graph_title': 'Gráfico de atividade',
+      'Acompanhe a melhoria do seu índice de saúde cerebral através dos jogos de memória. Níveis mais altos ajudam a prevenir demência.',
+  'activity_graph_title': 'Gráfico de Atividade',
   'activity_graph_desc':
       'Veja como seu índice de saúde cerebral muda ao longo do tempo no gráfico.',
-  'ranking_system_title': 'Sistema de classificação',
+  'ranking_system_title': 'Sistema de Classificação',
   'ranking_system_desc':
       'Compare seu índice de saúde cerebral com outros usuários e verifique sua posição.',
-  'game_statistics_title': 'Estatísticas do jogo',
+  'game_statistics_title': 'Estatísticas do Jogo',
   'game_statistics_desc':
-      'Veja várias estatísticas como jogos jogados, pares encontrados e melhores tempos.',
+      'Visualize várias estatísticas como jogos jogados, pares encontrados e melhores tempos.',
   'got_it': 'Entendi!',
 
   // Brain Health Dashboard additional texts
@@ -138,28 +138,28 @@ const Map<String, String> ptBRTranslations = {
   'error_calculating_index': 'Erro ao calcular índice de saúde cerebral',
   'age': 'Idade',
   'update': 'Atualizar',
-  'points_to_next_level': 'Necessários {points} pontos para o próximo nível',
+  'points_to_next_level': 'Precisa de {points} pontos para o próximo nível',
   'maximum_level_reached': 'Nível máximo atingido',
-  'index_components': 'Componentes do índice',
-  'age_factor': 'Fator idade',
-  'recent_activity': 'Atividade recente',
-  'game_performance': 'Desempenho no jogo',
-  'persistence_bonus': 'Bônus de persistência',
-  'inactivity_penalty': 'Penalidade por inatividade',
+  'index_components': 'Componentes do Índice',
+  'age_factor': 'Fator Idade',
+  'recent_activity': 'Atividade Recente',
+  'game_performance': 'Desempenho no Jogo',
+  'persistence_bonus': 'Bônus de Persistência',
+  'inactivity_penalty': 'Penalidade por Inatividade',
   'inactivity_warning':
       'Você não jogou há {days} dias. Seu índice diminui diariamente!',
   'loading_data': 'Carregando dados...',
   'refresh_data': 'Atualizar dados',
 
   // Login Prompt texts
-  'start_tracking_brain_health': 'Comece a monitorar sua saúde cerebral',
+  'start_tracking_brain_health': 'Comece a acompanhar sua saúde cerebral',
   'login_prompt_desc':
-      'Faça login para monitorar seu índice de saúde cerebral e ver seu progresso. Melhore suas habilidades cognitivas através de jogos de memória.',
+      'Faça login para acompanhar seu índice de saúde cerebral e ver seu progresso. Melhore suas habilidades cognitivas através de jogos de memória.',
   'sign_in': 'Entrar',
   'create_account': 'Criar conta',
 
   // User Rankings texts
-  'user_rankings': 'Classificação de usuários',
+  'user_rankings': 'Classificação de Usuários',
   'rank': 'Posição',
   'user': 'Usuário',
   'score': 'Pontuação',
@@ -171,60 +171,60 @@ const Map<String, String> ptBRTranslations = {
   'yesterday': 'Ontem',
 
   // Activity Chart texts
-  'brain_health_progress': 'Progresso da saúde cerebral',
+  'brain_health_progress': 'Progresso da Saúde Cerebral',
   'welcome_to_brain_health': 'Bem-vindo à Saúde Cerebral!',
   'start_playing_memory_games':
-      'Comece a jogar jogos de memória\npara monitorar sua saúde cerebral',
+      'Comece a jogar jogos de memória\npara acompanhar sua saúde cerebral',
   'date_range': 'Período',
   'last_7_days': 'Últimos 7 dias',
   'last_30_days': 'Últimos 30 dias',
   'all_time': 'Todo o tempo',
 
   // Game Statistics texts
-  'game_statistics': 'Estatísticas do jogo',
+  'game_statistics': 'Estatísticas do Jogo',
   'games_played': 'Jogos jogados',
   'matches_found': 'Pares encontrados',
   'best_times': 'Melhores tempos',
-  'no_records_yet': 'Ainda não há registros',
+  'no_records_yet': 'Nenhum registro ainda',
   'grid': 'Grade',
 
   // Benefits Section texts
-  'benefits_of_brain_games': 'Benefícios dos jogos cerebrais',
-  'short_term_memory_improvement': 'Melhoria da memória de curto prazo',
+  'benefits_of_brain_games': 'Benefícios dos Jogos Cerebrais',
+  'short_term_memory_improvement': 'Melhoria da Memória de Curto Prazo',
   'short_term_memory_desc':
-      'Jogos de memória melhoram efetivamente a memória de curto prazo e a capacidade de memória.',
-  'cognitive_function_enhancement': 'Melhoria da função cognitiva',
+      'Jogos de memória melhoram efetivamente a memória de curto prazo e a capacidade de memorização.',
+  'cognitive_function_enhancement': 'Melhoria das Funções Cognitivas',
   'cognitive_function_desc':
       'Atividade cerebral regular ajuda a proteger e melhorar as funções cognitivas.',
-  'response_time_reduction': 'Redução do tempo de resposta',
+  'response_time_reduction': 'Redução do Tempo de Resposta',
   'response_time_desc':
       'Encontrar pares rapidamente melhora o tempo de resposta e a velocidade de processamento.',
-  'dementia_prevention': 'Prevenção de demência',
+  'dementia_prevention': 'Prevenção da Demência',
   'dementia_prevention_desc':
       'Exercícios cerebrais regulares ajudam a reduzir o risco de demência e declínio cognitivo.',
 
   // Test Page texts
-  'memory_test': 'Teste de memória',
+  'memory_test': 'Teste de Memória',
   'question': 'Pergunta',
-  'visual_memory_test': 'Teste de memória visual',
+  'visual_memory_test': 'Teste de Memória Visual',
   'visual_memory_test_desc':
       'Teste sua memória com 10 perguntas. Selecione a imagem que corresponde à palavra correta.',
-  'audio_assistance': 'Assistência de áudio',
+  'audio_assistance': 'Assistência de Áudio',
   'audio_assistance_desc':
       'Toque no ícone de áudio para ouvir a palavra correta. O áudio é reproduzido no idioma selecionado.',
-  'question_navigation': 'Navegação de perguntas',
+  'question_navigation': 'Navegação de Perguntas',
   'question_navigation_desc':
       'Use os indicadores numéricos no topo ou os botões de seta para navegar entre as perguntas.',
-  'select_and_submit': 'Selecionar e enviar',
+  'select_and_submit': 'Selecionar e Enviar',
   'select_and_submit_desc':
       'Selecione uma imagem para cada pergunta. O botão de envio aparecerá após responder todas as perguntas.',
-  'results_and_progress': 'Resultados e progresso',
+  'results_and_progress': 'Resultados e Progresso',
   'results_and_progress_desc':
-      'Após enviar, você verá seus resultados e poderá iniciar um novo teste se desejar.',
-  'how_to_play': 'Como jogar',
-  'start_learning': 'Começar aprendizado',
-  'test_result': 'Resultado do teste',
-  'your_score': 'Sua pontuação',
-  'new_test': 'Novo teste',
+      'Após o envio, você verá seus resultados e poderá iniciar um novo teste se desejar.',
+  'how_to_play': 'Como Jogar',
+  'start_learning': 'Começar a Aprender',
+  'test_result': 'Resultado do Teste',
+  'your_score': 'Sua Pontuação',
+  'new_test': 'Novo Teste',
   'submit': 'Enviar'
 };

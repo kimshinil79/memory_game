@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../translation/algeria.dart'; // 알제리 번역 파일 가져오기
 import '../translation/en.dart'; // 영어 번역 파일 가져오기
 import '../translation/afghanistan.dart'; // 아프가니스탄 번역 파일 가져오기
 import '../translation/afrikaans.dart'; // 아프리칸스어 번역 파일 가져오기
+import '../translation/arabic.dart'; // 아랍어 번역 파일 가져오기
 import '../translation/south_korea.dart'; // 대한민국 번역 파일 가져오기
 import '../translation/uganda.dart'; // 우간다 번역 파일 가져오기
 import '../translation/trinidad.dart'; // 트리니다드 토바고 번역 파일 가져오기
@@ -23,7 +25,6 @@ import '../translation/ukraine.dart'; // 우크라이나 번역 파일 가져오
 import '../translation/united_arab_emirates.dart'; // 아랍에미리트 번역 파일 가져오기
 import '../translation/united_kingdom.dart'; // 영국 번역 파일 가져오기
 import '../translation/united_states.dart'; // 미국 번역 파일 가져오기
-import '../translation/uruguay.dart'; // 우루과이 번역 파일 가져오기
 import '../translation/uzbekistan.dart'; // 우즈베키스탄 번역 파일 가져오기
 import '../translation/vanuatu.dart'; // 바누아투 번역 파일 가져오기
 import '../translation/vietnam.dart'; // 베트남 번역 파일 가져오기
@@ -60,21 +61,16 @@ import '../translation/namibia.dart'; // 나미비아 번역 파일 가져오기
 import '../translation/nepal.dart'; // 네팔 번역 파일 가져오기
 import '../translation/netherlands.dart'; // 네덜란드 번역 파일 가져오기
 import '../translation/new_zealand.dart'; // 뉴질랜드 번역 파일 가져오기
-import '../translation/nicaragua.dart'; // 니카라과 번역 파일 가져오기
 import '../translation/nigeria.dart'; // 나이지리아 번역 파일 가져오기
 import '../translation/north_korea.dart'; // 북한 번역 파일 가져오기
 import '../translation/north_macedonia.dart'; // 북마케도니아 번역 파일 가져오기
 import '../translation/norway.dart'; // 노르웨이 번역 파일 가져오기
 import '../translation/oman.dart'; // 오만 번역 파일 가져오기
 import '../translation/pakistan.dart'; // 파키스탄 번역 파일 가져오기
-import '../translation/panama.dart'; // 파나마 번역 파일 가져오기
 import '../translation/papua_new_guinea.dart'; // 파푸아뉴기니 번역 파일 가져오기
-import '../translation/paraguay.dart'; // 파라과이 번역 파일 가져오기
-import '../translation/peru.dart'; // 페루 번역 파일 가져오기
 import '../translation/philippines.dart'; // 필리핀 번역 파일 가져오기
 import '../translation/poland.dart'; // 폴란드 번역 파일 가져오기
 import '../translation/portugal.dart'; // 포르투갈 번역 파일 가져오기
-import '../translation/puerto_rico.dart'; // 푸에르토리코 번역 파일 가져오기
 import '../translation/qatar.dart'; // 카타르 번역 파일 가져오기
 import '../translation/romania.dart'; // 루마니아 번역 파일 가져오기
 import '../translation/russia.dart'; // 러시아 번역 파일 가져오기
@@ -91,6 +87,46 @@ import '../translation/slovenia.dart'; // 슬로베니아 번역 파일 가져�
 import '../translation/somalia.dart'; // 소말리아 번역 파일 가져오기
 import '../translation/south_africa.dart'; // 남아프리카공화국 번역 파일 가져오기
 import '../translation/france.dart'; // 프랑스 번역 파일 가져오기
+import '../translation/cyprus.dart'; // 키프로스 번역 파일 가져오기
+import '../translation/denmark.dart'; // 덴마크 번역 파일 가져오기
+import '../translation/madagascar.dart'; // 마다가스카르 번역 파일 가져오기
+import '../translation/mali.dart'; // 말리 번역 파일 가져오기
+import '../translation/palau.dart'; // 팔라우 번역 파일 가져오기
+import '../translation/iran.dart'; // 이란 번역 파일 가져오기
+import '../translation/iceland.dart'; // 아이슬란드 번역 파일 가져오기
+import '../translation/malawi.dart'; // 말라위 번역 파일 가져오기
+import '../translation/kuwait.dart'; // 쿠웨이트 번역 파일 가져오기
+import '../translation/liberia.dart'; // 라이베리아 번역 파일 가져오기
+import '../translation/macau.dart'; // 마카오 번역 파일 가져오기
+import '../translation/nauru.dart'; // 나우루 번역 파일 가져오기
+import '../translation/moldova.dart'; // 몰도바 번역 파일 가져오기
+import '../translation/micronesia.dart'; // 미크로네시아 번역 파일 가져오기
+import '../translation/marshall_islands.dart'; // 마셜 제도 번역 파일 가져오기
+import '../translation/jamaica.dart'; // 자메이카 번역 파일 가져오기
+import '../translation/sierra_leone.dart'; // 시에라리온 번역 파일 가져오기
+import '../translation/solomon_islands.dart'; // 솔로몬 제도 번역 파일 가져오기
+import '../translation/austria.dart'; // 오스트리아 번역 파일 가져오기
+import '../translation/armenia.dart'; // 아르메니아 번역 파일 가져오기
+import '../translation/azerbaijan.dart'; // 아제르바이잔 번역 파일 가져오기
+import '../translation/bosnia.dart'; // 보스니아 헤르체고비나 번역 파일 가져오기
+import '../translation/bhutan.dart'; // 부탄 번역 파일 가져오기
+import '../translation/norway.dart'; // 노르웨이 번역 파일 가져오기
+import '../translation/estonia.dart'; // 에스토니아 번역 파일 가져오기
+import '../translation/finland.dart'; // 핀란드 번역 파일 가져오기
+import '../translation/greece.dart'; // 그리스 번역 파일 가져오기
+import '../translation/croatia.dart'; // 크로아티아 번역 파일 가져오기
+import '../translation/hungary.dart'; // 헝가리 번역 파일 가져오기
+import '../translation/sweden.dart'; // 스웨덴 번역 파일 가져오기
+import '../translation/georgia.dart'; // 조지아 번역 파일 가져오기
+import '../translation/albania.dart'; // 알바니아 번역 파일 가져오기
+import '../translation/germany.dart'; // 독일 번역 파일 가져오기
+import '../translation/china.dart'; // 중국 번역 파일 가져오기
+import '../translation/danish.dart'; // 덴마크 번역 파일 가져오기
+import '../translation/belarus.dart'; // 벨라루스 번역 파일 가져오기
+import '../translation/botswana.dart'; // 보츠와나 번역 파일 가져오기
+import '../translation/burundi.dart'; // 부룬디 번역 파일 가져오기
+import '../translation/eritrea.dart'; // 에리트레아 번역 파일 가져오기
+import '../translation/andorra.dart'; // 안도라 번역 파일 가져오기
 
 class LanguageProvider with ChangeNotifier {
   // 음성 언어 설정 (기존 currentLanguage) - 카드 뒤집을 때 음성 선택용
@@ -211,6 +247,77 @@ class LanguageProvider with ChangeNotifier {
     'YE': 'ar-YE', // 예멘 (아랍어)
     'ZM': 'en-ZM', // 잠비아 (영어)
     'ZW': 'en-ZW', // 짐바브웨 (영어)
+
+    // 새로 추가된 국가들
+    'AO': 'pt-AO', // 앙골라 (포르투갈어)
+    'AG': 'en-AG', // 앤티가 바부다 (영어)
+    'AR': 'es-AR', // 아르헨티나 (스페인어)
+    'AM': 'hy-AM', // 아르메니아 (아르메니아어)
+    'AU': 'en-AU', // 오스트레일리아 (영어)
+    'AT': 'de-AT', // 오스트리아 (독일어)
+    'AZ': 'az-AZ', // 아제르바이잔 (아제르바이잔어)
+    'BS': 'en-BS', // 바하마 (영어)
+    'BH': 'ar-BH', // 바레인 (아랍어)
+    'BB': 'en-BB', // 바베이도스 (영어)
+    'BY': 'be-BY', // 벨라루스 (벨라루스어)
+    'BE': 'nl-BE', // Belgium (Dutch)
+    'BZ': 'en-BZ', // 벨리즈 (영어)
+    'BJ': 'fr-BJ', // 베냉 (프랑스어)
+    'BT': 'dz-BT', // 부탄 (종카어)
+    'BO': 'es-BO', // 볼리비아 (스페인어)
+    'BA': 'bs-BA', // 보스니아 헤르체고비나 (보스니아어)
+    'BW': 'tn-BW', // 보츠와나 (영어)
+    'BR': 'pt-BR', // 브라질 (포르투갈어)
+    'BN': 'ms-BN', // 브루나이 (말레이어)
+    'BF': 'fr-BF', // 부르키나파소 (프랑스어)
+    'BI': 'rn-BI', // Burundi (Kirundi, French)
+    'CM': 'fr-CM', // 카메룬 (프랑스어)
+    'CA': 'en-CA', // 캐나다 (영어)
+    'CV': 'pt-CV', // 카보베르데 (포르투갈어)
+    'CF': 'fr-CF', // 중앙아프리카공화국 (프랑스어)
+    'TD': 'fr-TD', // 차드 (프랑스어)
+    'CL': 'es-CL', // 칠레 (스페인어)
+    'CO': 'es-CO', // 콜롬비아 (스페인어)
+    'KM': 'ar-KM', // 코모로 (아랍어)
+    'CG': 'fr-CG', // 콩고 (프랑스어)
+    'CR': 'es-CR', // 코스타리카 (스페인어)
+    'CU': 'es-CU', // 쿠바 (스페인어)
+    'DJ': 'ar-DJ', // 지부티 (아랍어)
+    'DM': 'en-DM', // 도미니카 (영어)
+    'DO': 'es-DO', // 도미니카 공화국 (스페인어)
+    'EC': 'es-EC', // 에콰도르 (스페인어)
+    'SV': 'es-SV', // 엘살바도르 (스페인어)
+    'GQ': 'es-GQ', // 적도기니 (스페인어)
+    'ER': 'ti-ER', // 에리트레아 (티그리냐어)
+    'EE': 'et-EE', // 에스토니아 (에스토니아어)
+    'FJ': 'en-FJ', // 피지 (영어)
+    'GA': 'fr-GA', // 가봉 (프랑스어)
+    'GM': 'en-GM', // 감비아 (영어)
+    'GE': 'ka-GE', // 조지아 (조지아어)
+    'GH': 'en-GH', // 가나 (영어)
+    'GD': 'en-GD', // 그레나다 (영어)
+    'GT': 'es-GT', // 과테말라 (스페인어)
+    'GN': 'fr-GN', // 기니 (프랑스어)
+    'GW': 'pt-GW', // 기니비사우 (포르투갈어)
+    'GY': 'en-GY', // 가이아나 (영어)
+    'HT': 'fr-HT', // 아이티 (프랑스어)
+    'HN': 'es-HN', // 온두라스 (스페인어)
+    'IE': 'en-IE', // 아일랜드 (영어)
+    'IQ': 'ar-IQ', // 이라크 (아랍어)
+    'KI': 'en-KI', // 키리바시 (영어)
+    'KP': 'ko-KP', // 북한 (한국어)
+    'KN': 'en-KN', // 세인트키츠 네비스 (영어)
+    'LC': 'en-LC', // 세인트루시아 (영어)
+    'VC': 'en-VC', // 세인트빈센트 그레나딘 (영어)
+    'WS': 'en-WS', // 사모아 (영어)
+    'SM': 'it-SM', // 산마리노 (이탈리아어)
+    'ST': 'pt-ST', // 상투메 프린시페 (포르투갈어)
+    'SC': 'en-SC', // 세이셸 (영어)
+    'SS': 'en-SS', // 남수단 (영어)
+    'SR': 'nl-SR', // 수리남 (네덜란드어)
+    'SZ': 'en-SZ', // 에스와티니 (영어)
+    'CH': 'de-CH', // 스위스 (독일어)
+    'VA': 'it-VA', // 바티칸 시국 (이탈리아어)
   };
 
   LanguageProvider() {
@@ -380,9 +487,19 @@ class LanguageProvider with ChangeNotifier {
       return afTranslations;
     }
 
+    // 에티오피아 번역
+    if (languageCode == 'am-ET') {
+      return amTranslations;
+    }
+
     // 아프리칸스어 번역
     if (languageCode == 'af-ZA') {
       return afkTranslations;
+    }
+
+    //알바니아 번역
+    if (languageCode == 'sq-AL') {
+      return sqTranslations;
     }
 
     // 한국어 번역
@@ -400,14 +517,32 @@ class LanguageProvider with ChangeNotifier {
       return enTTTranslations;
     }
 
+    if (languageCode == 'ca-AD') {
+      return caADTranslations;
+    }
+
     // 토고 번역 (프랑스어)
     if (languageCode == 'fr-TG') {
       return frTGTranslations;
     }
 
+    //중국 번역 (중국어)
+    if (languageCode == 'zh-CN') {
+      return zhCNTranslations;
+    }
+
+    if (languageCode == 'ar-DZ') {
+      return arDZTranslations;
+    }
+
     // 통가 번역 (통가어)
     if (languageCode == 'to-TO') {
       return toTOTranslations;
+    }
+
+    // 핀란드 번역 (핀란드어)
+    if (languageCode == 'fi-FI') {
+      return fiTranslations;
     }
 
     // 일본 번역 (일본어)
@@ -438,6 +573,11 @@ class LanguageProvider with ChangeNotifier {
     // 스리랑카 타밀어 번역
     if (languageCode == 'ta-LK') {
       return taLKTranslations;
+    }
+
+    //독일 번역 (독일어)
+    if (languageCode == 'de-DE') {
+      return deDETranslations;
     }
 
     // 수단 번역 (아랍어)
@@ -492,7 +632,7 @@ class LanguageProvider with ChangeNotifier {
 
     // 우루과이 번역 (스페인어)
     if (languageCode == 'es-UY') {
-      return esUYTranslations;
+      return esTranslations;
     }
 
     // 우즈베키스탄 번역 (우즈베크어)
@@ -503,6 +643,11 @@ class LanguageProvider with ChangeNotifier {
     // 바누아투 번역 (비슬라마어)
     if (languageCode == 'bi-VU') {
       return biVUTranslations;
+    }
+
+    //스웨덴 번역 (스웨덴어)
+    if (languageCode == 'sv-SE') {
+      return svSETranslations;
     }
 
     // 베트남 번역 (베트남어)
@@ -600,6 +745,16 @@ class LanguageProvider with ChangeNotifier {
       return msTranslations;
     }
 
+    //크로아티아 번역 (크로아티아어)
+    if (languageCode == 'hr-HR') {
+      return hrTranslations;
+    }
+
+    //헝가리 번역 (헝가리어)
+    if (languageCode == 'hu-HU') {
+      return huTranslations;
+    }
+
     // 몰디브 번역 (디베히어)
     if (languageCode == 'dv-MV') {
       return dvTranslations;
@@ -667,7 +822,7 @@ class LanguageProvider with ChangeNotifier {
 
     // 니카라과 번역 (스페인어)
     if (languageCode == 'es-NI') {
-      return esNITranslations;
+      return esTranslations;
     }
 
     // 나이지리아 번역 (영어)
@@ -681,7 +836,7 @@ class LanguageProvider with ChangeNotifier {
     }
 
     // 노르웨이 번역 (노르웨이어)
-    if (languageCode == 'nn-NO') {
+    if (languageCode == 'no-NO') {
       return nnNOTranslations;
     }
 
@@ -697,7 +852,7 @@ class LanguageProvider with ChangeNotifier {
 
     // 파나마 번역 (스페인어)
     if (languageCode == 'es-PA') {
-      return esPATranslations;
+      return esTranslations;
     }
 
     // 파푸아뉴기니 번역 (영어)
@@ -707,12 +862,12 @@ class LanguageProvider with ChangeNotifier {
 
     // 파라과이 번역 (스페인어)
     if (languageCode == 'es-PY') {
-      return esPYTranslations;
+      return esTranslations;
     }
 
     // 페루 번역 (스페인어)
     if (languageCode == 'es-PE') {
-      return esPETranslations;
+      return esTranslations;
     }
 
     // 필리핀 번역 (필리핀어)
@@ -732,7 +887,7 @@ class LanguageProvider with ChangeNotifier {
 
     // 푸에르토리코 번역 (스페인어)
     if (languageCode == 'es-PR') {
-      return esPRTranslations;
+      return esTranslations;
     }
 
     if (languageCode == 'fr-FR') {
@@ -812,6 +967,441 @@ class LanguageProvider with ChangeNotifier {
     // 남아프리카공화국 번역 (아프리칸스어)
     if (languageCode == 'af-ZA') {
       return afkTranslations;
+    }
+
+    // 키프로스 번역 (그리스어)
+    if (languageCode == 'el-CY') {
+      return elGRTranslations; //
+    }
+
+    // 덴마크 번역 (덴마크어)
+    if (languageCode == 'da-DK') {
+      return daTranslations; //
+    }
+
+    // 마다가스카르 번역 (말라가시어)
+    if (languageCode == 'mg-MG') {
+      return mgTranslations; //
+    }
+
+    // 말리 번역 (프랑스어)
+    if (languageCode == 'fr-ML') {
+      return frTranslations; //
+    }
+
+    // 팔라우 번역 (영어)
+    if (languageCode == 'en-PW') {
+      return enTranslations; //
+    }
+
+    // 이란 번역 (페르시아어)
+    if (languageCode == 'fa-IR') {
+      return faTranslations; // 아직 구현되지 않음
+    }
+
+    // 아이슬란드 번역 (아이슬란드어)
+    if (languageCode == 'is-IS') {
+      return isISTranslations;
+    }
+
+    // 말라위 번역 (영어)
+    if (languageCode == 'en-MW') {
+      return enTranslations; //
+    }
+
+    // 쿠웨이트 번역 (아랍어)
+    if (languageCode == 'ar-KW') {
+      return arTranslations; //
+    }
+
+    // 라이베리아 번역 (영어)
+    if (languageCode == 'en-LR') {
+      return enTranslations; //
+    }
+
+    // 마카오 번역 (중국어)
+    if (languageCode == 'zh-MO') {
+      return zhCNTranslations; //
+    }
+
+    // 나우루 번역 (영어)
+    if (languageCode == 'en-NR') {
+      return enTranslations; //
+    }
+
+    // 몰도바 번역 (루마니아어)
+    if (languageCode == 'ro-MD') {
+      return roROTranslations; //
+    }
+
+    // 미크로네시아 번역 (영어)
+    if (languageCode == 'en-FM') {
+      return enTranslations; //
+    }
+
+    // 마셜 제도 번역 (영어)
+    if (languageCode == 'en-MH') {
+      return enTranslations; // 아직 구현되지 않음
+    }
+
+    // 자메이카 번역 (영어)
+    if (languageCode == 'en-JM') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 시에라리온 번역 (영어)
+    if (languageCode == 'en-SL') {
+      return enTranslations; // 아직 구현되지 않음
+    }
+
+    // 솔로몬 제도 번역 (영어)
+    if (languageCode == 'en-SB') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 앙골라 번역 (포르투갈어)
+    if (languageCode == 'pt-AO') {
+      return ptPTTranslations; // 포르투갈어 번역 재사용
+    }
+
+    // 앤티가 바부다 번역 (영어)
+    if (languageCode == 'en-AG') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 아르헨티나 번역 (스페인어)
+    if (languageCode == 'es-AR') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 아르메니아 번역 (아르메니아어)
+    if (languageCode == 'hy-AM') {
+      return amTranslations;
+    }
+
+    // 오스트레일리아 번역 (영어)
+    if (languageCode == 'en-AU') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 오스트리아 번역 (독일어)
+    if (languageCode == 'de-AT') {
+      return deATTranslations; // 독일어 번역 재사용
+    }
+
+    // 아제르바이잔 번역 (아제르바이잔어)
+    if (languageCode == 'az-AZ') {
+      return azTranslations;
+    }
+
+    // 바하마 번역 (영어)
+    if (languageCode == 'en-BS') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 바레인 번역 (아랍어)
+    if (languageCode == 'ar-BH') {
+      return arSATranslations; // 아랍어 번역 재사용
+    }
+
+    // 바베이도스 번역 (영어)
+    if (languageCode == 'en-BB') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 벨라루스 번역 (벨라루스어)
+    if (languageCode == 'be-BY') {
+      return beTranslations; //
+    }
+
+    // 벨기에 번역 (네덜란드어)
+    if (languageCode == 'nl-BE') {
+      return nlTranslations; // 네덜란드어 번역 재사용
+    }
+
+    // 벨리즈 번역 (영어)
+    if (languageCode == 'en-BZ') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 베냉 번역 (프랑스어)
+    if (languageCode == 'fr-BJ') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 부탄 번역 (종카어)
+    if (languageCode == 'dz-BT') {
+      return dzTranslations;
+    }
+
+    // 볼리비아 번역 (스페인어)
+    if (languageCode == 'es-BO') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 보스니아 헤르체고비나 번역 (보스니아어)
+    if (languageCode == 'bs-BA') {
+      return bsBATranslations;
+    }
+
+    // 보츠와나 번역 (세츠와나어)
+    if (languageCode == 'tn-BW') {
+      return tnTranslations;
+    }
+
+    // 브라질 번역 (포르투갈어)
+    if (languageCode == 'pt-BR') {
+      return ptPTTranslations; // 포르투갈어 번역 재사용
+    }
+
+    // 브루나이 번역 (말레이어)
+    if (languageCode == 'ms-BN') {
+      return msTranslations; // 말레이어 번역 재사용
+    }
+
+    // 부르키나파소 번역 (프랑스어)
+    if (languageCode == 'fr-BF') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 부룬디 번역 (키룬디어)
+    if (languageCode == 'rn-BI') {
+      return rnTranslations; // 아직 구현되지 않음
+    }
+
+    // 카메룬 번역 (프랑스어)
+    if (languageCode == 'fr-CM') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 캐나다 번역 (영어)
+    if (languageCode == 'en-CA') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 캐나다 번역 (프랑스어)
+    if (languageCode == 'fr-CA') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 카보베르데 번역 (포르투갈어)
+    if (languageCode == 'pt-CV') {
+      return ptPTTranslations; // 포르투갈어 번역 재사용
+    }
+
+    // 중앙아프리카공화국 번역 (프랑스어)
+    if (languageCode == 'fr-CF') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 차드 번역 (프랑스어)
+    if (languageCode == 'fr-TD') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 칠레 번역 (스페인어)
+    if (languageCode == 'es-CL') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 콜롬비아 번역 (스페인어)
+    if (languageCode == 'es-CO') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 코모로 번역 (아랍어)
+    if (languageCode == 'ar-KM') {
+      return arSATranslations; // 아랍어 번역 재사용
+    }
+
+    // 콩고 번역 (프랑스어)
+    if (languageCode == 'fr-CG') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 코스타리카 번역 (스페인어)
+    if (languageCode == 'es-CR') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 쿠바 번역 (스페인어)
+    if (languageCode == 'es-CU') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 지부티 번역 (아랍어)
+    if (languageCode == 'ar-DJ') {
+      return arSATranslations; // 아랍어 번역 재사용
+    }
+
+    // 도미니카 번역 (영어)
+    if (languageCode == 'en-DM') {
+      return enTranslations; // 도미니카 영어 번역
+    }
+
+    // 도미니카 공화국 번역 (스페인어)
+    if (languageCode == 'es-DO') {
+      return esESTranslations; // 도미니카 공화국 스페인어 번역
+    }
+
+    // 에콰도르 번역 (스페인어)
+    if (languageCode == 'es-EC') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 엘살바도르 번역 (스페인어)
+    if (languageCode == 'es-SV') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 적도기니 번역 (스페인어)
+    if (languageCode == 'es-GQ') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 에리트레아 번역 (티그리냐어)
+    if (languageCode == 'ti-ER') {
+      return tiERTranslations; // 아직 구현되지 않음
+    }
+
+    // 에스토니아 번역 (에스토니아어)
+    if (languageCode == 'et-EE') {
+      return etTranslations; // 아직 구현되지 않음
+    }
+
+    // 피지 번역 (영어)
+    if (languageCode == 'en-FJ') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 가봉 번역 (프랑스어)
+    if (languageCode == 'fr-GA') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 감비아 번역 (영어)
+    if (languageCode == 'en-GM') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 조지아 번역 (조지아어)
+    if (languageCode == 'ka-GE') {
+      return kaGETranslations;
+    }
+
+    //그리스 번역 (그리스어)
+    if (languageCode == 'el-GR') {
+      return elGRTranslations;
+    }
+
+    // 가나 번역 (영어)
+    if (languageCode == 'en-GH') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 그레나다 번역 (영어)
+    if (languageCode == 'en-GD') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 과테말라 번역 (스페인어)
+    if (languageCode == 'es-GT') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 기니 번역 (프랑스어)
+    if (languageCode == 'fr-GN') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 기니비사우 번역 (포르투갈어)
+    if (languageCode == 'pt-GW') {
+      return ptPTTranslations; // 포르투갈어 번역 재사용
+    }
+
+    // 가이아나 번역 (영어)
+    if (languageCode == 'en-GY') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 아이티 번역 (프랑스어)
+    if (languageCode == 'fr-HT') {
+      return frTranslations; // 프랑스어 번역 재사용
+    }
+
+    // 온두라스 번역 (스페인어)
+    if (languageCode == 'es-HN') {
+      return esESTranslations; // 스페인어 번역 재사용
+    }
+
+    // 아일랜드 번역 (영어)
+    if (languageCode == 'en-IE') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 이라크 번역 (아랍어)
+    if (languageCode == 'ar-IQ') {
+      return arSATranslations; // 아랍어 번역 재사용
+    }
+
+    // 키리바시 번역 (영어)
+    if (languageCode == 'en-KI') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 세인트키츠 네비스 번역 (영어)
+    if (languageCode == 'en-KN') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 세인트루시아 번역 (영어)
+    if (languageCode == 'en-LC') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 세인트빈센트 그레나딘 번역 (영어)
+    if (languageCode == 'en-VC') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 사모아 번역 (영어)
+    if (languageCode == 'en-WS') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 산마리노 번역 (이탈리아어)
+    if (languageCode == 'it-SM') {
+      return itTranslations; // 이탈리아어 번역 재사용
+    }
+
+    // 상투메 프린시페 번역 (포르투갈어)
+    if (languageCode == 'pt-ST') {
+      return ptPTTranslations; // 포르투갈어 번역 재사용
+    }
+
+    // 세이셸 번역 (영어)
+    if (languageCode == 'en-SC') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 남수단 번역 (영어)
+    if (languageCode == 'en-SS') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 수리남 번역 (네덜란드어)
+    if (languageCode == 'nl-SR') {
+      return nlTranslations; // 네덜란드어 번역 재사용
+    }
+
+    // 에스와티니 번역 (영어)
+    if (languageCode == 'en-SZ') {
+      return enTranslations; // 영어 번역 재사용
+    }
+
+    // 바티칸 시국 번역 (이탈리아어)
+    if (languageCode == 'it-VA') {
+      return itTranslations; // 이탈리아어 번역 재사용
     }
 
     // 기본값은 영어 번역 반환

@@ -1,13 +1,13 @@
 // 바레인 번역 파일
 
 // Arabic (Bahrain) translations
-const Map<String, String> arBHTranslations = {
+const Map<String, String> arBHtranslations = {
   'select_language': 'اختر اللغة',
   'search_language': 'ابحث عن اللغة',
   'all': 'الكل',
   'asian_languages': 'اللغات الآسيوية',
   'european_languages': 'اللغات الأوروبية',
-  'middle_eastern_languages': 'اللغات الشرق أوسطية',
+  'middle_eastern_languages': 'لغات الشرق الأوسط',
   'african_languages': 'اللغات الأفريقية',
   'cancel': 'إلغاء',
   'ok': 'موافق',
@@ -32,12 +32,12 @@ const Map<String, String> arBHTranslations = {
 
   // Player Selection Dialog texts
   'select_players': 'اختر اللاعبين',
-  'select_up_to_3_players': 'اختر حتى 3 لاعبين',
-  'you_will_be_included': 'ستكون دائماً أحد اللاعبين',
+  'select_up_to_3_players': 'اختر حتى 3 لاعبين إضافيين',
+  'you_will_be_included': 'ستكون دائماً مشاركاً كلاعب',
   'confirm': 'تأكيد',
   'retry': 'إعادة المحاولة',
   'no_other_users': 'لم يتم العثور على مستخدمين آخرين',
-  'failed_to_load_users': 'فشل في تحميل قائمة المستخدمين',
+  'failed_to_load_users': 'فشل تحميل قائمة المستخدمين',
   'country': 'البلد',
   'level': 'المستوى',
   'unknown': 'غير معروف',
@@ -59,13 +59,13 @@ const Map<String, String> arBHTranslations = {
   // Profile Edit Dialog texts
   'edit_profile': 'تعديل الملف الشخصي',
   'nickname': 'الاسم المستعار',
-  'enter_nickname': 'أدخل الاسم المستعار',
+  'enter_nickname': 'أدخل اسمك المستعار',
   'birthday': 'تاريخ الميلاد',
-  'select_birthday': 'اختر تاريخ الميلاد',
+  'select_birthday': 'اختر تاريخ ميلادك',
   'gender': 'الجنس',
   'male': 'ذكر',
   'female': 'أنثى',
-  'select_country': 'اختر البلد',
+  'select_country': 'اختر بلدك',
   'multi_game_pin': 'رمز PIN للعب الجماعي',
   'enter_two_digit_pin': 'أدخل رمز PIN مكون من رقمين',
   'two_digit_pin_helper': 'يستخدم هذا الرمز في جلسات اللعب الجماعي',
@@ -84,7 +84,7 @@ const Map<String, String> arBHTranslations = {
   'error_changing_password': 'خطأ في تغيير كلمة المرور',
   'error': 'خطأ',
   'sign_out': 'تسجيل الخروج',
-  'random_shake': 'خلط البطاقات!!',
+  'random_shake': 'اخلط البطاقات!',
 
   // Completion Dialog texts
   'congratulations': 'تهانينا!',
@@ -102,15 +102,14 @@ const Map<String, String> arBHTranslations = {
   // Tutorial Overlay texts
   'memory_game_guide': 'دليل لعبة الذاكرة',
   'card_selection_title': 'اختيار البطاقات',
-  'card_selection_desc':
-      'انقر على البطاقات لقلبها والعثور على الأزواج المتطابقة.',
+  'card_selection_desc': 'انقر على البطاقات لقلبها والعثور على الأزواج:',
   'time_limit_title': 'الحد الزمني',
   'time_limit_desc':
-      'اعثر على جميع الأزواج قبل انتهاء الوقت. المطابقة السريعة تكسب المزيد من النقاط.',
-  'add_time_title': 'إضافة الوقت',
-  'add_time_desc': 'انقر على زر "+30s" لإضافة الوقت (يكلف نقاط صحة الدماغ).',
+      'اعثر على جميع الأزواج في الوقت المحدد: كلما وجدت الأزواج بشكل أسرع، زادت نقاطك:',
+  'add_time_title': 'إضافة وقت',
+  'add_time_desc': 'انقر على "+30s" لإضافة وقت (يكلف نقاط صحة الدماغ):',
   'multiplayer_title': 'اللعب الجماعي',
-  'multiplayer_desc': 'غير عدد اللاعبين (1-4) للعب مع الأصدقاء.',
+  'multiplayer_desc': 'غير عدد اللاعبين (1-4) للعب مع الأصدقاء:',
   'dont_show_again': 'لا تظهر مرة أخرى',
   'start_game': 'ابدأ اللعبة',
 
@@ -118,16 +117,16 @@ const Map<String, String> arBHTranslations = {
   'brain_health_dashboard': 'لوحة تحكم صحة الدماغ',
   'brain_health_index_title': 'مؤشر صحة الدماغ',
   'brain_health_index_desc':
-      'تتبع تحسن مؤشر صحة دماغك من خلال ألعاب الذاكرة. المستويات الأعلى تساعد في الوقاية من الخرف.',
+      'تتبع درجة صحة دماغك من خلال ألعاب الذاكرة: المستويات الأعلى تزيد من الوقاية من الخرف:',
   'activity_graph_title': 'رسم بياني للنشاط',
   'activity_graph_desc':
-      'عرض تغيرات مؤشر صحة دماغك بمرور الوقت من خلال الرسم البياني.',
+      'شاهد كيف تتغير درجة صحة دماغك مع مرور الوقت من خلال الرسم البياني:',
   'ranking_system_title': 'نظام التصنيف',
   'ranking_system_desc':
-      'قارن مؤشر صحة دماغك مع المستخدمين الآخرين وتحقق من موقعك.',
+      'قارن درجة صحة دماغك مع المستخدمين الآخرين وتحقق من تصنيفك:',
   'game_statistics_title': 'إحصائيات اللعبة',
   'game_statistics_desc':
-      'راجع إحصائيات متنوعة مثل الألعاب التي تم لعبها والمطابقات التي تم العثور عليها وأفضل الأوقات.',
+      'تحقق من إحصائيات متنوعة مثل الألعاب التي تم لعبها والأزواج التي تم العثور عليها وأفضل الأوقات:',
   'got_it': 'فهمت!',
 
   // Brain Health Dashboard additional texts
@@ -144,14 +143,14 @@ const Map<String, String> arBHTranslations = {
   'game_performance': 'أداء اللعبة',
   'persistence_bonus': 'مكافأة المثابرة',
   'inactivity_penalty': 'عقوبة عدم النشاط',
-  'inactivity_warning': 'لم تلعب لمدة {days} أيام. ينخفض مؤشرك يومياً!',
+  'inactivity_warning': 'لم تلعب لمدة {days} يوم: تنخفض درجتك يومياً!',
   'loading_data': 'جاري تحميل البيانات...',
   'refresh_data': 'تحديث البيانات',
 
   // Login Prompt texts
   'start_tracking_brain_health': 'ابدأ تتبع صحة دماغك',
   'login_prompt_desc':
-      'سجل الدخول لتتبع مؤشر صحة دماغك ومراقبة تقدمك. حسّن مهاراتك المعرفية من خلال ألعاب الذاكرة.',
+      'سجل الدخول لتتبع درجة صحة دماغك ومراقبة تقدمك: حسّن قدراتك المعرفية من خلال ألعاب الذاكرة:',
   'sign_in': 'تسجيل الدخول',
   'create_account': 'إنشاء حساب',
 
@@ -159,13 +158,13 @@ const Map<String, String> arBHTranslations = {
   'user_rankings': 'تصنيف المستخدمين',
   'rank': 'الترتيب',
   'user': 'المستخدم',
-  'score': 'النتيجة',
-  'failed_to_load_rankings': 'فشل في تحميل التصنيفات',
-  'no_ranking_data': 'لا توجد بيانات تصنيف متاحة',
+  'score': 'الدرجة',
+  'failed_to_load_rankings': 'فشل تحميل التصنيفات',
+  'no_ranking_data': 'لا توجد بيانات تصنيف',
 
   // Date format texts
   'today': 'اليوم',
-  'yesterday': 'الأمس',
+  'yesterday': 'أمس',
 
   // Activity Chart texts
   'brain_health_progress': 'تقدم صحة الدماغ',
@@ -179,7 +178,7 @@ const Map<String, String> arBHTranslations = {
   // Game Statistics texts
   'game_statistics': 'إحصائيات اللعبة',
   'games_played': 'الألعاب التي تم لعبها',
-  'matches_found': 'المطابقات التي تم العثور عليها',
+  'matches_found': 'الأزواج التي تم العثور عليها',
   'best_times': 'أفضل الأوقات',
   'no_records_yet': 'لا توجد سجلات بعد',
   'grid': 'الشبكة',
@@ -188,34 +187,35 @@ const Map<String, String> arBHTranslations = {
   'benefits_of_brain_games': 'فوائد ألعاب الدماغ',
   'short_term_memory_improvement': 'تحسين الذاكرة قصيرة المدى',
   'short_term_memory_desc':
-      'تحسن ألعاب الذاكرة بشكل فعال الذاكرة قصيرة المدى وسعة الذاكرة.',
-  'cognitive_function_enhancement': 'تعزيز الوظائف المعرفية',
+      'تعزز ألعاب الذاكرة بشكل فعال الذاكرة قصيرة المدى وسعة الذاكرة:',
+  'cognitive_function_enhancement': 'تحسين الوظيفة المعرفية',
   'cognitive_function_desc':
-      'يساعد النشاط الدماغي المنتظم في حماية وتحسين الوظائف المعرفية.',
+      'تساعد تمارين الدماغ المنتظمة في الحفاظ على الوظيفة المعرفية وتحسينها:',
   'response_time_reduction': 'تقليل وقت الاستجابة',
-  'response_time_desc': 'تحسن المطابقة السريعة وقت رد الفعل وسرعة المعالجة.',
+  'response_time_desc':
+      'يساعد العثور على الأزواج بسرعة في تحسين وقت رد الفعل وسرعة المعالجة:',
   'dementia_prevention': 'الوقاية من الخرف',
   'dementia_prevention_desc':
-      'تساعد التمارين الدماغية المنتظمة في تقليل خطر الإصابة بالخرف والانخفاض المعرفي.',
+      'تساعد تمارين الدماغ المنتظمة في تقليل خطر الإصابة بالخرف والتراجع المعرفي:',
 
   // Test Page texts
   'memory_test': 'اختبار الذاكرة',
   'question': 'سؤال',
   'visual_memory_test': 'اختبار الذاكرة البصرية',
   'visual_memory_test_desc':
-      'اختبر ذاكرتك مع 10 أسئلة. اختر الصورة التي تطابق الكلمة الصحيحة.',
+      'اختبر ذاكرتك مع 10 أسئلة: اختر الصورة التي تطابق الكلمة الصحيحة:',
   'audio_assistance': 'المساعدة الصوتية',
   'audio_assistance_desc':
-      'انقر على رمز الصوت لسماع الكلمة الصحيحة. سيتم تشغيل الصوت باللغة المحددة.',
-  'question_navigation': 'التنقل بين الأسئلة',
+      'انقر على رمز الصوت لسماع الكلمة الصحيحة: سيتم تشغيل الصوت باللغة المحددة:',
+  'question_navigation': 'تنقل الأسئلة',
   'question_navigation_desc':
-      'استخدم مؤشر الرقم أعلاه أو أزرار الأسهم للتنقل بين الأسئلة.',
+      'استخدم الأرقام في الأعلى أو مفاتيح الأسهم للتنقل بين الأسئلة:',
   'select_and_submit': 'اختر وأرسل',
   'select_and_submit_desc':
-      'اختر صورة واحدة لكل سؤال. سيظهر زر الإرسال بعد الإجابة على جميع الأسئلة.',
+      'اختر صورة لكل سؤال: يظهر زر الإرسال بعد الإجابة على جميع الأسئلة:',
   'results_and_progress': 'النتائج والتقدم',
   'results_and_progress_desc':
-      'بعد الإرسال، سترى نتائجك ويمكنك بدء اختبار جديد إذا رغبت.',
+      'بعد الإرسال، تحقق من درجتك وابدأ اختباراً جديداً إذا أردت:',
   'how_to_play': 'كيفية اللعب',
   'start_learning': 'ابدأ التعلم',
   'test_result': 'نتيجة الاختبار',

@@ -1358,12 +1358,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   child: Consumer<LanguageProvider>(
                     builder: (context, languageProvider, child) {
                       final translations = languageProvider.getUITranslations();
-                      return Text(
-                        translations['app_title'] ?? 'Memory Game',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                      return Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.6,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            translations['app_title'] ?? 'Memory Game',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -1654,6 +1663,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       onProfilePressed: () => _showAccountEditDialog(context),
       gradientStart: instagramGradientStart,
       gradientEnd: instagramGradientEnd,
+      countryCode: _userCountryCode, // 사용자 국가 코드 전달
     );
   }
 
