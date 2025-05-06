@@ -22,6 +22,7 @@ Map<String, String> afTranslations = {
   'brain_health': 'د مغز روغتیا',
   'player': 'لوبغاړی',
   'players': 'لوبغاړي',
+  'email': 'برېښنالیک',
 
   // Player Selection Dialog
   'select_players': 'لوبغاړي وټاکئ',

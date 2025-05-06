@@ -57,6 +57,30 @@ class _PlayerSelectionDialogWidgetState
   Map<String, String> _translations = {};
   bool _didInitProvider = false; // Provider 초기화 여부 추적
 
+  // Define text scale factor for dynamic text sizing
+  double get _textScaleFactor {
+    final width = MediaQuery.of(context).size.width;
+    // Adjust these breakpoints as needed
+    if (width < 360) return 0.8;
+    if (width < 400) return 0.9;
+    return 1.0;
+  }
+
+  // Helper method for creating text styles with dynamic sizing
+  TextStyle _getTextStyle({
+    required double fontSize,
+    FontWeight fontWeight = FontWeight.normal,
+    Color color = Colors.black87,
+    String? fontFamily,
+  }) {
+    final style = GoogleFonts.poppins(
+      fontSize: fontSize * _textScaleFactor,
+      fontWeight: fontWeight,
+      color: color,
+    );
+    return style;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -221,7 +245,406 @@ class _PlayerSelectionDialogWidgetState
     }
   }
 
-  // shortPW 인증 다이얼로그
+  @override
+  Widget build(BuildContext context) {
+    // build 메서드에서는 Provider.of 호출하지 않음
+    // 이미 초기화된 _translations 사용
+
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(28),
+      ),
+      elevation: 10,
+      backgroundColor: Colors.white,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.85,
+        padding: EdgeInsets.all(28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header with gradient text
+            ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(bounds),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _translations['select_players'] ?? 'Select Players',
+                  style: _getTextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                _translations['select_up_to_3_players'] ??
+                    'Select up to 3 other players',
+                style: _getTextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              margin: EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                color: Color(0xFF833AB4).withOpacity(0.08),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _translations['you_will_be_included'] ??
+                      'You will always be included as a player',
+                  style: _getTextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF833AB4),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            _buildUsersList(),
+            SizedBox(height: 32),
+            // Action buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Cancel button
+                Expanded(
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(null),
+                    borderRadius: BorderRadius.circular(24),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            _translations['cancel'] ?? 'Cancel',
+                            style: _getTextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade700,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 16),
+                // Confirm button
+                Expanded(
+                  child: InkWell(
+                    onTap: () async {
+                      // 선택된 유저 목록에 대해 PIN 인증 진행
+                      List<Map<String, dynamic>> verifiedUsers =
+                          await _verifySelectedUsersPin();
+                      // 선택된 플레이어가 없어도 다이얼로그를 닫음
+                      Navigator.of(context).pop(verifiedUsers);
+                    },
+                    borderRadius: BorderRadius.circular(24),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFF833AB4).withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            _translations['confirm'] ?? 'Confirm',
+                            style: _getTextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUsersList() {
+    if (_isLoading) {
+      return Container(
+        height: 200,
+        child: Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
+          ),
+        ),
+      );
+    }
+
+    if (_error != null) {
+      return Container(
+        height: 200,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red.shade400,
+                size: 48 * _textScaleFactor,
+              ),
+              SizedBox(height: 16),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _translations['failed_to_load_users'] ??
+                      'Failed to load users',
+                  style: _getTextStyle(
+                    fontSize: 16,
+                    color: Colors.red.shade400,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: _fetchUsers,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF833AB4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['retry'] ?? 'Retry',
+                    style: _getTextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (_users.isEmpty) {
+      return Container(
+        height: 200,
+        child: Center(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              _translations['no_other_users'] ?? 'No other users found',
+              style: _getTextStyle(
+                fontSize: 16,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Limiting height with a scrollable container
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.shade200, width: 1.5),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: ListView.builder(
+          padding: EdgeInsets.all(4),
+          itemCount: _users.length,
+          itemBuilder: (context, index) {
+            final user = _users[index];
+            final isSelected = _isUserSelected(user);
+
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              decoration: BoxDecoration(
+                gradient: isSelected
+                    ? LinearGradient(
+                        colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
+                    : null,
+                color: isSelected ? null : Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: isSelected
+                        ? Color(0xFF833AB4).withOpacity(0.2)
+                        : Colors.black.withOpacity(0.05),
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => _toggleUserSelection(user),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: Row(
+                      children: [
+                        // Avatar or profile image
+                        CircleAvatar(
+                          radius: 24 * _textScaleFactor,
+                          backgroundColor: isSelected
+                              ? Colors.white.withOpacity(0.9)
+                              : Color(0xFF833AB4).withOpacity(0.1),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              (user['nickname'] as String?)?.isNotEmpty == true
+                                  ? (user['nickname'] as String)
+                                      .substring(0, 1)
+                                      .toUpperCase()
+                                  : 'U',
+                              style: _getTextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: isSelected
+                                    ? Color(0xFF833AB4)
+                                    : Color(0xFF833AB4),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        // User info
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  user['nickname'] as String? ??
+                                      (_translations['unknown_player'] ??
+                                          'Unknown Player'),
+                                  style: _getTextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.grey.shade800,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  if (user['country'] != null)
+                                    Container(
+                                      margin: EdgeInsets.only(right: 4),
+                                      child: Flag.fromString(
+                                        (user['country'] as String)
+                                            .toUpperCase(),
+                                        height: 10 * _textScaleFactor,
+                                        width: 15 * _textScaleFactor,
+                                        borderRadius: 2,
+                                      ),
+                                    ),
+                                  Expanded(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        '${_translations['country'] ?? 'Country'}: ${user['country'] ?? (_translations['unknown'] ?? 'unknown')} ${user['level'] != null ? '• ${_translations['level'] ?? 'Level'} ${user['level']}' : ''}',
+                                        style: _getTextStyle(
+                                          fontSize: 14,
+                                          color: isSelected
+                                              ? Colors.white.withOpacity(0.9)
+                                              : Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Selection indicator
+                        Container(
+                          width: 28 * _textScaleFactor,
+                          height: 28 * _textScaleFactor,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isSelected
+                                ? Colors.white
+                                : Colors.grey.shade100,
+                            border: isSelected
+                                ? null
+                                : Border.all(
+                                    color: Colors.grey.shade300, width: 2),
+                          ),
+                          child: isSelected
+                              ? Icon(
+                                  Icons.check,
+                                  size: 22 * _textScaleFactor,
+                                  color: Color(0xFF833AB4),
+                                )
+                              : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  // 수정된 PIN 인증 다이얼로그
   Future<bool?> _showVerifyPinDialog(String nickname, String correctPin) async {
     TextEditingController pinController = TextEditingController();
     String? pinError;
@@ -251,6 +674,23 @@ class _PlayerSelectionDialogWidgetState
             opacity: animation,
             child: StatefulBuilder(
               builder: (context, setState) {
+                // 이 컨텍스트에서의 텍스트 스케일 팩터
+                final dialogWidth = MediaQuery.of(context).size.width;
+                final textScaleFactor =
+                    dialogWidth < 360 ? 0.8 : (dialogWidth < 400 ? 0.9 : 1.0);
+
+                TextStyle getDialogTextStyle({
+                  required double fontSize,
+                  FontWeight fontWeight = FontWeight.normal,
+                  Color color = Colors.black87,
+                }) {
+                  return GoogleFonts.poppins(
+                    fontSize: fontSize * textScaleFactor,
+                    fontWeight: fontWeight,
+                    color: color,
+                  );
+                }
+
                 return Center(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -300,17 +740,20 @@ class _PlayerSelectionDialogWidgetState
                                       Icon(
                                         Icons.verified_user_rounded,
                                         color: Colors.white,
-                                        size: 40,
+                                        size: 40 * textScaleFactor,
                                       ),
                                       SizedBox(height: 8),
-                                      Text(
-                                        translations[
-                                                'multiplayer_verification'] ??
-                                            'Multiplayer Verification',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                      FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          translations[
+                                                  'multiplayer_verification'] ??
+                                              'Multiplayer Verification',
+                                          style: getDialogTextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -341,24 +784,34 @@ class _PlayerSelectionDialogWidgetState
                                           CircleAvatar(
                                             backgroundColor: Color(0xFF833AB4)
                                                 .withOpacity(0.1),
-                                            radius: 20,
-                                            child: Text(
-                                              nickname.substring(0,
-                                                  math.min(1, nickname.length)),
-                                              style: TextStyle(
-                                                color: Color(0xFF833AB4),
-                                                fontWeight: FontWeight.bold,
+                                            radius: 20 * textScaleFactor,
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                nickname.substring(
+                                                    0,
+                                                    math.min(
+                                                        1, nickname.length)),
+                                                style: getDialogTextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xFF833AB4),
+                                                ),
                                               ),
                                             ),
                                           ),
                                           SizedBox(width: 12),
                                           Expanded(
-                                            child: Text(
-                                              '$nickname${translations['enter_pin_for'] ?? 'Enter PIN for'}',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                '$nickname${translations['enter_pin_for'] ?? 'Enter PIN for'}',
+                                                style: getDialogTextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black87,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -372,23 +825,22 @@ class _PlayerSelectionDialogWidgetState
                                       maxLength: 2,
                                       autofocus: true,
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
+                                      style: getDialogTextStyle(
                                         fontSize: 26,
                                         fontWeight: FontWeight.bold,
-                                        letterSpacing: 6,
                                       ),
                                       decoration: InputDecoration(
                                         counterText: "",
                                         contentPadding: EdgeInsets.symmetric(
                                             vertical: 16, horizontal: 16),
                                         hintText: "••",
-                                        hintStyle: GoogleFonts.poppins(
+                                        hintStyle: getDialogTextStyle(
                                           fontSize: 26,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey.shade300,
                                         ),
                                         errorText: pinError,
-                                        errorStyle: GoogleFonts.poppins(
+                                        errorStyle: getDialogTextStyle(
                                           fontSize: 13,
                                           color: Colors.red.shade400,
                                         ),
@@ -450,13 +902,16 @@ class _PlayerSelectionDialogWidgetState
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 16),
                                             ),
-                                            child: Text(
-                                              translations['cancel'] ??
-                                                  'Cancel',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.grey.shade700,
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                translations['cancel'] ??
+                                                    'Cancel',
+                                                style: getDialogTextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.grey.shade700,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -747,361 +1202,6 @@ class _PlayerSelectionDialogWidgetState
           ),
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // build 메서드에서는 Provider.of 호출하지 않음
-    // 이미 초기화된 _translations 사용
-
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(28),
-      ),
-      elevation: 10,
-      backgroundColor: Colors.white,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.85,
-        padding: EdgeInsets.all(28),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header with gradient text
-            ShaderMask(
-              shaderCallback: (bounds) => LinearGradient(
-                colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ).createShader(bounds),
-              child: Text(
-                _translations['select_players'] ?? 'Select Players',
-                style: GoogleFonts.poppins(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
-            Text(
-              _translations['select_up_to_3_players'] ??
-                  'Select up to 3 other players',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              margin: EdgeInsets.only(top: 8),
-              decoration: BoxDecoration(
-                color: Color(0xFF833AB4).withOpacity(0.08),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                _translations['you_will_be_included'] ??
-                    'You will always be included as a player',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Color(0xFF833AB4),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            _buildUsersList(),
-            SizedBox(height: 32),
-            // Action buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Cancel button
-                Expanded(
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(null),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Center(
-                        child: Text(
-                          _translations['cancel'] ?? 'Cancel',
-                          style: GoogleFonts.poppins(
-                            color: Colors.grey.shade700,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                // Confirm button
-                Expanded(
-                  child: InkWell(
-                    onTap: () async {
-                      // 선택된 유저 목록에 대해 PIN 인증 진행
-                      List<Map<String, dynamic>> verifiedUsers =
-                          await _verifySelectedUsersPin();
-                      // 선택된 플레이어가 없어도 다이얼로그를 닫음
-                      Navigator.of(context).pop(verifiedUsers);
-                    },
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF833AB4).withOpacity(0.3),
-                            blurRadius: 10,
-                            offset: Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          _translations['confirm'] ?? 'Confirm',
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUsersList() {
-    if (_isLoading) {
-      return Container(
-        height: 200,
-        child: Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
-          ),
-        ),
-      );
-    }
-
-    if (_error != null) {
-      return Container(
-        height: 200,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.error_outline,
-                color: Colors.red.shade400,
-                size: 48,
-              ),
-              SizedBox(height: 16),
-              Text(
-                _translations['failed_to_load_users'] ?? 'Failed to load users',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: Colors.red.shade400,
-                ),
-              ),
-              SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: _fetchUsers,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF833AB4),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text(_translations['retry'] ?? 'Retry',
-                    style: GoogleFonts.poppins()),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (_users.isEmpty) {
-      return Container(
-        height: 200,
-        child: Center(
-          child: Text(
-            _translations['no_other_users'] ?? 'No other users found',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              color: Colors.grey.shade600,
-            ),
-          ),
-        ),
-      );
-    }
-
-    // Limiting height with a scrollable container
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade200, width: 1.5),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: ListView.builder(
-          padding: EdgeInsets.all(4),
-          itemCount: _users.length,
-          itemBuilder: (context, index) {
-            final user = _users[index];
-            final isSelected = _isUserSelected(user);
-
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              decoration: BoxDecoration(
-                gradient: isSelected
-                    ? LinearGradient(
-                        colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-                color: isSelected ? null : Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: isSelected
-                        ? Color(0xFF833AB4).withOpacity(0.2)
-                        : Colors.black.withOpacity(0.05),
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => _toggleUserSelection(user),
-                  borderRadius: BorderRadius.circular(16),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Row(
-                      children: [
-                        // Avatar or profile image
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: isSelected
-                              ? Colors.white.withOpacity(0.9)
-                              : Color(0xFF833AB4).withOpacity(0.1),
-                          child: Text(
-                            (user['nickname'] as String?)?.isNotEmpty == true
-                                ? (user['nickname'] as String)
-                                    .substring(0, 1)
-                                    .toUpperCase()
-                                : 'U',
-                            style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: isSelected
-                                  ? Color(0xFF833AB4)
-                                  : Color(0xFF833AB4),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 12),
-                        // User info
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                user['nickname'] as String? ??
-                                    (_translations['unknown_player'] ??
-                                        'Unknown Player'),
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : Colors.grey.shade800,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
-                                children: [
-                                  if (user['country'] != null)
-                                    Container(
-                                      margin: EdgeInsets.only(right: 4),
-                                      child: Flag.fromString(
-                                        (user['country'] as String)
-                                            .toUpperCase(),
-                                        height: 10,
-                                        width: 15,
-                                        borderRadius: 2,
-                                      ),
-                                    ),
-                                  Text(
-                                    '${_translations['country'] ?? 'Country'}: ${user['country'] ?? (_translations['unknown'] ?? 'unknown')} ${user['level'] != null ? '• ${_translations['level'] ?? 'Level'} ${user['level']}' : ''}',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: isSelected
-                                          ? Colors.white.withOpacity(0.9)
-                                          : Colors.grey.shade600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Selection indicator
-                        Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.grey.shade100,
-                            border: isSelected
-                                ? null
-                                : Border.all(
-                                    color: Colors.grey.shade300, width: 2),
-                          ),
-                          child: isSelected
-                              ? Icon(
-                                  Icons.check,
-                                  size: 22,
-                                  color: Color(0xFF833AB4),
-                                )
-                              : null,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
     );
   }
 }

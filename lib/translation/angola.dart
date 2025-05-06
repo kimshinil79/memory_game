@@ -229,5 +229,8 @@ const Map<String, String> ptAOTranslations = {
   'test_result': 'Resultado do teste',
   'your_score': 'Sua pontuação',
   'new_test': 'Novo teste',
-  'submit': 'Enviar'
+  'submit': 'Enviar',
+
+  // New added translations
+  'email': 'Email',
 };

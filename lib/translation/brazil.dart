@@ -226,5 +226,6 @@ const Map<String, String> ptBRTranslations = {
   'test_result': 'Resultado do teste',
   'your_score': 'Sua pontuação',
   'new_test': 'Novo teste',
-  'submit': 'Enviar'
+  'submit': 'Enviar',
+  'email': 'E-mail'
 };

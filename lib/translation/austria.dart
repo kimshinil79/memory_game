@@ -230,5 +230,6 @@ const Map<String, String> deATTranslations = {
   'test_result': 'Testergebnis',
   'your_score': 'Ihre Punktzahl',
   'new_test': 'Neuer Test',
-  'submit': 'Absenden'
+  'submit': 'Absenden',
+  'email': 'E-Mail',
 };

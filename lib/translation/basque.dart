@@ -226,5 +226,8 @@ const Map<String, String> euTranslations = {
   'test_result': 'Proben emaitza',
   'your_score': 'Zure puntuazioa',
   'new_test': 'Proba berria',
-  'submit': 'Bidali'
+  'submit': 'Bidali',
+
+  // New additions
+  'email': 'Posta elektronikoa',
 };

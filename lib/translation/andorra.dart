@@ -160,7 +160,7 @@ const Map<String, String> caADTranslations = {
   'login_prompt_desc':
       'Inicia sessió per registrar el teu índex de salut cerebral i fer seguiment del teu progrés. Millora les teves capacitats cognitives a través de jocs de memòria.',
   'sign_in': 'Inicia sessió',
-  'create_account': 'Crea un compte',
+  'create_account': 'Crear compte',
 
   // User Rankings texts
   'user_rankings': 'Classificació d\'usuaris',
@@ -230,5 +230,8 @@ const Map<String, String> caADTranslations = {
   'test_result': 'Resultat del test',
   'your_score': 'La teva puntuació',
   'new_test': 'Nou test',
-  'submit': 'Envia'
+  'submit': 'Envia',
+
+  // New added translations
+  'email': 'Correu electrònic',
 };

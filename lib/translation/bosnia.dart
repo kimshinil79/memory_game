@@ -225,5 +225,6 @@ const Map<String, String> bsBATranslations = {
   'test_result': 'Rezultat testa',
   'your_score': 'Tvoji bodovi',
   'new_test': 'Novi test',
-  'submit': 'Pošalji'
+  'submit': 'Pošalji',
+  'email': 'E-mail'
 };

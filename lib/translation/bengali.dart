@@ -224,5 +224,6 @@ const Map<String, String> bnTranslations = {
   'test_result': 'টেস্ট ফলাফল',
   'your_score': 'আপনার স্কোর',
   'new_test': 'নতুন টেস্ট',
-  'submit': 'জমা দিন'
+  'submit': 'জমা দিন',
+  'email': 'ইমেইল'
 };

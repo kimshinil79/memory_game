@@ -65,7 +65,7 @@ const Map<String, String> arBHtranslations = {
   'gender': 'الجنس',
   'male': 'ذكر',
   'female': 'أنثى',
-  'select_country': 'اختر بلدك',
+  'select_country': 'اختر البلد',
   'multi_game_pin': 'رمز PIN للعب الجماعي',
   'enter_two_digit_pin': 'أدخل رمز PIN مكون من رقمين',
   'two_digit_pin_helper': 'يستخدم هذا الرمز في جلسات اللعب الجماعي',
@@ -221,5 +221,8 @@ const Map<String, String> arBHtranslations = {
   'test_result': 'نتيجة الاختبار',
   'your_score': 'درجتك',
   'new_test': 'اختبار جديد',
-  'submit': 'إرسال'
+  'submit': 'إرسال',
+
+  // New translations
+  'email': 'البريد الإلكتروني',
 };

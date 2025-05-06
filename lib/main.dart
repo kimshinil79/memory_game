@@ -33,6 +33,9 @@ import 'item_list.dart' as images;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'services/memory_game_service.dart';
 
+// Constants for SharedPreferences keys
+const String PREF_USER_COUNTRY_CODE = 'user_country_code';
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // 앱이 백그라운드나 종료된 상태일 때 FCM 메시지를 처리하는 함수
@@ -169,6 +172,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 앱 시작 시 자동 로그인 확인
     _initializeAuth();
 
+    // Load saved country code from SharedPreferences
+    _loadSavedUserCountry();
+
     // 사용자 데이터 마이그레이션
     _migrateUserData();
 
@@ -258,6 +264,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             final languageProvider =
                 Provider.of<LanguageProvider>(context, listen: false);
             await languageProvider.setNationality(_userCountryCode!);
+
+            // Save user's country code to SharedPreferences
+            _saveUserCountryToLocalStorage(_userCountryCode!);
           }
         }
       } else {
@@ -391,6 +400,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
       }
 
+      // Save country code before clearing user data
+      String? countryCodeToSave = _userCountryCode;
+
       // 2. 상태 초기화 (첫 번째 단계)
       setState(() {
         // 사용자 정보 초기화
@@ -411,6 +423,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       // 3. Firebase 로그아웃 수행
       await FirebaseAuth.instance.signOut();
+
+      // Save the last used country code to SharedPreferences
+      if (countryCodeToSave != null) {
+        await _saveUserCountryToLocalStorage(countryCodeToSave);
+      }
 
       // 4. UI 업데이트를 마이크로태스크 큐에 추가하여 프레임 경합 방지
       Future.microtask(() {
@@ -1719,6 +1736,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             'shortPW': result['shortPW'],
           });
 
+          // Check if country was changed
+          String newCountryCode = result['country'];
+          bool countryChanged = _userCountryCode != newCountryCode;
+
           setState(() {
             _nickname = result['nickname'];
             _userAge = result['age'];
@@ -1726,6 +1747,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userCountryCode = result['country'];
             _shortPW = result['shortPW'];
           });
+
+          // If country was changed, update language provider and save to local storage
+          if (countryChanged && _userCountryCode != null) {
+            final languageProvider =
+                Provider.of<LanguageProvider>(context, listen: false);
+            await languageProvider.setNationality(_userCountryCode!);
+
+            // Save the updated country code to SharedPreferences
+            _saveUserCountryToLocalStorage(_userCountryCode!);
+          }
 
           // Show success message if password was changed
           if (result.containsKey('passwordChanged') &&
@@ -1791,13 +1822,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               .get();
 
           if (userDoc.exists) {
+            final userData = userDoc.data() as Map<String, dynamic>;
             setState(() {
               _user = userCredential.user;
-              _nickname = userDoc.data()?['nickname'];
-              _userAge = userDoc.data()?['age'];
-              _userGender = userDoc.data()?['gender'];
-              _userCountryCode = userDoc.data()?['countryCode'];
+              _nickname = userData['nickname'];
+              _userAge = userData['age'];
+              _userGender = userData['gender'];
+              _userCountryCode = userData['country'];
             });
+
+            // Set nationality in LanguageProvider based on user's country code
+            if (_userCountryCode != null) {
+              final languageProvider =
+                  Provider.of<LanguageProvider>(context, listen: false);
+              await languageProvider.setNationality(_userCountryCode!);
+
+              // Save user's country code to SharedPreferences
+              _saveUserCountryToLocalStorage(_userCountryCode!);
+            }
           }
         }
       } catch (e) {
@@ -2425,5 +2467,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 .brainHealthScore,
       },
     );
+  }
+
+  // Add method to load saved country code
+  Future<void> _loadSavedUserCountry() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedCountryCode = prefs.getString(PREF_USER_COUNTRY_CODE);
+
+      if (savedCountryCode != null && _user == null) {
+        // Only use saved country if user is not logged in
+        print('Loaded country code from local storage: $savedCountryCode');
+
+        // Update language provider with saved nationality
+        final languageProvider =
+            Provider.of<LanguageProvider>(context, listen: false);
+        await languageProvider.setNationality(savedCountryCode);
+      }
+    } catch (e) {
+      print('Error loading country code from local storage: $e');
+    }
+  }
+
+  Future<void> _saveUserCountryToLocalStorage(String countryCode) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(PREF_USER_COUNTRY_CODE, countryCode);
+      print('User country code saved to local storage: $countryCode');
+    } catch (e) {
+      print('Error saving country code to local storage: $e');
+    }
   }
 }

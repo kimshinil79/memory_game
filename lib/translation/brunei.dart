@@ -223,5 +223,6 @@ const Map<String, String> msBNTranslations = {
   'test_result': 'Keputusan ujian',
   'your_score': 'Mata anda',
   'new_test': 'Ujian baru',
-  'submit': 'Hantar'
+  'submit': 'Hantar',
+  'email': 'E-mel'
 };

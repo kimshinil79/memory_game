@@ -460,6 +460,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   @override
   bool get wantKeepAlive => true;
 
+  // Add text scale factor getter for dynamic text sizing
+  double get _textScaleFactor {
+    final width = MediaQuery.of(context).size.width;
+    // Adjust these breakpoints as needed
+    if (width < 360) return 0.85;
+    if (width < 400) return 0.9;
+    return 1.0;
+  }
+
   Widget _buildHeader(BrainHealthProvider provider) {
     // 언어 제공자에서 번역 가져오기
     final translations = Provider.of<LanguageProvider>(context, listen: false)
@@ -471,7 +480,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         Text(
           translations['brain_health_dashboard'] ?? 'Brain Health Dashboard',
           style: GoogleFonts.notoSans(
-            fontSize: 28,
+            fontSize: 28 * _textScaleFactor,
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
@@ -481,7 +490,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           translations['play_memory_games_description'] ??
               'Play memory games to improve your brain health!',
           style: GoogleFonts.notoSans(
-            fontSize: 16,
+            fontSize: 16 * _textScaleFactor,
             color: Colors.black54,
           ),
         ),
@@ -512,7 +521,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       translations['brain_health_index_title'] ??
                           'Brain Health Index',
                       style: GoogleFonts.notoSans(
-                        fontSize: 20,
+                        fontSize: 20 * _textScaleFactor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -522,7 +531,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     Text(
                         translations['calculating_brain_health_index'] ??
                             'Calculating your Brain Health Index...',
-                        style: GoogleFonts.notoSans(fontSize: 16)),
+                        style: GoogleFonts.notoSans(
+                            fontSize: 16 * _textScaleFactor)),
                   ],
                 ),
               ),
@@ -541,12 +551,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.error_outline, size: 48, color: Colors.red),
+                    Icon(Icons.error_outline,
+                        size: 48 * _textScaleFactor, color: Colors.red),
                     SizedBox(height: 16),
                     Text(
                         translations['error_calculating_index'] ??
                             'Error calculating Brain Health Index',
-                        style: GoogleFonts.notoSans(fontSize: 16)),
+                        style: GoogleFonts.notoSans(
+                            fontSize: 16 * _textScaleFactor)),
                   ],
                 ),
               ),
@@ -555,9 +567,11 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         }
 
         // Get data from calculation
+        print('snapshot.data: ${snapshot.data}');
         final data = snapshot.data!;
         final brainHealthIndex = data['brainHealthIndex'] as double? ?? 0.0;
-        final indexLevel = data['indexLevel'] as int? ?? 1;
+        final indexLevel = data['brainHealthIndexLevel'] as int? ?? 1;
+        print('indexLevel: $indexLevel');
         final pointsToNext = data['pointsToNextLevel'] as double? ?? 0.0;
 
         // Calculate percentage for circular indicator
@@ -601,7 +615,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       translations['brain_health_index_title'] ??
                           'Brain Health Index',
                       style: GoogleFonts.notoSans(
-                        fontSize: 20,
+                        fontSize: 20 * _textScaleFactor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -623,14 +637,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           Icon(
                             Icons.star,
                             color: progressColor,
-                            size: 16,
+                            size: 16 * _textScaleFactor,
                           ),
                           SizedBox(width: 6),
                           Text(
                             '${brainHealthIndex.toStringAsFixed(1)}',
                             style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 16 * _textScaleFactor,
                               color: progressColor,
                             ),
                           ),
@@ -641,46 +655,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ),
 
                 SizedBox(height: 8),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       '${translations['age'] ?? 'Age'}: ${data['details']?['age'] ?? 30}',
-                //       style: GoogleFonts.notoSans(
-                //         fontSize: 14,
-                //         color: Colors.black54,
-                //       ),
-                //     ),
-                //     SizedBox(width: 8),
-                //     InkWell(
-                //       onTap: _showAgeInputDialog,
-                //       child: Container(
-                //         padding:
-                //             EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                //         decoration: BoxDecoration(
-                //           color: Colors.grey.shade100,
-                //           borderRadius: BorderRadius.circular(12),
-                //           border: Border.all(color: Colors.grey.shade300),
-                //         ),
-                //         child: Row(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             Icon(Icons.edit,
-                //                 size: 12, color: Colors.grey.shade700),
-                //             SizedBox(width: 4),
-                //             Text(
-                //               translations['update'] ?? 'Update',
-                //               style: GoogleFonts.notoSans(
-                //                 fontSize: 12,
-                //                 color: Colors.grey.shade700,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 CircularPercentIndicator(
                   radius: 80.0,
                   lineWidth: 15.0,
@@ -691,13 +665,13 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     children: [
                       Image.asset(
                         'assets/icon/level${indexLevel}_brain.png',
-                        width: 40,
-                        height: 40,
+                        width: 40 * _textScaleFactor,
+                        height: 40 * _textScaleFactor,
                       ),
                       Text(
                         '${translations['level'] ?? 'Level'} $indexLevel',
                         style: GoogleFonts.notoSans(
-                          fontSize: 16,
+                          fontSize: 16 * _textScaleFactor,
                         ),
                       ),
                     ],
@@ -713,7 +687,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 '{points}', pointsToNext.toInt().toString()) ??
                             'You need ${pointsToNext.toInt()} points to reach the next level',
                         style: GoogleFonts.notoSans(
-                          fontSize: 16,
+                          fontSize: 16 * _textScaleFactor,
                           fontWeight: FontWeight.w500,
                         ),
                       )
@@ -721,7 +695,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         translations['maximum_level_reached'] ??
                             'Maximum level reached',
                         style: GoogleFonts.notoSans(
-                          fontSize: 16,
+                          fontSize: 16 * _textScaleFactor,
                           fontWeight: FontWeight.w500,
                           color: Colors.green,
                         ),
@@ -742,7 +716,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       Text(
                         translations['index_components'] ?? 'Index Components',
                         style: GoogleFonts.notoSans(
-                          fontSize: 16,
+                          fontSize: 16 * _textScaleFactor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -806,7 +780,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                     data['daysSinceLastGame'].toString()) ??
                                 'You haven\'t played for ${data['daysSinceLastGame']} day(s). Your score is decreasing each day!',
                             style: GoogleFonts.notoSans(
-                              fontSize: 14,
+                              fontSize: 14 * _textScaleFactor,
                               fontWeight: FontWeight.w500,
                               color: Colors.red.shade700,
                             ),
@@ -836,14 +810,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: color, size: 16),
+            child: Icon(icon, color: color, size: 16 * _textScaleFactor),
           ),
           SizedBox(width: 12),
           Expanded(
             child: Text(
               title,
               style: GoogleFonts.notoSans(
-                fontSize: 14,
+                fontSize: 14 * _textScaleFactor,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -853,7 +827,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ? '-${value.toStringAsFixed(1)}'
                 : '+${value.toStringAsFixed(1)}',
             style: GoogleFonts.notoSans(
-              fontSize: 14,
+              fontSize: 14 * _textScaleFactor,
               fontWeight: FontWeight.bold,
               color: isNegative ? Colors.red : Colors.green,
             ),
@@ -874,7 +848,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         Text(
           translations['game_statistics'] ?? 'Game Statistics',
           style: GoogleFonts.notoSans(
-            fontSize: 20,
+            fontSize: 20 * _textScaleFactor,
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
@@ -926,13 +900,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           children: [
             Row(
               children: [
-                Icon(Icons.speed, color: Colors.orange, size: 28),
+                Icon(Icons.speed,
+                    color: Colors.orange, size: 28 * _textScaleFactor),
                 SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     translations['best_times'] ?? 'Best Times',
                     style: GoogleFonts.notoSans(
-                      fontSize: 18,
+                      fontSize: 18 * _textScaleFactor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -944,7 +919,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               Text(
                 translations['no_records_yet'] ?? 'No records yet',
                 style: GoogleFonts.notoSans(
-                  fontSize: 16,
+                  fontSize: 16 * _textScaleFactor,
                   color: Colors.black54,
                 ),
               )
@@ -961,14 +936,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           Text(
                             '${translations['overall_best'] ?? 'Overall Best'}:',
                             style: GoogleFonts.notoSans(
-                              fontSize: 16,
+                              fontSize: 16 * _textScaleFactor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             '${provider.bestTime}s',
                             style: GoogleFonts.montserrat(
-                              fontSize: 16,
+                              fontSize: 16 * _textScaleFactor,
                               fontWeight: FontWeight.bold,
                               color: Colors.orange,
                             ),
@@ -991,13 +966,13 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           Text(
                             '$gridSize ${translations['grid'] ?? 'Grid'}:',
                             style: GoogleFonts.notoSans(
-                              fontSize: 15,
+                              fontSize: 15 * _textScaleFactor,
                             ),
                           ),
                           Text(
                             '${time}s',
                             style: GoogleFonts.montserrat(
-                              fontSize: 15,
+                              fontSize: 15 * _textScaleFactor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -1027,12 +1002,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: color, size: 28),
+            Icon(icon, color: color, size: 28 * _textScaleFactor),
             SizedBox(height: 12),
             Text(
               title,
               style: GoogleFonts.notoSans(
-                fontSize: 14,
+                fontSize: 14 * _textScaleFactor,
                 color: Colors.black54,
               ),
             ),
@@ -1040,7 +1015,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             Text(
               value,
               style: GoogleFonts.montserrat(
-                fontSize: 20,
+                fontSize: 20 * _textScaleFactor,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),
@@ -1062,7 +1037,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         Text(
           translations['benefits_of_brain_games'] ?? 'Benefits of Brain Games',
           style: GoogleFonts.notoSans(
-            fontSize: 20,
+            fontSize: 20 * _textScaleFactor,
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
@@ -1127,8 +1102,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         children: [
           Image.asset(
             'assets/icon/rainbowBrain.png',
-            width: 24,
-            height: 24,
+            width: 24 * _textScaleFactor,
+            height: 24 * _textScaleFactor,
           ),
           SizedBox(width: 16),
           Expanded(
@@ -1138,7 +1113,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 Text(
                   title,
                   style: GoogleFonts.notoSans(
-                    fontSize: 16,
+                    fontSize: 16 * _textScaleFactor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -1146,7 +1121,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 Text(
                   description,
                   style: GoogleFonts.notoSans(
-                    fontSize: 14,
+                    fontSize: 14 * _textScaleFactor,
                     color: Colors.black54,
                   ),
                 ),
@@ -1179,21 +1154,31 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              translations['brain_health_progress'] ?? 'Brain Health Progress',
-              style: GoogleFonts.notoSans(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  translations['brain_health_progress'] ??
+                      'Brain Health Progress',
+                  style: GoogleFonts.notoSans(
+                    fontSize: 20 * _textScaleFactor,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
               ),
             ),
             if (weeklyData.isNotEmpty && weeklyData[0].score > 0)
-              Text(
-                _getDateRangeText(weeklyData),
-                style: GoogleFonts.notoSans(
-                  fontSize: 12,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w500,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _getDateRangeText(weeklyData),
+                  style: GoogleFonts.notoSans(
+                    fontSize: 12 * _textScaleFactor,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
           ],
@@ -1221,27 +1206,33 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     children: [
                       Icon(
                         Icons.psychology_outlined,
-                        size: 48,
+                        size: 48 * _textScaleFactor,
                         color: Colors.grey.shade400,
                       ),
                       SizedBox(height: 16),
-                      Text(
-                        translations['welcome_to_brain_health'] ??
-                            'Welcome to Brain Health!',
-                        style: GoogleFonts.notoSans(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          translations['welcome_to_brain_health'] ??
+                              'Welcome to Brain Health!',
+                          style: GoogleFonts.notoSans(
+                            fontSize: 16 * _textScaleFactor,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
                         ),
                       ),
                       SizedBox(height: 8),
-                      Text(
-                        translations['start_playing_memory_games'] ??
-                            'Start playing memory games\nto track your progress',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.notoSans(
-                          fontSize: 14,
-                          color: Colors.black54,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          translations['start_playing_memory_games'] ??
+                              'Start playing memory games\nto track your progress',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.notoSans(
+                            fontSize: 14 * _textScaleFactor,
+                            color: Colors.black54,
+                          ),
                         ),
                       ),
                     ],
@@ -1267,15 +1258,18 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             showTitles: true,
                             interval: 500,
                             getTitlesWidget: (value, meta) {
-                              return Text(
-                                value.toInt().toString(),
-                                style: GoogleFonts.notoSans(
-                                  fontSize: 12,
-                                  color: Colors.black54,
+                              return FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  value.toInt().toString(),
+                                  style: GoogleFonts.notoSans(
+                                    fontSize: 12 * _textScaleFactor,
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               );
                             },
-                            reservedSize: 40,
+                            reservedSize: 40 * _textScaleFactor,
                           ),
                         ),
                       ),
@@ -1300,9 +1294,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             show: true,
                             getDotPainter: (spot, percent, barData, index) {
                               return FlDotCirclePainter(
-                                radius: 4,
+                                radius: 4 * _textScaleFactor,
                                 color: Colors.white,
-                                strokeWidth: 2,
+                                strokeWidth: 2 * _textScaleFactor,
                                 strokeColor: Colors.blue.shade500,
                               );
                             },
@@ -1336,7 +1330,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 GoogleFonts.notoSans(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+                                  fontSize: 12 * _textScaleFactor,
                                 ),
                                 children: [
                                   TextSpan(
@@ -1345,7 +1339,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                     style: GoogleFonts.notoSans(
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
-                                      fontSize: 14,
+                                      fontSize: 14 * _textScaleFactor,
                                     ),
                                   ),
                                 ],
@@ -1355,7 +1349,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           fitInsideHorizontally: true,
                           fitInsideVertically: true,
                           tooltipMargin: 8,
-                          tooltipPadding: EdgeInsets.all(8),
+                          tooltipPadding: EdgeInsets.all(8 * _textScaleFactor),
                           tooltipRoundedRadius: 8,
                           showOnTopOfTheChartBoxArea: true,
                         ),
@@ -1366,13 +1360,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           return spotIndexes.map((spotIndex) {
                             return TouchedSpotIndicatorData(
                               FlLine(
-                                  color: Colors.blue.shade300, strokeWidth: 2),
+                                  color: Colors.blue.shade300,
+                                  strokeWidth: 2 * _textScaleFactor),
                               FlDotData(
                                 getDotPainter: (spot, percent, barData, index) {
                                   return FlDotCirclePainter(
-                                    radius: 6,
+                                    radius: 6 * _textScaleFactor,
                                     color: Colors.white,
-                                    strokeWidth: 3,
+                                    strokeWidth: 3 * _textScaleFactor,
                                     strokeColor: Colors.blue.shade700,
                                   );
                                 },
@@ -1442,57 +1437,11 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   Text(
                     translations['user_rankings'] ?? 'User Rankings',
                     style: GoogleFonts.notoSans(
-                      fontSize: 20,
+                      fontSize: 20 * _textScaleFactor,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
-                  // Spacer(),
-                  // Consumer<BrainHealthProvider>(
-                  //   builder: (context, brainHealthProvider, child) {
-                  //     if (brainHealthProvider.preventionLevel > 0) {
-                  //       return Container(
-                  //         padding:
-                  //             EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  //         decoration: BoxDecoration(
-                  //           color: _getBrainHealthColor(
-                  //                   brainHealthProvider.preventionLevel)
-                  //               .withOpacity(0.1),
-                  //           borderRadius: BorderRadius.circular(12),
-                  //           border: Border.all(
-                  //             color: _getBrainHealthColor(
-                  //                     brainHealthProvider.preventionLevel)
-                  //                 .withOpacity(0.3),
-                  //             width: 1,
-                  //           ),
-                  //         ),
-                  //         child: Row(
-                  //           mainAxisSize: MainAxisSize.min,
-                  //           children: [
-                  //             Icon(
-                  //               Icons.psychology,
-                  //               color: _getBrainHealthColor(
-                  //                   brainHealthProvider.preventionLevel),
-                  //               size: 16,
-                  //             ),
-                  //             const SizedBox(width: 6),
-                  //             Text(
-                  //               '${brainHealthProvider.brainHealthScore}',
-                  //               style: GoogleFonts.montserrat(
-                  //                 fontWeight: FontWeight.w600,
-                  //                 fontSize: 14,
-                  //                 color: _getBrainHealthColor(
-                  //                     brainHealthProvider.preventionLevel),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       );
-                  //     } else {
-                  //       return Container();
-                  //     }
-                  //   },
-                  // ),
                 ],
               ),
               SizedBox(height: 16),
@@ -1511,7 +1460,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       translations['failed_to_load_rankings'] ??
                           'Failed to load rankings',
                       style: GoogleFonts.notoSans(
-                        fontSize: 16,
+                        fontSize: 16 * _textScaleFactor,
                         color: Colors.red,
                       ),
                     ),
@@ -1525,7 +1474,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       translations['no_ranking_data'] ??
                           'No ranking data available',
                       style: GoogleFonts.notoSans(
-                        fontSize: 16,
+                        fontSize: 16 * _textScaleFactor,
                         color: Colors.black54,
                       ),
                     ),
@@ -1541,17 +1490,19 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       child: Row(
                         children: [
                           SizedBox(
-                              width: 40,
+                              width: 40 * _textScaleFactor,
                               child: Text(translations['rank'] ?? 'Rank',
                                   style: GoogleFonts.notoSans(
-                                      fontWeight: FontWeight.bold))),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14 * _textScaleFactor))),
                           SizedBox(width: 8),
                           Expanded(
                               child: Padding(
                             padding: const EdgeInsets.only(left: 4.0),
                             child: Text(translations['user'] ?? 'User',
                                 style: GoogleFonts.notoSans(
-                                    fontWeight: FontWeight.bold)),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14 * _textScaleFactor)),
                           )),
                           // 뇌 이미지에 대한 설명 추가
                           InkWell(
@@ -1565,15 +1516,16 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                               child: Icon(
                                 Icons.help_outline,
                                 color: Colors.purple,
-                                size: 16,
+                                size: 16 * _textScaleFactor,
                               ),
                             ),
                           ),
                           SizedBox(
-                              width: 80,
+                              width: 80 * _textScaleFactor,
                               child: Text(translations['score'] ?? 'Score',
                                   style: GoogleFonts.notoSans(
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14 * _textScaleFactor),
                                   textAlign: TextAlign.end)),
                         ],
                       ),
@@ -1598,13 +1550,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         child: Row(
                           children: [
                             SizedBox(
-                              width: 40,
+                              width: 40 * _textScaleFactor,
                               child: Text(
                                 '#${ranking['rank']}',
                                 style: GoogleFonts.notoSans(
                                   fontWeight: isCurrentUser
                                       ? FontWeight.bold
                                       : FontWeight.normal,
+                                  fontSize: 14 * _textScaleFactor,
                                   color: _getRankColor(ranking['rank']),
                                 ),
                               ),
@@ -1625,15 +1578,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                               ranking['countryCode']
                                                   .toString()
                                                   .toUpperCase(),
-                                              height: 16,
-                                              width: 24,
+                                              height: 16 * _textScaleFactor,
+                                              width: 24 * _textScaleFactor,
                                               borderRadius: 4,
                                             );
                                           } catch (e) {
                                             // 오류 발생 시 간단한 컨테이너로 대체
                                             return Container(
-                                              height: 16,
-                                              width: 24,
+                                              height: 16 * _textScaleFactor,
+                                              width: 24 * _textScaleFactor,
                                               decoration: BoxDecoration(
                                                 color: Colors.grey
                                                     .withOpacity(0.2),
@@ -1653,6 +1606,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                         fontWeight: isCurrentUser
                                             ? FontWeight.bold
                                             : FontWeight.normal,
+                                        fontSize: 14 * _textScaleFactor,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -1663,21 +1617,22 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                         left: 4.0, right: 4.0),
                                     child: Image.asset(
                                       'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
-                                      width: 18,
-                                      height: 18,
+                                      width: 18 * _textScaleFactor,
+                                      height: 18 * _textScaleFactor,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                             SizedBox(
-                              width: 80,
+                              width: 80 * _textScaleFactor,
                               child: Text(
                                 '${ranking['score']}',
                                 style: GoogleFonts.notoSans(
                                   fontWeight: isCurrentUser
                                       ? FontWeight.bold
                                       : FontWeight.normal,
+                                  fontSize: 14 * _textScaleFactor,
                                 ),
                                 textAlign: TextAlign.end,
                               ),
@@ -1749,7 +1704,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   translations['brain_health_dashboard'] ??
                       'Brain Health Dashboard',
                   style: GoogleFonts.notoSans(
-                    fontSize: 20,
+                    fontSize: 20 * _textScaleFactor,
                     fontWeight: FontWeight.bold,
                     color: tutorialColor,
                   ),
@@ -1803,6 +1758,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       translations['dont_show_again'] ?? 'Don\'t show again',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
+                        fontSize: 14 * _textScaleFactor,
                       ),
                     ),
                   ],
@@ -1814,15 +1770,15 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     translations['got_it'] ?? 'Got it!',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 16 * _textScaleFactor,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: tutorialColor,
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
+                      horizontal: 30 * _textScaleFactor,
+                      vertical: 12 * _textScaleFactor,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -1852,7 +1808,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           child: Icon(
             icon,
             color: color,
-            size: 20,
+            size: 20 * _textScaleFactor,
           ),
         ),
         SizedBox(width: 10),
@@ -1864,7 +1820,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                  fontSize: 15 * _textScaleFactor,
                   color: Colors.black87,
                 ),
               ),
@@ -1873,7 +1829,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 description,
                 style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 13,
+                  fontSize: 13 * _textScaleFactor,
                 ),
               ),
             ],
@@ -1938,7 +1894,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         children: [
           Icon(
             Icons.psychology,
-            size: 60,
+            size: 60 * _textScaleFactor,
             color: Colors.purple.shade300,
           ),
           SizedBox(height: 16),
@@ -1947,7 +1903,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 'Start Tracking Your Brain Health',
             textAlign: TextAlign.center,
             style: GoogleFonts.notoSans(
-              fontSize: 20,
+              fontSize: 20 * _textScaleFactor,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
@@ -1958,7 +1914,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 'Sign in to record your brain health score and track your progress. Play memory games to improve your cognitive abilities.',
             textAlign: TextAlign.center,
             style: GoogleFonts.notoSans(
-              fontSize: 16,
+              fontSize: 16 * _textScaleFactor,
               color: Colors.black54,
             ),
           ),
@@ -1968,7 +1924,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.purple,
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 32 * _textScaleFactor,
+                  vertical: 12 * _textScaleFactor),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
@@ -1976,7 +1934,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Text(
               translations['sign_in'] ?? 'Sign In',
               style: GoogleFonts.notoSans(
-                fontSize: 16,
+                fontSize: 16 * _textScaleFactor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -1987,7 +1945,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Text(
               translations['create_account'] ?? 'Create Account',
               style: GoogleFonts.notoSans(
-                fontSize: 14,
+                fontSize: 14 * _textScaleFactor,
                 color: Colors.purple.shade700,
                 decoration: TextDecoration.underline,
               ),
@@ -2422,38 +2380,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   style: GoogleFonts.notoSans(
                     fontSize: isSmallScreen ? 13 : 14,
                     color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: isSmallScreen ? 2 : 4),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: isSmallScreen ? 4 : 6,
-                      horizontal: isSmallScreen ? 8 : 10),
-                  decoration: BoxDecoration(
-                    color: color.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: color.withOpacity(0.1)),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: isSmallScreen ? 1 : 2),
-                        child: Icon(Icons.emoji_emotions_outlined,
-                            size: isSmallScreen ? 12 : 14, color: color),
-                      ),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          funComment,
-                          style: GoogleFonts.notoSans(
-                            fontSize: isSmallScreen ? 11 : 12,
-                            color: Colors.grey.shade700,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],

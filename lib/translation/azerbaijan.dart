@@ -62,7 +62,7 @@ const Map<String, String> azTranslations = {
   'gender': 'Cins',
   'male': 'Kişi',
   'female': 'Qadın',
-  'select_country': 'Ölkənizi seçin',
+  'select_country': 'Ölkə seçin',
   'multi_game_pin': 'Çoxoyunçulu PIN',
   'enter_two_digit_pin': '2 rəqəmli PIN daxil edin',
   'two_digit_pin_helper': 'Bu PIN çoxoyunçulu oyunlar üçün istifadə olunur',
@@ -227,4 +227,7 @@ const Map<String, String> azTranslations = {
   'continue': 'Davam et',
   'new_test': 'Yeni test',
   'submit': 'Təqdim et',
+
+  // New keys
+  'email': 'E-poçt',
 };

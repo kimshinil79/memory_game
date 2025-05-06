@@ -27,6 +27,7 @@ const Map<String, String> amTranslations = {
   'brain_health': 'የአንጎል ጤና',
   'player': 'ተጫዋች',
   'players': 'ተጫዋቾች',
+  'email': 'ኢሜይል',
 
   // Player Selection Dialog texts
   'select_players': 'ተጫዋቾችን ምረጥ',

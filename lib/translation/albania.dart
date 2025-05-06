@@ -64,7 +64,7 @@ const Map<String, String> sqTranslations = {
   'gender': 'Gjinia',
   'male': 'Mashkull',
   'female': 'Femër',
-  'select_country': 'Zgjidh shtetin',
+  'select_country': 'Zgjidh vendin',
   'multi_game_pin': 'PIN i Lojës së Shumë Lojtarëve',
   'enter_two_digit_pin': 'Shkruani PIN-in 2-shifror',
   'two_digit_pin_helper': 'Ky PIN përdoret për sesionet me shumë lojtarë',
@@ -160,7 +160,7 @@ const Map<String, String> sqTranslations = {
   'login_prompt_desc':
       'Hyni për të regjistruar rezultatin tuaj të shëndetit të trurit dhe për të ndjekur progresin tuaj. Përmirësoni aftësitë tuaja kognitive përmes lojërave të memories.',
   'sign_in': 'Hyr',
-  'create_account': 'Krijo Llogari',
+  'create_account': 'Krijo llogari',
 
   // User Rankings texts
   'user_rankings': 'Renditja e Përdoruesve',
@@ -230,5 +230,7 @@ const Map<String, String> sqTranslations = {
   'test_result': 'Rezultati i Testit',
   'your_score': 'Rezultati Juaj',
   'new_test': 'Test i Ri',
-  'submit': 'Paraqit'
+  'submit': 'Paraqit',
+
+  'email': 'Email',
 };

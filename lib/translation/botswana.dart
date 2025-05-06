@@ -227,5 +227,6 @@ const Map<String, String> tnTranslations = {
   'test_result': 'Phetho ya teko',
   'your_score': 'Dintlha tsa gago',
   'new_test': 'Teko e ntsha',
-  'submit': 'Romela'
+  'submit': 'Romela',
+  'email': 'Email'
 };

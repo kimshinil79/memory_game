@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../providers/language_provider.dart';
 
 class LoginRequiredDialog {
   static Future<void> show(BuildContext context, VoidCallback onSignInPressed) {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+    final translations = languageProvider.getUITranslations();
+
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -31,7 +37,7 @@ class LoginRequiredDialog {
                 ),
                 SizedBox(height: 24),
                 Text(
-                  'Login Required',
+                  translations['login_required'] ?? 'Login Required',
                   style: GoogleFonts.montserrat(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -40,7 +46,8 @@ class LoginRequiredDialog {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'Please sign in to play the Memory Game',
+                  translations['please_sign_in'] ??
+                      'Please sign in to play the Memory Game',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                     fontSize: 16,
@@ -61,7 +68,7 @@ class LoginRequiredDialog {
                           ),
                         ),
                         child: Text(
-                          'Cancel',
+                          translations['cancel'] ?? 'Cancel',
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -85,7 +92,7 @@ class LoginRequiredDialog {
                           ),
                         ),
                         child: Text(
-                          'Sign In',
+                          translations['sign_in'] ?? 'Sign In',
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -108,6 +115,10 @@ class LoginRequiredDialog {
 class SignOutConfirmDialog {
   static Future<void> show(
       BuildContext context, VoidCallback onSignOutConfirmed) {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+    final translations = languageProvider.getUITranslations();
+
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -120,36 +131,32 @@ class SignOutConfirmDialog {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red.shade50,
-                  ),
-                  child: Icon(
-                    Icons.logout_rounded,
-                    size: 40,
-                    color: Colors.red.shade400,
-                  ),
-                ),
-                SizedBox(height: 24),
-                Text(
-                  'Sign Out',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Are you sure you want to sign out?',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    color: Colors.grey.shade600,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red.shade50,
+                      ),
+                      child: Icon(
+                        Icons.logout_rounded,
+                        size: 24,
+                        color: Colors.red.shade400,
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      translations['sign_out'] ?? 'Sign Out',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 32),
                 Row(
@@ -165,7 +172,7 @@ class SignOutConfirmDialog {
                           ),
                         ),
                         child: Text(
-                          'Cancel',
+                          translations['cancel'] ?? 'Cancel',
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -189,7 +196,7 @@ class SignOutConfirmDialog {
                           ),
                         ),
                         child: Text(
-                          'Sign Out',
+                          translations['yes'] ?? 'Yes',
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

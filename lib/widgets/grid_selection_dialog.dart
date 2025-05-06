@@ -42,6 +42,30 @@ class _GridSelectionDialogContentState
   Map<String, String> _translations = {};
   bool _didInitProvider = false;
 
+  // Define text scale factor for dynamic text sizing
+  double get _textScaleFactor {
+    final width = MediaQuery.of(context).size.width;
+    // Adjust these breakpoints as needed
+    if (width < 360) return 0.8;
+    if (width < 400) return 0.9;
+    return 1.0;
+  }
+
+  // Helper method for creating text styles with dynamic sizing
+  TextStyle _getTextStyle({
+    required double fontSize,
+    FontWeight fontWeight = FontWeight.normal,
+    Color color = Colors.black87,
+    String? fontFamily,
+  }) {
+    final style = GoogleFonts.poppins(
+      fontSize: fontSize * _textScaleFactor,
+      fontWeight: fontWeight,
+      color: color,
+    );
+    return style;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -96,21 +120,28 @@ class _GridSelectionDialogContentState
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ).createShader(bounds),
-              child: Text(
-                _translations['select_grid_size'] ?? 'Select Grid Size',
-                style: GoogleFonts.poppins(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _translations['select_grid_size'] ?? 'Select Grid Size',
+                  style: _getTextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
             SizedBox(height: 12),
-            Text(
-              _translations['choose_difficulty'] ?? 'Choose difficulty level',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                color: Colors.grey.shade600,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                _translations['choose_difficulty'] ?? 'Choose difficulty level',
+                style: _getTextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ),
             SizedBox(height: 32),
@@ -159,12 +190,15 @@ class _GridSelectionDialogContentState
                     ),
                   ],
                 ),
-                child: Text(
-                  _translations['cancel'] ?? 'Cancel',
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['cancel'] ?? 'Cancel',
+                    style: _getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -221,18 +255,21 @@ class _GridSelectionDialogContentState
                 value.contains('6x8') || value.contains('6x6')
                     ? Icons.grid_on_rounded
                     : Icons.grid_4x4_rounded,
-                size: 36,
+                size: 36 * _textScaleFactor,
                 color: isSelected
                     ? Colors.white
                     : Color(0xFF833AB4).withOpacity(0.7),
               ),
               SizedBox(height: 8),
-              Text(
-                value,
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : Colors.grey.shade800,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  value,
+                  style: _getTextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: isSelected ? Colors.white : Colors.grey.shade800,
+                  ),
                 ),
               ),
               SizedBox(height: 4),
@@ -244,12 +281,15 @@ class _GridSelectionDialogContentState
                       : Color(0xFF833AB4).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(
-                  '${_translations['multiplier'] ?? '×'}${_getGridSizeMultiplier(value)}',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: isSelected ? Colors.white : Color(0xFF833AB4),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '${_translations['multiplier'] ?? '×'}${_getGridSizeMultiplier(value)}',
+                    style: _getTextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: isSelected ? Colors.white : Color(0xFF833AB4),
+                    ),
                   ),
                 ),
               ),

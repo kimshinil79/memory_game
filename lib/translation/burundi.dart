@@ -227,5 +227,6 @@ const Map<String, String> rnTranslations = {
   'test_result': 'Igisubizo cy\'ikizamini',
   'your_score': 'Amapointe yawe',
   'new_test': 'Ikizamini gishya',
-  'submit': 'Ohereza'
+  'submit': 'Ohereza',
+  'email': 'Imeri'
 };

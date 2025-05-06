@@ -228,4 +228,7 @@ const Map<String, String> beTranslations = {
   'continue': 'Працягнуць',
   'new_test': 'Новы тэст',
   'submit': 'Адправіць',
+
+  // Belarusian translations
+  'email': 'Электронная пошта',
 };

@@ -226,5 +226,6 @@ const Map<String, String> dzTranslations = {
   'test_result': 'ཞིབ་བཤེར་གྱི་གྲུབ་འབྲས།',
   'your_score': 'ཁྱེད་ཀྱི་གོ་ཐོབ།',
   'new_test': 'ཞིབ་བཤེར་གསར་པ།',
-  'submit': 'འབུལ་བ།'
+  'submit': 'འབུལ་བ།',
+  'email': 'ཡིག་འཕྲིན་'
 };

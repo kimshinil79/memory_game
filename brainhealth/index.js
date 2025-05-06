@@ -54,61 +54,41 @@ exports.saveGameResult = functions.https.onCall(async (data, context) => {
     // 전체 최고 기록 업데이트
     const bestTime = Math.min(timeSpent, brainHealth.bestTime || Infinity);
 
+    // 점수 기록 업데이트
+    const scoreHistory = brainHealth.scoreHistory || {};
+    const timestamp = Date.now().toString();
+    scoreHistory[timestamp] = score;
+
     // 브레인 헬스 인덱스 계산
-    const age = userData.age || 30;
-    const ageComponent = Math.max(0, (100 - age) / 2); // 나이에 따른 기본 점수
-    const activityComponent = Math.min(30, totalGamesPlayed); // 활동량 점수
-    const performanceComponent = Math.min(40, (score / 1000) * 40); // 게임 성과 점수
-    
-    // 지속성 보너스 계산
-    const now = new Date();
-    const lastGameTime = brainHealth.lastUpdated?.toDate() || new Date(0);
-    const daysSinceLastGame = Math.floor((now - lastGameTime) / (1000 * 60 * 60 * 24));
-    const persistenceBonus = daysSinceLastGame <= 1 ? 10 : 0; // 매일 게임할 경우 보너스
-
-    // 비활동 패널티 계산
-    const inactivityPenalty = Math.min(daysSinceLastGame * 2, 20);
-
-    // 최종 브레인 헬스 인덱스 계산
-    const brainHealthIndex = Math.min(100,
-      ageComponent +
-      activityComponent +
-      performanceComponent +
-      persistenceBonus -
-      inactivityPenalty
-    );
-
-    // 브레인 헬스 레벨 계산
-    let brainHealthIndexLevel;
-    if (brainHealthIndex < 35) brainHealthIndexLevel = 1;
-    else if (brainHealthIndex < 60) brainHealthIndexLevel = 2;
-    else if (brainHealthIndex < 80) brainHealthIndexLevel = 3;
-    else if (brainHealthIndex < 95) brainHealthIndexLevel = 4;
-    else brainHealthIndexLevel = 5;
+    const brainHealthResult = await calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed, totalMatchesFound, bestTimesByGridSize);
 
     // Firestore 업데이트
     await userRef.update({
       'brain_health': {
-        brainHealthIndex,
-        brainHealthIndexLevel,
+        brainHealthScore: score,
+        brainHealthIndex: brainHealthResult.brainHealthIndex,
+        brainHealthIndexLevel: brainHealthResult.indexLevel,
         totalGamesPlayed,
         totalMatchesFound,
         bestTimesByGridSize,
         bestTime: bestTime === Infinity ? 0 : bestTime,
+        scoreHistory: scoreHistory,
         lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
-        ageComponent,
-        activityComponent,
-        performanceComponent,
-        persistenceBonus,
-        inactivityPenalty,
-        daysSinceLastGame
+        ageComponent: brainHealthResult.ageComponent,
+        activityComponent: brainHealthResult.activityComponent,
+        performanceComponent: brainHealthResult.performanceComponent,
+        persistenceBonus: brainHealthResult.persistenceBonus,
+        inactivityPenalty: brainHealthResult.inactivityPenalty,
+        daysSinceLastGame: brainHealthResult.daysSinceLastGame,
+        levelDropDueToInactivity: brainHealthResult.levelDropDueToInactivity,
+        pointsToNextLevel: brainHealthResult.pointsToNextLevel
       }
     });
 
     return {
       success: true,
-      brainHealthIndex,
-      brainHealthIndexLevel
+      brainHealthIndex: brainHealthResult.brainHealthIndex,
+      brainHealthIndexLevel: brainHealthResult.indexLevel
     };
 
   } catch (error) {
@@ -205,9 +185,9 @@ exports.getBrainHealthStats = functions.https.onCall(async (data, context) => {
   }
 });
 
-// 매일 자정에 실행되는 스케줄러 함수
+// 15분마다 실행되는 스케줄러 함수 - Brain Health Index 업데이트
 exports.updateBrainHealthIndex = functions.pubsub
-  .schedule('0 0 * * *') // 매일 자정에 실행
+  .schedule('*/15 * * * *') // 15분마다 실행
   .timeZone('Asia/Seoul') // 한국 시간대 기준
   .onRun(async (context) => {
     try {
@@ -227,48 +207,38 @@ exports.updateBrainHealthIndex = functions.pubsub
         if (userData.brain_health) {
           const brainHealthData = userData.brain_health;
           
-          // 마지막 게임 시간 가져오기
-          const lastGameTime = brainHealthData.lastUpdated?.toDate() || new Date(0);
-          const now = new Date();
-          const daysSinceLastGame = Math.floor((now - lastGameTime) / (1000 * 60 * 60 * 24));
+          // 점수 기록 가져오기
+          const scoreHistory = brainHealthData.scoreHistory || {};
+          const totalGamesPlayed = brainHealthData.totalGamesPlayed || 0;
+          const totalMatchesFound = brainHealthData.totalMatchesFound || 0;
+          const bestTimesByGridSize = brainHealthData.bestTimesByGridSize || {};
           
-          // 비활동 패널티 계산 (하루마다 2점씩 감소, 최대 20점)
-          let inactivityPenalty = 0;
-          if (daysSinceLastGame > 0) {
-            inactivityPenalty = Math.min(daysSinceLastGame * 2, 20);
-          }
-          
-          // 현재 brainHealthIndex 가져오기
-          let currentIndex = brainHealthData.brainHealthIndex || 0;
-          
-          // 비활동 패널티 적용
-          currentIndex = Math.max(0, currentIndex - inactivityPenalty);
-          
-          // brainHealthIndexLevel 계산
-          let indexLevel;
-          if (currentIndex < 35) {
-            indexLevel = 1;
-          } else if (currentIndex < 60) {
-            indexLevel = 2;
-          } else if (currentIndex < 80) {
-            indexLevel = 3;
-          } else if (currentIndex < 95) {
-            indexLevel = 4;
-          } else {
-            indexLevel = 5;
-          }
+          // 브레인 헬스 인덱스 계산
+          const brainHealthResult = await calculateBrainHealthIndex(
+            userDoc.id, 
+            scoreHistory, 
+            totalGamesPlayed, 
+            totalMatchesFound, 
+            bestTimesByGridSize
+          );
           
           // 사용자 문서 업데이트
           await userDoc.ref.update({
-            'brain_health.brainHealthIndex': currentIndex,
-            'brain_health.brainHealthIndexLevel': indexLevel,
-            'brain_health.inactivityPenalty': inactivityPenalty,
-            'brain_health.daysSinceLastGame': daysSinceLastGame,
-            'brain_health.lastUpdated': admin.firestore.FieldValue.serverTimestamp()
+            'brain_health.brainHealthIndex': brainHealthResult.brainHealthIndex,
+            'brain_health.brainHealthIndexLevel': brainHealthResult.indexLevel,
+            'brain_health.ageComponent': brainHealthResult.ageComponent,
+            'brain_health.activityComponent': brainHealthResult.activityComponent,
+            'brain_health.performanceComponent': brainHealthResult.performanceComponent,
+            'brain_health.persistenceBonus': brainHealthResult.persistenceBonus,
+            'brain_health.inactivityPenalty': brainHealthResult.inactivityPenalty,
+            'brain_health.daysSinceLastGame': brainHealthResult.daysSinceLastGame,
+            'brain_health.levelDropDueToInactivity': brainHealthResult.levelDropDueToInactivity,
+            'brain_health.pointsToNextLevel': brainHealthResult.pointsToNextLevel,
+            'brain_health.lastBHIUpdate': admin.firestore.FieldValue.serverTimestamp()
           });
           
           updatedCount++;
-          console.log(`Updated brain health index for user ${userDoc.id}: ${currentIndex}, level: ${indexLevel}`);
+          console.log(`Updated brain health index for user ${userDoc.id}: ${brainHealthResult.brainHealthIndex}, level: ${brainHealthResult.indexLevel}`);
         }
       }
       
@@ -279,6 +249,242 @@ exports.updateBrainHealthIndex = functions.pubsub
       return null;
     }
   });
+
+// 브레인 헬스 인덱스 계산 함수
+async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed, totalMatchesFound, bestTimesByGridSize) {
+  try {
+    // 기본 지수 값 (60으로 설정)
+    const baseIndex = 60.0;
+
+    // 현재 날짜
+    const now = new Date();
+
+    // 사용자 나이 가져오기 (Firebase 사용자 정보에서)
+    let userAge = 30; // 기본값 30
+
+    try {
+      const userDoc = await admin.firestore().collection('users').doc(userId).get();
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        
+        // 먼저 birthday 필드가 있는지 확인
+        if (userData.birthday) {
+          try {
+            const birthDate = userData.birthday.toDate();
+            userAge = Math.floor((now - birthDate) / (1000 * 60 * 60 * 24 * 365));
+            
+            // 계산된 나이가 비정상적으로 크거나 작을 경우 기본값 사용
+            if (userAge < 0 || userAge > 120) {
+              userAge = 30;
+            }
+          } catch (e) {
+            console.error('Error calculating age from birthday:', e);
+            // 오류 발생 시 age 필드 확인
+            if (userData.age) {
+              userAge = userData.age;
+            }
+          }
+        } 
+        // birthday가 없고 age 필드가 있는 경우
+        else if (userData.age) {
+          userAge = userData.age;
+          // 값이 비정상적으로 크거나 작을 경우 기본값 사용
+          if (userAge < 0 || userAge > 120) {
+            userAge = 30;
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Error fetching user age from Firebase:', e);
+    }
+
+    // 나이 기반 조정 (35세 이상부터 점수 감소, 효과 증가)
+    let ageAdjustment = 0;
+    if (userAge > 35) {
+      ageAdjustment = (userAge - 35) * 0.3; // 나이가 많을수록 지수 감소
+      ageAdjustment = Math.min(ageAdjustment, 20); // 최대 감소량 20
+    }
+
+    // 지난 일주일간 게임 활동 평가
+    let recentGames = 0;
+    const recentGameDates = [];
+
+    // 점수 기록에서 최근 활동 확인
+    for (const timestamp in scoreHistory) {
+      const date = new Date(parseInt(timestamp));
+      const daysDifference = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+      
+      if (daysDifference <= 7) {
+        recentGames++;
+        recentGameDates.push(date);
+      }
+    }
+
+    // 최근 게임 활동 기반 조정 (보상 증가)
+    let activityAdjustment = recentGames * 1.5; // 게임당 1.5점
+    activityAdjustment = Math.min(activityAdjustment, 15); // 최대 15점
+
+    // 연속 활동 부재에 대한 패널티 추가
+    let inactivityPenalty = 0;
+    let levelDropDueToInactivity = 0; // 비활동으로 인한 레벨 감소 추적
+
+    // 최근 게임 날짜 정렬
+    recentGameDates.sort((a, b) => b - a); // 최신 날짜가 앞으로 오도록 정렬
+
+    // 마지막 게임 이후 지난 일수 계산
+    let daysSinceLastGame = 0;
+    if (recentGameDates.length > 0) {
+      daysSinceLastGame = Math.floor((now - recentGameDates[0]) / (1000 * 60 * 60 * 24));
+    } else {
+      daysSinceLastGame = 7; // 최근 기록이 없으면 최대 패널티
+    }
+
+    // 비활동 패널티 계산 (하루만 안해도 패널티 적용)
+    if (daysSinceLastGame > 0) {
+      // 하루마다 2점씩 감소
+      inactivityPenalty = daysSinceLastGame * 2.0;
+      // 최대 패널티 제한
+      inactivityPenalty = Math.min(inactivityPenalty, 20);
+
+      // 하루라도 건너뛰면 레벨 감소 추적
+      levelDropDueToInactivity = Math.min(daysSinceLastGame, 4); // 최대 4단계까지만 떨어지도록 제한
+    }
+
+    // 그리드 성능 평가
+    let gridPerformance = 0;
+
+    // 각 그리드 크기별 점수 계산 (난이도 증가)
+    for (const gridSize in bestTimesByGridSize) {
+      const bestTime = bestTimesByGridSize[gridSize];
+      if (bestTime > 0) {
+        // 그리드 크기에 따른 기대 시간 (초 단위) - 조금 더 엄격한 기준 적용
+        let expectedTime;
+        switch (gridSize) {
+          case "2x2":
+            expectedTime = 10; // 15에서 10으로 감소
+            break;
+          case "4x2":
+          case "2x4":
+            expectedTime = 25; // 30에서 25로 감소
+            break;
+          case "4x3":
+          case "3x4":
+            expectedTime = 50; // 60에서 50으로 감소
+            break;
+          case "4x4":
+            expectedTime = 75; // 90에서 75로 감소
+            break;
+          case "5x4":
+          case "4x5":
+            expectedTime = 100; // 120에서 100으로 감소
+            break;
+          case "6x5":
+          case "5x6":
+            expectedTime = 150; // 180에서 150으로 감소
+            break;
+          default:
+            expectedTime = 50;
+        }
+
+        // 기대 시간보다 빠를수록 더 높은 점수 (보상 감소)
+        const timeFactor = Math.max(0.5, Math.min(expectedTime / bestTime, 1.8)); // 최대 보상 1.8
+        gridPerformance += timeFactor * 1.5; // 가중치 1.5
+      }
+    }
+
+    // 그리드 성능 점수 제한
+    gridPerformance = Math.min(gridPerformance, 18); // 최대 18점
+
+    // 플레이 횟수에 따른 보너스 (지속적인 플레이 필요)
+    let persistenceBonus = 0;
+    if (totalGamesPlayed >= 5) persistenceBonus = 2;
+    if (totalGamesPlayed >= 10) persistenceBonus = 4;
+    if (totalGamesPlayed >= 20) persistenceBonus = 7;
+    if (totalGamesPlayed >= 50) persistenceBonus = 10;
+    if (totalGamesPlayed >= 100) persistenceBonus = 15;
+
+    // 최종 지수 계산 (로그 함수 적용으로 상위 점수대 진입 어렵게)
+    let rawIndex = baseIndex -
+        ageAdjustment +
+        activityAdjustment +
+        gridPerformance +
+        persistenceBonus -
+        inactivityPenalty; // 비활동 패널티 적용
+
+    // 로그 함수를 사용해 높은 점수대에서 진행이 느려지도록 조정
+    // 85점 이상부터 점수 획득이 급격히 어려워짐
+    let finalIndex = rawIndex;
+    if (rawIndex > 85) {
+      const excess = rawIndex - 85;
+      const logFactor = 1 + (0.5 * (1 - (1 / (1 + 0.1 * excess)))); // 로그 기반 감쇠 함수
+      finalIndex = 85 + (excess / logFactor);
+    }
+
+    finalIndex = Math.max(0, Math.min(finalIndex, 100));
+
+    // 지수 레벨 계산 (1-5) - 상위 레벨 기준 상향
+    let indexLevel;
+    if (finalIndex < 35) {
+      indexLevel = 1;
+    } else if (finalIndex < 60) {
+      indexLevel = 2;
+    } else if (finalIndex < 80) {
+      indexLevel = 3;
+    } else if (finalIndex < 95) {
+      indexLevel = 4;
+    } else {
+      indexLevel = 5;
+    }
+
+    // 비활동으로 인한 레벨 감소 적용
+    indexLevel = Math.max(1, Math.min(indexLevel - levelDropDueToInactivity, 5));
+
+    // 다음 레벨까지 필요한 포인트 계산
+    let pointsToNext = 0;
+    if (indexLevel < 5) {
+      const thresholds = [0, 35, 60, 80, 95, 100]; // 기준 업데이트
+      pointsToNext = thresholds[indexLevel] - finalIndex;
+      pointsToNext = Math.ceil(Math.abs(pointsToNext));
+    }
+
+    return {
+      brainHealthIndex: finalIndex,
+      indexLevel: indexLevel,
+      pointsToNextLevel: pointsToNext,
+      ageComponent: ageAdjustment,
+      activityComponent: activityAdjustment,
+      performanceComponent: gridPerformance,
+      persistenceBonus: persistenceBonus,
+      inactivityPenalty: inactivityPenalty,
+      daysSinceLastGame: daysSinceLastGame,
+      levelDropDueToInactivity: levelDropDueToInactivity,
+      details: {
+        age: userAge,
+        recentGames: recentGames,
+        totalGames: totalGamesPlayed,
+      }
+    };
+  } catch (e) {
+    console.error('Error calculating brain health index:', e);
+    return {
+      brainHealthIndex: 0,
+      indexLevel: 1,
+      pointsToNextLevel: 0,
+      ageComponent: 0,
+      activityComponent: 0,
+      performanceComponent: 0,
+      persistenceBonus: 0,
+      inactivityPenalty: 0,
+      daysSinceLastGame: 7,
+      levelDropDueToInactivity: 0,
+      details: {
+        age: 30,
+        recentGames: 0,
+        totalGames: 0
+      }
+    };
+  }
+}
 
 // 브레인 헬스 인덱스 업데이트 함수 테스트용 (HTTP 호출 가능)
 exports.testUpdateBrainHealthIndex = functions.https.onCall(async (data, context) => {
@@ -300,56 +506,50 @@ exports.testUpdateBrainHealthIndex = functions.https.onCall(async (data, context
       if (userData.brain_health) {
         const brainHealthData = userData.brain_health;
         
-        // 마지막 게임 시간 가져오기
-        const lastGameTime = brainHealthData.lastUpdated?.toDate() || new Date(0);
-        const now = new Date();
-        const daysSinceLastGame = Math.floor((now - lastGameTime) / (1000 * 60 * 60 * 24));
+        // 점수 기록 가져오기
+        const scoreHistory = brainHealthData.scoreHistory || {};
+        const totalGamesPlayed = brainHealthData.totalGamesPlayed || 0;
+        const totalMatchesFound = brainHealthData.totalMatchesFound || 0;
+        const bestTimesByGridSize = brainHealthData.bestTimesByGridSize || {};
         
-        // 비활동 패널티 계산 (하루마다 2점씩 감소, 최대 20점)
-        let inactivityPenalty = 0;
-        if (daysSinceLastGame > 0) {
-          inactivityPenalty = Math.min(daysSinceLastGame * 2, 20);
-        }
-        
-        // 현재 brainHealthIndex 가져오기
-        let currentIndex = brainHealthData.brainHealthIndex || 0;
-        
-        // 비활동 패널티 적용
-        currentIndex = Math.max(0, currentIndex - inactivityPenalty);
-        
-        // brainHealthIndexLevel 계산
-        let indexLevel;
-        if (currentIndex < 35) {
-          indexLevel = 1;
-        } else if (currentIndex < 60) {
-          indexLevel = 2;
-        } else if (currentIndex < 80) {
-          indexLevel = 3;
-        } else if (currentIndex < 95) {
-          indexLevel = 4;
-        } else {
-          indexLevel = 5;
-        }
+        // 브레인 헬스 인덱스 계산
+        const brainHealthResult = await calculateBrainHealthIndex(
+          userDoc.id, 
+          scoreHistory, 
+          totalGamesPlayed, 
+          totalMatchesFound, 
+          bestTimesByGridSize
+        );
         
         // 사용자 문서 업데이트
         await userDoc.ref.update({
-          'brain_health.brainHealthIndex': currentIndex,
-          'brain_health.brainHealthIndexLevel': indexLevel,
-          'brain_health.inactivityPenalty': inactivityPenalty,
-          'brain_health.daysSinceLastGame': daysSinceLastGame,
-          'brain_health.lastUpdated': admin.firestore.FieldValue.serverTimestamp()
+          'brain_health.brainHealthIndex': brainHealthResult.brainHealthIndex,
+          'brain_health.brainHealthIndexLevel': brainHealthResult.indexLevel,
+          'brain_health.ageComponent': brainHealthResult.ageComponent,
+          'brain_health.activityComponent': brainHealthResult.activityComponent,
+          'brain_health.performanceComponent': brainHealthResult.performanceComponent,
+          'brain_health.persistenceBonus': brainHealthResult.persistenceBonus,
+          'brain_health.inactivityPenalty': brainHealthResult.inactivityPenalty,
+          'brain_health.daysSinceLastGame': brainHealthResult.daysSinceLastGame,
+          'brain_health.levelDropDueToInactivity': brainHealthResult.levelDropDueToInactivity,
+          'brain_health.pointsToNextLevel': brainHealthResult.pointsToNextLevel,
+          'brain_health.lastBHIUpdate': admin.firestore.FieldValue.serverTimestamp()
         });
         
         updatedCount++;
         const result = {
           userId: userDoc.id,
-          brainHealthIndex: currentIndex,
-          brainHealthIndexLevel: indexLevel,
-          inactivityPenalty: inactivityPenalty,
-          daysSinceLastGame: daysSinceLastGame
+          brainHealthIndex: brainHealthResult.brainHealthIndex,
+          brainHealthIndexLevel: brainHealthResult.indexLevel,
+          ageComponent: brainHealthResult.ageComponent,
+          activityComponent: brainHealthResult.activityComponent,
+          performanceComponent: brainHealthResult.performanceComponent,
+          persistenceBonus: brainHealthResult.persistenceBonus,
+          inactivityPenalty: brainHealthResult.inactivityPenalty,
+          daysSinceLastGame: brainHealthResult.daysSinceLastGame
         };
         results.push(result);
-        console.log(`Updated brain health index for user ${userDoc.id}: ${currentIndex}, level: ${indexLevel}`);
+        console.log(`Updated brain health index for user ${userDoc.id}: ${brainHealthResult.brainHealthIndex}, level: ${brainHealthResult.indexLevel}`);
       }
     }
     

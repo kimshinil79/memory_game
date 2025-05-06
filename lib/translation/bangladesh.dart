@@ -228,5 +228,6 @@ const Map<String, String> bnBDTranslations = {
   'test_result': 'পরীক্ষার ফলাফল',
   'your_score': 'আপনার স্কোর',
   'new_test': 'নতুন পরীক্ষা',
-  'submit': 'জমা দিন'
+  'submit': 'জমা দিন',
+  'email': 'ইমেইল',
 };

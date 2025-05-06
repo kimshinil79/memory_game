@@ -27,6 +27,7 @@ const Map<String, String> arTranslations = {
   'brain_health': 'صحة الدماغ',
   'player': 'لاعب',
   'players': 'لاعبون',
+  'email': 'البريد الإلكتروني',
 
   // Player Selection Dialog texts
   'select_players': 'اختر اللاعبين',

@@ -310,7 +310,7 @@ class BrainHealthProvider with ChangeNotifier {
 
       return {
         'brainHealthIndex': finalIndex,
-        'indexLevel': indexLevel,
+        'brainHealthIndexLevel': indexLevel,
         'pointsToNextLevel': pointsToNext,
         'ageComponent': ageAdjustment,
         'activityComponent': activityAdjustment,
@@ -358,43 +358,67 @@ class BrainHealthProvider with ChangeNotifier {
   Future<void> _initialize() async {
     if (_disposed) return;
 
-    print('Initializing BrainHealthProvider...');
+    print('=== BrainHealthProvider Initialization Start ===');
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      // 먼저 사용자 인증 확인 - userId 확보
+      print('1. Starting user authentication check...');
       await _ensureUserAuthenticated();
-      if (_disposed) return; // dispose 체크 추가
+      if (_disposed) return;
 
-      // 사용자 ID가 확인된 후에 로컬 데이터 로드
+      print('2. Loading local data...');
       await _loadLocalData();
-      if (_disposed) return; // dispose 체크 추가
+      if (_disposed) return;
 
-      // 데이터 마이그레이션 확인 (brain_health_users에서 users로 이전)
+      print('3. Checking for data migration...');
       if (_userId != null && !_migrationChecked) {
+        print('3.1. Starting brain_health_users migration...');
         await _checkAndMigrateData();
         _migrationChecked = true;
       }
-      if (_disposed) return; // dispose 체크 추가
+      if (_disposed) return;
 
-      // Firebase 데이터 로드 및 동기화
+      print('4. Checking for score history migration...');
+      if (_userId != null) {
+        print('4.1. User ID: $_userId');
+        print('4.2. Checking brain_health_history collection...');
+
+        // brain_health_history 컬렉션이 있는지 확인
+        CollectionReference historyRef = FirebaseFirestore.instance
+            .collection('users')
+            .doc(_userId)
+            .collection('brain_health_history');
+
+        print('4.3. Counting documents in collection...');
+        AggregateQuerySnapshot snapshot = await historyRef.count().get();
+        int count = snapshot.count ?? 0;
+
+        print('4.4. Found $count documents in brain_health_history collection');
+
+        if (count > 0) {
+          print('4.5. Starting score history migration...');
+          await _migrateScoreHistory();
+        } else {
+          print('4.5. No documents to migrate');
+        }
+      }
+
+      print('5. Loading Firebase data...');
       if (_userId != null) {
         await _loadFirebaseData();
       } else {
-        print('Unable to load Firebase data: Authentication failed');
+        print('5.1. Unable to load Firebase data: Authentication failed');
       }
     } catch (e) {
-      print('Initialization error: $e');
+      print('Error during initialization: $e');
       _error = 'Failed to initialize: $e';
     } finally {
       if (!_disposed) {
-        // dispose 체크 추가
         _isLoading = false;
         notifyListeners();
-        print(
-            'Initialization completed. User ID: $_userId, Score: $_brainHealthScore');
+        print('=== BrainHealthProvider Initialization Complete ===');
       }
     }
   }
@@ -861,38 +885,42 @@ class BrainHealthProvider with ChangeNotifier {
       }
 
       // 점수 기록 가져오기
-      QuerySnapshot scoreSnapshot = await userRef
-          .collection('brain_health_history')
-          .orderBy('date', descending: false)
-          .get();
+      if (userDoc.exists) {
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        if (userData.containsKey('brain_health')) {
+          Map<String, dynamic> brainHealthData =
+              userData['brain_health'] as Map<String, dynamic>;
 
-      print(
-          'Loaded ${scoreSnapshot.docs.length} score records from Firebase for user $_userId');
+          // 점수 기록이 있는 경우
+          if (brainHealthData.containsKey('scoreHistory')) {
+            Map<String, dynamic> scoreHistoryMap =
+                brainHealthData['scoreHistory'] as Map<String, dynamic>;
+            _scoreHistory = [];
 
-      // Firebase의 점수 기록이 있으면 로컬 메모리의 점수 기록을 대체
-      if (scoreSnapshot.docs.isNotEmpty) {
-        _scoreHistory = [];
-        for (var doc in scoreSnapshot.docs) {
-          ScoreRecord record =
-              ScoreRecord.fromMap(doc.data() as Map<String, dynamic>);
-          _scoreHistory.add(record);
+            // 맵의 각 항목을 ScoreRecord로 변환
+            scoreHistoryMap.forEach((timestamp, score) {
+              _scoreHistory.add(ScoreRecord(
+                  DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp)),
+                  score as int));
+            });
+
+            // 날짜순으로 정렬
+            _scoreHistory.sort((a, b) => a.date.compareTo(b.date));
+
+            // 로컬 스토리지에 업데이트된 기록 저장
+            final prefs = await SharedPreferences.getInstance();
+            final userKeyPrefix = 'user_${_userId}_';
+            List<String> formattedHistory = _scoreHistory.map((record) {
+              return "${record.date.millisecondsSinceEpoch}|${record.score}";
+            }).toList();
+
+            await prefs.setStringList(
+                '${userKeyPrefix}scoreHistory', formattedHistory);
+            print(
+                'Updated local storage with ${_scoreHistory.length} score records for user $_userId');
+            dataChanged = true;
+          }
         }
-
-        // 점수 기록 날짜순 정렬
-        _scoreHistory.sort((a, b) => a.date.compareTo(b.date));
-
-        // 로컬 스토리지에 업데이트된 기록 저장
-        final prefs = await SharedPreferences.getInstance();
-        final userKeyPrefix = 'user_${_userId}_';
-        List<String> formattedHistory = _scoreHistory.map((record) {
-          return "${record.date.millisecondsSinceEpoch}|${record.score}";
-        }).toList();
-
-        await prefs.setStringList(
-            '${userKeyPrefix}scoreHistory', formattedHistory);
-        print(
-            'Updated local storage with ${_scoreHistory.length} score records for user $_userId');
-        dataChanged = true;
       }
 
       // 변경된 데이터가 있으면 로컬에 저장
@@ -998,22 +1026,45 @@ class BrainHealthProvider with ChangeNotifier {
       // Firebase에 저장 시도
       try {
         print('Saving score record to Firebase for user: $_userId');
-        DocumentReference docRef = await FirebaseFirestore.instance
+
+        // 기존 점수 기록 가져오기
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
             .collection('users')
             .doc(_userId)
-            .collection('brain_health_history')
-            .add(record.toMap());
+            .get();
 
-        print(
-            'Score record saved to Firebase successfully for user $_userId. Doc ID: ${docRef.id}');
+        Map<String, dynamic> scoreHistoryMap = {};
+        if (userDoc.exists) {
+          Map<String, dynamic> userData =
+              userDoc.data() as Map<String, dynamic>;
+          if (userData.containsKey('brain_health') &&
+              userData['brain_health'] is Map &&
+              (userData['brain_health'] as Map).containsKey('scoreHistory')) {
+            scoreHistoryMap = (userData['brain_health']['scoreHistory']
+                as Map<String, dynamic>);
+          }
+        }
+
+        // 새로운 점수 기록 추가
+        scoreHistoryMap[record.date.millisecondsSinceEpoch.toString()] =
+            record.score;
+
+        // 업데이트된 점수 기록 저장
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_userId)
+            .update({
+          'brain_health.scoreHistory': scoreHistoryMap,
+          'brain_health.lastUpdated': FieldValue.serverTimestamp(),
+        });
+
+        print('Score record saved to Firebase successfully for user $_userId');
       } catch (e) {
         print('Failed to save score record to Firebase: $e');
-        // Firebase 저장 실패 시 필요한 복구 로직을 추가할 수 있음
-        // 로컬에는 이미 저장되었으므로 사용자 데이터는 손실되지 않음
       }
     } catch (e) {
       print('Score record save error: $e');
-      throw e; // 상위 메서드에서 처리할 수 있도록 예외 다시 던지기
+      throw e;
     }
   }
 
@@ -1332,6 +1383,35 @@ class BrainHealthProvider with ChangeNotifier {
 
     // 로컬 데이터와 새 사용자 계정의 Firebase 데이터 마이그레이션
     await _migrateDataToNewUser(oldUserId);
+
+    // brain_health 필드에 scoreHistory가 있는지 확인
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_userId)
+          .get();
+
+      if (userDoc.exists) {
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        if (userData.containsKey('brain_health')) {
+          Map<String, dynamic> brainHealthData =
+              userData['brain_health'] as Map<String, dynamic>;
+
+          // scoreHistory가 없으면 마이그레이션 실행
+          if (!brainHealthData.containsKey('scoreHistory')) {
+            print('scoreHistory field not found, starting migration...');
+            await _migrateScoreHistory();
+          } else {
+            print('scoreHistory field already exists, skipping migration');
+          }
+        }
+      }
+    } catch (e) {
+      print('Error checking scoreHistory field: $e');
+    }
+
+    // 추가: 로그인 시 _initialize() 호출
+    await _initialize();
   }
 
   // 사용자 정보를 최신 상태로 업데이트
@@ -1410,6 +1490,9 @@ class BrainHealthProvider with ChangeNotifier {
       // 익명 로그인 시도
       await _ensureUserAuthenticated();
       if (_disposed) return;
+
+      // 추가: 익명 로그인 후 _initialize() 호출
+      await _initialize();
 
       if (_userId != null && _userId != previousUserId) {
         print('Switched to anonymous account: $_userId');
@@ -1731,6 +1814,77 @@ class BrainHealthProvider with ChangeNotifier {
     } catch (e) {
       print('Error fetching user rankings: $e');
       return [];
+    }
+  }
+
+  // 기존 점수 기록을 새로운 구조로 마이그레이션
+  Future<void> _migrateScoreHistory() async {
+    if (_userId == null) {
+      print('Cannot migrate score history: No user ID available');
+      return;
+    }
+
+    try {
+      print('Starting score history migration for user: $_userId');
+
+      // 기존 점수 기록 가져오기
+      QuerySnapshot oldScoreSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_userId)
+          .collection('brain_health_history')
+          .orderBy('date', descending: false)
+          .get();
+
+      if (oldScoreSnapshot.docs.isEmpty) {
+        print('No old score history found to migrate');
+        return;
+      }
+
+      print(
+          'Found ${oldScoreSnapshot.docs.length} old score records to migrate');
+
+      // 새로운 맵 구조 생성
+      Map<String, dynamic> newScoreHistory = {};
+
+      // 기존 데이터를 새로운 구조로 변환
+      for (var doc in oldScoreSnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        // date 필드 처리 - Timestamp 또는 int 타입 모두 처리
+        DateTime date;
+        if (data['date'] is Timestamp) {
+          date = (data['date'] as Timestamp).toDate();
+        } else if (data['date'] is int) {
+          date = DateTime.fromMillisecondsSinceEpoch(data['date'] as int);
+        } else {
+          print('Skipping record with invalid date format: ${data['date']}');
+          continue;
+        }
+
+        int score = data['score'] as int;
+
+        // 타임스탬프를 키로 사용
+        newScoreHistory[date.millisecondsSinceEpoch.toString()] = score;
+      }
+
+      // 새로운 구조로 저장
+      await FirebaseFirestore.instance.collection('users').doc(_userId).update({
+        'brain_health.scoreHistory': newScoreHistory,
+        'brain_health.lastUpdated': FieldValue.serverTimestamp(),
+      });
+
+      print(
+          'Successfully migrated ${oldScoreSnapshot.docs.length} score records to new structure');
+
+      // 기존 컬렉션 삭제 (선택사항)
+      // 주의: 이 부분은 데이터가 성공적으로 마이그레이션된 후에만 실행해야 합니다
+      for (var doc in oldScoreSnapshot.docs) {
+        await doc.reference.delete();
+      }
+      print('Old score history collection deleted');
+    } catch (e) {
+      print('Error during score history migration: $e');
+      // 마이그레이션 실패 시 로그만 남기고 계속 진행
     }
   }
 }

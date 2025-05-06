@@ -225,5 +225,7 @@ const Map<String, String> bgTranslations = {
   'test_result': 'Резултат от теста',
   'your_score': 'Твоят резултат',
   'new_test': 'Нов тест',
-  'submit': 'Изпрати'
+  'submit': 'Изпрати',
+
+  'email': 'Имейл'
 };

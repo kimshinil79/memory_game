@@ -147,6 +147,28 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
   bool showPasswordFields = false;
   bool passwordChanged = false;
 
+  // Define text scale factor for dynamic text sizing
+  double get _textScaleFactor {
+    final width = MediaQuery.of(context).size.width;
+    // Adjust these breakpoints as needed
+    if (width < 360) return 0.8;
+    if (width < 400) return 0.9;
+    return 1.0;
+  }
+
+  // Helper method for creating text styles with dynamic sizing
+  TextStyle _getTextStyle({
+    required double fontSize,
+    FontWeight fontWeight = FontWeight.normal,
+    Color color = Colors.black87,
+  }) {
+    return TextStyle(
+      fontSize: fontSize * _textScaleFactor,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -265,12 +287,17 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 SizedBox(width: 40), // 왼쪽 공간
-                Text(
-                  t('edit_profile'),
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                Expanded(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      t('edit_profile'),
+                      style: _getTextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
                 SizedBox(width: 40), // 오른쪽 공간 (로그아웃 버튼 제거)
@@ -279,9 +306,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               SizedBox(height: 16),
               TextField(
                 controller: widget.nicknameController,
+                style: _getTextStyle(fontSize: 16),
                 decoration: InputDecoration(
                   labelText: t('nickname'),
+                  labelStyle:
+                      _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                   hintText: t('enter_nickname'),
+                  hintStyle:
+                      _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                   filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
@@ -322,9 +354,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 },
                 child: TextField(
                   controller: widget.birthdayController,
+                  style: _getTextStyle(fontSize: 16),
                   decoration: InputDecoration(
                     labelText: t('birthday'),
+                    labelStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                     hintText: t('select_birthday'),
+                    hintStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
                     fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
@@ -349,9 +386,9 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   children: [
                     Text(
                       t('gender'),
-                      style: TextStyle(
-                        color: Colors.grey[600],
+                      style: _getTextStyle(
                         fontSize: 14,
+                        color: Colors.grey[600]!,
                       ),
                     ),
                     SizedBox(height: 8),
@@ -384,20 +421,26 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                 children: [
                                   Icon(
                                     Icons.male,
-                                    size: 18,
+                                    size: 18 * _textScaleFactor,
                                     color: selectedGender == 'Male'
                                         ? Colors.white
                                         : Colors.blue.shade700,
                                   ),
                                   SizedBox(width: 4),
-                                  Text(
-                                    t('male'),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: selectedGender == 'Male'
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
+                                  Expanded(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        t('male'),
+                                        style: _getTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: selectedGender == 'Male'
+                                              ? Colors.white
+                                              : Colors.grey.shade700,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -433,20 +476,26 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                 children: [
                                   Icon(
                                     Icons.female,
-                                    size: 18,
+                                    size: 18 * _textScaleFactor,
                                     color: selectedGender == 'Female'
                                         ? Colors.white
                                         : Colors.pink.shade700,
                                   ),
                                   SizedBox(width: 4),
-                                  Text(
-                                    t('female'),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: selectedGender == 'Female'
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
+                                  Expanded(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        t('female'),
+                                        style: _getTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: selectedGender == 'Female'
+                                              ? Colors.white
+                                              : Colors.grey.shade700,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -477,9 +526,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             selectedCountry == null
                                 ? t('select_country')
                                 : '${t('country')}: ${selectedCountry!.name}',
-                            style: TextStyle(
+                            style: _getTextStyle(
+                              fontSize: 14,
                               color: selectedCountry == null
-                                  ? Colors.grey[600]
+                                  ? Colors.grey[600]!
                                   : Colors.black,
                               fontWeight: selectedCountry == null
                                   ? FontWeight.normal
@@ -490,8 +540,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         if (selectedCountry != null)
                           Flag.fromString(
                             selectedCountry!.code,
-                            height: 24,
-                            width: 32,
+                            height: 24 * _textScaleFactor,
+                            width: 32 * _textScaleFactor,
                             borderRadius: 4,
                           ),
                       ],
@@ -525,7 +575,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           side: BorderSide(color: Colors.purple.shade200),
                         ),
                       ),
-                      child: Text(t('select_country')),
+                      child: Text(
+                        t('select_country'),
+                        style: _getTextStyle(fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
@@ -537,9 +590,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 keyboardType: TextInputType.number,
                 onChanged: (_) => validateShortPassword(),
                 maxLength: 2,
+                style: _getTextStyle(fontSize: 16),
                 decoration: InputDecoration(
                   labelText: t('multi_game_pin'),
+                  labelStyle:
+                      _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                   hintText: t('enter_two_digit_pin'),
+                  hintStyle:
+                      _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                   filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
@@ -548,11 +606,12 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ),
                   prefixIcon: Icon(Icons.pin_outlined),
                   errorText: shortPasswordError,
+                  errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   counterText: "",
                   helperText: t('two_digit_pin_helper'),
-                  helperStyle: TextStyle(
+                  helperStyle: _getTextStyle(
                     fontSize: 12,
-                    color: Colors.grey[600],
+                    color: Colors.grey[600]!,
                   ),
                 ),
               ),
@@ -584,7 +643,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     children: [
                       Text(
                         t('change_password'),
-                        style: TextStyle(
+                        style: _getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -595,6 +654,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             ? Icons.keyboard_arrow_up
                             : Icons.keyboard_arrow_down,
                         color: Colors.black54,
+                        size: 24 * _textScaleFactor,
                       ),
                     ],
                   ),
@@ -607,9 +667,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.currentPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
+                  style: _getTextStyle(fontSize: 16),
                   decoration: InputDecoration(
                     labelText: t('current_password'),
+                    labelStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                     hintText: t('enter_current_password'),
+                    hintStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
                     fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
@@ -624,9 +689,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.newPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
+                  style: _getTextStyle(fontSize: 16),
                   decoration: InputDecoration(
                     labelText: t('new_password'),
+                    labelStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                     hintText: t('enter_new_password'),
+                    hintStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
                     fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
@@ -641,9 +711,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.confirmPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
+                  style: _getTextStyle(fontSize: 16),
                   decoration: InputDecoration(
                     labelText: t('confirm_password'),
+                    labelStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
                     hintText: t('confirm_new_password'),
+                    hintStyle:
+                        _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
                     fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
@@ -652,6 +727,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     ),
                     prefixIcon: Icon(Icons.check_circle_outline),
                     errorText: passwordError,
+                    errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   ),
                 ),
               ],
@@ -673,7 +749,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         side: BorderSide(color: Colors.grey.shade300),
                         padding: EdgeInsets.symmetric(vertical: 12),
                       ),
-                      child: Text(t('cancel')),
+                      child: Text(
+                        t('cancel'),
+                        style: _getTextStyle(fontSize: 14),
+                      ),
                     ),
                   ),
                   SizedBox(width: 12),
@@ -710,7 +789,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         ),
                         padding: EdgeInsets.symmetric(vertical: 12),
                       ),
-                      child: Text(t('save')),
+                      child: Text(
+                        t('save'),
+                        style: _getTextStyle(fontSize: 14, color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
@@ -735,11 +817,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.logout, size: 20),
+                    Icon(
+                      Icons.logout,
+                      size: 20 * _textScaleFactor,
+                    ),
                     SizedBox(width: 8),
                     Text(
                       t('sign_out'),
-                      style: TextStyle(
+                      style: _getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),

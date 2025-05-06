@@ -29,6 +29,7 @@ const Map<String, String> nlBETranslations = {
   'brain_health': 'Hersengezondheid',
   'player': 'Speler',
   'players': 'Spelers',
+  'email': 'E-mail',
 
   // Player Selection Dialog texts
   'select_players': 'Selecteer spelers',
@@ -258,6 +259,7 @@ const Map<String, String> frBETranslations = {
   'brain_health': 'Santé cérébrale',
   'player': 'Joueur',
   'players': 'Joueurs',
+  'email': 'E-mail',
 
   // Player Selection Dialog texts
   'select_players': 'Sélectionner les joueurs',
@@ -488,6 +490,7 @@ const Map<String, String> deBETranslations = {
   'brain_health': 'Gehirngesundheit',
   'player': 'Spieler',
   'players': 'Spieler',
+  'email': 'E-Mail',
 
   // Player Selection Dialog texts
   'select_players': 'Spieler auswählen',

@@ -2145,6 +2145,27 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               totalMatches, elapsedTime, widget.gridSize);
           print('로그인된 유저에게 추가된 점수: $pointsEarned');
         }
+
+        // 게임 완료 후 BrainHealthIndex 계산 및 업데이트
+        Map<String, dynamic> bhiResult =
+            await brainHealthProvider.calculateBrainHealthIndex();
+
+        // Firebase에 BHI 데이터 저장
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          String userId = user.uid;
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .update({
+            'brain_health.brainHealthIndexLevel':
+                bhiResult['brainHealthIndexLevel'],
+            'brain_health.brainHealthIndex': bhiResult['brainHealthIndex'],
+            'brain_health.lastBHIUpdate': FieldValue.serverTimestamp(),
+          });
+          print(
+              'BrainHealthIndex 업데이트 완료: 레벨=${bhiResult['brainHealthIndexLevel']}, 값=${bhiResult['brainHealthIndex']}');
+        }
       } else {
         print('로그인된 유저가 우승자가 아닙니다. 점수를 업데이트하지 않습니다.');
         // 팝업창 표시를 위한 계산된 점수 사용
@@ -2167,6 +2188,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
               // 동점 플레이어에게 분배된 점수 업데이트
               _updateFirebaseDirectly(playerId, dividedPoints);
+
+              // 동점 플레이어의 BrainHealthIndex도 업데이트
+              await _updateBrainHealthIndexForPlayer(playerId);
             }
           }
         } else if (!isLoggedInUserWinner) {
@@ -2180,6 +2204,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
               // 팝업창에서 계산된 점수로 Firebase 직접 업데이트
               _updateFirebaseDirectly(playerId, finalPointsEarned);
+
+              // 승자의 BrainHealthIndex도 업데이트
+              await _updateBrainHealthIndexForPlayer(playerId);
               break;
             }
           }
@@ -2199,6 +2226,44 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         'winner': '',
         'isLoggedInUserWinner': false,
       };
+    }
+  }
+
+  // 플레이어의 BrainHealthIndex 업데이트 메서드 추가
+  Future<void> _updateBrainHealthIndexForPlayer(String playerId) async {
+    try {
+      // BrainHealthProvider 사용하지 않고 직접 계산
+      // Firestore에서 사용자 데이터 가져오기
+      DocumentSnapshot playerDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .get();
+
+      if (!playerDoc.exists) return;
+
+      Map<String, dynamic> userData = playerDoc.data() as Map<String, dynamic>;
+
+      // BrainHealthProvider의 calculateBrainHealthIndex 로직 유사하게 구현
+      final brainHealthProvider =
+          Provider.of<BrainHealthProvider>(context, listen: false);
+      Map<String, dynamic> bhiResult =
+          await brainHealthProvider.calculateBrainHealthIndex();
+
+      // Firebase에 BHI 업데이트
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .update({
+        'brain_health.brainHealthIndexLevel':
+            bhiResult['brainHealthIndexLevel'],
+        'brain_health.brainHealthIndex': bhiResult['brainHealthIndex'],
+        'brain_health.lastBHIUpdate': FieldValue.serverTimestamp(),
+      });
+
+      print(
+          'BrainHealthIndex 업데이트 완료 - 플레이어: $playerId, 레벨=${bhiResult['brainHealthIndexLevel']}, 값=${bhiResult['brainHealthIndex']}');
+    } catch (e) {
+      print('플레이어 BrainHealthIndex 업데이트 오류: $e');
     }
   }
 
