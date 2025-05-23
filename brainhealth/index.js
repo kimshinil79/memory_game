@@ -56,8 +56,32 @@ exports.saveGameResult = functions.https.onCall(async (data, context) => {
 
     // 점수 기록 업데이트
     const scoreHistory = brainHealth.scoreHistory || {};
+    
+    // 가장 최근의 타임스탬프 찾기
+    let latestTimestamp = '0';
+    let latestScore = 0;
+    
+    // 모든 타임스탬프 순회하여 가장 최근 것 찾기
+    for (const key in scoreHistory) {
+      if (key > latestTimestamp) {
+        latestTimestamp = key;
+        latestScore = scoreHistory[key];
+      }
+    }
+    
+    // 새 타임스탬프 생성
     const timestamp = Date.now().toString();
+    
+    // 최근 항목의 점수에 새 점수 더하기
+    if (latestTimestamp !== '0') {
+      console.log(`최근 항목 찾음: ${latestTimestamp}, 점수: ${latestScore}`);
+      scoreHistory[timestamp] = latestScore + score;
+      console.log(`새 항목 생성: ${timestamp}, 점수: ${latestScore + score} (${latestScore} + ${score})`);
+    } else {
+      // 이전 기록이 없는 경우 새 점수만 저장
     scoreHistory[timestamp] = score;
+      console.log(`이전 기록 없음, 새 항목 생성: ${timestamp}, 점수: ${score}`);
+    }
 
     // 브레인 헬스 인덱스 계산
     const brainHealthResult = await calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed, totalMatchesFound, bestTimesByGridSize);
@@ -565,5 +589,153 @@ exports.testUpdateBrainHealthIndex = functions.https.onCall(async (data, context
       success: false,
       error: error.message
     };
+  }
+});
+
+// 멀티플레이어 게임 승자 점수 업데이트 함수
+exports.updateMultiplayerGameWinnerScore = functions.https.onCall(async (data, context) => {
+  console.log('========== 멀티플레이어 게임 승자 점수 업데이트 함수 시작 ==========');
+  console.log('수신한 데이터:', JSON.stringify(data));
+  console.log('호출 컨텍스트:', context.auth ? `인증됨 (${context.auth.uid})` : '인증되지 않음');
+  
+  // 인증 확인
+  if (!context.auth) {
+    console.error('인증 오류: 사용자가 인증되지 않았습니다');
+    throw new functions.https.HttpsError('unauthenticated', '사용자 인증이 필요합니다');
+  }
+
+  try {
+    const { winnerId, score, gridSize, matchCount, timeSpent } = data;
+    
+    console.log(`승자 ID: ${winnerId}`);
+    console.log(`점수: ${score}`);
+    console.log(`그리드 크기: ${gridSize}`);
+    console.log(`매치 수: ${matchCount}`);
+    console.log(`소요 시간: ${timeSpent}초`);
+    
+    if (!winnerId) {
+      console.error('유효성 검사 오류: 승자 ID가 제공되지 않았습니다');
+      throw new functions.https.HttpsError('invalid-argument', '승자 ID가 필요합니다');
+    }
+    
+    if (typeof score !== 'number' || score <= 0) {
+      console.error(`유효성 검사 오류: 유효하지 않은 점수 값 (${score})`);
+      throw new functions.https.HttpsError('invalid-argument', '유효한 점수가 필요합니다');
+    }
+
+    console.log(`멀티플레이어 게임 승자 점수 업데이트: 사용자 ID=${winnerId}, 점수=${score}`);
+
+    // Firestore에서 사용자 문서 가져오기
+    console.log(`사용자 문서 가져오기: users/${winnerId}`);
+    const userDoc = await admin.firestore().collection('users').doc(winnerId).get();
+    
+    if (!userDoc.exists) {
+      console.error(`오류: 사용자 문서를 찾을 수 없음 (ID: ${winnerId})`);
+      throw new functions.https.HttpsError('not-found', '사용자 문서를 찾을 수 없습니다');
+    }
+
+    console.log(`사용자 문서 가져옴: ${userDoc.id}`);
+    const userData = userDoc.data();
+    let brainHealth = userData.brain_health || {};
+    
+    // 현재 Brain Health 점수
+    const currentScore = brainHealth.brainHealthScore || 0;
+    const newScore = currentScore + score;
+    console.log(`현재 점수: ${currentScore}, 새 점수: ${newScore} (+${score})`);
+    
+    // 게임 통계 업데이트
+    const totalGamesPlayed = (brainHealth.totalGamesPlayed || 0) + 1;
+    const totalMatchesFound = (brainHealth.totalMatchesFound || 0) + (matchCount || 0);
+    console.log(`총 게임 수: ${totalGamesPlayed}, 총 매치 수: ${totalMatchesFound}`);
+    
+    // 최고 기록 업데이트 (gridSize가 제공된 경우)
+    const bestTimesByGridSize = brainHealth.bestTimesByGridSize || {};
+    if (gridSize && timeSpent) {
+      const previousBestTime = bestTimesByGridSize[gridSize] || Infinity;
+      if (!bestTimesByGridSize[gridSize] || timeSpent < bestTimesByGridSize[gridSize]) {
+        bestTimesByGridSize[gridSize] = timeSpent;
+        console.log(`${gridSize} 최고 기록 업데이트: ${previousBestTime} → ${timeSpent}`);
+      } else {
+        console.log(`${gridSize} 최고 기록 유지: ${previousBestTime}`);
+      }
+    }
+
+    // 점수 기록 업데이트
+    const scoreHistory = brainHealth.scoreHistory || {};
+    
+    // 가장 최근의 타임스탬프 찾기
+    let latestTimestamp = '0';
+    let latestScore = 0;
+    
+    // 모든 타임스탬프 순회하여 가장 최근 것 찾기
+    for (const key in scoreHistory) {
+      if (key > latestTimestamp) {
+        latestTimestamp = key;
+        latestScore = scoreHistory[key];
+      }
+    }
+    
+    // 새 타임스탬프 생성
+    const timestamp = Date.now().toString();
+    
+    // 최근 항목의 점수에 새 점수 더하기
+    if (latestTimestamp !== '0') {
+      console.log(`최근 항목 찾음: ${latestTimestamp}, 점수: ${latestScore}`);
+      scoreHistory[timestamp] = latestScore + score;
+      console.log(`새 항목 생성: ${timestamp}, 점수: ${latestScore + score} (${latestScore} + ${score})`);
+    } else {
+      // 이전 기록이 없는 경우 새 점수만 저장
+    scoreHistory[timestamp] = score;
+      console.log(`이전 기록 없음, 새 항목 생성: ${timestamp}, 점수: ${score}`);
+    }
+    
+    // Brain Health Index 계산
+    console.log('Brain Health Index 계산 시작...');
+    const brainHealthResult = await calculateBrainHealthIndex(
+      winnerId, 
+      scoreHistory, 
+      totalGamesPlayed, 
+      totalMatchesFound, 
+      bestTimesByGridSize
+    );
+    console.log(`계산된 Brain Health Index: ${brainHealthResult.brainHealthIndex}, 레벨: ${brainHealthResult.indexLevel}`);
+
+    // Firestore 업데이트
+    console.log(`Firestore 업데이트 시작: users/${winnerId}`);
+    await admin.firestore().collection('users').doc(winnerId).update({
+      'brain_health.brainHealthScore': newScore,
+      'brain_health.brainHealthIndex': brainHealthResult.brainHealthIndex,
+      'brain_health.brainHealthIndexLevel': brainHealthResult.indexLevel,
+      'brain_health.totalGamesPlayed': totalGamesPlayed,
+      'brain_health.totalMatchesFound': totalMatchesFound,
+      'brain_health.bestTimesByGridSize': bestTimesByGridSize,
+      'brain_health.scoreHistory': scoreHistory,
+      'brain_health.lastUpdated': admin.firestore.FieldValue.serverTimestamp(),
+      'brain_health.ageComponent': brainHealthResult.ageComponent,
+      'brain_health.activityComponent': brainHealthResult.activityComponent,
+      'brain_health.performanceComponent': brainHealthResult.performanceComponent,
+      'brain_health.persistenceBonus': brainHealthResult.persistenceBonus,
+      'brain_health.inactivityPenalty': brainHealthResult.inactivityPenalty,
+      'brain_health.daysSinceLastGame': brainHealthResult.daysSinceLastGame,
+      'brain_health.pointsToNextLevel': brainHealthResult.pointsToNextLevel
+    });
+    console.log(`Firestore 업데이트 완료: users/${winnerId}`);
+
+    console.log(`사용자 ${winnerId}의 점수가 ${currentScore}에서 ${newScore}로 업데이트되었습니다`);
+    console.log('========== 멀티플레이어 게임 승자 점수 업데이트 함수 완료 ==========');
+
+    return {
+      success: true,
+      previousScore: currentScore,
+      newScore: newScore,
+      addedPoints: score,
+      brainHealthIndex: brainHealthResult.brainHealthIndex,
+      brainHealthIndexLevel: brainHealthResult.indexLevel
+    };
+
+  } catch (error) {
+    console.error('멀티플레이어 게임 승자 점수 업데이트 오류:', error);
+    console.log('========== 멀티플레이어 게임 승자 점수 업데이트 함수 오류로 종료 ==========');
+    throw new functions.https.HttpsError('internal', '점수 업데이트 중 오류가 발생했습니다: ' + error.message);
   }
 });

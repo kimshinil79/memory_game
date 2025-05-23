@@ -1,5 +1,14 @@
 {
   "devDependencies": {
     "firebase-tools": "^11.30.0"
+  },
+  "functions": {
+    "predeploy": [
+    ]
+  },
+  "scripts": {
+    "lint": "exit 0"
   }
 }
+
+

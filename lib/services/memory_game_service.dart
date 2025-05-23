@@ -874,4 +874,12 @@ class MemoryGameService extends ChangeNotifier {
       listener(_selectedPlayers);
     }
   }
+
+  // 현재 플레이어 설정
+  void setCurrentPlayer(int playerIndex) {
+    if (playerIndex >= 0 && playerIndex < totalPlayerCount) {
+      _currentPlayerIndex = playerIndex;
+      notifyListeners();
+    }
+  }
 }

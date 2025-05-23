@@ -158,8 +158,12 @@ class BrainHealthProvider with ChangeNotifier {
       // 나이 기반 조정 (35세 이상부터 점수 감소, 효과 증가)
       double ageAdjustment = 0;
       if (userAge > 35) {
-        ageAdjustment = (userAge - 35) * 0.3; // 나이가 많을수록 지수 감소
-        ageAdjustment = ageAdjustment.clamp(0, 20); // 최대 감소량 20
+        // 나이 조정을 더 관대하게 수정
+        // 기존: (userAge - 35) * 0.3
+        // 수정: (userAge - 35) * 0.15 (감소율 절반으로)
+        ageAdjustment = (userAge - 35) * 0.15;
+        // 최대 감소량도 20에서 10으로 감소
+        ageAdjustment = ageAdjustment.clamp(0, 10);
       }
 
       // 지난 일주일간 게임 활동 평가
@@ -175,34 +179,35 @@ class BrainHealthProvider with ChangeNotifier {
       }
 
       // 최근 게임 활동 기반 조정 (보상 증가)
-      double activityAdjustment = recentGames * 1.5; // 게임당 1.0점에서 1.5점으로 증가
-      activityAdjustment = activityAdjustment.clamp(0, 15); // 최대 12점에서 15점으로 증가
+      // 게임당 보상 점수를 1.5에서 2.0으로 증가
+      double activityAdjustment = recentGames * 2.0;
+      // 최대 보상도 15에서 20으로 증가
+      activityAdjustment = activityAdjustment.clamp(0, 20);
 
-      // 연속 활동 부재에 대한 패널티 추가
+      // 연속 활동 부재에 대한 패널티 완화
       double inactivityPenalty = 0;
-      int levelDropDueToInactivity = 0; // 비활동으로 인한 레벨 감소 추적
+      int levelDropDueToInactivity = 0;
 
       // 최근 게임 날짜 정렬
-      recentGameDates.sort((a, b) => b.compareTo(a)); // 최신 날짜가 앞으로 오도록 정렬
+      recentGameDates.sort((a, b) => b.compareTo(a));
 
       // 마지막 게임 이후 지난 일수 계산
       int daysSinceLastGame = 0;
       if (recentGameDates.isNotEmpty) {
         daysSinceLastGame = now.difference(recentGameDates.first).inDays;
       } else {
-        daysSinceLastGame = 7; // 최근 기록이 없으면 최대 패널티
+        daysSinceLastGame = 7;
       }
 
       // 비활동 패널티 계산 (하루만 안해도 패널티 적용)
       if (daysSinceLastGame > 0) {
-        // 하루마다 2점씩 감소 (기존 1점에서 2점으로 증가)
-        inactivityPenalty = daysSinceLastGame * 2.0;
-        // 최대 패널티 제한 (기존 10점에서 20점으로 증가)
-        inactivityPenalty = inactivityPenalty.clamp(0, 20);
+        // 하루마다 감소량을 2.0에서 1.0으로 감소
+        inactivityPenalty = daysSinceLastGame * 1.0;
+        // 최대 패널티도 20에서 10으로 감소
+        inactivityPenalty = inactivityPenalty.clamp(0, 10);
 
-        // 하루라도 건너뛰면 레벨 감소 추적
-        levelDropDueToInactivity =
-            daysSinceLastGame.clamp(0, 4); // 최대 4단계까지만 떨어지도록 제한
+        // 레벨 감소도 최대 4단계에서 2단계로 제한
+        levelDropDueToInactivity = daysSinceLastGame.clamp(0, 2);
       }
 
       // 그리드 성능 평가
@@ -316,10 +321,9 @@ class BrainHealthProvider with ChangeNotifier {
         'activityComponent': activityAdjustment,
         'performanceComponent': gridPerformance,
         'persistenceBonus': persistenceBonus,
-        'inactivityPenalty': inactivityPenalty, // 비활동 패널티 정보 추가
-        'daysSinceLastGame': daysSinceLastGame, // 마지막 게임 이후 경과일 추가
-        'levelDropDueToInactivity':
-            levelDropDueToInactivity, // 비활동으로 인한 레벨 감소 추가
+        'inactivityPenalty': inactivityPenalty,
+        'daysSinceLastGame': daysSinceLastGame,
+        'levelDropDueToInactivity': levelDropDueToInactivity,
         'details': {
           'age': userAge,
           'recentGames': recentGames,
@@ -330,14 +334,14 @@ class BrainHealthProvider with ChangeNotifier {
     } catch (e) {
       print('Error calculating brain health index: $e');
       return {
-        'brainHealthIndex': 0,
-        'indexLevel': 1,
-        'pointsToNextLevel': 0,
-        'ageComponent': 0,
-        'activityComponent': 0,
-        'performanceComponent': 0,
-        'persistenceBonus': 0,
-        'inactivityPenalty': 0,
+        'brainHealthIndex': 0.0,
+        'brainHealthIndexLevel': 1,
+        'pointsToNextLevel': 0.0,
+        'ageComponent': 0.0,
+        'activityComponent': 0.0,
+        'performanceComponent': 0.0,
+        'persistenceBonus': 0.0,
+        'inactivityPenalty': 0.0,
         'daysSinceLastGame': 7,
         'levelDropDueToInactivity': 0,
         'details': {
@@ -1179,7 +1183,7 @@ class BrainHealthProvider with ChangeNotifier {
       print(
           'Calculating Brain Health Index after game completion with latest data');
       Map<String, dynamic> bhiResult = await calculateBrainHealthIndex();
-      int newBHILevel = bhiResult['indexLevel'] as int;
+      int newBHILevel = bhiResult['brainHealthIndexLevel'] as int;
       double newBHI = bhiResult['brainHealthIndex'] as double;
 
       // BHI 레벨 업데이트
@@ -1885,6 +1889,54 @@ class BrainHealthProvider with ChangeNotifier {
     } catch (e) {
       print('Error during score history migration: $e');
       // 마이그레이션 실패 시 로그만 남기고 계속 진행
+    }
+  }
+
+  Future<void> _updateBrainHealthIndex() async {
+    if (_userId == null) {
+      print('Cannot update brain health index: No user ID available');
+      return;
+    }
+
+    try {
+      print('Starting brain health index update for user: $_userId');
+      print('Current brainHealthIndexLevel: $_brainHealthIndexLevel');
+
+      Map<String, dynamic> bhiResult = await calculateBrainHealthIndex();
+      int newBHILevel = bhiResult['brainHealthIndexLevel'] as int;
+      double newBHI = bhiResult['brainHealthIndex'] as double;
+
+      print('Calculated new brainHealthIndexLevel: $newBHILevel');
+      print('Calculated new brainHealthIndex: $newBHI');
+
+      // BHI 레벨 업데이트
+      if (_brainHealthIndexLevel != newBHILevel) {
+        print('BHI Level changed from $_brainHealthIndexLevel to $newBHILevel');
+        _brainHealthIndexLevel = newBHILevel;
+      } else {
+        print('BHI Level unchanged: $_brainHealthIndexLevel');
+      }
+
+      // BHI 값 업데이트
+      if (_brainHealthIndex != newBHI) {
+        print('BHI value changed from $_brainHealthIndex to $newBHI');
+        _brainHealthIndex = newBHI;
+      } else {
+        print('BHI value unchanged: $_brainHealthIndex');
+      }
+
+      // BHI 데이터만 Firebase에 별도 저장
+      print('Saving BHI data to Firebase for user: $_userId');
+      await FirebaseFirestore.instance.collection('users').doc(_userId).update({
+        'brain_health.brainHealthIndexLevel': _brainHealthIndexLevel,
+        'brain_health.brainHealthIndex': _brainHealthIndex,
+        'brain_health.lastBHIUpdate': FieldValue.serverTimestamp(),
+      });
+      print('BHI data successfully saved to Firebase');
+
+      notifyListeners();
+    } catch (e) {
+      print('Error updating brain health index: $e');
     }
   }
 }

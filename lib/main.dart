@@ -393,6 +393,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           // 메모리 게임 서비스 초기화
           if (_memoryGameService != null) {
             _memoryGameService!.gridSize = '4x4'; // 기본값으로 리셋
+            _memoryGameService!.clearSelectedPlayers(); // 선택된 플레이어 목록 초기화
           }
         } catch (gameError) {
           print('메모리 게임 리소스 정리 중 오류: $gameError');
@@ -1945,6 +1946,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     final selectedPlayers =
         await PlayerSelectionDialog.show(context, _memoryGameService!);
+
+    // 선택된 플레이어를 서비스에 직접 설정 (이중 설정이지만 안전하게)
+    if (_memoryGameService != null) {
+      _memoryGameService!.selectedPlayers = selectedPlayers ?? [];
+    }
+
     if (selectedPlayers != null) {
       try {
         // 현재 사용자 정보 가져오기
@@ -1952,11 +1959,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             await _memoryGameService!.getCurrentUserInfo();
 
         print('플레이어 선택 대화상자 결과: ${selectedPlayers.length}명 선택됨');
-
-        // 선택된 플레이어를 서비스에 직접 설정 (이중 설정이지만 안전하게)
-        if (_memoryGameService != null) {
-          _memoryGameService!.selectedPlayers = selectedPlayers;
-        }
 
         setState(() {
           // 유저 수 설정 (본인 포함)
