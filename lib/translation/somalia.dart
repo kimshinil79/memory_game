@@ -211,5 +211,33 @@ const Map<String, String> soSOTranslations = {
   'test_result': 'Natiijada Imtixaanka',
   'your_score': 'Dhibcahaaga',
   'new_test': 'Imtixaan Cusub',
-  'submit': 'Gudbi'
+  'submit': 'Gudbi',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Hagaha Heerka Maskaxda',
+  'understand_level_means': 'Faham waxa uu heer walba macno',
+  'rainbow_brain_level5': 'Maskax Qaanso (Heer 5)',
+  'rainbow_brain_desc': 'Maskaxdaadu waxay ku dhalaalayaa if midabyo leh!',
+  'rainbow_brain_fun':
+      'Waxaad gaadhay heer fahamisaad oo u dhigma qaanso labanlaaban - aad bay u qurux badan tahay!',
+  'gold_brain_level4': 'Maskax Dahab (Heer 4)',
+  'gold_brain_desc': 'Hawlaha maskaxda iyo xusuusta oo aad u wanaagsan.',
+  'gold_brain_fun':
+      'Xusuus dhow oo aan dad ahayn - malaha waxaad xusuusataa halka aad furaha ka dhacdaysay!',
+  'silver_brain_level3': 'Maskax Lacag Cad (Heer 3)',
+  'silver_brain_desc':
+      'Caafimaadka maskaxda oo wanaagsan oo meelaha wax laga wanaajiyo leh.',
+  'silver_brain_fun':
+      'Maskaxdaadu waa kululeysaa - sida kombuyuutar subaxda la shidayo.',
+  'bronze_brain_level2': 'Maskax Naxaas (Heer 2)',
+  'bronze_brain_desc':
+      'Hawlaha maskaxda oo celcelis ah - ciyaaro badan oo lagama maarmaan ah!',
+  'bronze_brain_fun':
+      'Maskaxdaadu waa xoogaa hurda - waa waqtiga qaxwa maskaxeed!',
+  'poop_brain_level1': 'Maskax Daal (Heer 1)',
+  'poop_brain_desc': 'Kaliya bilowga safarka caafimaadka maskaxdaada.',
+  'poop_brain_fun':
+      'Maskaxdaadu hadda waa sida taleefan casri ah oo 1% batari leh - aad bay ugu baahan tahay in la buuxiyo!',
+  'keep_playing_memory_games':
+      'Sii wad ciyaarida ciyaaraha xusuusta si aad u kordhiso heerka maskaxdaada!',
 };

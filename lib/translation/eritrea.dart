@@ -214,5 +214,26 @@ const Map<String, String> tiERTranslations = {
   'test_result': 'ውጽኢት ምርመራ',
   'your_score': 'ነጥብካ',
   'new_test': 'ሓድሽ ምርመራ',
-  'submit': 'ምልኣኽ'
+  'submit': 'ምልኣኽ',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'ኣእምሮ ደረጃ መመሪሒ',
+  'understand_level_means': 'ነፍሲ ወከፍ ደረጃ ምንታይ ከም ዝወክል ተረዳእ!',
+  'rainbow_level_name': '🌈 ደረጃ ቀስተ ደመና',
+  'rainbow_level_description':
+      'ኣጽዓቲ! ንስኻ ኣእምሮኻ ብዝበለጸ ጌርካ ብምልዕዋል ሓቂ ዓወተኛ ኢኻ! ከም ቀስተ ደመና ቆንጆ።',
+  'rainbow_level_fun_comment': 'ኣእምሮኻ ከም ቀስተ ደመና ኮለር ኮለር! 🌈✨',
+  'gold_level_name': '🥇 ወርቃዊ ደረጃ',
+  'gold_level_description': 'ድንቅ! ኣእምሮኻ ከም ወርቂ ብሩህ። ህላወኻ ኣብ ጸዋ ዓብዩ ኣእምሮ ዘርእይ።',
+  'gold_level_fun_comment': 'ወርቃዊ ኣእምሮ! ሓደ ካብ ዝበለጸ! 🥇🧠',
+  'silver_level_name': '🥈 ብሩራዊ ደረጃ',
+  'silver_level_description': 'ብሉጽ! ኣእምሮኻ ከም ብሩር ብሩህ። ኣዝዩ ጽቡቅ ሰሪዕካ ኣለኻ!',
+  'silver_level_fun_comment': 'ብሩራዊ ኣእምሮ! ክንደይ ጽቡቅ! 🥈⭐',
+  'bronze_level_name': '🥉 ናሕሳዊ ደረጃ',
+  'bronze_level_description': 'ጽቡቅ! ኣእምሮኻ ዝዓቢ ኣሎ። ቀጽሎ!',
+  'bronze_level_fun_comment': 'ናሕሳዊ ኣእምሮ! ዝበለጸ ግዜ ኣሎ! 🥉💪',
+  'poop_level_name': '💩 ደረጃ ማቆሎ',
+  'poop_level_description': 'ኣእምሮኻ ቁሩብ ድሙ ኣሎ። ግን ተስፋ ኣይቁረጽ! ትዓቢ እኻ።',
+  'poop_level_fun_comment': 'ማቆሎ ኣእምሮ! ግን ኣይፋል፣ ትዓቢ እኻ! 💩😅',
+  'keep_playing_memory_games': 'ንኣእምሮኻ ንምምሕያሽ ዘርኣዊ ጸወታታት ቀጽሎ!'
 };

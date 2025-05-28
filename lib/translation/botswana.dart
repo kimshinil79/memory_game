@@ -228,5 +228,34 @@ const Map<String, String> tnTranslations = {
   'your_score': 'Dintlha tsa gago',
   'new_test': 'Teko e ntsha',
   'submit': 'Romela',
-  'email': 'Email'
+  'email': 'Email',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Taelo ya Maemo a Boko',
+  'understand_level_means':
+      'Tlhaloganya gore maemo mongwe le mongwe a kaya eng',
+  'rainbow_brain_level5': 'Boko jwa Mmala (Maemo a 5)',
+  'rainbow_brain_desc': 'Boko jwa gago jo bonala ka bontle jwa mebala!',
+  'rainbow_brain_fun':
+      'O fitlhitse go lekana le mmala wa matlho a mabedi - go galaletsa ruri!',
+  'gold_brain_level4': 'Boko jwa Gauta (Maemo a 4)',
+  'gold_brain_desc': 'Tiro e e molemo ya boko le gopolo.',
+  'gold_brain_fun':
+      'Gopolo e e gaufi le ya batho ba ba kwa godimo - o gakologelwa moo o tlogetseng dinotlolo!',
+  'silver_brain_level3': 'Boko jwa Selefera (Maemo a 3)',
+  'silver_brain_desc':
+      'Bophelo jo bo molemo jwa boko mme bo na le sebaka sa tokafatso.',
+  'silver_brain_fun':
+      'Boko jwa gago jo a rutuntsha - jaaka khomputara e e tshwarang mo mosong.',
+  'bronze_brain_level2': 'Boko jwa Bronse (Maemo a 2)',
+  'bronze_brain_desc':
+      'Tiro ya boko ya magareng - go tlhokega dipapadi tse dingwe.',
+  'bronze_brain_fun':
+      'Go tlhokega oli e nnye - mme ka bonnyennyane ga o yo mo maemong a a kwa tlase!',
+  'poop_brain_level1': 'Boko jwa Leswe (Maemo a 1)',
+  'poop_brain_desc': 'Simolola loeto lwa gago mo!',
+  'poop_brain_fun':
+      'O se ka wa tshwenyega, mongwe le mongwe o simolola gongwe - le leswe le ka nna monontsha wa kgolo e kgolo!',
+  'keep_playing_memory_games':
+      'Tswela pele o tshameka dipapadi tsa gopolo go oketsa maemo a boko jwa gago!'
 };

@@ -228,5 +228,33 @@ const Map<String, String> rnTranslations = {
   'your_score': 'Amapointe yawe',
   'new_test': 'Ikizamini gishya',
   'submit': 'Ohereza',
-  'email': 'Imeri'
+  'email': 'Imeri',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Inama y\'Urwego rw\'Ubwonko',
+  'understand_level_means': 'Menya icyo urwego rwose rusobanura',
+  'rainbow_brain_level5': 'Ubwonko bw\'Ikiziko (Urwego rwa 5)',
+  'rainbow_brain_desc': 'Ubwonko bwawe burabagirana n\'ubwiza bw\'amabara!',
+  'rainbow_brain_fun':
+      'Wageze ku rwego rw\'ubwenge rugereranywa n\'ikiziko cy\'inshuro ebyiri - rwiza cyane!',
+  'gold_brain_level4': 'Ubwonko bw\'Inzahabu (Urwego rwa 4)',
+  'gold_brain_desc': 'Imikorere myiza y\'ubwonko n\'ububiko.',
+  'gold_brain_fun':
+      'Ububiko bwegereye ubw\'abantu bakomeye - ushobora kwibuka aho wasigaye urufunguzo!',
+  'silver_brain_level3': 'Ubwonko bw\'Ifeza (Urwego rwa 3)',
+  'silver_brain_desc':
+      'Ubuzima bwiza bw\'ubwonko ariko bufite ahantu ho guteza imbere.',
+  'silver_brain_fun':
+      'Ubwonko bwawe burashyuha - kimwe n\'ikinyabiziga gishya mu gitondo.',
+  'bronze_brain_level2': 'Ubwonko bw\'Umuringa (Urwego rwa 2)',
+  'bronze_brain_desc':
+      'Imikorere y\'hagati y\'ubwonko - birakenewe imikino myinshi.',
+  'bronze_brain_fun':
+      'Birakenewe amavuta make - ariko nibura ntiwari ku rwego rwa hasi!',
+  'poop_brain_level1': 'Ubwonko bw\'Amavi (Urwego rwa 1)',
+  'poop_brain_desc': 'Tangira urugendo rwawe hano!',
+  'poop_brain_fun':
+      'Ntugire ubwoba, abantu bose batangirana ahantu runaka - n\'amavi arashobora kuba ifumbire y\'ubwiyongere bukomeye!',
+  'keep_playing_memory_games':
+      'Komeza gukina imikino y\'ibibutso kugirango wongere urwego rw\'ubwonko bwawe!'
 };

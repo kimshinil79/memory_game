@@ -121,7 +121,6 @@ import '../translation/georgia.dart'; // 조지아 번역 파일 가져오기
 import '../translation/albania.dart'; // 알바니아 번역 파일 가져오기
 import '../translation/germany.dart'; // 독일 번역 파일 가져오기
 import '../translation/china.dart'; // 중국 번역 파일 가져오기
-import '../translation/danish.dart'; // 덴마크 번역 파일 가져오기
 import '../translation/belarus.dart'; // 벨라루스 번역 파일 가져오기
 import '../translation/botswana.dart'; // 보츠와나 번역 파일 가져오기
 import '../translation/burundi.dart'; // 부룬디 번역 파일 가져오기

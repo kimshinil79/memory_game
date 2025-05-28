@@ -34,18 +34,27 @@ class CountrySelectionDialog {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Text(
-                      'Select Country',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.public,
+                          size: 28,
+                          color: Colors.blue.shade600,
+                        ),
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.flag,
+                          size: 24,
+                          color: Colors.green.shade600,
+                        ),
+                      ],
                     ),
                     SizedBox(height: 16),
                     TextField(
                       controller: searchController,
                       decoration: InputDecoration(
-                        hintText: 'Search country...',
+                        hintText: '...',
                         prefixIcon: Icon(Icons.search),
                         filled: true,
                         fillColor: Colors.grey[200],
@@ -86,11 +95,21 @@ class CountrySelectionDialog {
                       ),
                     ),
                     SizedBox(height: 8),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(dialogContext).pop(null);
-                      },
-                      child: Text('Cancel'),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(dialogContext).pop(null);
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.red.shade700,
+                        ),
+                        iconSize: 20,
+                      ),
                     ),
                   ],
                 ),

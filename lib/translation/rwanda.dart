@@ -211,5 +211,35 @@ const Map<String, String> rwRWTranslations = {
   'test_result': 'Ibisubizo by\'igeragezo',
   'your_score': 'Amanota yawe',
   'new_test': 'Igeragezo rishya',
-  'submit': 'Tanga'
+  'submit': 'Tanga',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Umuyoboro w\'imiterere y\'ubwonko',
+  'understand_level_means': 'Sobanura icyo urwego rw\'ubwonko bwawe bisobanura',
+  'rainbow_brain': 'Ubwonko bw\'indiga',
+  'rainbow_brain_description':
+      'Ubushobozi bw\'ubwonko budasanzwe! Ubwonko bwawe bukora neza cyane mu bice byose.',
+  'rainbow_brain_fun_comment':
+      'Ubwonko bwawe burahava mu mabara yose! Uri umuhanga rwose!',
+  'gold_brain': 'Ubwonko bwa zahabu',
+  'gold_brain_description':
+      'Ibikorwa bidasanzwe by\'ibuka. Ubwonko bwawe bukora neza bitangaje!',
+  'gold_brain_fun_comment': 'Ubwonko bwawe ni zahabu nyayo! Komeza kurahava!',
+  'silver_brain': 'Ubwonko bw\'ifeza',
+  'silver_brain_description':
+      'Imirimo y\'ubwonko myiza. Ibikorwa by\'ibuka bikomeye kandi bihamye.',
+  'silver_brain_fun_comment':
+      'Ubwonko bwawe burahava nk\'ifeza! Uri ku nzira nziza!',
+  'bronze_brain': 'Ubwonko bw\'umuringa',
+  'bronze_brain_description':
+      'Ibikorwa by\'ubwonko bihamye. Komeza kwimenyereza kugira ngo utere imbere ubushobozi bwo kwibuka.',
+  'bronze_brain_fun_comment':
+      'Ubwonko bwawe bukozwe mu muringa! Komeza, uzagira imbaraga nyinshi!',
+  'poop_brain': 'Ubwonko bw\'ubwihemu',
+  'poop_brain_description':
+      'Bikeneye kwimenyereza byinshi. Ntutore ubwoba, abantu bose bashobora gutera imbere!',
+  'poop_brain_fun_comment':
+      'Ni n\'ubwihemu bushobora kuba ifumbire! Komeza ukagerageza!',
+  'keep_playing_memory_games':
+      'Komeza gukina imikino y\'ibuka kugira ngo uteze imbere ubuzima bw\'ubwonko bwawe!'
 };

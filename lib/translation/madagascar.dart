@@ -215,5 +215,36 @@ const Map<String, String> mgTranslations = {
   'test_result': 'Vokatra fitsapana',
   'your_score': 'Ny isanao',
   'new_test': 'Fitsapana vaovao',
-  'submit': 'Alefaso'
+  'submit': 'Alefaso',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Torolalana ny ambaratonga atidoha',
+  'understand_level_means': 'Fantaro izay midika ny ambaratonga atidohanao',
+  'rainbow_brain': 'Atidoha avoinavoina',
+  'rainbow_brain_description':
+      'Fahaizana ara-tsaina tsy manam-paharoa! Ny atidohanao dia miasa tsara amin\'ny sehatra rehetra.',
+  'rainbow_brain_fun_comment':
+      'Ny atidohanao dia mamiratra amin\'ny loko rehetra! Ianao dia talenta marina!',
+  'gold_brain': 'Atidoha volamena',
+  'gold_brain_description':
+      'Fampisehoana fahatsiarovana tsara indrindra. Ny atidohanao dia miasa tsara be!',
+  'gold_brain_fun_comment':
+      'Ny atidohanao dia volamena madio! Manohy mamiratra!',
+  'silver_brain': 'Atidoha volafotsy',
+  'silver_brain_description':
+      'Asa ara-tsaina tsara. Fampisehoana matanjaka sy tsy miova amin\'ny fahatsiarovana.',
+  'silver_brain_fun_comment':
+      'Ny atidohanao dia mamiratra toy ny volafotsy! Ianao dia eo amin\'ny lalana marina!',
+  'bronze_brain': 'Atidoha varahina',
+  'bronze_brain_description':
+      'Fampisehoana ara-tsaina milamina. Manohy miampirina mba hanatsara ny fahatsiarovana.',
+  'bronze_brain_fun_comment':
+      'Ny atidohanao dia vita amin\'ny varahina! Manohy mihetsika, ho lasa matanjaka kokoa ianao!',
+  'poop_brain': 'Atidoha diky',
+  'poop_brain_description':
+      'Mila fianarana bebe kokoa. Aza miato, ny olona rehetra dia afaka mihatsara!',
+  'poop_brain_fun_comment':
+      'Na ny diky aza dia afaka lasa zezika! Manohy mihetsika!',
+  'keep_playing_memory_games':
+      'Manohy mitendry lalao fahatsiarovana mba hanatsarana ny fahasalamana atidoha!'
 };

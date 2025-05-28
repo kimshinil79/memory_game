@@ -209,5 +209,34 @@ const Map<String, String> enNZTranslations = {
   'test_result': 'Test Result',
   'your_score': 'Your Score',
   'new_test': 'New Test',
-  'submit': 'Submit'
+  'submit': 'Submit',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Brain Level Guide',
+  'understand_level_means': 'Understand what your brain level means',
+  'rainbow_brain': 'Rainbow Brain',
+  'rainbow_brain_description':
+      'Outstanding cognitive abilities! Your brain performs excellently across all areas.',
+  'rainbow_brain_fun_comment':
+      'Your brain shines with all colors! You are a true genius!',
+  'gold_brain': 'Gold Brain',
+  'gold_brain_description':
+      'Excellent memory performance. Your brain works amazingly well!',
+  'gold_brain_fun_comment': 'Your brain is pure gold! Keep shining bright!',
+  'silver_brain': 'Silver Brain',
+  'silver_brain_description':
+      'Good cognitive function. Strong and stable memory performance.',
+  'silver_brain_fun_comment':
+      'Your brain shines like silver! You\'re on the right track!',
+  'bronze_brain': 'Bronze Brain',
+  'bronze_brain_description':
+      'Stable cognitive performance. Keep practicing to improve memory.',
+  'bronze_brain_fun_comment':
+      'Your brain is made of bronze! Keep going, you\'ll become stronger!',
+  'poop_brain': 'Poop Brain',
+  'poop_brain_description':
+      'Needs more practice. Don\'t give up, everyone can improve!',
+  'poop_brain_fun_comment': 'Even poop can become fertilizer! Keep trying!',
+  'keep_playing_memory_games':
+      'Keep playing memory games to improve your brain health!'
 };

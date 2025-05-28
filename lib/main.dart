@@ -1509,11 +1509,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                                     languageProvider.currentLanguage;
                                 String forFlag =
                                     currentLanguage.split('-')[1].toLowerCase();
-                                return Flag.fromString(
-                                  forFlag,
-                                  height: 18,
-                                  width: 28,
-                                  borderRadius: 4,
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.volume_up_rounded,
+                                      size: 16,
+                                      color: Colors.grey[600],
+                                    ),
+                                    SizedBox(width: 6),
+                                    Flag.fromString(
+                                      forFlag,
+                                      height: 18,
+                                      width: 28,
+                                      borderRadius: 4,
+                                    ),
+                                  ],
                                 );
                               },
                             ),

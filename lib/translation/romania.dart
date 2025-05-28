@@ -214,5 +214,36 @@ const Map<String, String> roROTranslations = {
   'test_result': 'Rezultat test',
   'your_score': 'Scorul tău',
   'new_test': 'Test nou',
-  'submit': 'Trimite'
+  'submit': 'Trimite',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Ghidul nivelurilor creierului',
+  'understand_level_means': 'Înțelege ce înseamnă nivelul creierului tău',
+  'rainbow_brain': 'Creier curcubeu',
+  'rainbow_brain_description':
+      'Abilități cognitive excepționale! Creierul tău funcționează excelent în toate domeniile.',
+  'rainbow_brain_fun_comment':
+      'Creierul tău strălucește cu toate culorile! Ești un adevărat geniu!',
+  'gold_brain': 'Creier de aur',
+  'gold_brain_description':
+      'Performanță excelentă a memoriei. Creierul tău funcționează incredibil de bine!',
+  'gold_brain_fun_comment':
+      'Creierul tău este aur pur! Continuă să strălucești!',
+  'silver_brain': 'Creier de argint',
+  'silver_brain_description':
+      'Funcție cognitivă bună. Performanță puternică și stabilă a memoriei.',
+  'silver_brain_fun_comment':
+      'Creierul tău strălucește ca argintul! Ești pe drumul cel bun!',
+  'bronze_brain': 'Creier de bronz',
+  'bronze_brain_description':
+      'Performanță cognitivă stabilă. Continuă să exersezi pentru a îmbunătăți memoria.',
+  'bronze_brain_fun_comment':
+      'Creierul tău este făcut din bronz! Continuă, vei deveni mai puternic!',
+  'poop_brain': 'Creier de rahat',
+  'poop_brain_description':
+      'Are nevoie de mai multă practică. Nu renunța, toată lumea se poate îmbunătăți!',
+  'poop_brain_fun_comment':
+      'Chiar și rahatul poate deveni îngrășământ! Continuă să încerci!',
+  'keep_playing_memory_games':
+      'Continuă să joci jocuri de memorie pentru a-ți îmbunătăți sănătatea creierului!'
 };

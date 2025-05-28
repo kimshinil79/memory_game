@@ -209,5 +209,35 @@ const Map<String, String> enUSTranslations = {
   'test_result': 'Test Result',
   'your_score': 'Your Score',
   'new_test': 'New Test',
-  'submit': 'Submit'
+  'submit': 'Submit',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Brain Level Guide',
+  'understand_level_means': 'Understand what your level means',
+  'rainbow_brain_level5': 'Rainbow Brain (Level 5)',
+  'rainbow_brain_desc':
+      'Highest cognitive function. Your brain operates at peak performance.',
+  'rainbow_brain_fun':
+      'Your brain shines brighter than a smartphone with 100% battery in airplane mode.',
+  'gold_brain_level4': 'Gold Brain (Level 4)',
+  'gold_brain_desc':
+      'Excellent cognitive function. You have a very healthy brain.',
+  'gold_brain_fun':
+      'Your brain is like a smartphone with 80% battery, working perfectly.',
+  'silver_brain_level3': 'Silver Brain (Level 3)',
+  'silver_brain_desc': 'Good brain health with room for improvement.',
+  'silver_brain_fun':
+      'Your brain is like a smartphone with 60% battery, working well but can improve.',
+  'bronze_brain_level2': 'Bronze Brain (Level 2)',
+  'bronze_brain_desc':
+      'Average cognitive function. Time to exercise your brain.',
+  'bronze_brain_fun':
+      'Your brain is like a smartphone with 40% battery, needs some adjustments.',
+  'poop_brain_level1': 'Poop Brain (Level 1)',
+  'poop_brain_desc':
+      'Starting your brain health journey. There\'s lots of room to grow!',
+  'poop_brain_fun':
+      'Your brain is like a smartphone with 20% battery in power saving mode. Time to charge!',
+  'keep_playing_memory_games':
+      'Keep playing memory games to improve your brain level!'
 };

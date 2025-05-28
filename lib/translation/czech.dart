@@ -222,5 +222,30 @@ const Map<String, String> csTranslations = {
   'test_result': 'Výsledek testu',
   'your_score': 'Vaše skóre',
   'new_test': 'Nový test',
-  'submit': 'Odeslat'
+  'submit': 'Odeslat',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Průvodce úrovněmi mozku',
+  'understand_level_means': 'Pochopte, co každá úroveň znamená',
+  'rainbow_brain_level5': 'Duhový mozek (Úroveň 5)',
+  'rainbow_brain_desc': 'Váš mozek se třpytí barevným leskem!',
+  'rainbow_brain_fun':
+      'Dosáhli jste kognitivního ekvivalentu dvojité duhy - naprosto oslňující!',
+  'gold_brain_level4': 'Zlatý mozek (Úroveň 4)',
+  'gold_brain_desc': 'Vynikající kognitivní funkce a paměť.',
+  'gold_brain_fun':
+      'Téměř nadlidská paměť - pravděpodobně si pamatujete, kde jste nechali klíče!',
+  'silver_brain_level3': 'Stříbrný mozek (Úroveň 3)',
+  'silver_brain_desc': 'Dobré zdraví mozku s prostorem pro zlepšení.',
+  'silver_brain_fun':
+      'Váš mozek se zahřívá - jako počítač, který se ráno spouští.',
+  'bronze_brain_level2': 'Bronzový mozek (Úroveň 2)',
+  'bronze_brain_desc': 'Průměrná kognitivní funkce - potřebujete více her!',
+  'bronze_brain_fun': 'Váš mozek je trochu ospalý - čas na mentální kávu!',
+  'poop_brain_level1': 'Hovnivý mozek (Úroveň 1)',
+  'poop_brain_desc': 'Právě začínáte svou cestu ke zdraví mozku.',
+  'poop_brain_fun':
+      'Váš mozek je teď jako smartphone na 1% baterie - zoufale potřebuje nabití!',
+  'keep_playing_memory_games':
+      'Pokračujte ve hře pexeso pro zvýšení úrovně mozku!'
 };

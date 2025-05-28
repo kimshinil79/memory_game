@@ -225,5 +225,32 @@ const Map<String, String> hrTranslations = {
   'test_result': 'Rezultat testa',
   'your_score': 'Tvoj rezultat',
   'new_test': 'Novi test',
-  'submit': 'Pošalji'
+  'submit': 'Pošalji',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Vodič razina mozga',
+  'understand_level_means': 'Razumij što svaka razina znači',
+  'rainbow_brain_level5': 'Mozak Duga (Razina 5)',
+  'rainbow_brain_desc': 'Tvoj mozak iskri šarenom brilijantnosti!',
+  'rainbow_brain_fun':
+      'Dostigao/la si kognitivni ekvivalent dvostruke duge - apsolutno zasljepljujuće!',
+  'gold_brain_level4': 'Zlatni Mozak (Razina 4)',
+  'gold_brain_desc': 'Izvrsna kognitivna funkcija i pamćenje.',
+  'gold_brain_fun':
+      'Gotovo nadljudsko pamćenje - vjerojatno se sjećaš gdje si ostavio/la ključeve!',
+  'silver_brain_level3': 'Srebrni Mozak (Razina 3)',
+  'silver_brain_desc': 'Dobro zdravlje mozga s prostorem za poboljšanje.',
+  'silver_brain_fun':
+      'Tvoj mozak se grije - kao računalo koje se pokreće ujutro.',
+  'bronze_brain_level2': 'Brončani Mozak (Razina 2)',
+  'bronze_brain_desc':
+      'Prosječna kognitivna funkcija - potrebno je više igara!',
+  'bronze_brain_fun':
+      'Tvoj mozak je malo pospan - vrijeme je za mentalnu kavu!',
+  'poop_brain_level1': 'Kaka Mozak (Razina 1)',
+  'poop_brain_desc': 'Tek počinješ svoje putovanje zdravlja mozga.',
+  'poop_brain_fun':
+      'Tvoj mozak sada je kao pametni telefon na 1% baterije - očajnički treba punjenje!',
+  'keep_playing_memory_games':
+      'Nastavi igrati igre pamćenja da povećaš svoju razinu mozga!'
 };

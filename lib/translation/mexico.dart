@@ -218,5 +218,35 @@ const Map<String, String> mxMEXTranslations = {
   'test_result': 'Resultado de la prueba',
   'your_score': 'Tu puntuación',
   'new_test': 'Nueva prueba',
-  'submit': 'Enviar'
+  'submit': 'Enviar',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guía de Niveles Cerebrales',
+  'understand_level_means': 'Entiende qué significa tu nivel cerebral',
+  'rainbow_brain': 'Cerebro Arcoíris',
+  'rainbow_brain_description':
+      '¡Habilidades cognitivas excepcionales! Tu cerebro funciona excelentemente en todas las áreas.',
+  'rainbow_brain_fun_comment':
+      '¡Tu cerebro brilla con todos los colores! ¡Eres un verdadero genio!',
+  'gold_brain': 'Cerebro Dorado',
+  'gold_brain_description':
+      'Rendimiento excelente de la memoria. ¡Tu cerebro funciona increíblemente bien!',
+  'gold_brain_fun_comment': '¡Tu cerebro es oro puro! ¡Sigue brillando!',
+  'silver_brain': 'Cerebro Plateado',
+  'silver_brain_description':
+      'Buena función cognitiva. Rendimiento fuerte y estable de la memoria.',
+  'silver_brain_fun_comment':
+      '¡Tu cerebro brilla como la plata! ¡Estás en el camino correcto!',
+  'bronze_brain': 'Cerebro de Bronce',
+  'bronze_brain_description':
+      'Rendimiento cognitivo estable. Sigue practicando para mejorar la memoria.',
+  'bronze_brain_fun_comment':
+      '¡Tu cerebro está hecho de bronce! ¡Sigue adelante, te volverás más fuerte!',
+  'poop_brain': 'Cerebro Caca',
+  'poop_brain_description':
+      'Necesita más práctica. ¡No te rindas, todos pueden mejorar!',
+  'poop_brain_fun_comment':
+      '¡Incluso la caca puede convertirse en fertilizante! ¡Sigue intentando!',
+  'keep_playing_memory_games':
+      '¡Sigue jugando juegos de memoria para mejorar tu salud cerebral!'
 };

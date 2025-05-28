@@ -227,5 +227,31 @@ const Map<String, String> ptBRTranslations = {
   'your_score': 'Sua pontuação',
   'new_test': 'Novo teste',
   'submit': 'Enviar',
-  'email': 'E-mail'
+  'email': 'E-mail',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guia de Níveis Cerebrais',
+  'understand_level_means': 'Entenda o que cada nível significa',
+  'rainbow_brain_level5': 'Cérebro Arco-íris (Nível 5)',
+  'rainbow_brain_desc': 'Seu cérebro está brilhando com um brilho colorido!',
+  'rainbow_brain_fun':
+      'Você alcançou o equivalente cognitivo de um arco-íris duplo - absolutamente deslumbrante!',
+  'gold_brain_level4': 'Cérebro de Ouro (Nível 4)',
+  'gold_brain_desc': 'Excelente função cognitiva e memória.',
+  'gold_brain_fun':
+      'Memória quase sobre-humana - você provavelmente lembra onde deixou suas chaves!',
+  'silver_brain_level3': 'Cérebro de Prata (Nível 3)',
+  'silver_brain_desc': 'Boa saúde cerebral com espaço para melhoria.',
+  'silver_brain_fun':
+      'Seu cérebro está esquentando - como um computador inicializando pela manhã.',
+  'bronze_brain_level2': 'Cérebro de Bronze (Nível 2)',
+  'bronze_brain_desc': 'Função cerebral mediana - precisa de mais jogos.',
+  'bronze_brain_fun':
+      'Precisa de um pouco de óleo - mas pelo menos você não está no nível mais baixo!',
+  'poop_brain_level1': 'Cérebro Cocô (Nível 1)',
+  'poop_brain_desc': 'Comece sua jornada aqui!',
+  'poop_brain_fun':
+      'Não se preocupe, todo mundo começa em algum lugar - e até mesmo cocô pode ser fertilizante para um grande crescimento!',
+  'keep_playing_memory_games':
+      'Continue jogando jogos de memória para aumentar o nível do seu cérebro!',
 };

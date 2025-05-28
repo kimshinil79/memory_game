@@ -226,5 +226,30 @@ const Map<String, String> bsBATranslations = {
   'your_score': 'Tvoji bodovi',
   'new_test': 'Novi test',
   'submit': 'Pošalji',
-  'email': 'E-mail'
+  'email': 'E-mail',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Vodič za nivoe mozga',
+  'understand_level_means': 'Razumij što znači svaki nivo',
+  'rainbow_brain_level5': 'Duga mozak (Nivo 5)',
+  'rainbow_brain_desc': 'Tvoj mozak blista šarenim sjajem!',
+  'rainbow_brain_fun':
+      'Dostigao si kognitivni ekvivalent dvostruke duge - apsolutno zadivljujuće!',
+  'gold_brain_level4': 'Zlatni mozak (Nivo 4)',
+  'gold_brain_desc': 'Izvrsna kognitivna funkcija i pamćenje.',
+  'gold_brain_fun':
+      'Gotovo nadljudsko pamćenje - vjerojatno se sjećaš gdje si ostavio ključeve!',
+  'silver_brain_level3': 'Srebrni mozak (Nivo 3)',
+  'silver_brain_desc': 'Dobro zdravlje mozga s prostorem za poboljšanje.',
+  'silver_brain_fun':
+      'Tvoj mozak se zagrijava - kao računalo koje se pokrenućesvađaju ujutro.',
+  'bronze_brain_level2': 'Brončani mozak (Nivo 2)',
+  'bronze_brain_desc': 'Prosječna funkcija mozga - potrebno više igara.',
+  'bronze_brain_fun': 'Treba malo ulja - ali barem nisi na najnižem nivou!',
+  'poop_brain_level1': 'Kaka mozak (Nivo 1)',
+  'poop_brain_desc': 'Počni svoje putovanje ovdje!',
+  'poop_brain_fun':
+      'Ne brini, svi počinju negdje - i čak i kaka može biti gnojivo za veliki rast!',
+  'keep_playing_memory_games':
+      'Nastavi igrati igre pamćenja da povećaš nivo mozga!'
 };

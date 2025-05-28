@@ -224,5 +224,33 @@ const Map<String, String> msBNTranslations = {
   'your_score': 'Mata anda',
   'new_test': 'Ujian baru',
   'submit': 'Hantar',
-  'email': 'E-mel'
+  'email': 'E-mel',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Panduan Tahap Otak',
+  'understand_level_means': 'Fahamkan apa maksud setiap tahap',
+  'rainbow_brain_level5': 'Otak Pelangi (Tahap 5)',
+  'rainbow_brain_desc':
+      'Otak anda bersinar dengan kecemerlangan berwarna-warni!',
+  'rainbow_brain_fun':
+      'Anda telah mencapai setara kognitif pelangi berganda - sungguh mempesonakan!',
+  'gold_brain_level4': 'Otak Emas (Tahap 4)',
+  'gold_brain_desc': 'Fungsi kognitif dan ingatan yang cemerlang.',
+  'gold_brain_fun':
+      'Ingatan hampir luar biasa manusia - anda mungkin ingat di mana letakkan kunci!',
+  'silver_brain_level3': 'Otak Perak (Tahap 3)',
+  'silver_brain_desc':
+      'Kesihatan otak yang baik dengan ruang untuk peningkatan.',
+  'silver_brain_fun':
+      'Otak anda sedang panas - seperti komputer yang boot pada pagi hari.',
+  'bronze_brain_level2': 'Otak Gangsa (Tahap 2)',
+  'bronze_brain_desc': 'Fungsi otak sederhana - perlu lebih banyak permainan.',
+  'bronze_brain_fun':
+      'Perlu sedikit minyak - tetapi sekurang-kurangnya anda tidak berada di tahap terendah!',
+  'poop_brain_level1': 'Otak Najis (Tahap 1)',
+  'poop_brain_desc': 'Mulakan perjalanan anda di sini!',
+  'poop_brain_fun':
+      'Jangan risau, semua orang bermula dari suatu tempat - dan bahkan najis pun boleh menjadi baja untuk pertumbuhan yang hebat!',
+  'keep_playing_memory_games':
+      'Teruskan bermain permainan ingatan untuk meningkatkan tahap otak anda!',
 };

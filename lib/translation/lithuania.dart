@@ -205,5 +205,35 @@ const Map<String, String> ltTranslations = {
   'test_result': 'Testo rezultatas',
   'your_score': 'Jūsų taškai',
   'new_test': 'Naujas testas',
-  'submit': 'Pateikti'
+  'submit': 'Pateikti',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Smegenų lygio vadovas',
+  'understand_level_means': 'Supraskite, ką reiškia jūsų smegenų lygis',
+  'rainbow_brain': 'Vaivorykštės smegenys',
+  'rainbow_brain_description':
+      'Puikūs pažinimo gebėjimai! Jūsų smegenys veikia puikiai visose srityse.',
+  'rainbow_brain_fun_comment':
+      'Jūsų smegenys spindi visomis spalvomis! Jūs tikras genijus!',
+  'gold_brain': 'Auksinės smegenys',
+  'gold_brain_description':
+      'Puikus atminties veikimas. Jūsų smegenys veikia nuostabiai!',
+  'gold_brain_fun_comment': 'Jūsų smegenys - grynas auksas! Toliau spindėkite!',
+  'silver_brain': 'Sidabrinės smegenys',
+  'silver_brain_description':
+      'Gera pažinimo funkcija. Stiprus ir stabilus atminties veikimas.',
+  'silver_brain_fun_comment':
+      'Jūsų smegenys blizga kaip sidabras! Jūs teisingu keliu!',
+  'bronze_brain': 'Bronzinės smegenys',
+  'bronze_brain_description':
+      'Padorūs atminties gebėjimai. Yra vietos pagerinti praktikuojantis.',
+  'bronze_brain_fun_comment':
+      'Jūsų smegenys turi bronzos stiprumą! Tęskite treniruotes!',
+  'poop_brain': 'Silpnos smegenys',
+  'poop_brain_description':
+      'Reikia pagerinti. Nesijaudinkite, visi kažkur pradeda!',
+  'poop_brain_fun_comment':
+      'Laikas treniruoti smegenis! Visi čia kadaise buvome!',
+  'keep_playing_memory_games':
+      'Toliau žaiskite atminties žaidimus, kad pagerėtų jūsų smegenų lygis!'
 };

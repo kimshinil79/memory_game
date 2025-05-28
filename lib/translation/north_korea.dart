@@ -206,5 +206,25 @@ const Map<String, String> koKPTranslations = {
   'test_result': '테스트 결과',
   'your_score': '당신의 점수',
   'new_test': '새 테스트',
-  'submit': '제출'
+  'submit': '제출',
+
+  // Brain Level Guide texts
+  'brain_level_guide': '뇌 수준 가이드',
+  'understand_level_means': '당신의 뇌 수준이 무엇을 의미하는지 이해하세요',
+  'rainbow_brain': '무지개 뇌',
+  'rainbow_brain_description': '뛰어난 인지 능력! 당신의 뇌는 모든 영역에서 탁월하게 수행합니다.',
+  'rainbow_brain_fun_comment': '당신의 뇌는 모든 색깔로 빛납니다! 당신은 진정한 천재입니다!',
+  'gold_brain': '금 뇌',
+  'gold_brain_description': '뛰어난 기억력 성능. 당신의 뇌는 놀랍도록 잘 작동합니다!',
+  'gold_brain_fun_comment': '당신의 뇌는 순금입니다! 계속 빛나세요!',
+  'silver_brain': '은 뇌',
+  'silver_brain_description': '좋은 인지 기능. 강하고 안정적인 기억력 성능.',
+  'silver_brain_fun_comment': '당신의 뇌는 은처럼 빛납니다! 올바른 길에 있습니다!',
+  'bronze_brain': '동 뇌',
+  'bronze_brain_description': '안정적인 인지 성능. 기억력 향상을 위해 계속 연습하세요.',
+  'bronze_brain_fun_comment': '당신의 뇌는 청동으로 만들어졌습니다! 계속하면 더 강해질 것입니다!',
+  'poop_brain': '똥 뇌',
+  'poop_brain_description': '더 많은 연습이 필요합니다. 포기하지 마세요, 모든 사람이 향상될 수 있습니다!',
+  'poop_brain_fun_comment': '똥도 비료가 될 수 있습니다! 계속 노력하세요!',
+  'keep_playing_memory_games': '뇌 건강을 향상시키기 위해 기억력 게임을 계속 플레이하세요!'
 };

@@ -207,5 +207,33 @@ const Map<String, String> biVUTranslations = {
   'test_result': 'Risalt blong test',
   'your_score': 'Skoa blong yu',
   'new_test': 'Niu test',
-  'submit': 'Sen'
+  'submit': 'Sen',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gaid blong Levol blong Braen',
+  'understand_level_means': 'Save gud we levol blong yu i minmi',
+  'rainbow_brain_level5': 'Braen blong Reinbo (Levol 5)',
+  'rainbow_brain_desc':
+      'Haesfala tingting blong yu. Braen blong yu i wok gud tumas.',
+  'rainbow_brain_fun':
+      'Braen blong yu i laet mo moa long wan smafon we gat 100% bateri long eaplan mod.',
+  'gold_brain_level4': 'Braen blong Gol (Levol 4)',
+  'gold_brain_desc': 'Gud tumas tingting. Yu gat wan helt braen.',
+  'gold_brain_fun':
+      'Braen blong yu i olsem wan smafon we gat 80% bateri, i wok gud tumas.',
+  'silver_brain_level3': 'Braen blong Silva (Levol 3)',
+  'silver_brain_desc': 'Gud helt blong braen be i nid mo gud.',
+  'silver_brain_fun':
+      'Braen blong yu i olsem wan smafon we gat 60% bateri, i wok gud be i save gud moa.',
+  'bronze_brain_level2': 'Braen blong Bronz (Levol 2)',
+  'bronze_brain_desc': 'Nomo tingting. Taem blong trainem braen blong yu.',
+  'bronze_brain_fun':
+      'Braen blong yu i olsem wan smafon we gat 40% bateri, i nid sam fiksem.',
+  'poop_brain_level1': 'Braen blong Sitsit (Levol 1)',
+  'poop_brain_desc':
+      'Yu statem jone blong helt blong braen. Plenti rum blong gru!',
+  'poop_brain_fun':
+      'Braen blong yu i olsem wan smafon we gat 20% bateri long sev paua mod. Taem blong jasem!',
+  'keep_playing_memory_games':
+      'Gohed blong pleim memori gem blong mekem levol blong braen blong yu i gud!'
 };

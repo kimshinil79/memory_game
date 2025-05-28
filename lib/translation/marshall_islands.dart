@@ -204,7 +204,36 @@ const Map<String, String> mhTranslations = {
   'test_result': 'Kōnnaan kein kajin',
   'your_score': 'Kōnnaan kein kajin',
   'new_test': 'Kōnnaan kein kajin',
-  'submit': 'Kōnnaan kein kajin'
+  'submit': 'Kōnnaan kein kajin',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Kōnnaan jān mouj in lọje',
+  'understand_level_means': 'Lale jen koñan lọje eo aṃ',
+  'rainbow_brain': 'Mouj in kulur katak',
+  'rainbow_brain_description':
+      'Ṃejjel eo elap! Mouj eo aṃ ej aorōk melele ippān jeṃaan.',
+  'rainbow_brain_fun_comment':
+      'Mouj eo aṃ ej jerakrakjāālọk ippān kulur kijen! Kwe mejej jukjuk!',
+  'gold_brain': 'Mouj in kuul',
+  'gold_brain_description':
+      'Mejatoto eo elap in kōjmaan. Mouj eo aṃ ej aorōk melele!',
+  'gold_brain_fun_comment': 'Mouj eo aṃ kuul eo melele! Jela jerakrakjāāl!',
+  'silver_brain': 'Mouj in jilba',
+  'silver_brain_description':
+      'Aorōk eo melele in lewa. Mejatoto eo melim ak tōprak.',
+  'silver_brain_fun_comment':
+      'Mouj eo aṃ ej jerakrakjāāl jān jilba! Kwe ilo al eo melele!',
+  'bronze_brain': 'Mouj in puroñ',
+  'bronze_brain_description':
+      'Aorōk eo tōprak in lewa. Kōjjel kōnaan jeṃ mejatoto.',
+  'bronze_brain_fun_comment':
+      'Mouj eo aṃ puroñ eo! Kōjjel, kwe naj melim ko kwojjel!',
+  'poop_brain': 'Mouj in ṃōkaj',
+  'poop_brain_description':
+      'Aikuij kōnaan elap. Jab kom kile, armej kijjien rej kāān mejatoto!',
+  'poop_brain_fun_comment':
+      'Ṃōkaj eo avat ej kāān kōn rej jekdọọn! Kōjjel kōnaan!',
+  'keep_playing_memory_games': 'Kōjjel konaan kōjmaan en mejatoto kōn mouj!'
 };
 
 // Marshall Islands translations (Marshallese)
@@ -413,5 +442,34 @@ const Map<String, String> mhMHTranslations = {
   'test_result': 'Kōnnaan',
   'your_score': 'Kōnnaan',
   'new_test': 'Kōnnaan',
-  'submit': 'Kōnnaan'
+  'submit': 'Kōnnaan',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Kōnnaan jān mouj in lọje',
+  'understand_level_means': 'Lale jen koñan lọje eo aṃ',
+  'rainbow_brain': 'Mouj in kulur katak',
+  'rainbow_brain_description':
+      'Ṃejjel eo elap! Mouj eo aṃ ej aorōk melele ippān jeṃaan.',
+  'rainbow_brain_fun_comment':
+      'Mouj eo aṃ ej jerakrakjāālọk ippān kulur kijen! Kwe mejej jukjuk!',
+  'gold_brain': 'Mouj in kuul',
+  'gold_brain_description':
+      'Mejatoto eo elap in kōjmaan. Mouj eo aṃ ej aorōk melele!',
+  'gold_brain_fun_comment': 'Mouj eo aṃ kuul eo melele! Jela jerakrakjāāl!',
+  'silver_brain': 'Mouj in jilba',
+  'silver_brain_description':
+      'Aorōk eo melele in lewa. Mejatoto eo melim ak tōprak.',
+  'silver_brain_fun_comment':
+      'Mouj eo aṃ ej jerakrakjāāl jān jilba! Kwe ilo al eo melele!',
+  'bronze_brain': 'Mouj in puroñ',
+  'bronze_brain_description':
+      'Aorōk eo tōprak in lewa. Kōjjel kōnaan jeṃ mejatoto.',
+  'bronze_brain_fun_comment':
+      'Mouj eo aṃ puroñ eo! Kōjjel, kwe naj melim ko kwojjel!',
+  'poop_brain': 'Mouj in ṃōkaj',
+  'poop_brain_description':
+      'Aikuij kōnaan elap. Jab kom kile, armej kijjien rej kāān mejatoto!',
+  'poop_brain_fun_comment':
+      'Ṃōkaj eo avat ej kāān kōn rej jekdọọn! Kōjjel kōnaan!',
+  'keep_playing_memory_games': 'Kōjjel konaan kōjmaan en mejatoto kōn mouj!'
 };

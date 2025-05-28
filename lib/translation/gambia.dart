@@ -206,5 +206,30 @@ const Map<String, String> enGMTranslations = {
   'test_result': 'Test Result',
   'your_score': 'Your Score',
   'new_test': 'New Test',
-  'submit': 'Submit'
+  'submit': 'Submit',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Brain Level Guide',
+  'understand_level_means': 'Understand what each level means!',
+  'rainbow_level_name': '🌈 Rainbow Level',
+  'rainbow_level_description':
+      'Amazing! You are a true winner at improving your brain! Beautiful like a rainbow.',
+  'rainbow_level_fun_comment': 'Your brain is colorful like a rainbow! 🌈✨',
+  'gold_level_name': '🥇 Gold Level',
+  'gold_level_description':
+      'Fantastic! Your brain shines like gold. Your participation in the game shows a great brain.',
+  'gold_level_fun_comment': 'Golden brain! You are one of the best! 🥇🧠',
+  'silver_level_name': '🥈 Silver Level',
+  'silver_level_description':
+      'Very good! Your brain shines like silver. You are doing very well!',
+  'silver_level_fun_comment': 'Silver brain! How great! 🥈⭐',
+  'bronze_level_name': '🥉 Bronze Level',
+  'bronze_level_description': 'Good! Your brain is growing. Keep going!',
+  'bronze_level_fun_comment': 'Bronze brain! Better times will come! 🥉💪',
+  'poop_level_name': '💩 Poop Level',
+  'poop_level_description':
+      'Your brain is a bit sleepy. But don\'t lose hope! You will grow.',
+  'poop_level_fun_comment': 'Poop brain! But don\'t worry, you will grow! 💩😅',
+  'keep_playing_memory_games':
+      'Keep playing memory games to improve your brain!'
 };

@@ -206,5 +206,31 @@ const Map<String, String> fjTranslations = {
   'test_result': 'Na i vakavoui',
   'your_score': 'Na points',
   'new_test': 'Na i vakavoui',
-  'submit': 'Digitaka'
+  'submit': 'Digitaka',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Na i vakarailevu ni bula ni bula',
+  'understand_level_means': 'Kila na ka e vuki kina na veivakatauvi!',
+  'rainbow_level_name': '🌈 Na i vakatauvi ni droka ni bose',
+  'rainbow_level_description':
+      'Vinaka sara! Iko na dau meci vinaka sara na vakavou na nomuni bula! Maravu me vaka na droka ni bose.',
+  'rainbow_level_fun_comment': 'Na nomuni bula me vaka na droka ni bose! 🌈✨',
+  'gold_level_name': '🥇 Na i vakatauvi ni kaula',
+  'gold_level_description':
+      'Vinaka levu! Na nomuni bula e rarama me vaka na kaula. Na nomuni vakai meci e vakaraitaka na bula levu.',
+  'gold_level_fun_comment': 'Na bula kaula! Iko e dua na vinaka sara! 🥇🧠',
+  'silver_level_name': '🥈 Na i vakatauvi ni salova',
+  'silver_level_description':
+      'Vinaka sara! Na nomuni bula e rarama me vaka na salova. O cakacaka vinaka sara!',
+  'silver_level_fun_comment': 'Na bula salova! Me vaka ni vinaka! 🥈⭐',
+  'bronze_level_name': '🥉 Na i vakatauvi ni koula',
+  'bronze_level_description': 'Vinaka! Na nomuni bula e vakaukauwa. Toso!',
+  'bronze_level_fun_comment': 'Na bula koula! Na gauna vinaka e na yaco! 🥉💪',
+  'poop_level_name': '💩 Na i vakatauvi ni ka ca',
+  'poop_level_description':
+      'Na nomuni bula e dredre vudi. Ia sega ni vakaloloma! O na vakaukauwa.',
+  'poop_level_fun_comment':
+      'Na bula ca! Ia sega ni vakabauta, o na vakaukauwa! 💩😅',
+  'keep_playing_memory_games':
+      'Toso na meci ni nanuma me vakavou na nomuni bula!'
 };

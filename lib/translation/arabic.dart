@@ -219,5 +219,26 @@ const Map<String, String> arTranslations = {
   'test_result': 'نتيجة الاختبار',
   'your_score': 'درجتك',
   'new_test': 'اختبار جديد',
-  'submit': 'إرسال'
+  'submit': 'إرسال',
+
+  // Brain Level Guide
+  'brain_level_guide': 'دليل مستويات الدماغ',
+  'understand_level_means': 'افهم معنى كل مستوى',
+  'rainbow_brain_level5': 'دماغ قوس قزح (المستوى 5)',
+  'rainbow_brain_desc': 'دماغك يتألق بالبريق الملون!',
+  'rainbow_brain_fun':
+      'لقد وصلت إلى المعادل المعرفي لقوس قزح مزدوج - مذهل تماماً!',
+  'gold_brain_level4': 'الدماغ الذهبي (المستوى 4)',
+  'gold_brain_desc': 'وظيفة معرفية ممتازة وذاكرة.',
+  'gold_brain_fun': 'ذاكرة شبه خارقة - ربما تتذكر أين تركت مفاتيحك!',
+  'silver_brain_level3': 'الدماغ الفضي (المستوى 3)',
+  'silver_brain_desc': 'صحة دماغ جيدة مع مجال للتحسن.',
+  'silver_brain_fun': 'دماغك يسخن - مثل كمبيوتر ينشط في الصباح.',
+  'bronze_brain_level2': 'الدماغ البرونزي (المستوى 2)',
+  'bronze_brain_desc': 'وظيفة معرفية متوسطة - تحتاج المزيد من الألعاب!',
+  'bronze_brain_fun': 'دماغك نائم قليلاً - حان وقت القهوة العقلية!',
+  'poop_brain_level1': 'دماغ البراز (المستوى 1)',
+  'poop_brain_desc': 'بدأت للتو رحلة صحة دماغك.',
+  'poop_brain_fun': 'دماغك الآن مثل هاتف ذكي ببطارية 1% - يحتاج شحن بشدة!',
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!'
 };

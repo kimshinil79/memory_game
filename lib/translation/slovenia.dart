@@ -206,5 +206,31 @@ const Map<String, String> slSITranslations = {
   'test_result': 'Rezultat testa',
   'your_score': 'Vaše točke',
   'new_test': 'Nov test',
-  'submit': 'Pošlji'
+  'submit': 'Pošlji',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Vodnik po ravneh možganov',
+  'understand_level_means': 'Razumite, kaj pomeni vsaka raven',
+  'rainbow_brain_level5': 'Mavrični možgani (Raven 5)',
+  'rainbow_brain_desc': 'Vaši možgani sevajo v barvitem sijaju!',
+  'rainbow_brain_fun':
+      'Dosegli ste kognitivni ekvivalent dvojne mavrice - popolnoma osupljivo!',
+  'gold_brain_level4': 'Zlati možgani (Raven 4)',
+  'gold_brain_desc': 'Odlična kognitivna funkcija in spomin.',
+  'gold_brain_fun':
+      'Skoraj nadčloveški spomin - verjetno se spomnite, kam ste dali ključe!',
+  'silver_brain_level3': 'Srebrni možgani (Raven 3)',
+  'silver_brain_desc': 'Dobro zdravje možganov z možnostjo izboljšave.',
+  'silver_brain_fun':
+      'Vaši možgani se ogrevajo - kot računalnik, ki se zjutraj zaganja.',
+  'bronze_brain_level2': 'Bronasti možgani (Raven 2)',
+  'bronze_brain_desc': 'Povprečna kognitivna funkcija - potrebno več iger!',
+  'bronze_brain_fun':
+      'Vaši možgani so nekoliko zaspani - čas za mentalno kavo!',
+  'poop_brain_level1': 'Zaspani možgani (Raven 1)',
+  'poop_brain_desc': 'Ravno začenjate svojo pot zdravja možganov.',
+  'poop_brain_fun':
+      'Vaši možgani so zdaj kot pametni telefon z 1% baterije - obupno potrebujejo polnjenje!',
+  'keep_playing_memory_games':
+      'Nadaljujte z igranjem iger spomina za povečanje ravni vaših možganov!',
 };

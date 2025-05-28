@@ -212,5 +212,32 @@ const Map<String, String> frSNTranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guide des niveaux de cerveau',
+  'understand_level_means': 'Comprenez ce que signifie chaque niveau',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc': 'Votre cerveau brille d\'un éclat coloré !',
+  'rainbow_brain_fun':
+      'Vous avez atteint l\'équivalent cognitif d\'un double arc-en-ciel - absolument éblouissant !',
+  'gold_brain_level4': 'Cerveau d\'Or (Niveau 4)',
+  'gold_brain_desc': 'Excellente fonction cognitive et mémoire.',
+  'gold_brain_fun':
+      'Mémoire presque surhumaine - vous vous souvenez probablement où vous avez laissé vos clés !',
+  'silver_brain_level3': 'Cerveau d\'Argent (Niveau 3)',
+  'silver_brain_desc': 'Bonne santé cérébrale avec place à l\'amélioration.',
+  'silver_brain_fun':
+      'Votre cerveau se réchauffe - comme un ordinateur qui démarre le matin.',
+  'bronze_brain_level2': 'Cerveau de Bronze (Niveau 2)',
+  'bronze_brain_desc':
+      'Fonction cognitive moyenne - plus de jeux nécessaires !',
+  'bronze_brain_fun':
+      'Votre cerveau est un peu endormi - il est temps pour un café mental !',
+  'poop_brain_level1': 'Cerveau Endormi (Niveau 1)',
+  'poop_brain_desc': 'Vous commencez votre voyage de santé cérébrale.',
+  'poop_brain_fun':
+      'Votre cerveau en ce moment est comme un smartphone à 1% de batterie - a désespérément besoin de se recharger !',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau de cerveau !',
 };

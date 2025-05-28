@@ -224,5 +224,37 @@ const Map<String, String> filPHTranslations = {
   'test_result': 'Resulta ng Test',
   'your_score': 'Iyong Iskor',
   'new_test': 'Bagong Test',
-  'submit': 'I-submit'
+  'submit': 'I-submit',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gabay sa Antas ng Utak',
+  'understand_level_means':
+      'Intindihin kung ano ang ibig sabihin ng antas ng inyong utak',
+  'rainbow_brain': 'Bahaghari na Utak',
+  'rainbow_brain_description':
+      'Napakahusay na kakayahan sa pag-iisip! Ang inyong utak ay gumagana nang napakahusay sa lahat ng larangan.',
+  'rainbow_brain_fun_comment':
+      'Ang inyong utak ay kumikinang sa lahat ng kulay! Kayo ay tunay na henyo!',
+  'gold_brain': 'Gintong Utak',
+  'gold_brain_description':
+      'Napakahusay na pagganap ng memorya. Ang inyong utak ay gumagana nang napakagaling!',
+  'gold_brain_fun_comment':
+      'Ang inyong utak ay purong ginto! Patuloy na magliliwanag!',
+  'silver_brain': 'Pilak na Utak',
+  'silver_brain_description':
+      'Magandang cognitive function. Malakas at matatag na pagganap ng memorya.',
+  'silver_brain_fun_comment':
+      'Ang inyong utak ay kumikinang na parang pilak! Nasa tamang daan kayo!',
+  'bronze_brain': 'Tanso na Utak',
+  'bronze_brain_description':
+      'Matatag na cognitive performance. Patuloy na mag-practice para mapabuti ang memorya.',
+  'bronze_brain_fun_comment':
+      'Ang inyong utak ay gawa sa tanso! Patuloy lang, lalong lalakas kayo!',
+  'poop_brain': 'Tae na Utak',
+  'poop_brain_description':
+      'Kailangan ng mas maraming practice. Huwag sumuko, lahat ay pwedeng mag-improve!',
+  'poop_brain_fun_comment':
+      'Kahit ang tae ay pwedeng maging pataba! Patuloy na subukan!',
+  'keep_playing_memory_games':
+      'Patuloy na maglaro ng mga laro ng memorya para mapabuti ang kalusugan ng inyong utak!'
 };

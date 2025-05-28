@@ -207,5 +207,35 @@ const Map<String, String> deLUTranslations = {
   'test_result': 'Testergebnis',
   'your_score': 'Ihre Punktzahl',
   'new_test': 'Neuer Test',
-  'submit': 'Absenden'
+  'submit': 'Einreichen',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gehirn-Level-Leitfaden',
+  'understand_level_means': 'Verstehen Sie, was Ihr Gehirn-Level bedeutet',
+  'rainbow_brain': 'Regenbogen-Gehirn',
+  'rainbow_brain_description':
+      'Hervorragende kognitive Fähigkeiten! Ihr Gehirn funktioniert ausgezeichnet in allen Bereichen.',
+  'rainbow_brain_fun_comment':
+      'Ihr Gehirn leuchtet in allen Farben! Sie sind ein wahres Genie!',
+  'gold_brain': 'Gold-Gehirn',
+  'gold_brain_description':
+      'Excellente Gedächtnisleistung. Ihr Gehirn arbeitet fantastisch!',
+  'gold_brain_fun_comment': 'Ihr Gehirn ist pures Gold! Glänzen Sie weiter!',
+  'silver_brain': 'Silber-Gehirn',
+  'silver_brain_description':
+      'Gute kognitive Funktion. Starke und stabile Gedächtnisleistung.',
+  'silver_brain_fun_comment':
+      'Ihr Gehirn glänzt wie Silber! Sie sind auf dem richtigen Weg!',
+  'bronze_brain': 'Bronze-Gehirn',
+  'bronze_brain_description':
+      'Anständige Gedächtnisfähigkeiten. Es gibt Raum für Verbesserungen mit Übung.',
+  'bronze_brain_fun_comment':
+      'Ihr Gehirn hat Bronze-Stärke! Trainieren Sie weiter!',
+  'poop_brain': 'Schwaches Gehirn',
+  'poop_brain_description':
+      'Braucht Verbesserung. Keine Sorge, jeder fängt irgendwo an!',
+  'poop_brain_fun_comment':
+      'Zeit, Ihr Gehirn zu trainieren! Jeder war schon mal hier!',
+  'keep_playing_memory_games':
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu verbessern!'
 };

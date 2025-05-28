@@ -206,5 +206,28 @@ const Map<String, String> arYETranslations = {
   'test_result': 'نتيجة الاختبار',
   'your_score': 'نقاطك',
   'new_test': 'اختبار جديد',
-  'submit': 'إرسال'
+  'submit': 'إرسال',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'دليل مستويات الدماغ',
+  'understand_level_means': 'افهم ما يعنيه مستواك',
+  'rainbow_brain_level5': 'دماغ قوس قزح (المستوى 5)',
+  'rainbow_brain_desc': 'أعلى وظيفة معرفية. يعمل دماغك بأقصى أداء.',
+  'rainbow_brain_fun':
+      'دماغك يضيء أكثر من هاتف ذكي بـ 100% بطارية في وضع الطيران.',
+  'gold_brain_level4': 'دماغ ذهبي (المستوى 4)',
+  'gold_brain_desc': 'وظيفة معرفية ممتازة. لديك دماغ صحي جداً.',
+  'gold_brain_fun': 'دماغك مثل هاتف ذكي بـ 80% بطارية، يعمل بشكل مثالي.',
+  'silver_brain_level3': 'دماغ فضي (المستوى 3)',
+  'silver_brain_desc': 'صحة دماغية جيدة مع مجال للتحسين.',
+  'silver_brain_fun':
+      'دماغك مثل هاتف ذكي بـ 60% بطارية، يعمل جيداً ولكن يمكن تحسينه.',
+  'bronze_brain_level2': 'دماغ برونزي (المستوى 2)',
+  'bronze_brain_desc': 'وظيفة معرفية متوسطة. حان وقت تمرين دماغك.',
+  'bronze_brain_fun': 'دماغك مثل هاتف ذكي بـ 40% بطارية، يحتاج بعض التعديلات.',
+  'poop_brain_level1': 'دماغ براز (المستوى 1)',
+  'poop_brain_desc': 'بداية رحلة صحة دماغك. هناك مساحة كبيرة للنمو!',
+  'poop_brain_fun':
+      'دماغك مثل هاتف ذكي بـ 20% بطارية في وضع توفير الطاقة. وقت الشحن!',
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!'
 };

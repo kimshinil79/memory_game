@@ -209,5 +209,34 @@ const Map<String, String> plPLTranslations = {
   'test_result': 'Wynik testu',
   'your_score': 'Twój wynik',
   'new_test': 'Nowy test',
-  'submit': 'Prześlij'
+  'submit': 'Prześlij',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Przewodnik po poziomach mózgu',
+  'understand_level_means': 'Zrozum, co oznacza poziom twojego mózgu',
+  'rainbow_brain': 'Tęczowy mózg',
+  'rainbow_brain_description':
+      'Wybitne zdolności poznawcze! Twój mózg działa doskonale we wszystkich obszarach.',
+  'rainbow_brain_fun_comment':
+      'Twój mózg świeci wszystkimi kolorami! Jesteś prawdziwym geniuszem!',
+  'gold_brain': 'Złoty mózg',
+  'gold_brain_description':
+      'Doskonała wydajność pamięci. Twój mózg działa niesamowicie dobrze!',
+  'gold_brain_fun_comment': 'Twój mózg to czyste złoto! Świeć dalej jasno!',
+  'silver_brain': 'Srebrny mózg',
+  'silver_brain_description':
+      'Dobra funkcja poznawcza. Silna i stabilna wydajność pamięci.',
+  'silver_brain_fun_comment':
+      'Twój mózg świeci jak srebro! Jesteś na dobrej drodze!',
+  'bronze_brain': 'Brązowy mózg',
+  'bronze_brain_description':
+      'Stabilna wydajność poznawcza. Kontynuuj ćwiczenia, aby poprawić pamięć.',
+  'bronze_brain_fun_comment':
+      'Twój mózg jest z brązu! Kontynuuj, staniesz się silniejszy!',
+  'poop_brain': 'Kupowy mózg',
+  'poop_brain_description':
+      'Potrzeba więcej praktyki. Nie poddawaj się, każdy może się poprawić!',
+  'poop_brain_fun_comment': 'Nawet kupa może stać się nawozem! Próbuj dalej!',
+  'keep_playing_memory_games':
+      'Kontynuuj granie w gry pamięciowe, aby poprawić zdrowie mózgu!'
 };

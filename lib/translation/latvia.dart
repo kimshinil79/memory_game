@@ -206,5 +206,35 @@ const Map<String, String> lvLVTranslations = {
   'test_result': 'Testa rezultāts',
   'your_score': 'Jūsu punkti',
   'new_test': 'Jauns tests',
-  'submit': 'Iesniegt'
+  'submit': 'Iesniegt',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Smadzeņu līmeņa ceļvedis',
+  'understand_level_means': 'Saprotiet, ko nozīmē jūsu smadzeņu līmenis',
+  'rainbow_brain': 'Varavīksnes smadzenes',
+  'rainbow_brain_description':
+      'Izcili kognitīvie spējas! Jūsu smadzenes darbojas lieliski visās jomās.',
+  'rainbow_brain_fun_comment':
+      'Jūsu smadzenes mirgo ar visām krāsām! Jūs esat īsts talants!',
+  'gold_brain': 'Zelta smadzenes',
+  'gold_brain_description':
+      'Izcila atmiņas veiktspēja. Jūsu smadzenes darbojas lieliski!',
+  'gold_brain_fun_comment': 'Jūsu smadzenes ir tīrs zelts! Turpiniet mirdzēt!',
+  'silver_brain': 'Sudraba smadzenes',
+  'silver_brain_description':
+      'Labas kognitīvās funkcijas. Spēcīga un stabila atmiņas veiktspēja.',
+  'silver_brain_fun_comment':
+      'Jūsu smadzenes mirgo kā sudrabs! Jūs esat uz pareizā ceļa!',
+  'bronze_brain': 'Bronzas smadzenes',
+  'bronze_brain_description':
+      'Pienācīgas atmiņas spējas. Ir vieta uzlabojumiem ar praksi.',
+  'bronze_brain_fun_comment':
+      'Jūsu smadzenēm ir bronzas spēks! Turpiniet trenēties!',
+  'poop_brain': 'Vājas smadzenes',
+  'poop_brain_description':
+      'Nepieciešami uzlabojumi. Neuztraucieties, visi kaut kur sāk!',
+  'poop_brain_fun_comment':
+      'Ir laiks trenēt jūsu smadzenes! Visi esam bijuši šeit!',
+  'keep_playing_memory_games':
+      'Turpiniet spēlēt atmiņas spēles, lai uzlabotu savu smadzeņu līmeni!'
 };

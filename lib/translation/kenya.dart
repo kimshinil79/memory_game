@@ -207,5 +207,35 @@ const Map<String, String> swKETranslations = {
   'test_result': 'Matokeo ya mtihani',
   'your_score': 'Pointi zako',
   'new_test': 'Mtihani mpya',
-  'submit': 'Wasilisha'
+  'submit': 'Wasilisha',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Mwongozo wa kiwango cha ubongo',
+  'understand_level_means': 'Elewa kiwango cha ubongo wako kinamaanisha nini',
+  'rainbow_brain': 'Ubongo wa upinde wa mvua',
+  'rainbow_brain_description':
+      'Uwezo wa kitambuzi mkuu! Ubongo wako unafanya kazi vizuri sana katika maeneo yote.',
+  'rainbow_brain_fun_comment':
+      'Ubongo wako unaangaza kwa rangi zote! Wewe ni mjanja wa kweli!',
+  'gold_brain': 'Ubongo wa dhahabu',
+  'gold_brain_description':
+      'Utendaji bora wa kumbukumbu. Ubongo wako unafanya kazi vizuri!',
+  'gold_brain_fun_comment': 'Ubongo wako ni dhahabu safi! Endelea kung\'aa!',
+  'silver_brain': 'Ubongo wa fedha',
+  'silver_brain_description':
+      'Kazi nzuri za kitambuzi. Utendaji mkuu na thabiti katika kumbukumbu.',
+  'silver_brain_fun_comment':
+      'Ubongo wako unaangaza kama fedha! Uko katika njia sahihi!',
+  'bronze_brain': 'Ubongo wa shaba',
+  'bronze_brain_description':
+      'Uwezo wa kumbukumbu wa wastani. Kuna nafasi ya kuimarika kwa mazoezi.',
+  'bronze_brain_fun_comment':
+      'Ubongo wako una nguvu za shaba! Endelea kujifunza!',
+  'poop_brain': 'Ubongo dhaifu',
+  'poop_brain_description':
+      'Unahitaji kuimarika. Usiwe na wasiwasi, kila mtu huanzia mahali fulani!',
+  'poop_brain_fun_comment':
+      'Ni wakati wa kujifunza ubongo wako! Wote tumekuwa hapa hapo awali!',
+  'keep_playing_memory_games':
+      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!'
 };

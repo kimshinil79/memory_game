@@ -230,4 +230,28 @@ const Map<String, String> azTranslations = {
 
   // New keys
   'email': 'E-poçt',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Beyin Səviyyə Bələdçisi',
+  'understand_level_means': 'Hər səviyyənin nə demək olduğunu anlayın',
+  'rainbow_brain_level5': 'Göy qurşağı Beyin (Səviyyə 5)',
+  'rainbow_brain_desc': 'Beyniniz rəngarəng parlaqlıqla parlayır!',
+  'rainbow_brain_fun':
+      'Siz qoşa göy qurşağının kognitiv ekvivalentinə çatdınız - tamamilə möhtəşəm!',
+  'gold_brain_level4': 'Qızıl Beyin (Səviyyə 4)',
+  'gold_brain_desc': 'Mükəmməl kognitiv funksiya və yaddaş.',
+  'gold_brain_fun':
+      'Demək olar ki, insanüstü yaddaş - açarlarınızı hara qoyduğunuzu yəqin ki xatırlayırsınız!',
+  'silver_brain_level3': 'Gümüş Beyin (Səviyyə 3)',
+  'silver_brain_desc': 'Yaxşı beyin sağlamlığı, yaxşılaşdırma sahəsi ilə.',
+  'silver_brain_fun': 'Beyniniz qızınır - səhər işə başlayan kompyuter kimi.',
+  'bronze_brain_level2': 'Bürünc Beyin (Səviyyə 2)',
+  'bronze_brain_desc': 'Orta kognitiv funksiya - daha çox oyun lazımdır!',
+  'bronze_brain_fun': 'Beyniniz bir az yuxuludur - əqli qəhvə vaxtıdır!',
+  'poop_brain_level1': 'Nəcis Beyin (Səviyyə 1)',
+  'poop_brain_desc': 'Beyin sağlamlığı səyahətinizə yeni başlayırsınız.',
+  'poop_brain_fun':
+      'Beyniniz indi 1% batareyası olan smartphone kimi - çarələsiz şəkildə doldurulmağa ehtiyacı var!',
+  'keep_playing_memory_games':
+      'Beyin səviyyənizi artırmaq üçün yaddaş oyunları oynamağa davam edin!',
 };

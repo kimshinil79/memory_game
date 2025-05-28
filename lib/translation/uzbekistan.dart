@@ -210,5 +210,34 @@ const Map<String, String> uzUZTranslations = {
   'test_result': 'Test natijasi',
   'your_score': 'Sizning balingiz',
   'new_test': 'Yangi test',
-  'submit': 'Yuborish'
+  'submit': 'Yuborish',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Miya Darajalari Qo\'llanmasi',
+  'understand_level_means': 'Sizning darajangiz nimani anglatishini tushuning',
+  'rainbow_brain_level5': 'Kamalak Miya (5-daraja)',
+  'rainbow_brain_desc':
+      'Eng yuqori kognitiv funksiya. Miyangiz eng yuqori samaradorlikda ishlaydi.',
+  'rainbow_brain_fun':
+      'Sizning miyangiz samolyot rejimida 100% batareya bilan aqlli telefondan yorqinroq porlamoqda.',
+  'gold_brain_level4': 'Oltin Miya (4-daraja)',
+  'gold_brain_desc': 'A\'lo kognitiv funksiya. Sizda juda sog\'lom miya bor.',
+  'gold_brain_fun':
+      'Sizning miyangiz 80% batareya bilan aqlli telefon kabi, mukammal ishlaydi.',
+  'silver_brain_level3': 'Kumush Miya (3-daraja)',
+  'silver_brain_desc': 'Yaxshi miya salomatligi, yaxshilanish uchun joy bor.',
+  'silver_brain_fun':
+      'Sizning miyangiz 60% batareya bilan aqlli telefon kabi, yaxshi ishlaydi lekin yaxshilanishi mumkin.',
+  'bronze_brain_level2': 'Bronza Miya (2-daraja)',
+  'bronze_brain_desc':
+      'O\'rtacha kognitiv funksiya. Miyangizni mashq qilish vaqti.',
+  'bronze_brain_fun':
+      'Sizning miyangiz 40% batareya bilan aqlli telefon kabi, ba\'zi sozlamalarga muhtoj.',
+  'poop_brain_level1': 'Axlat Miya (1-daraja)',
+  'poop_brain_desc':
+      'Miya salomatligi sayohatingizni boshlayapsiz. O\'sish uchun ko\'p joy bor!',
+  'poop_brain_fun':
+      'Sizning miyangiz quvvat tejash rejimida 20% batareya bilan aqlli telefon kabi. Zaryad vaqti!',
+  'keep_playing_memory_games':
+      'Miya darajangizni yaxshilash uchun xotira o\'yinlarini o\'ynashda davom eting!'
 };

@@ -210,5 +210,33 @@ const Map<String, String> msSGTranslations = {
   'test_result': 'Keputusan Ujian',
   'your_score': 'Skor Anda',
   'new_test': 'Ujian Baru',
-  'submit': 'Hantar'
+  'submit': 'Hantar',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Panduan Tahap Otak',
+  'understand_level_means': 'Fahami maksud setiap tahap',
+  'rainbow_brain_level5': 'Otak Pelangi (Tahap 5)',
+  'rainbow_brain_desc':
+      'Otak anda berkilauan dengan kecemerlangan berwarna-warni!',
+  'rainbow_brain_fun':
+      'Anda telah mencapai kognitif yang setara dengan pelangi berganda - sungguh memukau!',
+  'gold_brain_level4': 'Otak Emas (Tahap 4)',
+  'gold_brain_desc': 'Fungsi kognitif dan ingatan yang sangat baik.',
+  'gold_brain_fun':
+      'Ingatan hampir seperti manusia super - anda mungkin ingat di mana anda meletakkan kunci!',
+  'silver_brain_level3': 'Otak Perak (Tahap 3)',
+  'silver_brain_desc':
+      'Kesihatan otak yang baik dengan ruang untuk diperbaiki.',
+  'silver_brain_fun':
+      'Otak anda sedang memanaskan diri - seperti komputer yang dihidupkan pada waktu pagi.',
+  'bronze_brain_level2': 'Otak Gangsa (Tahap 2)',
+  'bronze_brain_desc':
+      'Fungsi kognitif purata - lebih banyak permainan diperlukan!',
+  'bronze_brain_fun': 'Otak anda agak mengantuk - masa untuk kopi mental!',
+  'poop_brain_level1': 'Otak Mengantuk (Tahap 1)',
+  'poop_brain_desc': 'Baru memulakan perjalanan kesihatan otak anda.',
+  'poop_brain_fun':
+      'Otak anda sekarang seperti telefon pintar dengan bateri 1% - sangat memerlukan pengecasan!',
+  'keep_playing_memory_games':
+      'Teruskan bermain permainan ingatan untuk meningkatkan tahap otak anda!',
 };

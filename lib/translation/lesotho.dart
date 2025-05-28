@@ -206,5 +206,36 @@ const Map<String, String> stLSTranslations = {
   'test_result': 'Phetho ea teko',
   'your_score': 'Lintlha tsa hau',
   'new_test': 'Teko e ncha',
-  'submit': 'Romela'
+  'submit': 'Romela',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Tataiso ea boemo ba boko',
+  'understand_level_means': 'Utloisise hore boemo ba boko ba hau bo bolelang',
+  'rainbow_brain': 'Boko ba rainbow',
+  'rainbow_brain_description':
+      'Matla a bohlale a makatsang! Boko ba hau bo sebetsa hantle litekong tsohle.',
+  'rainbow_brain_fun_comment':
+      'Boko ba hau bo kganya ka mebala eohle! U motho ea bohlale ka nnete!',
+  'gold_brain': 'Boko ba khauta',
+  'gold_brain_description':
+      'Tshebetso e ntle ea hopolo. Boko ba hau bo sebetsa hantle haholo!',
+  'gold_brain_fun_comment':
+      'Boko ba hau ke khauta e hloekileng! Tsoela pele ho kganya!',
+  'silver_brain': 'Boko ba silefera',
+  'silver_brain_description':
+      'Mesebetsi e metle ea bohlale. Tshebetso e matla le e tsitsitseng ea hopolo.',
+  'silver_brain_fun_comment':
+      'Boko ba hau bo kganya joalo ka silefera! U tseleleng e nepahetseng!',
+  'bronze_brain': 'Boko ba lethose',
+  'bronze_brain_description':
+      'Matla a hopolo a lokelang. Ho na le sebaka sa ntlafatso ka boiteko.',
+  'bronze_brain_fun_comment':
+      'Boko ba hau bo na le matla a lethose! Tsoela pele ho ikatisa!',
+  'poop_brain': 'Boko bo fokolang',
+  'poop_brain_description':
+      'Bo hloka ntlafatso. Se tsohe, motho e mong le e mong o qala hohong!',
+  'poop_brain_fun_comment':
+      'Ke nako ea ho ikatisa boko ba hau! Bohle re kile ra ba mona!',
+  'keep_playing_memory_games':
+      'Tsoela pele ho bapala lipapali tsa hopolo ho ntlafatsa boemo ba boko ba hau!'
 };

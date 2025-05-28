@@ -225,5 +225,31 @@ const Map<String, String> isISTranslations = {
   'test_result': 'Prófaniðurstaða',
   'your_score': 'Stig þín',
   'new_test': 'Nýtt próf',
-  'submit': 'Senda'
+  'submit': 'Senda',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Leiðbeiningar um heilastærðir',
+  'understand_level_means': 'Skildu hvað hvert stig þýðir!',
+  'rainbow_level_name': '🌈 Regnbogastig',
+  'rainbow_level_description':
+      'Frábært! Þú ert sannur sigurvegari í að bæta heilann þinn! Fallegt eins og regnbogi.',
+  'rainbow_level_fun_comment': 'Heilinn þinn er litríkur eins og regnbogi! 🌈✨',
+  'gold_level_name': '🥇 Gullstig',
+  'gold_level_description':
+      'Fantastískt! Heilinn þinn glitrar eins og gull. Þátttaka þín í leiknum sýnir frábæran heila.',
+  'gold_level_fun_comment': 'Gullheili! Þú ert einn af þeim bestu! 🥇🧠',
+  'silver_level_name': '🥈 Silfurstig',
+  'silver_level_description':
+      'Mjög gott! Heilinn þinn glitrar eins og silfur. Þú ert að gera þetta mjög vel!',
+  'silver_level_fun_comment': 'Silfurheili! Hvað er þetta frábært! 🥈⭐',
+  'bronze_level_name': '🥉 Bronsastig',
+  'bronze_level_description': 'Gott! Heilinn þinn er að vaxa. Haltu áfram!',
+  'bronze_level_fun_comment': 'Bronsaheili! Betri tímar eru að koma! 🥉💪',
+  'poop_level_name': '💩 Skítstig',
+  'poop_level_description':
+      'Heilinn þinn er aðeins þreyttur. En ekki missa vonina! Þú munt vaxa.',
+  'poop_level_fun_comment':
+      'Skítheili! En ekki hafa áhyggjur, þú munt vaxa! 💩😅',
+  'keep_playing_memory_games':
+      'Haltu áfram að spila minnisleiki til að bæta heilann þinn!'
 };

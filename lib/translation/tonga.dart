@@ -213,5 +213,36 @@ const Map<String, String> toTOTranslations = {
   'test_result': 'Hū ʻo e fakamātaʻu',
   'your_score': 'Ho poini',
   'new_test': 'Fakamātaʻu foʻou',
-  'submit': 'Fakahū'
+  'submit': 'Fekau',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Tohi fakahinohino ki he ngaahi tingata ʻuto',
+  'understand_level_means': 'ʻIlo ʻa e meʻa ʻoku ʻuhinga ʻe ho tingata',
+  'rainbow_brain_level5': 'ʻUto pukamata (Tingata 5)',
+  'rainbow_brain_desc':
+      'Ko e ngaue ʻilo māʻolunga taha. ʻOku ngaue ho ʻuto ʻi he fakalakalaka māʻolunga taha.',
+  'rainbow_brain_fun':
+      'Ko ho ʻuto ʻoku ngingila lahi hake ʻi he telafoni mahino mo e pāteli 100% ʻi he founga vakapuna.',
+  'gold_brain_level4': 'ʻUto koula (Tingata 4)',
+  'gold_brain_desc':
+      'Ko e ngaue ʻilo lelei. ʻOku ke maʻu ha ʻuto moʻui lelei lahi.',
+  'gold_brain_fun':
+      'Ko ho ʻuto ʻoku hangē ko e telafoni mahino mo e pāteli 80%, ʻoku ngaue lelei ia.',
+  'silver_brain_level3': 'ʻUto siliva (Tingata 3)',
+  'silver_brain_desc':
+      'Ko e moʻui lelei ʻo e ʻuto lelei mo e ava ki he fakalakalaka.',
+  'silver_brain_fun':
+      'Ko ho ʻuto ʻoku hangē ko e telafoni mahino mo e pāteli 60%, ʻoku ngaue lelei ka kau lava ʻo fakalakalaka.',
+  'bronze_brain_level2': 'ʻUto palasa (Tingata 2)',
+  'bronze_brain_desc':
+      'Ko e ngaue ʻilo lotolotonga. Ko e taimi ia ke ako ʻa ho ʻuto.',
+  'bronze_brain_fun':
+      'Ko ho ʻuto ʻoku hangē ko e telafoni mahino mo e pāteli 40%, ʻoku fiemaʻu ha ngaahi liliu siʻi.',
+  'poop_brain_level1': 'ʻUto kovi (Tingata 1)',
+  'poop_brain_desc':
+      'ʻOku kamata ho folau moʻui lelei ʻuto. ʻOku ai ha ava lahi ke tupu!',
+  'poop_brain_fun':
+      'Ko ho ʻuto ʻoku hangē ko e telafoni mahino mo e pāteli 20% ʻi he founga fakamolemole. Ko e taimi ia ke sekā!',
+  'keep_playing_memory_games':
+      'Fakahokohoko pe ʻa e taʻanga ʻa e ngaahi taʻanga fakamanatu ke fakalakalaka ho tingata ʻuto!'
 };

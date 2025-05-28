@@ -210,5 +210,34 @@ const Map<String, String> swTZTranslations = {
   'test_result': 'Matokeo ya Mtihani',
   'your_score': 'Alama Yako',
   'new_test': 'Mtihani Mpya',
-  'submit': 'Wasilisha'
+  'submit': 'Wasilisha',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Mwongozo wa Viwango vya Ubongo',
+  'understand_level_means': 'Elewa maana ya kiwango chako',
+  'rainbow_brain_level5': 'Ubongo wa Upinde wa Mvua (Kiwango 5)',
+  'rainbow_brain_desc':
+      'Kazi ya utambuzi wa juu zaidi. Ubongo wako unafanya kazi kwa utendaji wa juu.',
+  'rainbow_brain_fun':
+      'Ubongo wako unang\'aa zaidi kuliko simu mahiri yenye betri ya 100% katika hali ya ndege.',
+  'gold_brain_level4': 'Ubongo wa Dhahabu (Kiwango 4)',
+  'gold_brain_desc': 'Kazi ya utambuzi bora. Una ubongo mzuri sana.',
+  'gold_brain_fun':
+      'Ubongo wako ni kama simu mahiri yenye betri ya 80%, inafanya kazi vizuri.',
+  'silver_brain_level3': 'Ubongo wa Fedha (Kiwango 3)',
+  'silver_brain_desc': 'Afya nzuri ya ubongo na nafasi ya kuboresha.',
+  'silver_brain_fun':
+      'Ubongo wako ni kama simu mahiri yenye betri ya 60%, inafanya kazi vizuri lakini inaweza kuboresha.',
+  'bronze_brain_level2': 'Ubongo wa Shaba (Kiwango 2)',
+  'bronze_brain_desc':
+      'Kazi ya utambuzi ya wastani. Ni wakati wa kufanya mazoezi ya ubongo.',
+  'bronze_brain_fun':
+      'Ubongo wako ni kama simu mahiri yenye betri ya 40%, inahitaji marekebisho machache.',
+  'poop_brain_level1': 'Ubongo wa Kinyesi (Kiwango 1)',
+  'poop_brain_desc':
+      'Unaanza safari yako ya afya ya ubongo. Kuna nafasi kubwa ya kukua!',
+  'poop_brain_fun':
+      'Ubongo wako ni kama simu mahiri yenye betri ya 20% katika hali ya kuokoa nishati. Wakati wa kuchaji!',
+  'keep_playing_memory_games':
+      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!'
 };

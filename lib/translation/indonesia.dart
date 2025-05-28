@@ -204,5 +204,33 @@ const Map<String, String> idTranslations = {
   'test_result': 'Hasil Tes',
   'your_score': 'Skor Anda',
   'new_test': 'Tes Baru',
-  'submit': 'Kirim'
+  'submit': 'Kirim',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Panduan Level Otak',
+  'understand_level_means': 'Pahami apa arti setiap level!',
+  'rainbow_level_name': '🌈 Level Pelangi',
+  'rainbow_level_description':
+      'Luar biasa! Anda adalah pemenang sejati dalam meningkatkan otak Anda! Indah seperti pelangi.',
+  'rainbow_level_fun_comment': 'Otak Anda berwarna-warni seperti pelangi! 🌈✨',
+  'gold_level_name': '🥇 Level Emas',
+  'gold_level_description':
+      'Fantastis! Otak Anda bersinar seperti emas. Partisipasi Anda dalam permainan menunjukkan otak yang hebat.',
+  'gold_level_fun_comment': 'Otak emas! Anda salah satu yang terbaik! 🥇🧠',
+  'silver_level_name': '🥈 Level Perak',
+  'silver_level_description':
+      'Sangat bagus! Otak Anda bersinar seperti perak. Anda melakukannya dengan sangat baik!',
+  'silver_level_fun_comment': 'Otak perak! Betapa hebatnya! 🥈⭐',
+  'bronze_level_name': '🥉 Level Perunggu',
+  'bronze_level_description':
+      'Bagus! Otak Anda sedang berkembang. Terus lanjutkan!',
+  'bronze_level_fun_comment':
+      'Otak perunggu! Waktu yang lebih baik akan datang! 🥉💪',
+  'poop_level_name': '💩 Level Kotoran',
+  'poop_level_description':
+      'Otak Anda sedikit mengantuk. Tapi jangan kehilangan harapan! Anda akan berkembang.',
+  'poop_level_fun_comment':
+      'Otak kotoran! Tapi jangan khawatir, Anda akan berkembang! 💩😅',
+  'keep_playing_memory_games':
+      'Terus bermain permainan memori untuk meningkatkan otak Anda!'
 };

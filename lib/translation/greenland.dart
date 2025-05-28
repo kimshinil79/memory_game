@@ -206,5 +206,31 @@ const Map<String, String> klGLTranslations = {
   'test_result': 'Sulini',
   'your_score': 'Qujanaq',
   'new_test': 'Sulini',
-  'submit': 'Sulini'
+  'submit': 'Sulini',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Qarasaasit Suliniit Pilluarit',
+  'understand_level_means': 'Sulini paasisalugu!',
+  'rainbow_level_name': '🌈 Aasaalluit Sulini',
+  'rainbow_level_description':
+      'Qujanaq! Qarasaasinik anguniarpakkit! Aasaalluit ajorpoq.',
+  'rainbow_level_fun_comment': 'Qarasaasit aasaalluit! 🌈✨',
+  'gold_level_name': '🥇 Kulalik Sulini',
+  'gold_level_description':
+      'Qujanaq! Qarasaasit kulalivakkit. Erinarsuun ilaanni angijuvoq.',
+  'gold_level_fun_comment': 'Kulali qarasaasit! Angijumik! 🥇🧠',
+  'silver_level_name': '🥈 Ulloriarsuk Sulini',
+  'silver_level_description':
+      'Qujanaq! Qarasaasit ulloriarsumik. Piqqusivotit!',
+  'silver_level_fun_comment': 'Ulloriarsumik qarasaasit! Qujanaq! 🥈⭐',
+  'bronze_level_name': '🥉 Kanajuk Sulini',
+  'bronze_level_description': 'Qujanaq! Qarasaasit angijuvoq. Sulini!',
+  'bronze_level_fun_comment': 'Kanajumik qarasaasit! Qujanarsimajuvoq! 🥉💪',
+  'poop_level_name': '💩 Anerniqartoq Sulini',
+  'poop_level_description':
+      'Qarasaasit anerniqarpoq. Kisimiilluunngittaaq! Angijuniaqaakkit.',
+  'poop_level_fun_comment':
+      'Anerniqartumik qarasaasit! Kisimiillutit, angijuniaqaakkit! 💩😅',
+  'keep_playing_memory_games':
+      'Qarasaasit anguniarpakkinut erinarsunik sulirivit!'
 };

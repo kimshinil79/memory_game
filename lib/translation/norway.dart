@@ -210,5 +210,33 @@ const Map<String, String> nnNOTranslations = {
   'test_result': 'Testresultat',
   'your_score': 'Din poengsum',
   'new_test': 'Ny test',
-  'submit': 'Send inn'
+  'submit': 'Send inn',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Hjernenivå guide',
+  'understand_level_means': 'Forstå kva hjernenivået ditt betyr',
+  'rainbow_brain': 'Regnboge hjerne',
+  'rainbow_brain_description':
+      'Utmerka kognitive evner! Hjernen din presterer utmerkt på alle område.',
+  'rainbow_brain_fun_comment':
+      'Hjernen din skin med alle fargar! Du er eit ekte geni!',
+  'gold_brain': 'Gull hjerne',
+  'gold_brain_description':
+      'Utmerka minneprestasjon. Hjernen din fungerer utruleg bra!',
+  'gold_brain_fun_comment': 'Hjernen din er reint gull! Hald fram å skina!',
+  'silver_brain': 'Sølv hjerne',
+  'silver_brain_description':
+      'God kognitiv funksjon. Sterk og stabil minneprestasjon.',
+  'silver_brain_fun_comment': 'Hjernen din skin som sølv! Du er på rett veg!',
+  'bronze_brain': 'Bronse hjerne',
+  'bronze_brain_description':
+      'Stabil kognitiv prestasjon. Hald fram å øva for å forbetra minnet.',
+  'bronze_brain_fun_comment':
+      'Hjernen din er laga av bronse! Hald fram, du blir sterkare!',
+  'poop_brain': 'Bæsj hjerne',
+  'poop_brain_description':
+      'Treng meir øving. Ikkje gje opp, alle kan forbetra seg!',
+  'poop_brain_fun_comment': 'Sjølv bæsj kan bli gjødsel! Hald fram å prøva!',
+  'keep_playing_memory_games':
+      'Hald fram å spela minne-spel for å forbetra hjernesundheita!'
 };

@@ -228,4 +228,34 @@ const Map<String, String> svSETranslations = {
   'continue': 'Fortsätt',
   'new_test': 'Nytt test',
   'submit': 'Skicka',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guide för hjärnnivåer',
+  'understand_level_means': 'Förstå vad din nivå betyder',
+  'rainbow_brain_level5': 'Regnbågshjärna (Nivå 5)',
+  'rainbow_brain_desc':
+      'Högsta kognitiva funktion. Din hjärna fungerar på topprestanda.',
+  'rainbow_brain_fun':
+      'Din hjärna lyser mer än en smartphone med 100% batteri i flygläge.',
+  'gold_brain_level4': 'Guldhjärna (Nivå 4)',
+  'gold_brain_desc':
+      'Utmärkt kognitiv funktion. Du har en mycket hälsosam hjärna.',
+  'gold_brain_fun':
+      'Din hjärna är som en smartphone med 80% batteri, fungerar perfekt.',
+  'silver_brain_level3': 'Silverhjärna (Nivå 3)',
+  'silver_brain_desc': 'Bra hjärnhälsa med utrymme för förbättring.',
+  'silver_brain_fun':
+      'Din hjärna är som en smartphone med 60% batteri, fungerar bra men kan förbättras.',
+  'bronze_brain_level2': 'Bronshjärna (Nivå 2)',
+  'bronze_brain_desc':
+      'Genomsnittlig kognitiv funktion. Dags att träna din hjärna.',
+  'bronze_brain_fun':
+      'Din hjärna är som en smartphone med 40% batteri, behöver några justeringar.',
+  'poop_brain_level1': 'Bajshjärna (Nivå 1)',
+  'poop_brain_desc':
+      'Börjar din hjärnhälsoresan. Det finns mycket utrymme att växa!',
+  'poop_brain_fun':
+      'Din hjärna är som en smartphone med 20% batteri i energisparläge. Dags att ladda!',
+  'keep_playing_memory_games':
+      'Fortsätt spela minneslekar för att förbättra din hjärnnivå!'
 };

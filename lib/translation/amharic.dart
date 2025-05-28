@@ -215,5 +215,25 @@ const Map<String, String> amTranslations = {
   'test_result': 'የፈተና ውጤት',
   'your_score': 'ውጤትዎ',
   'new_test': 'አዲስ ፈተና',
-  'submit': 'አስገባ'
+  'submit': 'አስገባ',
+
+  // Brain Level Guide
+  'brain_level_guide': 'የአንጎል ደረጃ መመሪያ',
+  'understand_level_means': 'እያንዳንዱ ደረጃ ምን ማለት እንደሆነ ይረዱ',
+  'rainbow_brain_level5': 'ቀስተ ደመና አንጎል (ደረጃ 5)',
+  'rainbow_brain_desc': 'አንጎልዎ በተለያዩ ቀለሞች ድንቅ ብሩህነት ይወሰሰሳል!',
+  'rainbow_brain_fun': 'የእርስዎ የአዕምሮ ችሎታ ድርብ ቀስተ ደመናን ደርሷል - በጣም አስደናቂ!',
+  'gold_brain_level4': 'የወርቅ አንጎል (ደረጃ 4)',
+  'gold_brain_desc': 'እጅግ የላቀ የአዕምሮ ተግባር እና ማስታወሻ።',
+  'gold_brain_fun': 'ከሰው በላይ የሆነ ማስታወሻ - ቁልፎችዎን የት እንዳስቀመጡ ያስታውሳሉ!',
+  'silver_brain_level3': 'የብር አንጎል (ደረጃ 3)',
+  'silver_brain_desc': 'ጥሩ የአንጎል ጤና ግን የመሻሻል ዕድል አለ።',
+  'silver_brain_fun': 'አንጎልዎ እየሞቀ ነው - በጠዋት እንደሚነሳ ኮምፒውተር ነው።',
+  'bronze_brain_level2': 'የነሐስ አንጎል (ደረጃ 2)',
+  'bronze_brain_desc': 'መካከለኛ የአዕምሮ ተግባር - ተጨማሪ ጨዋታዎች ያስፈልጋሉ!',
+  'bronze_brain_fun': 'አንጎልዎ ትንሽ ተኝቷል - የአዕምሮ ቡና ጊዜ ነው!',
+  'poop_brain_level1': 'ጸያፍ አንጎል (ደረጃ 1)',
+  'poop_brain_desc': 'የአንጎል ጤና ጉዞዎን አሁን ጀምረዋል።',
+  'poop_brain_fun': 'አንጎልዎ አሁን 1% ባትሪ ያለው ስማርት ፎን ይመስላል - አስቸኳይ ባትሪ ያስፈልገዋል!',
+  'keep_playing_memory_games': 'የአንጎል ደረጃዎን ለማሳደግ የማስታወሻ ጨዋታዎችን መጫወት ይቀጥሉ!'
 };

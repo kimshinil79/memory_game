@@ -208,5 +208,35 @@ const Map<String, String> trTRTranslations = {
   'test_result': 'Test Sonucu',
   'your_score': 'Puanınız',
   'new_test': 'Yeni Test',
-  'submit': 'Gönder'
+  'submit': 'Gönder',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Beyin Seviye Rehberi',
+  'understand_level_means': 'Seviyenizin ne anlama geldiğini anlayın',
+  'rainbow_brain_level5': 'Gökkuşağı Beyin (Seviye 5)',
+  'rainbow_brain_desc':
+      'En yüksek bilişsel fonksiyon. Beyniniz maksimum performansta çalışıyor.',
+  'rainbow_brain_fun':
+      'Beyniniz uçak modunda %100 bataryası olan bir akıllı telefondan daha parlak.',
+  'gold_brain_level4': 'Altın Beyin (Seviye 4)',
+  'gold_brain_desc':
+      'Mükemmel bilişsel fonksiyon. Çok sağlıklı bir beyniniz var.',
+  'gold_brain_fun':
+      'Beyniniz %80 bataryası olan bir akıllı telefon gibi, mükemmel çalışıyor.',
+  'silver_brain_level3': 'Gümüş Beyin (Seviye 3)',
+  'silver_brain_desc': 'İyi beyin sağlığı, gelişim alanı var.',
+  'silver_brain_fun':
+      'Beyniniz %60 bataryası olan bir akıllı telefon gibi, iyi çalışıyor ama gelişebilir.',
+  'bronze_brain_level2': 'Bronz Beyin (Seviye 2)',
+  'bronze_brain_desc':
+      'Ortalama bilişsel fonksiyon. Beyninizi egzersiz zamanı.',
+  'bronze_brain_fun':
+      'Beyniniz %40 bataryası olan bir akıllı telefon gibi, bazı ayarlamalara ihtiyacı var.',
+  'poop_brain_level1': 'Kaka Beyin (Seviye 1)',
+  'poop_brain_desc':
+      'Beyin sağlığı yolculuğunuza başlıyorsunuz. Büyümek için çok alan var!',
+  'poop_brain_fun':
+      'Beyniniz güç tasarrufu modunda %20 bataryası olan bir akıllı telefon gibi. Şarj zamanı!',
+  'keep_playing_memory_games':
+      'Beyin seviyenizi geliştirmek için hafıza oyunları oynamaya devam edin!'
 };

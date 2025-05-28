@@ -204,5 +204,25 @@ const Map<String, String> moTranslations = {
   'test_result': '测试结果',
   'your_score': '您的分数',
   'new_test': '新测试',
-  'submit': '提交'
+  'submit': '提交',
+
+  // Brain Level Guide texts
+  'brain_level_guide': '大脑等级指南',
+  'understand_level_means': '了解你的大脑等级意味着什么',
+  'rainbow_brain': '彩虹大脑',
+  'rainbow_brain_description': '卓越的认知能力！你的大脑在所有领域表现出色。',
+  'rainbow_brain_fun_comment': '你的大脑闪耀着所有颜色！你是真正的天才！',
+  'gold_brain': '黄金大脑',
+  'gold_brain_description': '记忆力表现出色。你的大脑运作得非常好！',
+  'gold_brain_fun_comment': '你的大脑是纯金的！继续发光发热！',
+  'silver_brain': '白银大脑',
+  'silver_brain_description': '良好的认知功能。记忆力表现强劲且稳定。',
+  'silver_brain_fun_comment': '你的大脑像银子一样闪闪发光！你走在正确的道路上！',
+  'bronze_brain': '青铜大脑',
+  'bronze_brain_description': '稳定的认知表现。继续练习以提升记忆力。',
+  'bronze_brain_fun_comment': '你的大脑是青铜制的！继续努力，你会变得更强！',
+  'poop_brain': '便便大脑',
+  'poop_brain_description': '需要更多练习。不要放弃，每个人都有改进的空间！',
+  'poop_brain_fun_comment': '即使是便便也能变成肥料！继续努力！',
+  'keep_playing_memory_games': '继续玩记忆游戏来提升你的大脑健康！',
 };

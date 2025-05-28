@@ -207,5 +207,34 @@ const Map<String, String> filTranslations = {
   'test_result': 'Resulta ng Test',
   'your_score': 'Iyong score',
   'new_test': 'Bagong test',
-  'submit': 'I-submit'
+  'submit': 'I-submit',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gabay sa Antas ng Utak',
+  'understand_level_means': 'Intindihin ang ibig sabihin ng bawat antas!',
+  'rainbow_level_name': '🌈 Antas ng Bahaghari',
+  'rainbow_level_description':
+      'Napakahusay! Tunay kang nagwagi sa pagpapahusay ng inyong utak! Maganda tulad ng bahaghari.',
+  'rainbow_level_fun_comment':
+      'Ang inyong utak ay kulay-kulay tulad ng bahaghari! 🌈✨',
+  'gold_level_name': '🥇 Gintong Antas',
+  'gold_level_description':
+      'Pambihira! Ang inyong utak ay nagniningning tulad ng ginto. Ang inyong pakikilahok sa laro ay nagpapakita ng malaking utak.',
+  'gold_level_fun_comment': 'Gintong utak! Isa ka sa mga pinakamahusay! 🥇🧠',
+  'silver_level_name': '🥈 Pilak na Antas',
+  'silver_level_description':
+      'Napakahusay! Ang inyong utak ay nagniningning tulad ng pilak. Napakahusay mong ginagawa!',
+  'silver_level_fun_comment': 'Pilak na utak! Napakahusay! 🥈⭐',
+  'bronze_level_name': '🥉 Tansong Antas',
+  'bronze_level_description':
+      'Mahusay! Ang inyong utak ay lumalaki. Magpatuloy!',
+  'bronze_level_fun_comment':
+      'Tansong utak! Mas magagandang panahon ang darating! 🥉💪',
+  'poop_level_name': '💩 Antas ng Dumi',
+  'poop_level_description':
+      'Ang inyong utak ay medyo antok-antok. Pero huwag mawalan ng pag-asa! Lalaki ka.',
+  'poop_level_fun_comment':
+      'Utak na dumi! Pero huwag mag-alala, lalaki ka! 💩😅',
+  'keep_playing_memory_games':
+      'Magpatuloy sa paglalaro ng mga laro ng memorya para mapahusay ang inyong utak!'
 };

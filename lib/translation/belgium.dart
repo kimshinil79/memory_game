@@ -228,7 +228,33 @@ const Map<String, String> nlBETranslations = {
   'test_result': 'Testresultaat',
   'your_score': 'Je score',
   'new_test': 'Nieuwe test',
-  'submit': 'Verzenden'
+  'submit': 'Verzenden',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Hersenniveau Gids',
+  'understand_level_means': 'Begrijp wat elk niveau betekent',
+  'rainbow_brain_level5': 'Regenboog Hersenen (Niveau 5)',
+  'rainbow_brain_desc': 'Je hersenen stralen met kleurrijke schittering!',
+  'rainbow_brain_fun':
+      'Je hebt het cognitieve equivalent van een dubbele regenboog bereikt - absoluut verblindend!',
+  'gold_brain_level4': 'Gouden Hersenen (Niveau 4)',
+  'gold_brain_desc': 'Uitstekende cognitieve functie en geheugen.',
+  'gold_brain_fun':
+      'Bijna bovenmenselijk geheugen - je herinnert waarschijnlijk waar je je sleutels hebt gelaten!',
+  'silver_brain_level3': 'Zilveren Hersenen (Niveau 3)',
+  'silver_brain_desc': 'Goede hersengezondheid met ruimte voor verbetering.',
+  'silver_brain_fun':
+      'Je hersenen warmen op - zoals een computer die opstart in de ochtend.',
+  'bronze_brain_level2': 'Bronzen Hersenen (Niveau 2)',
+  'bronze_brain_desc': 'Gemiddelde hersenfunctie - meer spellen nodig.',
+  'bronze_brain_fun':
+      'Heeft wat olie nodig - maar je zit tenminste niet op het laagste niveau!',
+  'poop_brain_level1': 'Poep Hersenen (Niveau 1)',
+  'poop_brain_desc': 'Begin je reis hier!',
+  'poop_brain_fun':
+      'Maak je geen zorgen, iedereen begint ergens - en zelfs poep kan mest zijn voor geweldige groei!',
+  'keep_playing_memory_games':
+      'Blijf geheugenspellen spelen om je hersenniveau te verhogen!'
 };
 
 const Map<String, String> frBETranslations = {
@@ -459,7 +485,33 @@ const Map<String, String> frBETranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guide des Niveaux Cérébraux',
+  'understand_level_means': 'Comprenez ce que signifie chaque niveau',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc': 'Votre cerveau brille d\'un éclat coloré!',
+  'rainbow_brain_fun':
+      'Vous avez atteint l\'équivalent cognitif d\'un double arc-en-ciel - absolument éblouissant!',
+  'gold_brain_level4': 'Cerveau d\'Or (Niveau 4)',
+  'gold_brain_desc': 'Fonction cognitive et mémoire excellentes.',
+  'gold_brain_fun':
+      'Mémoire presque surhumaine - vous vous rappelez probablement où vous avez laissé vos clés!',
+  'silver_brain_level3': 'Cerveau d\'Argent (Niveau 3)',
+  'silver_brain_desc': 'Bonne santé cérébrale avec place à l\'amélioration.',
+  'silver_brain_fun':
+      'Votre cerveau chauffe - comme un ordinateur qui démarre le matin.',
+  'bronze_brain_level2': 'Cerveau de Bronze (Niveau 2)',
+  'bronze_brain_desc': 'Fonction cérébrale moyenne - plus de jeux nécessaires.',
+  'bronze_brain_fun':
+      'A besoin d\'un peu d\'huile - mais au moins vous n\'êtes pas au niveau le plus bas!',
+  'poop_brain_level1': 'Cerveau Caca (Niveau 1)',
+  'poop_brain_desc': 'Commencez votre voyage ici!',
+  'poop_brain_fun':
+      'Ne vous inquiétez pas, tout le monde commence quelque part - et même le caca peut être de l\'engrais pour une grande croissance!',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau cérébral!'
 };
 
 const Map<String, String> deBETranslations = {
@@ -690,5 +742,31 @@ const Map<String, String> deBETranslations = {
   'test_result': 'Testergebnis',
   'your_score': 'Ihre Punktzahl',
   'new_test': 'Neuer Test',
-  'submit': 'Einreichen'
+  'submit': 'Einreichen',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Gehirn-Level Leitfaden',
+  'understand_level_means': 'Verstehen Sie, was jedes Level bedeutet',
+  'rainbow_brain_level5': 'Regenbogen-Gehirn (Level 5)',
+  'rainbow_brain_desc': 'Ihr Gehirn strahlt mit bunter Brillanz!',
+  'rainbow_brain_fun':
+      'Sie haben das kognitive Äquivalent eines doppelten Regenbogens erreicht - absolut blendend!',
+  'gold_brain_level4': 'Gold-Gehirn (Level 4)',
+  'gold_brain_desc': 'Ausgezeichnete kognitive Funktion und Gedächtnis.',
+  'gold_brain_fun':
+      'Fast übermenschliches Gedächtnis - Sie erinnern sich wahrscheinlich, wo Sie Ihre Schlüssel hingelegt haben!',
+  'silver_brain_level3': 'Silber-Gehirn (Level 3)',
+  'silver_brain_desc': 'Gute Gehirngesundheit mit Verbesserungsraum.',
+  'silver_brain_fun':
+      'Ihr Gehirn erwärmt sich - wie ein Computer, der morgens hochfährt.',
+  'bronze_brain_level2': 'Bronze-Gehirn (Level 2)',
+  'bronze_brain_desc': 'Durchschnittliche Gehirnfunktion - mehr Spiele nötig.',
+  'bronze_brain_fun':
+      'Braucht etwas Öl - aber Sie sind wenigstens nicht auf dem niedrigsten Level!',
+  'poop_brain_level1': 'Kot-Gehirn (Level 1)',
+  'poop_brain_desc': 'Beginnen Sie Ihre Reise hier!',
+  'poop_brain_fun':
+      'Keine Sorge, jeder fängt irgendwo an - und sogar Kot kann Dünger für großartiges Wachstum sein!',
+  'keep_playing_memory_games':
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirnlevel zu erhöhen!'
 };

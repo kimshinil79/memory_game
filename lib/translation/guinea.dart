@@ -204,5 +204,34 @@ const Map<String, String> frGNTranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guide des Niveaux du Cerveau',
+  'understand_level_means': 'Comprenez ce que signifie chaque niveau !',
+  'rainbow_level_name': '🌈 Niveau Arc-en-ciel',
+  'rainbow_level_description':
+      'Fantastique ! Vous êtes un vrai gagnant en améliorant votre cerveau ! Beau comme un arc-en-ciel.',
+  'rainbow_level_fun_comment':
+      'Votre cerveau est coloré comme un arc-en-ciel ! 🌈✨',
+  'gold_level_name': '🥇 Niveau Or',
+  'gold_level_description':
+      'Magnifique ! Votre cerveau brille comme l\'or. Votre participation au jeu montre un grand cerveau.',
+  'gold_level_fun_comment':
+      'Cerveau d\'or ! Vous êtes l\'un des meilleurs ! 🥇🧠',
+  'silver_level_name': '🥈 Niveau Argent',
+  'silver_level_description':
+      'Très bien ! Votre cerveau brille comme l\'argent. Vous faites très bien !',
+  'silver_level_fun_comment': 'Cerveau d\'argent ! Comme c\'est bien ! 🥈⭐',
+  'bronze_level_name': '🥉 Niveau Bronze',
+  'bronze_level_description': 'Bien ! Votre cerveau grandit. Continuez !',
+  'bronze_level_fun_comment':
+      'Cerveau de bronze ! De meilleurs temps viendront ! 🥉💪',
+  'poop_level_name': '💩 Niveau Caca',
+  'poop_level_description':
+      'Votre cerveau est un peu endormi. Mais ne perdez pas espoir ! Vous grandirez.',
+  'poop_level_fun_comment':
+      'Cerveau de caca ! Mais ne vous inquiétez pas, vous grandirez ! 💩😅',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour améliorer votre cerveau !'
 };

@@ -214,5 +214,37 @@ const Map<String, String> nyTranslations = {
   'test_result': 'Zotsatira za kuyesa',
   'your_score': 'Maphuzu anu',
   'new_test': 'Kuyesa katsopano',
-  'submit': 'Tumizani'
+  'submit': 'Tumizani',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Malangizo a malo a ubongo',
+  'understand_level_means':
+      'Mvetsetsani zimene malo a ubongo wanu zikutanthauza',
+  'rainbow_brain': 'Ubongo wa chisonga',
+  'rainbow_brain_description':
+      'Luso lalikulu la ubongo! Ubongo wanu ukugwira ntchito bwino kwambiri m\'magawo onse.',
+  'rainbow_brain_fun_comment':
+      'Ubongo wanu ukuwala ndi mitundu yonse! Ndinu katswiri weniweni!',
+  'gold_brain': 'Ubongo wa golide',
+  'gold_brain_description':
+      'Kukumbuka bwino kwambiri. Ubongo wanu ukugwira ntchito bwino kwambiri!',
+  'gold_brain_fun_comment':
+      'Ubongo wanu ndi golide weniweni! Pitirizani kuwala!',
+  'silver_brain': 'Ubongo wa siliva',
+  'silver_brain_description':
+      'Ntchito yabwino ya ubongo. Kukumbuka kolimba komanso kokhazikika.',
+  'silver_brain_fun_comment':
+      'Ubongo wanu ukuwala ngati siliva! Muli njira yabwino!',
+  'bronze_brain': 'Ubongo wa mkuwa',
+  'bronze_brain_description':
+      'Ntchito ya ubongo yokhazikika. Pitirizani kuchita masewera kuti muwongolere kumbukumbu.',
+  'bronze_brain_fun_comment':
+      'Ubongo wanu ndi wa mkuwa! Pitirizani kuyesetsa, mudzakhala amphamvu kwambiri!',
+  'poop_brain': 'Ubongo wa ndowe',
+  'poop_brain_description':
+      'Mukufunika kuchita masewera ambiri. Musaleke, aliyense angathe kukhoza!',
+  'poop_brain_fun_comment':
+      'Ngakhale ndowe ikhoza kukhala feteleza! Pitirizani kuyesetsa!',
+  'keep_playing_memory_games':
+      'Pitirizani kusewera masewera a kumbukumbu kuti muwongolere thanzi la ubongo!'
 };

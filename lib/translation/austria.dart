@@ -232,4 +232,31 @@ const Map<String, String> deATTranslations = {
   'new_test': 'Neuer Test',
   'submit': 'Absenden',
   'email': 'E-Mail',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Gehirn-Level-Leitfaden',
+  'understand_level_means': 'Verstehen Sie, was jedes Level bedeutet',
+  'rainbow_brain_level5': 'Regenbogen-Gehirn (Level 5)',
+  'rainbow_brain_desc': 'Ihr Gehirn strahlt mit bunter Brillanz!',
+  'rainbow_brain_fun':
+      'Sie haben das kognitive Äquivalent eines doppelten Regenbogens erreicht - absolut blendend!',
+  'gold_brain_level4': 'Gold-Gehirn (Level 4)',
+  'gold_brain_desc': 'Ausgezeichnete kognitive Funktion und Gedächtnis.',
+  'gold_brain_fun':
+      'Fast übermenschliches Gedächtnis - Sie erinnern sich wahrscheinlich, wo Sie Ihre Schlüssel hingelegt haben!',
+  'silver_brain_level3': 'Silber-Gehirn (Level 3)',
+  'silver_brain_desc': 'Gute Gehirngesundheit mit Verbesserungsmöglichkeiten.',
+  'silver_brain_fun':
+      'Ihr Gehirn wärmt sich auf - wie ein Computer, der morgens hochfährt.',
+  'bronze_brain_level2': 'Bronze-Gehirn (Level 2)',
+  'bronze_brain_desc':
+      'Durchschnittliche kognitive Funktion - mehr Spiele nötig!',
+  'bronze_brain_fun':
+      'Ihr Gehirn ist etwas schläfrig - Zeit für mentalen Kaffee!',
+  'poop_brain_level1': 'Kacke-Gehirn (Level 1)',
+  'poop_brain_desc': 'Gerade erst auf Ihrer Gehirngesundheits-Reise begonnen.',
+  'poop_brain_fun':
+      'Ihr Gehirn ist jetzt wie ein Smartphone mit 1% Akku - braucht dringend Aufladung!',
+  'keep_playing_memory_games':
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu erhöhen!',
 };

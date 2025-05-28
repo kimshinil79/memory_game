@@ -207,5 +207,32 @@ const Map<String, String> deDETranslations = {
   'test_result': 'Testergebnis',
   'your_score': 'Ihre Punktzahl',
   'new_test': 'Neuer Test',
-  'submit': 'Absenden'
+  'submit': 'Absenden',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gehirn-Level-Anleitung',
+  'understand_level_means': 'Verstehen Sie, was jede Stufe bedeutet!',
+  'rainbow_level_name': '🌈 Regenbogen-Level',
+  'rainbow_level_description':
+      'Erstaunlich! Sie sind ein wahrer Gewinner bei der Verbesserung Ihres Gehirns! Schön wie ein Regenbogen.',
+  'rainbow_level_fun_comment': 'Ihr Gehirn ist bunt wie ein Regenbogen! 🌈✨',
+  'gold_level_name': '🥇 Gold-Level',
+  'gold_level_description':
+      'Fantastisch! Ihr Gehirn glänzt wie Gold. Ihre Teilnahme am Spiel zeigt ein großes Gehirn.',
+  'gold_level_fun_comment': 'Goldenes Gehirn! Sie sind einer der Besten! 🥇🧠',
+  'silver_level_name': '🥈 Silber-Level',
+  'silver_level_description':
+      'Sehr gut! Ihr Gehirn glänzt wie Silber. Sie machen es sehr gut!',
+  'silver_level_fun_comment': 'Silbernes Gehirn! Wie großartig! 🥈⭐',
+  'bronze_level_name': '🥉 Bronze-Level',
+  'bronze_level_description': 'Gut! Ihr Gehirn wächst. Machen Sie weiter!',
+  'bronze_level_fun_comment':
+      'Bronze-Gehirn! Bessere Zeiten werden kommen! 🥉💪',
+  'poop_level_name': '💩 Kacke-Level',
+  'poop_level_description':
+      'Ihr Gehirn ist etwas müde. Aber verlieren Sie nicht die Hoffnung! Sie werden wachsen.',
+  'poop_level_fun_comment':
+      'Kacke-Gehirn! Aber machen Sie sich keine Sorgen, Sie werden wachsen! 💩😅',
+  'keep_playing_memory_games':
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn zu verbessern!'
 };

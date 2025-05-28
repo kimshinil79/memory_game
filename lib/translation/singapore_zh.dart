@@ -204,5 +204,25 @@ const Map<String, String> zhSGTranslations = {
   'test_result': '测试结果',
   'your_score': '您的分数',
   'new_test': '新测试',
-  'submit': '提交'
+  'submit': '提交',
+
+  // Brain Level Guide
+  'brain_level_guide': '大脑等级指南',
+  'understand_level_means': '了解每个等级的含义',
+  'rainbow_brain_level5': '彩虹大脑（5级）',
+  'rainbow_brain_desc': '您的大脑正闪耀着五彩斑斓的光芒！',
+  'rainbow_brain_fun': '您已经达到了相当于双彩虹的认知水平 - 绝对令人眼花缭乱！',
+  'gold_brain_level4': '黄金大脑（4级）',
+  'gold_brain_desc': '优秀的认知功能和记忆力。',
+  'gold_brain_fun': '几乎超人的记忆力 - 您可能还记得把钥匙放在哪里了！',
+  'silver_brain_level3': '白银大脑（3级）',
+  'silver_brain_desc': '良好的大脑健康状况，还有改进空间。',
+  'silver_brain_fun': '您的大脑正在预热 - 就像早晨启动的电脑。',
+  'bronze_brain_level2': '青铜大脑（2级）',
+  'bronze_brain_desc': '平均认知功能 - 需要更多游戏！',
+  'bronze_brain_fun': '您的大脑有点困倦 - 是时候来点精神咖啡了！',
+  'poop_brain_level1': '迷糊大脑（1级）',
+  'poop_brain_desc': '刚刚开始您的大脑健康之旅。',
+  'poop_brain_fun': '您现在的大脑就像电量只有1%的智能手机 - 急需充电！',
+  'keep_playing_memory_games': '继续玩记忆游戏来提升您的大脑等级！',
 };

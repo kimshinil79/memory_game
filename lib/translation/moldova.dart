@@ -220,5 +220,37 @@ const Map<String, String> mdMDATranslations = {
   'test_result': 'Rezultatul testului',
   'your_score': 'Scorul dvs.',
   'new_test': 'Test nou',
-  'submit': 'Trimiteți'
+  'submit': 'Trimiteți',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Ghid pentru nivelurile creierului',
+  'understand_level_means':
+      'Înțelegeți ce înseamnă nivelul creierului dumneavoastră',
+  'rainbow_brain': 'Creier curcubeu',
+  'rainbow_brain_description':
+      'Abilități cognitive remarcabile! Creierul dumneavoastră funcționează excelent în toate domeniile.',
+  'rainbow_brain_fun_comment':
+      'Creierul dumneavoastră strălucește cu toate culorile! Sunteți un adevărat geniu!',
+  'gold_brain': 'Creier de aur',
+  'gold_brain_description':
+      'Performanță excelentă a memoriei. Creierul dumneavoastră funcționează uimitor de bine!',
+  'gold_brain_fun_comment':
+      'Creierul dumneavoastră este aur pur! Continuați să străluciți!',
+  'silver_brain': 'Creier de argint',
+  'silver_brain_description':
+      'Funcție cognitivă bună. Performanță puternică și stabilă a memoriei.',
+  'silver_brain_fun_comment':
+      'Creierul dumneavoastră strălucește ca argintul! Sunteți pe drumul cel bun!',
+  'bronze_brain': 'Creier de bronz',
+  'bronze_brain_description':
+      'Performanță cognitivă stabilă. Continuați să vă exersați pentru a îmbunătăți memoria.',
+  'bronze_brain_fun_comment':
+      'Creierul dumneavoastră este făcut din bronz! Continuați, veți deveni mai puternic!',
+  'poop_brain': 'Creier de rahat',
+  'poop_brain_description':
+      'Are nevoie de mai multă practică. Nu renunțați, toată lumea se poate îmbunătăți!',
+  'poop_brain_fun_comment':
+      'Chiar și rahatul poate deveni îngrășământ! Continuați să încercați!',
+  'keep_playing_memory_games':
+      'Continuați să jucați jocuri de memorie pentru a vă îmbunătăți sănătatea creierului!'
 };

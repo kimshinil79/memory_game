@@ -389,18 +389,6 @@ class _TestPageState extends State<TestPage>
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected
-                ? isWrong
-                    ? Color(0xFFFF5252)
-                    : isCorrect
-                        ? Color(0xFF4CAF50)
-                        : primaryColor
-                : isCorrect && isTestSubmitted
-                    ? Color(0xFF4CAF50)
-                    : Colors.transparent,
-            width: 3,
-          ),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -418,10 +406,25 @@ class _TestPageState extends State<TestPage>
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isSelected
+                        ? isWrong
+                            ? Color(0xFFFF5252)
+                            : isCorrect
+                                ? Color(0xFF4CAF50)
+                                : primaryColor
+                        : isCorrect && isTestSubmitted
+                            ? Color(0xFF4CAF50)
+                            : Colors.transparent,
+                    width: 3,
+                  ),
                 ),
-                child: Image.asset(
-                  'assets/pictureDB_webp/$option.webp',
-                  fit: BoxFit.cover,
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Image.asset(
+                    'assets/pictureDB_webp/$option.webp',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               if (isTestSubmitted)

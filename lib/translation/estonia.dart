@@ -225,5 +225,30 @@ const Map<String, String> etTranslations = {
   'test_result': 'Testi tulemus',
   'your_score': 'Sinu tulemus',
   'new_test': 'Uus test',
-  'submit': 'Esita'
+  'submit': 'Esita',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Aju Taseme Juhend',
+  'understand_level_means': 'Mõista, mida iga tase tähendab!',
+  'rainbow_level_name': '🌈 Vikerkaaretase',
+  'rainbow_level_description':
+      'Suurepärane! Sa oled tõeline võitja oma aju parandamisel! Ilus nagu vikerkaar.',
+  'rainbow_level_fun_comment': 'Sinu aju on värviline nagu vikerkaar! 🌈✨',
+  'gold_level_name': '🥇 Kuldtase',
+  'gold_level_description':
+      'Fantastiline! Sinu aju särab nagu kuld. Sinu osavõtt mängust näitab suurt aju.',
+  'gold_level_fun_comment': 'Kuldaju! Sa oled üks parimatest! 🥇🧠',
+  'silver_level_name': '🥈 Hõbetase',
+  'silver_level_description':
+      'Väga hästi! Sinu aju särab nagu hõbe. Sa teed väga hästi!',
+  'silver_level_fun_comment': 'Hõbeaju! Kui hästi! 🥈⭐',
+  'bronze_level_name': '🥉 Pronksitase',
+  'bronze_level_description': 'Hästi! Sinu aju kasvab. Jätka!',
+  'bronze_level_fun_comment': 'Pronksiaju! Paremad ajad tulevad! 🥉💪',
+  'poop_level_name': '💩 Kaktase',
+  'poop_level_description':
+      'Sinu aju on veidi uimane. Aga ära kaota lootust! Sa kasvad.',
+  'poop_level_fun_comment': 'Kakaju! Aga ära muretse, sa kasvad! 💩😅',
+  'keep_playing_memory_games':
+      'Jätka mälumängude mängimist oma aju parandamiseks!'
 };

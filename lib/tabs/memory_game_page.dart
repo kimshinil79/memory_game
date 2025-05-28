@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memory_game/widgets/star_animation.dart';
 import '/item_list.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,7 +111,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   Timer? _itemPopupTimer;
   bool _itemUsedInCurrentGame = false; // 현재 게임에서 아이템 사용 여부 추적
 
-  List<bool> cardAnimationTriggers = [];
+  List<bool> cardBorderAnimationTriggers = [];
 
   bool isInitialized = false;
   bool hasError = false;
@@ -668,7 +667,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 카드 배열 초기화
     cardFlips = List.generate(gridRows * gridColumns, (_) => false);
-    cardAnimationTriggers = List.generate(gridRows * gridColumns, (_) => false);
+    cardBorderAnimationTriggers =
+        List.generate(gridRows * gridColumns, (_) => false);
     selectedCards.clear();
 
     // 멀티플레이어 모드일 경우
@@ -771,17 +771,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     gameImages.shuffle();
   }
 
-  void _triggerStarAnimation(int index) {
-    if (index >= 0 && index < cardAnimationTriggers.length) {
+  void _triggerBorderAnimation(int index) {
+    if (index >= 0 && index < cardBorderAnimationTriggers.length) {
       if (!mounted) return;
 
       setState(() {
-        cardAnimationTriggers[index] = true;
+        cardBorderAnimationTriggers[index] = true;
       });
-      Future.delayed(Duration(milliseconds: 500), () {
-        if (mounted && index < cardAnimationTriggers.length) {
+      Future.delayed(Duration(milliseconds: 300), () {
+        if (mounted && index < cardBorderAnimationTriggers.length) {
           setState(() {
-            cardAnimationTriggers[index] = false;
+            cardBorderAnimationTriggers[index] = false;
           });
         }
       });
@@ -871,7 +871,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         if (selectedCards.length == 2) {
           flipCount++;
           widget.updateFlipCount(flipCount);
-          Future.delayed(const Duration(milliseconds: 750), () {
+          Future.delayed(const Duration(milliseconds: 400), () {
             if (mounted) {
               setState(() {
                 checkMatch();
@@ -914,9 +914,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
 
       if (isMatch) {
-        // 카드가 매치될 때 양쪽 카드에 별 애니메이션 트리거
-        _triggerStarAnimation(selectedCards[0]);
-        _triggerStarAnimation(selectedCards[1]);
+        // 매치되는 즉시 테두리 애니메이션 트리거
+        _triggerBorderAnimation(selectedCards[0]);
+        _triggerBorderAnimation(selectedCards[1]);
 
         // 아이템 드롭 처리 추가
         _handleItemDrop();
@@ -969,9 +969,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           _memoryGameService?.handleCardMatchResult(false);
           print(
               '매치 실패: 턴 변경 후 현재 플레이어 = ${_memoryGameService?.currentPlayerIndex}');
-          // widget.nextPlayer() 호출 제거 - memory_game_service에서 모든 턴 관리 담당
-        } else {
-          // 싱글플레이어 모드에서는 로컬 턴 변경 없음
         }
 
         selectedCards.clear();
@@ -1151,34 +1148,36 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       return SizedBox();
     }
 
-    return StarAnimation(
-      trigger: cardAnimationTriggers.isNotEmpty &&
-              index < cardAnimationTriggers.length
-          ? cardAnimationTriggers[index]
-          : false,
-      child: GestureDetector(
-        onTap: () => onCardTap(index),
-        child: Card(
-          elevation: 4, // 그림자 효과 추가
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12), // 모서리 둥글게
-          ),
-          key: ValueKey(index),
-          color: Colors.white,
-          child: Center(
-            child: cardFlips[index]
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/pictureDB_webp/${gameImages[index]}.webp',
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : Image.asset(
-                    'assets/icon/memoryGame.png',
+    bool showRedBorder = cardBorderAnimationTriggers.isNotEmpty &&
+        index < cardBorderAnimationTriggers.length &&
+        cardBorderAnimationTriggers[index];
+
+    return GestureDetector(
+      onTap: () => onCardTap(index),
+      child: Card(
+        elevation: 4, // 그림자 효과 추가
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // 모서리 둥글게
+          side: showRedBorder
+              ? BorderSide(
+                  color: Colors.redAccent, width: 5.0) // 테두리 두께를 5.0으로 증가
+              : BorderSide.none,
+        ),
+        key: ValueKey(index),
+        color: Colors.white,
+        child: Center(
+          child: cardFlips[index]
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/pictureDB_webp/${gameImages[index]}.webp',
                     fit: BoxFit.cover,
                   ),
-          ),
+                )
+              : Image.asset(
+                  'assets/icon/memoryGame.png',
+                  fit: BoxFit.cover,
+                ),
         ),
       ),
     );
@@ -1938,7 +1937,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       // 2초 후 팝업 숨기기
       _itemPopupTimer?.cancel();
-      _itemPopupTimer = Timer(Duration(seconds: 2), () {
+      _itemPopupTimer = Timer(Duration(seconds: 1), () {
         if (mounted) {
           setState(() {
             _showItemPopup = false;

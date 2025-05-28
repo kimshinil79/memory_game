@@ -220,5 +220,36 @@ const Map<String, String> mcMCTTranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guide des niveaux cérébraux',
+  'understand_level_means': 'Comprenez ce que signifie votre niveau cérébral',
+  'rainbow_brain': 'Cerveau arc-en-ciel',
+  'rainbow_brain_description':
+      'Capacités cognitives exceptionnelles ! Votre cerveau fonctionne excellemment dans tous les domaines.',
+  'rainbow_brain_fun_comment':
+      'Votre cerveau brille de toutes les couleurs ! Vous êtes un vrai génie !',
+  'gold_brain': 'Cerveau doré',
+  'gold_brain_description':
+      'Performance mémoire excellente. Votre cerveau fonctionne incroyablement bien !',
+  'gold_brain_fun_comment':
+      'Votre cerveau est de l\'or pur ! Continuez à briller !',
+  'silver_brain': 'Cerveau argenté',
+  'silver_brain_description':
+      'Bonne fonction cognitive. Performance mémoire forte et stable.',
+  'silver_brain_fun_comment':
+      'Votre cerveau brille comme l\'argent ! Vous êtes sur la bonne voie !',
+  'bronze_brain': 'Cerveau bronze',
+  'bronze_brain_description':
+      'Performance cognitive stable. Continuez à vous entraîner pour améliorer la mémoire.',
+  'bronze_brain_fun_comment':
+      'Votre cerveau est en bronze ! Continuez, vous deviendrez plus fort !',
+  'poop_brain': 'Cerveau caca',
+  'poop_brain_description':
+      'Besoin de plus d\'entraînement. N\'abandonnez pas, tout le monde peut s\'améliorer !',
+  'poop_brain_fun_comment':
+      'Même le caca peut devenir de l\'engrais ! Continuez à essayer !',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour améliorer votre santé cérébrale !',
 };

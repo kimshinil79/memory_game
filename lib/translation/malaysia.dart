@@ -210,5 +210,36 @@ const Map<String, String> msTranslations = {
   'test_result': 'Keputusan Ujian',
   'your_score': 'Mata Anda',
   'new_test': 'Ujian Baru',
-  'submit': 'Hantar'
+  'submit': 'Hantar',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Panduan Tahap Otak',
+  'understand_level_means':
+      'Fahami apa yang dimaksudkan dengan tahap otak anda',
+  'rainbow_brain': 'Otak Pelangi',
+  'rainbow_brain_description':
+      'Keupayaan kognitif yang luar biasa! Otak anda berfungsi dengan cemerlang di semua bidang.',
+  'rainbow_brain_fun_comment':
+      'Otak anda bersinar dengan semua warna! Anda seorang genius sejati!',
+  'gold_brain': 'Otak Emas',
+  'gold_brain_description':
+      'Prestasi ingatan yang cemerlang. Otak anda berfungsi dengan sangat baik!',
+  'gold_brain_fun_comment': 'Otak anda adalah emas tulen! Terus bersinar!',
+  'silver_brain': 'Otak Perak',
+  'silver_brain_description':
+      'Fungsi kognitif yang baik. Prestasi ingatan yang kuat dan stabil.',
+  'silver_brain_fun_comment':
+      'Otak anda bersinar seperti perak! Anda berada di landasan yang betul!',
+  'bronze_brain': 'Otak Gangsa',
+  'bronze_brain_description':
+      'Prestasi kognitif yang stabil. Terus berlatih untuk meningkatkan ingatan.',
+  'bronze_brain_fun_comment':
+      'Otak anda diperbuat daripada gangsa! Terus usaha, anda akan menjadi lebih kuat!',
+  'poop_brain': 'Otak Tahi',
+  'poop_brain_description':
+      'Memerlukan lebih banyak latihan. Jangan berputus asa, semua orang boleh bertambah baik!',
+  'poop_brain_fun_comment':
+      'Walaupun tahi pun boleh jadi baja! Terus berusaha!',
+  'keep_playing_memory_games':
+      'Terus main permainan ingatan untuk meningkatkan kesihatan otak anda!'
 };

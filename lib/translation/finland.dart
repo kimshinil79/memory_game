@@ -206,5 +206,30 @@ const Map<String, String> fiTranslations = {
   'test_result': 'Testin tulos',
   'your_score': 'Pisteesi',
   'new_test': 'Uusi testi',
-  'submit': 'Lähetä'
+  'submit': 'Lähetä',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Aivojen Tasoohjeet',
+  'understand_level_means': 'Ymmärrä mitä kukin taso tarkoittaa!',
+  'rainbow_level_name': '🌈 Sateenkaaritaso',
+  'rainbow_level_description':
+      'Upeaa! Olet todellinen voittaja aivojesi parantamisessa! Kaunis kuin sateenkaari.',
+  'rainbow_level_fun_comment': 'Aivosi ovat värikkäät kuin sateenkaari! 🌈✨',
+  'gold_level_name': '🥇 Kultaraso',
+  'gold_level_description':
+      'Fantastista! Aivosi loistavat kuin kulta. Osallistumisesi peliin näyttää suuret aivot.',
+  'gold_level_fun_comment': 'Kultaaivot! Olet yksi parhaista! 🥇🧠',
+  'silver_level_name': '🥈 Hopeatasot',
+  'silver_level_description':
+      'Erittäin hyvä! Aivosi loistavat kuin hopea. Teet erittäin hyvin!',
+  'silver_level_fun_comment': 'Hopeaaivot! Kuinka hyvin! 🥈⭐',
+  'bronze_level_name': '🥉 Pronssitaso',
+  'bronze_level_description': 'Hyvä! Aivosi kasvavat. Jatka!',
+  'bronze_level_fun_comment': 'Pronssiaaivot! Paremmat ajat tulevat! 🥉💪',
+  'poop_level_name': '💩 Kakkatasot',
+  'poop_level_description':
+      'Aivosi ovat vähän unelias. Mutta älä menetä toivoasi! Kasvat.',
+  'poop_level_fun_comment': 'Kakkaaivot! Mutta älä huoli, kasvat! 💩😅',
+  'keep_playing_memory_games':
+      'Jatka muistipelien pelaamista aivojesi parantamiseksi!'
 };

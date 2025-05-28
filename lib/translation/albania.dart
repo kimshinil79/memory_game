@@ -233,4 +233,29 @@ const Map<String, String> sqTranslations = {
   'submit': 'Paraqit',
 
   'email': 'Email',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Udhëzuesi i Nivelit të Trurit',
+  'understand_level_means': 'Kuptoni se çfarë do të thotë çdo nivel',
+  'rainbow_brain_level5': 'Truri Ylber (Niveli 5)',
+  'rainbow_brain_desc': 'Truri juaj shkëlqen me shkëlqim ngjyrash!',
+  'rainbow_brain_fun':
+      'Keni arritur ekuivalentin kognitiv të një ylberi të dyfishtë - absolutisht mahnitëse!',
+  'gold_brain_level4': 'Truri i Artë (Niveli 4)',
+  'gold_brain_desc': 'Funksion kognitiv dhe kujtesë e shkëlqyer.',
+  'gold_brain_fun':
+      'Kujtesë pothuajse njerëzore - ndoshta kujtohet ku i lini çelësat!',
+  'silver_brain_level3': 'Truri i Argjendtë (Niveli 3)',
+  'silver_brain_desc': 'Shëndeti i mirë i trurit me hapësirë për përmirësim.',
+  'silver_brain_fun':
+      'Truri juaj po ngrohet - si një kompjuter që ndizet në mëngjes.',
+  'bronze_brain_level2': 'Truri i Bronztë (Niveli 2)',
+  'bronze_brain_desc': 'Funksion kognitiv mesatar - duhen më shumë lojëra!',
+  'bronze_brain_fun': 'Truri juaj është pak i gjumit - koha për kafe mendore!',
+  'poop_brain_level1': 'Truri Jashtëqitje (Niveli 1)',
+  'poop_brain_desc': 'Sapo po filloni udhëtimin tuaj të shëndetit të trurit.',
+  'poop_brain_fun':
+      'Truri juaj tani është si një telefon inteligjent me 1% baterie - ka nevojë desperate për ngarkesë!',
+  'keep_playing_memory_games':
+      'Vazhdoni të luani lojëra memoriesh për të rritur nivelin e trurit tuaj!',
 };

@@ -208,5 +208,35 @@ const Map<String, String> mtMTTranslations = {
   'test_result': 'Riżultat tat-Test',
   'your_score': 'Il-punteġġ tiegħek',
   'new_test': 'Test ġdid',
-  'submit': 'Ibgħat'
+  'submit': 'Ibgħat',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Gwida tal-Livelli tal-Moħħ',
+  'understand_level_means': 'Ifhem x\'ifisser il-livell tal-moħħ tiegħek',
+  'rainbow_brain': 'Moħħ tar-Regħa',
+  'rainbow_brain_description':
+      'Ħiliet kognittivi eċċellenti! Il-moħħ tiegħek jiffunzjona tajjeb ħafna f\'kull qasam.',
+  'rainbow_brain_fun_comment':
+      'Il-moħħ tiegħek jiddi b\'kull kulur! Int ġenju veru!',
+  'gold_brain': 'Moħħ tad-Deheb',
+  'gold_brain_description':
+      'Prestazzjoni eċċellenti tal-memorja. Il-moħħ tiegħek jaħdem tajjeb ħafna!',
+  'gold_brain_fun_comment': 'Il-moħħ tiegħek huwa deheb pur! Kompli tiddi!',
+  'silver_brain': 'Moħħ tal-Fidda',
+  'silver_brain_description':
+      'Funzjonijiet kognittivi tajbin. Prestazzjoni qawwija u stabbli tal-memorja.',
+  'silver_brain_fun_comment':
+      'Il-moħħ tiegħek jiddi bħall-fidda! Int fuq it-triq it-tajba!',
+  'bronze_brain': 'Moħħ tar-Ram',
+  'bronze_brain_description':
+      'Prestazzjoni kognittiva stabbli. Kompli titmaren biex ittejjeb il-memorja.',
+  'bronze_brain_fun_comment':
+      'Il-moħħ tiegħek huwa magħmul mir-ram! Kompli, ser issir aktar qawwi!',
+  'poop_brain': 'Moħħ tal-Ħażin',
+  'poop_brain_description':
+      'Jeħtieġ aktar taħriġ. Twaqqafsx, kulħadd jista\' jtejjeb!',
+  'poop_brain_fun_comment':
+      'Anke l-ħażin jista\' jsir fertilizzant! Kompli tipprova!',
+  'keep_playing_memory_games':
+      'Kompli tilgħab logħob tal-memorja biex ittejjeb is-saħħa tal-moħħ tiegħek!'
 };

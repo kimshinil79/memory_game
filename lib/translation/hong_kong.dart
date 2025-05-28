@@ -204,5 +204,25 @@ const Map<String, String> hkTranslations = {
   'test_result': '测试结果',
   'your_score': '您的分数',
   'new_test': '新测试',
-  'submit': '提交'
+  'submit': '提交',
+
+  // Brain Level Guide texts
+  'brain_level_guide': '大脑等级指南',
+  'understand_level_means': '了解每个等级的含义！',
+  'rainbow_level_name': '🌈 彩虹等级',
+  'rainbow_level_description': '太棒了！您在改善大脑方面是真正的赢家！像彩虹一样美丽。',
+  'rainbow_level_fun_comment': '您的大脑像彩虹一样多彩！ 🌈✨',
+  'gold_level_name': '🥇 黄金等级',
+  'gold_level_description': '太棒了！您的大脑像黄金一样闪闪发光。您在游戏中的参与显示了强大的大脑。',
+  'gold_level_fun_comment': '黄金大脑！您是最棒的之一！ 🥇🧠',
+  'silver_level_name': '🥈 白银等级',
+  'silver_level_description': '非常好！您的大脑像白银一样闪闪发光。您做得非常好！',
+  'silver_level_fun_comment': '白银大脑！多么棒！ 🥈⭐',
+  'bronze_level_name': '🥉 青铜等级',
+  'bronze_level_description': '不错！您的大脑正在成长。继续加油！',
+  'bronze_level_fun_comment': '青铜大脑！更好的时光将会到来！ 🥉💪',
+  'poop_level_name': '💩 便便等级',
+  'poop_level_description': '您的大脑有点困倦。但不要失去希望！您会成长的。',
+  'poop_level_fun_comment': '便便大脑！但别担心，您会成长的！ 💩😅',
+  'keep_playing_memory_games': '继续玩记忆游戏来改善您的大脑！'
 };

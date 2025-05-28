@@ -226,5 +226,30 @@ const Map<String, String> eoTranslations = {
   'test_result': 'Testa Rezulto',
   'your_score': 'Via Poentaro',
   'new_test': 'Nova Testo',
-  'submit': 'Sendi'
+  'submit': 'Sendi',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Cerebra Nivela Gvidilo',
+  'understand_level_means': 'Komprenu kion signifas ĉiu nivelo!',
+  'rainbow_level_name': '🌈 Ĉielarko Nivelo',
+  'rainbow_level_description':
+      'Mirinde! Vi vere estas venkinto per plibonigado de via cerebro! Bela kiel ĉielarko.',
+  'rainbow_level_fun_comment': 'Via cerebro estas kolorita kiel ĉielarko! 🌈✨',
+  'gold_level_name': '🥇 Ora Nivelo',
+  'gold_level_description':
+      'Bonege! Via cerebro brilas kiel oro. Via ĉeesto en ludo montras grandan cerbon.',
+  'gold_level_fun_comment': 'Ora cerebro! Vi estas el la plej bonaj! 🥇🧠',
+  'silver_level_name': '🥈 Arĝenta Nivelo',
+  'silver_level_description':
+      'Ege bone! Via cerebro brilas kiel arĝento. Vi faras tre bone!',
+  'silver_level_fun_comment': 'Arĝenta cerebro! Kiel bone! 🥈⭐',
+  'bronze_level_name': '🥉 Bronza Nivelo',
+  'bronze_level_description': 'Bone! Via cerebro kreskas. Daŭrigu!',
+  'bronze_level_fun_comment': 'Bronza cerebro! Pli bonaj tempoj venos! 🥉💪',
+  'poop_level_name': '💩 Fekaj Nivelo',
+  'poop_level_description':
+      'Via cerebro estas iom dormanta. Sed ne perdu esperon! Vi kreskos.',
+  'poop_level_fun_comment': 'Feka cerebro! Sed ne zorgu, vi kreskos! 💩😅',
+  'keep_playing_memory_games':
+      'Daŭre ludu memorludojn por plibonigi vian cerbon!'
 };

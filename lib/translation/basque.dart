@@ -230,4 +230,30 @@ const Map<String, String> euTranslations = {
 
   // New additions
   'email': 'Posta elektronikoa',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Burmuinaren Mailaren Gida',
+  'understand_level_means': 'Ulertu zer esan nahi duen maila bakoitzak',
+  'rainbow_brain_level5': 'Ostadun Burmuina (5. Maila)',
+  'rainbow_brain_desc': 'Zure burmuina kolore-distiraz distiratzen ari da!',
+  'rainbow_brain_fun':
+      'Ostadun bikoitzaren kognitibo-baliokidearen mailara iritsi zara - erabat ikusgarria!',
+  'gold_brain_level4': 'Urrezko Burmuina (4. Maila)',
+  'gold_brain_desc': 'Funtzio kognitibo eta oroimena bikainak.',
+  'gold_brain_fun':
+      'Ia gizatiarren gaineko oroimena - ziurrenik gogoratzen duzu non utzi dituzun giltzak!',
+  'silver_brain_level3': 'Zilarrezko Burmuina (3. Maila)',
+  'silver_brain_desc': 'Burmuinaren osasun ona hobetzeko lekuarekin.',
+  'silver_brain_fun':
+      'Zure burmuina berotzen ari da - goizeko ordenagailua abiarazten den bezala.',
+  'bronze_brain_level2': 'Brontzezko Burmuina (2. Maila)',
+  'bronze_brain_desc': 'Burmuinaren funtzio ertaina - joko gehiago behar dira.',
+  'bronze_brain_fun':
+      'Olio pixka bat behar du - baina gutxienez ez zaude beheko mailan!',
+  'poop_brain_level1': 'Kaka Burmuina (1. Maila)',
+  'poop_brain_desc': 'Hasi zure bidaia hemen!',
+  'poop_brain_fun':
+      'Ez kezkatu, denak hasten dira nonbaitetik - eta kaka ere ontzi handia izan daiteke hazkunde handia lortzeko!',
+  'keep_playing_memory_games':
+      'Jarraitu memoria jokoak jokatzen zure burmuinaren maila igotzeko!',
 };

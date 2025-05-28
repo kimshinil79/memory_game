@@ -224,7 +224,33 @@ const Map<String, String> enCATranslations = {
   'test_result': 'Test Result',
   'your_score': 'Your Score',
   'new_test': 'New Test',
-  'submit': 'Submit'
+  'submit': 'Submit',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Brain Level Guide',
+  'understand_level_means': 'Understand what each level means',
+  'rainbow_brain_level5': 'Rainbow Brain (Level 5)',
+  'rainbow_brain_desc': 'Your brain is sparkling with colorful brilliance!',
+  'rainbow_brain_fun':
+      'You\'ve reached the cognitive equivalent of a double rainbow - absolutely dazzling!',
+  'gold_brain_level4': 'Gold Brain (Level 4)',
+  'gold_brain_desc': 'Excellent cognitive function and memory.',
+  'gold_brain_fun':
+      'Nearly superhuman memory - you probably remember where you left your keys!',
+  'silver_brain_level3': 'Silver Brain (Level 3)',
+  'silver_brain_desc': 'Good brain health with room for improvement.',
+  'silver_brain_fun':
+      'Your brain is warming up - like a computer booting up in the morning.',
+  'bronze_brain_level2': 'Bronze Brain (Level 2)',
+  'bronze_brain_desc': 'Average brain function - needs more games.',
+  'bronze_brain_fun':
+      'Needs a little oil - but at least you\'re not at the lowest level!',
+  'poop_brain_level1': 'Poop Brain (Level 1)',
+  'poop_brain_desc': 'Start your journey here!',
+  'poop_brain_fun':
+      'Don\'t worry, everyone starts somewhere - and even poop can be fertilizer for great growth!',
+  'keep_playing_memory_games':
+      'Keep playing memory games to increase your brain level!'
 };
 
 // Canada French translations
@@ -455,5 +481,32 @@ const Map<String, String> frCATranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guide des niveaux du cerveau',
+  'understand_level_means': 'Comprenez ce que signifie chaque niveau',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc': 'Votre cerveau brille avec un éclat coloré !',
+  'rainbow_brain_fun':
+      'Vous avez atteint l\'équivalent cognitif d\'un double arc-en-ciel - absolument éblouissant !',
+  'gold_brain_level4': 'Cerveau d\'Or (Niveau 4)',
+  'gold_brain_desc': 'Excellente fonction cognitive et mémoire.',
+  'gold_brain_fun':
+      'Mémoire presque surhumaine - vous vous souvenez probablement où vous avez mis vos clés !',
+  'silver_brain_level3': 'Cerveau d\'Argent (Niveau 3)',
+  'silver_brain_desc':
+      'Bonne santé cérébrale avec de la place pour l\'amélioration.',
+  'silver_brain_fun':
+      'Votre cerveau chauffe - comme un ordinateur qui démarre le matin.',
+  'bronze_brain_level2': 'Cerveau de Bronze (Niveau 2)',
+  'bronze_brain_desc': 'Fonction cérébrale moyenne - a besoin de plus de jeux.',
+  'bronze_brain_fun':
+      'A besoin d\'un peu d\'huile - mais au moins vous n\'êtes pas au niveau le plus bas !',
+  'poop_brain_level1': 'Cerveau Caca (Niveau 1)',
+  'poop_brain_desc': 'Commencez votre voyage ici !',
+  'poop_brain_fun':
+      'Ne vous inquiétez pas, tout le monde commence quelque part - et même le caca peut être de l\'engrais pour une grande croissance !',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour augmenter le niveau de votre cerveau !',
 };

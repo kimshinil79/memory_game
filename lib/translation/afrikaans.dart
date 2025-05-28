@@ -223,5 +223,31 @@ const Map<String, String> afkTranslations = {
   'test_result': 'Toets Resultaat',
   'your_score': 'Jou Telling',
   'new_test': 'Nuwe Toets',
-  'submit': 'Dien in'
+  'submit': 'Dien in',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Brein Vlak Gids',
+  'understand_level_means': 'Verstaan wat elke vlak beteken',
+  'rainbow_brain_level5': 'Reënboog Brein (Vlak 5)',
+  'rainbow_brain_desc': 'Jou brein fonkel met kleurvolle briljansie!',
+  'rainbow_brain_fun':
+      'Jy het die kognitiewe ekwivalent van \'n dubbele reënboog bereik - absoluut verblindend!',
+  'gold_brain_level4': 'Goud Brein (Vlak 4)',
+  'gold_brain_desc': 'Uitstekende kognitiewe funksie en geheue.',
+  'gold_brain_fun':
+      'Amper bonatuurlike geheue - jy onthou waarskynlik waar jy jou sleutels gelaat het!',
+  'silver_brain_level3': 'Silwer Brein (Vlak 3)',
+  'silver_brain_desc': 'Goeie breingesondheid met ruimte vir verbetering.',
+  'silver_brain_fun':
+      'Jou brein warm op - soos \'n rekenaar wat in die oggend aanskakel.',
+  'bronze_brain_level2': 'Brons Brein (Vlak 2)',
+  'bronze_brain_desc': 'Gemiddelde kognitiewe funksie - meer speletjies nodig!',
+  'bronze_brain_fun':
+      'Jou brein is \'n bietjie slaperig - tyd vir geestelike koffie!',
+  'poop_brain_level1': 'Poep Brein (Vlak 1)',
+  'poop_brain_desc': 'Net begin met jou breingesondheid reis.',
+  'poop_brain_fun':
+      'Jou brein is nou soos \'n slimfoon met 1% battery - het desperaat laai nodig!',
+  'keep_playing_memory_games':
+      'Hou aan om geheue speletjies te speel om jou brein vlak te verhoog!'
 };

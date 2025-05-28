@@ -205,5 +205,35 @@ const Map<String, String> viVNTranslations = {
   'test_result': 'Kết quả kiểm tra',
   'your_score': 'Điểm của bạn',
   'new_test': 'Bài kiểm tra mới',
-  'submit': 'Gửi'
+  'submit': 'Gửi',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Hướng dẫn Cấp độ Não bộ',
+  'understand_level_means': 'Hiểu ý nghĩa của cấp độ của bạn',
+  'rainbow_brain_level5': 'Não Cầu vồng (Cấp độ 5)',
+  'rainbow_brain_desc':
+      'Chức năng nhận thức cao nhất. Não bộ của bạn hoạt động ở hiệu suất đỉnh cao.',
+  'rainbow_brain_fun':
+      'Não bộ của bạn sáng hơn một chiếc smartphone có 100% pin ở chế độ máy bay.',
+  'gold_brain_level4': 'Não Vàng (Cấp độ 4)',
+  'gold_brain_desc':
+      'Chức năng nhận thức xuất sắc. Bạn có một bộ não rất khỏe mạnh.',
+  'gold_brain_fun':
+      'Não bộ của bạn như một chiếc smartphone có 80% pin, hoạt động hoàn hảo.',
+  'silver_brain_level3': 'Não Bạc (Cấp độ 3)',
+  'silver_brain_desc': 'Sức khỏe não bộ tốt với chỗ để cải thiện.',
+  'silver_brain_fun':
+      'Não bộ của bạn như một chiếc smartphone có 60% pin, hoạt động tốt nhưng có thể cải thiện.',
+  'bronze_brain_level2': 'Não Đồng (Cấp độ 2)',
+  'bronze_brain_desc':
+      'Chức năng nhận thức trung bình. Đã đến lúc tập luyện não bộ của bạn.',
+  'bronze_brain_fun':
+      'Não bộ của bạn như một chiếc smartphone có 40% pin, cần một số điều chỉnh.',
+  'poop_brain_level1': 'Não Phân (Cấp độ 1)',
+  'poop_brain_desc':
+      'Bắt đầu hành trình sức khỏe não bộ của bạn. Có rất nhiều chỗ để phát triển!',
+  'poop_brain_fun':
+      'Não bộ của bạn như một chiếc smartphone có 20% pin ở chế độ tiết kiệm pin. Đã đến lúc sạc!',
+  'keep_playing_memory_games':
+      'Tiếp tục chơi các trò chơi trí nhớ để cải thiện cấp độ não bộ của bạn!'
 };

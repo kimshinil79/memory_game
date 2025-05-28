@@ -225,4 +225,27 @@ const Map<String, String> arBHtranslations = {
 
   // New translations
   'email': 'البريد الإلكتروني',
+
+  // Brain Level Guide
+  'brain_level_guide': 'دليل مستوى الدماغ',
+  'understand_level_means': 'فهم معنى كل مستوى',
+  'rainbow_brain_level5': 'دماغ قوس قزح (المستوى 5)',
+  'rainbow_brain_desc': 'دماغك يتألق بالتألق الملون!',
+  'rainbow_brain_fun':
+      'لقد وصلت إلى المعادل المعرفي لقوس قزح مزدوج - مذهل تماماً!',
+  'gold_brain_level4': 'الدماغ الذهبي (المستوى 4)',
+  'gold_brain_desc': 'وظيفة معرفية ممتازة وذاكرة.',
+  'gold_brain_fun': 'ذاكرة شبه خارقة - ربما تتذكر أين تركت مفاتيحك!',
+  'silver_brain_level3': 'الدماغ الفضي (المستوى 3)',
+  'silver_brain_desc': 'صحة دماغ جيدة مع مجال للتحسن.',
+  'silver_brain_fun': 'دماغك يسخن - مثل كمبيوتر ينشط في الصباح.',
+  'bronze_brain_level2': 'الدماغ البرونزي (المستوى 2)',
+  'bronze_brain_desc': 'وظيفة دماغية متوسطة - حاجة لمزيد من الألعاب.',
+  'bronze_brain_fun':
+      'تحتاج لبعض التزييت - لكن على الأقل أنت لست في المستوى الأدنى!',
+  'poop_brain_level1': 'دماغ البراز (المستوى 1)',
+  'poop_brain_desc': 'ابدأ رحلتك هنا!',
+  'poop_brain_fun':
+      'لا تقلق، الجميع يبدأ من مكان ما - وحتى البراز يمكن أن يكون سماداً لنمو عظيم!',
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!',
 };

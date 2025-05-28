@@ -216,5 +216,35 @@ const Map<String, String> ptMOZTranslations = {
   'test_result': 'Resultado do teste',
   'your_score': 'Sua pontuação',
   'new_test': 'Novo teste',
-  'submit': 'Enviar'
+  'submit': 'Enviar',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guia dos Níveis Cerebrais',
+  'understand_level_means': 'Entenda o que significa o seu nível cerebral',
+  'rainbow_brain': 'Cérebro Arco-íris',
+  'rainbow_brain_description':
+      'Capacidades cognitivas excepcionais! O seu cérebro funciona excelentemente em todas as áreas.',
+  'rainbow_brain_fun_comment':
+      'O seu cérebro brilha com todas as cores! Você é um verdadeiro génio!',
+  'gold_brain': 'Cérebro Dourado',
+  'gold_brain_description':
+      'Excelente desempenho da memória. O seu cérebro funciona incrivelmente bem!',
+  'gold_brain_fun_comment': 'O seu cérebro é ouro puro! Continue a brilhar!',
+  'silver_brain': 'Cérebro Prateado',
+  'silver_brain_description':
+      'Boa função cognitiva. Desempenho forte e estável da memória.',
+  'silver_brain_fun_comment':
+      'O seu cérebro brilha como prata! Está no caminho certo!',
+  'bronze_brain': 'Cérebro Bronze',
+  'bronze_brain_description':
+      'Desempenho cognitivo estável. Continue a praticar para melhorar a memória.',
+  'bronze_brain_fun_comment':
+      'O seu cérebro é feito de bronze! Continue, vai ficar mais forte!',
+  'poop_brain': 'Cérebro Cocó',
+  'poop_brain_description':
+      'Precisa de mais prática. Não desista, todos podem melhorar!',
+  'poop_brain_fun_comment':
+      'Até o cocó pode tornar-se fertilizante! Continue a tentar!',
+  'keep_playing_memory_games':
+      'Continue a jogar jogos de memória para melhorar a sua saúde cerebral!'
 };

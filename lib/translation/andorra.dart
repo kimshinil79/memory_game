@@ -234,4 +234,30 @@ const Map<String, String> caADTranslations = {
 
   // New added translations
   'email': 'Correu electrònic',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guia de Nivells del Cervell',
+  'understand_level_means': 'Entén què significa cada nivell',
+  'rainbow_brain_level5': 'Cervell Arc de Sant Martí (Nivell 5)',
+  'rainbow_brain_desc': 'El teu cervell brilla amb brillantor colorida!',
+  'rainbow_brain_fun':
+      'Has arribat a l\'equivalent cognitiu d\'un arc de sant martí doble - absolutament enlluernador!',
+  'gold_brain_level4': 'Cervell d\'Or (Nivell 4)',
+  'gold_brain_desc': 'Funció cognitiva excel·lent i memòria.',
+  'gold_brain_fun':
+      'Memòria gairebé sobrehumana - probablement recordes on has deixat les claus!',
+  'silver_brain_level3': 'Cervell de Plata (Nivell 3)',
+  'silver_brain_desc': 'Bona salut cerebral amb espai per millorar.',
+  'silver_brain_fun':
+      'El teu cervell s\'està escalfant - com un ordinador que s\'inicia al matí.',
+  'bronze_brain_level2': 'Cervell de Bronze (Nivell 2)',
+  'bronze_brain_desc': 'Funció cognitiva mitjana - calen més jocs!',
+  'bronze_brain_fun':
+      'El teu cervell està una mica adormit - hora del cafè mental!',
+  'poop_brain_level1': 'Cervell Caca (Nivell 1)',
+  'poop_brain_desc': 'Acabes de començar el teu viatge de salut cerebral.',
+  'poop_brain_fun':
+      'El teu cervell ara mateix és com un telèfon intel·ligent amb 1% de bateria - necessita càrrega desesperadament!',
+  'keep_playing_memory_games':
+      'Continua jugant a jocs de memòria per augmentar el teu nivell cerebral!',
 };

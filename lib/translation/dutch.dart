@@ -226,5 +226,31 @@ const Map<String, String> nlTranslations = {
   'test_result': 'Testresultaat',
   'your_score': 'Je score',
   'new_test': 'Nieuwe test',
-  'submit': 'Indienen'
+  'submit': 'Indienen',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Hersenniveau Gids',
+  'understand_level_means': 'Begrijp wat elk niveau betekent',
+  'rainbow_brain_level5': 'Regenboog Brein (Niveau 5)',
+  'rainbow_brain_desc': 'Je brein sprankel met kleurrijke briljantie!',
+  'rainbow_brain_fun':
+      'Je hebt het cognitieve equivalent van een dubbele regenboog bereikt - absoluut verblindend!',
+  'gold_brain_level4': 'Gouden Brein (Niveau 4)',
+  'gold_brain_desc': 'Uitstekende cognitieve functie en geheugen.',
+  'gold_brain_fun':
+      'Bijna bovenmenselijk geheugen - je weet waarschijnlijk waar je je sleutels hebt gelaten!',
+  'silver_brain_level3': 'Zilveren Brein (Niveau 3)',
+  'silver_brain_desc': 'Goede hersen gezondheid met ruimte voor verbetering.',
+  'silver_brain_fun':
+      'Je brein warmt op - zoals een computer die \'s ochtends opstart.',
+  'bronze_brain_level2': 'Bronzen Brein (Niveau 2)',
+  'bronze_brain_desc': 'Gemiddelde cognitieve functie - meer spellen nodig!',
+  'bronze_brain_fun':
+      'Je brein is een beetje slaperig - tijd voor wat mentale koffie!',
+  'poop_brain_level1': 'Poep Brein (Niveau 1)',
+  'poop_brain_desc': 'Je bent net begonnen aan je hersen gezondheidsreis.',
+  'poop_brain_fun':
+      'Je brein nu is als een smartphone op 1% batterij - heeft wanhopig opladen nodig!',
+  'keep_playing_memory_games':
+      'Blijf geheugenspellen spelen om je hersenniveau te verhogen!'
 };

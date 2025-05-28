@@ -206,5 +206,35 @@ const Map<String, String> kkKZTranslations = {
   'test_result': 'Тест нәтижесі',
   'your_score': 'Сіздің ұпайыңыз',
   'new_test': 'Жаңа тест',
-  'submit': 'Жіберу'
+  'submit': 'Жіберу',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Ми деңгейінің нұсқаулығы',
+  'understand_level_means': 'Миыңыздың деңгейі не дегенді білеңіз',
+  'rainbow_brain': 'Кемпірқосақ ми',
+  'rainbow_brain_description':
+      'Керемет танымдық қабілеттер! Миыңыз барлық салада тамаша жұмыс істейді.',
+  'rainbow_brain_fun_comment':
+      'Миыңыз барлық түспен жарқырайды! Сіз шынайы дарын!',
+  'gold_brain': 'Алтын ми',
+  'gold_brain_description':
+      'Жадыда керемет өнімділік. Миыңыз тамаша жұмыс істейді!',
+  'gold_brain_fun_comment': 'Миыңыз таза алтын! Жарқырауыңызды жалғастырыңыз!',
+  'silver_brain': 'Күміс ми',
+  'silver_brain_description':
+      'Жақсы танымдық функциялар. Жадыда күшті және тұрақты өнімділік.',
+  'silver_brain_fun_comment':
+      'Миыңыз күміс сияқты жарқырайды! Сіз дұрыс жолдасыз!',
+  'bronze_brain': 'Қола ми',
+  'bronze_brain_description':
+      'Лайықты жады қабілеттері. Тәжірибемен жақсару үшін орын бар.',
+  'bronze_brain_fun_comment':
+      'Миыңызда қоланың күші бар! Жаттығуыңызды жалғастырыңыз!',
+  'poop_brain': 'Әлсіз ми',
+  'poop_brain_description':
+      'Жақсартуды қажет етеді. Алаңдамаңыз, әркім бір жерден бастайды!',
+  'poop_brain_fun_comment':
+      'Миыңызды жаттықтыру уақыты келді! Барлығы мұнда болған!',
+  'keep_playing_memory_games':
+      'Ми деңгейіңізді жақсарту үшін жады ойындарын ойнауыңызды жалғастырыңыз!'
 };

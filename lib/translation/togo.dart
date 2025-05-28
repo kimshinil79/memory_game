@@ -209,5 +209,36 @@ const Map<String, String> frTGTranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'Guide des Niveaux Cérébraux',
+  'understand_level_means': 'Comprenez ce que signifie votre niveau',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc':
+      'Fonction cognitive la plus élevée. Votre cerveau fonctionne à performance maximale.',
+  'rainbow_brain_fun':
+      'Votre cerveau brille plus qu\'un smartphone avec 100% de batterie en mode avion.',
+  'gold_brain_level4': 'Cerveau Doré (Niveau 4)',
+  'gold_brain_desc':
+      'Excellente fonction cognitive. Vous avez un cerveau très sain.',
+  'gold_brain_fun':
+      'Votre cerveau est comme un smartphone avec 80% de batterie, fonctionne parfaitement.',
+  'silver_brain_level3': 'Cerveau Argenté (Niveau 3)',
+  'silver_brain_desc':
+      'Bonne santé cérébrale avec possibilité d\'amélioration.',
+  'silver_brain_fun':
+      'Votre cerveau est comme un smartphone avec 60% de batterie, fonctionne bien mais peut s\'améliorer.',
+  'bronze_brain_level2': 'Cerveau Bronze (Niveau 2)',
+  'bronze_brain_desc':
+      'Fonction cognitive moyenne. Il est temps d\'exercer votre cerveau.',
+  'bronze_brain_fun':
+      'Votre cerveau est comme un smartphone avec 40% de batterie, a besoin de quelques ajustements.',
+  'poop_brain_level1': 'Cerveau Caca (Niveau 1)',
+  'poop_brain_desc':
+      'Vous commencez votre voyage de santé cérébrale. Il y a beaucoup d\'espace pour grandir !',
+  'poop_brain_fun':
+      'Votre cerveau est comme un smartphone avec 20% de batterie en mode économie d\'énergie. Temps de recharger !',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour améliorer votre niveau cérébral !'
 };

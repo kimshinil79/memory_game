@@ -211,5 +211,35 @@ const Map<String, String> urPKTranslations = {
   'test_result': 'ٹیسٹ کا نتیجہ',
   'your_score': 'آپ کا اسکور',
   'new_test': 'نیا ٹیسٹ',
-  'submit': 'جمع کروائیں'
+  'submit': 'جمع کروائیں',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'دماغی سطح کی گائیڈ',
+  'understand_level_means': 'سمجھیں کہ آپ کے دماغ کی سطح کا کیا مطلب ہے',
+  'rainbow_brain': 'رنگین دماغ',
+  'rainbow_brain_description':
+      'شاندار ذہنی صلاحیات! آپ کا دماغ تمام شعبوں میں عمدگی سے کام کرتا ہے۔',
+  'rainbow_brain_fun_comment':
+      'آپ کا دماغ تمام رنگوں کے ساتھ چمکتا ہے! آپ ایک حقیقی ذہین ہیں!',
+  'gold_brain': 'سونے کا دماغ',
+  'gold_brain_description':
+      'یادداشت کی بہترین کارکردگی۔ آپ کا دماغ حیرت انگیز طریقے سے کام کرتا ہے!',
+  'gold_brain_fun_comment': 'آپ کا دماغ خالص سونا ہے! چمکتے رہیں!',
+  'silver_brain': 'چاندی کا دماغ',
+  'silver_brain_description':
+      'اچھا ذہنی فعل۔ مضبوط اور مستحکم یادداشت کی کارکردگی۔',
+  'silver_brain_fun_comment':
+      'آپ کا دماغ چاندی کی طرح چمکتا ہے! آپ صحیح راستے پر ہیں!',
+  'bronze_brain': 'کانسی کا دماغ',
+  'bronze_brain_description':
+      'مستحکم ذہنی کارکردگی۔ یادداشت بہتر بنانے کے لیے مشق جاری رکھیں۔',
+  'bronze_brain_fun_comment':
+      'آپ کا دماغ کانسی سے بنا ہے! جاری رکھیں، آپ مضبوط ہو جائیں گے!',
+  'poop_brain': 'پاخانہ دماغ',
+  'poop_brain_description':
+      'زیادہ مشق کی ضرورت ہے۔ ہار نہ مانیں، ہر کوئی بہتر ہو سکتا ہے!',
+  'poop_brain_fun_comment':
+      'یہاں تک کہ پاخانہ بھی کھاد بن سکتا ہے! کوشش جاری رکھیں!',
+  'keep_playing_memory_games':
+      'اپنے دماغ کی صحت بہتر بنانے کے لیے یادداشت کے کھیل کھیلتے رہیں!'
 };

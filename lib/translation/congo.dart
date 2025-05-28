@@ -229,5 +229,32 @@ const Map<String, String> frCGTranslations = {
   'test_result': 'Résultat du test',
   'your_score': 'Votre score',
   'new_test': 'Nouveau test',
-  'submit': 'Soumettre'
+  'submit': 'Soumettre',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guide des niveaux de cerveau',
+  'understand_level_means': 'Comprendre ce que signifie chaque niveau',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc': 'Votre cerveau étincelle d\'une brillance colorée !',
+  'rainbow_brain_fun':
+      'Vous avez atteint l\'équivalent cognitif d\'un double arc-en-ciel - absolument éblouissant !',
+  'gold_brain_level4': 'Cerveau Doré (Niveau 4)',
+  'gold_brain_desc': 'Fonction cognitive et mémoire excellentes.',
+  'gold_brain_fun':
+      'Mémoire presque surhumaine - vous vous souvenez probablement où vous avez mis vos clés !',
+  'silver_brain_level3': 'Cerveau Argenté (Niveau 3)',
+  'silver_brain_desc': 'Bonne santé cérébrale avec place à l\'amélioration.',
+  'silver_brain_fun':
+      'Votre cerveau se réchauffe - comme un ordinateur qui démarre le matin.',
+  'bronze_brain_level2': 'Cerveau Bronze (Niveau 2)',
+  'bronze_brain_desc':
+      'Fonction cognitive moyenne - plus de jeux nécessaires !',
+  'bronze_brain_fun':
+      'Votre cerveau est un peu endormi - il est temps pour un café mental !',
+  'poop_brain_level1': 'Cerveau Caca (Niveau 1)',
+  'poop_brain_desc': 'Vous commencez juste votre parcours de santé cérébrale.',
+  'poop_brain_fun':
+      'Votre cerveau maintenant est comme un smartphone à 1% de batterie - a désespérément besoin de charge !',
+  'keep_playing_memory_games':
+      'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau de cerveau !'
 };

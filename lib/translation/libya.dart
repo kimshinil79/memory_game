@@ -206,5 +206,27 @@ const Map<String, String> arLYTranslations = {
   'test_result': 'نتيجة الاختبار',
   'your_score': 'نقاطك',
   'new_test': 'اختبار جديد',
-  'submit': 'إرسال'
+  'submit': 'إرسال',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'دليل مستوى الدماغ',
+  'understand_level_means': 'اعرف ماذا يعني مستوى دماغك',
+  'rainbow_brain': 'دماغ قوس قزح',
+  'rainbow_brain_description':
+      'قدرات إدراكية متميزة! دماغك يؤدي بشكل رائع في جميع المجالات.',
+  'rainbow_brain_fun_comment': 'دماغك يتألق بجميع الألوان! أنت عبقري حقيقي!',
+  'gold_brain': 'دماغ ذهبي',
+  'gold_brain_description': 'أداء ممتاز في الذاكرة. دماغك يعمل بشكل رائع!',
+  'gold_brain_fun_comment': 'دماغك من الذهب الخالص! استمر في التألق!',
+  'silver_brain': 'دماغ فضي',
+  'silver_brain_description': 'وظائف إدراكية جيدة. أداء قوي ومستقر في الذاكرة.',
+  'silver_brain_fun_comment': 'دماغك يلمع كالفضة! أنت في الطريق الصحيح!',
+  'bronze_brain': 'دماغ برونزي',
+  'bronze_brain_description':
+      'قدرات ذاكرة لائقة. هناك مجال للتحسن مع الممارسة.',
+  'bronze_brain_fun_comment': 'دماغك له قوة البرونز! استمر في التدريب!',
+  'poop_brain': 'دماغ ضعيف',
+  'poop_brain_description': 'يحتاج إلى تحسين. لا تقلق، كل شخص يبدأ من مكان ما!',
+  'poop_brain_fun_comment': 'حان الوقت لتدريب دماغك! الجميع كان هنا من قبل!',
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!'
 };

@@ -225,5 +225,31 @@ const Map<String, String> daTranslations = {
   'test_result': 'Testresultat',
   'your_score': 'Din score',
   'new_test': 'Ny test',
-  'submit': 'Indsend'
+  'submit': 'Indsend',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Hjerne Niveau Guide',
+  'understand_level_means': 'Forstå hvad hvert niveau betyder',
+  'rainbow_brain_level5': 'Regnbue Hjerne (Niveau 5)',
+  'rainbow_brain_desc': 'Din hjerne funkler med farverig brillians!',
+  'rainbow_brain_fun':
+      'Du har nået den kognitive ækvivalent af en dobbelt regnbue - absolut blændende!',
+  'gold_brain_level4': 'Guld Hjerne (Niveau 4)',
+  'gold_brain_desc': 'Fremragende kognitiv funktion og hukommelse.',
+  'gold_brain_fun':
+      'Næsten overmenneskelig hukommelse - du husker sandsynligvis hvor du lagde dine nøgler!',
+  'silver_brain_level3': 'Sølv Hjerne (Niveau 3)',
+  'silver_brain_desc': 'God hjernehelbred med plads til forbedring.',
+  'silver_brain_fun':
+      'Din hjerne varmer op - som en computer der starter om morgenen.',
+  'bronze_brain_level2': 'Bronze Hjerne (Niveau 2)',
+  'bronze_brain_desc':
+      'Gennemsnitlig kognitiv funktion - mere spil nødvendigt!',
+  'bronze_brain_fun': 'Din hjerne er lidt søvnig - tid til lidt mental kaffe!',
+  'poop_brain_level1': 'Lort Hjerne (Niveau 1)',
+  'poop_brain_desc': 'Du starter lige din hjernehelbred rejse.',
+  'poop_brain_fun':
+      'Din hjerne lige nu er som en smartphone på 1% batteri - desperat behov for opladning!',
+  'keep_playing_memory_games':
+      'Bliv ved med at spille hukommelsesspil for at øge dit hjerne niveau!'
 };

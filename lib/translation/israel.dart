@@ -204,5 +204,28 @@ const Map<String, String> heTranslations = {
   'test_result': 'תוצאת המבחן',
   'your_score': 'הציון שלך',
   'new_test': 'מבחן חדש',
-  'submit': 'שלח'
+  'submit': 'שלח',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'מדריך רמות המוח',
+  'understand_level_means': 'הבן מה כל רמה אומרת!',
+  'rainbow_level_name': '🌈 רמת קשת בענן',
+  'rainbow_level_description':
+      'מדהים! אתה מנצח אמיתי בשיפור המוח שלך! יפה כמו קשת בענן.',
+  'rainbow_level_fun_comment': 'המוח שלך צבעוני כמו קשת בענן! 🌈✨',
+  'gold_level_name': '🥇 רמת זהב',
+  'gold_level_description':
+      'פנטסטי! המוח שלך נוצץ כמו זהב. ההשתתפות שלך במשחק מראה מוח גדול.',
+  'gold_level_fun_comment': 'מוח זהב! אתה אחד הטובים ביותר! 🥇🧠',
+  'silver_level_name': '🥈 רמת כסף',
+  'silver_level_description':
+      'מצוין! המוח שלך נוצץ כמו כסף. אתה עושה עבודה מעולה!',
+  'silver_level_fun_comment': 'מוח כסף! כמה נהדר! 🥈⭐',
+  'bronze_level_name': '🥉 רמת ברונזה',
+  'bronze_level_description': 'טוב! המוח שלך גדל. המשך!',
+  'bronze_level_fun_comment': 'מוח ברונזה! זמנים טובים יותר יבואו! 🥉💪',
+  'poop_level_name': '💩 רמת קקי',
+  'poop_level_description': 'המוח שלך קצת עייף. אבל אל תפסיד תקווה! אתה תגדל.',
+  'poop_level_fun_comment': 'מוח קקי! אבל אל תדאג, אתה תגדל! 💩😅',
+  'keep_playing_memory_games': 'המשך לשחק משחקי זיכרון כדי לשפר את המוח שלך!'
 };

@@ -2087,6 +2087,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     final screenSize = MediaQuery.of(context).size;
     final isSmallScreen = screenSize.width < 350;
 
+    // 번역을 위한 LanguageProvider 사용
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -2146,7 +2150,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Brain Level Guide',
+                              translations['brain_level_guide'] ??
+                                  'Brain Level Guide',
                               style: GoogleFonts.notoSans(
                                 fontSize: isSmallScreen ? 18 : 22,
                                 fontWeight: FontWeight.bold,
@@ -2154,7 +2159,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                               ),
                             ),
                             Text(
-                              'Understand what each level means',
+                              translations['understand_level_means'] ??
+                                  'Understand what each level means',
                               style: GoogleFonts.notoSans(
                                 fontSize: isSmallScreen ? 12 : 13,
                                 color: Colors.grey.shade600,
@@ -2203,9 +2209,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           _buildBrainLevelItemEnhanced(
                             context,
                             'assets/icon/level5_brain.png',
-                            'Rainbow Brain (Level 5)',
-                            'Your brain is sparkling with colorful brilliance!',
-                            'You\'ve reached the cognitive equivalent of a double rainbow - absolutely dazzling!',
+                            translations['rainbow_brain_level5'] ??
+                                'Rainbow Brain (Level 5)',
+                            translations['rainbow_brain_desc'] ??
+                                'Your brain is sparkling with colorful brilliance!',
+                            translations['rainbow_brain_fun'] ??
+                                'You\'ve reached the cognitive equivalent of a double rainbow - absolutely dazzling!',
                             Colors.redAccent,
                             5,
                           ),
@@ -2213,9 +2222,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           _buildBrainLevelItemEnhanced(
                             context,
                             'assets/icon/level4_brain.png',
-                            'Gold Brain (Level 4)',
-                            'Excellent cognitive function and memory.',
-                            'Almost superhuman memory - you probably remember where you left your keys!',
+                            translations['gold_brain_level4'] ??
+                                'Gold Brain (Level 4)',
+                            translations['gold_brain_desc'] ??
+                                'Excellent cognitive function and memory.',
+                            translations['gold_brain_fun'] ??
+                                'Almost superhuman memory - you probably remember where you left your keys!',
                             Colors.amber,
                             4,
                           ),
@@ -2223,9 +2235,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           _buildBrainLevelItemEnhanced(
                             context,
                             'assets/icon/level3_brain.png',
-                            'Silver Brain (Level 3)',
-                            'Good brain health with room for improvement.',
-                            'Your brain is warming up - like a computer booting up in the morning.',
+                            translations['silver_brain_level3'] ??
+                                'Silver Brain (Level 3)',
+                            translations['silver_brain_desc'] ??
+                                'Good brain health with room for improvement.',
+                            translations['silver_brain_fun'] ??
+                                'Your brain is warming up - like a computer booting up in the morning.',
                             Colors.grey,
                             3,
                           ),
@@ -2233,9 +2248,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           _buildBrainLevelItemEnhanced(
                             context,
                             'assets/icon/level2_brain.png',
-                            'Bronze Brain (Level 2)',
-                            'Average cognitive function - more games needed!',
-                            'Your brain is a bit sleepy - time for some mental coffee!',
+                            translations['bronze_brain_level2'] ??
+                                'Bronze Brain (Level 2)',
+                            translations['bronze_brain_desc'] ??
+                                'Average cognitive function - more games needed!',
+                            translations['bronze_brain_fun'] ??
+                                'Your brain is a bit sleepy - time for some mental coffee!',
                             Colors.orangeAccent,
                             2,
                           ),
@@ -2243,9 +2261,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           _buildBrainLevelItemEnhanced(
                             context,
                             'assets/icon/level1_brain.png',
-                            'Poop Brain (Level 1)',
-                            'Just starting your brain health journey.',
-                            'Your brain right now is like a smartphone at 1% battery - desperately needs charging!',
+                            translations['poop_brain_level1'] ??
+                                'Poop Brain (Level 1)',
+                            translations['poop_brain_desc'] ??
+                                'Just starting your brain health journey.',
+                            translations['poop_brain_fun'] ??
+                                'Your brain right now is like a smartphone at 1% battery - desperately needs charging!',
                             Colors.brown,
                             1,
                           ),
@@ -2274,7 +2295,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Keep playing memory games to increase your brain level!',
+                            translations['keep_playing_memory_games'] ??
+                                'Keep playing memory games to increase your brain level!',
                             style: GoogleFonts.notoSans(
                               fontSize: isSmallScreen ? 12 : 13,
                               color: Colors.purple.shade800,
@@ -2286,32 +2308,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ),
 
                   SizedBox(height: isSmallScreen ? 16 : 24),
-
-                  // Button with improved styling
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.shade400,
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: isSmallScreen ? 24 : 32,
-                            vertical: isSmallScreen ? 12 : 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 3,
-                        shadowColor: Colors.purple.shade200,
-                      ),
-                      child: Text(
-                        'Got it!',
-                        style: GoogleFonts.notoSans(
-                          fontWeight: FontWeight.bold,
-                          fontSize: isSmallScreen ? 14 : 16,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

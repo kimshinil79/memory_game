@@ -229,5 +229,31 @@ const Map<String, String> coTranslations = {
   'test_result': 'Risultatu di u test',
   'your_score': 'U vostru puntu',
   'new_test': 'Novu test',
-  'submit': 'Mandà'
+  'submit': 'Mandà',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guida di i livelli di u cervellu',
+  'understand_level_means': 'Capisce ciò chì significa ogni livellu',
+  'rainbow_brain_level5': 'Cervellu Arcu Celeste (Livellu 5)',
+  'rainbow_brain_desc': 'U vostru cervellu brilla cù una brillanza colorita!',
+  'rainbow_brain_fun':
+      'Avete ghjuntu à l\'equivalente cognitivu d\'un arcu celeste doppiu - assolutamente abbagliante!',
+  'gold_brain_level4': 'Cervellu d\'Oru (Livellu 4)',
+  'gold_brain_desc': 'Funzione cognitiva è memoria eccellenti.',
+  'gold_brain_fun':
+      'Memoria quasi sovrumana - probabilmente vi ricordate induve avete messu e chiavi!',
+  'silver_brain_level3': 'Cervellu d\'Argentu (Livellu 3)',
+  'silver_brain_desc': 'Bona salute cerebrale cù spaziu per migliurà.',
+  'silver_brain_fun':
+      'U vostru cervellu si scalda - cum\'è un urdinatore chì parte a mattina.',
+  'bronze_brain_level2': 'Cervellu di Bronzu (Livellu 2)',
+  'bronze_brain_desc': 'Funzione cognitiva media - ci volenu più ghjochi!',
+  'bronze_brain_fun':
+      'U vostru cervellu hè un pocu addurmentatu - hè ora per un caffè mentale!',
+  'poop_brain_level1': 'Cervellu Cacca (Livellu 1)',
+  'poop_brain_desc': 'Appena cuminciate u vostru viaghju di salute cerebrale.',
+  'poop_brain_fun':
+      'U vostru cervellu avà hè cum\'è un smartphone à 1% di batteria - hà bisognu disperatamente di carica!',
+  'keep_playing_memory_games':
+      'Cuntinuate à ghjucà à i ghjochi di memoria per aumentà u vostru livellu di cervellu!'
 };

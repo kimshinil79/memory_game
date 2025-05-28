@@ -208,5 +208,29 @@ const Map<String, String> mrMRTranslations = {
   'test_result': 'نتيجة الاختبار',
   'your_score': 'درجتك',
   'new_test': 'اختبار جديد',
-  'submit': 'إرسال'
+  'submit': 'إرسال',
+
+  // Brain Level Guide texts
+  'brain_level_guide': 'دليل مستوى الدماغ',
+  'understand_level_means': 'اعرف ماذا يعني مستوى دماغك',
+  'rainbow_brain': 'دماغ قوس قزح',
+  'rainbow_brain_description':
+      'قدرات إدراكية متميزة! دماغك يؤدي بشكل رائع في جميع المجالات.',
+  'rainbow_brain_fun_comment': 'دماغك يتألق بجميع الألوان! أنت عبقري حقيقي!',
+  'gold_brain': 'دماغ ذهبي',
+  'gold_brain_description': 'أداء ممتاز في الذاكرة. دماغك يعمل بشكل رائع!',
+  'gold_brain_fun_comment': 'دماغك من الذهب الخالص! استمر في التألق!',
+  'silver_brain': 'دماغ فضي',
+  'silver_brain_description': 'وظائف إدراكية جيدة. أداء قوي ومستقر في الذاكرة.',
+  'silver_brain_fun_comment': 'دماغك يلمع كالفضة! أنت في الطريق الصحيح!',
+  'bronze_brain': 'دماغ برونزي',
+  'bronze_brain_description':
+      'أداء إدراكي مستقر. استمر في التدريب لتحسين الذاكرة.',
+  'bronze_brain_fun_comment': 'دماغك مصنوع من البرونز! استمر، ستصبح أقوى!',
+  'poop_brain': 'دماغ براز',
+  'poop_brain_description':
+      'يحتاج إلى مزيد من التدريب. لا تستسلم، يمكن للجميع التحسن!',
+  'poop_brain_fun_comment':
+      'حتى البراز يمكن أن يصبح سماداً! استمر في المحاولة!',
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين صحة دماغك!'
 };
