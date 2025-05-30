@@ -259,44 +259,21 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
                 'Unknown Player');
       }
 
-      // Get sender's FCM token
-      DocumentSnapshot tokenDoc = await FirebaseFirestore.instance
+      // Create notification
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(senderId)
-          .collection('tokens')
-          .doc('fcm')
-          .get();
+          .collection('notifications')
+          .add({
+        'type': 'challenge_response',
+        'challengeId': challengeId,
+        'status': response,
+        'senderNickname': responderNickname,
+        'read': false,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
 
-      if (tokenDoc.exists && tokenDoc.data() != null) {
-        Map<String, dynamic> tokenData =
-            tokenDoc.data() as Map<String, dynamic>;
-        String? fcmToken = tokenData['token'];
-
-        if (fcmToken != null && fcmToken.isNotEmpty) {
-          // FCM 토큰을 포함하여 notification 문서 생성
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(senderId)
-              .collection('notifications')
-              .add({
-            'type': 'challenge_response',
-            'challengeId': challengeId,
-            'status': response,
-            'senderNickname': responderNickname,
-            'recipientFcmToken': fcmToken,
-            'read': false,
-            'createdAt': FieldValue.serverTimestamp(),
-          });
-
-          // 로그 추가
-          print(
-              'Challenge response notification created with FCM token: ${fcmToken.substring(0, 10)}...');
-        } else {
-          print('Error: FCM token is null or empty for sender: $senderId');
-        }
-      } else {
-        print('Error: FCM token document does not exist for sender: $senderId');
-      }
+      print('Challenge response notification created successfully');
     } catch (e) {
       print('Error notifying sender: $e');
     }

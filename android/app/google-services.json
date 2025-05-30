@@ -12,12 +12,7 @@
           "package_name": "com.example.memory_game"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "529352933631-cbvfm3j8shgo0pev764stb860pip4vho.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDMcOe5FhMEXF1UvR_zS4ApR9xOZ7GppDI"
@@ -25,12 +20,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "529352933631-cbvfm3j8shgo0pev764stb860pip4vho.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
