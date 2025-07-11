@@ -97,6 +97,7 @@ const Map<String, String> krTranslations = {
   'error_changing_password': '비밀번호 변경 오류',
   'error': '오류',
   'sign_out': '로그아웃',
+  'delete_account': '회원 탈퇴',
   'random_shake': '카드 흔들어!!',
 
   // Completion Dialog 텍스트

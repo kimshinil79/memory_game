@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -17,6 +18,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -184,6 +186,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   // Add a field to store the IndexedStack reference
   IndexedStack? _parentIndexedStack;
 
+  // BannerAd 변수 추가
+  BannerAd? myBanner;
+  bool _isBannerAdReady = false;
+  LoadAdError? _adLoadError; // 광고 로드 에러 정보 저장
+  bool _isAdLoading = false; // 광고 로딩 상태 추적
+
   @override
   void initState() {
     super.initState();
@@ -226,6 +234,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 앱 생명주기 관찰자 등록
     WidgetsBinding.instance.addObserver(this);
+
+    // BannerAd 초기화
+    _initializeBannerAd();
   }
 
   // MemoryGameService 초기화 메서드
@@ -532,13 +543,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // Clear the stored reference to IndexedStack
     _parentIndexedStack = null;
 
+    // BannerAd 정리
+    myBanner?.dispose();
+
     super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant MemoryGamePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     // 그리드 크기가 변경되었을 때 게임 재시작
     if (widget.gridSize != oldWidget.gridSize) {
       _initializeGameWrapper();
@@ -801,12 +814,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       // 멀티플레이어 모드에서는 내 턴일 때만 카드 선택 가능
       if (widget.isMultiplayerMode && !_isMyTurn) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('It\'s not your turn yet!'),
-            duration: Duration(seconds: 1),
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('It\'s not your turn yet!'),
+        //     duration: Duration(seconds: 1),
+        //   ),
+        // );
         return;
       }
 
@@ -894,15 +907,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     } catch (e) {
       print('카드 탭 처리 중 예기치 않은 오류: $e');
       // 오류 발생 시 UI에 알림
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('게임 진행 중 오류가 발생했습니다.'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
+      // if (mounted) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text('게임 진행 중 오류가 발생했습니다.'),
+      //       backgroundColor: Colors.red,
+      //       duration: Duration(seconds: 2),
+      //     ),
+      //   );
+      // }
     }
   }
 
@@ -1435,14 +1448,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       int elapsedSeconds = DateTime.now().difference(_gameStartTime!).inSeconds;
       if (elapsedSeconds < _timeAddMinElapsed) {
         // 최소 경과 시간이 지나지 않았으면 알림 표시
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Wait at least $_timeAddMinElapsed seconds before adding time'),
-            backgroundColor: Colors.orange,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(
+        //         'Wait at least $_timeAddMinElapsed seconds before adding time'),
+        //     backgroundColor: Colors.orange,
+        //     behavior: SnackBarBehavior.floating,
+        //   ),
+        // );
         return;
       }
     }
@@ -1453,14 +1466,14 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     if (currentPoints < _timeAddCost) {
       // 점수가 부족하면 알림 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Not enough Brain Health points! You need $_timeAddCost points.'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(
+      //         'Not enough Brain Health points! You need $_timeAddCost points.'),
+      //     backgroundColor: Colors.red,
+      //     behavior: SnackBarBehavior.floating,
+      //   ),
+      // );
       return;
     }
 
@@ -1473,13 +1486,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     });
 
     // 시간 추가 알림
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('+30 seconds added! -$_timeAddCost Brain Health points'),
-        backgroundColor: Colors.green,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text('+30 seconds added! -$_timeAddCost Brain Health points'),
+    //     backgroundColor: Colors.green,
+    //     behavior: SnackBarBehavior.floating,
+    //   ),
+    // );
 
     // 10초 후 다시 시간 추가 가능하게 설정
     Future.delayed(Duration(seconds: 10), () {
@@ -1679,6 +1692,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                         },
                       ),
                     ),
+
+                    // 배너 광고 표시
+                    _buildAdSection(),
                   ],
                 ),
               ),
@@ -1697,6 +1713,60 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   Widget _buildTutorialOverlay() {
     if (!_showTutorial) return const SizedBox.shrink();
 
+    // 화면 크기 가져오기
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+
+    // 반응형 크기 계산
+    final isSmallScreen = screenWidth < 360 || screenHeight < 640;
+    final isMediumScreen = screenWidth < 414 || screenHeight < 736;
+
+    // 동적 크기 설정
+    final horizontalMargin = screenWidth * 0.05; // 화면 너비의 5%
+    final containerPadding = screenWidth * 0.05; // 화면 너비의 5%
+    final borderRadius = screenWidth * 0.05; // 화면 너비의 5%
+
+    // 동적 글씨 크기 설정
+    final titleFontSize = isSmallScreen
+        ? screenWidth * 0.045
+        : isMediumScreen
+            ? screenWidth * 0.048
+            : screenWidth * 0.05;
+    final itemTitleFontSize = isSmallScreen
+        ? screenWidth * 0.035
+        : isMediumScreen
+            ? screenWidth * 0.038
+            : screenWidth * 0.04;
+    final itemDescFontSize = isSmallScreen
+        ? screenWidth * 0.03
+        : isMediumScreen
+            ? screenWidth * 0.032
+            : screenWidth * 0.035;
+    final checkboxTextSize = isSmallScreen
+        ? screenWidth * 0.032
+        : isMediumScreen
+            ? screenWidth * 0.035
+            : screenWidth * 0.038;
+    final buttonTextSize = isSmallScreen
+        ? screenWidth * 0.035
+        : isMediumScreen
+            ? screenWidth * 0.038
+            : screenWidth * 0.04;
+
+    // 동적 간격 설정
+    final titleBottomSpace = screenHeight * 0.02;
+    final itemSpacing = screenHeight * 0.015;
+    final checkboxTopSpace = screenHeight * 0.02;
+    final buttonTopSpace = screenHeight * 0.015;
+
+    // 동적 아이콘 크기
+    final iconSize = isSmallScreen
+        ? screenWidth * 0.055
+        : isMediumScreen
+            ? screenWidth * 0.058
+            : screenWidth * 0.06;
+
     // 언어 번역 가져오기
     final translations = Provider.of<LanguageProvider>(context, listen: false)
         .getUITranslations();
@@ -1709,105 +1779,125 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.symmetric(horizontal: horizontalMargin),
+            padding: EdgeInsets.all(containerPadding),
+            constraints: BoxConstraints(
+              maxHeight: screenHeight * 0.8, // 화면 높이의 80%까지만 사용
+              maxWidth: screenWidth * 0.9, // 화면 너비의 90%까지만 사용
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 5),
+                  blurRadius: screenWidth * 0.025,
+                  offset: Offset(0, screenHeight * 0.008),
                 ),
               ],
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  translations['memory_game_guide'] ?? 'Memory Game Guide',
-                  style: GoogleFonts.notoSans(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: tutorialColor,
-                  ),
-                ),
-                SizedBox(height: 15),
-                _buildTutorialItem(
-                  Icons.touch_app,
-                  translations['card_selection_title'] ?? 'Card Selection',
-                  translations['card_selection_desc'] ??
-                      'Tap cards to flip and find matching pairs.',
-                  tutorialColor,
-                ),
-                SizedBox(height: 10),
-                _buildTutorialItem(
-                  Icons.timer,
-                  translations['time_limit_title'] ?? 'Time Limit',
-                  translations['time_limit_desc'] ??
-                      'Match all pairs within time limit. Faster matching earns higher score.',
-                  tutorialColor,
-                ),
-                SizedBox(height: 10),
-                _buildTutorialItem(
-                  Icons.add_alarm,
-                  translations['add_time_title'] ?? 'Add Time',
-                  translations['add_time_desc'] ??
-                      'Tap "+30s" to add time (costs Brain Health points).',
-                  tutorialColor,
-                ),
-                SizedBox(height: 10),
-                _buildTutorialItem(
-                  Icons.people,
-                  translations['multiplayer_title'] ?? 'Multiplayer',
-                  translations['multiplayer_desc'] ??
-                      'Change player count (1-4) to play with friends.',
-                  tutorialColor,
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _doNotShowAgain,
-                      onChanged: (value) {
-                        setState(() {
-                          _doNotShowAgain = value ?? false;
-                        });
-                      },
-                      activeColor: tutorialColor,
-                    ),
-                    Text(
-                      translations['dont_show_again'] ?? 'Don\'t show again',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 상단에 닫기 버튼과 '다시 보지 않기' 체크박스를 배치
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Transform.scale(
+                            scale: isSmallScreen ? 0.8 : 0.9,
+                            child: Checkbox(
+                              value: _doNotShowAgain,
+                              onChanged: (value) {
+                                setState(() {
+                                  _doNotShowAgain = value ?? false;
+                                });
+                              },
+                              activeColor: tutorialColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(screenWidth * 0.008),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            translations['dont_show_again'] ??
+                                'Don\'t show again',
+                            style: GoogleFonts.poppins(
+                              fontSize: checkboxTextSize,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: _closeTutorial,
-                  child: Text(
-                    translations['got_it'] ?? 'Got it!',
-                    style: TextStyle(
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey),
+                        onPressed: _closeTutorial,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: titleBottomSpace),
+                  Text(
+                    translations['memory_game_guide'] ?? 'Memory Game Guide',
+                    style: GoogleFonts.notoSans(
+                      fontSize: titleFontSize,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      color: tutorialColor,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: tutorialColor,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+                  SizedBox(height: titleBottomSpace),
+                  _buildTutorialItem(
+                    Icons.touch_app,
+                    translations['card_selection_title'] ?? 'Card Selection',
+                    translations['card_selection_desc'] ??
+                        'Tap cards to flip and find matching pairs.',
+                    tutorialColor,
+                    iconSize,
+                    itemTitleFontSize,
+                    itemDescFontSize,
+                    containerPadding * 0.6,
                   ),
-                ),
-              ],
+                  SizedBox(height: itemSpacing),
+                  _buildTutorialItem(
+                    Icons.timer,
+                    translations['time_limit_title'] ?? 'Time Limit',
+                    translations['time_limit_desc'] ??
+                        'Match all pairs within time limit. Faster matching earns higher score.',
+                    tutorialColor,
+                    iconSize,
+                    itemTitleFontSize,
+                    itemDescFontSize,
+                    containerPadding * 0.6,
+                  ),
+                  SizedBox(height: itemSpacing),
+                  _buildTutorialItem(
+                    Icons.add_alarm,
+                    translations['add_time_title'] ?? 'Add Time',
+                    translations['add_time_desc'] ??
+                        'Tap "+30s" to add time (costs Brain Health points).',
+                    tutorialColor,
+                    iconSize,
+                    itemTitleFontSize,
+                    itemDescFontSize,
+                    containerPadding * 0.6,
+                  ),
+                  SizedBox(height: itemSpacing),
+                  _buildTutorialItem(
+                    Icons.people,
+                    translations['multiplayer_title'] ?? 'Multiplayer',
+                    translations['multiplayer_desc'] ??
+                        'Change player count (1-4) to play with friends.',
+                    tutorialColor,
+                    iconSize,
+                    itemTitleFontSize,
+                    itemDescFontSize,
+                    containerPadding * 0.6,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -1817,19 +1907,31 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 튜토리얼 항목 위젯
   Widget _buildTutorialItem(
-      IconData icon, String title, String description, Color color) {
+      IconData icon, String title, String description, Color color,
+      [double? iconSize,
+      double? titleFontSize,
+      double? descriptionFontSize,
+      double? itemPadding]) {
+    // 기본값 설정
+    final finalIconSize = iconSize ?? 24;
+    final finalTitleFontSize = titleFontSize ?? 16;
+    final finalDescriptionFontSize = descriptionFontSize ?? 14;
+    final finalItemPadding = itemPadding ?? 12;
+    final iconPadding = finalItemPadding * 0.67; // 아이콘 패딩은 아이템 패딩의 2/3
+    final horizontalSpacing = finalItemPadding; // 아이콘과 텍스트 사이 간격
+
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(finalItemPadding),
       decoration: BoxDecoration(
         color: color.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(finalItemPadding),
         border: Border.all(color: color.withOpacity(0.1)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(iconPadding),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
               shape: BoxShape.circle,
@@ -1837,10 +1939,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             child: Icon(
               icon,
               color: color,
-              size: 24,
+              size: finalIconSize,
             ),
           ),
-          SizedBox(width: 12),
+          SizedBox(width: horizontalSpacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1848,16 +1950,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                 Text(
                   title,
                   style: GoogleFonts.notoSans(
-                    fontSize: 16,
+                    fontSize: finalTitleFontSize,
                     fontWeight: FontWeight.bold,
                     color: color,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: finalItemPadding * 0.33), // 제목과 설명 사이 간격
                 Text(
                   description,
                   style: GoogleFonts.notoSans(
-                    fontSize: 14,
+                    fontSize: finalDescriptionFontSize,
                     color: Colors.black87,
                   ),
                 ),
@@ -2773,17 +2875,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                       setState(() {});
 
                                       // 시작 플레이어 선택 알림 표시
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              '$displayName will start the game'),
-                                          duration: Duration(seconds: 1),
-                                          backgroundColor:
-                                              instagramGradientStart,
-                                          behavior: SnackBarBehavior.floating,
-                                        ),
-                                      );
+                                      // ScaffoldMessenger.of(context)
+                                      //     .showSnackBar(
+                                      //   SnackBar(
+                                      //     content: Text(
+                                      //         '$displayName will start the game'),
+                                      //     duration: Duration(seconds: 1),
+                                      //     backgroundColor:
+                                      //         instagramGradientStart,
+                                      //     behavior: SnackBarBehavior.floating,
+                                      //   ),
+                                      // );
                                     }
                                   }
                                 },
@@ -3069,34 +3171,34 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       //_subscribeToGameState();
 
       // 알림 표시
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Game started! ${_isMyTurn ? "Your turn!" : "Opponent's turn first!"}'),
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
+      // if (mounted) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text(
+      //           'Game started! ${_isMyTurn ? "Your turn!" : "Opponent's turn first!"}'),
+      //       backgroundColor: Colors.green,
+      //       duration: Duration(seconds: 2),
+      //     ),
+      //   );
+      // }
     } catch (e) {
       print('멀티플레이어 게임 보드 초기화 오류: $e');
 
       // 오류 발생 시 UI에 알림
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('게임 보드 초기화 중 오류가 발생했습니다. 다시 시도하세요.'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 3),
-          ),
-        );
+      // if (mounted) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text('게임 보드 초기화 중 오류가 발생했습니다. 다시 시도하세요.'),
+      //       backgroundColor: Colors.red,
+      //       duration: Duration(seconds: 3),
+      //     ),
+      //   );
 
-        // 상태 업데이트
-        setState(() {
-          hasError = true;
-        });
-      }
+      // 상태 업데이트
+      setState(() {
+        hasError = true;
+      });
+      // }
     }
   }
 
@@ -3205,5 +3307,265 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   bool _isSelectedAsStartingPlayer(int playerIndex) {
     if (_memoryGameService == null) return playerIndex == 0;
     return playerIndex == _memoryGameService!.currentPlayerIndex;
+  }
+
+  // BannerAd 초기화 메서드
+  void _initializeBannerAd() {
+    // AdMob 초기화가 완료된 후 광고 로드
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadBannerAd();
+    });
+  }
+
+  void _loadBannerAd() {
+    print('🔄 배너 광고 로드 시작...');
+    print('   플랫폼: ${Platform.isAndroid ? "Android" : "iOS"}');
+    print('   에뮬레이터 여부: ${Platform.isAndroid ? "확인 필요" : "iOS 시뮬레이터"}');
+    print('');
+    print('📋 테스트 기기 ID 확인 방법:');
+    if (Platform.isAndroid) {
+      print('   Android: 설정 → Google → 광고 → 광고 ID');
+      print('   (하지만 AdMob에서는 이 ID의 MD5 해시값을 사용합니다)');
+      print(
+          '   광고 로드 실패 시 콘솔에서 "Use RequestConfiguration.Builder().setTestDeviceIds" 메시지를 찾아보세요.');
+    } else {
+      print('   iOS: 설정 → 개인정보 보호 및 보안 → Apple 광고 → 광고 식별자');
+      print('   (하지만 AdMob에서는 이 ID의 MD5 해시값을 사용합니다)');
+      print(
+          '   광고 로드 실패 시 콘솔에서 "GADMobileAds.sharedInstance.requestConfiguration" 메시지를 찾아보세요.');
+    }
+    print('');
+
+    // 기존 광고가 있다면 dispose
+    if (myBanner != null) {
+      myBanner!.dispose();
+      myBanner = null;
+      print('   기존 배너 광고 정리 완료');
+    }
+
+    // 로딩 상태 시작
+    if (mounted) {
+      setState(() {
+        _isAdLoading = true;
+        _adLoadError = null; // 이전 에러 정보 초기화
+        _isBannerAdReady = false;
+      });
+    }
+
+    String adUnitId = Platform.isAndroid
+        ? 'ca-app-pub-3940256099942544/6300978111' // Android 테스트 배너
+        : 'ca-app-pub-3940256099942544/2934735716'; // iOS 테스트 배너
+
+    print('   사용할 광고 단위 ID: $adUnitId');
+
+    myBanner = BannerAd(
+      adUnitId: adUnitId,
+      size: AdSize.banner,
+      request: AdRequest(
+        // 테스트 모드 활성화
+        nonPersonalizedAds: true,
+      ),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('✅ 배너 광고가 성공적으로 로드되었습니다');
+          print('   광고 크기: ${(ad as BannerAd).size}');
+          if (mounted) {
+            setState(() {
+              _isBannerAdReady = true;
+              _isAdLoading = false;
+              _adLoadError = null; // 성공 시 에러 정보 초기화
+            });
+          }
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('❌ 배너 광고 로드 실패: $error');
+          print('   에러 코드: ${error.code}');
+          print('   에러 도메인: ${error.domain}');
+          print('   에러 메시지: ${error.message}');
+          print('   가능한 원인: ${_getAdErrorCause(error.code)}');
+          print('');
+          print('🔧 해결 방법:');
+          print('   1. 실제 기기에서 테스트해보세요 (에뮬레이터에서는 광고가 잘 안 나옵니다)');
+          print('   2. 인터넷 연결을 확인하세요');
+          print('   3. 이 기기를 테스트 기기로 등록하려면 위의 로그에서 테스트 기기 ID를 찾아보세요');
+          print('   4. 에러 코드 3 (광고 없음)은 정상적인 상황입니다');
+          print('');
+          ad.dispose();
+          if (mounted) {
+            setState(() {
+              _isBannerAdReady = false;
+              _isAdLoading = false;
+              _adLoadError = error; // 에러 정보 저장
+            });
+          }
+          // 15초 후 재시도
+          Future.delayed(Duration(seconds: 15), () {
+            if (mounted && !_isBannerAdReady && _adLoadError != null) {
+              print('🔄 배너 광고 재시도 중...');
+              _loadBannerAd();
+            }
+          });
+        },
+        onAdOpened: (Ad ad) => print('📱 배너 광고가 열렸습니다'),
+        onAdClosed: (Ad ad) => print('❌ 배너 광고가 닫혔습니다'),
+        onAdImpression: (Ad ad) => print('👁️ 배너 광고 노출됨'),
+      ),
+    );
+
+    print('   배너 광고 로드 시작...');
+    myBanner!.load();
+  }
+
+  // 광고 에러 코드에 따른 원인 설명
+  String _getAdErrorCause(int errorCode) {
+    switch (errorCode) {
+      case 0:
+        return "내부 오류 - AdMob SDK 문제";
+      case 1:
+        return "잘못된 요청 - 광고 단위 ID 또는 요청 설정 문제";
+      case 2:
+        return "네트워크 오류 - 인터넷 연결 확인 필요";
+      case 3:
+        return "광고 없음 - 현재 표시할 광고가 없음 (에뮬레이터에서 흔함)";
+      case 8:
+        return "앱 ID 무료 등록 - AdMob 계정 설정 필요";
+      default:
+        return "알 수 없는 오류 ($errorCode)";
+    }
+  }
+
+  // 광고 섹션 빌드 메서드
+  Widget _buildAdSection() {
+    // 광고가 성공적으로 로드된 경우
+    if (_isBannerAdReady && myBanner != null) {
+      return Container(
+        height: myBanner!.size.height.toDouble(),
+        child: AdWidget(ad: myBanner!),
+      );
+    }
+
+    // 광고 로딩 중인 경우
+    if (_isAdLoading) {
+      return Container(
+        height: 40,
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 14,
+                height: 14,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    instagramGradientStart,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Text(
+                '광고 로딩 중...',
+                style: GoogleFonts.notoSans(
+                  fontSize: 11,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // 광고 로드에 실패한 경우
+    if (_adLoadError != null) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.red.shade50,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.red.shade200),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red.shade600,
+                size: 14,
+              ),
+              SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  '광고 로드 실패: ${_getAdErrorCause(_adLoadError!.code)}',
+                  style: GoogleFonts.notoSans(
+                    fontSize: 10,
+                    color: Colors.red.shade700,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(width: 4),
+              TextButton(
+                onPressed: () {
+                  _loadBannerAd();
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.refresh,
+                      size: 12,
+                      color: instagramGradientStart,
+                    ),
+                    SizedBox(width: 2),
+                    Text(
+                      '재시도',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 9,
+                        color: instagramGradientStart,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                style: TextButton.styleFrom(
+                  minimumSize: Size(0, 0),
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // 초기 상태 (아직 광고 로드 시도하지 않음)
+    return Container(
+      height: 40,
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Center(
+        child: Text(
+          '광고 준비 중...',
+          style: GoogleFonts.notoSans(
+            fontSize: 11,
+            color: Colors.grey.shade600,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -30,12 +30,59 @@ import 'dart:io' show Platform;
 import 'item_list.dart' as images;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'services/memory_game_service.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // Constants for SharedPreferences keys
 const String PREF_USER_COUNTRY_CODE = 'user_country_code';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase 초기화
+  await Firebase.initializeApp();
+
+  // AdMob 초기화
+  try {
+    await MobileAds.instance.initialize();
+    print('✅ AdMob 초기화 완료');
+
+    // 현재 기기의 테스트 ID 출력 (디버그용)
+    if (Platform.isAndroid) {
+      print('📱 Android 기기에서 실행 중');
+      print('   광고를 로드하면 콘솔에서 테스트 기기 ID를 확인할 수 있습니다.');
+      print(
+          '   "Use RequestConfiguration.Builder().setTestDeviceIds" 메시지를 찾아보세요.');
+    } else if (Platform.isIOS) {
+      print('📱 iOS 기기에서 실행 중');
+      print('   광고를 로드하면 콘솔에서 테스트 기기 ID를 확인할 수 있습니다.');
+      print(
+          '   "GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers" 메시지를 찾아보세요.');
+    }
+
+    // AdMob 설정 업데이트 (선택사항)
+    await MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(
+        testDeviceIds: <String>[
+          'kGADSimulatorID', // iOS 시뮬레이터
+          'f5a2f4769de04e58b6d610ca1ad1abe1', // Android 에뮬레이터 일반적인 테스트 ID
+
+          // 실제 테스트 기기 ID를 여기에 추가하세요 (예시):
+          // 'ABCDEF012345ABCDEF012345ABCDEF01',  // 실제 Android 기기 ID
+          // '2077ef9a63d2b398840261c8221a0c9b',  // 실제 iOS 기기 ID
+
+          // 여러 기기를 추가할 수 있습니다:
+          // 'YOUR_ANDROID_PHONE_ID',
+          // 'YOUR_ANDROID_TABLET_ID',
+          // 'YOUR_IPHONE_ID',
+          // 'YOUR_IPAD_ID',
+        ],
+        tagForChildDirectedTreatment: TagForChildDirectedTreatment.unspecified,
+      ),
+    );
+    print('✅ AdMob 테스트 디바이스 설정 완료');
+  } catch (e) {
+    print('❌ AdMob 초기화 실패: $e');
+  }
 
   // Configure Google Fonts to use local fonts as fallbacks
   GoogleFonts.config.allowRuntimeFetching = true;
@@ -390,24 +437,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
 
       // 5. 로그아웃 성공 메시지 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('로그아웃되었습니다.'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('로그아웃되었습니다.'),
+      //     backgroundColor: Colors.green,
+      //     duration: Duration(seconds: 2),
+      //   ),
+      // );
     } catch (e) {
       print('로그아웃 중 오류 발생: $e');
 
       // 오류 메시지 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('로그아웃 중 오류가 발생했습니다: $e'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 3),
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('로그아웃 중 오류가 발생했습니다: $e'),
+      //     backgroundColor: Colors.red,
+      //     duration: Duration(seconds: 3),
+      //   ),
+      // );
 
       // 인증 상태 초기화 재시도
       _initializeAuth();
@@ -584,136 +631,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               const SizedBox(height: 12),
               Container(
                 height: 44,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  child: Row(
-                    children: [
-                      Consumer<LanguageProvider>(
-                        builder: (context, languageProvider, child) {
-                          final translations =
-                              languageProvider.getUITranslations();
-                          final playerText = numberOfPlayers > 1
-                              ? (translations['players'] ?? 'Players')
-                              : (translations['player'] ?? 'Player');
-
-                          return _buildControlButton(
-                            icon: Icons.group_rounded,
-                            label: '$numberOfPlayers $playerText',
-                            onTap: _showPlayerSelectionDialog,
-                          );
-                        },
-                      ),
-                      const SizedBox(width: 10),
-                      _buildControlButton(
-                        icon: Icons.dashboard_rounded,
-                        label: gridSize,
-                        onTap: _showGridSizeSelectionDialog,
-                      ),
-                      const SizedBox(width: 10),
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              instagramGradientStart.withOpacity(0.9),
-                              instagramGradientEnd.withOpacity(0.9),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(14),
-                          boxShadow: [
-                            BoxShadow(
-                              color: instagramGradientStart.withOpacity(0.2),
-                              offset: Offset(0, 3),
-                              blurRadius: 6,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.flip_rounded,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              '$flipCount',
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                          width: 30), // Increased from 10 to 20 pixels
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 4,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: GestureDetector(
-                          onTap: () => _showLanguageSelectionDialog(context),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                color: Colors.grey.withOpacity(0.2),
-                                width: 1,
-                              ),
-                            ),
-                            child: Consumer<LanguageProvider>(
-                              builder: (context, languageProvider, child) {
-                                // ui 언어 기반 컨트리 코드 사용 (nationality와 동일함)
-                                String currentLanguage =
-                                    languageProvider.currentLanguage;
-                                String forFlag =
-                                    currentLanguage.split('-')[1].toLowerCase();
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.volume_up_rounded,
-                                      size: 16,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: 6),
-                                    Flag.fromString(
-                                      forFlag,
-                                      height: 18,
-                                      width: 28,
-                                      borderRadius: 4,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: _buildDynamicControlButtons(),
               ),
             ],
           ],
@@ -864,6 +782,276 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     );
   }
 
+  // 동적 크기 조절이 가능한 컨트롤 버튼들을 빌드하는 메서드
+  Widget _buildDynamicControlButtons() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = constraints.maxWidth;
+
+        // 화면 크기 분류
+        final isSmallScreen = screenWidth < 360;
+        final isMediumScreen = screenWidth < 414;
+
+        // 동적 크기 계산
+        final buttonSpacing = isSmallScreen
+            ? screenWidth * 0.015
+            : isMediumScreen
+                ? screenWidth * 0.02
+                : screenWidth * 0.025;
+
+        final buttonHeight = isSmallScreen
+            ? screenWidth * 0.09
+            : isMediumScreen
+                ? screenWidth * 0.095
+                : screenWidth * 0.1;
+
+        final buttonPadding = isSmallScreen
+            ? EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.025, vertical: screenWidth * 0.015)
+            : isMediumScreen
+                ? EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.03,
+                    vertical: screenWidth * 0.018)
+                : EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.035,
+                    vertical: screenWidth * 0.02);
+
+        final borderRadius = isSmallScreen
+            ? screenWidth * 0.03
+            : isMediumScreen
+                ? screenWidth * 0.035
+                : screenWidth * 0.04;
+
+        final iconSize = isSmallScreen
+            ? screenWidth * 0.04
+            : isMediumScreen
+                ? screenWidth * 0.045
+                : screenWidth * 0.05;
+
+        final fontSize = isSmallScreen
+            ? screenWidth * 0.03
+            : isMediumScreen
+                ? screenWidth * 0.032
+                : screenWidth * 0.035;
+
+        final flagHeight = isSmallScreen
+            ? screenWidth * 0.035
+            : isMediumScreen
+                ? screenWidth * 0.04
+                : screenWidth * 0.045;
+
+        final flagWidth = isSmallScreen
+            ? screenWidth * 0.055
+            : isMediumScreen
+                ? screenWidth * 0.06
+                : screenWidth * 0.065;
+
+        // 사용 가능한 너비 계산 (4개 버튼 + 3개 간격)
+        final totalSpacing = buttonSpacing * 3;
+        final availableWidth = screenWidth - totalSpacing;
+        final buttonWidth = availableWidth / 4;
+
+        return Row(
+          children: [
+            // 플레이어 선택 버튼
+            Expanded(
+              child: Consumer<LanguageProvider>(
+                builder: (context, languageProvider, child) {
+                  final translations = languageProvider.getUITranslations();
+                  final playerText = numberOfPlayers > 1
+                      ? (translations['players'] ?? 'Players')
+                      : (translations['player'] ?? 'Player');
+
+                  return _buildDynamicControlButton(
+                    icon: Icons.group_rounded,
+                    label: '$numberOfPlayers $playerText',
+                    onTap: _showPlayerSelectionDialog,
+                    buttonHeight: buttonHeight,
+                    buttonPadding: buttonPadding,
+                    borderRadius: borderRadius,
+                    iconSize: iconSize,
+                    fontSize: fontSize,
+                    isGradient: false,
+                  );
+                },
+              ),
+            ),
+            SizedBox(width: buttonSpacing),
+
+            // 그리드 크기 선택 버튼
+            Expanded(
+              child: _buildDynamicControlButton(
+                icon: Icons.dashboard_rounded,
+                label: gridSize,
+                onTap: _showGridSizeSelectionDialog,
+                buttonHeight: buttonHeight,
+                buttonPadding: buttonPadding,
+                borderRadius: borderRadius,
+                iconSize: iconSize,
+                fontSize: fontSize,
+                isGradient: false,
+              ),
+            ),
+            SizedBox(width: buttonSpacing),
+
+            // Flip Count 버튼
+            Expanded(
+              child: _buildDynamicControlButton(
+                icon: Icons.flip_rounded,
+                label: '$flipCount',
+                onTap: () {}, // 클릭 불가
+                buttonHeight: buttonHeight,
+                buttonPadding: buttonPadding,
+                borderRadius: borderRadius,
+                iconSize: iconSize,
+                fontSize: fontSize,
+                isGradient: true,
+              ),
+            ),
+            SizedBox(width: buttonSpacing),
+
+            // 언어 선택 버튼
+            Expanded(
+              child: _buildLanguageButton(
+                buttonHeight: buttonHeight,
+                buttonPadding: buttonPadding,
+                borderRadius: borderRadius,
+                iconSize: iconSize,
+                flagHeight: flagHeight,
+                flagWidth: flagWidth,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // 개별 컨트롤 버튼을 빌드하는 헬퍼 메서드
+  Widget _buildDynamicControlButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    required double buttonHeight,
+    required EdgeInsets buttonPadding,
+    required double borderRadius,
+    required double iconSize,
+    required double fontSize,
+    required bool isGradient,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        height: buttonHeight,
+        padding: buttonPadding,
+        decoration: BoxDecoration(
+          color: isGradient ? instagramGradientStart : Color(0xFFFAFBFC),
+          borderRadius: BorderRadius.circular(borderRadius),
+          border: Border.all(
+            color: isGradient ? instagramGradientStart : Color(0xFFE1E8ED),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              offset: Offset(0, 2),
+              blurRadius: 4,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: iconSize,
+              color: isGradient ? Colors.white : Color(0xFF657786),
+            ),
+            SizedBox(width: buttonPadding.horizontal * 0.3),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontSize: fontSize,
+                    color: isGradient ? Colors.white : Color(0xFF14171A),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 언어 선택 버튼을 빌드하는 헬퍼 메서드
+  Widget _buildLanguageButton({
+    required double buttonHeight,
+    required EdgeInsets buttonPadding,
+    required double borderRadius,
+    required double iconSize,
+    required double flagHeight,
+    required double flagWidth,
+  }) {
+    return GestureDetector(
+      onTap: () => _showLanguageSelectionDialog(context),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        height: buttonHeight,
+        padding: buttonPadding,
+        decoration: BoxDecoration(
+          color: Color(0xFFFAFBFC),
+          borderRadius: BorderRadius.circular(borderRadius),
+          border: Border.all(
+            color: Color(0xFFE1E8ED),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              offset: Offset(0, 2),
+              blurRadius: 4,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Consumer<LanguageProvider>(
+          builder: (context, languageProvider, child) {
+            String currentLanguage = languageProvider.currentLanguage;
+            String forFlag = currentLanguage.split('-')[1].toLowerCase();
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.volume_up_rounded,
+                  size: iconSize,
+                  color: Color(0xFF657786),
+                ),
+                SizedBox(width: buttonPadding.horizontal * 0.3),
+                Flag.fromString(
+                  forFlag,
+                  height: flagHeight,
+                  width: flagWidth,
+                  borderRadius: 2,
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   Widget _buildUserProfileButton() {
     return ProfileButton(
       user: _user,
@@ -951,22 +1139,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           }
 
           // Show success message if password was changed
-          if (result.containsKey('passwordChanged') &&
-              result['passwordChanged'] == true) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Profile and password updated successfully'),
-                backgroundColor: Colors.green,
-              ),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Profile updated successfully'),
-                backgroundColor: Colors.green,
-              ),
-            );
-          }
+          // if (result.containsKey('passwordChanged') &&
+          //     result['passwordChanged'] == true) {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(
+          //       content: Text('Profile and password updated successfully'),
+          //       backgroundColor: Colors.green,
+          //     ),
+          //   );
+          // } else {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(
+          //       content: Text('Profile updated successfully'),
+          //       backgroundColor: Colors.green,
+          //     ),
+          //   );
+          // }
         }
       } catch (e) {
         print('Profile update error: $e');
@@ -1189,15 +1377,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         });
 
         // 플레이어가 변경되었음을 사용자에게 알림
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('플레이어가 변경되어 새 게임이 시작됩니다'),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ));
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text('플레이어가 변경되어 새 게임이 시작됩니다'),
+        //   duration: Duration(seconds: 2),
+        //   backgroundColor: Colors.green,
+        // ));
       } catch (e) {
         print('플레이어 정보 설정 중 오류 발생: $e');
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('플레이어 정보 설정 중 오류가 발생했습니다.')));
+        // ScaffoldMessenger.of(context)
+        //     .showSnackBar(SnackBar(content: Text('플레이어 정보 설정 중 오류가 발생했습니다.')));
       }
     }
   }
@@ -1222,11 +1410,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
 
       // 그리드 크기가 변경되었음을 사용자에게 알림
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('그리드 크기가 변경되어 새 게임이 시작됩니다'),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.green,
-      ));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text('그리드 크기가 변경되어 새 게임이 시작됩니다'),
+      //   duration: Duration(seconds: 2),
+      //   backgroundColor: Colors.green,
+      // ));
     }
   }
 

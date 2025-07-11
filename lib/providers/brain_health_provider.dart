@@ -41,6 +41,13 @@ class BrainHealthProvider with ChangeNotifier {
   bool _disposed = false; // dispose 상태 추적
   int _brainHealthIndexLevel = 1; // BHI 레벨 추가 (기본값 1)
   double _brainHealthIndex = 0.0; // BHI 값 추가 (기본값 0.0)
+  // BHI 컴포넌트 값들 추가
+  double _ageComponent = 0.0;
+  double _activityComponent = 0.0;
+  double _performanceComponent = 0.0;
+  double _persistenceBonus = 0.0;
+  double _inactivityPenalty = 0.0;
+  int _daysSinceLastGame = 0;
 
   int get brainHealthScore => _brainHealthScore;
   int get totalGamesPlayed => _totalGamesPlayed;
@@ -52,6 +59,13 @@ class BrainHealthProvider with ChangeNotifier {
   String? get error => _error;
   int get brainHealthIndexLevel => _brainHealthIndexLevel; // BHI 레벨 getter 추가
   double get brainHealthIndex => _brainHealthIndex; // BHI 값 getter 추가
+  // BHI 컴포넌트 getter들 추가
+  double get ageComponent => _ageComponent;
+  double get activityComponent => _activityComponent;
+  double get performanceComponent => _performanceComponent;
+  double get persistenceBonus => _persistenceBonus;
+  double get inactivityPenalty => _inactivityPenalty;
+  int get daysSinceLastGame => _daysSinceLastGame;
 
   // Get best time for a specific grid size
   int getBestTimeForGrid(String gridSize) {
@@ -710,6 +724,19 @@ class BrainHealthProvider with ChangeNotifier {
             prefs.getDouble('${userKeyPrefix}brainHealthIndex') ??
                 0.0; // BHI 값 로드
 
+        // BHI 컴포넌트 값들 로드
+        _ageComponent = prefs.getDouble('${userKeyPrefix}ageComponent') ?? 0.0;
+        _activityComponent =
+            prefs.getDouble('${userKeyPrefix}activityComponent') ?? 0.0;
+        _performanceComponent =
+            prefs.getDouble('${userKeyPrefix}performanceComponent') ?? 0.0;
+        _persistenceBonus =
+            prefs.getDouble('${userKeyPrefix}persistenceBonus') ?? 0.0;
+        _inactivityPenalty =
+            prefs.getDouble('${userKeyPrefix}inactivityPenalty') ?? 0.0;
+        _daysSinceLastGame =
+            prefs.getInt('${userKeyPrefix}daysSinceLastGame') ?? 0;
+
         // Load best times by grid size
         String? bestTimesJson =
             prefs.getString('${userKeyPrefix}bestTimesByGridSize');
@@ -752,6 +779,18 @@ class BrainHealthProvider with ChangeNotifier {
         _scoreHistory = [];
         _brainHealthIndexLevel = 1; // BHI 레벨 초기화
         _brainHealthIndex = 0.0; // BHI 값 초기화
+        _ageComponent = 0.0;
+        _activityComponent = 0.0;
+        _performanceComponent = 0.0;
+        _persistenceBonus = 0.0;
+        _inactivityPenalty = 0.0;
+        _daysSinceLastGame = 0;
+        _ageComponent = 0.0;
+        _activityComponent = 0.0;
+        _performanceComponent = 0.0;
+        _persistenceBonus = 0.0;
+        _inactivityPenalty = 0.0;
+        _daysSinceLastGame = 0;
       }
     } catch (e) {
       print('Local data load error: $e');
@@ -812,7 +851,8 @@ class BrainHealthProvider with ChangeNotifier {
 
           // Firebase 데이터를 메모리로 로드
           if (brainHealthData.containsKey('brainHealthScore')) {
-            int firebaseScore = brainHealthData['brainHealthScore'] ?? 0;
+            int firebaseScore =
+                _safeIntFromDynamic(brainHealthData['brainHealthScore']);
             if (_brainHealthScore != firebaseScore) {
               _brainHealthScore = firebaseScore;
               dataChanged = true;
@@ -820,7 +860,8 @@ class BrainHealthProvider with ChangeNotifier {
           }
 
           if (brainHealthData.containsKey('totalGamesPlayed')) {
-            int firebaseGames = brainHealthData['totalGamesPlayed'] ?? 0;
+            int firebaseGames =
+                _safeIntFromDynamic(brainHealthData['totalGamesPlayed']);
             if (_totalGamesPlayed != firebaseGames) {
               _totalGamesPlayed = firebaseGames;
               dataChanged = true;
@@ -828,7 +869,8 @@ class BrainHealthProvider with ChangeNotifier {
           }
 
           if (brainHealthData.containsKey('totalMatchesFound')) {
-            int firebaseMatches = brainHealthData['totalMatchesFound'] ?? 0;
+            int firebaseMatches =
+                _safeIntFromDynamic(brainHealthData['totalMatchesFound']);
             if (_totalMatchesFound != firebaseMatches) {
               _totalMatchesFound = firebaseMatches;
               dataChanged = true;
@@ -836,7 +878,8 @@ class BrainHealthProvider with ChangeNotifier {
           }
 
           if (brainHealthData.containsKey('bestTime')) {
-            int firebaseBestTime = brainHealthData['bestTime'] ?? 0;
+            int firebaseBestTime =
+                _safeIntFromDynamic(brainHealthData['bestTime']);
             if (firebaseBestTime > 0 &&
                 (_bestTime == 0 || firebaseBestTime < _bestTime)) {
               _bestTime = firebaseBestTime;
@@ -849,8 +892,8 @@ class BrainHealthProvider with ChangeNotifier {
                     as Map<String, dynamic>? ??
                 {};
 
-            Map<String, int> firebaseBestTimesByGridSize =
-                fbBestTimes.map((key, value) => MapEntry(key, value as int));
+            Map<String, int> firebaseBestTimesByGridSize = fbBestTimes
+                .map((key, value) => MapEntry(key, _safeIntFromDynamic(value)));
 
             firebaseBestTimesByGridSize.forEach((gridSize, time) {
               if (time > 0 &&
@@ -866,7 +909,8 @@ class BrainHealthProvider with ChangeNotifier {
           // BHI 레벨 로드
           if (brainHealthData.containsKey('brainHealthIndexLevel')) {
             int firebaseBHILevel =
-                brainHealthData['brainHealthIndexLevel'] ?? 1;
+                _safeIntFromDynamic(brainHealthData['brainHealthIndexLevel'])
+                    .clamp(1, 5);
             if (_brainHealthIndexLevel != firebaseBHILevel) {
               _brainHealthIndexLevel = firebaseBHILevel;
               dataChanged = true;
@@ -875,9 +919,65 @@ class BrainHealthProvider with ChangeNotifier {
 
           // BHI 값 로드
           if (brainHealthData.containsKey('brainHealthIndex')) {
-            double firebaseBHI = brainHealthData['brainHealthIndex'] ?? 0.0;
+            double firebaseBHI =
+                _safeDoubleFromDynamic(brainHealthData['brainHealthIndex']);
             if (_brainHealthIndex != firebaseBHI) {
               _brainHealthIndex = firebaseBHI;
+              dataChanged = true;
+            }
+          }
+
+          // BHI 컴포넌트 값들 로드
+          if (brainHealthData.containsKey('ageComponent')) {
+            double firebaseAge =
+                _safeDoubleFromDynamic(brainHealthData['ageComponent']);
+            if (_ageComponent != firebaseAge) {
+              _ageComponent = firebaseAge;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('activityComponent')) {
+            double firebaseActivity =
+                _safeDoubleFromDynamic(brainHealthData['activityComponent']);
+            if (_activityComponent != firebaseActivity) {
+              _activityComponent = firebaseActivity;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('performanceComponent')) {
+            double firebasePerformance =
+                _safeDoubleFromDynamic(brainHealthData['performanceComponent']);
+            if (_performanceComponent != firebasePerformance) {
+              _performanceComponent = firebasePerformance;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('persistenceBonus')) {
+            double firebasePersistence =
+                _safeDoubleFromDynamic(brainHealthData['persistenceBonus']);
+            if (_persistenceBonus != firebasePersistence) {
+              _persistenceBonus = firebasePersistence;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('inactivityPenalty')) {
+            double firebaseInactivity =
+                _safeDoubleFromDynamic(brainHealthData['inactivityPenalty']);
+            if (_inactivityPenalty != firebaseInactivity) {
+              _inactivityPenalty = firebaseInactivity;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('daysSinceLastGame')) {
+            int firebaseDays =
+                _safeIntFromDynamic(brainHealthData['daysSinceLastGame']);
+            if (_daysSinceLastGame != firebaseDays) {
+              _daysSinceLastGame = firebaseDays;
               dataChanged = true;
             }
           }
@@ -903,9 +1003,16 @@ class BrainHealthProvider with ChangeNotifier {
 
             // 맵의 각 항목을 ScoreRecord로 변환
             scoreHistoryMap.forEach((timestamp, score) {
-              _scoreHistory.add(ScoreRecord(
-                  DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp)),
-                  score as int));
+              try {
+                int timestampInt = int.parse(timestamp);
+                int scoreInt = _safeIntFromDynamic(score);
+                _scoreHistory.add(ScoreRecord(
+                    DateTime.fromMillisecondsSinceEpoch(timestampInt),
+                    scoreInt));
+              } catch (e) {
+                print(
+                    'Error parsing score history entry: timestamp=$timestamp, score=$score, error=$e');
+              }
             });
 
             // 날짜순으로 정렬
@@ -962,6 +1069,19 @@ class BrainHealthProvider with ChangeNotifier {
             _brainHealthIndexLevel); // BHI 레벨 저장
         await prefs.setDouble(
             '${userKeyPrefix}brainHealthIndex', _brainHealthIndex); // BHI 값 저장
+
+        // BHI 컴포넌트 값들 저장
+        await prefs.setDouble('${userKeyPrefix}ageComponent', _ageComponent);
+        await prefs.setDouble(
+            '${userKeyPrefix}activityComponent', _activityComponent);
+        await prefs.setDouble(
+            '${userKeyPrefix}performanceComponent', _performanceComponent);
+        await prefs.setDouble(
+            '${userKeyPrefix}persistenceBonus', _persistenceBonus);
+        await prefs.setDouble(
+            '${userKeyPrefix}inactivityPenalty', _inactivityPenalty);
+        await prefs.setInt(
+            '${userKeyPrefix}daysSinceLastGame', _daysSinceLastGame);
 
         // Save best times by grid size
         await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
@@ -1202,11 +1322,28 @@ class BrainHealthProvider with ChangeNotifier {
         print('BHI value unchanged: $_brainHealthIndex');
       }
 
+      // BHI 컴포넌트 값들 업데이트
+      _ageComponent = bhiResult['ageComponent'] as double? ?? 0.0;
+      _activityComponent = bhiResult['activityComponent'] as double? ?? 0.0;
+      _performanceComponent =
+          bhiResult['performanceComponent'] as double? ?? 0.0;
+      _persistenceBonus = bhiResult['persistenceBonus'] as double? ?? 0.0;
+      _inactivityPenalty = bhiResult['inactivityPenalty'] as double? ?? 0.0;
+      _daysSinceLastGame = bhiResult['daysSinceLastGame'] as int? ?? 0;
+      print(
+          'Updated BHI components: age=$_ageComponent, activity=$_activityComponent, performance=$_performanceComponent');
+
       // BHI 데이터만 Firebase에 별도 저장
       print('Saving BHI data to Firebase');
       await FirebaseFirestore.instance.collection('users').doc(_userId).update({
         'brain_health.brainHealthIndexLevel': _brainHealthIndexLevel,
         'brain_health.brainHealthIndex': _brainHealthIndex,
+        'brain_health.ageComponent': _ageComponent,
+        'brain_health.activityComponent': _activityComponent,
+        'brain_health.performanceComponent': _performanceComponent,
+        'brain_health.persistenceBonus': _persistenceBonus,
+        'brain_health.inactivityPenalty': _inactivityPenalty,
+        'brain_health.daysSinceLastGame': _daysSinceLastGame,
         'brain_health.lastBHIUpdate': FieldValue.serverTimestamp(),
       });
       print('BHI data saved to Firebase');
@@ -1228,6 +1365,17 @@ class BrainHealthProvider with ChangeNotifier {
           '${userKeyPrefix}brainHealthIndexLevel', _brainHealthIndexLevel);
       await prefs.setDouble(
           '${userKeyPrefix}brainHealthIndex', _brainHealthIndex);
+      await prefs.setDouble('${userKeyPrefix}ageComponent', _ageComponent);
+      await prefs.setDouble(
+          '${userKeyPrefix}activityComponent', _activityComponent);
+      await prefs.setDouble(
+          '${userKeyPrefix}performanceComponent', _performanceComponent);
+      await prefs.setDouble(
+          '${userKeyPrefix}persistenceBonus', _persistenceBonus);
+      await prefs.setDouble(
+          '${userKeyPrefix}inactivityPenalty', _inactivityPenalty);
+      await prefs.setInt(
+          '${userKeyPrefix}daysSinceLastGame', _daysSinceLastGame);
       await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
           jsonEncode(_bestTimesByGridSize));
       print('All data saved to local storage');
@@ -1748,6 +1896,12 @@ class BrainHealthProvider with ChangeNotifier {
       _scoreHistory = [];
       _brainHealthIndexLevel = 1; // BHI 레벨 리셋
       _brainHealthIndex = 0.0; // BHI 값 리셋
+      _ageComponent = 0.0;
+      _activityComponent = 0.0;
+      _performanceComponent = 0.0;
+      _persistenceBonus = 0.0;
+      _inactivityPenalty = 0.0;
+      _daysSinceLastGame = 0;
     }
 
     if (!_disposed) {
@@ -1760,11 +1914,10 @@ class BrainHealthProvider with ChangeNotifier {
     if (_disposed) return [];
 
     try {
-      // Firestore에서 상위 10명의 사용자 랭킹을 가져옵니다
+      // Firestore에서 모든 사용자 랭킹을 가져옵니다
       QuerySnapshot rankingSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .orderBy('brain_health.brainHealthScore', descending: true)
-          .limit(10)
           .get();
 
       List<Map<String, dynamic>> rankings = [];
@@ -1938,5 +2091,26 @@ class BrainHealthProvider with ChangeNotifier {
     } catch (e) {
       print('Error updating brain health index: $e');
     }
+  }
+
+  // 안전한 타입 변환 헬퍼 메서드들
+  double _safeDoubleFromDynamic(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is double) return value;
+    if (value is int) return value.toDouble();
+    if (value is String) {
+      return double.tryParse(value) ?? 0.0;
+    }
+    return 0.0;
+  }
+
+  int _safeIntFromDynamic(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    if (value is double) return value.toInt();
+    if (value is String) {
+      return int.tryParse(value) ?? 0;
+    }
+    return 0;
   }
 }

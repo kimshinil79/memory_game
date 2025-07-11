@@ -798,6 +798,42 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 ],
               ),
               SizedBox(height: 16),
+              // 회원 탈퇴 버튼 추가
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(widget.dialogContext)
+                      .pop({'deleteAccount': true});
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red.shade100,
+                  foregroundColor: Colors.red.shade700,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.red.shade300),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  minimumSize: Size(double.infinity, 48),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.delete_forever,
+                      size: 20 * _textScaleFactor,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      t('delete_account'),
+                      style: _getTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 12),
               // 로그아웃 버튼을 하단에 추가
               ElevatedButton(
                 onPressed: () {

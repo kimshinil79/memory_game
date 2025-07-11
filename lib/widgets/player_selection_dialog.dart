@@ -57,14 +57,89 @@ class _PlayerSelectionDialogWidgetState
   Map<String, String> _translations = {};
   bool _didInitProvider = false; // Provider 초기화 여부 추적
 
-  // Define text scale factor for dynamic text sizing
-  double get _textScaleFactor {
-    final width = MediaQuery.of(context).size.width;
-    // Adjust these breakpoints as needed
-    if (width < 360) return 0.8;
-    if (width < 400) return 0.9;
-    return 1.0;
-  }
+  // 화면 크기 기반 동적 크기 계산
+  double get _screenWidth => MediaQuery.of(context).size.width;
+  double get _screenHeight => MediaQuery.of(context).size.height;
+
+  // 화면 크기 분류
+  bool get _isSmallScreen => _screenWidth < 360 || _screenHeight < 640;
+  bool get _isMediumScreen => _screenWidth < 414 || _screenHeight < 736;
+  bool get _isLargeScreen => _screenWidth >= 768;
+
+  // 다이얼로그 크기
+  double get _dialogWidth =>
+      _isLargeScreen ? _screenWidth * 0.5 : _screenWidth * 0.85;
+  double get _dialogMaxHeight => _screenHeight * 0.8;
+  double get _dialogPadding => _screenWidth * 0.07;
+  double get _dialogBorderRadius => _screenWidth * 0.07;
+
+  // 폰트 크기
+  double get _titleFontSize => _isSmallScreen
+      ? _screenWidth * 0.065
+      : _isMediumScreen
+          ? _screenWidth * 0.07
+          : _screenWidth * 0.075;
+
+  double get _subtitleFontSize => _isSmallScreen
+      ? _screenWidth * 0.035
+      : _isMediumScreen
+          ? _screenWidth * 0.038
+          : _screenWidth * 0.04;
+
+  double get _bodyFontSize => _isSmallScreen
+      ? _screenWidth * 0.032
+      : _isMediumScreen
+          ? _screenWidth * 0.035
+          : _screenWidth * 0.038;
+
+  double get _buttonFontSize => _isSmallScreen
+      ? _screenWidth * 0.035
+      : _isMediumScreen
+          ? _screenWidth * 0.038
+          : _screenWidth * 0.04;
+
+  // 사용자 리스트 관련 크기
+  double get _userListHeight => _isSmallScreen
+      ? _screenHeight * 0.35
+      : _isMediumScreen
+          ? _screenHeight * 0.37
+          : _screenHeight * 0.4;
+
+  double get _avatarRadius => _isSmallScreen
+      ? _screenWidth * 0.055
+      : _isMediumScreen
+          ? _screenWidth * 0.058
+          : _screenWidth * 0.06;
+
+  double get _userItemFontSize => _isSmallScreen
+      ? _screenWidth * 0.035
+      : _isMediumScreen
+          ? _screenWidth * 0.038
+          : _screenWidth * 0.04;
+
+  double get _userDetailFontSize => _isSmallScreen
+      ? _screenWidth * 0.03
+      : _isMediumScreen
+          ? _screenWidth * 0.032
+          : _screenWidth * 0.035;
+
+  // 버튼 크기
+  double get _buttonHeight => _isSmallScreen
+      ? _screenHeight * 0.055
+      : _isMediumScreen
+          ? _screenHeight * 0.058
+          : _screenHeight * 0.06;
+
+  // 여백 및 간격
+  double get _verticalSpacing => _screenHeight * 0.015;
+  double get _horizontalSpacing => _screenWidth * 0.04;
+
+  // 아이콘 크기
+  double get _iconSize => _isSmallScreen
+      ? _screenWidth * 0.06
+      : _isMediumScreen
+          ? _screenWidth * 0.065
+          : _screenWidth * 0.07;
 
   // Helper method for creating text styles with dynamic sizing
   TextStyle _getTextStyle({
@@ -74,7 +149,7 @@ class _PlayerSelectionDialogWidgetState
     String? fontFamily,
   }) {
     final style = GoogleFonts.poppins(
-      fontSize: fontSize * _textScaleFactor,
+      fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,
     );
@@ -252,150 +327,166 @@ class _PlayerSelectionDialogWidgetState
 
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(_dialogBorderRadius),
       ),
       elevation: 10,
       backgroundColor: Colors.white,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.85,
-        padding: EdgeInsets.all(28),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header with gradient text
-            ShaderMask(
-              shaderCallback: (bounds) => LinearGradient(
-                colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ).createShader(bounds),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  _translations['select_players'] ?? 'Select Players',
-                  style: _getTextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            SizedBox(height: 12),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                _translations['select_up_to_3_players'] ??
-                    'Select up to 3 other players',
-                style: _getTextStyle(
-                  fontSize: 16,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              margin: EdgeInsets.only(top: 8),
-              decoration: BoxDecoration(
-                color: Color(0xFF833AB4).withOpacity(0.08),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  _translations['you_will_be_included'] ??
-                      'You will always be included as a player',
-                  style: _getTextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF833AB4),
-                    fontWeight: FontWeight.w500,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: _dialogWidth,
+          maxHeight: _dialogMaxHeight,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(_dialogPadding),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header with gradient text
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ).createShader(bounds),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['select_players'] ?? 'Select Players',
+                    style: _getTextStyle(
+                      fontSize: _titleFontSize,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 24),
-            _buildUsersList(),
-            SizedBox(height: 32),
-            // Action buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Cancel button
-                Expanded(
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(null),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            _translations['cancel'] ?? 'Cancel',
-                            style: _getTextStyle(
-                              fontSize: 16,
-                              color: Colors.grey.shade700,
-                              fontWeight: FontWeight.w600,
+              SizedBox(height: _verticalSpacing),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _translations['select_up_to_3_players'] ??
+                      'Select up to 3 other players',
+                  style: _getTextStyle(
+                    fontSize: _subtitleFontSize,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: _horizontalSpacing,
+                    vertical: _verticalSpacing * 0.5),
+                margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
+                decoration: BoxDecoration(
+                  color: Color(0xFF833AB4).withOpacity(0.08),
+                  borderRadius:
+                      BorderRadius.circular(_dialogBorderRadius * 0.6),
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['you_will_be_included'] ??
+                        'You will always be included as a player',
+                    style: _getTextStyle(
+                      fontSize: _bodyFontSize,
+                      color: Color(0xFF833AB4),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: _verticalSpacing * 1.6),
+              _buildUsersList(),
+              SizedBox(height: _verticalSpacing * 2),
+              // Action buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Cancel button
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pop(null),
+                      borderRadius:
+                          BorderRadius.circular(_dialogBorderRadius * 0.85),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: _buttonHeight * 0.25),
+                        height: _buttonHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius:
+                              BorderRadius.circular(_dialogBorderRadius * 0.85),
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              _translations['cancel'] ?? 'Cancel',
+                              style: _getTextStyle(
+                                fontSize: _buttonFontSize,
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 16),
-                // Confirm button
-                Expanded(
-                  child: InkWell(
-                    onTap: () async {
-                      // 선택된 유저 목록에 대해 PIN 인증 진행
-                      List<Map<String, dynamic>> verifiedUsers =
-                          await _verifySelectedUsersPin();
-                      // 선택된 플레이어가 없어도 다이얼로그를 닫음
-                      Navigator.of(context).pop(verifiedUsers);
-                    },
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF833AB4).withOpacity(0.3),
-                            blurRadius: 10,
-                            offset: Offset(0, 5),
+                  SizedBox(width: _horizontalSpacing),
+                  // Confirm button
+                  Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        // 선택된 유저 목록에 대해 PIN 인증 진행
+                        List<Map<String, dynamic>> verifiedUsers =
+                            await _verifySelectedUsersPin();
+                        // 선택된 플레이어가 없어도 다이얼로그를 닫음
+                        Navigator.of(context).pop(verifiedUsers);
+                      },
+                      borderRadius:
+                          BorderRadius.circular(_dialogBorderRadius * 0.85),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: _buttonHeight * 0.25),
+                        height: _buttonHeight,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            _translations['confirm'] ?? 'Confirm',
-                            style: _getTextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                          borderRadius:
+                              BorderRadius.circular(_dialogBorderRadius * 0.85),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF833AB4).withOpacity(0.3),
+                              blurRadius: _screenWidth * 0.025,
+                              offset: Offset(0, _screenHeight * 0.006),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              _translations['confirm'] ?? 'Confirm',
+                              style: _getTextStyle(
+                                fontSize: _buttonFontSize,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -404,7 +495,7 @@ class _PlayerSelectionDialogWidgetState
   Widget _buildUsersList() {
     if (_isLoading) {
       return Container(
-        height: 200,
+        height: _userListHeight,
         child: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
@@ -415,7 +506,7 @@ class _PlayerSelectionDialogWidgetState
 
     if (_error != null) {
       return Container(
-        height: 200,
+        height: _userListHeight,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -423,35 +514,39 @@ class _PlayerSelectionDialogWidgetState
               Icon(
                 Icons.error_outline,
                 color: Colors.red.shade400,
-                size: 48 * _textScaleFactor,
+                size: _iconSize,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: _verticalSpacing),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
                   _translations['failed_to_load_users'] ??
                       'Failed to load users',
                   style: _getTextStyle(
-                    fontSize: 16,
+                    fontSize: _subtitleFontSize,
                     color: Colors.red.shade400,
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: _verticalSpacing * 0.5),
               ElevatedButton(
                 onPressed: _fetchUsers,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF833AB4),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius:
+                        BorderRadius.circular(_dialogBorderRadius * 0.7),
                   ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: _horizontalSpacing,
+                      vertical: _verticalSpacing * 0.5),
                 ),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
                     _translations['retry'] ?? 'Retry',
                     style: _getTextStyle(
-                      fontSize: 14,
+                      fontSize: _bodyFontSize,
                       color: Colors.white,
                     ),
                   ),
@@ -465,14 +560,14 @@ class _PlayerSelectionDialogWidgetState
 
     if (_users.isEmpty) {
       return Container(
-        height: 200,
+        height: _userListHeight,
         child: Center(
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               _translations['no_other_users'] ?? 'No other users found',
               style: _getTextStyle(
-                fontSize: 16,
+                fontSize: _subtitleFontSize,
                 color: Colors.grey.shade600,
               ),
             ),
@@ -483,23 +578,26 @@ class _PlayerSelectionDialogWidgetState
 
     // Limiting height with a scrollable container
     return Container(
-      height: 300,
+      height: _userListHeight,
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade200, width: 1.5),
+        borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.7),
+        border: Border.all(
+            color: Colors.grey.shade200, width: _screenWidth * 0.004),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.7),
         child: ListView.builder(
-          padding: EdgeInsets.all(4),
+          padding: EdgeInsets.all(_screenWidth * 0.01),
           itemCount: _users.length,
           itemBuilder: (context, index) {
             final user = _users[index];
             final isSelected = _isUserSelected(user);
 
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              margin: EdgeInsets.symmetric(
+                  vertical: _verticalSpacing * 0.25,
+                  horizontal: _horizontalSpacing * 0.5),
               decoration: BoxDecoration(
                 gradient: isSelected
                     ? LinearGradient(
@@ -509,14 +607,14 @@ class _PlayerSelectionDialogWidgetState
                       )
                     : null,
                 color: isSelected ? null : Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.55),
                 boxShadow: [
                   BoxShadow(
                     color: isSelected
                         ? Color(0xFF833AB4).withOpacity(0.2)
                         : Colors.black.withOpacity(0.05),
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
+                    blurRadius: _screenWidth * 0.015,
+                    offset: Offset(0, _screenHeight * 0.004),
                   ),
                 ],
               ),
@@ -524,14 +622,17 @@ class _PlayerSelectionDialogWidgetState
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () => _toggleUserSelection(user),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius:
+                      BorderRadius.circular(_dialogBorderRadius * 0.55),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: _horizontalSpacing * 0.75,
+                        vertical: _verticalSpacing * 0.5),
                     child: Row(
                       children: [
                         // Avatar or profile image
                         CircleAvatar(
-                          radius: 24 * _textScaleFactor,
+                          radius: _avatarRadius,
                           backgroundColor: isSelected
                               ? Colors.white.withOpacity(0.9)
                               : Color(0xFF833AB4).withOpacity(0.1),
@@ -544,7 +645,7 @@ class _PlayerSelectionDialogWidgetState
                                       .toUpperCase()
                                   : 'U',
                               style: _getTextStyle(
-                                fontSize: 20,
+                                fontSize: _avatarRadius * 0.8,
                                 fontWeight: FontWeight.bold,
                                 color: isSelected
                                     ? Color(0xFF833AB4)
@@ -553,7 +654,7 @@ class _PlayerSelectionDialogWidgetState
                             ),
                           ),
                         ),
-                        SizedBox(width: 12),
+                        SizedBox(width: _horizontalSpacing * 0.75),
                         // User info
                         Expanded(
                           child: Column(
@@ -567,7 +668,7 @@ class _PlayerSelectionDialogWidgetState
                                       (_translations['unknown_player'] ??
                                           'Unknown Player'),
                                   style: _getTextStyle(
-                                    fontSize: 16,
+                                    fontSize: _userItemFontSize,
                                     fontWeight: FontWeight.w600,
                                     color: isSelected
                                         ? Colors.white
@@ -581,12 +682,13 @@ class _PlayerSelectionDialogWidgetState
                                 children: [
                                   if (user['country'] != null)
                                     Container(
-                                      margin: EdgeInsets.only(right: 4),
+                                      margin: EdgeInsets.only(
+                                          right: _screenWidth * 0.01),
                                       child: Flag.fromString(
                                         (user['country'] as String)
                                             .toUpperCase(),
-                                        height: 10 * _textScaleFactor,
-                                        width: 15 * _textScaleFactor,
+                                        height: _screenHeight * 0.012,
+                                        width: _screenWidth * 0.04,
                                         borderRadius: 2,
                                       ),
                                     ),
@@ -597,7 +699,7 @@ class _PlayerSelectionDialogWidgetState
                                       child: Text(
                                         '${_translations['country'] ?? 'Country'}: ${user['country'] ?? (_translations['unknown'] ?? 'unknown')} ${user['level'] != null ? '• ${_translations['level'] ?? 'Level'} ${user['level']}' : ''}',
                                         style: _getTextStyle(
-                                          fontSize: 14,
+                                          fontSize: _userDetailFontSize,
                                           color: isSelected
                                               ? Colors.white.withOpacity(0.9)
                                               : Colors.grey.shade600,
@@ -612,8 +714,8 @@ class _PlayerSelectionDialogWidgetState
                         ),
                         // Selection indicator
                         Container(
-                          width: 28 * _textScaleFactor,
-                          height: 28 * _textScaleFactor,
+                          width: _avatarRadius * 1.2,
+                          height: _avatarRadius * 1.2,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isSelected
@@ -622,12 +724,13 @@ class _PlayerSelectionDialogWidgetState
                             border: isSelected
                                 ? null
                                 : Border.all(
-                                    color: Colors.grey.shade300, width: 2),
+                                    color: Colors.grey.shade300,
+                                    width: _screenWidth * 0.005),
                           ),
                           child: isSelected
                               ? Icon(
                                   Icons.check,
-                                  size: 22 * _textScaleFactor,
+                                  size: _avatarRadius * 0.9,
                                   color: Color(0xFF833AB4),
                                 )
                               : null,
@@ -674,10 +777,36 @@ class _PlayerSelectionDialogWidgetState
             opacity: animation,
             child: StatefulBuilder(
               builder: (context, setState) {
-                // 이 컨텍스트에서의 텍스트 스케일 팩터
+                // 이 컨텍스트에서의 동적 크기 계산
                 final dialogWidth = MediaQuery.of(context).size.width;
-                final textScaleFactor =
-                    dialogWidth < 360 ? 0.8 : (dialogWidth < 400 ? 0.9 : 1.0);
+                final dialogHeight = MediaQuery.of(context).size.height;
+                final isSmallDialog = dialogWidth < 360 || dialogHeight < 640;
+                final isMediumDialog = dialogWidth < 414 || dialogHeight < 736;
+
+                // PIN 다이얼로그 전용 크기 계산
+                final pinDialogWidth = dialogWidth * 0.9;
+                final pinDialogPadding = dialogWidth * 0.06;
+                final pinDialogBorderRadius = dialogWidth * 0.07;
+                final pinTitleFontSize = isSmallDialog
+                    ? dialogWidth * 0.045
+                    : isMediumDialog
+                        ? dialogWidth * 0.048
+                        : dialogWidth * 0.05;
+                final pinBodyFontSize = isSmallDialog
+                    ? dialogWidth * 0.035
+                    : isMediumDialog
+                        ? dialogWidth * 0.038
+                        : dialogWidth * 0.04;
+                final pinInputFontSize = isSmallDialog
+                    ? dialogWidth * 0.06
+                    : isMediumDialog
+                        ? dialogWidth * 0.065
+                        : dialogWidth * 0.07;
+                final pinIconSize = isSmallDialog
+                    ? dialogWidth * 0.08
+                    : isMediumDialog
+                        ? dialogWidth * 0.09
+                        : dialogWidth * 0.1;
 
                 TextStyle getDialogTextStyle({
                   required double fontSize,
@@ -685,7 +814,7 @@ class _PlayerSelectionDialogWidgetState
                   Color color = Colors.black87,
                 }) {
                   return GoogleFonts.poppins(
-                    fontSize: fontSize * textScaleFactor,
+                    fontSize: fontSize,
                     fontWeight: fontWeight,
                     color: color,
                   );
@@ -700,16 +829,17 @@ class _PlayerSelectionDialogWidgetState
                       child: Material(
                         color: Colors.transparent,
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: pinDialogWidth,
                           padding: const EdgeInsets.all(0),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(28),
+                            borderRadius:
+                                BorderRadius.circular(pinDialogBorderRadius),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
+                                blurRadius: dialogWidth * 0.05,
+                                offset: Offset(0, dialogHeight * 0.012),
                               ),
                             ],
                           ),
@@ -718,7 +848,7 @@ class _PlayerSelectionDialogWidgetState
                             children: [
                               // 헤더 부분 (그라데이션 적용)
                               Container(
-                                height: 110,
+                                height: dialogHeight * 0.13,
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
@@ -729,8 +859,10 @@ class _PlayerSelectionDialogWidgetState
                                     end: Alignment.bottomRight,
                                   ),
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(28),
-                                    topRight: Radius.circular(28),
+                                    topLeft:
+                                        Radius.circular(pinDialogBorderRadius),
+                                    topRight:
+                                        Radius.circular(pinDialogBorderRadius),
                                   ),
                                 ),
                                 child: Center(
@@ -740,9 +872,9 @@ class _PlayerSelectionDialogWidgetState
                                       Icon(
                                         Icons.verified_user_rounded,
                                         color: Colors.white,
-                                        size: 40 * textScaleFactor,
+                                        size: pinIconSize,
                                       ),
-                                      SizedBox(height: 8),
+                                      SizedBox(height: dialogHeight * 0.01),
                                       FittedBox(
                                         fit: BoxFit.scaleDown,
                                         child: Text(
@@ -750,7 +882,7 @@ class _PlayerSelectionDialogWidgetState
                                                   'multiplayer_verification'] ??
                                               'Multiplayer Verification',
                                           style: getDialogTextStyle(
-                                            fontSize: 18,
+                                            fontSize: pinTitleFontSize,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),
@@ -763,28 +895,31 @@ class _PlayerSelectionDialogWidgetState
 
                               // 콘텐츠 부분
                               Padding(
-                                padding: const EdgeInsets.all(24),
+                                padding: EdgeInsets.all(pinDialogPadding),
                                 child: Column(
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade100,
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(
+                                            pinDialogBorderRadius * 0.6),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.1),
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 2),
+                                            blurRadius: dialogWidth * 0.02,
+                                            offset:
+                                                Offset(0, dialogHeight * 0.003),
                                           ),
                                         ],
                                       ),
-                                      padding: EdgeInsets.all(16),
+                                      padding: EdgeInsets.all(
+                                          pinDialogPadding * 0.67),
                                       child: Row(
                                         children: [
                                           CircleAvatar(
                                             backgroundColor: Color(0xFF833AB4)
                                                 .withOpacity(0.1),
-                                            radius: 20 * textScaleFactor,
+                                            radius: dialogWidth * 0.05,
                                             child: FittedBox(
                                               fit: BoxFit.scaleDown,
                                               child: Text(
@@ -793,14 +928,14 @@ class _PlayerSelectionDialogWidgetState
                                                     math.min(
                                                         1, nickname.length)),
                                                 style: getDialogTextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: pinTitleFontSize,
                                                   fontWeight: FontWeight.bold,
                                                   color: Color(0xFF833AB4),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 12),
+                                          SizedBox(width: dialogWidth * 0.03),
                                           Expanded(
                                             child: FittedBox(
                                               fit: BoxFit.scaleDown,
@@ -808,7 +943,7 @@ class _PlayerSelectionDialogWidgetState
                                               child: Text(
                                                 '$nickname${translations['enter_pin_for'] ?? 'Enter PIN for'}',
                                                 style: getDialogTextStyle(
-                                                  fontSize: 15,
+                                                  fontSize: pinBodyFontSize,
                                                   fontWeight: FontWeight.w500,
                                                   color: Colors.black87,
                                                 ),
@@ -818,7 +953,7 @@ class _PlayerSelectionDialogWidgetState
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 24),
+                                    SizedBox(height: dialogHeight * 0.03),
                                     TextField(
                                       controller: pinController,
                                       keyboardType: TextInputType.number,

@@ -45,6 +45,127 @@ class _TestPageState extends State<TestPage>
   // 언어 번역을 저장할 변수
   late Map<String, String> translations;
 
+  // 화면 크기 기반 동적 크기 계산
+  double get _screenWidth => MediaQuery.of(context).size.width;
+  double get _screenHeight => MediaQuery.of(context).size.height;
+
+  // 화면 크기 분류
+  bool get _isSmallScreen => _screenWidth < 360 || _screenHeight < 640;
+  bool get _isMediumScreen => _screenWidth < 414 || _screenHeight < 736;
+  bool get _isLargeScreen => _screenWidth >= 768;
+
+  // 앱바 제목 폰트 크기
+  double get _appBarTitleSize => _isSmallScreen
+      ? _screenWidth * 0.055
+      : _isMediumScreen
+          ? _screenWidth * 0.058
+          : _screenWidth * 0.06;
+
+  // 질문 인디케이터 크기
+  double get _questionIndicatorSize => _isSmallScreen
+      ? _screenWidth * 0.065
+      : _isMediumScreen
+          ? _screenWidth * 0.068
+          : _screenWidth * 0.07;
+
+  double get _questionIndicatorFontSize => _isSmallScreen
+      ? _screenWidth * 0.028
+      : _isMediumScreen
+          ? _screenWidth * 0.03
+          : _screenWidth * 0.032;
+
+  // 그리드 관련 크기
+  double get _gridSpacing => _screenWidth * 0.04;
+  double get _gridHorizontalPadding => _screenWidth * 0.05;
+  double get _gridChildAspectRatio => _isSmallScreen ? 1.0 : 1.1;
+
+  // 컨트롤 버튼 크기
+  double get _controlButtonSize => _isSmallScreen
+      ? _screenWidth * 0.12
+      : _isMediumScreen
+          ? _screenWidth * 0.13
+          : _screenWidth * 0.14;
+
+  double get _playButtonSize => _isSmallScreen
+      ? _screenWidth * 0.16
+      : _isMediumScreen
+          ? _screenWidth * 0.17
+          : _screenWidth * 0.18;
+
+  double get _controlIconSize => _isSmallScreen
+      ? _screenWidth * 0.045
+      : _isMediumScreen
+          ? _screenWidth * 0.048
+          : _screenWidth * 0.05;
+
+  double get _playIconSize => _isSmallScreen
+      ? _screenWidth * 0.07
+      : _isMediumScreen
+          ? _screenWidth * 0.075
+          : _screenWidth * 0.08;
+
+  // 하단 버튼 크기
+  double get _bottomButtonHeight => _isSmallScreen
+      ? _screenHeight * 0.055
+      : _isMediumScreen
+          ? _screenHeight * 0.058
+          : _screenHeight * 0.06;
+
+  double get _bottomButtonFontSize => _isSmallScreen
+      ? _screenWidth * 0.035
+      : _isMediumScreen
+          ? _screenWidth * 0.038
+          : _screenWidth * 0.04;
+
+  // 여백 및 간격
+  double get _verticalSpacing => _screenHeight * 0.02;
+  double get _sectionPadding => _screenWidth * 0.04;
+
+  // 다이얼로그 크기
+  double get _dialogMaxHeight => _screenHeight * 0.8;
+  double get _dialogWidth =>
+      _isLargeScreen ? _screenWidth * 0.5 : _screenWidth * 0.85;
+  double get _dialogPadding => _screenWidth * 0.06;
+  double get _dialogBorderRadius => _screenWidth * 0.05;
+
+  // 다이얼로그 폰트 크기
+  double get _dialogTitleSize => _isSmallScreen
+      ? _screenWidth * 0.055
+      : _isMediumScreen
+          ? _screenWidth * 0.058
+          : _screenWidth * 0.06;
+
+  double get _dialogSubtitleSize => _isSmallScreen
+      ? _screenWidth * 0.035
+      : _isMediumScreen
+          ? _screenWidth * 0.038
+          : _screenWidth * 0.04;
+
+  double get _dialogScoreSize => _isSmallScreen
+      ? _screenWidth * 0.08
+      : _isMediumScreen
+          ? _screenWidth * 0.085
+          : _screenWidth * 0.09;
+
+  // 튜토리얼 오버레이 크기
+  double get _tutorialIconSize => _isSmallScreen
+      ? _screenWidth * 0.06
+      : _isMediumScreen
+          ? _screenWidth * 0.065
+          : _screenWidth * 0.07;
+
+  double get _tutorialTitleSize => _isSmallScreen
+      ? _screenWidth * 0.045
+      : _isMediumScreen
+          ? _screenWidth * 0.048
+          : _screenWidth * 0.05;
+
+  double get _tutorialDescSize => _isSmallScreen
+      ? _screenWidth * 0.03
+      : _isMediumScreen
+          ? _screenWidth * 0.032
+          : _screenWidth * 0.035;
+
   @override
   void initState() {
     super.initState();
@@ -190,113 +311,137 @@ class _TestPageState extends State<TestPage>
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(_dialogBorderRadius),
           ),
           elevation: 8,
-          child: Container(
-            padding: EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.white, bgColorLight],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              borderRadius: BorderRadius.circular(20),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: _dialogWidth,
+              maxHeight: _dialogMaxHeight,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    score > 7
-                        ? Icons.emoji_events
-                        : score > 4
-                            ? Icons.thumb_up
-                            : Icons.emoji_emotions,
-                    size: 40,
-                    color: score > 7
-                        ? Color(0xFFFFC107)
-                        : score > 4
-                            ? primaryColor
-                            : accentColor,
-                  ),
+            child: Container(
+              padding: EdgeInsets.all(_dialogPadding),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.white, bgColorLight],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                SizedBox(height: 20),
-                Text(
-                  translations['test_result'] ?? 'Test Result',
-                  style: GoogleFonts.poppins(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: primaryColor,
+                borderRadius: BorderRadius.circular(_dialogBorderRadius),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: _screenWidth * 0.2,
+                    width: _screenWidth * 0.2,
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      score > 7
+                          ? Icons.emoji_events
+                          : score > 4
+                              ? Icons.thumb_up
+                              : Icons.emoji_emotions,
+                      size: _screenWidth * 0.1,
+                      color: score > 7
+                          ? Color(0xFFFFC107)
+                          : score > 4
+                              ? primaryColor
+                              : accentColor,
+                    ),
                   ),
-                ),
-                SizedBox(height: 12),
-                Text(
-                  translations['your_score'] ?? 'Your score',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '$score',
+                  SizedBox(height: _verticalSpacing),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      translations['test_result'] ?? 'Test Result',
                       style: GoogleFonts.poppins(
-                        fontSize: 36,
+                        fontSize: _dialogTitleSize,
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
                       ),
                     ),
-                    Text(
-                      ' / $totalQuestions',
-                      style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black45,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      elevation: 4,
-                      shadowColor: primaryColor.withOpacity(0.5),
-                    ),
-                    child: Text(
-                      translations['continue'] ?? "Continue",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        isTestSubmitted = true;
-                      });
-                    },
                   ),
-                ),
-              ],
+                  SizedBox(height: _verticalSpacing * 0.6),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      translations['your_score'] ?? 'Your score',
+                      style: GoogleFonts.poppins(
+                        fontSize: _dialogSubtitleSize,
+                        color: Colors.black54,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: _verticalSpacing * 0.4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '$score',
+                          style: GoogleFonts.poppins(
+                            fontSize: _dialogScoreSize,
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          ' / $totalQuestions',
+                          style: GoogleFonts.poppins(
+                            fontSize: _dialogScoreSize * 0.67,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: _verticalSpacing),
+                  Container(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(_dialogBorderRadius * 0.6),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: _bottomButtonHeight * 0.25),
+                        minimumSize: Size(double.infinity, _bottomButtonHeight),
+                        elevation: 4,
+                        shadowColor: primaryColor.withOpacity(0.5),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          translations['continue'] ?? "Continue",
+                          style: GoogleFonts.poppins(
+                            fontSize: _bottomButtonFontSize,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        setState(() {
+                          isTestSubmitted = true;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -321,7 +466,7 @@ class _TestPageState extends State<TestPage>
 
   Widget buildQuestionIndicator() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: _gridHorizontalPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
@@ -330,8 +475,8 @@ class _TestPageState extends State<TestPage>
             onTap: () => goToQuestion(index),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 300),
-              width: 28,
-              height: 28,
+              width: _questionIndicatorSize,
+              height: _questionIndicatorSize,
               decoration: BoxDecoration(
                 color: index == currentQuestion
                     ? primaryColor
@@ -342,30 +487,34 @@ class _TestPageState extends State<TestPage>
                         : userAnswers[index] != null
                             ? Color(0xFFBBDEFB)
                             : Colors.white,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius:
+                    BorderRadius.circular(_questionIndicatorSize * 0.5),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
-                    blurRadius: 3,
-                    offset: Offset(0, 1),
+                    blurRadius: _screenWidth * 0.008,
+                    offset: Offset(0, _screenHeight * 0.002),
                   ),
                 ],
                 border: Border.all(
                   color: index == currentQuestion
                       ? Colors.transparent
                       : Colors.grey.withOpacity(0.2),
-                  width: 1,
+                  width: _screenWidth * 0.003,
                 ),
               ),
               child: Center(
-                child: Text(
-                  '${index + 1}',
-                  style: GoogleFonts.poppins(
-                    color: index == currentQuestion || isTestSubmitted
-                        ? Colors.white
-                        : Colors.black54,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '${index + 1}',
+                    style: GoogleFonts.poppins(
+                      color: index == currentQuestion || isTestSubmitted
+                          ? Colors.white
+                          : Colors.black54,
+                      fontWeight: FontWeight.w600,
+                      fontSize: _questionIndicatorFontSize,
+                    ),
                   ),
                 ),
               ),
@@ -378,12 +527,6 @@ class _TestPageState extends State<TestPage>
 
   Widget buildOptionCard(String option) {
     bool isSelected = userAnswers[currentQuestion] == option;
-    bool isCorrect =
-        isTestSubmitted && option == correctAnswers[currentQuestion];
-    bool isWrong = isTestSubmitted &&
-        isSelected &&
-        option != correctAnswers[currentQuestion];
-
     return GestureDetector(
       onTap: isTestSubmitted ? null : () => selectAnswer(option),
       child: AnimatedContainer(
@@ -405,17 +548,8 @@ class _TestPageState extends State<TestPage>
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: isSelected
-                        ? isWrong
-                            ? Color(0xFFFF5252)
-                            : isCorrect
-                                ? Color(0xFF4CAF50)
-                                : primaryColor
-                        : isCorrect && isTestSubmitted
-                            ? Color(0xFF4CAF50)
-                            : Colors.transparent,
+                    color: isSelected ? primaryColor : Colors.grey.shade300,
                     width: 3,
                   ),
                 ),
@@ -428,28 +562,9 @@ class _TestPageState extends State<TestPage>
                 ),
               ),
               if (isTestSubmitted)
-                Positioned(
-                  top: 5,
-                  right: 5,
+                Positioned.fill(
                   child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: isCorrect
-                          ? Color(0xFF4CAF50)
-                          : isWrong
-                              ? Color(0xFFFF5252)
-                              : Colors.transparent,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      isCorrect
-                          ? Icons.check
-                          : isWrong
-                              ? Icons.close
-                              : null,
-                      color: Colors.white,
-                      size: 16,
-                    ),
+                    color: _getOverlayColor(option),
                   ),
                 ),
             ],
@@ -459,9 +574,23 @@ class _TestPageState extends State<TestPage>
     );
   }
 
+  Color _getOverlayColor(String option) {
+    bool isCorrect = correctAnswers[currentQuestion] == option;
+    bool isWrong =
+        isTestSubmitted && userAnswers[currentQuestion] == option && !isCorrect;
+    if (isCorrect) {
+      return Color(0xFF4CAF50); // Green for correct
+    } else if (isWrong) {
+      return Color(0xFFFF5252); // Red for wrong
+    } else {
+      return Colors
+          .transparent; // No overlay for selected but not correct/wrong
+    }
+  }
+
   Widget buildControlButtons() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.symmetric(vertical: _verticalSpacing),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -472,14 +601,16 @@ class _TestPageState extends State<TestPage>
               foregroundColor: primaryColor,
               elevation: 3,
               shape: CircleBorder(),
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(_controlButtonSize * 0.25),
+              fixedSize: Size(_controlButtonSize, _controlButtonSize),
               shadowColor: Colors.black26,
             ),
-            child: Icon(Icons.arrow_back_ios, color: primaryColor, size: 18),
+            child: Icon(Icons.arrow_back_ios,
+                color: primaryColor, size: _controlIconSize),
           ),
           Container(
-            height: 65,
-            width: 65,
+            height: _playButtonSize,
+            width: _playButtonSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
@@ -490,15 +621,15 @@ class _TestPageState extends State<TestPage>
               boxShadow: [
                 BoxShadow(
                   color: primaryColor.withOpacity(0.4),
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
+                  blurRadius: _screenWidth * 0.025,
+                  offset: Offset(0, _screenHeight * 0.005),
                 ),
               ],
             ),
             child: IconButton(
               icon: Icon(
                 Icons.volume_up,
-                size: 30,
+                size: _playIconSize,
                 color: Colors.white,
               ),
               onPressed: () => playAudio(currentQuestion),
@@ -513,10 +644,12 @@ class _TestPageState extends State<TestPage>
               foregroundColor: primaryColor,
               elevation: 3,
               shape: CircleBorder(),
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(_controlButtonSize * 0.25),
+              fixedSize: Size(_controlButtonSize, _controlButtonSize),
               shadowColor: Colors.black26,
             ),
-            child: Icon(Icons.arrow_forward_ios, color: primaryColor, size: 18),
+            child: Icon(Icons.arrow_forward_ios,
+                color: primaryColor, size: _controlIconSize),
           ),
         ],
       ),
@@ -525,26 +658,33 @@ class _TestPageState extends State<TestPage>
 
   Widget buildBottomButtons() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      padding: EdgeInsets.symmetric(
+          vertical: _verticalSpacing, horizontal: _sectionPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (allAnswered && !isTestSubmitted)
             Expanded(
               child: ElevatedButton(
-                child: Text(
-                  translations['submit'] ?? 'Submit',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    translations['submit'] ?? 'Submit',
+                    style: GoogleFonts.poppins(
+                      fontSize: _bottomButtonFontSize,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(
+                      vertical: _bottomButtonHeight * 0.25),
+                  minimumSize: Size(double.infinity, _bottomButtonHeight),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius:
+                        BorderRadius.circular(_bottomButtonHeight * 0.5),
                   ),
                   elevation: 5,
                   shadowColor: primaryColor.withOpacity(0.5),
@@ -552,27 +692,35 @@ class _TestPageState extends State<TestPage>
                 onPressed: showResultDialog,
               ),
             ),
-          if (allAnswered && !isTestSubmitted) SizedBox(width: 10),
+          if (allAnswered && !isTestSubmitted)
+            SizedBox(width: _screenWidth * 0.025),
           Expanded(
             child: ElevatedButton(
-              child: Text(
-                translations['new_test'] ?? 'New Test',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: primaryColor,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  translations['new_test'] ?? 'New Test',
+                  style: GoogleFonts.poppins(
+                    fontSize: _bottomButtonFontSize,
+                    fontWeight: FontWeight.w600,
+                    color: primaryColor,
+                  ),
                 ),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding:
+                    EdgeInsets.symmetric(vertical: _bottomButtonHeight * 0.25),
+                minimumSize: Size(double.infinity, _bottomButtonHeight),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius:
+                      BorderRadius.circular(_bottomButtonHeight * 0.5),
                 ),
                 elevation: 3,
                 shadowColor: Colors.black.withOpacity(0.1),
-                side:
-                    BorderSide(color: primaryColor.withOpacity(0.5), width: 1),
+                side: BorderSide(
+                    color: primaryColor.withOpacity(0.5),
+                    width: _screenWidth * 0.003),
               ),
               onPressed: initializeQuestions,
             ),
@@ -599,13 +747,16 @@ class _TestPageState extends State<TestPage>
             ),
           ),
         ),
-        title: Text(
-          translations['memory_test'] ?? 'Memory Test',
-          style: GoogleFonts.poppins(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            letterSpacing: 0.5,
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            translations['memory_test'] ?? 'Memory Test',
+            style: GoogleFonts.poppins(
+              fontSize: _appBarTitleSize,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              letterSpacing: 0.5,
+            ),
           ),
         ),
       ),
@@ -625,49 +776,22 @@ class _TestPageState extends State<TestPage>
             child: SafeArea(
               child: Column(
                 children: [
-                  SizedBox(height: 16),
+                  SizedBox(height: _verticalSpacing),
                   buildQuestionIndicator(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 30, bottom: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: primaryColor.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.lightbulb_outline,
-                                  color: primaryColor,
-                                  size: 18,
-                                ),
-                                SizedBox(width: 6),
-                                Text(
-                                  "${translations['question'] ?? 'Question'} ${currentQuestion + 1}",
-                                  style: GoogleFonts.poppins(
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20),
+                          SizedBox(height: _verticalSpacing),
                           GridView.count(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
-                            childAspectRatio: 1.1,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            childAspectRatio: _gridChildAspectRatio,
+                            mainAxisSpacing: _gridSpacing,
+                            crossAxisSpacing: _gridSpacing,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: _gridHorizontalPadding),
                             children: questionOptions[currentQuestion]
                                 .map((option) => buildOptionCard(option))
                                 .toList(),
@@ -724,156 +848,161 @@ class _TestPageState extends State<TestPage>
 
   // Tutorial overlay
   Widget _buildTutorialOverlay() {
-    return Container(
-      color: Colors.black54,
-      width: double.infinity,
-      height: double.infinity,
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          padding: EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 15,
-                offset: Offset(0, 5),
-              ),
-            ],
-          ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.7,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(0.1),
-                          shape: BoxShape.circle,
+    return Material(
+      type: MaterialType.transparency,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            color: Colors.black54,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: _dialogPadding, vertical: _dialogPadding * 2),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxWidth: _dialogWidth,
+                      maxHeight: _dialogMaxHeight,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(_dialogBorderRadius),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
                         ),
-                        child: Icon(
-                          Icons.school,
-                          color: primaryColor,
-                          size: 30,
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Text(
-                        translations['how_to_play'] ?? 'How to Play',
-                        style: GoogleFonts.poppins(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildTutorialItem(
-                        icon: Icons.quiz,
-                        title: translations['visual_memory_test'] ??
-                            'Visual Memory Test',
-                        description: translations['visual_memory_test_desc'] ??
-                            'Test your memory with 10 questions. Select the image that matches the correct word.',
-                      ),
-                      _buildTutorialItem(
-                        icon: Icons.volume_up,
-                        title: translations['audio_assistance'] ??
-                            'Audio Assistance',
-                        description: translations['audio_assistance_desc'] ??
-                            'Tap the sound icon to hear the correct word. The audio plays in your selected language.',
-                      ),
-                      _buildTutorialItem(
-                        icon: Icons.format_list_numbered,
-                        title: translations['question_navigation'] ??
-                            'Question Navigation',
-                        description: translations['question_navigation_desc'] ??
-                            'Use the number indicators at the top to navigate between questions or use the arrow buttons.',
-                      ),
-                      _buildTutorialItem(
-                        icon: Icons.check_circle_outline,
-                        title: translations['select_and_submit'] ??
-                            'Select and Submit',
-                        description: translations['select_and_submit_desc'] ??
-                            'Select an image for each question. Once all questions are answered, the Submit button appears.',
-                      ),
-                      _buildTutorialItem(
-                        icon: Icons.auto_graph,
-                        title: translations['results_and_progress'] ??
-                            'Results and Progress',
-                        description: translations[
-                                'results_and_progress_desc'] ??
-                            'After submitting, view your score and restart with a new test if desired.',
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 0.9,
-                        child: Checkbox(
-                          value: _doNotShowAgain,
-                          onChanged: (value) {
-                            setState(() {
-                              _doNotShowAgain = value ?? false;
-                            });
-                          },
-                          activeColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(_dialogPadding),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Transform.scale(
+                                      scale: _isSmallScreen ? 0.8 : 0.9,
+                                      child: Checkbox(
+                                        value: _doNotShowAgain,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _doNotShowAgain = value ?? false;
+                                          });
+                                        },
+                                        activeColor: primaryColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              _screenWidth * 0.008),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        translations['dont_show_again'] ??
+                                            'Don\'t show again',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: _tutorialDescSize,
+                                          color: Colors.black87,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.close, color: Colors.grey),
+                                onPressed: _closeTutorial,
+                              ),
+                            ],
                           ),
-                        ),
+                          SizedBox(height: _verticalSpacing),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(_screenWidth * 0.03),
+                                decoration: BoxDecoration(
+                                  color: primaryColor.withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.school,
+                                  color: primaryColor,
+                                  size: _tutorialIconSize,
+                                ),
+                              ),
+                              SizedBox(width: _screenWidth * 0.03),
+                              Expanded(
+                                child: Text(
+                                  translations['how_to_play'] ?? 'How to Play',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: _tutorialTitleSize,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: _verticalSpacing),
+                          _buildTutorialItem(
+                            icon: Icons.quiz,
+                            title: translations['visual_memory_test'] ??
+                                'Visual Memory Test',
+                            description: translations[
+                                    'visual_memory_test_desc'] ??
+                                'Test your memory with 10 questions. Select the image that matches the correct word.',
+                          ),
+                          _buildTutorialItem(
+                            icon: Icons.volume_up,
+                            title: translations['audio_assistance'] ??
+                                'Audio Assistance',
+                            description: translations[
+                                    'audio_assistance_desc'] ??
+                                'Tap the sound icon to hear the correct word. The audio plays in your selected language.',
+                          ),
+                          _buildTutorialItem(
+                            icon: Icons.format_list_numbered,
+                            title: translations['question_navigation'] ??
+                                'Question Navigation',
+                            description: translations[
+                                    'question_navigation_desc'] ??
+                                'Use the number indicators at the top to navigate between questions or use the arrow buttons.',
+                          ),
+                          _buildTutorialItem(
+                            icon: Icons.check_circle_outline,
+                            title: translations['select_and_submit'] ??
+                                'Select and Submit',
+                            description: translations[
+                                    'select_and_submit_desc'] ??
+                                'Select an image for each question. Once all questions are answered, the Submit button appears.',
+                          ),
+                          _buildTutorialItem(
+                            icon: Icons.auto_graph,
+                            title: translations['results_and_progress'] ??
+                                'Results and Progress',
+                            description: translations[
+                                    'results_and_progress_desc'] ??
+                                'After submitting, view your score and restart with a new test if desired.',
+                          ),
+                        ],
                       ),
-                      Text(
-                        translations['dont_show_again'] ?? 'Don\'t show again',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 14),
-                        elevation: 5,
-                        shadowColor: primaryColor.withOpacity(0.5),
-                      ),
-                      child: Text(
-                        translations['start_learning'] ?? 'Start Learning',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onPressed: _closeTutorial,
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -885,23 +1014,23 @@ class _TestPageState extends State<TestPage>
     required String description,
   }) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.only(bottom: _verticalSpacing * 0.8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(_screenWidth * 0.02),
             decoration: BoxDecoration(
               color: primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(_screenWidth * 0.025),
             ),
             child: Icon(
               icon,
               color: primaryColor,
-              size: 20,
+              size: _tutorialIconSize * 0.7,
             ),
           ),
-          SizedBox(width: 12),
+          SizedBox(width: _screenWidth * 0.03),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -909,16 +1038,16 @@ class _TestPageState extends State<TestPage>
                 Text(
                   title,
                   style: GoogleFonts.poppins(
-                    fontSize: 15,
+                    fontSize: _tutorialTitleSize * 0.75,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: _screenHeight * 0.005),
                 Text(
                   description,
                   style: GoogleFonts.poppins(
-                    fontSize: 13,
+                    fontSize: _tutorialDescSize,
                     color: Colors.black54,
                     height: 1.4,
                   ),

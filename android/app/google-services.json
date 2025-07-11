@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:529352933631:android:51ec9df7eaed8feace0cca",
+        "android_client_info": {
+          "package_name": "com.brainhealth.memorygame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMcOe5FhMEXF1UvR_zS4ApR9xOZ7GppDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:529352933631:android:045a0abf3e366b38ce0cca",
         "android_client_info": {
           "package_name": "com.example.memory_game"

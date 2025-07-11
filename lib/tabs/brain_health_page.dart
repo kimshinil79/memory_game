@@ -504,7 +504,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         .getUITranslations();
 
     return FutureBuilder<Map<String, dynamic>>(
-      future: provider.calculateBrainHealthIndex(),
+      future: _getBrainHealthIndexData(provider),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Card(
@@ -571,7 +571,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         final data = snapshot.data!;
         final brainHealthIndex = data['brainHealthIndex'] as double? ?? 0.0;
         final indexLevel = data['brainHealthIndexLevel'] as int? ?? 1;
-        print('indexLevel: $indexLevel');
+        final dataSource = data['dataSource'] as String? ?? 'calculated';
+        print('indexLevel: $indexLevel, dataSource: $dataSource');
         final pointsToNext = data['pointsToNextLevel'] as double? ?? 0.0;
 
         // Calculate percentage for circular indicator
@@ -611,13 +612,38 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      translations['brain_health_index_title'] ??
-                          'Brain Health Index',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 20 * _textScaleFactor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          translations['brain_health_index_title'] ??
+                              'Brain Health Index',
+                          style: GoogleFonts.notoSans(
+                            fontSize: 20 * _textScaleFactor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        // 데이터 소스 표시 (디버깅용)
+                        if (dataSource == 'firebase')
+                          Tooltip(
+                            message: 'Using saved data from Firebase',
+                            child: Icon(
+                              Icons.cloud_done,
+                              size: 16,
+                              color: Colors.green,
+                            ),
+                          )
+                        else if (dataSource == 'calculated')
+                          Tooltip(
+                            message: 'Calculated in real-time',
+                            child: Icon(
+                              Icons.refresh,
+                              size: 16,
+                              color: Colors.orange,
+                            ),
+                          ),
+                      ],
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -795,6 +821,71 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         );
       },
     );
+  }
+
+  // Firebase에 저장된 값을 우선 사용하고, 필요시에만 실시간 계산하는 새 메서드
+  Future<Map<String, dynamic>> _getBrainHealthIndexData(
+      BrainHealthProvider provider) async {
+    try {
+      // 현재 Firebase에 저장된 값들 확인
+      final storedIndex = provider.brainHealthIndex;
+      final storedLevel = provider.brainHealthIndexLevel;
+
+      print('Stored BHI: $storedIndex, Level: $storedLevel');
+
+      // Firebase에 유효한 값이 저장되어 있고, 최근에 업데이트 되었다면 그 값을 사용
+      if (storedIndex > 0 && storedLevel > 0) {
+        // 마지막 게임 이후 경과 시간을 확인해서 실시간 계산이 필요한지 판단
+        final weeklyData = provider.getWeeklyData();
+        int daysSinceLastGame = 0;
+
+        if (weeklyData.isNotEmpty && weeklyData.last.score > 0) {
+          final lastGameDate = weeklyData.last.date;
+          daysSinceLastGame = DateTime.now().difference(lastGameDate).inDays;
+        }
+
+        // 최근 3일 이내에 게임을 했다면 저장된 값 사용
+        if (daysSinceLastGame <= 3) {
+          print('Using stored Firebase data (recent activity)');
+          return {
+            'brainHealthIndex': storedIndex,
+            'brainHealthIndexLevel': storedLevel,
+            'pointsToNextLevel':
+                _calculatePointsToNext(storedIndex, storedLevel),
+            'ageComponent': provider.ageComponent,
+            'activityComponent': provider.activityComponent,
+            'performanceComponent': provider.performanceComponent,
+            'persistenceBonus': provider.persistenceBonus,
+            'inactivityPenalty': provider.inactivityPenalty,
+            'daysSinceLastGame': daysSinceLastGame,
+            'levelDropDueToInactivity': 0,
+            'dataSource': 'firebase',
+          };
+        }
+      }
+
+      // Firebase에 저장된 값이 없거나 오래된 경우 실시간 계산
+      print('Calculating BHI in real-time');
+      final calculatedData = await provider.calculateBrainHealthIndex();
+      calculatedData['dataSource'] = 'calculated';
+      return calculatedData;
+    } catch (e) {
+      print('Error getting BHI data: $e');
+      // 오류 발생 시 실시간 계산으로 폴백
+      final calculatedData = await provider.calculateBrainHealthIndex();
+      calculatedData['dataSource'] = 'calculated';
+      return calculatedData;
+    }
+  }
+
+  // 다음 레벨까지 필요한 포인트 계산
+  double _calculatePointsToNext(double currentIndex, int currentLevel) {
+    if (currentLevel >= 5) return 0.0;
+
+    List<double> thresholds = [0, 35, 60, 80, 95, 100];
+    double nextThreshold = thresholds[currentLevel];
+    double pointsNeeded = nextThreshold - currentIndex;
+    return pointsNeeded > 0 ? pointsNeeded : 0.0;
   }
 
   Widget _buildIndexComponent(
@@ -1256,7 +1347,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            interval: 500,
+                            interval: _calculateYAxisInterval(weeklyData),
                             getTitlesWidget: (value, meta) {
                               return FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -1406,6 +1497,21 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     return (maxScore / 500).ceil() * 500;
   }
 
+  // Y 축 간격 계산
+  double _calculateYAxisInterval(List<ScoreRecord> data) {
+    double maxY = _calculateMaxY(data);
+
+    // maxY 값에 따라 적절한 간격 설정
+    if (maxY <= 200) return 50; // 0, 50, 100, 150, 200
+    if (maxY <= 400) return 100; // 0, 100, 200, 300, 400
+    if (maxY <= 600) return 150; // 0, 150, 300, 450, 600
+    if (maxY <= 800) return 200; // 0, 200, 400, 600, 800
+    if (maxY <= 1000) return 250; // 0, 250, 500, 750, 1000
+
+    // 1000 이상인 경우 maxY의 1/4 정도로 간격 설정
+    return (maxY / 4).roundToDouble();
+  }
+
   // 사용자 랭킹 섹션 위젯
   Widget _buildUserRankings(BrainHealthProvider provider) {
     // Get translations from language provider
@@ -1531,116 +1637,123 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                     ),
                     Divider(),
-                    // 랭킹 목록
-                    ...snapshot.data!.map((ranking) {
-                      bool isCurrentUser = ranking['isCurrentUser'] ?? false;
-                      // Calculate brain health level (1-5) based on score
-                      int brainHealthLevel =
-                          _calculateBrainHealthLevel(ranking['score']);
+                    // 랭킹 목록을 Container로 감싸서 높이 제한
+                    Container(
+                      height: 300, // 고정된 높이 설정
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final ranking = snapshot.data![index];
+                          bool isCurrentUser =
+                              ranking['isCurrentUser'] ?? false;
 
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 8.0),
-                        decoration: BoxDecoration(
-                          color: isCurrentUser
-                              ? Colors.blue.withOpacity(0.1)
-                              : null,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 40 * _textScaleFactor,
-                              child: Text(
-                                '#${ranking['rank']}',
-                                style: GoogleFonts.notoSans(
-                                  fontWeight: isCurrentUser
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  fontSize: 14 * _textScaleFactor,
-                                  color: _getRankColor(ranking['rank']),
-                                ),
-                              ),
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8.0),
+                            decoration: BoxDecoration(
+                              color: isCurrentUser
+                                  ? Colors.blue.withOpacity(0.1)
+                                  : null,
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  // 국가 국기 표시
-                                  if (ranking['countryCode'] != null)
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 8.0),
-                                      child: Builder(
-                                        builder: (context) {
-                                          try {
-                                            return Flag.fromString(
-                                              ranking['countryCode']
-                                                  .toString()
-                                                  .toUpperCase(),
-                                              height: 16 * _textScaleFactor,
-                                              width: 24 * _textScaleFactor,
-                                              borderRadius: 4,
-                                            );
-                                          } catch (e) {
-                                            // 오류 발생 시 간단한 컨테이너로 대체
-                                            return Container(
-                                              height: 16 * _textScaleFactor,
-                                              width: 24 * _textScaleFactor,
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey
-                                                    .withOpacity(0.2),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  // 사용자 닉네임
-                                  Expanded(
-                                    child: Text(
-                                      ranking['displayName'],
-                                      style: GoogleFonts.notoSans(
-                                        fontWeight: isCurrentUser
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                        fontSize: 14 * _textScaleFactor,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 40 * _textScaleFactor,
+                                  child: Text(
+                                    '#${ranking['rank']}',
+                                    style: GoogleFonts.notoSans(
+                                      fontWeight: isCurrentUser
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                      fontSize: 14 * _textScaleFactor,
+                                      color: _getRankColor(ranking['rank']),
                                     ),
                                   ),
-                                  // Brain level icon
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 4.0, right: 4.0),
-                                    child: Image.asset(
-                                      'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
-                                      width: 18 * _textScaleFactor,
-                                      height: 18 * _textScaleFactor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80 * _textScaleFactor,
-                              child: Text(
-                                '${ranking['score']}',
-                                style: GoogleFonts.notoSans(
-                                  fontWeight: isCurrentUser
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  fontSize: 14 * _textScaleFactor,
                                 ),
-                                textAlign: TextAlign.end,
-                              ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      // 국가 국기 표시
+                                      if (ranking['countryCode'] != null)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: Builder(
+                                            builder: (context) {
+                                              try {
+                                                return Flag.fromString(
+                                                  ranking['countryCode']
+                                                      .toString()
+                                                      .toUpperCase(),
+                                                  height: 16 * _textScaleFactor,
+                                                  width: 24 * _textScaleFactor,
+                                                  borderRadius: 4,
+                                                );
+                                              } catch (e) {
+                                                // 오류 발생 시 간단한 컨테이너로 대체
+                                                return Container(
+                                                  height: 16 * _textScaleFactor,
+                                                  width: 24 * _textScaleFactor,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      // 사용자 닉네임
+                                      Expanded(
+                                        child: Text(
+                                          ranking['displayName'],
+                                          style: GoogleFonts.notoSans(
+                                            fontWeight: isCurrentUser
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                            fontSize: 14 * _textScaleFactor,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      // Brain level icon
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 4.0, right: 4.0),
+                                        child: Image.asset(
+                                          'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
+                                          width: 18 * _textScaleFactor,
+                                          height: 18 * _textScaleFactor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 80 * _textScaleFactor,
+                                  child: Text(
+                                    '${ranking['score']}',
+                                    style: GoogleFonts.notoSans(
+                                      fontWeight: isCurrentUser
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                      fontSize: 14 * _textScaleFactor,
+                                    ),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
             ],
@@ -1700,6 +1813,38 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // 상단에 닫기 버튼과 '다시 보지 않기' 체크박스를 배치
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _doNotShowAgain,
+                          onChanged: (value) {
+                            setState(() {
+                              _doNotShowAgain = value ?? false;
+                            });
+                          },
+                          activeColor: tutorialColor,
+                        ),
+                        Text(
+                          translations['dont_show_again'] ??
+                              'Don\'t show again',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14 * _textScaleFactor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: Colors.grey),
+                      onPressed: _closeTutorial,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 Text(
                   translations['brain_health_dashboard'] ??
                       'Brain Health Dashboard',
@@ -1741,49 +1886,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   translations['game_statistics_desc'] ??
                       'Check various statistics such as games played, matches found, and best records.',
                   tutorialColor,
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _doNotShowAgain,
-                      onChanged: (value) {
-                        setState(() {
-                          _doNotShowAgain = value ?? false;
-                        });
-                      },
-                      activeColor: tutorialColor,
-                    ),
-                    Text(
-                      translations['dont_show_again'] ?? 'Don\'t show again',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14 * _textScaleFactor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: _closeTutorial,
-                  child: Text(
-                    translations['got_it'] ?? 'Got it!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16 * _textScaleFactor,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: tutorialColor,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30 * _textScaleFactor,
-                      vertical: 12 * _textScaleFactor,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
                 ),
               ],
             ),
