@@ -88,6 +88,7 @@ flutter:
     - assets/icon/icon.png
     - assets/icon/memoryGame.png
     - assets/icon/memoryGame_512x512.png
+    - assets/pictureDB_webp/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

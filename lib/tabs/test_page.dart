@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '/providers/language_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/rendering.dart';
+import '/widgets/tutorials/test_tutorial_overlay.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -848,215 +849,27 @@ class _TestPageState extends State<TestPage>
 
   // Tutorial overlay
   Widget _buildTutorialOverlay() {
-    return Material(
-      type: MaterialType.transparency,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-            width: constraints.maxWidth,
-            height: constraints.maxHeight,
-            color: Colors.black54,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: _dialogPadding, vertical: _dialogPadding * 2),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: _dialogWidth,
-                      maxHeight: _dialogMaxHeight,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(_dialogBorderRadius),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(_dialogPadding),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Transform.scale(
-                                      scale: _isSmallScreen ? 0.8 : 0.9,
-                                      child: Checkbox(
-                                        value: _doNotShowAgain,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _doNotShowAgain = value ?? false;
-                                          });
-                                        },
-                                        activeColor: primaryColor,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              _screenWidth * 0.008),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        translations['dont_show_again'] ??
-                                            'Don\'t show again',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: _tutorialDescSize,
-                                          color: Colors.black87,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.close, color: Colors.grey),
-                                onPressed: _closeTutorial,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: _verticalSpacing),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(_screenWidth * 0.03),
-                                decoration: BoxDecoration(
-                                  color: primaryColor.withOpacity(0.1),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.school,
-                                  color: primaryColor,
-                                  size: _tutorialIconSize,
-                                ),
-                              ),
-                              SizedBox(width: _screenWidth * 0.03),
-                              Expanded(
-                                child: Text(
-                                  translations['how_to_play'] ?? 'How to Play',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: _tutorialTitleSize,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: _verticalSpacing),
-                          _buildTutorialItem(
-                            icon: Icons.quiz,
-                            title: translations['visual_memory_test'] ??
-                                'Visual Memory Test',
-                            description: translations[
-                                    'visual_memory_test_desc'] ??
-                                'Test your memory with 10 questions. Select the image that matches the correct word.',
-                          ),
-                          _buildTutorialItem(
-                            icon: Icons.volume_up,
-                            title: translations['audio_assistance'] ??
-                                'Audio Assistance',
-                            description: translations[
-                                    'audio_assistance_desc'] ??
-                                'Tap the sound icon to hear the correct word. The audio plays in your selected language.',
-                          ),
-                          _buildTutorialItem(
-                            icon: Icons.format_list_numbered,
-                            title: translations['question_navigation'] ??
-                                'Question Navigation',
-                            description: translations[
-                                    'question_navigation_desc'] ??
-                                'Use the number indicators at the top to navigate between questions or use the arrow buttons.',
-                          ),
-                          _buildTutorialItem(
-                            icon: Icons.check_circle_outline,
-                            title: translations['select_and_submit'] ??
-                                'Select and Submit',
-                            description: translations[
-                                    'select_and_submit_desc'] ??
-                                'Select an image for each question. Once all questions are answered, the Submit button appears.',
-                          ),
-                          _buildTutorialItem(
-                            icon: Icons.auto_graph,
-                            title: translations['results_and_progress'] ??
-                                'Results and Progress',
-                            description: translations[
-                                    'results_and_progress_desc'] ??
-                                'After submitting, view your score and restart with a new test if desired.',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  // Individual tutorial item
-  Widget _buildTutorialItem({
-    required IconData icon,
-    required String title,
-    required String description,
-  }) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: _verticalSpacing * 0.8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(_screenWidth * 0.02),
-            decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(_screenWidth * 0.025),
-            ),
-            child: Icon(
-              icon,
-              color: primaryColor,
-              size: _tutorialIconSize * 0.7,
-            ),
-          ),
-          SizedBox(width: _screenWidth * 0.03),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.poppins(
-                    fontSize: _tutorialTitleSize * 0.75,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: _screenHeight * 0.005),
-                Text(
-                  description,
-                  style: GoogleFonts.poppins(
-                    fontSize: _tutorialDescSize,
-                    color: Colors.black54,
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return TestTutorialOverlay(
+      isSmallScreen: _isSmallScreen,
+      screenWidth: _screenWidth,
+      screenHeight: _screenHeight,
+      verticalSpacing: _verticalSpacing,
+      dialogPadding: _dialogPadding,
+      dialogWidth: _dialogWidth,
+      dialogMaxHeight: _dialogMaxHeight,
+      dialogBorderRadius: _dialogBorderRadius,
+      tutorialIconSize: _tutorialIconSize,
+      tutorialTitleSize: _tutorialTitleSize,
+      tutorialDescSize: _tutorialDescSize,
+      primaryColor: primaryColor,
+      doNotShowAgain: _doNotShowAgain,
+      onDoNotShowAgainChanged: (value) {
+        setState(() {
+          _doNotShowAgain = value ?? false;
+        });
+      },
+      onClose: _closeTutorial,
+      translations: translations,
     );
   }
 
