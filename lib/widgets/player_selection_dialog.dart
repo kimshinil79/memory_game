@@ -630,83 +630,40 @@ class _PlayerSelectionDialogWidgetState
                         vertical: _verticalSpacing * 0.5),
                     child: Row(
                       children: [
-                        // Avatar or profile image
-                        CircleAvatar(
-                          radius: _avatarRadius,
-                          backgroundColor: isSelected
-                              ? Colors.white.withOpacity(0.9)
-                              : Color(0xFF833AB4).withOpacity(0.1),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              (user['nickname'] as String?)?.isNotEmpty == true
-                                  ? (user['nickname'] as String)
-                                      .substring(0, 1)
-                                      .toUpperCase()
-                                  : 'U',
-                              style: _getTextStyle(
-                                fontSize: _avatarRadius * 0.8,
-                                fontWeight: FontWeight.bold,
-                                color: isSelected
-                                    ? Color(0xFF833AB4)
-                                    : Color(0xFF833AB4),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: _horizontalSpacing * 0.75),
                         // User info
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  user['nickname'] as String? ??
-                                      (_translations['unknown_player'] ??
-                                          'Unknown Player'),
-                                  style: _getTextStyle(
-                                    fontSize: _userItemFontSize,
-                                    fontWeight: FontWeight.w600,
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.grey.shade800,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
                               Row(
                                 children: [
-                                  if (user['country'] != null)
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          right: _screenWidth * 0.01),
-                                      child: Flag.fromString(
-                                        (user['country'] as String)
-                                            .toUpperCase(),
-                                        height: _screenHeight * 0.012,
-                                        width: _screenWidth * 0.04,
-                                        borderRadius: 2,
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      user['nickname'] as String? ??
+                                          (_translations['unknown_player'] ??
+                                              'Unknown Player'),
+                                      style: _getTextStyle(
+                                        fontSize: _userItemFontSize,
+                                        fontWeight: FontWeight.w600,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.grey.shade800,
                                       ),
-                                    ),
-                                  Expanded(
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        '${_translations['country'] ?? 'Country'}: ${user['country'] ?? (_translations['unknown'] ?? 'unknown')} ${user['level'] != null ? '• ${_translations['level'] ?? 'Level'} ${user['level']}' : ''}',
-                                        style: _getTextStyle(
-                                          fontSize: _userDetailFontSize,
-                                          color: isSelected
-                                              ? Colors.white.withOpacity(0.9)
-                                              : Colors.grey.shade600,
-                                        ),
-                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
+                                  if (user['country'] != null) ...[
+                                    SizedBox(width: _screenWidth * 0.02),
+                                    Flag.fromString(
+                                      (user['country'] as String).toUpperCase(),
+                                      height: _screenHeight * 0.015,
+                                      width: _screenWidth * 0.05,
+                                      borderRadius: 2,
+                                    ),
+                                  ],
                                 ],
                               ),
                             ],
