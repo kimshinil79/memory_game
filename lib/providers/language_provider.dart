@@ -335,12 +335,63 @@ class LanguageProvider with ChangeNotifier {
   // 음성 언어 로드
   Future<void> _loadLanguage() async {
     try {
+      // 1. SharedPreferences에서 언어 설정 읽기 (우선순위 1)
       final prefs = await SharedPreferences.getInstance();
-      _currentLanguage = prefs.getString('selectedLanguage') ?? 'ko-KR';
+      String? savedLanguage = prefs.getString('selectedLanguage');
+      print('LanguageProvider: 로컬 저장소에서 읽은 언어: $savedLanguage');
+
+      // 2. Firebase에서 언어 설정 읽기 (우선순위 2, 인터넷 연결 시에만)
+      String? firebaseLanguage;
+      try {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          DocumentSnapshot userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+
+          if (userDoc.exists && userDoc.data() != null) {
+            firebaseLanguage =
+                (userDoc.data() as Map<String, dynamic>)['language'];
+            print('LanguageProvider: Firebase에서 읽은 언어: $firebaseLanguage');
+
+            // Firebase에서 읽은 언어를 로컬에 저장 (다음 오프라인 사용을 위해)
+            if (firebaseLanguage != null) {
+              await prefs.setString('selectedLanguage', firebaseLanguage);
+            }
+          }
+        }
+      } catch (firebaseError) {
+        print(
+            'LanguageProvider: Firebase 연결 실패 (오프라인 상태일 수 있음): $firebaseError');
+      }
+
+      // 우선순위에 따라 언어 선택
+      _currentLanguage = savedLanguage ?? // 로컬 저장소
+          firebaseLanguage ?? // Firebase
+          'ko-KR'; // 기본값
+
+      print('LanguageProvider: 최종 선택된 언어: $_currentLanguage');
+
       _isInitialized = true;
       _safeNotifyListeners();
+
+      // 선택된 언어를 다시 로컬에 저장 (안전을 위해)
+      await prefs.setString('selectedLanguage', _currentLanguage);
     } catch (e) {
-      print('Error loading language: $e');
+      print('LanguageProvider: 언어 로드 실패: $e');
+      // 오류 발생 시 기본 언어로 설정
+      _currentLanguage = 'ko-KR';
+      print('LanguageProvider: 오류로 인해 기본 언어 ko-KR로 설정했습니다.');
+
+      // 오류 발생 시에도 기본 언어를 로컬에 저장
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('selectedLanguage', 'ko-KR');
+      } catch (storageError) {
+        print('LanguageProvider: 기본 언어 저장 실패: $storageError');
+      }
+
       _isInitialized = true;
       _safeNotifyListeners();
     }
@@ -377,6 +428,10 @@ class LanguageProvider with ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('selectedLanguage', language);
       _currentLanguage = language;
+
+      // 언어 변경 시 로그 출력
+      print('LanguageProvider: 언어가 $language로 변경되었습니다.');
+
       _safeNotifyListeners();
     } catch (e) {
       print('Error setting language: $e');

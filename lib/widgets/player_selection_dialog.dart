@@ -57,89 +57,198 @@ class _PlayerSelectionDialogWidgetState
   Map<String, String> _translations = {};
   bool _didInitProvider = false; // Provider 초기화 여부 추적
 
-  // 화면 크기 기반 동적 크기 계산
+  // 실시간 화면 크기 기반 동적 크기 계산 (고정 분류 제거)
   double get _screenWidth => MediaQuery.of(context).size.width;
   double get _screenHeight => MediaQuery.of(context).size.height;
 
-  // 화면 크기 분류
-  bool get _isSmallScreen => _screenWidth < 360 || _screenHeight < 640;
-  bool get _isMediumScreen => _screenWidth < 414 || _screenHeight < 736;
-  bool get _isLargeScreen => _screenWidth >= 768;
+  // 안전한 크기 계산을 위한 헬퍼 메서드
+  double _getProportionalSize(double basePercentage,
+      {double minSize = 0, double maxSize = double.infinity}) {
+    final calculatedSize = _screenWidth * basePercentage;
+    return calculatedSize.clamp(minSize, maxSize);
+  }
 
-  // 다이얼로그 크기
-  double get _dialogWidth =>
-      _isLargeScreen ? _screenWidth * 0.5 : _screenWidth * 0.85;
+  double _getProportionalHeight(double basePercentage,
+      {double minSize = 0, double maxSize = double.infinity}) {
+    final calculatedSize = _screenHeight * basePercentage;
+    return calculatedSize.clamp(minSize, maxSize);
+  }
+
+  // 다이얼로그 크기 - 화면 비율에 따라 동적 조정
+  double get _dialogWidth {
+    // 화면 너비가 클수록 다이얼로그 비율을 줄여서 적절한 크기 유지
+    if (_screenWidth >= 768) return _screenWidth * 0.5; // 태블릿/폴더블 펼침
+    if (_screenWidth >= 414) return _screenWidth * 0.75; // 중간 크기
+    return _screenWidth * 0.85; // 작은 화면
+  }
+
   double get _dialogMaxHeight => _screenHeight * 0.8;
-  double get _dialogPadding => _screenWidth * 0.07;
-  double get _dialogBorderRadius => _screenWidth * 0.07;
 
-  // 폰트 크기
-  double get _titleFontSize => _isSmallScreen
-      ? _screenWidth * 0.065
-      : _isMediumScreen
-          ? _screenWidth * 0.07
-          : _screenWidth * 0.075;
+  // 패딩 및 테두리 - 화면 크기에 비례 (최소/최대 제한)
+  double get _dialogPadding =>
+      _getProportionalSize(0.07, minSize: 20, maxSize: 40);
+  double get _dialogBorderRadius =>
+      _getProportionalSize(0.07, minSize: 20, maxSize: 40);
 
-  double get _subtitleFontSize => _isSmallScreen
-      ? _screenWidth * 0.035
-      : _isMediumScreen
-          ? _screenWidth * 0.038
-          : _screenWidth * 0.04;
+  // 폰트 크기 - 화면 크기에 비례하여 연속적으로 조정 (최소/최대 제한)
+  double get _titleFontSize => _getProportionalSize(0.075,
+      minSize: 26, maxSize: 42); // 0.065 → 0.075, 22-38 → 26-42
+  double get _subtitleFontSize => _getProportionalSize(0.05,
+      minSize: 16, maxSize: 28); // 0.042 → 0.05, 14-24 → 16-28
+  double get _bodyFontSize => _getProportionalSize(0.045,
+      minSize: 14, maxSize: 26); // 0.038 → 0.045, 12-22 → 14-26
+  double get _buttonFontSize => _getProportionalSize(0.05,
+      minSize: 16, maxSize: 28); // 0.042 → 0.05, 14-24 → 16-28
 
-  double get _bodyFontSize => _isSmallScreen
-      ? _screenWidth * 0.032
-      : _isMediumScreen
-          ? _screenWidth * 0.035
-          : _screenWidth * 0.038;
+  // 사용자 리스트 관련 크기 - 화면 크기에 비례하여 연속적으로 조정
+  double get _userListHeight => _getProportionalHeight(0.4,
+      minSize: 220, maxSize: 450); // 0.38 → 0.4, 200-400 → 220-450
 
-  double get _buttonFontSize => _isSmallScreen
-      ? _screenWidth * 0.035
-      : _isMediumScreen
-          ? _screenWidth * 0.038
-          : _screenWidth * 0.04;
+  double get _avatarRadius => _getProportionalSize(0.065,
+      minSize: 24, maxSize: 40); // 0.058 → 0.065, 20-35 → 24-40
 
-  // 사용자 리스트 관련 크기
-  double get _userListHeight => _isSmallScreen
-      ? _screenHeight * 0.35
-      : _isMediumScreen
-          ? _screenHeight * 0.37
-          : _screenHeight * 0.4;
+  double get _userItemFontSize => _getProportionalSize(0.045,
+      minSize: 16, maxSize: 28); // 0.038 → 0.045, 14-24 → 16-28
 
-  double get _avatarRadius => _isSmallScreen
-      ? _screenWidth * 0.055
-      : _isMediumScreen
-          ? _screenWidth * 0.058
-          : _screenWidth * 0.06;
+  double get _userDetailFontSize => _getProportionalSize(0.038,
+      minSize: 14, maxSize: 24); // 0.032 → 0.038, 12-20 → 14-24
 
-  double get _userItemFontSize => _isSmallScreen
-      ? _screenWidth * 0.035
-      : _isMediumScreen
-          ? _screenWidth * 0.038
-          : _screenWidth * 0.04;
+  // 버튼 크기 - 화면 높이에 비례하여 연속적으로 조정
+  double get _buttonHeight => _getProportionalHeight(0.065,
+      minSize: 45, maxSize: 70); // 0.058 → 0.065, 40-60 → 45-70
 
-  double get _userDetailFontSize => _isSmallScreen
-      ? _screenWidth * 0.03
-      : _isMediumScreen
-          ? _screenWidth * 0.032
-          : _screenWidth * 0.035;
+  // 여백 및 간격 - 화면 크기에 비례하여 연속적으로 조정
+  double get _verticalSpacing => _getProportionalHeight(0.02,
+      minSize: 10, maxSize: 25); // 0.015 → 0.02, 8-20 → 10-25
+  double get _horizontalSpacing => _getProportionalSize(0.045,
+      minSize: 18, maxSize: 36); // 0.04 → 0.045, 16-32 → 18-36
 
-  // 버튼 크기
-  double get _buttonHeight => _isSmallScreen
-      ? _screenHeight * 0.055
-      : _isMediumScreen
-          ? _screenHeight * 0.058
-          : _screenHeight * 0.06;
+  // 아이콘 크기 - 화면 너비에 비례하여 연속적으로 조정
+  double get _iconSize => _getProportionalSize(0.075,
+      minSize: 28, maxSize: 48); // 0.065 → 0.075, 24-40 → 28-48
 
-  // 여백 및 간격
-  double get _verticalSpacing => _screenHeight * 0.015;
-  double get _horizontalSpacing => _screenWidth * 0.04;
+  // 실제 사용 가능한 공간을 기반으로 한 동적 크기 계산 메서드들
+  double _calculateDynamicWidth(
+      double availableWidth, Orientation orientation) {
+    // 폴더블 화면에서 실제 사용 가능한 공간을 고려한 너비 계산
+    if (orientation == Orientation.landscape) {
+      // 가로 모드에서는 더 넓게 사용
+      if (availableWidth >= 1200) return availableWidth * 0.35; // 대형 폴더블 펼침
+      if (availableWidth >= 800) return availableWidth * 0.45; // 중형 폴더블 펼침
+      if (availableWidth >= 600) return availableWidth * 0.6; // 작은 폴더블 펼침
+      return availableWidth * 0.75; // 일반 가로 모드
+    } else {
+      // 세로 모드에서는 적당한 비율 사용
+      if (availableWidth >= 800) return availableWidth * 0.4; // 폴더블 펼침
+      if (availableWidth >= 600) return availableWidth * 0.5; // 중간 크기
+      if (availableWidth >= 400) return availableWidth * 0.7; // 일반 스마트폰
+      return availableWidth * 0.85; // 작은 스마트폰
+    }
+  }
 
-  // 아이콘 크기
-  double get _iconSize => _isSmallScreen
-      ? _screenWidth * 0.06
-      : _isMediumScreen
-          ? _screenWidth * 0.065
-          : _screenWidth * 0.07;
+  double _calculateDynamicHeight(
+      double availableHeight, Orientation orientation) {
+    // 폴더블 화면에서 실제 사용 가능한 높이를 고려
+    // 위아래 여백을 더 주어 여유로운 레이아웃 구성
+    if (orientation == Orientation.landscape) {
+      // 가로 모드에서는 높이를 더 적게 사용
+      if (availableHeight >= 800)
+        return availableHeight * 0.65; // 대형 폴더블 (60% → 65%)
+      if (availableHeight >= 600)
+        return availableHeight * 0.7; // 중형 폴더블 (65% → 70%)
+      return availableHeight * 0.75; // 일반 가로 모드 (70% → 75%)
+    } else {
+      // 세로 모드에서는 높이를 더 많이 사용
+      if (availableHeight >= 1000)
+        return availableHeight * 0.75; // 대형 폴더블 (70% → 75%)
+      if (availableHeight >= 800)
+        return availableHeight * 0.8; // 중형 폴더블 (75% → 80%)
+      return availableHeight * 0.85; // 일반 세로 모드 (80% → 85%)
+    }
+  }
+
+  // 팝업창의 실제 크기를 기반으로 한 동적 UI 요소 크기 계산 메서드들
+  double _getDynamicContainerPadding(double dialogWidth) {
+    return (dialogWidth * 0.06).clamp(18.0, 36.0);
+  }
+
+  double _getDynamicBorderRadius(double dialogWidth) {
+    return (dialogWidth * 0.06).clamp(18.0, 36.0);
+  }
+
+  double _getDynamicTitleFontSize(double dialogWidth) {
+    return (dialogWidth * 0.065).clamp(22.0, 38.0);
+  }
+
+  double _getDynamicSubtitleFontSize(double dialogWidth) {
+    return (dialogWidth * 0.042).clamp(14.0, 24.0);
+  }
+
+  double _getDynamicBodyFontSize(double dialogWidth) {
+    return (dialogWidth * 0.038).clamp(12.0, 22.0);
+  }
+
+  double _getDynamicButtonFontSize(double containerWidth) {
+    return (containerWidth * 0.042).clamp(14.0, 24.0);
+  }
+
+  double _getDynamicUserListHeight(double dialogHeight) {
+    return (dialogHeight * 0.38).clamp(200.0, 400.0);
+  }
+
+  double _getDynamicAvatarRadius(double dialogWidth) {
+    return (dialogWidth * 0.058).clamp(20.0, 35.0);
+  }
+
+  double _getDynamicUserItemFontSize(double containerWidth) {
+    return (containerWidth * 0.045).clamp(16.0, 28.0); // 컨테이너 폭 기반 동적 폰트 크기
+  }
+
+  double _getDynamicUserDetailFontSize(double dialogWidth) {
+    return (dialogWidth * 0.032).clamp(12.0, 20.0);
+  }
+
+  double _getDynamicButtonHeight(double dialogHeight) {
+    return (dialogHeight * 0.058).clamp(40.0, 60.0);
+  }
+
+  double _getDynamicVerticalSpacing(double dialogHeight) {
+    return (dialogHeight * 0.015).clamp(8.0, 20.0);
+  }
+
+  double _getDynamicHorizontalSpacing(double dialogWidth) {
+    return (dialogWidth * 0.04).clamp(16.0, 32.0);
+  }
+
+  double _getDynamicIconSize(double dialogWidth) {
+    return (dialogWidth * 0.065).clamp(24.0, 40.0);
+  }
+
+  // 리스트 항목 내부 요소들의 동적 크기 계산 메서드들
+  double _getDynamicFlagHeight(double containerWidth) {
+    return (containerWidth * 0.08).clamp(20.0, 35.0); // 컨테이너 폭의 8%
+  }
+
+  double _getDynamicFlagWidth(double containerWidth) {
+    return (containerWidth * 0.12).clamp(25.0, 45.0); // 컨테이너 폭의 12%
+  }
+
+  double _getDynamicFlagSpacing(double containerWidth) {
+    return (containerWidth * 0.03).clamp(8.0, 15.0); // 컨테이너 폭의 3%
+  }
+
+  double _getDynamicSelectionButtonSize(double containerWidth) {
+    return (containerWidth * 0.15).clamp(30.0, 50.0); // 컨테이너 폭의 15%
+  }
+
+  double _getDynamicSelectionIconSize(double containerWidth) {
+    return (containerWidth * 0.1).clamp(20.0, 35.0); // 컨테이너 폭의 10%
+  }
+
+  // 액션 버튼 관련 동적 크기 계산 메서드들
+  double _getDynamicButtonSpacing(double containerWidth) {
+    return (containerWidth * 0.04).clamp(16.0, 32.0); // 컨테이너 폭의 4%
+  }
 
   // Helper method for creating text styles with dynamic sizing
   TextStyle _getTextStyle({
@@ -338,154 +447,163 @@ class _PlayerSelectionDialogWidgetState
         ),
         child: Container(
           padding: EdgeInsets.all(_dialogPadding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Header with gradient text
-              ShaderMask(
-                shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ).createShader(bounds),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['select_players'] ?? 'Select Players',
-                    style: _getTextStyle(
-                      fontSize: _titleFontSize,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              SizedBox(height: _verticalSpacing),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  _translations['select_up_to_3_players'] ??
-                      'Select up to 3 other players',
-                  style: _getTextStyle(
-                    fontSize: _subtitleFontSize,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: _horizontalSpacing,
-                    vertical: _verticalSpacing * 0.5),
-                margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
-                decoration: BoxDecoration(
-                  color: Color(0xFF833AB4).withOpacity(0.08),
-                  borderRadius:
-                      BorderRadius.circular(_dialogBorderRadius * 0.6),
-                ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['you_will_be_included'] ??
-                        'You will always be included as a player',
-                    style: _getTextStyle(
-                      fontSize: _bodyFontSize,
-                      color: Color(0xFF833AB4),
-                      fontWeight: FontWeight.w500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Header with gradient text
+                ShaderMask(
+                  shaderCallback: (bounds) => LinearGradient(
+                    colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      _translations['select_players'] ?? 'Select Players',
+                      style: _getTextStyle(
+                        fontSize: _titleFontSize,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: _verticalSpacing * 1.6),
-              _buildUsersList(),
-              SizedBox(height: _verticalSpacing * 2),
-              // Action buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Cancel button
-                  Expanded(
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).pop(null),
-                      borderRadius:
-                          BorderRadius.circular(_dialogBorderRadius * 0.85),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: _buttonHeight * 0.25),
-                        height: _buttonHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius:
-                              BorderRadius.circular(_dialogBorderRadius * 0.85),
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              _translations['cancel'] ?? 'Cancel',
-                              style: _getTextStyle(
-                                fontSize: _buttonFontSize,
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.w600,
+                SizedBox(height: _verticalSpacing),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['select_up_to_3_players'] ??
+                        'Select up to 3 other players',
+                    style: _getTextStyle(
+                      fontSize: _subtitleFontSize,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: _horizontalSpacing,
+                      vertical: _verticalSpacing * 0.5),
+                  margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF833AB4).withOpacity(0.08),
+                    borderRadius:
+                        BorderRadius.circular(_dialogBorderRadius * 0.6),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      _translations['you_will_be_included'] ??
+                          'You will always be included as a player',
+                      style: _getTextStyle(
+                        fontSize: _bodyFontSize,
+                        color: Color(0xFF833AB4),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: _verticalSpacing * 1.6),
+                _buildUsersList(),
+                SizedBox(height: _verticalSpacing * 1),
+                // Action buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Cancel button
+                    Expanded(
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pop(null),
+                        borderRadius:
+                            BorderRadius.circular(_dialogBorderRadius * 0.85),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _buttonHeight * 0.25,
+                              horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
+                          height: _buttonHeight,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                _dialogBorderRadius * 0.85),
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                _translations['cancel'] ?? 'Cancel',
+                                style: _getTextStyle(
+                                  fontSize: _getDynamicButtonFontSize(
+                                      _dialogWidth), // 동적 폰트 크기
+                                  color: Colors.grey.shade700,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: _horizontalSpacing),
-                  // Confirm button
-                  Expanded(
-                    child: InkWell(
-                      onTap: () async {
-                        // 선택된 유저 목록에 대해 PIN 인증 진행
-                        List<Map<String, dynamic>> verifiedUsers =
-                            await _verifySelectedUsersPin();
-                        // 선택된 플레이어가 없어도 다이얼로그를 닫음
-                        Navigator.of(context).pop(verifiedUsers);
-                      },
-                      borderRadius:
-                          BorderRadius.circular(_dialogBorderRadius * 0.85),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: _buttonHeight * 0.25),
-                        height: _buttonHeight,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(_dialogBorderRadius * 0.85),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF833AB4).withOpacity(0.3),
-                              blurRadius: _screenWidth * 0.025,
-                              offset: Offset(0, _screenHeight * 0.006),
+                    SizedBox(
+                        width:
+                            _getDynamicButtonSpacing(_dialogWidth)), // 동적 버튼 간격
+                    // Confirm button
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
+                          // 선택된 유저 목록에 대해 PIN 인증 진행
+                          List<Map<String, dynamic>> verifiedUsers =
+                              await _verifySelectedUsersPin();
+                          // 선택된 플레이어가 없어도 다이얼로그를 닫음
+                          Navigator.of(context).pop(verifiedUsers);
+                        },
+                        borderRadius:
+                            BorderRadius.circular(_dialogBorderRadius * 0.85),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _buttonHeight * 0.25,
+                              horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
+                          height: _buttonHeight,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              _translations['confirm'] ?? 'Confirm',
-                              style: _getTextStyle(
-                                fontSize: _buttonFontSize,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
+                            borderRadius: BorderRadius.circular(
+                                _dialogBorderRadius * 0.85),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF833AB4).withOpacity(0.3),
+                                blurRadius: _dialogWidth * 0.025, // 동적 그림자
+                                offset:
+                                    Offset(0, _dialogWidth * 0.006), // 동적 오프셋
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                _translations['confirm'] ?? 'Confirm',
+                                style: _getTextStyle(
+                                  fontSize: _getDynamicButtonFontSize(
+                                      _dialogWidth), // 동적 폰트 크기
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -637,6 +755,19 @@ class _PlayerSelectionDialogWidgetState
                             children: [
                               Row(
                                 children: [
+                                  if (user['country'] != null) ...[
+                                    Flag.fromString(
+                                      (user['country'] as String).toUpperCase(),
+                                      height: _getDynamicFlagHeight(
+                                          _dialogWidth), // 컨테이너 폭 기반 동적 높이
+                                      width: _getDynamicFlagWidth(
+                                          _dialogWidth), // 컨테이너 폭 기반 동적 너비
+                                      borderRadius: 3, // 2 → 3, 더 부드러운 모서리
+                                    ),
+                                    SizedBox(
+                                        width: _getDynamicFlagSpacing(
+                                            _dialogWidth)), // 컨테이너 폭 기반 동적 간격
+                                  ],
                                   FittedBox(
                                     fit: BoxFit.scaleDown,
                                     alignment: Alignment.centerLeft,
@@ -645,7 +776,8 @@ class _PlayerSelectionDialogWidgetState
                                           (_translations['unknown_player'] ??
                                               'Unknown Player'),
                                       style: _getTextStyle(
-                                        fontSize: _userItemFontSize,
+                                        fontSize: _getDynamicUserItemFontSize(
+                                            _dialogWidth), // 컨테이너 폭 기반 동적 폰트 크기
                                         fontWeight: FontWeight.w600,
                                         color: isSelected
                                             ? Colors.white
@@ -655,15 +787,6 @@ class _PlayerSelectionDialogWidgetState
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  if (user['country'] != null) ...[
-                                    SizedBox(width: _screenWidth * 0.02),
-                                    Flag.fromString(
-                                      (user['country'] as String).toUpperCase(),
-                                      height: _screenHeight * 0.015,
-                                      width: _screenWidth * 0.05,
-                                      borderRadius: 2,
-                                    ),
-                                  ],
                                 ],
                               ),
                             ],
@@ -671,8 +794,10 @@ class _PlayerSelectionDialogWidgetState
                         ),
                         // Selection indicator
                         Container(
-                          width: _avatarRadius * 1.2,
-                          height: _avatarRadius * 1.2,
+                          width: _getDynamicSelectionButtonSize(
+                              _dialogWidth), // 컨테이너 폭 기반 동적 크기
+                          height: _getDynamicSelectionButtonSize(
+                              _dialogWidth), // 컨테이너 폭 기반 동적 크기
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isSelected
@@ -682,12 +807,14 @@ class _PlayerSelectionDialogWidgetState
                                 ? null
                                 : Border.all(
                                     color: Colors.grey.shade300,
-                                    width: _screenWidth * 0.005),
+                                    width: _dialogWidth *
+                                        0.008), // 컨테이너 폭 기반 동적 테두리
                           ),
                           child: isSelected
                               ? Icon(
                                   Icons.check,
-                                  size: _avatarRadius * 0.9,
+                                  size: _getDynamicSelectionIconSize(
+                                      _dialogWidth), // 컨테이너 폭 기반 동적 아이콘 크기
                                   color: Color(0xFF833AB4),
                                 )
                               : null,

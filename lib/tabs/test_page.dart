@@ -200,11 +200,47 @@ class _TestPageState extends State<TestPage>
   }
 
   void _initTts() async {
-    final languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
-    String selectedLanguage = languageProvider.currentLanguage;
-    await flutterTts.setLanguage(selectedLanguage);
-    await flutterTts.setSpeechRate(0.5);
+    try {
+      // 1. SharedPreferences에서 언어 설정 읽기 (우선순위 1)
+      final prefs = await SharedPreferences.getInstance();
+      String? languageFromPrefs = prefs.getString('selectedLanguage');
+      print('로컬 저장소에서 읽은 언어: $languageFromPrefs');
+
+      // 2. LanguageProvider에서 현재 언어 가져오기 (우선순위 2)
+      final languageProvider =
+          Provider.of<LanguageProvider>(context, listen: false);
+      String languageFromProvider = languageProvider.currentLanguage;
+      print('LanguageProvider에서 읽은 언어: $languageFromProvider');
+
+      // 우선순위에 따라 언어 선택
+      String selectedLanguage = languageFromPrefs ?? // 로컬 저장소
+          (languageFromProvider.isNotEmpty
+              ? languageFromProvider
+              : 'ko-KR'); // LanguageProvider 또는 기본값
+
+      print('최종 선택된 언어: $selectedLanguage');
+
+      await flutterTts.setLanguage(selectedLanguage);
+      await flutterTts.setSpeechRate(0.5);
+      print('TestPage TTS 언어 설정 완료: $selectedLanguage');
+
+      // 선택된 언어를 다시 로컬에 저장 (안전을 위해)
+      await prefs.setString('selectedLanguage', selectedLanguage);
+    } catch (e) {
+      print('TestPage TTS 초기화 오류: $e');
+      // 오류 발생 시 기본 언어로 설정
+      try {
+        await flutterTts.setLanguage('ko-KR');
+        await flutterTts.setSpeechRate(0.5);
+        print('오류로 인해 기본 언어(ko-KR)로 설정됨');
+
+        // 오류 발생 시에도 기본 언어를 로컬에 저장
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('selectedLanguage', 'ko-KR');
+      } catch (fallbackError) {
+        print('TestPage TTS 기본 언어 설정 실패: $fallbackError');
+      }
+    }
   }
 
   void initializeQuestions() {

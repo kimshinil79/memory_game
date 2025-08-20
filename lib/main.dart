@@ -236,6 +236,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
       });
     }
+
+    // 앱 시작 시 TTS 언어 초기화
+    _initializeTTSLanguage();
   }
 
   @override
@@ -1587,6 +1590,53 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       print('User country code saved to local storage: $countryCode');
     } catch (e) {
       print('Error saving country code to local storage: $e');
+    }
+  }
+
+  // TTS 언어 초기화 메서드
+  Future<void> _initializeTTSLanguage() async {
+    try {
+      // LanguageProvider에서 현재 언어 가져오기
+      final languageProvider =
+          Provider.of<LanguageProvider>(context, listen: false);
+
+      // 앱 시작 시 약간의 지연을 두어 LanguageProvider가 완전히 초기화되도록 함
+      await Future.delayed(Duration(milliseconds: 1000));
+
+      String currentLanguage = languageProvider.currentLanguage;
+      print('앱 시작 시 TTS 언어 설정: $currentLanguage');
+
+      // LanguageProvider가 초기화되지 않았으면 기본 언어 사용
+      if (currentLanguage.isEmpty) {
+        currentLanguage = 'ko-KR';
+        print('LanguageProvider가 초기화되지 않아 기본 언어 ko-KR을 사용합니다.');
+      }
+
+      // 모든 TTS 인스턴스에 대해 언어 설정을 강제로 적용
+      // MemoryGamePage의 TTS 설정
+      if (_memoryGamePage != null) {
+        // MemoryGamePage의 TTS 언어 설정을 강제로 업데이트
+        setState(() {
+          // MemoryGamePage를 다시 생성하여 TTS 언어를 새로 설정
+          _memoryGamePage = _buildMemoryGamePage();
+        });
+      }
+
+      // TestPage의 TTS 설정도 업데이트 (탭이 변경될 때 적용됨)
+      // TestPage는 didChangeDependencies에서 자동으로 언어를 설정하므로 별도 처리 불필요
+
+      // 추가로 2초 후에 한 번 더 확인하여 확실하게 설정
+      Future.delayed(Duration(seconds: 2), () {
+        if (mounted) {
+          String finalLanguage = languageProvider.currentLanguage;
+          if (finalLanguage.isEmpty) {
+            finalLanguage = 'ko-KR';
+          }
+          print('최종 TTS 언어 확인: $finalLanguage');
+        }
+      });
+    } catch (e) {
+      print('TTS 언어 초기화 오류: $e');
     }
   }
 }
