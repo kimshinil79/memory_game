@@ -50,6 +50,11 @@ class _TestPageState extends State<TestPage>
   double get _screenWidth => MediaQuery.of(context).size.width;
   double get _screenHeight => MediaQuery.of(context).size.height;
 
+  // 폴더블 상태 확인
+  bool get _isFolded =>
+      Provider.of<LanguageProvider>(context, listen: false).isFolded;
+  bool get _isUnfolded => !_isFolded;
+
   // 화면 크기 분류
   bool get _isSmallScreen => _screenWidth < 360 || _screenHeight < 640;
   bool get _isMediumScreen => _screenWidth < 414 || _screenHeight < 736;
@@ -80,30 +85,50 @@ class _TestPageState extends State<TestPage>
   double get _gridHorizontalPadding => _screenWidth * 0.05;
   double get _gridChildAspectRatio => _isSmallScreen ? 1.0 : 1.1;
 
-  // 컨트롤 버튼 크기
-  double get _controlButtonSize => _isSmallScreen
-      ? _screenWidth * 0.12
-      : _isMediumScreen
-          ? _screenWidth * 0.13
-          : _screenWidth * 0.14;
+  // 컨트롤 버튼 크기 (폴더블 상태에 따른 동적 조절)
+  double get _controlButtonSize {
+    if (_isUnfolded) {
+      return _availableContentHeight * 0.06; // 사용 가능한 높이의 6%로 더 작게
+    }
+    return _isSmallScreen
+        ? _screenWidth * 0.12
+        : _isMediumScreen
+            ? _screenWidth * 0.13
+            : _screenWidth * 0.14;
+  }
 
-  double get _playButtonSize => _isSmallScreen
-      ? _screenWidth * 0.16
-      : _isMediumScreen
-          ? _screenWidth * 0.17
-          : _screenWidth * 0.18;
+  double get _playButtonSize {
+    if (_isUnfolded) {
+      return _availableContentHeight * 0.08; // 사용 가능한 높이의 8%로 더 작게
+    }
+    return _isSmallScreen
+        ? _screenWidth * 0.16
+        : _isMediumScreen
+            ? _screenWidth * 0.17
+            : _screenWidth * 0.18;
+  }
 
-  double get _controlIconSize => _isSmallScreen
-      ? _screenWidth * 0.045
-      : _isMediumScreen
-          ? _screenWidth * 0.048
-          : _screenWidth * 0.05;
+  double get _controlIconSize {
+    if (_isUnfolded) {
+      return _controlButtonSize * 0.4; // 버튼 크기의 40%
+    }
+    return _isSmallScreen
+        ? _screenWidth * 0.045
+        : _isMediumScreen
+            ? _screenWidth * 0.048
+            : _screenWidth * 0.05;
+  }
 
-  double get _playIconSize => _isSmallScreen
-      ? _screenWidth * 0.07
-      : _isMediumScreen
-          ? _screenWidth * 0.075
-          : _screenWidth * 0.08;
+  double get _playIconSize {
+    if (_isUnfolded) {
+      return _playButtonSize * 0.45; // 버튼 크기의 45%
+    }
+    return _isSmallScreen
+        ? _screenWidth * 0.07
+        : _isMediumScreen
+            ? _screenWidth * 0.075
+            : _screenWidth * 0.08;
+  }
 
   // 하단 버튼 크기
   double get _bottomButtonHeight => _isSmallScreen
@@ -118,8 +143,14 @@ class _TestPageState extends State<TestPage>
           ? _screenWidth * 0.038
           : _screenWidth * 0.04;
 
-  // 여백 및 간격
-  double get _verticalSpacing => _screenHeight * 0.02;
+  // 여백 및 간격 (폴더블 상태에 따른 동적 조절)
+  double get _verticalSpacing {
+    if (_isUnfolded) {
+      return _availableContentHeight * 0.008; // 사용 가능한 높이의 0.8%로 더 줄임
+    }
+    return _screenHeight * 0.02;
+  }
+
   double get _sectionPadding => _screenWidth * 0.04;
 
   // 다이얼로그 크기
@@ -166,6 +197,64 @@ class _TestPageState extends State<TestPage>
       : _isMediumScreen
           ? _screenWidth * 0.032
           : _screenWidth * 0.035;
+
+  // 폴더블 상태에 따른 사용 가능한 높이 계산
+  double get _availableContentHeight {
+    // AppBar 높이 (약 56px + status bar)
+    final appBarHeight = kToolbarHeight + MediaQuery.of(context).padding.top;
+
+    // 기본 세로 간격 (순환 참조 방지)
+    final baseVerticalSpacing = _screenHeight * 0.02;
+
+    // 질문 인디케이터 영역 높이
+    final questionIndicatorHeight =
+        _questionIndicatorSize + (baseVerticalSpacing * 2);
+
+    // 하단 버튼 영역 높이
+    final bottomButtonsHeight = _bottomButtonHeight + (baseVerticalSpacing * 2);
+
+    // 사용 가능한 콘텐츠 높이 계산
+    return _screenHeight -
+        appBarHeight -
+        questionIndicatorHeight -
+        bottomButtonsHeight;
+  }
+
+  // 폴더블 상태에 따른 동적 크기 조절
+  double get _dynamicGridChildAspectRatio {
+    if (_isUnfolded) {
+      // 펼쳤을 때: 컨트롤 버튼 높이를 고려한 정확한 계산
+      final controlButtonsHeight = _playButtonSize + (_verticalSpacing * 2);
+      final availableGridHeight = _availableContentHeight -
+          controlButtonsHeight -
+          (_verticalSpacing * 2);
+
+      final gridItemHeight =
+          (availableGridHeight - _dynamicGridSpacing) / 2; // 2행
+      final gridItemWidth = (_screenWidth -
+              (_dynamicGridHorizontalPadding * 2) -
+              _dynamicGridSpacing) /
+          2; // 2열
+      return gridItemWidth / gridItemHeight;
+    }
+    return _gridChildAspectRatio; // 기본값
+  }
+
+  // 폴더블 상태에 따른 동적 그리드 간격
+  double get _dynamicGridSpacing {
+    if (_isUnfolded) {
+      return _availableContentHeight * 0.01; // 사용 가능한 높이의 1%로 줄임
+    }
+    return _gridSpacing;
+  }
+
+  // 폴더블 상태에 따른 동적 그리드 패딩
+  double get _dynamicGridHorizontalPadding {
+    if (_isUnfolded) {
+      return _screenWidth * 0.03; // 화면 너비의 3%
+    }
+    return _gridHorizontalPadding;
+  }
 
   @override
   void initState() {
@@ -584,17 +673,22 @@ class _TestPageState extends State<TestPage>
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: isSelected ? primaryColor : Colors.grey.shade300,
-                    width: 3,
-                  ),
+                  // 선택된 그림에 붉은 테두리 표시
+                  border: isSelected
+                      ? Border.all(
+                          color: Colors.red, // 붉은 테두리
+                          width: 5,
+                        )
+                      : null, // 선택되지 않으면 테두리 없음
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Image.asset(
-                    'assets/pictureDB_webp/$option.webp',
-                    fit: BoxFit.contain,
+                child: Center(
+                  // 이미지를 컨테이너 중앙에 배치
+                  child: Padding(
+                    padding: EdgeInsets.all(2),
+                    child: Image.asset(
+                      'assets/pictureDB_webp/$option.webp',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
@@ -627,7 +721,16 @@ class _TestPageState extends State<TestPage>
 
   Widget buildControlButtons() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: _verticalSpacing),
+      margin: EdgeInsets.symmetric(
+        vertical: _isUnfolded
+            ? _verticalSpacing * 0.5
+            : _verticalSpacing, // 폴더를 펼쳤을 때 간격 절반으로
+      ),
+      constraints: BoxConstraints(
+        maxHeight: _isUnfolded
+            ? _availableContentHeight * 0.12
+            : double.infinity, // 폴더를 펼쳤을 때 최대 높이를 12%로 더 줄임
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -816,28 +919,39 @@ class _TestPageState extends State<TestPage>
                   SizedBox(height: _verticalSpacing),
                   buildQuestionIndicator(),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: _verticalSpacing),
-                          GridView.count(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            childAspectRatio: _gridChildAspectRatio,
-                            mainAxisSpacing: _gridSpacing,
-                            crossAxisSpacing: _gridSpacing,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: _gridHorizontalPadding),
-                            children: questionOptions[currentQuestion]
-                                .map((option) => buildOptionCard(option))
-                                .toList(),
+                    child: _isUnfolded
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                  height:
+                                      _verticalSpacing * 0.5), // 간격을 절반으로 줄임
+                              // 사용 가능한 높이를 동적으로 계산하여 각 요소 크기 결정
+                              _buildDynamicGrid(),
+                              //SizedBox(height: _verticalSpacing),
+                            ],
+                          )
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: _verticalSpacing),
+                                GridView.count(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 2,
+                                  childAspectRatio: _gridChildAspectRatio,
+                                  mainAxisSpacing: _gridSpacing,
+                                  crossAxisSpacing: _gridSpacing,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: _gridHorizontalPadding),
+                                  children: questionOptions[currentQuestion]
+                                      .map((option) => buildOptionCard(option))
+                                      .toList(),
+                                ),
+                              ],
+                            ),
                           ),
-                          buildControlButtons(),
-                        ],
-                      ),
-                    ),
                   ),
+                  buildControlButtons(),
                   buildBottomButtons(),
                 ],
               ),
@@ -881,6 +995,83 @@ class _TestPageState extends State<TestPage>
     if (_doNotShowAgain) {
       _saveTutorialPreference();
     }
+  }
+
+  // 동적 그리드 빌드 메서드
+  Widget _buildDynamicGrid() {
+    // buildQuestionIndicator와 buildControlButtons 사이의 사용 가능한 높이 계산
+    // buildControlButtons의 실제 높이를 정확히 계산
+    final controlButtonsHeight = _controlButtonSize + (_verticalSpacing * 2);
+    final availableHeight = _availableContentHeight - controlButtonsHeight;
+
+    // 컨테이너 높이를 사용 가능한 높이의 60%로 설정 (더 많은 여백 확보)
+    final containerHeight = availableHeight * 0.7;
+
+    // 그리드 아이템 크기 계산 (컨테이너 높이 기준)
+    final gridSpacing = containerHeight * 0.04; // 간격은 컨테이너 높이의 4%
+    const double epsilon = 4.0; // 라운딩 오차 방지를 위한 여유분
+    final gridItemHeight = (containerHeight - gridSpacing - epsilon) / 2; // 2행
+    final gridItemWidth =
+        (_screenWidth - (_dynamicGridHorizontalPadding * 2) - gridSpacing) /
+            2; // 2열
+
+    return Container(
+      // height 제거하여 필요한 만큼만 차지하도록 함
+      child: Align(
+        alignment: Alignment.topCenter, // 위쪽에서 시작, 좌우는 중앙
+        child: Container(
+          width: _screenWidth - (_dynamicGridHorizontalPadding * 2),
+          height: containerHeight,
+          decoration: BoxDecoration(
+            // 컨테이너 스타일링
+            border: Border.all(
+              color: primaryColor.withOpacity(0.3), // 메인 컬러로 테두리 설정
+              width: 0.0, // 테두리 두께
+            ),
+            borderRadius: BorderRadius.circular(16), // 둥근 모서리
+            color: Colors.white.withOpacity(0.05), // 아주 연한 흰색 배경
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 첫 번째 행 (2개 이미지)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: gridItemWidth,
+                    height: gridItemHeight,
+                    child: buildOptionCard(questionOptions[currentQuestion][0]),
+                  ),
+                  Container(
+                    width: gridItemWidth,
+                    height: gridItemHeight,
+                    child: buildOptionCard(questionOptions[currentQuestion][1]),
+                  ),
+                ],
+              ),
+              SizedBox(height: gridSpacing),
+              // 두 번째 행 (2개 이미지)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: gridItemWidth,
+                    height: gridItemHeight,
+                    child: buildOptionCard(questionOptions[currentQuestion][2]),
+                  ),
+                  Container(
+                    width: gridItemWidth,
+                    height: gridItemHeight,
+                    child: buildOptionCard(questionOptions[currentQuestion][3]),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   // Tutorial overlay
