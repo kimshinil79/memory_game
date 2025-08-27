@@ -471,13 +471,34 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   @override
   bool get wantKeepAlive => true;
 
-  // Add text scale factor getter for dynamic text sizing
+  // Add text scale factor getter for dynamic text sizing with foldable support
   double get _textScaleFactor {
-    final width = MediaQuery.of(context).size.width;
-    // Adjust these breakpoints as needed
-    if (width < 360) return 0.85;
-    if (width < 400) return 0.9;
-    return 1.0;
+    final mediaQuery = MediaQuery.of(context);
+    final width = mediaQuery.size.width;
+
+    // LanguageProvider를 통해 폴더블 상태 확인
+    try {
+      final languageProvider =
+          Provider.of<LanguageProvider>(context, listen: false);
+      final isFolded = languageProvider.isFolded;
+
+      // 폴더블 상태에 따른 텍스트 크기 조정
+      if (isFolded) {
+        if (width < 360) return 0.75; // 폴드된 작은 화면
+        if (width < 400) return 0.8; // 폴드된 중간 화면
+        return 0.85; // 폴드된 큰 화면
+      } else {
+        // 일반 화면
+        if (width < 360) return 0.85;
+        if (width < 400) return 0.9;
+        return 1.0;
+      }
+    } catch (e) {
+      // Provider 접근 실패 시 기본값 사용
+      if (width < 360) return 0.85;
+      if (width < 400) return 0.9;
+      return 1.0;
+    }
   }
 
   Widget _buildHeader(BrainHealthProvider provider) {

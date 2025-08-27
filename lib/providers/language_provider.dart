@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -138,12 +139,17 @@ class LanguageProvider with ChangeNotifier {
   bool _isInitialized = false;
   bool _isLoadingCountry = false;
 
+  // 폴더블폰 상태 관리
+  bool _isFolded = false;
+  Size _lastScreenSize = Size.zero;
+
   // Getters
   String get currentLanguage => _currentLanguage; // 음성 언어
   String get nationality => _nationality; // 국적 코드
   String get uiLanguage => _uiLanguage; // UI 언어 코드
   bool get isInitialized => _isInitialized;
   bool get isLoadingCountry => _isLoadingCountry;
+  bool get isFolded => _isFolded; // 폴더블폰 상태
 
   // Map country codes to language codes (모든 지원 언어에 대한 국가 코드 매핑)
   static final Map<String, String> countryToLanguageMap = {
@@ -1476,6 +1482,27 @@ class LanguageProvider with ChangeNotifier {
         return translations['african_languages'] ?? 'African Languages';
       default:
         return group;
+    }
+  }
+
+  // 폴더블폰 상태 업데이트
+  void updateFoldableState(Size screenSize) {
+    // 화면 크기가 변경되었는지 확인
+    if (_lastScreenSize != screenSize) {
+      _lastScreenSize = screenSize;
+
+      // 폴더블 상태 감지 (화면 비율로 판단)
+      final aspectRatio = screenSize.width / screenSize.height;
+      final newFoldedState = aspectRatio < 0.7 || aspectRatio > 1.8;
+
+      if (_isFolded != newFoldedState) {
+        _isFolded = newFoldedState;
+        notifyListeners();
+
+        print('🔄 LanguageProvider - 폴더블 상태 변경: ${_isFolded ? "폴드됨" : "펼쳐짐"}');
+        print('📐 화면 크기: ${screenSize.width}x${screenSize.height}');
+        print('📊 화면 비율: ${aspectRatio.toStringAsFixed(2)}');
+      }
     }
   }
 }

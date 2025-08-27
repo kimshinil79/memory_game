@@ -1587,15 +1587,19 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               final gridCols = int.parse(gridDimensions[0]);
                               final gridRows = int.parse(gridDimensions[1]);
 
-                              // 광고 높이 고려 (광고가 로드된 경우)
+                              // 게임 영역 계산: 타이머 바로 아래부터 광고 영역 바로 위까지
+                              final timerBarHeight = 45.0; // 타이머 바 높이
                               final adHeight =
                                   (_isBannerAdReady && myBanner != null)
                                       ? myBanner!.size.height.toDouble()
                                       : 0.0;
+                              final maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
 
-                              // 사용 가능한 높이 계산 (광고 높이 제외)
-                              final availableHeight =
-                                  viewportHeight - adHeight - 16; // 16은 여유 공간
+                              // 사용 가능한 게임 영역 높이 계산
+                              final availableHeight = viewportHeight -
+                                  timerBarHeight -
+                                  maxAdSectionHeight -
+                                  16; // 16은 여유 공간
 
                               // 카드 간격 계산 (화면 크기와 방향에 따라 동적 조정) - 간격을 더 줄임
                               final spacing =
@@ -1616,7 +1620,27 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                                   : 5.0);
 
                               // 폴더블 화면에 최적화된 카드 크기 계산
-                              // 가로와 세로 중 짧은 쪽을 기준으로 모든 이미지가 한 화면에 보이도록 계산
+                              // 화면 방향과 크기 변화에 동적으로 대응
+
+                              // LanguageProvider를 통해 폴더블 상태 확인
+                              final languageProvider =
+                                  Provider.of<LanguageProvider>(context,
+                                      listen: false);
+                              final isFolded = languageProvider.isFolded;
+                              final isLandscape =
+                                  viewportWidth > viewportHeight;
+
+                              // 폴더블 상태에 따른 카드 크기 조정
+                              double cardSizeMultiplier = 1.0;
+                              if (isFolded) {
+                                if (isLandscape) {
+                                  // 폴드된 가로 모드: 카드를 더 작게
+                                  cardSizeMultiplier = 0.8;
+                                } else {
+                                  // 폴드된 세로 모드: 카드를 더 작게
+                                  cardSizeMultiplier = 0.7;
+                                }
+                              }
 
                               // 가로 방향으로 배치할 수 있는 최대 카드 크기
                               final maxCardWidth =
@@ -1629,15 +1653,18 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   gridRows;
 
                               // 가로와 세로 중 작은 값을 선택하여 정사각형 카드 생성
-                              // 이렇게 하면 모든 카드가 화면에 맞게 배치됨
+                              // 폴더블 상태에 따른 배율 적용
                               final optimalCardSize =
-                                  maxCardWidth < maxCardHeight
-                                      ? maxCardWidth
-                                      : maxCardHeight;
+                                  (maxCardWidth < maxCardHeight
+                                          ? maxCardWidth
+                                          : maxCardHeight) *
+                                      cardSizeMultiplier;
 
-                              // 폴더블 화면을 고려한 최소/최대 카드 크기 제한
-                              final minCardSize = 40.0; // 폴더블 작은 화면 고려
-                              final maxCardSize = 150.0; // 폴더블 큰 화면 고려
+                              // 폴더블 화면을 고려한 동적 카드 크기 제한
+                              final minCardSize =
+                                  isFolded ? 35.0 : 40.0; // 폴드 시 더 작게
+                              final maxCardSize =
+                                  isFolded ? 120.0 : 150.0; // 폴드 시 더 작게
 
                               // 최종 카드 크기 결정
                               final finalCardSize = optimalCardSize.clamp(
@@ -1651,40 +1678,122 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   (finalCardSize * gridRows) +
                                       (spacing * (gridRows + 1));
 
-                              print('폴더블 그리드 계산:');
+                              // 폴더블 상태에 따른 화면 크기 정보 출력
+                              print('=== 폴더블 화면 상태 정보 ===');
                               print(
-                                  '  화면 크기: ${viewportWidth}x${viewportHeight}');
+                                  '📱 전체 화면 크기: ${viewportWidth}x${viewportHeight}');
                               print(
-                                  '  사용 가능한 높이: $availableHeight (광고 높이: $adHeight)');
-                              print('  그리드 크기: ${gridCols}x${gridRows}');
+                                  '🎮 게임 영역 크기: ${viewportWidth}x${availableHeight}');
+                              print('⏰ 타이머 바 높이: ${timerBarHeight}px');
                               print(
-                                  '  카드 크기: ${finalCardSize}x${finalCardSize}');
+                                  '📢 광고 섹션 높이: ${adHeight > 0 ? adHeight : maxAdSectionHeight}px');
+                              print('🔧 여유 공간: 16px');
+                              print('📊 그리드 크기: ${gridCols}x${gridRows}');
                               print(
-                                  '  실제 그리드 크기: ${actualGridWidth}x${actualGridHeight}');
+                                  '🎴 카드 크기: ${finalCardSize}x${finalCardSize}px');
                               print(
-                                  '  가로 여백: ${viewportWidth - actualGridWidth}');
+                                  '📐 실제 그리드 크기: ${actualGridWidth}x${actualGridHeight}');
                               print(
-                                  '  세로 여백: ${availableHeight - actualGridHeight}');
+                                  '📏 가로 여백: ${(viewportWidth - actualGridWidth).toStringAsFixed(1)}px');
+                              print(
+                                  '📏 세로 여백: ${(availableHeight - actualGridHeight).toStringAsFixed(1)}px');
+                              print('🔄 폴더블 상태: ${isFolded ? "폴드됨" : "펼쳐짐"}');
+                              print(
+                                  '📐 화면 비율: ${(viewportWidth / viewportHeight).toStringAsFixed(2)}');
+                              print(
+                                  '🎯 카드 크기 배율: ${cardSizeMultiplier.toStringAsFixed(2)}');
+                              if (!isFolded) {
+                                final minSpacing = 1.0;
+                                final tileHeight = (availableHeight -
+                                        (minSpacing * (gridRows + 1))) /
+                                    gridRows;
+                                final containerWidth = (tileHeight * gridCols) +
+                                    (minSpacing * (gridCols + 1));
+                                print(
+                                    '🎴 펼침 모드 - 최적화된 타일 크기: ${tileHeight.toStringAsFixed(1)}x${tileHeight.toStringAsFixed(1)}px');
+                                print(
+                                    '📐 펼침 모드 - 컨테이너 크기: ${containerWidth.toStringAsFixed(1)}x${availableHeight.toStringAsFixed(1)}px');
+                                print(
+                                    '📏 펼침 모드 - 최소 간격: ${minSpacing}px (이미지 크기 최대화)');
+                                print(
+                                    '📊 펼침 모드 - Column/Row 직접 구성 (GridView 미사용)');
+                              }
+                              print('========================');
 
-                              return GridView.builder(
-                                physics: AlwaysScrollableScrollPhysics(),
-                                padding: EdgeInsets.all(spacing),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: gridCols,
-                                  crossAxisSpacing: spacing,
-                                  mainAxisSpacing: spacing,
-                                  // childAspectRatio 제거하여 카드 크기를 직접 제어
-                                ),
-                                itemCount: gameImages.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    width: finalCardSize,
-                                    height: finalCardSize,
-                                    child: buildCard(index),
-                                  );
-                                },
-                              );
+                              // 폴더블 상태에 따라 다른 방식 사용
+                              if (isFolded) {
+                                // 폴더블폰 접힘: 기존 방식 (GridView가 자동으로 크기 조정)
+                                return GridView.builder(
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  padding: EdgeInsets.all(spacing),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: gridCols,
+                                    crossAxisSpacing: spacing,
+                                    mainAxisSpacing: spacing,
+                                  ),
+                                  itemCount: gameImages.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      width: finalCardSize,
+                                      height: finalCardSize,
+                                      child: buildCard(index),
+                                    );
+                                  },
+                                );
+                              } else {
+                                // 폴더블폰 펼침: Column과 Row를 사용한 직접 그리드 구성
+                                // spaceEvenly를 사용하므로 간격을 계산에서 제외하고 전체 공간 활용
+                                final double minSpacing = 0.0; // 최소 간격
+                                final double horizontalSpacing = 10.0;
+                                final double tileHeight = availableHeight /
+                                    (gridRows - 0.9); // 전체 높이를 행 수로 나눔
+                                final double tileWidth = tileHeight;
+                                final double containerWidth =
+                                    tileWidth * gridCols +
+                                        (horizontalSpacing *
+                                            (gridCols - 1)); // 전체 너비를 열 수로 나눔
+
+                                // 그리드 행별로 카드들을 그룹화
+                                List<List<int>> cardRowsList = [];
+                                for (int row = 0; row < gridRows; row++) {
+                                  List<int> rowIndices = [];
+                                  for (int col = 0; col < gridCols; col++) {
+                                    int index = row * gridCols + col;
+                                    if (index < gameImages.length) {
+                                      rowIndices.add(index);
+                                    }
+                                  }
+                                  cardRowsList.add(rowIndices);
+                                }
+
+                                return Container(
+                                  width: containerWidth,
+                                  height: availableHeight,
+                                  decoration: BoxDecoration(
+                                      // 디버그용 테두리 제거
+                                      ),
+                                  padding: EdgeInsets.all(
+                                      minSpacing * 0.5), // 패딩을 더 줄임
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: cardRowsList.map((rowIndices) {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: rowIndices.map((index) {
+                                          return Container(
+                                            width: tileWidth,
+                                            height: tileHeight,
+                                            child: buildCard(index),
+                                          );
+                                        }).toList(),
+                                      );
+                                    }).toList(),
+                                  ),
+                                );
+                              }
                             },
                           );
                         },

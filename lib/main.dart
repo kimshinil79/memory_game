@@ -32,6 +32,7 @@ import 'item_list.dart' as images;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'services/memory_game_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 
 // Constants for SharedPreferences keys
 const String PREF_USER_COUNTRY_CODE = 'user_country_code';
@@ -205,10 +206,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   bool isLocalNotificationsInitialized = false;
   bool isMultiplayerMode = false;
 
+  // 폴더블폰 지원을 위한 변수
+  bool _isFolded = false;
+  Size _lastScreenSize = Size.zero;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    // 초기 화면 크기 설정
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateFoldableState();
+    });
 
     // PageController 초기화
     _pageController = PageController(initialPage: _currentIndex);
@@ -253,6 +263,42 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 구독 해제
     _authSubscription?.cancel();
     super.dispose();
+  }
+
+  // 폴더블폰 상태 감지 및 업데이트
+  void _updateFoldableState() {
+    if (!mounted) return;
+
+    final mediaQuery = MediaQuery.of(context);
+    final currentSize = mediaQuery.size;
+
+    // 화면 크기가 변경되었는지 확인
+    if (_lastScreenSize != currentSize) {
+      _lastScreenSize = currentSize;
+
+      // 폴더블 상태 감지 (화면 비율로 판단)
+      final aspectRatio = currentSize.width / currentSize.height;
+      final newFoldedState = aspectRatio < 0.7 || aspectRatio > 1.8;
+
+      if (_isFolded != newFoldedState) {
+        setState(() {
+          _isFolded = newFoldedState;
+        });
+
+        // LanguageProvider를 통해 폴더블 상태 업데이트
+        try {
+          final languageProvider =
+              Provider.of<LanguageProvider>(context, listen: false);
+          languageProvider.updateFoldableState(currentSize);
+        } catch (e) {
+          print('LanguageProvider 업데이트 실패: $e');
+        }
+
+        print('🔄 폴더블 상태 변경: ${_isFolded ? "폴드됨" : "펼쳐짐"}');
+        print('📐 화면 크기: ${currentSize.width}x${currentSize.height}');
+        print('📊 화면 비율: ${aspectRatio.toStringAsFixed(2)}');
+      }
+    }
   }
 
   void _initializeAuth() {
@@ -520,6 +566,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // 폴더블폰 상태 업데이트
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateFoldableState();
+    });
+
     // Create MemoryGamePage instance and save reference
     if (_memoryGamePage == null) {
       print(

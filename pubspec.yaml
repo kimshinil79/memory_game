@@ -55,6 +55,7 @@ dependencies:
   intl: ^0.20.2
   cloud_functions: ^5.3.2
   google_mobile_ads: ^5.2.0
+  dynamic_color: ^1.6.8
 
 dev_dependencies:
   flutter_test:
