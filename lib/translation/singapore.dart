@@ -82,6 +82,7 @@ const Map<String, String> enSGTranslations = {
   'error_changing_password': 'Error changing password',
   'error': 'Error',
   'sign_out': 'Sign out',
+  'delete_account': 'Delete account',
   'random_shake': 'Random shake!',
 
   // Completion Dialog texts

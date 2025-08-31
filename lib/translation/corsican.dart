@@ -84,6 +84,7 @@ const Map<String, String> coTranslations = {
   'error_changing_password': 'Errore durante u cambiamentu di a password',
   'error': 'Errore',
   'sign_out': 'Esce',
+  'delete_account': 'Sguassà u contu',
   'random_shake': 'Mescolà !',
 
   // Completion Dialog texts

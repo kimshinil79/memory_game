@@ -83,6 +83,7 @@ const Map<String, String> euTranslations = {
   'error_changing_password': 'Errorea pasahitza aldatzean',
   'error': 'Errorea',
   'sign_out': 'Amaitu saioa',
+  'delete_account': 'Ezabatu kontua',
   'random_shake': 'Txartelak nahastu!!',
 
   // Completion Dialog texts

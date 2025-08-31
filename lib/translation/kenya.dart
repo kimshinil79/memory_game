@@ -84,6 +84,7 @@ const Map<String, String> swKETranslations = {
   'error_changing_password': 'Hitilafu wakati wa kubadilisha nenosiri',
   'error': 'Hitilafu',
   'sign_out': 'Toka',
+  'delete_account': 'Futa akaunti',
   'random_shake': 'Vurugaji la bahati nasibu!',
 
   // Completion Dialog texts

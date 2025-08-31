@@ -84,6 +84,7 @@ const Map<String, String> tgTJTranslations = {
   'error_changing_password': 'Хатоги дар тағйири рамз',
   'error': 'Хатогӣ',
   'sign_out': 'Баромадан',
+  'delete_account': 'Ҳисобро нест кунед',
   'random_shake': 'Ларзиши тасодуфӣ!',
 
   // Completion Dialog texts

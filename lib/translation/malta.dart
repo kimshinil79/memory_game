@@ -82,6 +82,7 @@ const Map<String, String> mtMTTranslations = {
   'error_changing_password': 'Żball waqt il-bidla tal-password',
   'error': 'Żball',
   'sign_out': 'Oħroġ',
+  'delete_account': 'Ħassar il-kont',
   'random_shake': 'Ħawwad!',
 
   // Completion Dialog texts

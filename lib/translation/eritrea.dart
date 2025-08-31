@@ -84,6 +84,7 @@ const Map<String, String> tiERTranslations = {
   'error_changing_password': 'ሽግር ኣብ ምትዕርራይ ይሕጎስ',
   'error': 'ሽግር',
   'sign_out': 'ምውጻእ',
+  'delete_account': 'ሒሳብ ምስራዝ',
   'random_shake': 'ምውሳድ!',
 
   // Completion Dialog texts

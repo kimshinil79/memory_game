@@ -84,6 +84,7 @@ const Map<String, String> daTranslations = {
   'error_changing_password': 'Fejl ved ændring af adgangskode',
   'error': 'Fejl',
   'sign_out': 'Log ud',
+  'delete_account': 'Slet konto',
   'random_shake': 'Bland!',
 
   // Completion Dialog texts

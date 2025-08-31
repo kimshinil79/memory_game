@@ -82,6 +82,7 @@ const Map<String, String> heTranslations = {
   'error_changing_password': 'שגיאה בשינוי הסיסמה',
   'error': 'שגיאה',
   'sign_out': 'התנתק',
+  'delete_account': 'מחק חשבון',
   'random_shake': 'ניעור אקראי!',
 
   // Completion Dialog texts

@@ -85,6 +85,7 @@ const Map<String, String> siLKTranslations = {
   'error_changing_password': 'මුරපදය වෙනස් කිරීමේ දෝෂය',
   'error': 'දෝෂය',
   'sign_out': 'පිටවීම',
+  'delete_account': 'ගිණුම මකන්න',
   'random_shake': 'අහඹු සොලවීම!',
 
   // Completion Dialog texts

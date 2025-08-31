@@ -82,6 +82,7 @@ const Map<String, String> ruRUTranslations = {
   'error_changing_password': 'Ошибка при изменении пароля',
   'error': 'Ошибка',
   'sign_out': 'Выйти',
+  'delete_account': 'Удалить аккаунт',
   'random_shake': 'Случайная встряска!',
 
   // Completion Dialog texts

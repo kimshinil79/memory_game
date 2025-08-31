@@ -84,6 +84,7 @@ const Map<String, String> enUGTranslations = {
   'error_changing_password': 'Error changing password',
   'error': 'Error',
   'sign_out': 'Sign Out',
+  'delete_account': 'Delete Account',
   'random_shake': 'Random Shake!',
 
   // Completion Dialog texts

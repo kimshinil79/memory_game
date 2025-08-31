@@ -85,6 +85,7 @@ const Map<String, String> caADTranslations = {
   'error_changing_password': 'Error en canviar la contrasenya',
   'error': 'Error',
   'sign_out': 'Tanca sessió',
+  'delete_account': 'Eliminar compte',
   'random_shake': 'Agita les cartes!!',
 
   // Completion Dialog texts

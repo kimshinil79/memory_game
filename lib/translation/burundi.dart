@@ -83,6 +83,7 @@ const Map<String, String> rnTranslations = {
   'error_changing_password': 'Hari ikosa mu guhindura ijambo ry\'ibanga',
   'error': 'Ikosa',
   'sign_out': 'Sohoka',
+  'delete_account': 'Siba konti',
   'random_shake': 'Vunga amakarita!',
 
   // Completion Dialog texts

@@ -82,6 +82,7 @@ const Map<String, String> trTRTranslations = {
   'error_changing_password': 'Şifre değiştirilirken hata oluştu',
   'error': 'Hata',
   'sign_out': 'Çıkış Yap',
+  'delete_account': 'Hesabı Sil',
   'random_shake': 'Rastgele Salla!',
 
   // Completion Dialog texts

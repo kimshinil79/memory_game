@@ -82,6 +82,7 @@ const Map<String, String> uzUZTranslations = {
   'error_changing_password': 'Parolni o\'zgartirishda xatolik',
   'error': 'Xatolik',
   'sign_out': 'Chiqish',
+  'delete_account': 'Hisobni o\'chirish',
   'random_shake': 'Tasodifiy silkitish!',
 
   // Completion Dialog texts

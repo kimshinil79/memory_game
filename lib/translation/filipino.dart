@@ -84,6 +84,7 @@ const Map<String, String> filTranslations = {
   'error_changing_password': 'Error sa pagpapalit ng password',
   'error': 'Error',
   'sign_out': 'Mag-sign out',
+  'delete_account': 'Tanggalin ang account',
   'random_shake': 'Random na pag-alog!',
 
   // Completion Dialog texts

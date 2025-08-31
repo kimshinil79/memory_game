@@ -82,6 +82,7 @@ const Map<String, String> plPLTranslations = {
   'error_changing_password': 'Błąd podczas zmiany hasła',
   'error': 'Błąd',
   'sign_out': 'Wyloguj się',
+  'delete_account': 'Usuń konto',
   'random_shake': 'Losowe potrząśnięcie!',
 
   // Completion Dialog texts

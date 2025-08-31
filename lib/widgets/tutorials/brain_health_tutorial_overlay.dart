@@ -37,7 +37,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
           child: Icon(
             icon,
             color: color,
-            size: 20 * textScaleFactor,
+            size: 24 * textScaleFactor,
           ),
         ),
         SizedBox(width: 10),
@@ -49,16 +49,16 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15 * textScaleFactor,
+                  fontSize: 18 * textScaleFactor,
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 4),
               Text(
                 description,
                 style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 13 * textScaleFactor,
+                  fontSize: 16 * textScaleFactor,
                 ),
               ),
             ],
@@ -114,7 +114,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                               'Don\'t show again',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 14 * textScaleFactor,
+                            fontSize: 16 * textScaleFactor,
                           ),
                         ),
                       ],
@@ -130,7 +130,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                   translations['brain_health_dashboard'] ??
                       'Brain Health Dashboard',
                   style: GoogleFonts.notoSans(
-                    fontSize: 20 * textScaleFactor,
+                    fontSize: 24 * textScaleFactor,
                     fontWeight: FontWeight.bold,
                     color: tutorialColor,
                   ),

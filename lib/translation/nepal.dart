@@ -84,6 +84,7 @@ const Map<String, String> neTranslations = {
   'error_changing_password': 'पासवर्ड परिवर्तन गर्दा त्रुटि',
   'error': 'त्रुटि',
   'sign_out': 'साइन आउट गर्नुहोस्',
+  'delete_account': 'खाता मेटाउनुहोस्',
   'random_shake': 'अनियमित हल्लाउनुहोस्!',
 
   // Completion Dialog texts

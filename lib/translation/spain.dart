@@ -85,6 +85,7 @@ const Map<String, String> esESTranslations = {
   'error_changing_password': 'Error al cambiar la contraseña',
   'error': 'Error',
   'sign_out': 'Cerrar Sesión',
+  'delete_account': 'Eliminar Cuenta',
   'random_shake': '¡Sacudida Aleatoria!',
 
   // Completion Dialog texts

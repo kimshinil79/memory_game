@@ -83,6 +83,7 @@ const Map<String, String> sqTranslations = {
   'error_changing_password': 'Gabim në ndryshimin e fjalëkalimit',
   'error': 'Gabim',
   'sign_out': 'Dil',
+  'delete_account': 'Fshij llogarinë',
   'random_shake': 'Përzie letrat!!',
 
   // Completion Dialog texts

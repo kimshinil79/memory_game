@@ -84,6 +84,7 @@ const Map<String, String> lvLVTranslations = {
   'error_changing_password': 'Kļūda mainot paroli',
   'error': 'Kļūda',
   'sign_out': 'Izrakstīties',
+  'delete_account': 'Dzēst kontu',
   'random_shake': 'Nejauša kratīšana!',
 
   // Completion Dialog texts

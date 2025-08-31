@@ -82,6 +82,7 @@ const Map<String, String> idTranslations = {
   'error_changing_password': 'Gagal mengubah kata sandi',
   'error': 'Error',
   'sign_out': 'Keluar',
+  'delete_account': 'Hapus Akun',
   'random_shake': 'Acak!',
 
   // Completion Dialog texts

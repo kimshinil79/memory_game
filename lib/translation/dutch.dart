@@ -82,6 +82,7 @@ const Map<String, String> nlTranslations = {
   'error_changing_password': 'Fout bij wijzigen wachtwoord',
   'error': 'Fout',
   'sign_out': 'Uitloggen',
+  'delete_account': 'Account verwijderen',
   'random_shake': 'Schudden!',
 
   // Completion Dialog texts

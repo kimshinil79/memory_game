@@ -80,31 +80,30 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
     final isMediumScreen = screenWidth < 414 || screenHeight < 736;
 
     // 동적 크기 설정
-    final horizontalMargin = screenWidth * 0.05;
     final containerPadding = screenWidth * 0.05;
     final borderRadius = screenWidth * 0.05;
 
     // 동적 글씨 크기 설정
     final titleFontSize = isSmallScreen
-        ? screenWidth * 0.045
+        ? screenWidth * 0.048
         : isMediumScreen
-            ? screenWidth * 0.048
-            : screenWidth * 0.05;
+            ? screenWidth * 0.042
+            : screenWidth * 0.038;
     final itemTitleFontSize = isSmallScreen
-        ? screenWidth * 0.035
+        ? screenWidth * 0.038
         : isMediumScreen
-            ? screenWidth * 0.038
-            : screenWidth * 0.04;
+            ? screenWidth * 0.034
+            : screenWidth * 0.03;
     final itemDescFontSize = isSmallScreen
-        ? screenWidth * 0.03
+        ? screenWidth * 0.034
+        : isMediumScreen
+            ? screenWidth * 0.03
+            : screenWidth * 0.026;
+    final checkboxTextSize = isSmallScreen
+        ? screenWidth * 0.036
         : isMediumScreen
             ? screenWidth * 0.032
-            : screenWidth * 0.035;
-    final checkboxTextSize = isSmallScreen
-        ? screenWidth * 0.032
-        : isMediumScreen
-            ? screenWidth * 0.035
-            : screenWidth * 0.038;
+            : screenWidth * 0.028;
 
     // 동적 간격 설정
     final titleBottomSpace = screenHeight * 0.02;
@@ -114,8 +113,8 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
     final iconSize = isSmallScreen
         ? screenWidth * 0.055
         : isMediumScreen
-            ? screenWidth * 0.058
-            : screenWidth * 0.06;
+            ? screenWidth * 0.052
+            : screenWidth * 0.045;
 
     // 언어 번역 가져오기
     final translations = Provider.of<LanguageProvider>(context, listen: false)
@@ -125,16 +124,17 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
 
     return Container(
       color: Colors.black.withOpacity(0.7),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: horizontalMargin),
-            padding: EdgeInsets.all(containerPadding),
-            constraints: BoxConstraints(
-              maxHeight: screenHeight * 0.8,
-              maxWidth: screenWidth * 0.9,
-            ),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: screenHeight * 0.1,
+            left: containerPadding,
+            right: containerPadding,
+          ),
+          child: Container(
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.8,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(borderRadius),
@@ -146,7 +146,8 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
                 ),
               ],
             ),
-            child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(containerPadding),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -195,58 +196,68 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: titleBottomSpace),
-                  _buildTutorialItem(
-                    Icons.touch_app,
-                    translations['card_selection_title'] ?? 'Card Selection',
-                    translations['card_selection_desc'] ??
-                        'Tap cards to flip and find matching pairs.',
-                    tutorialColor,
-                    iconSize,
-                    itemTitleFontSize,
-                    itemDescFontSize,
-                    containerPadding * 0.6,
-                  ),
-                  SizedBox(height: itemSpacing),
-                  _buildTutorialItem(
-                    Icons.timer,
-                    translations['time_limit_title'] ?? 'Time Limit',
-                    translations['time_limit_desc'] ??
-                        'Match all pairs within time limit. Faster matching earns higher score.',
-                    tutorialColor,
-                    iconSize,
-                    itemTitleFontSize,
-                    itemDescFontSize,
-                    containerPadding * 0.6,
-                  ),
-                  SizedBox(height: itemSpacing),
-                  _buildTutorialItem(
-                    Icons.add_alarm,
-                    translations['add_time_title'] ?? 'Add Time',
-                    translations['add_time_desc'] ??
-                        'Tap "+30s" to add time (costs Brain Health points).',
-                    tutorialColor,
-                    iconSize,
-                    itemTitleFontSize,
-                    itemDescFontSize,
-                    containerPadding * 0.6,
-                  ),
-                  SizedBox(height: itemSpacing),
-                  _buildTutorialItem(
-                    Icons.people,
-                    translations['multiplayer_title'] ?? 'Multiplayer',
-                    translations['multiplayer_desc'] ??
-                        'Change player count (1-4) to play with friends.',
-                    tutorialColor,
-                    iconSize,
-                    itemTitleFontSize,
-                    itemDescFontSize,
-                    containerPadding * 0.6,
+                  Flexible(
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          _buildTutorialItem(
+                            Icons.touch_app,
+                            translations['card_selection_title'] ??
+                                'Card Selection',
+                            translations['card_selection_desc'] ??
+                                'Tap cards to flip and find matching pairs.',
+                            tutorialColor,
+                            iconSize,
+                            itemTitleFontSize,
+                            itemDescFontSize,
+                            containerPadding * 0.6,
+                          ),
+                          SizedBox(height: itemSpacing),
+                          _buildTutorialItem(
+                            Icons.timer,
+                            translations['time_limit_title'] ?? 'Time Limit',
+                            translations['time_limit_desc'] ??
+                                'Match all pairs within time limit. Faster matching earns higher score.',
+                            tutorialColor,
+                            iconSize,
+                            itemTitleFontSize,
+                            itemDescFontSize,
+                            containerPadding * 0.6,
+                          ),
+                          SizedBox(height: itemSpacing),
+                          _buildTutorialItem(
+                            Icons.add_alarm,
+                            translations['add_time_title'] ?? 'Add Time',
+                            translations['add_time_desc'] ??
+                                'Tap "+30s" to add time (costs Brain Health points).',
+                            tutorialColor,
+                            iconSize,
+                            itemTitleFontSize,
+                            itemDescFontSize,
+                            containerPadding * 0.6,
+                          ),
+                          SizedBox(height: itemSpacing),
+                          _buildTutorialItem(
+                            Icons.people,
+                            translations['multiplayer_title'] ?? 'Multiplayer',
+                            translations['multiplayer_desc'] ??
+                                'Change player count (1-4) to play with friends.',
+                            tutorialColor,
+                            iconSize,
+                            itemTitleFontSize,
+                            itemDescFontSize,
+                            containerPadding * 0.6,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

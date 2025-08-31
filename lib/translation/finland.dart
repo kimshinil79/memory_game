@@ -84,6 +84,7 @@ const Map<String, String> fiTranslations = {
   'error_changing_password': 'Virhe salasanan vaihtamisessa',
   'error': 'Virhe',
   'sign_out': 'Kirjaudu ulos',
+  'delete_account': 'Poista tili',
   'random_shake': 'Satunnainen ravistus!',
 
   // Completion Dialog texts

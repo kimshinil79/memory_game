@@ -85,6 +85,7 @@ const Map<String, String> tnTranslations = {
   'error_changing_password': 'Phoso fa o fetola lefoko la sephiri',
   'error': 'Phoso',
   'sign_out': 'Tswa',
+  'delete_account': 'Phimola akhaonto',
   'random_shake': 'Tswaya dikarata!!',
 
   // Completion Dialog texts

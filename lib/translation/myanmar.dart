@@ -84,6 +84,7 @@ const Map<String, String> myTranslations = {
   'error_changing_password': 'စကားဝှက်ပြောင်းရာတွင်အမှားဖြစ်နေပါသည်',
   'error': 'အမှား',
   'sign_out': 'ထွက်ရန်',
+  'delete_account': 'အကောင့်ဖျက်ရန်',
   'random_shake': 'ကျပန်းရောနှောရန်',
 
   // Completion Dialog texts

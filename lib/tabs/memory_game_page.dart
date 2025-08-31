@@ -1678,30 +1678,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   (finalCardSize * gridRows) +
                                       (spacing * (gridRows + 1));
 
-                              // 폴더블 상태에 따른 화면 크기 정보 출력
-                              print('=== 폴더블 화면 상태 정보 ===');
-                              print(
-                                  '📱 전체 화면 크기: ${viewportWidth}x${viewportHeight}');
-                              print(
-                                  '🎮 게임 영역 크기: ${viewportWidth}x${availableHeight}');
-                              print('⏰ 타이머 바 높이: ${timerBarHeight}px');
-                              print(
-                                  '📢 광고 섹션 높이: ${adHeight > 0 ? adHeight : maxAdSectionHeight}px');
-                              print('🔧 여유 공간: 16px');
-                              print('📊 그리드 크기: ${gridCols}x${gridRows}');
-                              print(
-                                  '🎴 카드 크기: ${finalCardSize}x${finalCardSize}px');
-                              print(
-                                  '📐 실제 그리드 크기: ${actualGridWidth}x${actualGridHeight}');
-                              print(
-                                  '📏 가로 여백: ${(viewportWidth - actualGridWidth).toStringAsFixed(1)}px');
-                              print(
-                                  '📏 세로 여백: ${(availableHeight - actualGridHeight).toStringAsFixed(1)}px');
-                              print('🔄 폴더블 상태: ${isFolded ? "폴드됨" : "펼쳐짐"}');
-                              print(
-                                  '📐 화면 비율: ${(viewportWidth / viewportHeight).toStringAsFixed(2)}');
-                              print(
-                                  '🎯 카드 크기 배율: ${cardSizeMultiplier.toStringAsFixed(2)}');
                               if (!isFolded) {
                                 final minSpacing = 1.0;
                                 final tileHeight = (availableHeight -
@@ -1946,19 +1922,25 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   Future<Map<String, dynamic>> _updateBrainHealthScore(int elapsedTime) async {
+    print('_updateBrainHealthScore 시작: elapsedTime = $elapsedTime');
     // 매치된 카드 쌍의 개수 계산
     final int totalMatches = gameImages.length ~/ 2;
     int pointsEarned = 0;
+    print('totalMatches: $totalMatches');
 
     try {
+      print('_updateBrainHealthScore try 블록 진입');
       // 로컬 멀티플레이어 모드에서 승자 결정
       String winner = "";
       bool isLoggedInUserWinner = true;
       List<String> tiedPlayers = []; // 동점자 목록 저장 변수 추가
+      print(
+          '변수 초기화 완료, numberOfPlayers: ${widget.numberOfPlayers}, isMultiplayerMode: ${widget.isMultiplayerMode}');
 
       if (widget.numberOfPlayers > 1 &&
           !widget.isMultiplayerMode &&
           _memoryGameService != null) {
+        print('멀티플레이어 로직 진입');
         // 승자 결정
         List<MapEntry<String, int>> scoreEntries = [];
 
@@ -2123,6 +2105,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         pointsEarned = winner == 'Tie' ? dividedPoints : finalPointsEarned;
       }
 
+      print(
+          '_updateBrainHealthScore 정상 완료: points=$pointsEarned, winner=$winner, isLoggedInUserWinner=$isLoggedInUserWinner');
       return {
         'points': pointsEarned,
         'winner': winner,
@@ -2130,6 +2114,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       };
     } catch (e) {
       print('Error updating Brain Health score: $e');
+      print('_updateBrainHealthScore 에러로 인한 완료');
       return {
         'points': 0,
         'winner': '',
@@ -2196,12 +2181,32 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 게임 완료 대화상자 표시
   void _showCompletionDialog(int elapsedTime) async {
-    String languageCode =
-        Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    String gridSize = widget.gridSize;
+    String languageCode;
+    try {
+      languageCode =
+          Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
+    } catch (e) {
+      languageCode = 'ko-KR'; // 기본값
+    }
 
-    // 게임 통계 업데이트 및 획득 점수 가져오기
-    Map<String, dynamic> result = await _updateBrainHealthScore(elapsedTime);
+    String gridSize;
+    try {
+      gridSize = widget.gridSize ?? '4x4'; // null일 경우 기본값
+    } catch (e) {
+      gridSize = '4x4'; // 기본값
+    }
+
+    Map<String, dynamic> result;
+    try {
+      result = await _updateBrainHealthScore(elapsedTime)
+          .timeout(Duration(seconds: 5));
+    } catch (e) {
+      result = {
+        'points': 50,
+        'winner': '',
+        'isLoggedInUserWinner': true,
+      };
+    }
     int basePointsEarned = result['points'];
     String winner = result['winner'];
     bool isLoggedInUserWinner = result['isLoggedInUserWinner'];
@@ -2239,6 +2244,20 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     if (!mounted) return;
 
+    // 번역 정보 미리 가져오기
+    Map<String, String> translations;
+    try {
+      final languageProvider =
+          Provider.of<LanguageProvider>(context, listen: false);
+      print('현재 UI 언어: ${languageProvider.uiLanguage}');
+      translations =
+          languageProvider.getTranslations(languageProvider.uiLanguage);
+      print('번역 로드 성공: ${translations.keys.length}개 키');
+    } catch (e) {
+      print('번역 로드 실패: $e');
+      translations = <String, String>{};
+    }
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -2253,6 +2272,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           multiplier: multiplier,
           instagramGradientStart: instagramGradientStart,
           instagramGradientEnd: instagramGradientEnd,
+          translations: translations,
           onNewGame: () {
             Navigator.of(context).pop();
             initializeGame();
@@ -2483,29 +2503,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   void _loadBannerAd() {
-    print('🔄 배너 광고 로드 시작...');
-    print('   플랫폼: ${Platform.isAndroid ? "Android" : "iOS"}');
-    print('   에뮬레이터 여부: ${Platform.isAndroid ? "확인 필요" : "iOS 시뮬레이터"}');
-    print('');
-    print('📋 테스트 기기 ID 확인 방법:');
-    if (Platform.isAndroid) {
-      print('   Android: 설정 → Google → 광고 → 광고 ID');
-      print('   (하지만 AdMob에서는 이 ID의 MD5 해시값을 사용합니다)');
-      print(
-          '   광고 로드 실패 시 콘솔에서 "Use RequestConfiguration.Builder().setTestDeviceIds" 메시지를 찾아보세요.');
-    } else {
-      print('   iOS: 설정 → 개인정보 보호 및 보안 → Apple 광고 → 광고 식별자');
-      print('   (하지만 AdMob에서는 이 ID의 MD5 해시값을 사용합니다)');
-      print(
-          '   광고 로드 실패 시 콘솔에서 "GADMobileAds.sharedInstance.requestConfiguration" 메시지를 찾아보세요.');
-    }
-    print('');
-
     // 기존 광고가 있다면 dispose
     if (myBanner != null) {
       myBanner!.dispose();
       myBanner = null;
-      print('   기존 배너 광고 정리 완료');
     }
 
     // 로딩 상태 시작
@@ -2520,8 +2521,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     String adUnitId = Platform.isAndroid
         ? 'ca-app-pub-3940256099942544/6300978111' // Android 테스트 배너
         : 'ca-app-pub-3940256099942544/2934735716'; // iOS 테스트 배너
-
-    print('   사용할 광고 단위 ID: $adUnitId');
 
     myBanner = BannerAd(
       adUnitId: adUnitId,
@@ -2577,7 +2576,6 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       ),
     );
 
-    print('   배너 광고 로드 시작...');
     myBanner!.load();
   }
 

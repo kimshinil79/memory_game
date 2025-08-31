@@ -82,6 +82,7 @@ const Map<String, String> viVNTranslations = {
   'error_changing_password': 'Lỗi khi đổi mật khẩu',
   'error': 'Lỗi',
   'sign_out': 'Đăng xuất',
+  'delete_account': 'Xóa tài khoản',
   'random_shake': 'Lắc ngẫu nhiên!',
 
   // Completion Dialog texts

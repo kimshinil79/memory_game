@@ -82,6 +82,7 @@ const Map<String, String> mhTranslations = {
   'error_changing_password': 'Kōnnaan kein kajin',
   'error': 'Kōnnaan kein kajin',
   'sign_out': 'Kōnnaan kein kajin',
+  'delete_account': 'Kōjparok kajin',
   'random_shake': 'Kōnnaan kein kajin!',
 
   // Completion Dialog texts

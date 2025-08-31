@@ -84,6 +84,7 @@ const Map<String, String> hrTranslations = {
   'error_changing_password': 'Greška pri promjeni lozinke',
   'error': 'Greška',
   'sign_out': 'Odjavi se',
+  'delete_account': 'Izbriši račun',
   'random_shake': 'Promiješaj!',
 
   // Completion Dialog texts

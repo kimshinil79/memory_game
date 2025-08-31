@@ -84,6 +84,7 @@ const Map<String, String> arJOTranslations = {
   'error_changing_password': 'حدث خطأ أثناء تغيير كلمة المرور',
   'error': 'خطأ',
   'sign_out': 'تسجيل الخروج',
+  'delete_account': 'حذف الحساب',
   'random_shake': 'هز عشوائي!',
 
   // Completion Dialog texts

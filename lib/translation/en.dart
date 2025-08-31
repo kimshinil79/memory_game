@@ -96,6 +96,7 @@ Map<String, String> enTranslations = {
   'error_changing_password': 'Error changing password',
   'error': 'Error',
   'sign_out': 'Sign Out',
+  'delete_account': 'Delete Account',
   'random_shake': 'Random Shake!!',
 
   // Completion Dialog 텍스트

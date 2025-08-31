@@ -84,6 +84,7 @@ const Map<String, String> elGRTranslations = {
   'error_changing_password': 'Σφάλμα αλλαγής κωδικού',
   'error': 'Σφάλμα',
   'sign_out': 'Αποσύνδεση',
+  'delete_account': 'Διαγραφή Λογαριασμού',
   'random_shake': 'Τυχαίο Κούνημα!',
 
   // Completion Dialog texts

@@ -82,6 +82,7 @@ const Map<String, String> msSGTranslations = {
   'error_changing_password': 'Ralat semasa menukar kata laluan',
   'error': 'Ralat',
   'sign_out': 'Log Keluar',
+  'delete_account': 'Padam Akaun',
   'random_shake': 'Goncang Rawak!',
 
   // Completion Dialog texts

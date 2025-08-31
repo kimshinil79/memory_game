@@ -84,6 +84,7 @@ const Map<String, String> ptBRTranslations = {
   'error_changing_password': 'Erro ao alterar senha',
   'error': 'Erro',
   'sign_out': 'Sair',
+  'delete_account': 'Excluir conta',
   'random_shake': 'Embaralhar cartas!',
 
   // Completion Dialog texts

@@ -84,6 +84,7 @@ const Map<String, String> mdMDATranslations = {
   'error_changing_password': 'Eroare la schimbarea parolei',
   'error': 'Eroare',
   'sign_out': 'Deconectați-vă',
+  'delete_account': 'Ștergeți contul',
   'random_shake': 'Amestecare aleatorie',
 
   // Completion Dialog texts

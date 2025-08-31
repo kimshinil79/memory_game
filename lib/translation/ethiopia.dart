@@ -84,6 +84,7 @@ const Map<String, String> amTranslations = {
   'error_changing_password': 'የይለፍ ቃል በሚቀየርበት ጊዜ ስህተት ተከስቷል',
   'error': 'ስህተት',
   'sign_out': 'ውጣ',
+  'delete_account': 'መለያ ሰርዝ',
   'random_shake': 'አንቧርቧር!',
 
   // Completion Dialog texts

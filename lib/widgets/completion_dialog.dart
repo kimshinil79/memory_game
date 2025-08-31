@@ -14,6 +14,7 @@ class CompletionDialog extends StatelessWidget {
   final Color instagramGradientStart;
   final Color instagramGradientEnd;
   final VoidCallback onNewGame;
+  final Map<String, String> translations;
 
   const CompletionDialog({
     Key? key,
@@ -27,13 +28,13 @@ class CompletionDialog extends StatelessWidget {
     required this.instagramGradientStart,
     required this.instagramGradientEnd,
     required this.onNewGame,
+    required this.translations,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // 번역 텍스트를 위한 언어 제공자
-    final translations = Provider.of<LanguageProvider>(context, listen: false)
-        .getUITranslations();
+    print('CompletionDialog build 메서드 호출됨');
+    print('전달받은 번역 키 개수: ${translations.keys.length}');
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -59,14 +60,14 @@ class CompletionDialog extends StatelessWidget {
                   // 로컬 멀티플레이어일 경우 승자 표시, 싱글이면 "Congratulations!"
                   numberOfPlayers > 1
                       ? (winner != 'Tie' && winner.isNotEmpty
-                          ? translations['winner']
+                          ? (translations['winner']
                                   ?.replaceAll('{name}', winner) ??
-                              "Winner: $winner!"
+                              "Winner: $winner!")
                           : winner == 'Tie'
-                              ? translations['its_a_tie'] ?? "It's a Tie!"
-                              : translations['congratulations'] ??
-                                  "Congratulations!")
-                      : translations['congratulations'] ?? "Congratulations!",
+                              ? (translations['its_a_tie'] ?? "It's a Tie!")
+                              : (translations['congratulations'] ??
+                                  "Congratulations!"))
+                      : (translations['congratulations'] ?? "Congratulations!"),
                   style: GoogleFonts.montserrat(
                     fontSize: 24, // 글씨 크기 조정
                     fontWeight: FontWeight.bold,
@@ -121,10 +122,10 @@ class CompletionDialog extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     winner == 'Tie'
-                        ? translations['points_divided_explanation'] ??
-                            "(Points divided among tied players)"
-                        : (translations['players_score_multiplier'] ??
-                                "({players} Players: Score x{multiplier})")
+                        ? (translations['points_divided_explanation'] ??
+                            "(Points divided among tied players)")
+                        : ((translations['players_score_multiplier'] ??
+                                "({players} Players: Score x{multiplier})"))
                             .replaceAll('{players}', numberOfPlayers.toString())
                             .replaceAll('{multiplier}', multiplier.toString()),
                     style: GoogleFonts.montserrat(

@@ -84,6 +84,7 @@ const Map<String, String> eoTranslations = {
   'error_changing_password': 'Eraro dum ŝanĝado de pasvorto',
   'error': 'Eraro',
   'sign_out': 'Elsaluti',
+  'delete_account': 'Forigi konton',
   'random_shake': 'Skui!',
 
   // Completion Dialog texts

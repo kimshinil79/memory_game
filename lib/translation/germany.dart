@@ -84,6 +84,7 @@ const Map<String, String> deDETranslations = {
   'error_changing_password': 'Fehler beim Ändern des Passworts',
   'error': 'Fehler',
   'sign_out': 'Abmelden',
+  'delete_account': 'Konto löschen',
   'random_shake': 'Zufälliges Mischen!',
 
   // Completion Dialog texts

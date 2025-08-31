@@ -84,6 +84,7 @@ const Map<String, String> enCATranslations = {
   'error_changing_password': 'Error changing password',
   'error': 'Error',
   'sign_out': 'Sign out',
+  'delete_account': 'Delete Account',
   'random_shake': 'Shuffle cards!',
 
   // Completion Dialog texts

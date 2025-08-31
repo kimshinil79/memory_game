@@ -82,6 +82,7 @@ const Map<String, String> taSGTranslations = {
   'error_changing_password': 'கடவுச்சொல்லை மாற்றும்போது பிழை',
   'error': 'பிழை',
   'sign_out': 'வெளியேறு',
+  'delete_account': 'கணக்கை நீக்கு',
   'random_shake': 'சீரற்ற அசைவு!',
 
   // Completion Dialog texts

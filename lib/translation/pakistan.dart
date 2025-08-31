@@ -82,6 +82,7 @@ const Map<String, String> urPKTranslations = {
   'error_changing_password': 'پاس ورڈ تبدیل کرنے میں خرابی',
   'error': 'خرابی',
   'sign_out': 'سائن آؤٹ کریں',
+  'delete_account': 'اکاؤنٹ حذف کریں',
   'random_shake': 'بے ترتیب ہلائیں!',
 
   // Completion Dialog texts

@@ -84,6 +84,7 @@ const Map<String, String> klGLTranslations = {
   'error_changing_password': 'Tamarmik',
   'error': 'Tamarmik',
   'sign_out': 'Sulini',
+  'delete_account': 'Peeruk',
   'random_shake': 'Sulini!',
 
   // Completion Dialog texts

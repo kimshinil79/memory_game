@@ -82,6 +82,7 @@ const Map<String, String> ltTranslations = {
   'error_changing_password': 'Klaida keičiant slaptažodį',
   'error': 'Klaida',
   'sign_out': 'Atsijungti',
+  'delete_account': 'Ištrinti paskyrą',
   'random_shake': 'Atsitiktinis purtymas!',
 
   // Completion Dialog texts

@@ -82,6 +82,7 @@ const Map<String, String> bnTranslations = {
   'error_changing_password': 'পাসওয়ার্ড পরিবর্তনে ত্রুটি',
   'error': 'ত্রুটি',
   'sign_out': 'সাইন আউট',
+  'delete_account': 'অ্যাকাউন্ট মুছুন',
   'random_shake': 'কার্ড মিশিয়ে ফেলুন!!',
 
   // Completion Dialog texts

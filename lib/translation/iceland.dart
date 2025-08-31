@@ -84,6 +84,7 @@ const Map<String, String> isISTranslations = {
   'error_changing_password': 'Villa við að breyta lykilorði',
   'error': 'Villa',
   'sign_out': 'Skrá út',
+  'delete_account': 'Eyða reikningi',
   'random_shake': 'Hristu spilin!!',
 
   // Completion Dialog texts

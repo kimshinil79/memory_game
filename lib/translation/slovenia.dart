@@ -82,6 +82,7 @@ const Map<String, String> slSITranslations = {
   'error_changing_password': 'Napaka pri spreminjanju gesla',
   'error': 'Napaka',
   'sign_out': 'Odjava',
+  'delete_account': 'Izbriši račun',
   'random_shake': 'Naključno pretresanje!',
 
   // Completion Dialog texts

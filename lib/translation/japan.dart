@@ -84,6 +84,7 @@ const Map<String, String> jaTranslations = {
   'error_changing_password': 'パスワードの変更中にエラーが発生しました',
   'error': 'エラー',
   'sign_out': 'サインアウト',
+  'delete_account': 'アカウント削除',
   'random_shake': 'ランダムシェイク！',
 
   // Completion Dialog texts

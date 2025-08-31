@@ -84,6 +84,7 @@ const Map<String, String> swTZTranslations = {
   'error_changing_password': 'Hitilafu katika kubadilisha nenosiri',
   'error': 'Hitilafu',
   'sign_out': 'Toka',
+  'delete_account': 'Futa Akaunti',
   'random_shake': 'Kutetemeka kwa Bahati!',
 
   // Completion Dialog texts

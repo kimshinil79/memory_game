@@ -83,6 +83,7 @@ const Map<String, String> stLSTranslations = {
   'error_changing_password': 'Phoso ha e fetola phasewete',
   'error': 'Phoso',
   'sign_out': 'Tsoa',
+  'delete_account': 'Hlakola akhaonto',
   'random_shake': 'Shake ea tšohanyetso!',
 
   // Completion Dialog texts

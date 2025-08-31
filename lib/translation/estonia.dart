@@ -84,6 +84,7 @@ const Map<String, String> etTranslations = {
   'error_changing_password': 'Parooli muutmisel tekkis viga',
   'error': 'Viga',
   'sign_out': 'Logi välja',
+  'delete_account': 'Kustuta konto',
   'random_shake': 'Raputa!',
 
   // Completion Dialog texts

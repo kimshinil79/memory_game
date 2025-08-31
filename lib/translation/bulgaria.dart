@@ -82,6 +82,7 @@ const Map<String, String> bgTranslations = {
   'error_changing_password': 'Грешка при смяна на парола',
   'error': 'Грешка',
   'sign_out': 'Изход',
+  'delete_account': 'Изтрий акаунта',
   'random_shake': 'Разбъркай картите!',
 
   // Completion Dialog texts

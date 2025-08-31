@@ -84,6 +84,7 @@ const Map<String, String> fjTranslations = {
   'error_changing_password': 'E sega ni rawa ni vakavou na password',
   'error': 'E sega',
   'sign_out': 'Sega',
+  'delete_account': 'Vakadua na account',
   'random_shake': 'Sega!',
 
   // Completion Dialog texts

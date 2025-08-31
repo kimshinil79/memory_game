@@ -82,6 +82,7 @@ const Map<String, String> srRSTranslations = {
   'error_changing_password': 'Грешка при промени лозинке',
   'error': 'Грешка',
   'sign_out': 'Одјави се',
+  'delete_account': 'Обриши налог',
   'random_shake': 'Насумично протреси!',
 
   // Completion Dialog texts

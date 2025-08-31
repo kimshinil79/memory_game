@@ -82,6 +82,7 @@ const Map<String, String> huTranslations = {
   'error_changing_password': 'Hiba a jelszó módosítása közben',
   'error': 'Hiba',
   'sign_out': 'Kijelentkezés',
+  'delete_account': 'Fiók törlése',
   'random_shake': 'Véletlenszerű keverés!',
 
   // Completion Dialog texts

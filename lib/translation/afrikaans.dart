@@ -82,6 +82,7 @@ const Map<String, String> afkTranslations = {
   'error_changing_password': 'Fout met wagwoordverandering',
   'error': 'Fout',
   'sign_out': 'Teken uit',
+  'delete_account': 'Verwyder rekening',
   'random_shake': 'Skud kaarte!!',
 
   // Completion Dialog texts

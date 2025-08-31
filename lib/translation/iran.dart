@@ -82,6 +82,7 @@ const Map<String, String> faTranslations = {
   'error_changing_password': 'تغییر رمز عبور ناموفق بود',
   'error': 'خطا',
   'sign_out': 'خروج',
+  'delete_account': 'حذف حساب کاربری',
   'random_shake': 'تکان تصادفی!',
 
   // Completion Dialog texts

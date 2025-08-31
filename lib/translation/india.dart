@@ -82,6 +82,7 @@ const Map<String, String> hiTranslations = {
   'error_changing_password': 'पासवर्ड बदलने में त्रुटि',
   'error': 'त्रुटि',
   'sign_out': 'साइन आउट',
+  'delete_account': 'खाता हटाएं',
   'random_shake': 'यादृच्छिक हिलाना!',
 
   // Completion Dialog texts

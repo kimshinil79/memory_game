@@ -84,6 +84,7 @@ const Map<String, String> loLATranslations = {
   'error_changing_password': 'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ',
   'error': 'ຂໍ້ຜິດພາດ',
   'sign_out': 'ອອກຈາກລະບົບ',
+  'delete_account': 'ລຶບບັນຊີ',
   'random_shake': 'ສັ່ນແບບສຸ່ມ!',
 
   // Completion Dialog texts

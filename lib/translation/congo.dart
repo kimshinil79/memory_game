@@ -86,6 +86,7 @@ const Map<String, String> frCGTranslations = {
   'error_changing_password': 'Erreur lors du changement de mot de passe',
   'error': 'Erreur',
   'sign_out': 'Déconnexion',
+  'delete_account': 'Supprimer le compte',
   'random_shake': 'Mélanger les cartes !',
 
   // Completion Dialog texts

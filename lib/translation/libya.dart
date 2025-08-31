@@ -84,6 +84,7 @@ const Map<String, String> arLYTranslations = {
   'error_changing_password': 'خطأ في تغيير كلمة المرور',
   'error': 'خطأ',
   'sign_out': 'تسجيل الخروج',
+  'delete_account': 'حذف الحساب',
   'random_shake': 'هزة عشوائية!',
 
   // Completion Dialog texts

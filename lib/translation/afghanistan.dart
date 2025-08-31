@@ -79,6 +79,7 @@ Map<String, String> afTranslations = {
   'error_changing_password': 'پاسورډ بدلولو کې تېروتنه',
   'error': 'تېروتنه',
   'sign_out': 'وتل',
+  'delete_account': 'حساب ړنګول',
   'random_shake': 'کارتونه ګډول!!',
 
   // Completion Dialog

@@ -82,6 +82,7 @@ const Map<String, String> amTranslations = {
   'error_changing_password': 'Սխալ գաղտնաբառը փոխելիս',
   'error': 'Սխալ',
   'sign_out': 'Դուրս գալ',
+  'delete_account': 'Ջնջել հաշիվը',
   'random_shake': 'Խառնել քարտերը!',
 
   // Completion Dialog text

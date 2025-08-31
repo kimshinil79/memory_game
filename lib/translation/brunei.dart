@@ -82,6 +82,7 @@ const Map<String, String> msBNTranslations = {
   'error_changing_password': 'Ralat semasa menukar kata laluan',
   'error': 'Ralat',
   'sign_out': 'Log keluar',
+  'delete_account': 'Padam akaun',
   'random_shake': 'Kocok kad!',
 
   // Completion Dialog texts

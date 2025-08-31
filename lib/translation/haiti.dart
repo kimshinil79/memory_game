@@ -84,6 +84,7 @@ const Map<String, String> htTranslations = {
   'error_changing_password': 'Erreur lors du changement de mot de passe',
   'error': 'Erreur',
   'sign_out': 'Déconnexion',
+  'delete_account': 'Efase kont lan',
   'random_shake': 'Secouer aléatoirement !',
 
   // Completion Dialog texts

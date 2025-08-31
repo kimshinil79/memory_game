@@ -49,39 +49,42 @@ class TestTutorialOverlay extends StatelessWidget {
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             color: Colors.black54,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: dialogPadding, vertical: dialogPadding * 2),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: dialogWidth,
-                      maxHeight: dialogMaxHeight,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(dialogBorderRadius),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.01,
+                  left: dialogPadding,
+                  right: dialogPadding,
+                ),
+                child: Container(
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(dialogBorderRadius),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(dialogPadding),
+                    child: Column(
+                      children: [
+                        _buildHeader(),
+                        SizedBox(height: verticalSpacing),
+                        _buildTitle(),
+                        SizedBox(height: verticalSpacing),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: _buildTutorialItems(),
+                          ),
                         ),
                       ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(dialogPadding),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildHeader(),
-                          SizedBox(height: verticalSpacing),
-                          _buildTitle(),
-                          SizedBox(height: verticalSpacing),
-                          _buildTutorialItems(),
-                        ],
-                      ),
                     ),
                   ),
                 ),

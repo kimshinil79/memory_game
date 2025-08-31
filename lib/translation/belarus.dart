@@ -83,6 +83,7 @@ const Map<String, String> beTranslations = {
   'error_changing_password': 'Памылка пры змене пароля',
   'error': 'Памылка',
   'sign_out': 'Выйсці',
+  'delete_account': 'Выдаліць уліковы запіс',
   'random_shake': 'Змяшаць карты!',
 
   // Completion Dialog text

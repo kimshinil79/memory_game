@@ -84,6 +84,7 @@ const Map<String, String> ptMOZTranslations = {
   'error_changing_password': 'Erro ao alterar senha',
   'error': 'Erro',
   'sign_out': 'Sair',
+  'delete_account': 'Excluir conta',
   'random_shake': 'Embaralhar aleatoriamente',
 
   // Completion Dialog texts

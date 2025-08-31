@@ -82,6 +82,7 @@ const Map<String, String> mgTranslations = {
   'error_changing_password': 'Nisy olana tamin\'ny fanovana teny miafina',
   'error': 'Hadisoana',
   'sign_out': 'Hivoaka',
+  'delete_account': 'Fafao kaonty',
   'random_shake': 'Hihorohoro!',
 
   // Completion Dialog texts

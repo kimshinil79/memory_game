@@ -81,6 +81,7 @@ const Map<String, String> azTranslations = {
   'error_changing_password': 'Şifrə dəyişdirilərkən xəta baş verdi',
   'error': 'Xəta',
   'sign_out': 'Çıxış',
+  'delete_account': 'Hesabı sil',
   'random_shake': 'Kartları qarışdır!',
 
   // Completion Dialog text

@@ -84,6 +84,7 @@ const Map<String, String> ukUATranslations = {
   'error_changing_password': 'Помилка при зміні пароля',
   'error': 'Помилка',
   'sign_out': 'Вийти',
+  'delete_account': 'Видалити обліковий запис',
   'random_shake': 'Випадковий поштовх!',
 
   // Completion Dialog texts

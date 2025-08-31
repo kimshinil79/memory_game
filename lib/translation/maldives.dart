@@ -85,6 +85,7 @@ const Map<String, String> dvTranslations = {
   'error_changing_password': 'ޕާސްވޯޑް ބަދަލުކުރުމަށް ފުއްދައެވެ',
   'error': 'ފުއްދަ',
   'sign_out': 'ލޮގް އައުޓް ކުރާށެވެ',
+  'delete_account': 'އެކައުންޓް ދިލީޓް ކުރާށެވެ',
   'random_shake': 'ޝޭކް!',
 
   // Completion Dialog texts

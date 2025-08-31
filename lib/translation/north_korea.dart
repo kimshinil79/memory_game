@@ -84,6 +84,7 @@ const Map<String, String> koKPTranslations = {
   'error_changing_password': '비밀번호 변경 중 오류 발생',
   'error': '오류',
   'sign_out': '로그아웃',
+  'delete_account': '계정 삭제',
   'random_shake': '무작위 섞기!',
 
   // Completion Dialog texts

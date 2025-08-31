@@ -86,6 +86,7 @@ const Map<String, String> elCYTranslations = {
   'error_changing_password': 'Σφάλμα αλλαγής κωδικού',
   'error': 'Σφάλμα',
   'sign_out': 'Αποσύνδεση',
+  'delete_account': 'Διαγραφή λογαριασμού',
   'random_shake': 'Ανάδευση!',
 
   // Completion Dialog texts

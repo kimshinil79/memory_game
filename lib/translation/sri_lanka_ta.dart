@@ -82,6 +82,7 @@ const Map<String, String> taLKTranslations = {
   'error_changing_password': 'கடவுச்சொல் மாற்றுவதில் பிழை',
   'error': 'பிழை',
   'sign_out': 'வெளியேறு',
+  'delete_account': 'கணக்கை நீக்கு',
   'random_shake': 'சீரற்ற அசைவு!',
 
   // Completion Dialog texts

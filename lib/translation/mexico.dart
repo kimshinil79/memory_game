@@ -84,6 +84,7 @@ const Map<String, String> mxMEXTranslations = {
   'error_changing_password': 'Error al cambiar la contraseña',
   'error': 'Error',
   'sign_out': 'Cerrar sesión',
+  'delete_account': 'Eliminar cuenta',
   'random_shake': 'Agitar aleatoriamente',
 
   // Completion Dialog texts

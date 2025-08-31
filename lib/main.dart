@@ -847,29 +847,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         final isSmallScreen = screenWidth < 360;
         final isMediumScreen = screenWidth < 414;
 
-        // 동적 크기 계산
+        // 동적 크기 계산 - 폴더블 최적화
         final buttonSpacing = isSmallScreen
             ? screenWidth * 0.015
             : isMediumScreen
                 ? screenWidth * 0.02
                 : screenWidth * 0.025;
 
-        final buttonHeight = isSmallScreen
-            ? screenWidth * 0.09
-            : isMediumScreen
-                ? screenWidth * 0.095
-                : screenWidth * 0.1;
+        // 버튼 높이를 44px로 고정하여 일관성 확보
+        final buttonHeight = 44.0;
 
         final buttonPadding = isSmallScreen
-            ? EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.025, vertical: screenWidth * 0.015)
+            ? EdgeInsets.symmetric(horizontal: screenWidth * 0.025, vertical: 8)
             : isMediumScreen
                 ? EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.03,
-                    vertical: screenWidth * 0.018)
+                    horizontal: screenWidth * 0.03, vertical: 8)
                 : EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.035,
-                    vertical: screenWidth * 0.02);
+                    horizontal: screenWidth * 0.035, vertical: 8);
 
         final borderRadius = isSmallScreen
             ? screenWidth * 0.03
@@ -877,11 +871,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 ? screenWidth * 0.035
                 : screenWidth * 0.04;
 
+        // 아이콘 크기를 버튼 높이에 맞춰 조정
         final iconSize = isSmallScreen
-            ? screenWidth * 0.04
+            ? 16.0
             : isMediumScreen
-                ? screenWidth * 0.045
-                : screenWidth * 0.05;
+                ? 18.0
+                : 20.0;
 
         final fontSize = isSmallScreen
             ? screenWidth * 0.03
@@ -890,16 +885,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 : screenWidth * 0.035;
 
         final flagHeight = isSmallScreen
-            ? screenWidth * 0.035
+            ? 12.0
             : isMediumScreen
-                ? screenWidth * 0.04
-                : screenWidth * 0.045;
+                ? 14.0
+                : 16.0;
 
         final flagWidth = isSmallScreen
-            ? screenWidth * 0.055
+            ? 18.0
             : isMediumScreen
-                ? screenWidth * 0.06
-                : screenWidth * 0.065;
+                ? 20.0
+                : 24.0;
 
         // 사용 가능한 너비 계산 (4개 버튼 + 3개 간격)
         final totalSpacing = buttonSpacing * 3;
@@ -1018,6 +1013,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
@@ -1085,6 +1081,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
@@ -1154,6 +1151,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (result != null) {
       if (result['signOut'] == true) {
         _showSignOutConfirmDialog(context);
+        return;
+      }
+
+      if (result['deleteAccount'] == true) {
+        _showDeleteAccountConfirmDialog(context);
         return;
       }
 
@@ -1233,6 +1235,131 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   void _showSignOutConfirmDialog(BuildContext context) {
     SignOutConfirmDialog.show(context, _signOut);
+  }
+
+  void _showDeleteAccountConfirmDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete Account'),
+        content: Text(
+            'Are you sure you want to delete your account? This action cannot be undone. All your data will be permanently lost.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _deleteUserAccount();
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _deleteUserAccount() async {
+    try {
+      if (_user != null) {
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            content: Row(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 16),
+                Text('Deleting account...'),
+              ],
+            ),
+          ),
+        );
+
+        // Delete user data from Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_user!.uid)
+            .delete();
+
+        // Delete user account from Firebase Auth
+        await _user!.delete();
+
+        // Close loading dialog
+        Navigator.of(context).pop();
+
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Account deleted successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        // Force sign out by clearing all state
+        await _forceSignOut();
+      }
+    } catch (e) {
+      // Close loading dialog
+      Navigator.of(context).pop();
+
+      print('Account deletion error: $e');
+
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to delete account. Please try again.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future<void> _forceSignOut() async {
+    try {
+      // Clear all local state
+      setState(() {
+        _user = null;
+        _nickname = null;
+        _userAge = null;
+        _userGender = null;
+        _userCountryCode = null;
+        _shortPW = null;
+      });
+
+      // Clear SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      // Clear Firebase Auth state
+      await FirebaseAuth.instance.signOut();
+
+      // Reset language provider
+      final languageProvider =
+          Provider.of<LanguageProvider>(context, listen: false);
+      await languageProvider.setNationality('KR'); // Reset to default
+
+      print('Force sign out completed - all state cleared');
+    } catch (e) {
+      print('Force sign out error: $e');
+      // Even if there's an error, try to sign out from Firebase
+      try {
+        await FirebaseAuth.instance.signOut();
+      } catch (signOutError) {
+        print('Firebase sign out error: $signOutError');
+      }
+    }
   }
 
   void _showSignInDialog(BuildContext context) async {

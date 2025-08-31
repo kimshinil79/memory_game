@@ -84,6 +84,7 @@ const Map<String, String> deLUTranslations = {
   'error_changing_password': 'Fehler beim Ändern des Passworts',
   'error': 'Fehler',
   'sign_out': 'Abmelden',
+  'delete_account': 'Konto löschen',
   'random_shake': 'Zufälliger Schütteln!',
 
   // Completion Dialog texts

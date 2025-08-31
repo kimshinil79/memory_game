@@ -84,6 +84,7 @@ const Map<String, String> nyTranslations = {
   'error_changing_password': 'Vuto pakusintha mawu achinsinsi',
   'error': 'Vuto',
   'sign_out': 'Tulukani',
+  'delete_account': 'Chotsani akaunti',
   'random_shake': 'Gwedetsani!',
 
   // Completion Dialog texts

@@ -84,6 +84,7 @@ const Map<String, String> mnMNGTranslations = {
   'error_changing_password': 'Нууц үг солиход алдаа гарлаа',
   'error': 'Алдаа',
   'sign_out': 'Гарах',
+  'delete_account': 'Бүртгэл устгах',
   'random_shake': 'Санамсаргүй холих',
 
   // Completion Dialog texts

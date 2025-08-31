@@ -86,6 +86,7 @@ const Map<String, String> dzTranslations = {
   'error_changing_password': 'གསང་ཡིག་བསྒྱུར་བའི་ནོར་འཁྲུལ།',
   'error': 'ནོར་འཁྲུལ།',
   'sign_out': 'ཕྱིར་འབུད།',
+  'delete_account': 'ཐོ་ཁོངས་བསུབ་པ།',
   'random_shake': 'ཤོག་བུ་འཕྲིལ་བ།',
 
   // Completion Dialog texts

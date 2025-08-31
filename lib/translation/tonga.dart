@@ -85,6 +85,7 @@ const Map<String, String> toTOTranslations = {
   'error_changing_password': 'ʻOku hala ʻi he liliu kupu fakapapau',
   'error': 'Hala',
   'sign_out': 'Fakaʻosi',
+  'delete_account': 'Tape ʻa e ako',
   'random_shake': 'Luelue fakatau!',
 
   // Completion Dialog texts

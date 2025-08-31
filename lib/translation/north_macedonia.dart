@@ -84,6 +84,7 @@ const Map<String, String> mkMKTranslations = {
   'error_changing_password': 'Грешка при промена на лозинката',
   'error': 'Грешка',
   'sign_out': 'Одјави се',
+  'delete_account': 'Избриши сметка',
   'random_shake': 'Случајно мешање!',
 
   // Completion Dialog texts

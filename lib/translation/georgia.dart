@@ -85,6 +85,7 @@ const Map<String, String> kaGETranslations = {
   'error_changing_password': 'პაროლის შეცვლის შეცდომა',
   'error': 'შეცდომა',
   'sign_out': 'გასვლა',
+  'delete_account': 'ანგარიშის წაშლა',
   'random_shake': 'შეაქანეთ ბარათები!!',
 
   // Completion Dialog texts

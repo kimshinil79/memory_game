@@ -84,6 +84,7 @@ const Map<String, String> frTranslations = {
   'error_changing_password': 'Erreur lors du changement de mot de passe',
   'error': 'Erreur',
   'sign_out': 'Se déconnecter',
+  'delete_account': 'Supprimer le compte',
   'random_shake': 'Secousse aléatoire !',
 
   // Completion Dialog texts

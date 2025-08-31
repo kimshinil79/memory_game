@@ -84,6 +84,7 @@ const Map<String, String> zhCNTranslations = {
   'error_changing_password': '修改密码时出错',
   'error': '错误',
   'sign_out': '退出登录',
+  'delete_account': '删除账户',
   'random_shake': '洗牌！',
 
   // Completion Dialog texts

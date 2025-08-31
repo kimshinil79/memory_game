@@ -84,6 +84,7 @@ const Map<String, String> thTHTranslations = {
   'error_changing_password': 'เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน',
   'error': 'ข้อผิดพลาด',
   'sign_out': 'ออกจากระบบ',
+  'delete_account': 'ลบบัญชี',
   'random_shake': 'เขย่าแบบสุ่ม!',
 
   // Completion Dialog texts

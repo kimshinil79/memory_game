@@ -82,6 +82,7 @@ const Map<String, String> skSKTranslations = {
   'error_changing_password': 'Chyba pri zmene hesla',
   'error': 'Chyba',
   'sign_out': 'Odhlásiť sa',
+  'delete_account': 'Vymazať účet',
   'random_shake': 'Náhodné potrasenie!',
 
   // Completion Dialog texts

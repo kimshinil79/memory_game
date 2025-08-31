@@ -84,6 +84,7 @@ const Map<String, String> svSETranslations = {
   'error_changing_password': 'Fel vid lösenordsändring',
   'error': 'Fel',
   'sign_out': 'Logga ut',
+  'delete_account': 'Radera konto',
   'random_shake': 'Skaka korten!!',
 
   // Completion Dialog 텍스트

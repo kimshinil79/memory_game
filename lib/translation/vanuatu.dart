@@ -82,6 +82,7 @@ const Map<String, String> biVUTranslations = {
   'error_changing_password': 'Fael blong senisim paswod',
   'error': 'Fael',
   'sign_out': 'Logaot',
+  'delete_account': 'Dilit akont',
   'random_shake': 'Sekem random!',
 
   // Completion Dialog texts

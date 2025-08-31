@@ -84,6 +84,7 @@ const Map<String, String> kkKZTranslations = {
   'error_changing_password': 'Құпия сөзді өзгерту кезінде қате орын алды',
   'error': 'Қате',
   'sign_out': 'Шығу',
+  'delete_account': 'Тіркелгіні жою',
   'random_shake': 'Кездейсоқ діріл!',
 
   // Completion Dialog texts

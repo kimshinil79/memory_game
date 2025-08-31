@@ -1498,10 +1498,6 @@ class LanguageProvider with ChangeNotifier {
       if (_isFolded != newFoldedState) {
         _isFolded = newFoldedState;
         notifyListeners();
-
-        print('🔄 LanguageProvider - 폴더블 상태 변경: ${_isFolded ? "폴드됨" : "펼쳐짐"}');
-        print('📐 화면 크기: ${screenSize.width}x${screenSize.height}');
-        print('📊 화면 비율: ${aspectRatio.toStringAsFixed(2)}');
       }
     }
   }

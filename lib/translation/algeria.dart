@@ -83,6 +83,7 @@ const Map<String, String> arDZTranslations = {
   'error_changing_password': 'خطأ في تغيير كلمة المرور',
   'error': 'خطأ',
   'sign_out': 'تسجيل الخروج',
+  'delete_account': 'حذف الحساب',
   'random_shake': 'اهتزاز البطاقات!!',
 
   // Completion Dialog texts

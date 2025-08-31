@@ -83,6 +83,7 @@ const Map<String, String> soSOTranslations = {
   'error_changing_password': 'Khalad ayaa dhacay markii la bedelay password-ka',
   'error': 'Khalad',
   'sign_out': 'Ka bax',
+  'delete_account': 'Tir Akoonka',
   'random_shake': 'Gariir Kala duwan!',
 
   // Completion Dialog texts

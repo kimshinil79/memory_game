@@ -82,6 +82,7 @@ const Map<String, String> roROTranslations = {
   'error_changing_password': 'Eroare la schimbarea parolei',
   'error': 'Eroare',
   'sign_out': 'Deconectare',
+  'delete_account': 'Șterge contul',
   'random_shake': 'Scutură aleatoriu!',
 
   // Completion Dialog texts

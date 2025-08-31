@@ -84,6 +84,7 @@ const Map<String, String> kyKGTranslations = {
   'error_changing_password': 'Сырсөздү өзгөртүүдө ката',
   'error': 'Ката',
   'sign_out': 'Чыгуу',
+  'delete_account': 'Каттоо эсебин жоюу',
   'random_shake': 'Кокустук чайкалуу!',
 
   // Completion Dialog texts

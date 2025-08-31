@@ -84,6 +84,7 @@ const Map<String, String> nnNOTranslations = {
   'error_changing_password': 'Feil ved passordendring',
   'error': 'Feil',
   'sign_out': 'Logg ut',
+  'delete_account': 'Slett konto',
   'random_shake': 'Tilfeldig blanding!',
 
   // Completion Dialog texts

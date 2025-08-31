@@ -82,6 +82,7 @@ const Map<String, String> rwRWTranslations = {
   'error_changing_password': 'Byanze bikomeza guhindura ijambo ry\'ibanga',
   'error': 'Ikosa',
   'sign_out': 'Sohoka',
+  'delete_account': 'Siba konti',
   'random_shake': 'Gutera mu buryo bwihariye!',
 
   // Completion Dialog texts

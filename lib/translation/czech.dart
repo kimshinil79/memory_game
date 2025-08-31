@@ -82,6 +82,7 @@ const Map<String, String> csTranslations = {
   'error_changing_password': 'Chyba při změně hesla',
   'error': 'Chyba',
   'sign_out': 'Odhlásit se',
+  'delete_account': 'Smazat účet',
   'random_shake': 'Zamíchat!',
 
   // Completion Dialog texts

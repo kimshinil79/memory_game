@@ -82,6 +82,7 @@ const Map<String, String> kmTranslations = {
   'error_changing_password': 'មានបញ្ហាក្នុងការផ្លាស់ប្តូរពាក្យសម្ងាត់',
   'error': 'បញ្ហា',
   'sign_out': 'ចាកចេញ',
+  'delete_account': 'លុបគណនី',
   'random_shake': 'លាយកាត!',
 
   // Completion Dialog texts
