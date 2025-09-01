@@ -90,6 +90,11 @@ class MemoryGamePage extends StatefulWidget {
     _stateKey.currentState?._addExtraTime();
   }
 
+  // 튜토리얼(메모리 가이드) 표시 여부 조회 메서드
+  bool isTutorialVisible() {
+    return _stateKey.currentState?._showTutorial ?? false;
+  }
+
   // 탭이 보이게 될 때 호출되는 메서드
   void onTabVisible() {
     _stateKey.currentState?.onTabVisible();
@@ -392,7 +397,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (!mounted) return;
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
 
       // 탭이 활성화되지 않았으면 타이머를 진행하지 않음
       if (!_isTabActive) {
@@ -548,7 +556,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       _memoryGameService!.removeGridChangeListener(_onGridSizeChanged);
 
       // 멀티플레이어 게임에서 턴 변경 리스너 제거
-      //_memoryGameService?.removePlayerTurnChangeListener(_onPlayerTurnChanged);
+      _memoryGameService?.removePlayerTurnChangeListener(_onPlayerTurnChanged);
 
       // 점수 변경 리스너 제거
       _memoryGameService?.removeScoreChangeListener(_onScoreChanged);
@@ -557,6 +565,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _languageSubscription?.cancel(); // null 체크 추가
     _gameSubscription?.cancel(); // 멀티플레이어 게임 구독 취소
     _timer?.cancel();
+    _itemPopupTimer?.cancel();
+    _itemPopupTimer = null;
     audioPlayer.dispose();
     flutterTts.stop();
     _animationController.dispose();
@@ -816,7 +826,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         cardBorderAnimationTriggers[index] = true;
       });
       Future.delayed(Duration(milliseconds: 300), () {
-        if (mounted && index < cardBorderAnimationTriggers.length) {
+        if (!mounted) return;
+        if (index < cardBorderAnimationTriggers.length) {
           setState(() {
             cardBorderAnimationTriggers[index] = false;
           });
@@ -881,6 +892,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
           // 약간의 지연 후 매치 확인
           await Future.delayed(const Duration(milliseconds: 750));
+          if (!mounted) return;
 
           // 매치 여부 확인 및 Firestore 업데이트
           if (selectedCards.length == 2 &&
@@ -909,11 +921,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           flipCount++;
           widget.updateFlipCount(flipCount);
           Future.delayed(const Duration(milliseconds: 400), () {
-            if (mounted) {
-              setState(() {
-                checkMatch();
-              });
-            }
+            if (!mounted) return;
+            setState(() {
+              checkMatch();
+            });
           });
         }
       }
@@ -1389,11 +1400,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 10초 후 다시 시간 추가 가능하게 설정
     Future.delayed(Duration(seconds: 10), () {
-      if (mounted) {
-        setState(() {
-          _canAddTime = true;
-        });
-      }
+      if (!mounted) return;
+      setState(() {
+        _canAddTime = true;
+      });
     });
   }
 

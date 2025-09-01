@@ -372,9 +372,33 @@ class LanguageProvider with ChangeNotifier {
             'LanguageProvider: Firebase 연결 실패 (오프라인 상태일 수 있음): $firebaseError');
       }
 
+      // 3. 기기 기본 언어 감지 (우선순위 3 - 최초 실행 시)
+      String? deviceLanguage;
+      try {
+        final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+        final lang = deviceLocale.languageCode;
+        final country = deviceLocale.countryCode?.toUpperCase();
+        if (lang.isNotEmpty && country != null && country.isNotEmpty) {
+          deviceLanguage = '$lang-$country';
+        } else if (lang.isNotEmpty) {
+          // 국가 코드가 없으면 언어 기준으로 합리적 기본값 설정
+          deviceLanguage =
+              lang == 'en' ? 'en-US' : (lang == 'ko' ? 'ko-KR' : 'en-US');
+        }
+        // 지원되지 않는 언어라면 영어로 폴백
+        if (deviceLanguage == null ||
+            !_isSupportedLanguageCode(deviceLanguage)) {
+          deviceLanguage = 'en-US';
+        }
+        print('LanguageProvider: 기기 기본 언어 감지: $deviceLanguage');
+      } catch (e) {
+        print('LanguageProvider: 기기 언어 감지 실패: $e');
+      }
+
       // 우선순위에 따라 언어 선택
       _currentLanguage = savedLanguage ?? // 로컬 저장소
           firebaseLanguage ?? // Firebase
+          deviceLanguage ?? // 기기 언어
           'ko-KR'; // 기본값
 
       print('LanguageProvider: 최종 선택된 언어: $_currentLanguage');
@@ -407,7 +431,31 @@ class LanguageProvider with ChangeNotifier {
   Future<void> _loadNationality() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      _nationality = prefs.getString('nationality') ?? 'KR';
+      final savedNationality = prefs.getString('nationality');
+      if (savedNationality != null) {
+        _nationality = savedNationality;
+      } else {
+        // 저장된 국적이 없다면 기기 Locale 기반으로 기본값 설정
+        try {
+          final deviceLocale =
+              WidgetsBinding.instance.platformDispatcher.locale;
+          final deviceCountry = deviceLocale.countryCode?.toUpperCase();
+          if (deviceCountry != null &&
+              countryToLanguageMap.containsKey(deviceCountry)) {
+            _nationality = deviceCountry;
+            await prefs.setString('nationality', _nationality);
+            print('LanguageProvider: 기기 기본 국적 설정: $_nationality');
+          } else {
+            // 지원되지 않는 국가는 영어 UI가 되도록 미국으로 기본 설정
+            _nationality = 'US';
+            await prefs.setString('nationality', _nationality);
+          }
+        } catch (e) {
+          print('LanguageProvider: 기기 국적 감지 실패: $e');
+          _nationality = 'US';
+          await prefs.setString('nationality', _nationality);
+        }
+      }
 
       // 국적에 맞는 UI 언어 설정
       _updateUILanguage();
@@ -416,6 +464,42 @@ class LanguageProvider with ChangeNotifier {
     } catch (e) {
       print('Error loading nationality: $e');
     }
+  }
+
+  // 지원하는 언어 코드인지 판단 (일부 대표 코드 + 국가 매핑값 기준)
+  bool _isSupportedLanguageCode(String code) {
+    if (code == 'en-US' || code == 'ko-KR') return true;
+    if (countryToLanguageMap.values.contains(code)) return true;
+    const Set<String> additionalSupported = {
+      'ja-JP',
+      'zh-CN',
+      'zh-TW',
+      'fr-FR',
+      'de-DE',
+      'es-ES',
+      'it-IT',
+      'pt-PT',
+      'pt-BR',
+      'ru-RU',
+      'ar-SA',
+      'tr-TR',
+      'vi-VN',
+      'th-TH',
+      'ms-MY',
+      'pl-PL',
+      'uk-UA',
+      'sv-SE',
+      'nl-NL',
+      'he-IL',
+      'hi-IN',
+      'bn-BD',
+      'id-ID',
+      'lo-LA',
+      'si-LK',
+      'ta-LK',
+      'en-GB'
+    };
+    return additionalSupported.contains(code);
   }
 
   // 국적 코드에 맞는 UI 언어 업데이트

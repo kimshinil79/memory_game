@@ -608,17 +608,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
 
     List<Widget> _pages = [
-      GestureDetector(
-        onTap: () {
-          if (_user == null) {
-            _showLoginRequiredDialog(context);
-          }
-        },
-        child: AbsorbPointer(
-          absorbing: _user == null,
-          child: _memoryGamePage!,
-        ),
-      ),
+      _memoryGamePage!,
       BrainHealthPage(),
       TestPage(),
     ];
@@ -695,15 +685,38 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           SizedBox(width: 16),
         ],
       ),
-      body: PageView(
-        controller: _pageController,
-        physics: const PageScrollPhysics(),
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        children: _pages,
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            physics: const PageScrollPhysics(),
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: _pages,
+          ),
+          if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
+            Positioned.fill(
+              child: Builder(
+                builder: (context) {
+                  // 게임 탭(0)에서는 튜토리얼이 켜져 있으면 스크롤 방해하지 않도록 오버레이 비활성화
+                  if (_currentIndex == 0) {
+                    final tutorialVisible =
+                        _memoryGamePage?.isTutorialVisible() ?? false;
+                    if (tutorialVisible) return const SizedBox.shrink();
+                  }
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      _showSignInDialog(context);
+                    },
+                  );
+                },
+              ),
+            ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -1496,10 +1509,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       default:
         return Colors.blue;
     }
-  }
-
-  void _showLoginRequiredDialog(BuildContext context) {
-    LoginRequiredDialog.show(context, () => _showSignInDialog(context));
   }
 
   void _showPlayerSelectionDialog() async {

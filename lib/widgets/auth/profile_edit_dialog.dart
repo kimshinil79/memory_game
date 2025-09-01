@@ -300,7 +300,40 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     ),
                   ),
                 ),
-                SizedBox(width: 40), // 오른쪽 공간 (로그아웃 버튼 제거)
+                // Sign Out 버튼을 제목 오른쪽에 배치
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(widget.dialogContext).pop({'signOut': true});
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red.shade50,
+                    foregroundColor: Colors.red.shade400,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(color: Colors.red.shade200),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    minimumSize: Size(0, 36),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        size: 16 * _textScaleFactor,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        t('sign_out'),
+                        style: _getTextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ]),
 
               SizedBox(height: 16),
@@ -834,40 +867,6 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 ),
               ),
               SizedBox(height: 12),
-              // 로그아웃 버튼을 하단에 추가
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(widget.dialogContext).pop({'signOut': true});
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade50,
-                  foregroundColor: Colors.red.shade400,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.red.shade200),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  minimumSize: Size(double.infinity, 48),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.logout,
-                      size: 20 * _textScaleFactor,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      t('sign_out'),
-                      style: _getTextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
