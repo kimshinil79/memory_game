@@ -22,6 +22,8 @@ const Map<String, String> klGLTranslations = {
   'next': 'Sulini',
   'continue': 'Sulini',
   'settings': 'Nalunaarsuutit',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Nalunaarsuut',
   'home': 'Illu',
   'game': 'Erinarsuut',

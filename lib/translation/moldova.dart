@@ -22,6 +22,8 @@ const Map<String, String> mdMDATranslations = {
   'next': 'Următorul',
   'continue': 'Continuați',
   'settings': 'Setări',
+  'push_notifications': 'Notificări push',
+  'receive_game_notifications': 'Primește notificări de joc',
   'profile': 'Profil',
   'home': 'Acasă',
   'game': 'Joc',

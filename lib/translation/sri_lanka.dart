@@ -23,6 +23,8 @@ const Map<String, String> siLKTranslations = {
   'next': 'ඊළඟ',
   'continue': 'දිගටම කරගෙන යන්න',
   'settings': 'සැකසුම්',
+  'push_notifications': 'පුෂ් දැනුම්දීම්',
+  'receive_game_notifications': 'ක්‍රීඩා දැනුම්දීම් ලබා ගන්න',
   'profile': 'පැතිකඩ',
   'home': 'මුල් පිටුව',
   'game': 'ක්‍රීඩාව',

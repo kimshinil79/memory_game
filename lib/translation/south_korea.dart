@@ -20,6 +20,8 @@ const Map<String, String> krTranslations = {
   'back': '뒤로',
   'next': '다음',
   'settings': '설정',
+  'push_notifications': '푸쉬 알림',
+  'receive_game_notifications': '게임 알림 받기',
   'profile': '프로필',
   'home': '홈',
   'game': '게임',

@@ -22,6 +22,8 @@ const Map<String, String> dzTranslations = {
   'next': 'རྗེས་མ།',
   'continue': 'མུ་མཐུད།',
   'settings': 'སྒྲིག་འཛུགས།',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'སྤྱི་བཤེས།',
   'home': 'ཁྱིམ།',
   'game': 'རྩེད་མོ།',

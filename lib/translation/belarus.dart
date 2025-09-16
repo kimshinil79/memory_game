@@ -19,6 +19,8 @@ const Map<String, String> beTranslations = {
   'back': 'Назад',
   'next': 'Далей',
   'settings': 'Налады',
+  'push_notifications': 'Push-апавяшчэнні',
+  'receive_game_notifications': 'Атрымліваць апавяшчэнні гульні',
   'profile': 'Профіль',
   'home': 'Галоўная',
   'game': 'Гульня',

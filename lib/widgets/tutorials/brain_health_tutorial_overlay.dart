@@ -11,13 +11,13 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
   final double textScaleFactor;
 
   const BrainHealthTutorialOverlay({
-    Key? key,
+    super.key,
     required this.showTutorial,
     required this.doNotShowAgain,
     required this.onDoNotShowAgainChanged,
     required this.onClose,
     required this.textScaleFactor,
-  }) : super(key: key);
+  });
 
   Widget _buildTutorialItem(
     IconData icon,
@@ -29,7 +29,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: color.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
@@ -40,7 +40,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
             size: 24 * textScaleFactor,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 description,
                 style: TextStyle(
@@ -82,12 +82,12 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            padding: EdgeInsets.all(20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
                   blurRadius: 10,
@@ -120,12 +120,12 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                       ],
                     ),
                     IconButton(
-                      icon: Icon(Icons.close, color: Colors.grey),
+                      icon: const Icon(Icons.close, color: Colors.grey),
                       onPressed: onClose,
                     ),
                   ],
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Text(
                   translations['brain_health_dashboard'] ??
                       'Brain Health Dashboard',
@@ -135,7 +135,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                     color: tutorialColor,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 _buildTutorialItem(
                   Icons.psychology,
                   translations['brain_health_index_title'] ??
@@ -144,7 +144,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                       'Check your brain health score improved through memory games. Higher levels increase dementia prevention effect.',
                   tutorialColor,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.bar_chart,
                   translations['activity_graph_title'] ?? 'Activity Graph',
@@ -152,7 +152,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                       'View changes in your brain health score over time through the graph.',
                   tutorialColor,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.emoji_events,
                   translations['ranking_system_title'] ?? 'Ranking System',
@@ -160,7 +160,7 @@ class BrainHealthTutorialOverlay extends StatelessWidget {
                       'Compare your brain health score with other users and check your ranking.',
                   tutorialColor,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _buildTutorialItem(
                   Icons.assessment,
                   translations['game_statistics_title'] ?? 'Game Statistics',

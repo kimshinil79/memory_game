@@ -20,7 +20,7 @@ class TestTutorialOverlay extends StatelessWidget {
   final Map<String, String> translations;
 
   const TestTutorialOverlay({
-    Key? key,
+    super.key,
     required this.isSmallScreen,
     required this.screenWidth,
     required this.screenHeight,
@@ -37,7 +37,7 @@ class TestTutorialOverlay extends StatelessWidget {
     required this.onDoNotShowAgainChanged,
     required this.onClose,
     required this.translations,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class TestTutorialOverlay extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(dialogBorderRadius),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 10,
@@ -128,7 +128,7 @@ class TestTutorialOverlay extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.close, color: Colors.grey),
+          icon: const Icon(Icons.close, color: Colors.grey),
           onPressed: onClose,
         ),
       ],

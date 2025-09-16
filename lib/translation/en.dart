@@ -21,6 +21,8 @@ Map<String, String> enTranslations = {
   'next': 'Next',
   'continue': 'Continue',
   'settings': 'Settings',
+  'push_notifications': 'Push Notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profile',
   'home': 'Home',
   'game': 'Game',

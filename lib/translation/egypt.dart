@@ -22,6 +22,8 @@ const Map<String, String> arEGTranslations = {
   'next': 'التالي',
   'continue': 'متابعة',
   'settings': 'الإعدادات',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'الملف الشخصي',
   'home': 'الرئيسية',
   'game': 'اللعبة',

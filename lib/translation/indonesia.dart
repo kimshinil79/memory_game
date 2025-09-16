@@ -20,6 +20,8 @@ const Map<String, String> idTranslations = {
   'next': 'Selanjutnya',
   'continue': 'Lanjutkan',
   'settings': 'Pengaturan',
+  'push_notifications': 'Notifikasi push',
+  'receive_game_notifications': 'Terima notifikasi permainan',
   'profile': 'Profil',
   'home': 'Beranda',
   'game': 'Permainan',

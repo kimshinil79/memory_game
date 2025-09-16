@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 /// 멀티플레이어 게임을 위한 Firebase 관련 기능을 담당하는 서비스 클래스
 class FirebaseGameService {
@@ -120,7 +119,7 @@ class FirebaseGameService {
       }
 
       // 오류 후 재연결 시도
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5), () {
         subscribeToGameState();
       });
     });

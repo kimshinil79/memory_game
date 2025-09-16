@@ -22,6 +22,8 @@ const Map<String, String> bnBDTranslations = {
   'next': 'পরবর্তী',
   'continue': 'চালিয়ে যান',
   'settings': 'সেটিংস',
+  'push_notifications': 'পুশ নোটিফিকেশন',
+  'receive_game_notifications': 'গেম নোটিফিকেশন গ্রহণ করুন',
   'profile': 'প্রোফাইল',
   'home': 'হোম',
   'game': 'গেম',

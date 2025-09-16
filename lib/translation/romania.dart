@@ -20,6 +20,8 @@ const Map<String, String> roROTranslations = {
   'next': 'Următorul',
   'continue': 'Continuă',
   'settings': 'Setări',
+  'push_notifications': 'Notificări push',
+  'receive_game_notifications': 'Primește notificări de joc',
   'profile': 'Profil',
   'home': 'Acasă',
   'game': 'Joc',

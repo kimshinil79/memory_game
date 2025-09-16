@@ -22,6 +22,8 @@ const Map<String, String> ptCVTranslations = {
   'next': 'Próximo',
   'continue': 'Continuar',
   'settings': 'Configurações',
+  'push_notifications': 'Notificações push',
+  'receive_game_notifications': 'Receber notificações do jogo',
   'profile': 'Perfil',
   'home': 'Início',
   'game': 'Jogo',

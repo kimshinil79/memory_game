@@ -22,6 +22,8 @@ const Map<String, String> dvTranslations = {
   'next': 'ކުރިއަށް',
   'continue': 'ކުރިއަށް ދިއުމަށް',
   'settings': 'ސެޓިންގްސް',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'ޕްރޮފައިލް',
   'home': 'މަގުން',
   'game': 'ކުދި',

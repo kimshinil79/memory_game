@@ -22,6 +22,8 @@ const Map<String, String> lvLVTranslations = {
   'next': 'Tālāk',
   'continue': 'Turpināt',
   'settings': 'Iestatījumi',
+  'push_notifications': 'Push paziņojumi',
+  'receive_game_notifications': 'Saņemt spēles paziņojumus',
   'profile': 'Profils',
   'home': 'Sākums',
   'game': 'Spēle',

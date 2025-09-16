@@ -22,6 +22,8 @@ const Map<String, String> kkKZTranslations = {
   'next': 'Келесі',
   'continue': 'Жалғастыру',
   'settings': 'Параметрлер',
+  'push_notifications': 'Push хабарландырулар',
+  'receive_game_notifications': 'Ойын хабарландыруларын алу',
   'profile': 'Профиль',
   'home': 'Басты бет',
   'game': 'Ойын',

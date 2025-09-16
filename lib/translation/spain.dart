@@ -23,6 +23,8 @@ const Map<String, String> esESTranslations = {
   'next': 'Siguiente',
   'continue': 'Continuar',
   'settings': 'Ajustes',
+  'push_notifications': 'Notificaciones push',
+  'receive_game_notifications': 'Recibir notificaciones del juego',
   'profile': 'Perfil',
   'home': 'Inicio',
   'game': 'Juego',

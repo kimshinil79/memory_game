@@ -22,6 +22,8 @@ const Map<String, String> etTranslations = {
   'next': 'Järgmine',
   'continue': 'Jätka',
   'settings': 'Seaded',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profiil',
   'home': 'Avaleht',
   'game': 'Mäng',

@@ -20,6 +20,8 @@ const Map<String, String> bgTranslations = {
   'next': 'Напред',
   'continue': 'Продължи',
   'settings': 'Настройки',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Профил',
   'home': 'Начало',
   'game': 'Игра',

@@ -2396,7 +2396,7 @@ final Map<String, String> myanmarItemList = {
   'spinach': 'ဟင်းသီးဟင်းရွက်',
   'starfish': 'ကြယ်ငါး',
   'stewardess': 'စတူးဝပ်ဒက်',
-  'stingray': 'ปลากระเบน'.toLowerCase() == null ? 'စတင်းရေ' : 'စတင်းရေ',
+  'stingray': 'စတင်းရေ',
   'strawberry': 'စတော်ဘယ်ရီ',
   'sun': 'နေ',
   'subway': 'အောက်မြေရထား',

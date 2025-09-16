@@ -20,6 +20,8 @@ const Map<String, String> stLSTranslations = {
   'next': 'E latelang',
   'continue': 'Tsoela pele',
   'settings': 'Litlhophiso',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profaele',
   'home': 'Lehae',
   'game': 'Papali',

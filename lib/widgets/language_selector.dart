@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
 
 class LanguageSelector extends StatelessWidget {
-  const LanguageSelector({Key? key}) : super(key: key);
+  const LanguageSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class LanguageSelector extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 제목
-            Row(
+            const Row(
               children: [
                 Icon(Icons.language, color: Colors.purple),
                 SizedBox(width: 8),
@@ -43,13 +43,13 @@ class LanguageSelector extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // 언어 선택 목록
             ...supportedLanguages
                 .map((language) =>
                     _buildLanguageItem(context, language, languageProvider))
-                .toList(),
+                ,
           ],
         ),
       ),
@@ -66,7 +66,7 @@ class LanguageSelector extends StatelessWidget {
       },
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
           color: isSelected ? Colors.purple.withOpacity(0.1) : null,
           borderRadius: BorderRadius.circular(8),
@@ -91,7 +91,7 @@ class LanguageSelector extends StatelessWidget {
             if (!isSelected)
               Text(
                 language['name']!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: Colors.grey,
                 ),
@@ -99,7 +99,7 @@ class LanguageSelector extends StatelessWidget {
 
             // 선택 아이콘
             if (isSelected)
-              Icon(Icons.check_circle, color: Colors.purple, size: 20),
+              const Icon(Icons.check_circle, color: Colors.purple, size: 20),
           ],
         ),
       ),
@@ -109,7 +109,7 @@ class LanguageSelector extends StatelessWidget {
 
 // 언어 선택 다이얼로그
 class LanguageSelectorDialog extends StatelessWidget {
-  const LanguageSelectorDialog({Key? key}) : super(key: key);
+  const LanguageSelectorDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +121,8 @@ class LanguageSelectorDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 제목
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Language',
                 style: TextStyle(
@@ -131,16 +131,16 @@ class LanguageSelectorDialog extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             // 언어 선택기
-            LanguageSelector(),
+            const LanguageSelector(),
 
             // 닫기 버튼
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         ),
@@ -152,7 +152,7 @@ class LanguageSelectorDialog extends StatelessWidget {
   static Future<void> show(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (context) => LanguageSelectorDialog(),
+      builder: (context) => const LanguageSelectorDialog(),
     );
   }
 }

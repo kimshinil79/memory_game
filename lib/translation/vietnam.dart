@@ -20,6 +20,8 @@ const Map<String, String> viVNTranslations = {
   'next': 'Tiếp theo',
   'continue': 'Tiếp tục',
   'settings': 'Cài đặt',
+  'push_notifications': 'Thông báo push',
+  'receive_game_notifications': 'Nhận thông báo trò chơi',
   'profile': 'Hồ sơ',
   'home': 'Trang chủ',
   'game': 'Trò chơi',

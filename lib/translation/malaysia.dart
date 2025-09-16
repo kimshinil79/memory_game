@@ -22,6 +22,8 @@ const Map<String, String> msTranslations = {
   'next': 'Seterusnya',
   'continue': 'Teruskan',
   'settings': 'Tetapan',
+  'push_notifications': 'Notifikasi push',
+  'receive_game_notifications': 'Terima notifikasi permainan',
   'profile': 'Profil',
   'home': 'Laman Utama',
   'game': 'Permainan',

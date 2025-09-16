@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../providers/language_provider.dart';
 
 class CompletionDialog extends StatelessWidget {
   final int elapsedTime;
@@ -17,7 +15,7 @@ class CompletionDialog extends StatelessWidget {
   final Map<String, String> translations;
 
   const CompletionDialog({
-    Key? key,
+    super.key,
     required this.elapsedTime,
     required this.flipCount,
     required this.numberOfPlayers,
@@ -29,7 +27,7 @@ class CompletionDialog extends StatelessWidget {
     required this.instagramGradientEnd,
     required this.onNewGame,
     required this.translations,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class CompletionDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.85, // 화면 너비의 85%로 제한
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [instagramGradientStart, instagramGradientEnd],
@@ -76,7 +74,7 @@ class CompletionDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               if (winner == 'Tie' && numberOfPlayers > 1)
                 Text(
                   translations['points_divided'] ??
@@ -87,7 +85,7 @@ class CompletionDialog extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-              if (winner == 'Tie' && numberOfPlayers > 1) SizedBox(height: 8),
+              if (winner == 'Tie' && numberOfPlayers > 1) const SizedBox(height: 8),
               if (isTimeAttackMode) ...[
                 FittedBox(
                   fit: BoxFit.scaleDown,
@@ -101,7 +99,7 @@ class CompletionDialog extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
               FittedBox(
                 fit: BoxFit.scaleDown,
@@ -115,7 +113,7 @@ class CompletionDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               // 로컬 멀티플레이어 점수 계산 설명 추가
               if (numberOfPlayers > 1) ...[
                 FittedBox(
@@ -135,11 +133,11 @@ class CompletionDialog extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
               // 최종 획득 점수 표시 (Health Score)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(12),
@@ -149,7 +147,7 @@ class CompletionDialog extends StatelessWidget {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 8,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.psychology,
                       color: Colors.white,
                       size: 20,
@@ -172,7 +170,7 @@ class CompletionDialog extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity, // 버튼을 컨테이너 너비에 맞게 확장
                 child: ElevatedButton(
@@ -182,8 +180,9 @@ class CompletionDialog extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   ),
+                  onPressed: onNewGame,
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
@@ -194,7 +193,6 @@ class CompletionDialog extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: onNewGame,
                 ),
               ),
             ],

@@ -20,6 +20,8 @@ const Map<String, String> hiTranslations = {
   'next': 'अगला',
   'continue': 'जारी रखें',
   'settings': 'सेटिंग्स',
+  'push_notifications': 'पुश नोटिफिकेशन',
+  'receive_game_notifications': 'गेम नोटिफिकेशन प्राप्त करें',
   'profile': 'प्रोफ़ाइल',
   'home': 'होम',
   'game': 'गेम',

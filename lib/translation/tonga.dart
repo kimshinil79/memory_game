@@ -22,6 +22,8 @@ const Map<String, String> toTOTranslations = {
   'next': 'Hoko',
   'continue': 'Fakahokohoko',
   'settings': 'Ngaahi fakalele',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Fakamatala',
   'home': 'ʻApi',
   'game': 'Taʻanga',

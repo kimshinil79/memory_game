@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../providers/language_provider.dart';
@@ -41,8 +40,7 @@ class LanguageDialog {
 class LanguageSelectionContent extends StatefulWidget {
   final LanguageProvider languageProvider;
 
-  LanguageSelectionContent({Key? key, required this.languageProvider})
-      : super(key: key);
+  const LanguageSelectionContent({super.key, required this.languageProvider});
 
   @override
   _LanguageSelectionContentState createState() =>
@@ -293,13 +291,13 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
     // 로딩 표시는 다이얼로그 표시 전에 처리합니다.
     return Container(
       width: double.maxFinite,
-      padding: EdgeInsets.all(28),
+      padding: const EdgeInsets.all(28),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Header with gradient text
           ShaderMask(
-            shaderCallback: (bounds) => LinearGradient(
+            shaderCallback: (bounds) => const LinearGradient(
               colors: [Color(0xFF833AB4), Color(0xFFF77737)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -313,7 +311,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Search box
           Container(
@@ -325,15 +323,15 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.03),
                   blurRadius: 6,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
             child: Row(
               children: [
                 Icon(Icons.search, color: Colors.grey.shade400, size: 20),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
                     controller: _searchController,
@@ -345,7 +343,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                         color: Colors.grey.shade400,
                       ),
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(vertical: 12),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     style: GoogleFonts.poppins(
                       fontSize: 14,
@@ -372,7 +370,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Language list
           Container(
@@ -389,7 +387,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
@@ -397,13 +395,13 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.03),
                           blurRadius: 4,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
                     child: TabBar(
                       isScrollable: true,
-                      labelColor: Color(0xFF833AB4),
+                      labelColor: const Color(0xFF833AB4),
                       unselectedLabelColor: Colors.grey.shade600,
                       labelStyle: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
@@ -413,7 +411,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                       ),
-                      indicator: UnderlineTabIndicator(
+                      indicator: const UnderlineTabIndicator(
                         borderSide: BorderSide(
                           width: 3,
                           color: Color(0xFF833AB4),
@@ -446,7 +444,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                                 currentLanguage,
                               ),
                             )
-                            .toList(),
+                            ,
                       ],
                     ),
                   ),
@@ -454,16 +452,16 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
               ),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Cancel button
           InkWell(
             onTap: () => Navigator.of(context).pop(),
             borderRadius: BorderRadius.circular(24),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -471,9 +469,9 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xFF833AB4).withOpacity(0.3),
+                    color: const Color(0xFF833AB4).withOpacity(0.3),
                     blurRadius: 12,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
@@ -514,7 +512,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                   size: 48,
                   color: Colors.grey.shade400,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
                   'No languages found',
                   style: GoogleFonts.poppins(
@@ -526,7 +524,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
             ),
           )
         : ListView.builder(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             itemCount: languages.length,
             itemBuilder: (context, index) {
               String languageCode = languages[index].key;
@@ -534,10 +532,10 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
               bool isSelected = languageCode == currentLanguage;
 
               return Container(
-                margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 decoration: BoxDecoration(
                   gradient: isSelected
-                      ? LinearGradient(
+                      ? const LinearGradient(
                           colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -548,10 +546,10 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                   boxShadow: [
                     BoxShadow(
                       color: isSelected
-                          ? Color(0xFF833AB4).withOpacity(0.2)
+                          ? const Color(0xFF833AB4).withOpacity(0.2)
                           : Colors.black.withOpacity(0.03),
                       blurRadius: isSelected ? 6 : 4,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -564,7 +562,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                     borderRadius: BorderRadius.circular(16),
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       child: Row(
                         children: [
                           // Flag
@@ -577,7 +575,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.1),
                                   blurRadius: 2,
-                                  offset: Offset(0, 1),
+                                  offset: const Offset(0, 1),
                                 ),
                               ],
                             ),
@@ -591,7 +589,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 14),
+                          const SizedBox(width: 14),
 
                           // Language name
                           Expanded(
@@ -616,7 +614,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                                 shape: BoxShape.circle,
                                 color: Colors.white.withOpacity(0.9),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.check,
                                 color: Color(0xFF833AB4),
                                 size: 20,
@@ -651,7 +649,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
       'African Languages': [],
     };
 
-    languageNames.entries.forEach((entry) {
+    for (var entry in languageNames.entries) {
       String langCode = entry.key.split('-')[0].toLowerCase();
       String countryCode = entry.key.split('-')[1].toUpperCase();
 
@@ -760,7 +758,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
       else {
         groupedLanguages['Asian Languages']!.add(entry);
       }
-    });
+    }
 
     // 각 그룹을 영어 이름 기준으로 정렬
     groupedLanguages.forEach((key, value) {
@@ -1014,7 +1012,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
       print('Failed to update language: $e');
       // 에러 처리 - 필요하면 사용자에게 알림
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update language')),
+        const SnackBar(content: Text('Failed to update language')),
       );
     }
   }

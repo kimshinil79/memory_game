@@ -20,6 +20,8 @@ const Map<String, String> enSLTranslations = {
   'next': 'Next',
   'continue': 'Continue',
   'settings': 'Settings',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profile',
   'home': 'Home',
   'game': 'Game',

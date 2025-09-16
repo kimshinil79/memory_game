@@ -20,6 +20,8 @@ const Map<String, String> uzUZTranslations = {
   'next': 'Keyingi',
   'continue': 'Davom etish',
   'settings': 'Sozlamalar',
+  'push_notifications': 'Push bildirishnomalari',
+  'receive_game_notifications': 'O\'yin bildirishnomalarini oling',
   'profile': 'Profil',
   'home': 'Bosh sahifa',
   'game': 'O\'yin',

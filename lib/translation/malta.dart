@@ -20,6 +20,8 @@ const Map<String, String> mtMTTranslations = {
   'next': 'Li Jmiss',
   'continue': 'Kompli',
   'settings': 'Settings',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profil',
   'home': 'Home',
   'game': 'Logħba',

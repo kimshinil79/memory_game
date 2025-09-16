@@ -22,6 +22,8 @@ const Map<String, String> tiERTranslations = {
   'next': 'ቀጺሉ',
   'continue': 'ምትዕርራይ',
   'settings': 'ቅጥዕታት',
+  'push_notifications': 'الإشعارات الفورية',
+  'receive_game_notifications': 'تلقي إشعارات اللعبة',
   'profile': 'መለለዪ',
   'home': 'ቤት',
   'game': 'ጸወታ',

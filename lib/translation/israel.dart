@@ -20,6 +20,8 @@ const Map<String, String> heTranslations = {
   'next': 'הבא',
   'continue': 'המשך',
   'settings': 'הגדרות',
+  'push_notifications': 'התראות push',
+  'receive_game_notifications': 'קבל התראות משחק',
   'profile': 'פרופיל',
   'home': 'בית',
   'game': 'משחק',

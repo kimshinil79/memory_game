@@ -20,6 +20,8 @@ const Map<String, String> moTranslations = {
   'next': '下一步',
   'continue': '继续',
   'settings': '设置',
+  'push_notifications': '推送通知',
+  'receive_game_notifications': '接收游戏通知',
   'profile': '个人资料',
   'home': '首页',
   'game': '游戏',

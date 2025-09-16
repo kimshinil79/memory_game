@@ -22,6 +22,8 @@ const Map<String, String> fiTranslations = {
   'next': 'Seuraava',
   'continue': 'Jatka',
   'settings': 'Asetukset',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profiili',
   'home': 'Koti',
   'game': 'Peli',

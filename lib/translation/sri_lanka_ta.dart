@@ -20,6 +20,8 @@ const Map<String, String> taLKTranslations = {
   'next': 'அடுத்து',
   'continue': 'தொடரவும்',
   'settings': 'அமைப்புகள்',
+  'push_notifications': 'புஷ் அறிவிப்புகள்',
+  'receive_game_notifications': 'விளையாட்டு அறிவிப்புகளைப் பெறுங்கள்',
   'profile': 'சுயவிவரம்',
   'home': 'முகப்பு',
   'game': 'விளையாட்டு',

@@ -20,6 +20,8 @@ const Map<String, String> itTranslations = {
   'next': 'Avanti',
   'continue': 'Continua',
   'settings': 'Impostazioni',
+  'push_notifications': 'Notifiche push',
+  'receive_game_notifications': 'Ricevi notifiche del gioco',
   'profile': 'Profilo',
   'home': 'Home',
   'game': 'Gioco',

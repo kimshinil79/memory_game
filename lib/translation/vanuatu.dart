@@ -20,6 +20,8 @@ const Map<String, String> biVUTranslations = {
   'next': 'Neks',
   'continue': 'Gohed',
   'settings': 'Setin',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profael',
   'home': 'Hom',
   'game': 'Gem',

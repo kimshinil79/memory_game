@@ -5,6 +5,21 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     
+    <!-- 16KB 페이지 크기 지원 선언 -->
+    <supports-screens android:anyDensity="true"/>
+    <uses-feature android:name="android.hardware.ram.normal" android:required="false"/>
+    
+    <!-- Android 15+ 더 넓은 화면 지원 -->
+    <supports-screens
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"
+        android:resizeable="true" />
+    
+    <!-- Foldable and multi-window support -->
+    <uses-feature android:name="android.hardware.type.foldable" android:required="false" />
+    <uses-feature android:name="android.software.freeform_window_management" android:required="false" />
+    
     <application
         android:label="Memory Game"
         android:name="${applicationName}"
@@ -22,6 +37,8 @@
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="false"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
@@ -44,10 +61,10 @@
             android:name="flutterEmbedding"
             android:value="2" />
         
-        <!-- Google AdMob App ID (실제 ID로 교체 필요) -->
+        <!-- Google AdMob App ID (실제 ID) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-7181238773192957~3680793892"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

@@ -20,6 +20,8 @@ const Map<String, String> nlTranslations = {
   'next': 'Volgende',
   'continue': 'Doorgaan',
   'settings': 'Instellingen',
+  'push_notifications': 'Push-meldingen',
+  'receive_game_notifications': 'Spelmeldingen ontvangen',
   'profile': 'Profiel',
   'home': 'Home',
   'game': 'Spel',

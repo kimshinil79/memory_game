@@ -22,6 +22,8 @@ const Map<String, String> nnNOTranslations = {
   'next': 'Neste',
   'continue': 'Fortset',
   'settings': 'Innstillingar',
+  'push_notifications': 'Push-varsler',
+  'receive_game_notifications': 'Motta spillvarsler',
   'profile': 'Profil',
   'home': 'Heim',
   'game': 'Spel',

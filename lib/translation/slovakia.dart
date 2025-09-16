@@ -20,6 +20,8 @@ const Map<String, String> skSKTranslations = {
   'next': 'Ďalej',
   'continue': 'Pokračovať',
   'settings': 'Nastavenia',
+  'push_notifications': 'Push notifikácie',
+  'receive_game_notifications': 'Prijímať herné oznámenia',
   'profile': 'Profil',
   'home': 'Domov',
   'game': 'Hra',

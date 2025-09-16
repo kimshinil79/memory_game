@@ -22,6 +22,8 @@ const Map<String, String> thTHTranslations = {
   'next': 'ต่อไป',
   'continue': 'ดำเนินการต่อ',
   'settings': 'การตั้งค่า',
+  'push_notifications': 'การแจ้งเตือนแบบพุช',
+  'receive_game_notifications': 'รับการแจ้งเตือนเกม',
   'profile': 'โปรไฟล์',
   'home': 'หน้าหลัก',
   'game': 'เกม',

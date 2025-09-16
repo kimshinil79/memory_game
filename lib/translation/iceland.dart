@@ -22,6 +22,8 @@ const Map<String, String> isISTranslations = {
   'next': 'Næst',
   'continue': 'Halda áfram',
   'settings': 'Stillingar',
+  'push_notifications': 'Push tilkynningar',
+  'receive_game_notifications': 'Fáðu leiktilkynningar',
   'profile': 'Prófíl',
   'home': 'Heim',
   'game': 'Leikur',

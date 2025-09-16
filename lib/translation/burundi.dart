@@ -20,6 +20,8 @@ const Map<String, String> rnTranslations = {
   'next': 'Ibikurikira',
   'continue': 'Komeza',
   'settings': 'Igenamiterere',
+  'push_notifications': 'Notifications push',
+  'receive_game_notifications': 'Recevoir les notifications de jeu',
   'profile': 'Umwirondoro',
   'home': 'Ahabanza',
   'game': 'Umukino',

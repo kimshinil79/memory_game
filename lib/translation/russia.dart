@@ -20,6 +20,8 @@ const Map<String, String> ruRUTranslations = {
   'next': 'Далее',
   'continue': 'Продолжить',
   'settings': 'Настройки',
+  'push_notifications': 'Push-уведомления',
+  'receive_game_notifications': 'Получать уведомления об игре',
   'profile': 'Профиль',
   'home': 'Главная',
   'game': 'Игра',

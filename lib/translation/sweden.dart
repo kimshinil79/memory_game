@@ -22,6 +22,8 @@ const Map<String, String> svSETranslations = {
   'back': 'Tillbaka',
   'next': 'Nästa',
   'settings': 'Inställningar',
+  'push_notifications': 'Push-meddelanden',
+  'receive_game_notifications': 'Ta emot spellmeddelanden',
   'profile': 'Profil',
   'home': 'Hem',
   'game': 'Spel',

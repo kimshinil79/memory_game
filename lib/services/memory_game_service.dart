@@ -32,7 +32,7 @@ class MemoryGameService extends ChangeNotifier {
   final List<Function(int)> _playerTurnChangeListeners = []; // 턴 변경 리스너
 
   // 점수 관리를 위한 변수 추가
-  Map<int, int> _playerScores = {}; // 플레이어 인덱스 -> 점수 맵핑
+  final Map<int, int> _playerScores = {}; // 플레이어 인덱스 -> 점수 맵핑
   final List<Function(Map<int, int>)> _scoreChangeListeners = []; // 점수 변경 리스너
 
   // 시간 관련 변수 추가
@@ -119,7 +119,7 @@ class MemoryGameService extends ChangeNotifier {
       int playerMultiplier = totalPlayerCount;
       finalScore = calculatedBaseScore * playerMultiplier;
       print(
-          '멀티플레이어 승자 보너스: $playerMultiplier배 (${totalPlayerCount}명 참가), 최종 점수: $finalScore');
+          '멀티플레이어 승자 보너스: $playerMultiplier배 ($totalPlayerCount명 참가), 최종 점수: $finalScore');
     }
 
     // 계산된 점수를 playerScores에 설정

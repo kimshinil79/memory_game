@@ -11,9 +11,9 @@ class TimeUpDialog extends StatelessWidget {
   static const Color instagramGradientEnd = Color(0xFFF77737);
 
   const TimeUpDialog({
-    Key? key,
+    super.key,
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class TimeUpDialog extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [instagramGradientStart, instagramGradientEnd],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -44,7 +44,7 @@ class TimeUpDialog extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,

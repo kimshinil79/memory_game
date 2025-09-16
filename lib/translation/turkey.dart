@@ -20,6 +20,8 @@ const Map<String, String> trTRTranslations = {
   'next': 'İleri',
   'continue': 'Devam Et',
   'settings': 'Ayarlar',
+  'push_notifications': 'Push bildirimleri',
+  'receive_game_notifications': 'Oyun bildirimlerini al',
   'profile': 'Profil',
   'home': 'Ana Sayfa',
   'game': 'Oyun',

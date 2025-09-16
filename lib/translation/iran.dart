@@ -20,6 +20,8 @@ const Map<String, String> faTranslations = {
   'next': 'بعدی',
   'continue': 'ادامه',
   'settings': 'تنظیمات',
+  'push_notifications': 'اعلانات فوری',
+  'receive_game_notifications': 'دریافت اعلانات بازی',
   'profile': 'پروفایل',
   'home': 'خانه',
   'game': 'بازی',

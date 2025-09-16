@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../providers/language_provider.dart';
 
 class ChallengeNotification extends StatefulWidget {
-  const ChallengeNotification({Key? key}) : super(key: key);
+  const ChallengeNotification({super.key});
 
   @override
   _ChallengeNotificationState createState() => _ChallengeNotificationState();
@@ -81,14 +79,14 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
     }
 
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [Color(0xFF833AB4), Color(0xFFF77737)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -96,14 +94,14 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(Icons.sports_kabaddi, color: Colors.white),
-                  SizedBox(width: 8),
+                  const Icon(Icons.sports_kabaddi, color: Colors.white),
+                  const SizedBox(width: 8),
                   Text(
                     'Challenge Request',
                     style: GoogleFonts.montserrat(
@@ -114,7 +112,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
                   ),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
                 '$senderNickname has challenged you to a Memory Game!',
                 style: GoogleFonts.montserrat(
@@ -123,7 +121,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Grid Size: $gridSize',
                 style: GoogleFonts.montserrat(
@@ -131,7 +129,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
                   color: Colors.white.withOpacity(0.9),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -145,20 +143,20 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Text('Decline'),
+                    child: const Text('Decline'),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   ElevatedButton(
                     onPressed: () =>
                         _respondToChallenge(challengeId, 'accepted'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: Color(0xFF833AB4),
+                      foregroundColor: const Color(0xFF833AB4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Text('Accept'),
+                    child: const Text('Accept'),
                   ),
                 ],
               ),
@@ -199,7 +197,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
           // TODO: Navigate to game setup or directly to the game
           // This will be implemented in the main app navigation
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Challenge accepted! Game starting soon...'),
               backgroundColor: Colors.green,
             ),
@@ -207,7 +205,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Challenge declined'),
             backgroundColor: Colors.grey,
           ),
@@ -219,7 +217,7 @@ class _ChallengeNotificationState extends State<ChallengeNotification> {
     } catch (e) {
       print('Error responding to challenge: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Failed to respond to challenge. Please try again.'),
           backgroundColor: Colors.red,
         ),

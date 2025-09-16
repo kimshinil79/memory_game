@@ -50,7 +50,7 @@ class SignInDialog {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             width: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -63,7 +63,7 @@ class SignInDialog {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Autocomplete<String>(
                   optionsBuilder: (TextEditingValue textEditingValue) {
                     if (textEditingValue.text.isEmpty) {
@@ -99,7 +99,7 @@ class SignInDialog {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        prefixIcon: Icon(Icons.email_outlined),
+                        prefixIcon: const Icon(Icons.email_outlined),
                       ),
                     );
                   },
@@ -112,7 +112,7 @@ class SignInDialog {
                         elevation: 4.0,
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxHeight: 200,
                             maxWidth: 300,
                           ),
@@ -125,17 +125,17 @@ class SignInDialog {
                               return InkWell(
                                 onTap: () => onSelected(option),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   child: Row(
                                     children: [
                                       Icon(Icons.history,
                                           size: 16, color: Colors.grey[600]),
-                                      SizedBox(width: 8),
+                                      const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
                                           option,
-                                          style: TextStyle(fontSize: 14),
+                                          style: const TextStyle(fontSize: 14),
                                         ),
                                       ),
                                     ],
@@ -149,7 +149,7 @@ class SignInDialog {
                     );
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextField(
                   controller: passwordController,
                   obscureText: true,
@@ -161,10 +161,10 @@ class SignInDialog {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(Icons.lock_outline),
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Row(
                   children: [
                     Expanded(
@@ -178,12 +178,12 @@ class SignInDialog {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: BorderSide(color: Colors.purple.shade200),
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: Text(translations['sign_up'] ?? 'Sign Up'),
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
@@ -206,7 +206,7 @@ class SignInDialog {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: Text(translations['sign_in'] ?? 'Sign In'),
                       ),

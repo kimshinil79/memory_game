@@ -22,6 +22,8 @@ const Map<String, String> muMUTranslations = {
   'next': 'Next',
   'continue': 'Continue',
   'settings': 'Settings',
+  'push_notifications': 'Notifications push',
+  'receive_game_notifications': 'Recevoir les notifications de jeu',
   'profile': 'Profile',
   'home': 'Home',
   'game': 'Game',

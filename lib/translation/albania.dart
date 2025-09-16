@@ -20,6 +20,8 @@ const Map<String, String> sqTranslations = {
   'next': 'Vazhdo',
   'continue': 'Vazhdo',
   'settings': 'Cilësimet',
+  'push_notifications': 'Njoftimet push',
+  'receive_game_notifications': 'Merr njoftimet e lojës',
   'profile': 'Profili',
   'home': 'Kryefaqja',
   'game': 'Loja',

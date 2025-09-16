@@ -20,6 +20,8 @@ const Map<String, String> soSOTranslations = {
   'next': 'Xiga',
   'continue': 'Sii wad',
   'settings': 'Dejinta',
+  'push_notifications': 'الإشعارات الفورية',
+  'receive_game_notifications': 'تلقي إشعارات اللعبة',
   'profile': 'Profile',
   'home': 'Guriga',
   'game': 'Ciyaar',

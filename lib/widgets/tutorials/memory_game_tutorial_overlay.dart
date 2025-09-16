@@ -10,12 +10,12 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
   final VoidCallback onClose;
 
   const MemoryGameTutorialOverlay({
-    Key? key,
+    super.key,
     required this.showTutorial,
     required this.doNotShowAgain,
     required this.onDoNotShowAgainChanged,
     required this.onClose,
-  }) : super(key: key);
+  });
 
   Widget _buildTutorialItem(
     IconData icon,
@@ -37,7 +37,7 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: iconSize, color: color),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   description,
                   style: GoogleFonts.poppins(
@@ -180,7 +180,7 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
                         ],
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, color: Colors.grey),
+                        icon: const Icon(Icons.close, color: Colors.grey),
                         onPressed: onClose,
                       ),
                     ],
@@ -198,7 +198,7 @@ class MemoryGameTutorialOverlay extends StatelessWidget {
                   SizedBox(height: titleBottomSpace),
                   Flexible(
                     child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
                           _buildTutorialItem(

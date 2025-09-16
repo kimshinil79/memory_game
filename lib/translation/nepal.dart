@@ -22,6 +22,8 @@ const Map<String, String> neTranslations = {
   'next': 'अर्को',
   'continue': 'जारी राख्नुहोस्',
   'settings': 'सेटिङहरू',
+  'push_notifications': 'पुश सूचनाहरू',
+  'receive_game_notifications': 'खेल सूचनाहरू प्राप्त गर्नुहोस्',
   'profile': 'प्रोफाइल',
   'home': 'गृह',
   'game': 'खेल',

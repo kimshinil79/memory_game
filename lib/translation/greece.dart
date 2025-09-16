@@ -22,6 +22,8 @@ const Map<String, String> elGRTranslations = {
   'next': 'Επόμενο',
   'continue': 'Συνέχεια',
   'settings': 'Ρυθμίσεις',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Προφίλ',
   'home': 'Αρχική',
   'game': 'Παιχνίδι',

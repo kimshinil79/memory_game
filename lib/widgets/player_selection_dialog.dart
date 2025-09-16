@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import '../services/memory_game_service.dart';
@@ -38,9 +36,9 @@ class PlayerSelectionDialogWidget extends StatefulWidget {
   final MemoryGameService memoryGameService;
 
   const PlayerSelectionDialogWidget({
-    Key? key,
+    super.key,
     required this.memoryGameService,
-  }) : super(key: key);
+  });
 
   @override
   _PlayerSelectionDialogWidgetState createState() =>
@@ -152,17 +150,21 @@ class _PlayerSelectionDialogWidgetState
     // 위아래 여백을 더 주어 여유로운 레이아웃 구성
     if (orientation == Orientation.landscape) {
       // 가로 모드에서는 높이를 더 적게 사용
-      if (availableHeight >= 800)
+      if (availableHeight >= 800) {
         return availableHeight * 0.65; // 대형 폴더블 (60% → 65%)
-      if (availableHeight >= 600)
+      }
+      if (availableHeight >= 600) {
         return availableHeight * 0.7; // 중형 폴더블 (65% → 70%)
+      }
       return availableHeight * 0.75; // 일반 가로 모드 (70% → 75%)
     } else {
       // 세로 모드에서는 높이를 더 많이 사용
-      if (availableHeight >= 1000)
+      if (availableHeight >= 1000) {
         return availableHeight * 0.75; // 대형 폴더블 (70% → 75%)
-      if (availableHeight >= 800)
+      }
+      if (availableHeight >= 800) {
         return availableHeight * 0.8; // 중형 폴더블 (75% → 80%)
+      }
       return availableHeight * 0.85; // 일반 세로 모드 (80% → 85%)
     }
   }
@@ -255,7 +257,6 @@ class _PlayerSelectionDialogWidgetState
     required double fontSize,
     FontWeight fontWeight = FontWeight.normal,
     Color color = Colors.black87,
-    String? fontFamily,
   }) {
     final style = GoogleFonts.poppins(
       fontSize: fontSize,
@@ -453,7 +454,7 @@ class _PlayerSelectionDialogWidgetState
               children: [
                 // Header with gradient text
                 ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
+                  shaderCallback: (bounds) => const LinearGradient(
                     colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -489,7 +490,7 @@ class _PlayerSelectionDialogWidgetState
                       vertical: _verticalSpacing * 0.5),
                   margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
                   decoration: BoxDecoration(
-                    color: Color(0xFF833AB4).withOpacity(0.08),
+                    color: const Color(0xFF833AB4).withOpacity(0.08),
                     borderRadius:
                         BorderRadius.circular(_dialogBorderRadius * 0.6),
                   ),
@@ -500,7 +501,7 @@ class _PlayerSelectionDialogWidgetState
                           'You will always be included as a player',
                       style: _getTextStyle(
                         fontSize: _bodyFontSize,
-                        color: Color(0xFF833AB4),
+                        color: const Color(0xFF833AB4),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -567,7 +568,7 @@ class _PlayerSelectionDialogWidgetState
                               horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
                           height: _buttonHeight,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -576,7 +577,7 @@ class _PlayerSelectionDialogWidgetState
                                 _dialogBorderRadius * 0.85),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xFF833AB4).withOpacity(0.3),
+                                color: const Color(0xFF833AB4).withOpacity(0.3),
                                 blurRadius: _dialogWidth * 0.025, // 동적 그림자
                                 offset:
                                     Offset(0, _dialogWidth * 0.006), // 동적 오프셋
@@ -612,9 +613,9 @@ class _PlayerSelectionDialogWidgetState
 
   Widget _buildUsersList() {
     if (_isLoading) {
-      return Container(
+      return SizedBox(
         height: _userListHeight,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
           ),
@@ -623,7 +624,7 @@ class _PlayerSelectionDialogWidgetState
     }
 
     if (_error != null) {
-      return Container(
+      return SizedBox(
         height: _userListHeight,
         child: Center(
           child: Column(
@@ -650,7 +651,7 @@ class _PlayerSelectionDialogWidgetState
               ElevatedButton(
                 onPressed: _fetchUsers,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF833AB4),
+                  backgroundColor: const Color(0xFF833AB4),
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(_dialogBorderRadius * 0.7),
@@ -677,7 +678,7 @@ class _PlayerSelectionDialogWidgetState
     }
 
     if (_users.isEmpty) {
-      return Container(
+      return SizedBox(
         height: _userListHeight,
         child: Center(
           child: FittedBox(
@@ -718,7 +719,7 @@ class _PlayerSelectionDialogWidgetState
                   horizontal: _horizontalSpacing * 0.5),
               decoration: BoxDecoration(
                 gradient: isSelected
-                    ? LinearGradient(
+                    ? const LinearGradient(
                         colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -729,7 +730,7 @@ class _PlayerSelectionDialogWidgetState
                 boxShadow: [
                   BoxShadow(
                     color: isSelected
-                        ? Color(0xFF833AB4).withOpacity(0.2)
+                        ? const Color(0xFF833AB4).withOpacity(0.2)
                         : Colors.black.withOpacity(0.05),
                     blurRadius: _screenWidth * 0.015,
                     offset: Offset(0, _screenHeight * 0.004),
@@ -815,7 +816,7 @@ class _PlayerSelectionDialogWidgetState
                                   Icons.check,
                                   size: _getDynamicSelectionIconSize(
                                       _dialogWidth), // 컨테이너 폭 기반 동적 아이콘 크기
-                                  color: Color(0xFF833AB4),
+                                  color: const Color(0xFF833AB4),
                                 )
                               : null,
                         ),
@@ -934,7 +935,7 @@ class _PlayerSelectionDialogWidgetState
                               Container(
                                 height: dialogHeight * 0.13,
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     colors: [
                                       Color(0xFF833AB4),
                                       Color(0xFFF77737)
@@ -1001,7 +1002,7 @@ class _PlayerSelectionDialogWidgetState
                                       child: Row(
                                         children: [
                                           CircleAvatar(
-                                            backgroundColor: Color(0xFF833AB4)
+                                            backgroundColor: const Color(0xFF833AB4)
                                                 .withOpacity(0.1),
                                             radius: dialogWidth * 0.05,
                                             child: FittedBox(
@@ -1014,7 +1015,7 @@ class _PlayerSelectionDialogWidgetState
                                                 style: getDialogTextStyle(
                                                   fontSize: pinTitleFontSize,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Color(0xFF833AB4),
+                                                  color: const Color(0xFF833AB4),
                                                 ),
                                               ),
                                             ),
@@ -1050,7 +1051,7 @@ class _PlayerSelectionDialogWidgetState
                                       ),
                                       decoration: InputDecoration(
                                         counterText: "",
-                                        contentPadding: EdgeInsets.symmetric(
+                                        contentPadding: const EdgeInsets.symmetric(
                                             vertical: 16, horizontal: 16),
                                         hintText: "••",
                                         hintStyle: getDialogTextStyle(
@@ -1080,7 +1081,7 @@ class _PlayerSelectionDialogWidgetState
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(16),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Color(0xFF833AB4),
                                               width: 2),
                                         ),
@@ -1103,7 +1104,7 @@ class _PlayerSelectionDialogWidgetState
                                         }
                                       },
                                     ),
-                                    SizedBox(height: 32),
+                                    const SizedBox(height: 32),
                                     Row(
                                       children: [
                                         Expanded(
@@ -1118,7 +1119,7 @@ class _PlayerSelectionDialogWidgetState
                                               ),
                                               side: BorderSide(
                                                   color: Colors.grey.shade300),
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   vertical: 16),
                                             ),
                                             child: FittedBox(
@@ -1209,7 +1210,7 @@ class _PlayerSelectionDialogWidgetState
                               // 헤더 부분 (그라데이션 적용)
                               Container(
                                 height: 110,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
                                       Color(0xFF2980B9),
@@ -1227,12 +1228,12 @@ class _PlayerSelectionDialogWidgetState
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.pin_rounded,
                                         color: Colors.white,
                                         size: 40,
                                       ),
-                                      SizedBox(height: 8),
+                                      const SizedBox(height: 8),
                                       Text(
                                         'PIN 번호 생성',
                                         style: GoogleFonts.poppins(
@@ -1263,7 +1264,7 @@ class _PlayerSelectionDialogWidgetState
                                           ),
                                         ],
                                       ),
-                                      padding: EdgeInsets.all(16),
+                                      padding: const EdgeInsets.all(16),
                                       child: Column(
                                         children: [
                                           Row(
@@ -1283,7 +1284,7 @@ class _PlayerSelectionDialogWidgetState
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(width: 12),
+                                              const SizedBox(width: 12),
                                               Expanded(
                                                 child: Text(
                                                   '$nickname님에게 PIN 번호가 없습니다',
@@ -1296,7 +1297,7 @@ class _PlayerSelectionDialogWidgetState
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 12),
+                                          const SizedBox(height: 12),
                                           Text(
                                             '멀티플레이어를 위한 2자리 PIN 번호를 생성하세요',
                                             style: GoogleFonts.poppins(
@@ -1307,7 +1308,7 @@ class _PlayerSelectionDialogWidgetState
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 24),
+                                    const SizedBox(height: 24),
                                     TextField(
                                       controller: pinController,
                                       keyboardType: TextInputType.number,
@@ -1321,7 +1322,7 @@ class _PlayerSelectionDialogWidgetState
                                       ),
                                       decoration: InputDecoration(
                                         counterText: "",
-                                        contentPadding: EdgeInsets.symmetric(
+                                        contentPadding: const EdgeInsets.symmetric(
                                             vertical: 16, horizontal: 16),
                                         hintText: "••",
                                         hintStyle: GoogleFonts.poppins(
@@ -1376,7 +1377,7 @@ class _PlayerSelectionDialogWidgetState
                                         }
                                       },
                                     ),
-                                    SizedBox(height: 32),
+                                    const SizedBox(height: 32),
                                     Row(
                                       children: [
                                         Expanded(
@@ -1391,7 +1392,7 @@ class _PlayerSelectionDialogWidgetState
                                               ),
                                               side: BorderSide(
                                                   color: Colors.grey.shade300),
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   vertical: 16),
                                             ),
                                             child: Text(

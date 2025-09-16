@@ -40,3 +40,8 @@
 -dontskipnonpubliclibraryclasses
 -dontpreverify
 -verbose 
+
+# Meta Audience Network (Facebook) mediation keep rules
+-keep class com.facebook.ads.** { *; }
+-keep class com.facebook.** { *; }
+-dontwarn com.facebook.**

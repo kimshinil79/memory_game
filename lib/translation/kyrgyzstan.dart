@@ -22,6 +22,8 @@ const Map<String, String> kyKGTranslations = {
   'next': 'Кийинки',
   'continue': 'Улантуу',
   'settings': 'Орнотуулар',
+  'push_notifications': 'Push эскертүүлөр',
+  'receive_game_notifications': 'Оюн эскертүүлөрүн алуу',
   'profile': 'Профиль',
   'home': 'Башкы бет',
   'game': 'Оюн',

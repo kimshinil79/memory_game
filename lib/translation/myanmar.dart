@@ -22,6 +22,8 @@ const Map<String, String> myTranslations = {
   'next': 'နောက်တစ်ခု',
   'continue': 'ဆက်လက်ရန်',
   'settings': 'ဆက်တင်များ',
+  'push_notifications': 'Push အကြောင်းကြားချက်များ',
+  'receive_game_notifications': 'ဂိမ်းအကြောင်းကြားချက်များကို လက်ခံပါ',
   'profile': 'ပရိုဖိုင်း',
   'home': 'ပင်မ',
   'game': 'ဂိမ်း',

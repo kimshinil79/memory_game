@@ -19,6 +19,8 @@ const Map<String, String> azTranslations = {
   'back': 'Geri',
   'next': 'Növbəti',
   'settings': 'Parametrlər',
+  'push_notifications': 'Push bildirişləri',
+  'receive_game_notifications': 'Oyun bildirişlərini al',
   'profile': 'Profil',
   'home': 'Ana səhifə',
   'game': 'Oyun',

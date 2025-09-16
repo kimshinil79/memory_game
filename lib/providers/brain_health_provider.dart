@@ -1188,7 +1188,7 @@ class BrainHealthProvider with ChangeNotifier {
       }
     } catch (e) {
       print('Score record save error: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -1259,7 +1259,7 @@ class BrainHealthProvider with ChangeNotifier {
     // 커스텀 점수가 없을 때만 멀티플레이어 배수 적용
     if (customPoints == null && playerCount > 1) {
       pointsEarned *= playerCount;
-      print('멀티플레이어 배수 적용: $pointsEarned (${playerCount}명)');
+      print('멀티플레이어 배수 적용: $pointsEarned ($playerCount명)');
     }
 
     _brainHealthScore += pointsEarned;
@@ -1267,7 +1267,7 @@ class BrainHealthProvider with ChangeNotifier {
     // 로컬 데이터를 Firebase에 먼저 저장
     try {
       // 점수 기록 저장
-      print('Saving score record with value: ${_brainHealthScore}');
+      print('Saving score record with value: $_brainHealthScore');
       await _saveScoreRecord(ScoreRecord(DateTime.now(), _brainHealthScore));
       if (_disposed) return pointsEarned;
       print('Score record saved successfully');
@@ -1413,7 +1413,7 @@ class BrainHealthProvider with ChangeNotifier {
     print('Using actual score history: ${sortedHistory.length} records');
 
     // 최근 6개월 이내의 데이터만 필터링
-    DateTime sixMonthsAgo = DateTime.now().subtract(Duration(days: 180));
+    DateTime sixMonthsAgo = DateTime.now().subtract(const Duration(days: 180));
     List<ScoreRecord> recentRecords = sortedHistory
         .where((record) => record.date.isAfter(sixMonthsAgo))
         .toList();

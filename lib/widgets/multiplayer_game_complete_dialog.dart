@@ -15,7 +15,7 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
   static const Color instagramGradientEnd = Color(0xFFF77737);
 
   const MultiplayerGameCompleteDialog({
-    Key? key,
+    super.key,
     required this.result,
     required this.myNickname,
     required this.opponentNickname,
@@ -23,16 +23,16 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
     required this.opponentScore,
     required this.elapsedTime,
     required this.onNewGame,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [instagramGradientStart, instagramGradientEnd],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -50,10 +50,10 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              padding: EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
@@ -81,8 +81,8 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              padding: EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
@@ -109,7 +109,7 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               "Time: $elapsedTime seconds",
               style: GoogleFonts.montserrat(
@@ -118,7 +118,7 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -126,7 +126,7 @@ class MultiplayerGameCompleteDialog extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
               ),
               child: Text(
                 "New Game",

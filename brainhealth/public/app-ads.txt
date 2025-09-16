@@ -1,0 +1,5 @@
+# app-ads.txt file for Memory Game
+# This file is used to authorize digital sellers to sell your app's advertising inventory
+
+# Google AdMob
+google.com, pub-7181238773192957, DIRECT, f08c47fec0942fa0

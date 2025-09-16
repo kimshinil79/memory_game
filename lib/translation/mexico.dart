@@ -22,6 +22,8 @@ const Map<String, String> mxMEXTranslations = {
   'next': 'Siguiente',
   'continue': 'Continuar',
   'settings': 'Configuración',
+  'push_notifications': 'Notificaciones push',
+  'receive_game_notifications': 'Recibir notificaciones del juego',
   'profile': 'Perfil',
   'home': 'Inicio',
   'game': 'Juego',

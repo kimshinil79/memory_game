@@ -22,6 +22,8 @@ const Map<String, String> ukUATranslations = {
   'next': 'Далі',
   'continue': 'Продовжити',
   'settings': 'Налаштування',
+  'push_notifications': 'Push-сповіщення',
+  'receive_game_notifications': 'Отримувати сповіщення про гру',
   'profile': 'Профіль',
   'home': 'Головна',
   'game': 'Гра',

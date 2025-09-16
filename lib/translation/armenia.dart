@@ -19,6 +19,8 @@ const Map<String, String> amTranslations = {
   'back': 'Հետ',
   'next': 'Հաջորդ',
   'settings': 'Կարգավորումներ',
+  'push_notifications': 'Push ծանուցումներ',
+  'receive_game_notifications': 'Ստանալ խաղի ծանուցումներ',
   'profile': 'Պրոֆիլ',
   'home': 'Գլխավոր',
   'game': 'Խաղ',

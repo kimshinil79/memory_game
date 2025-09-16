@@ -22,6 +22,8 @@ const Map<String, String> ptMOZTranslations = {
   'next': 'Próximo',
   'continue': 'Continuar',
   'settings': 'Configurações',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Perfil',
   'home': 'Início',
   'game': 'Jogo',

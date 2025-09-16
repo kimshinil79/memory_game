@@ -20,6 +20,8 @@ const Map<String, String> afkTranslations = {
   'next': 'Volgende',
   'continue': 'Gaan voort',
   'settings': 'Instellings',
+  'push_notifications': 'Push-kennisgewings',
+  'receive_game_notifications': 'Ontvang speletjie kennisgewings',
   'profile': 'Profiel',
   'home': 'Tuis',
   'game': 'Speletjie',

@@ -22,6 +22,8 @@ const Map<String, String> filPHTranslations = {
   'next': 'Susunod',
   'continue': 'Magpatuloy',
   'settings': 'Mga Setting',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Tumanggap ng mga notification ng laro',
   'profile': 'Profile',
   'home': 'Home',
   'game': 'Laro',

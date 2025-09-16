@@ -20,6 +20,8 @@ const Map<String, String> ltTranslations = {
   'next': 'Toliau',
   'continue': 'Tęsti',
   'settings': 'Nustatymai',
+  'push_notifications': 'Push pranešimai',
+  'receive_game_notifications': 'Gauti žaidimo pranešimus',
   'profile': 'Profilis',
   'home': 'Pradžia',
   'game': 'Žaidimas',

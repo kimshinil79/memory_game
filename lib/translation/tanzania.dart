@@ -22,6 +22,8 @@ const Map<String, String> swTZTranslations = {
   'next': 'Inayofuata',
   'continue': 'Endelea',
   'settings': 'Mipangilio',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Wasifu',
   'home': 'Nyumbani',
   'game': 'Mchezo',

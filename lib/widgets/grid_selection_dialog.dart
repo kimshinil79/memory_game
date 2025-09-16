@@ -27,9 +27,9 @@ class GridSelectionDialogContent extends StatefulWidget {
   final String currentGridSize;
 
   const GridSelectionDialogContent({
-    Key? key,
+    super.key,
     required this.currentGridSize,
-  }) : super(key: key);
+  });
 
   @override
   _GridSelectionDialogContentState createState() =>
@@ -137,17 +137,21 @@ class _GridSelectionDialogContentState
     // 위아래 여백을 더 주어 여유로운 레이아웃 구성
     if (orientation == Orientation.landscape) {
       // 가로 모드에서는 높이를 더 적게 사용
-      if (availableHeight >= 800)
+      if (availableHeight >= 800) {
         return availableHeight * 0.65; // 대형 폴더블 (60% → 65%)
-      if (availableHeight >= 600)
+      }
+      if (availableHeight >= 600) {
         return availableHeight * 0.7; // 중형 폴더블 (65% → 70%)
+      }
       return availableHeight * 0.75; // 일반 가로 모드 (70% → 75%)
     } else {
       // 세로 모드에서는 높이를 더 많이 사용
-      if (availableHeight >= 1000)
+      if (availableHeight >= 1000) {
         return availableHeight * 0.75; // 대형 폴더블 (70% → 75%)
-      if (availableHeight >= 800)
+      }
+      if (availableHeight >= 800) {
         return availableHeight * 0.8; // 중형 폴더블 (75% → 80%)
+      }
       return availableHeight * 0.85; // 일반 세로 모드 (80% → 85%)
     }
   }
@@ -220,7 +224,6 @@ class _GridSelectionDialogContentState
     required double fontSize,
     FontWeight fontWeight = FontWeight.normal,
     Color color = Colors.black87,
-    String? fontFamily,
   }) {
     final style = GoogleFonts.poppins(
       fontSize: fontSize,
@@ -343,7 +346,7 @@ class _GridSelectionDialogContentState
                     children: [
                       // Header with gradient text
                       ShaderMask(
-                        shaderCallback: (bounds) => LinearGradient(
+                        shaderCallback: (bounds) => const LinearGradient(
                           colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -427,7 +430,7 @@ class _GridSelectionDialogContentState
                               vertical: dynamicDialogHeight * 0.018,
                             ),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -436,7 +439,7 @@ class _GridSelectionDialogContentState
                                   BorderRadius.circular(_borderRadius * 0.7),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xFF833AB4).withOpacity(0.3),
+                                  color: const Color(0xFF833AB4).withOpacity(0.3),
                                   blurRadius: dynamicDialogWidth * 0.03,
                                   offset:
                                       Offset(0, dynamicDialogHeight * 0.008),
@@ -500,7 +503,7 @@ class _GridSelectionDialogContentState
           height: gridOptionSize,
           decoration: BoxDecoration(
             gradient: isSelected
-                ? LinearGradient(
+                ? const LinearGradient(
                     colors: [Color(0xFF833AB4), Color(0xFFF77737)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -511,7 +514,7 @@ class _GridSelectionDialogContentState
             boxShadow: [
               BoxShadow(
                 color: isSelected
-                    ? Color(0xFF833AB4).withOpacity(0.3)
+                    ? const Color(0xFF833AB4).withOpacity(0.3)
                     : Colors.black.withOpacity(0.05),
                 blurRadius:
                     isSelected ? _screenWidth * 0.025 : _screenWidth * 0.013,
@@ -534,7 +537,7 @@ class _GridSelectionDialogContentState
                 size: gridIconSize,
                 color: isSelected
                     ? Colors.white
-                    : Color(0xFF833AB4).withOpacity(0.7),
+                    : const Color(0xFF833AB4).withOpacity(0.7),
               ),
               SizedBox(height: iconSpacing),
               FittedBox(
@@ -556,7 +559,7 @@ class _GridSelectionDialogContentState
                 decoration: BoxDecoration(
                   color: isSelected
                       ? Colors.white.withOpacity(0.25)
-                      : Color(0xFF833AB4).withOpacity(0.1),
+                      : const Color(0xFF833AB4).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(multiplierBorderRadius),
                 ),
                 child: FittedBox(
@@ -566,7 +569,7 @@ class _GridSelectionDialogContentState
                     style: _getTextStyle(
                       fontSize: multiplierFontSize,
                       fontWeight: FontWeight.w600,
-                      color: isSelected ? Colors.white : Color(0xFF833AB4),
+                      color: isSelected ? Colors.white : const Color(0xFF833AB4),
                     ),
                   ),
                 ),

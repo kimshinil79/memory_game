@@ -22,6 +22,8 @@ const Map<String, String> arKMTranslations = {
   'next': 'التالي',
   'continue': 'متابعة',
   'settings': 'الإعدادات',
+  'push_notifications': 'Notifications push',
+  'receive_game_notifications': 'Recevoir les notifications de jeu',
   'profile': 'الملف الشخصي',
   'home': 'الرئيسية',
   'game': 'اللعبة',

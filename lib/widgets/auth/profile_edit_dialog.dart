@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/countries.dart';
 import '../country_selection_dialog.dart';
 import '../../providers/language_provider.dart';
@@ -300,39 +301,17 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     ),
                   ),
                 ),
-                // Sign Out 버튼을 제목 오른쪽에 배치
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(widget.dialogContext).pop({'signOut': true});
+                // Settings 버튼을 제목 오른쪽에 배치
+                IconButton(
+                  icon: Icon(Icons.settings, color: Colors.grey[600]),
+                  onPressed: () async {
+                    final result = await _showSettingsDialog(context);
+                    if (result != null && result['deleteAccount'] == true) {
+                      // 설정 다이얼로그에서 계정 삭제가 확인되면 프로필 수정 다이얼로그를 닫고 신호를 보냄
+                      Navigator.of(widget.dialogContext)
+                          .pop({'deleteAccount': true});
+                    }
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red.shade50,
-                    foregroundColor: Colors.red.shade400,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(color: Colors.red.shade200),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    minimumSize: Size(0, 36),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        size: 16 * _textScaleFactor,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        t('sign_out'),
-                        style: _getTextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ]),
 
@@ -831,19 +810,18 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 ],
               ),
               SizedBox(height: 16),
-              // 회원 탈퇴 버튼 추가
+              // Sign Out 버튼 추가
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(widget.dialogContext)
-                      .pop({'deleteAccount': true});
+                  Navigator.of(widget.dialogContext).pop({'signOut': true});
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade100,
-                  foregroundColor: Colors.red.shade700,
+                  backgroundColor: Colors.red.shade50,
+                  foregroundColor: Colors.red.shade400,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.red.shade300),
+                    side: BorderSide(color: Colors.red.shade200),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12),
                   minimumSize: Size(double.infinity, 48),
@@ -852,12 +830,12 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.delete_forever,
+                      Icons.logout,
                       size: 20 * _textScaleFactor,
                     ),
                     SizedBox(width: 8),
                     Text(
-                      t('delete_account'),
+                      t('sign_out'),
                       style: _getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -871,6 +849,179 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
           ),
         ),
       ),
+    );
+  }
+
+  // 설정 다이얼로그
+  Future<Map<String, dynamic>?> _showSettingsDialog(
+      BuildContext context) async {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+    final translations = languageProvider.getUITranslations();
+
+    // SharedPreferences에서 현재 푸쉬 알림 설정 읽기
+    final prefs = await SharedPreferences.getInstance();
+    bool pushNotificationsEnabled =
+        prefs.getBool('push_notifications_enabled') ?? true;
+
+    return showDialog<Map<String, dynamic>>(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              title: Row(
+                children: [
+                  Icon(Icons.settings, color: Colors.grey[600]),
+                  SizedBox(width: 8),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        translations['settings'] ?? 'Settings',
+                        style: _getTextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 푸쉬 알림 설정
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey[200]!),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.blue[600],
+                          size: 24,
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  translations['push_notifications'] ??
+                                      'Push Notifications',
+                                  style: _getTextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  translations['receive_game_notifications'] ??
+                                      'Receive game notifications',
+                                  style: _getTextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600]!,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: pushNotificationsEnabled,
+                          onChanged: (value) async {
+                            setState(() {
+                              pushNotificationsEnabled = value;
+                            });
+                            // SharedPreferences에 저장
+                            await prefs.setBool(
+                                'push_notifications_enabled', value);
+                          },
+                          activeColor: Colors.blue[600],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  // 회원탈퇴 버튼
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop({'deleteAccount': true});
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red.shade100,
+                        foregroundColor: Colors.red.shade700,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(color: Colors.red.shade300),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.delete_forever_outlined,
+                            size: 20,
+                          ),
+                          SizedBox(width: 8),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              translations['delete_account'] ??
+                                  'Delete Account',
+                              style: _getTextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      translations['close'] ?? 'Close',
+                      style: _getTextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600]!,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

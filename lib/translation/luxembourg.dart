@@ -22,6 +22,8 @@ const Map<String, String> deLUTranslations = {
   'next': 'Weiter',
   'continue': 'Fortfahren',
   'settings': 'Einstellungen',
+  'push_notifications': 'Push-Benachrichtigungen',
+  'receive_game_notifications': 'Spielbenachrichtigungen erhalten',
   'profile': 'Profil',
   'home': 'Startseite',
   'game': 'Spiel',

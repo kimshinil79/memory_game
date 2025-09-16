@@ -22,6 +22,8 @@ const Map<String, String> eoTranslations = {
   'next': 'Sekva',
   'continue': 'Daŭrigi',
   'settings': 'Agordoj',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profilo',
   'home': 'Hejmo',
   'game': 'Ludo',

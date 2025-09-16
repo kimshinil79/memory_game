@@ -32,6 +32,8 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  # AdMob Mediation adapter for Meta Audience Network
+  pod 'GoogleMobileAdsMediationFacebook', '6.16.0.0'
   target 'RunnerTests' do
     inherit! :search_paths
   end

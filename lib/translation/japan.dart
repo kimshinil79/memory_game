@@ -22,6 +22,8 @@ const Map<String, String> jaTranslations = {
   'next': '次へ',
   'continue': '続ける',
   'settings': '設定',
+  'push_notifications': 'プッシュ通知',
+  'receive_game_notifications': 'ゲーム通知を受け取る',
   'profile': 'プロフィール',
   'home': 'ホーム',
   'game': 'ゲーム',

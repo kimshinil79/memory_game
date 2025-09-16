@@ -22,6 +22,8 @@ const Map<String, String> loLATranslations = {
   'next': 'ຕໍ່ໄປ',
   'continue': 'ດຳເນີນຕໍ່',
   'settings': 'ການຕັ້ງຄ່າ',
+  'push_notifications': 'ການແຈ້ງເຕືອນ push',
+  'receive_game_notifications': 'ຮັບການແຈ້ງເຕືອນເກມ',
   'profile': 'ໂປຣໄຟລ',
   'home': 'ໜ້າຫຼັກ',
   'game': 'ເກມ',

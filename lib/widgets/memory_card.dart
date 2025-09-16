@@ -8,13 +8,13 @@ class MemoryCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const MemoryCard({
-    Key? key,
+    super.key,
     required this.index,
     required this.imageId,
     required this.isFlipped,
     required this.showRedBorder,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MemoryCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12), // 모서리 둥글게
           side: showRedBorder
-              ? BorderSide(
+              ? const BorderSide(
                   color: Colors.redAccent, width: 5.0) // 테두리 두께를 5.0으로 증가
               : BorderSide.none,
         ),

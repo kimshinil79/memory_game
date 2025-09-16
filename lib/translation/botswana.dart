@@ -20,6 +20,8 @@ const Map<String, String> tnTranslations = {
   'next': 'E e latelang',
   'continue': 'Tswela pele',
   'settings': 'Ditsamaiso',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profaele',
   'home': 'Gae',
   'game': 'Papadi',

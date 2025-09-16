@@ -20,6 +20,8 @@ const Map<String, String> plPLTranslations = {
   'next': 'Dalej',
   'continue': 'Kontynuuj',
   'settings': 'Ustawienia',
+  'push_notifications': 'Powiadomienia push',
+  'receive_game_notifications': 'Otrzymuj powiadomienia o grze',
   'profile': 'Profil',
   'home': 'Strona główna',
   'game': 'Gra',

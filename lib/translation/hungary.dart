@@ -20,6 +20,8 @@ const Map<String, String> huTranslations = {
   'next': 'Következő',
   'continue': 'Folytatás',
   'settings': 'Beállítások',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profil',
   'home': 'Kezdőlap',
   'game': 'Játék',

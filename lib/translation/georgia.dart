@@ -22,6 +22,8 @@ const Map<String, String> kaGETranslations = {
   'next': 'შემდეგი',
   'continue': 'გაგრძელება',
   'settings': 'პარამეტრები',
+  'push_notifications': 'Push შეტყობინებები',
+  'receive_game_notifications': 'მიიღეთ თამაშის შეტყობინებები',
   'profile': 'პროფილი',
   'home': 'მთავარი',
   'game': 'თამაში',

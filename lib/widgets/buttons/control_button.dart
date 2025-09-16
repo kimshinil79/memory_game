@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui';
 
 class ControlButton extends StatefulWidget {
   final IconData icon;
@@ -11,14 +10,14 @@ class ControlButton extends StatefulWidget {
   final bool useTranslation;
 
   const ControlButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.label,
     required this.onTap,
     this.showBadge = false,
     this.badgeText,
     this.useTranslation = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ControlButton> createState() => _ControlButtonState();
@@ -37,7 +36,7 @@ class _ControlButtonState extends State<ControlButton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
     );
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
@@ -104,21 +103,21 @@ class _ControlButtonState extends State<ControlButton>
 
     if (isGridSize) {
       if (_isPressed) {
-        return [Color(0xFF8844BB), Color(0xFFE86339)];
+        return [const Color(0xFF8844BB), const Color(0xFFE86339)];
       } else {
-        return [Color(0xFF833AB4), Color(0xFFF77737)];
+        return [const Color(0xFF833AB4), const Color(0xFFF77737)];
       }
     } else if (isPlayerCount) {
       if (_isPressed) {
-        return [Color(0xFF9945BF), Color(0xFFE86339)];
+        return [const Color(0xFF9945BF), const Color(0xFFE86339)];
       } else {
-        return [Color(0xFF833AB4), Color(0xFFFF8C39)];
+        return [const Color(0xFF833AB4), const Color(0xFFFF8C39)];
       }
     } else {
       if (_isPressed) {
-        return [Color(0xFFA14EBF), Color(0xFFE86339)];
+        return [const Color(0xFFA14EBF), const Color(0xFFE86339)];
       } else {
-        return [Color(0xFF833AB4), Color(0xFFF77737)];
+        return [const Color(0xFF833AB4), const Color(0xFFF77737)];
       }
     }
   }
@@ -177,19 +176,19 @@ class _ControlButtonState extends State<ControlButton>
                   : [
                       BoxShadow(
                         color: _getGradientColors().first.withOpacity(0.3),
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                         blurRadius: _isHovered ? 8 : 5,
                         spreadRadius: _isHovered ? 1 : 0,
                       ),
                     ],
             ),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 150),
+              duration: const Duration(milliseconds: 150),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     child: Icon(
                       widget.icon,
                       size: _isHovered ? 20 : 18,
@@ -198,7 +197,7 @@ class _ControlButtonState extends State<ControlButton>
                   ),
                   const SizedBox(width: 6),
                   AnimatedDefaultTextStyle(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     style: GoogleFonts.montserrat(
                       fontSize: _isHovered ? 14 : 13,
                       fontWeight: FontWeight.w600,

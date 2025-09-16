@@ -22,6 +22,8 @@ const Map<String, String> mkMKTranslations = {
   'next': 'Следно',
   'continue': 'Продолжи',
   'settings': 'Поставки',
+  'push_notifications': 'Push известувања',
+  'receive_game_notifications': 'Примајте известувања за игра',
   'profile': 'Профил',
   'home': 'Дома',
   'game': 'Игра',

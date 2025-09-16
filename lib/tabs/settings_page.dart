@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
-import '../providers/language_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   final Function(int) updateNumberOfPlayers;
@@ -152,19 +149,19 @@ class _SettingsPageState extends State<SettingsPage> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Sign In',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -177,7 +174,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                   controller: passwordController,
                   obscureText: true,
@@ -191,26 +188,26 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => _signIn(
                       context, emailController.text, passwordController.text),
-                  child: Text('Sign In'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 50),
                   ),
+                  child: const Text('Sign In'),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                     _showSignUpDialog(context);
                   },
-                  child: Text('Don\'t have an account? Sign Up'),
+                  child: const Text('Don\'t have an account? Sign Up'),
                 ),
               ],
             ),
@@ -233,7 +230,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sign in successful')),
+        const SnackBar(content: Text('Sign in successful')),
       );
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'An error occurred during sign in.';
@@ -261,19 +258,19 @@ class _SettingsPageState extends State<SettingsPage> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Create Account',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -286,7 +283,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                   controller: nicknameController,
                   decoration: InputDecoration(
@@ -299,7 +296,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                   controller: passwordController,
                   obscureText: true,
@@ -313,7 +310,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => _signUp(
                     context,
@@ -321,14 +318,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     passwordController.text,
                     nicknameController.text,
                   ),
-                  child: Text('Create Account'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 50),
                   ),
+                  child: const Text('Create Account'),
                 ),
               ],
             ),
@@ -358,7 +355,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Account created successfully.')),
+        const SnackBar(content: Text('Account created successfully.')),
       );
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'An error occurred during account creation.';
@@ -387,14 +384,14 @@ class _SettingsPageState extends State<SettingsPage> {
         child: _user == null
             ? ElevatedButton(
                 onPressed: () => _showSignInDialog(context),
-                child: Text('Sign In'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
+                child: const Text('Sign In'),
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -404,11 +401,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       Text(
                         'Welcome, $_nickname',
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       IconButton(
-                        icon: Icon(Icons.logout),
+                        icon: const Icon(Icons.logout),
                         onPressed: _signOut,
                       ),
                     ],

@@ -20,6 +20,8 @@ const Map<String, String> hkTranslations = {
   'next': '下一步',
   'continue': '继续',
   'settings': '设置',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': '个人资料',
   'home': '首页',
   'game': '游戏',

@@ -5,7 +5,7 @@ class StarAnimation extends StatefulWidget {
   final Widget child;
   final bool trigger;
 
-  const StarAnimation({Key? key, required this.child, required this.trigger}) : super(key: key);
+  const StarAnimation({super.key, required this.child, required this.trigger});
 
   @override
   _StarAnimationState createState() => _StarAnimationState();
@@ -60,7 +60,7 @@ class _StarAnimationState extends State<StarAnimation> with SingleTickerProvider
                 child: const Icon(Icons.star, color: Colors.yellow, size: 20),
               ),
             ),
-          )).toList(),
+          )),
       ],
     );
   }

@@ -22,6 +22,8 @@ const Map<String, String> bsBATranslations = {
   'next': 'Sljedeće',
   'continue': 'Nastavi',
   'settings': 'Postavke',
+  'push_notifications': 'Push obavještenja',
+  'receive_game_notifications': 'Primajte obavještenja o igri',
   'profile': 'Profil',
   'home': 'Početna',
   'game': 'Igra',

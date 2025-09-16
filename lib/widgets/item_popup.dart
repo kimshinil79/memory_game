@@ -9,15 +9,15 @@ class ItemPopup extends StatelessWidget {
   final Color instagramGradientEnd;
 
   const ItemPopup({
-    Key? key,
+    super.key,
     required this.showItemPopup,
     required this.instagramGradientStart,
     required this.instagramGradientEnd,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (!showItemPopup) return SizedBox.shrink();
+    if (!showItemPopup) return const SizedBox.shrink();
 
     return Positioned(
       top: MediaQuery.of(context).size.height * 0.4,
@@ -25,7 +25,7 @@ class ItemPopup extends StatelessWidget {
       right: 0,
       child: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [instagramGradientStart, instagramGradientEnd],
@@ -38,19 +38,19 @@ class ItemPopup extends StatelessWidget {
                 color: instagramGradientStart.withOpacity(0.5),
                 blurRadius: 15,
                 spreadRadius: 2,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.shuffle,
                 color: Colors.white,
                 size: 40,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 Provider.of<LanguageProvider>(context)
                         .getUITranslations()['random_shake'] ??

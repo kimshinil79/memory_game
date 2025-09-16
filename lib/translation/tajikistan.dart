@@ -22,6 +22,8 @@ const Map<String, String> tgTJTranslations = {
   'next': 'Баъдӣ',
   'continue': 'Идома додан',
   'settings': 'Танзимот',
+  'push_notifications': 'Огоҳиномаҳои push',
+  'receive_game_notifications': 'Огоҳиномаҳои бозӣ гиред',
   'profile': 'Профил',
   'home': 'Асосӣ',
   'game': 'Бозӣ',

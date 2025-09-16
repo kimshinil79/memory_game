@@ -18,7 +18,7 @@ class LoginRequiredDialog {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -35,7 +35,7 @@ class LoginRequiredDialog {
                     color: Colors.purple.shade400,
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
                   translations['login_required'] ?? 'Login Required',
                   style: GoogleFonts.montserrat(
@@ -44,7 +44,7 @@ class LoginRequiredDialog {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
                   translations['please_sign_in'] ??
                       'Please sign in to play the Memory Game',
@@ -54,14 +54,14 @@ class LoginRequiredDialog {
                     color: Colors.grey.shade600,
                   ),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                             side: BorderSide(color: Colors.grey.shade300),
@@ -77,7 +77,7 @@ class LoginRequiredDialog {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: TextButton(
                         onPressed: () {
@@ -85,7 +85,7 @@ class LoginRequiredDialog {
                           onSignInPressed();
                         },
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           backgroundColor: Colors.purple.shade50,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -127,7 +127,7 @@ class SignOutConfirmDialog {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -147,7 +147,7 @@ class SignOutConfirmDialog {
                         color: Colors.red.shade400,
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Text(
                       translations['sign_out'] ?? 'Sign Out',
                       style: GoogleFonts.montserrat(
@@ -158,14 +158,14 @@ class SignOutConfirmDialog {
                     ),
                   ],
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                             side: BorderSide(color: Colors.grey.shade300),
@@ -181,7 +181,7 @@ class SignOutConfirmDialog {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: TextButton(
                         onPressed: () {
@@ -189,7 +189,7 @@ class SignOutConfirmDialog {
                           onSignOutConfirmed();
                         },
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           backgroundColor: Colors.red.shade50,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),

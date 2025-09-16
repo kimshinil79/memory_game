@@ -22,6 +22,8 @@ const Map<String, String> daTranslations = {
   'next': 'Næste',
   'continue': 'Fortsæt',
   'settings': 'Indstillinger',
+  'push_notifications': 'Push-beskeder',
+  'receive_game_notifications': 'Modtag spilnotifikationer',
   'profile': 'Profil',
   'home': 'Hjem',
   'game': 'Spil',

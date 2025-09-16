@@ -20,6 +20,8 @@ const Map<String, String> slSITranslations = {
   'next': 'Naprej',
   'continue': 'Nadaljuj',
   'settings': 'Nastavitve',
+  'push_notifications': 'Push obvestila',
+  'receive_game_notifications': 'Prejemajte obvestila o igri',
   'profile': 'Profil',
   'home': 'Domov',
   'game': 'Igra',

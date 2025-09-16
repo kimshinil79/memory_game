@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/item_list.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'dart:io';
@@ -21,11 +20,7 @@ import '../widgets/memory_card.dart';
 import '../widgets/item_popup.dart';
 import '../widgets/completion_dialog.dart';
 import '../widgets/score_board.dart';
-import '../widgets/player_flag.dart';
 import '../widgets/ad_section.dart';
-import 'package:flag/flag.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -162,8 +157,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation;
 
-  final Color instagramGradientStart = Color(0xFF833AB4);
-  final Color instagramGradientEnd = Color(0xFFF77737);
+  final Color instagramGradientStart = const Color(0xFF833AB4);
+  final Color instagramGradientEnd = const Color(0xFFF77737);
 
   //final translator = GoogleTranslator();
   String targetLanguage = 'en-US';
@@ -176,9 +171,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   DateTime? _pauseTime; // 일시정지된 시간 기록
 
   final Color timerNormalColor =
-      Color.fromARGB(255, 84, 113, 230); // 기본 상태일 때 초록색
+      const Color.fromARGB(255, 84, 113, 230); // 기본 상태일 때 초록색
   final Color timerWarningColor =
-      Color.fromARGB(255, 190, 60, 233); // 10초 미만일 때 주황색
+      const Color.fromARGB(255, 190, 60, 233); // 10초 미만일 때 주황색
 
   StreamSubscription<DocumentSnapshot>? _languageSubscription;
 
@@ -186,8 +181,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 시간 추가 버튼의 쿨다운 관리
   bool _canAddTime = true;
-  int _timeAddCost = 5; // 시간 추가 시 차감되는 Brain Health 점수
-  int _timeAddMinElapsed = 30; // 시간 추가 버튼이 활성화되기 위한 최소 경과 시간(초)
+  final int _timeAddCost = 5; // 시간 추가 시 차감되는 Brain Health 점수
+  final int _timeAddMinElapsed = 30; // 시간 추가 버튼이 활성화되기 위한 최소 경과 시간(초)
 
   DateTime? _gameStartTime; // 게임 시작 시점을 기록할 변수
 
@@ -227,7 +222,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
 
     _colorAnimation = ColorTween(
@@ -306,7 +301,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 애니메이션 컨트롤러 초기화
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
 
     _colorAnimation = ColorTween(
@@ -778,7 +773,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       _initializeDefaultGameImages();
     }
 
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
 
     if (!mounted) return;
 
@@ -825,7 +820,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       setState(() {
         cardBorderAnimationTriggers[index] = true;
       });
-      Future.delayed(Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 300), () {
         if (!mounted) return;
         if (index < cardBorderAnimationTriggers.length) {
           setState(() {
@@ -1084,7 +1079,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   Widget buildCard(int index) {
     if (index >= gameImages.length) {
-      return SizedBox();
+      return const SizedBox();
     }
 
     bool showRedBorder = cardBorderAnimationTriggers.isNotEmpty &&
@@ -1399,7 +1394,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // );
 
     // 10초 후 다시 시간 추가 가능하게 설정
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 10), () {
       if (!mounted) return;
       setState(() {
         _canAddTime = true;
@@ -1459,16 +1454,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     super.build(
         context); // Call super.build to integrate keep-alive functionality
     if (hasError) {
-      return Center(child: Text('게임 초기화 중 오류가 발생했습니다. 다시 시도해 주세요.'));
+      return const Center(child: Text('게임 초기화 중 오류가 발생했습니다. 다시 시도해 주세요.'));
     }
 
     if (!isInitialized) {
-      return Center(child: Text('Initializing...'));
+      return const Center(child: Text('Initializing...'));
     }
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -1487,19 +1482,19 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                 },
                 child: Column(
                   children: [
-                    if (widget.numberOfPlayers > 1) this.buildScoreBoard(),
+                    if (widget.numberOfPlayers > 1) buildScoreBoard(),
                     if (widget.isTimeAttackMode) ...[
                       // Add timer bar
                       SizedBox(
                         height: 45, // 높이 줄임
                         child: Container(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 4.0),
                           child: Row(
                             children: [
                               // 시간 표시 텍스트
                               Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: _getColorByTimeRatio(
@@ -1516,7 +1511,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                       color: _getColorByTimeRatio(
                                           _remainingTime / _gameTimeLimit),
                                     ),
-                                    SizedBox(width: 4),
+                                    const SizedBox(width: 4),
                                     Text(
                                       '$_remainingTime s',
                                       style: TextStyle(
@@ -1529,7 +1524,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               // 프로그레스 바
                               Expanded(
                                 child: LinearProgressIndicator(
@@ -1543,7 +1538,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               // 시간 추가 버튼
                               if (widget.isTimeAttackMode)
                                 ElevatedButton.icon(
@@ -1552,8 +1547,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                           _elapsedTime >= _timeAddMinElapsed
                                       ? _addExtraTime
                                       : null,
-                                  icon: Icon(Icons.add, size: 14),
-                                  label: Text('+30s',
+                                  icon: const Icon(Icons.add, size: 14),
+                                  label: const Text('+30s',
                                       style: TextStyle(fontSize: 12)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: _canAddTime &&
@@ -1562,9 +1557,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                         ? instagramGradientStart
                                         : Colors.grey,
                                     foregroundColor: Colors.white,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
-                                    minimumSize: Size(50, 30),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    minimumSize: const Size(50, 30),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
@@ -1575,7 +1570,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                         ),
                       ),
                     ] else ...[
-                      SizedBox(
+                      const SizedBox(
                           height:
                               8), // Add some spacing when not in time attack mode
                     ],
@@ -1598,12 +1593,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               final gridRows = int.parse(gridDimensions[1]);
 
                               // 게임 영역 계산: 타이머 바로 아래부터 광고 영역 바로 위까지
-                              final timerBarHeight = 45.0; // 타이머 바 높이
+                              const timerBarHeight = 45.0; // 타이머 바 높이
                               final adHeight =
                                   (_isBannerAdReady && myBanner != null)
                                       ? myBanner!.size.height.toDouble()
                                       : 0.0;
-                              final maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
+                              const maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
 
                               // 사용 가능한 게임 영역 높이 계산
                               final availableHeight = viewportHeight -
@@ -1689,7 +1684,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                       (spacing * (gridRows + 1));
 
                               if (!isFolded) {
-                                final minSpacing = 1.0;
+                                const minSpacing = 1.0;
                                 final tileHeight = (availableHeight -
                                         (minSpacing * (gridRows + 1))) /
                                     gridRows;
@@ -1710,7 +1705,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               if (isFolded) {
                                 // 폴더블폰 접힘: 기존 방식 (GridView가 자동으로 크기 조정)
                                 return GridView.builder(
-                                  physics: AlwaysScrollableScrollPhysics(),
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   padding: EdgeInsets.all(spacing),
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
@@ -1720,7 +1716,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   ),
                                   itemCount: gameImages.length,
                                   itemBuilder: (context, index) {
-                                    return Container(
+                                    return SizedBox(
                                       width: finalCardSize,
                                       height: finalCardSize,
                                       child: buildCard(index),
@@ -1730,8 +1726,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               } else {
                                 // 폴더블폰 펼침: Column과 Row를 사용한 직접 그리드 구성
                                 // spaceEvenly를 사용하므로 간격을 계산에서 제외하고 전체 공간 활용
-                                final double minSpacing = 0.0; // 최소 간격
-                                final double horizontalSpacing = 10.0;
+                                const double minSpacing = 0.0; // 최소 간격
+                                const double horizontalSpacing = 10.0;
                                 final double tileHeight = availableHeight /
                                     (gridRows - 0.9); // 전체 높이를 행 수로 나눔
                                 final double tileWidth = tileHeight;
@@ -1756,10 +1752,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                 return Container(
                                   width: containerWidth,
                                   height: availableHeight,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       // 디버그용 테두리 제거
                                       ),
-                                  padding: EdgeInsets.all(
+                                  padding: const EdgeInsets.all(
                                       minSpacing * 0.5), // 패딩을 더 줄임
                                   child: Column(
                                     mainAxisAlignment:
@@ -1769,7 +1765,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: rowIndices.map((index) {
-                                          return Container(
+                                          return SizedBox(
                                             width: tileWidth,
                                             height: tileHeight,
                                             child: buildCard(index),
@@ -1829,7 +1825,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       // 2초 후 팝업 숨기기
       _itemPopupTimer?.cancel();
-      _itemPopupTimer = Timer(Duration(seconds: 1), () {
+      _itemPopupTimer = Timer(const Duration(seconds: 1), () {
         if (mounted) {
           setState(() {
             _showItemPopup = false;
@@ -2177,7 +2173,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       // 결과 확인
       if (result.data['success'] == true) {
-        print('승자(${playerId})의 점수가 성공적으로 업데이트되었습니다: +$score');
+        print('승자($playerId)의 점수가 성공적으로 업데이트되었습니다: +$score');
         print(
             '이전 점수: ${result.data['previousScore']}, 새 점수: ${result.data['newScore']}');
       } else {
@@ -2209,7 +2205,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     Map<String, dynamic> result;
     try {
       result = await _updateBrainHealthScore(elapsedTime)
-          .timeout(Duration(seconds: 5));
+          .timeout(const Duration(seconds: 5));
     } catch (e) {
       result = {
         'points': 50,
@@ -2529,15 +2525,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
 
     String adUnitId = Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/6300978111' // Android 테스트 배너
-        : 'ca-app-pub-3940256099942544/2934735716'; // iOS 테스트 배너
+        ? 'ca-app-pub-7181238773192957/9331854982' // Android 실제 배너 광고 단위 ID
+        : 'ca-app-pub-7181238773192957/9331854982'; // iOS 실제 배너 광고 단위 ID (Android와 동일)
 
     myBanner = BannerAd(
       adUnitId: adUnitId,
       size: AdSize.banner,
-      request: AdRequest(
-        // 테스트 모드 활성화
-        nonPersonalizedAds: true,
+      request: const AdRequest(
+        // 실제 광고 요청 설정
+        nonPersonalizedAds: false, // 개인화 광고 허용 (수익 향상)
       ),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
@@ -2573,7 +2569,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             });
           }
           // 15초 후 재시도
-          Future.delayed(Duration(seconds: 15), () {
+          Future.delayed(const Duration(seconds: 15), () {
             if (mounted && !_isBannerAdReady && _adLoadError != null) {
               print('🔄 배너 광고 재시도 중...');
               _loadBannerAd();

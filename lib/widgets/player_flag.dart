@@ -13,7 +13,7 @@ class PlayerFlag extends StatelessWidget {
   final BoxFit fit;
 
   const PlayerFlag({
-    Key? key,
+    super.key,
     required this.playerName,
     required this.playerScores,
     required this.currentUserInfo,
@@ -23,7 +23,7 @@ class PlayerFlag extends StatelessWidget {
     this.borderRadius = 2,
     this.flagSize = FlagSize.size_4x3,
     this.fit = BoxFit.cover,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

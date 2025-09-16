@@ -20,6 +20,8 @@ const Map<String, String> srRSTranslations = {
   'next': 'Следеће',
   'continue': 'Настави',
   'settings': 'Подешавања',
+  'push_notifications': 'Push obaveštenja',
+  'receive_game_notifications': 'Primajte obaveštenja o igri',
   'profile': 'Профил',
   'home': 'Почетна',
   'game': 'Игра',

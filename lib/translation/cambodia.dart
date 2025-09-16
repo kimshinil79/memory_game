@@ -20,6 +20,8 @@ const Map<String, String> kmTranslations = {
   'next': 'បន្ទាប់',
   'continue': 'បន្ត',
   'settings': 'ការកំណត់',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'ប្រវត្តិរូប',
   'home': 'ទំព័រដើម',
   'game': 'ហ្គេម',

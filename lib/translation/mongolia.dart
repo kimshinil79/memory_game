@@ -22,6 +22,8 @@ const Map<String, String> mnMNGTranslations = {
   'next': 'Дараагийн',
   'continue': 'Үргэлжлүүлэх',
   'settings': 'Тохиргоо',
+  'push_notifications': 'Push мэдэгдэл',
+  'receive_game_notifications': 'Тоглоомын мэдэгдэл авах',
   'profile': 'Профайл',
   'home': 'Нүүр',
   'game': 'Тоглоом',

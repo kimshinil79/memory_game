@@ -20,6 +20,8 @@ const Map<String, String> urPKTranslations = {
   'next': 'اگلا',
   'continue': 'جاری رکھیں',
   'settings': 'ترتیبات',
+  'push_notifications': 'پش نوٹیفیکیشنز',
+  'receive_game_notifications': 'گیم نوٹیفیکیشنز وصول کریں',
   'profile': 'پروفائل',
   'home': 'گھر',
   'game': 'کھیل',

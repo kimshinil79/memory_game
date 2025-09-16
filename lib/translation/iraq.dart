@@ -20,6 +20,8 @@ const Map<String, String> arTranslations = {
   'next': 'التالي',
   'continue': 'متابعة',
   'settings': 'الإعدادات',
+  'push_notifications': 'الإشعارات الفورية',
+  'receive_game_notifications': 'تلقي إشعارات اللعبة',
   'profile': 'الملف الشخصي',
   'home': 'الرئيسية',
   'game': 'اللعبة',

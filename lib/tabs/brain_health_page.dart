@@ -6,11 +6,9 @@ import 'package:fl_chart/fl_chart.dart';
 import '../providers/brain_health_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flag/flag.dart'; // 국기 표시용 패키지 import
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../widgets/auth/auth_dialogs.dart'; // LoginRequiredDialog 추가
+// LoginRequiredDialog 추가
 import '../widgets/auth/sign_in_dialog.dart'; // SignInDialog 추가
 import '../widgets/auth/sign_up_dialog.dart'; // SignUpDialog 추가
 import 'package:intl/intl.dart';
@@ -18,7 +16,7 @@ import '../providers/language_provider.dart';
 import '../widgets/tutorials/brain_health_tutorial_overlay.dart';
 
 class BrainHealthPage extends StatefulWidget {
-  const BrainHealthPage({Key? key}) : super(key: key);
+  const BrainHealthPage({super.key});
 
   @override
   State<BrainHealthPage> createState() => _BrainHealthPageState();
@@ -89,7 +87,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             currentBirthday = (userData['birthday'] as Timestamp).toDate();
             // Calculate age from birthday
             currentAge =
-                (DateTime.now().difference(currentBirthday!).inDays / 365)
+                (DateTime.now().difference(currentBirthday).inDays / 365)
                     .floor();
           } else if (userData.containsKey('age')) {
             currentAge = userData['age'] as int;
@@ -116,7 +114,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         ),
         elevation: 8,
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +123,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: Colors.purple.shade100,
                       borderRadius: BorderRadius.circular(12),
@@ -136,7 +134,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       size: 24,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'Update Your Birthday',
@@ -149,7 +147,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // 설명 텍스트
               Text(
@@ -159,7 +157,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   color: Colors.black54,
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // 생일 입력 필드
               GestureDetector(
@@ -210,7 +208,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         borderSide: BorderSide(color: Colors.purple.shade400),
                       ),
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       prefixIcon: Icon(Icons.cake_outlined,
                           color: Colors.purple.shade400),
                       suffixIcon: Icon(Icons.calendar_today,
@@ -219,7 +217,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // 액션 버튼
               Row(
@@ -230,7 +228,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.grey.shade700,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
                     child: Text(
                       'Cancel',
@@ -239,7 +237,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () async {
                       if (currentBirthday != null) {
@@ -283,7 +281,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       foregroundColor: Colors.white,
                       elevation: 0,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -343,13 +341,13 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             child: Stack(
               children: [
                 SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(16.0),
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildHeader(brainHealthProvider),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
 
                       // 로그인하지 않은 경우 로그인 권장 메시지 표시
                       if (!isLoggedIn)
@@ -357,16 +355,16 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       else ...[
                         // 로그인한 경우만 다음 위젯들을 표시
                         _buildUserRankings(brainHealthProvider),
-                        SizedBox(height: 32),
+                        const SizedBox(height: 32),
                         _buildActivityChart(brainHealthProvider),
-                        SizedBox(height: 32),
+                        const SizedBox(height: 32),
                         _buildBrainHealthProgress(brainHealthProvider),
-                        SizedBox(height: 32),
+                        const SizedBox(height: 32),
                         _buildInfoCards(brainHealthProvider),
-                        SizedBox(height: 32),
+                        const SizedBox(height: 32),
                         _buildBenefitsSection(),
                       ],
-                      SizedBox(height: 80), // Extra space at bottom
+                      const SizedBox(height: 80), // Extra space at bottom
                     ],
                   ),
                 ),
@@ -387,14 +385,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CircularProgressIndicator(),
-                              SizedBox(height: 16),
+                              const CircularProgressIndicator(),
+                              const SizedBox(height: 16),
                               Text(
                                 Provider.of<LanguageProvider>(context,
                                             listen: false)
                                         .getUITranslations()['loading_data'] ??
                                     'Loading data...',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -418,19 +416,19 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     child: Container(
                       color: Colors.red.shade400,
                       padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       child: Row(
                         children: [
-                          Icon(Icons.error_outline, color: Colors.white),
-                          SizedBox(width: 8),
+                          const Icon(Icons.error_outline, color: Colors.white),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               brainHealthProvider.error!,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.refresh, color: Colors.white),
+                            icon: const Icon(Icons.refresh, color: Colors.white),
                             onPressed: () => _refreshData(context),
                           ),
                         ],
@@ -459,8 +457,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   tooltip: Provider.of<LanguageProvider>(context, listen: false)
                           .getUITranslations()['refresh_data'] ??
                       'Refresh Data',
-                  child: Icon(Icons.refresh),
                   backgroundColor: Colors.purple,
+                  child: const Icon(Icons.refresh),
                 )
               : null,
         );
@@ -517,7 +515,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           translations['play_memory_games_description'] ??
               'Play memory games to improve your brain health!',
@@ -557,9 +555,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 24),
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 24),
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
                     Text(
                         translations['calculating_brain_health_index'] ??
                             'Calculating your Brain Health Index...',
@@ -585,7 +583,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   children: [
                     Icon(Icons.error_outline,
                         size: 48 * _textScaleFactor, color: Colors.red),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                         translations['error_calculating_index'] ??
                             'Error calculating Brain Health Index',
@@ -655,10 +653,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         // 데이터 소스 표시 (디버깅용)
                         if (dataSource == 'firebase')
-                          Tooltip(
+                          const Tooltip(
                             message: 'Using saved data from Firebase',
                             child: Icon(
                               Icons.cloud_done,
@@ -667,7 +665,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             ),
                           )
                         else if (dataSource == 'calculated')
-                          Tooltip(
+                          const Tooltip(
                             message: 'Calculated in real-time',
                             child: Icon(
                               Icons.refresh,
@@ -677,10 +675,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: progressColor.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
@@ -697,9 +695,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             color: progressColor,
                             size: 16 * _textScaleFactor,
                           ),
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Text(
-                            '${brainHealthIndex.toStringAsFixed(1)}',
+                            brainHealthIndex.toStringAsFixed(1),
                             style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16 * _textScaleFactor,
@@ -712,7 +710,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ],
                 ),
 
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 CircularPercentIndicator(
                   radius: 80.0,
                   lineWidth: 15.0,
@@ -738,7 +736,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   progressColor: progressColor,
                   backgroundColor: Colors.grey.shade200,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 indexLevel < 5
                     ? Text(
                         translations['points_to_next_level']?.replaceFirst(
@@ -758,12 +756,12 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           color: Colors.green,
                         ),
                       ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Index Components
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade50,
                     borderRadius: BorderRadius.circular(12),
@@ -778,7 +776,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       _buildIndexComponent(
                         translations['age_factor'] ?? 'Age Factor',
                         data['ageComponent'] as double? ?? 0.0,
@@ -820,8 +818,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 // Add inactivity warning if needed
                 if ((data['daysSinceLastGame'] as int? ?? 0) > 0)
                   Container(
-                    margin: EdgeInsets.only(top: 16),
-                    padding: EdgeInsets.all(12),
+                    margin: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.red.shade50,
                       borderRadius: BorderRadius.circular(12),
@@ -829,8 +827,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.warning_amber_rounded, color: Colors.red),
-                        SizedBox(width: 8),
+                        const Icon(Icons.warning_amber_rounded, color: Colors.red),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             translations['inactivity_warning']?.replaceFirst(
@@ -928,14 +926,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: color, size: 16 * _textScaleFactor),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               title,
@@ -976,7 +974,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
@@ -987,7 +985,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 color: Colors.blue,
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: _buildStatCard(
                 icon: Icons.find_in_page,
@@ -998,7 +996,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             ),
           ],
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         _buildBestTimesCard(provider),
       ],
     );
@@ -1025,7 +1023,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               children: [
                 Icon(Icons.speed,
                     color: Colors.orange, size: 28 * _textScaleFactor),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     translations['best_times'] ?? 'Best Times',
@@ -1037,7 +1035,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             if (gridSizes.isEmpty)
               Text(
                 translations['no_records_yet'] ?? 'No records yet',
@@ -1074,12 +1072,13 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         ],
                       ),
                     ),
-                  Divider(),
+                  const Divider(),
                   // Individual grid size best times
                   ...gridSizes.map((gridSize) {
                     final time = provider.bestTimesByGridSize[gridSize] ?? 0;
-                    if (time <= 0)
-                      return SizedBox.shrink(); // Skip if no record
+                    if (time <= 0) {
+                      return const SizedBox.shrink(); // Skip if no record
+                    }
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -1102,7 +1101,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         ],
                       ),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
           ],
@@ -1126,7 +1125,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, color: color, size: 28 * _textScaleFactor),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               title,
               style: GoogleFonts.notoSans(
@@ -1134,7 +1133,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 color: Colors.black54,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               value,
               style: GoogleFonts.montserrat(
@@ -1165,7 +1164,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Card(
           elevation: 2,
           shape:
@@ -1181,7 +1180,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   description: translations['short_term_memory_desc'] ??
                       'Memory games effectively strengthen short-term memory and memory capacity.',
                 ),
-                Divider(),
+                const Divider(),
                 _buildBenefitItem(
                   icon: Icons.psychology,
                   title: translations['cognitive_function_enhancement'] ??
@@ -1189,7 +1188,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   description: translations['cognitive_function_desc'] ??
                       'Regular brain activity helps maintain and improve cognitive functions.',
                 ),
-                Divider(),
+                const Divider(),
                 _buildBenefitItem(
                   icon: Icons.timer,
                   title: translations['response_time_reduction'] ??
@@ -1197,7 +1196,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   description: translations['response_time_desc'] ??
                       'Quick matching improves reaction time and processing speed.',
                 ),
-                Divider(),
+                const Divider(),
                 _buildBenefitItem(
                   icon: Icons.healing,
                   title: translations['dementia_prevention'] ??
@@ -1228,7 +1227,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             width: 24 * _textScaleFactor,
             height: 24 * _textScaleFactor,
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1240,7 +1239,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   description,
                   style: GoogleFonts.notoSans(
@@ -1306,10 +1305,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               ),
           ],
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Container(
           height: 200,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -1318,7 +1317,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -1332,7 +1331,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         size: 48 * _textScaleFactor,
                         color: Colors.grey.shade400,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
@@ -1345,7 +1344,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
@@ -1362,18 +1361,18 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ),
                 )
               : Padding(
-                  padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: LineChart(
                     LineChartData(
-                      gridData: FlGridData(show: false),
+                      gridData: const FlGridData(show: false),
                       titlesData: FlTitlesData(
-                        rightTitles: AxisTitles(
+                        rightTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
-                        topTitles: AxisTitles(
+                        topTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
-                        bottomTitles: AxisTitles(
+                        bottomTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
                         leftTitles: AxisTitles(
@@ -1554,7 +1553,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
       future: provider.getUserRankings(),
       builder: (context, snapshot) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -1563,7 +1562,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -1582,11 +1581,11 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               if (snapshot.connectionState == ConnectionState.waiting)
-                Center(
+                const Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: CircularProgressIndicator(),
                   ),
                 )
@@ -1633,7 +1632,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                   style: GoogleFonts.notoSans(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14 * _textScaleFactor))),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Expanded(
                               child: Padding(
                             padding: const EdgeInsets.only(left: 4.0),
@@ -1650,7 +1649,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 color: Colors.purple.withOpacity(0.1),
                                 shape: BoxShape.circle,
                               ),
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               child: Icon(
                                 Icons.help_outline,
                                 color: Colors.purple,
@@ -1668,9 +1667,9 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         ],
                       ),
                     ),
-                    Divider(),
+                    const Divider(),
                     // 랭킹 목록을 Container로 감싸서 높이 제한
-                    Container(
+                    SizedBox(
                       height: 300, // 고정된 높이 설정
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -1681,7 +1680,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                               ranking['isCurrentUser'] ?? false;
 
                           return Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8.0),
                             decoration: BoxDecoration(
                               color: isCurrentUser
@@ -1704,7 +1703,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Row(
                                     children: [
@@ -1852,8 +1851,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     final translations = languageProvider.getUITranslations();
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 24),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(vertical: 24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -1861,7 +1860,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           BoxShadow(
             color: Colors.purple.withOpacity(0.1),
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -1873,7 +1872,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             size: 60 * _textScaleFactor,
             color: Colors.purple.shade300,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             translations['start_tracking_brain_health'] ??
                 'Start Tracking Your Brain Health',
@@ -1884,7 +1883,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               color: Colors.black87,
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Text(
             translations['login_prompt_desc'] ??
                 'Sign in to record your brain health score and track your progress. Play memory games to improve your cognitive abilities.',
@@ -1894,7 +1893,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               color: Colors.black54,
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () => _showSignInDialog(context),
             style: ElevatedButton.styleFrom(
@@ -1915,7 +1914,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextButton(
             onPressed: () => _showSignUpDialog(context),
             child: Text(
@@ -1956,7 +1955,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           if (userCredential.user != null) {
             // 로그인 성공 메시지
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Successfully signed in'),
                 backgroundColor: Colors.green,
                 duration: Duration(seconds: 2),
@@ -1974,7 +1973,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             SnackBar(
               content: Text('Sign in failed: ${e.toString()}'),
               backgroundColor: Colors.red,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
@@ -2014,7 +2013,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
 
             // 계정 생성 성공 메시지
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Account created successfully'),
                 backgroundColor: Colors.green,
                 duration: Duration(seconds: 2),
@@ -2032,7 +2031,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
             SnackBar(
               content: Text('Account creation failed: ${e.toString()}'),
               backgroundColor: Colors.red,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
@@ -2110,7 +2109,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             BoxShadow(
                               color: Colors.purple.shade100.withOpacity(0.5),
                               blurRadius: 8,
-                              offset: Offset(0, 2),
+                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
@@ -2156,7 +2155,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                               size: isSmallScreen ? 18 : 20),
                           onPressed: () => Navigator.pop(context),
                           padding: EdgeInsets.all(isSmallScreen ? 6 : 8),
-                          constraints: BoxConstraints(),
+                          constraints: const BoxConstraints(),
                         ),
                       ),
                     ],
@@ -2268,7 +2267,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           color: Colors.purple.shade400,
                           size: isSmallScreen ? 18 : 20,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             translations['keep_playing_memory_games'] ??
@@ -2313,7 +2312,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           BoxShadow(
             color: color.withOpacity(0.1),
             blurRadius: 8,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
         border: Border.all(color: color.withOpacity(0.2), width: 1),
@@ -2356,7 +2355,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ),
                 SizedBox(height: isSmallScreen ? 4 : 6),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: color.withOpacity(0.05),
                     borderRadius: BorderRadius.circular(6),

@@ -22,6 +22,8 @@ const Map<String, String> fjTranslations = {
   'next': 'Na i matai',
   'continue': 'Toso',
   'settings': 'Na i vakarau',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Na i tuvatuva',
   'home': 'Na vale',
   'game': 'Na meci',

@@ -22,6 +22,8 @@ const Map<String, String> caADTranslations = {
   'next': 'Següent',
   'continue': 'Continua',
   'settings': 'Configuració',
+  'push_notifications': 'Notificacions push',
+  'receive_game_notifications': 'Rebre notificacions del joc',
   'profile': 'Perfil',
   'home': 'Inici',
   'game': 'Joc',

@@ -20,6 +20,8 @@ const Map<String, String> mgTranslations = {
   'next': 'Manaraka',
   'continue': 'Hanohy',
   'settings': 'Fandaharana',
+  'push_notifications': 'Notifications push',
+  'receive_game_notifications': 'Recevoir les notifications de jeu',
   'profile': 'Tantara',
   'home': 'Fandraisana',
   'game': 'Lalao',

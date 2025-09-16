@@ -7,10 +7,10 @@ class NotificationBadge extends StatelessWidget {
   final Stream<QuerySnapshot>? stream;
 
   const NotificationBadge({
-    Key? key,
+    super.key,
     required this.child,
     this.stream,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +51,18 @@ class NotificationBadge extends StatelessWidget {
               right: -5,
               top: -5,
               child: Container(
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minWidth: 18,
                   minHeight: 18,
                 ),
                 child: Text(
                   count > 9 ? '9+' : count.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

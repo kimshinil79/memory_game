@@ -20,6 +20,8 @@ const Map<String, String> euTranslations = {
   'next': 'Hurrengoa',
   'continue': 'Jarraitu',
   'settings': 'Ezarpenak',
+  'push_notifications': 'Push jakinarazpenak',
+  'receive_game_notifications': 'Jokoaren jakinarazpenak jaso',
   'profile': 'Profila',
   'home': 'Hasiera',
   'game': 'Jokoa',

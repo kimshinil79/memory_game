@@ -22,6 +22,8 @@ const Map<String, String> koKPTranslations = {
   'next': '다음',
   'continue': '계속',
   'settings': '설정',
+  'push_notifications': '푸시 알림',
+  'receive_game_notifications': '게임 알림 받기',
   'profile': '프로필',
   'home': '홈',
   'game': '게임',

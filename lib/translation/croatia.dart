@@ -22,6 +22,8 @@ const Map<String, String> hrTranslations = {
   'next': 'Sljedeće',
   'continue': 'Nastavi',
   'settings': 'Postavke',
+  'push_notifications': 'Push notifications',
+  'receive_game_notifications': 'Receive game notifications',
   'profile': 'Profil',
   'home': 'Početna',
   'game': 'Igra',

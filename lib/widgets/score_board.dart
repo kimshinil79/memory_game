@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flag/flag.dart';
 import 'player_flag.dart';
 
 class ScoreBoard extends StatelessWidget {
@@ -21,7 +20,7 @@ class ScoreBoard extends StatelessWidget {
   final bool Function(int)? isSelectedAsStartingPlayer;
 
   const ScoreBoard({
-    Key? key,
+    super.key,
     required this.numberOfPlayers,
     required this.playerScores,
     required this.isMultiplayerMode,
@@ -36,7 +35,7 @@ class ScoreBoard extends StatelessWidget {
     required this.instagramGradientEnd,
     this.onPlayerTap,
     this.isSelectedAsStartingPlayer,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +52,17 @@ class ScoreBoard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
-        borderRadius: BorderRadius.vertical(
+        borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(30),
         ),
       ),
       child: Row(
         children: [
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 2 / 3,
               child: numberOfPlayers > 1
                   ? Row(
@@ -165,14 +164,13 @@ class ScoreBoard extends StatelessWidget {
                                                     selectedPlayers,
                                               ),
                                             ),
-                                            SizedBox(width: 1),
+                                            const SizedBox(width: 1),
                                             // 플레이어 수에 따라 이름 표시 방식 변경
                                             if (numberOfPlayers == 2) ...[
                                               Text(
                                                 displayName.length > 5
-                                                    ? displayName.substring(
-                                                            0, 5) +
-                                                        "..."
+                                                    ? "${displayName.substring(
+                                                            0, 5)}..."
                                                     : displayName,
                                                 style: GoogleFonts.montserrat(
                                                   fontWeight: FontWeight.normal,
@@ -180,14 +178,13 @@ class ScoreBoard extends StatelessWidget {
                                                   fontSize: 10, // 2명일 때는 더 크게
                                                 ),
                                               ),
-                                              SizedBox(width: 1),
+                                              const SizedBox(width: 1),
                                             ] else if (numberOfPlayers ==
                                                 3) ...[
                                               Text(
                                                 displayName.length > 3
-                                                    ? displayName.substring(
-                                                            0, 3) +
-                                                        ".."
+                                                    ? "${displayName.substring(
+                                                            0, 3)}.."
                                                     : displayName,
                                                 style: GoogleFonts.montserrat(
                                                   fontWeight: FontWeight.normal,
@@ -195,10 +192,10 @@ class ScoreBoard extends StatelessWidget {
                                                   fontSize: 7,
                                                 ),
                                               ),
-                                              SizedBox(width: 1),
+                                              const SizedBox(width: 1),
                                             ],
                                             Container(
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   horizontal: 2, vertical: 1),
                                               decoration: BoxDecoration(
                                                 color: Colors.white
@@ -220,7 +217,7 @@ class ScoreBoard extends StatelessWidget {
                                           ],
                                         ),
                                   if (isCurrentPlayerTurn)
-                                    Text(
+                                    const Text(
                                       'Playing...',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -320,7 +317,7 @@ class ScoreBoard extends StatelessWidget {
                                                   selectedPlayers:
                                                       selectedPlayers,
                                                 ),
-                                                SizedBox(width: 1),
+                                                const SizedBox(width: 1),
                                                 Flexible(
                                                   child: Text(
                                                     displayName, // 전체 닉네임 표시
@@ -337,7 +334,7 @@ class ScoreBoard extends StatelessWidget {
                                                     maxLines: 1,
                                                   ),
                                                 ),
-                                                SizedBox(width: 1),
+                                                const SizedBox(width: 1),
                                                 Text(
                                                   "($score)",
                                                   style: GoogleFonts.montserrat(
@@ -368,7 +365,7 @@ class ScoreBoard extends StatelessWidget {
                                                         selectedPlayers,
                                                   ),
                                                 ),
-                                                SizedBox(width: 1),
+                                                const SizedBox(width: 1),
                                                 // 플레이어 수에 따라 이름 표시 방식 변경
                                                 if (numberOfPlayers == 2) ...[
                                                   Flexible(
@@ -386,7 +383,7 @@ class ScoreBoard extends StatelessWidget {
                                                       maxLines: 1,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 1),
+                                                  const SizedBox(width: 1),
                                                 ] else if (numberOfPlayers ==
                                                     3) ...[
                                                   Flexible(
@@ -404,7 +401,7 @@ class ScoreBoard extends StatelessWidget {
                                                       maxLines: 1,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 1),
+                                                  const SizedBox(width: 1),
                                                 ] else if (numberOfPlayers ==
                                                     4) ...[
                                                   Flexible(
@@ -422,10 +419,10 @@ class ScoreBoard extends StatelessWidget {
                                                       maxLines: 1,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 1),
+                                                  const SizedBox(width: 1),
                                                 ],
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets.symmetric(
                                                       horizontal: 2,
                                                       vertical: 1),
                                                   child: Text(

@@ -31,7 +31,7 @@ class CountrySelectionDialog {
               child: Container(
                 width: 300,
                 height: 450,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     Row(
@@ -42,7 +42,7 @@ class CountrySelectionDialog {
                           size: 28,
                           color: Colors.blue.shade600,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Icon(
                           Icons.flag,
                           size: 24,
@@ -50,19 +50,19 @@ class CountrySelectionDialog {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextField(
                       controller: searchController,
                       decoration: InputDecoration(
                         hintText: '...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         filled: true,
                         fillColor: Colors.grey[200],
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 12,
                         ),
@@ -73,7 +73,7 @@ class CountrySelectionDialog {
                         });
                       },
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Expanded(
                       child: ListView.builder(
                         itemCount: filteredCountries.length,
@@ -94,7 +94,7 @@ class CountrySelectionDialog {
                         },
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.red.shade100,

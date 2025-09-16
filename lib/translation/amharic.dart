@@ -20,6 +20,8 @@ const Map<String, String> amTranslations = {
   'next': 'ቀጣይ',
   'continue': 'ቀጥል',
   'settings': 'ቅንብሮች',
+  'push_notifications': 'ፑሽ ማሳወቂያዎች',
+  'receive_game_notifications': 'የጨዋታ ማሳወቂያዎችን ተቀበል',
   'profile': 'መገለጫ',
   'home': 'ዋና ገጽ',
   'game': 'ጨዋታ',

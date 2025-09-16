@@ -20,6 +20,8 @@ const Map<String, String> ptPTTranslations = {
   'next': 'Seguinte',
   'continue': 'Continuar',
   'settings': 'Definições',
+  'push_notifications': 'Notificações push',
+  'receive_game_notifications': 'Receber notificações do jogo',
   'profile': 'Perfil',
   'home': 'Início',
   'game': 'Jogo',

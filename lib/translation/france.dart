@@ -22,6 +22,8 @@ const Map<String, String> frTranslations = {
   'next': 'Suivant',
   'continue': 'Continuer',
   'settings': 'Paramètres',
+  'push_notifications': 'Notifications push',
+  'receive_game_notifications': 'Recevoir les notifications de jeu',
   'profile': 'Profil',
   'home': 'Accueil',
   'game': 'Jeu',

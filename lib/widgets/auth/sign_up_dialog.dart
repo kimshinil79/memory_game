@@ -149,7 +149,7 @@ class SignUpDialog {
                 ),
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(24),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -165,13 +165,13 @@ class SignUpDialog {
                             ),
                           ),
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         // Email field
                         TextField(
                           controller: emailController,
                           decoration: InputDecoration(
                             hintText: translations['email'] ?? 'Email',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                                 fontSize: 14), // Slightly smaller hint text
                             filled: true,
                             fillColor: Colors.grey[200],
@@ -179,28 +179,28 @@ class SignUpDialog {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: Icon(Icons.email_outlined),
+                            prefixIcon: const Icon(Icons.email_outlined),
                             isDense: true, // More compact field
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Nickname field
                         TextField(
                           controller: nicknameController,
                           decoration: InputDecoration(
                             hintText: translations['nickname'] ?? 'Nickname',
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: const TextStyle(fontSize: 14),
                             filled: true,
                             fillColor: Colors.grey[200],
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: Icon(Icons.person_outline),
+                            prefixIcon: const Icon(Icons.person_outline),
                             isDense: true,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Birthday field with GestureDetector
                         GestureDetector(
                           onTap: () async {
@@ -237,25 +237,25 @@ class SignUpDialog {
                               decoration: InputDecoration(
                                 hintText:
                                     translations['birthday'] ?? 'Birthday',
-                                hintStyle: TextStyle(fontSize: 14),
+                                hintStyle: const TextStyle(fontSize: 14),
                                 filled: true,
                                 fillColor: Colors.grey[200],
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                prefixIcon: Icon(Icons.cake_outlined),
-                                suffixIcon: Icon(Icons.calendar_today),
+                                prefixIcon: const Icon(Icons.cake_outlined),
+                                suffixIcon: const Icon(Icons.calendar_today),
                                 isDense: true,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Gender selection
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -271,7 +271,7 @@ class SignUpDialog {
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Row(
                                 children: [
                                   Expanded(
@@ -282,7 +282,7 @@ class SignUpDialog {
                                         });
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                             horizontal:
                                                 8), // Reduced horizontal padding
@@ -310,7 +310,7 @@ class SignUpDialog {
                                                   ? Colors.white
                                                   : Colors.blue.shade700,
                                             ),
-                                            SizedBox(width: 4),
+                                            const SizedBox(width: 4),
                                             Flexible(
                                               child: Text(
                                                 translations['male'] ?? 'Male',
@@ -330,7 +330,7 @@ class SignUpDialog {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: InkWell(
                                       onTap: () {
@@ -339,7 +339,7 @@ class SignUpDialog {
                                         });
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                             horizontal:
                                                 8), // Reduced horizontal padding
@@ -367,7 +367,7 @@ class SignUpDialog {
                                                   ? Colors.white
                                                   : Colors.pink.shade700,
                                             ),
-                                            SizedBox(width: 4),
+                                            const SizedBox(width: 4),
                                             Flexible(
                                               child: Text(
                                                 translations['female'] ??
@@ -393,11 +393,11 @@ class SignUpDialog {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Country selection
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -435,7 +435,7 @@ class SignUpDialog {
                                     ),
                                 ],
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               SizedBox(
                                 width: double.infinity, // Full width button
                                 child: ElevatedButton(
@@ -449,7 +449,7 @@ class SignUpDialog {
                                       side: BorderSide(
                                           color: Colors.purple.shade200),
                                     ),
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical:
                                             10), // Slightly reduced padding
                                   ),
@@ -464,7 +464,7 @@ class SignUpDialog {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Password field
                         TextField(
                           controller: passwordController,
@@ -472,18 +472,18 @@ class SignUpDialog {
                           onChanged: (_) => validatePassword(),
                           decoration: InputDecoration(
                             hintText: translations['password'] ?? 'Password',
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: const TextStyle(fontSize: 14),
                             filled: true,
                             fillColor: Colors.grey[200],
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: Icon(Icons.lock_outline),
+                            prefixIcon: const Icon(Icons.lock_outline),
                             isDense: true,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // Confirm password field
                         TextField(
                           controller: confirmPasswordController,
@@ -492,21 +492,21 @@ class SignUpDialog {
                           decoration: InputDecoration(
                             hintText: translations['confirm_password'] ??
                                 'Confirm Password',
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: const TextStyle(fontSize: 14),
                             filled: true,
                             fillColor: Colors.grey[200],
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: Icon(Icons.lock_outline),
+                            prefixIcon: const Icon(Icons.lock_outline),
                             errorText: passwordError,
                             isDense: true,
                             // Allow error text to wrap
                             errorMaxLines: 2,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         // PIN field
                         TextField(
                           controller: shortPasswordController,
@@ -516,14 +516,14 @@ class SignUpDialog {
                           decoration: InputDecoration(
                             hintText: translations['multi_game_pin'] ??
                                 'Multi-Game PIN (2 digits)',
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: const TextStyle(fontSize: 14),
                             filled: true,
                             fillColor: Colors.grey[200],
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: Icon(Icons.pin_outlined),
+                            prefixIcon: const Icon(Icons.pin_outlined),
                             errorText: shortPasswordError,
                             counterText: "",
                             helperText: translations['pin_helper_text'] ??
@@ -539,7 +539,7 @@ class SignUpDialog {
                             errorMaxLines: 2,
                           ),
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         // Button row
                         Row(
                           children: [
@@ -554,7 +554,7 @@ class SignUpDialog {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(vertical: 12),
                                 ),
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
@@ -563,7 +563,7 @@ class SignUpDialog {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () {
@@ -594,7 +594,7 @@ class SignUpDialog {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(vertical: 12),
                                 ),
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,

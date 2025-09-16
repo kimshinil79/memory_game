@@ -6,11 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/language_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/rendering.dart';
 import '/widgets/tutorials/test_tutorial_overlay.dart';
 
 class TestPage extends StatefulWidget {
-  const TestPage({Key? key}) : super(key: key);
+  const TestPage({super.key});
 
   @override
   _TestPageState createState() => _TestPageState();
@@ -35,11 +34,11 @@ class _TestPageState extends State<TestPage>
   late AnimationController _animationController;
 
   // Updated colors for a more refreshing and modern look
-  final Color primaryColor = Color(0xFF5B86E5);
-  final Color secondaryColor = Color(0xFF36D1DC);
-  final Color accentColor = Color(0xFFFF9190);
-  final Color bgColorLight = Color(0xFFF8FDFF);
-  final Color bgColorDark = Color(0xFFEDF7FC);
+  final Color primaryColor = const Color(0xFF5B86E5);
+  final Color secondaryColor = const Color(0xFF36D1DC);
+  final Color accentColor = const Color(0xFFFF9190);
+  final Color bgColorLight = const Color(0xFFF8FDFF);
+  final Color bgColorDark = const Color(0xFFEDF7FC);
 
   String _currentLanguage = '';
 
@@ -265,7 +264,7 @@ class _TestPageState extends State<TestPage>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
   }
 
@@ -363,10 +362,10 @@ class _TestPageState extends State<TestPage>
   }
 
   String getLocalizedWord(String word) {
-    final _currentLanguage =
+    final currentLanguage =
         Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
 
-    switch (_currentLanguage) {
+    switch (currentLanguage) {
       case 'ko-KR':
         return korItemList[word] ?? word;
       case 'es-ES':
@@ -473,7 +472,7 @@ class _TestPageState extends State<TestPage>
                               : Icons.emoji_emotions,
                       size: _screenWidth * 0.1,
                       color: score > 7
-                          ? Color(0xFFFFC107)
+                          ? const Color(0xFFFFC107)
                           : score > 4
                               ? primaryColor
                               : accentColor,
@@ -532,7 +531,7 @@ class _TestPageState extends State<TestPage>
                     ],
                   ),
                   SizedBox(height: _verticalSpacing),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -600,7 +599,7 @@ class _TestPageState extends State<TestPage>
           (index) => GestureDetector(
             onTap: () => goToQuestion(index),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               width: _questionIndicatorSize,
               height: _questionIndicatorSize,
               decoration: BoxDecoration(
@@ -608,10 +607,10 @@ class _TestPageState extends State<TestPage>
                     ? primaryColor
                     : isTestSubmitted
                         ? userAnswers[index] == correctAnswers[index]
-                            ? Color(0xFF4CAF50)
-                            : Color(0xFFFF5252)
+                            ? const Color(0xFF4CAF50)
+                            : const Color(0xFFFF5252)
                         : userAnswers[index] != null
-                            ? Color(0xFFBBDEFB)
+                            ? const Color(0xFFBBDEFB)
                             : Colors.white,
                 borderRadius:
                     BorderRadius.circular(_questionIndicatorSize * 0.5),
@@ -656,14 +655,14 @@ class _TestPageState extends State<TestPage>
     return GestureDetector(
       onTap: isTestSubmitted ? null : () => selectAnswer(option),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
               blurRadius: 8,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -684,7 +683,7 @@ class _TestPageState extends State<TestPage>
                 child: Center(
                   // 이미지를 컨테이너 중앙에 배치
                   child: Padding(
-                    padding: EdgeInsets.all(2),
+                    padding: const EdgeInsets.all(2),
                     child: Image.asset(
                       'assets/pictureDB_webp/$option.webp',
                       fit: BoxFit.contain,
@@ -710,9 +709,9 @@ class _TestPageState extends State<TestPage>
     bool isWrong =
         isTestSubmitted && userAnswers[currentQuestion] == option && !isCorrect;
     if (isCorrect) {
-      return Color(0xFF4CAF50); // Green for correct
+      return const Color(0xFF4CAF50); // Green for correct
     } else if (isWrong) {
-      return Color(0xFFFF5252); // Red for wrong
+      return const Color(0xFFFF5252); // Red for wrong
     } else {
       return Colors
           .transparent; // No overlay for selected but not correct/wrong
@@ -740,7 +739,7 @@ class _TestPageState extends State<TestPage>
               backgroundColor: Colors.white,
               foregroundColor: primaryColor,
               elevation: 3,
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               padding: EdgeInsets.all(_controlButtonSize * 0.25),
               fixedSize: Size(_controlButtonSize, _controlButtonSize),
               shadowColor: Colors.black26,
@@ -783,7 +782,7 @@ class _TestPageState extends State<TestPage>
               backgroundColor: Colors.white,
               foregroundColor: primaryColor,
               elevation: 3,
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               padding: EdgeInsets.all(_controlButtonSize * 0.25),
               fixedSize: Size(_controlButtonSize, _controlButtonSize),
               shadowColor: Colors.black26,
@@ -806,17 +805,6 @@ class _TestPageState extends State<TestPage>
           if (allAnswered && !isTestSubmitted)
             Expanded(
               child: ElevatedButton(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    translations['submit'] ?? 'Submit',
-                    style: GoogleFonts.poppins(
-                      fontSize: _bottomButtonFontSize,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   padding: EdgeInsets.symmetric(
@@ -830,23 +818,23 @@ class _TestPageState extends State<TestPage>
                   shadowColor: primaryColor.withOpacity(0.5),
                 ),
                 onPressed: showResultDialog,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    translations['submit'] ?? 'Submit',
+                    style: GoogleFonts.poppins(
+                      fontSize: _bottomButtonFontSize,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ),
             ),
           if (allAnswered && !isTestSubmitted)
             SizedBox(width: _screenWidth * 0.025),
           Expanded(
             child: ElevatedButton(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  translations['new_test'] ?? 'New Test',
-                  style: GoogleFonts.poppins(
-                    fontSize: _bottomButtonFontSize,
-                    fontWeight: FontWeight.w600,
-                    color: primaryColor,
-                  ),
-                ),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 padding:
@@ -863,6 +851,17 @@ class _TestPageState extends State<TestPage>
                     width: _screenWidth * 0.003),
               ),
               onPressed: initializeQuestions,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  translations['new_test'] ?? 'New Test',
+                  style: GoogleFonts.poppins(
+                    fontSize: _bottomButtonFontSize,
+                    fontWeight: FontWeight.w600,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -936,7 +935,7 @@ class _TestPageState extends State<TestPage>
                                 SizedBox(height: _verticalSpacing),
                                 GridView.count(
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   crossAxisCount: 2,
                                   childAspectRatio: _gridChildAspectRatio,
                                   mainAxisSpacing: _gridSpacing,
@@ -1038,12 +1037,12 @@ class _TestPageState extends State<TestPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
+                  SizedBox(
                     width: gridItemWidth,
                     height: gridItemHeight,
                     child: buildOptionCard(questionOptions[currentQuestion][0]),
                   ),
-                  Container(
+                  SizedBox(
                     width: gridItemWidth,
                     height: gridItemHeight,
                     child: buildOptionCard(questionOptions[currentQuestion][1]),
@@ -1055,12 +1054,12 @@ class _TestPageState extends State<TestPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
+                  SizedBox(
                     width: gridItemWidth,
                     height: gridItemHeight,
                     child: buildOptionCard(questionOptions[currentQuestion][2]),
                   ),
-                  Container(
+                  SizedBox(
                     width: gridItemWidth,
                     height: gridItemHeight,
                     child: buildOptionCard(questionOptions[currentQuestion][3]),

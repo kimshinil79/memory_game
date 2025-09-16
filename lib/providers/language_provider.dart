@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -86,32 +85,32 @@ import '../translation/singapore_ta.dart'; // 싱가포르 (타밀어) 번역 �
 import '../translation/slovakia.dart'; // 슬로바키아 번역 파일 가져오기
 import '../translation/slovenia.dart'; // 슬로베니아 번역 파일 가져오기
 import '../translation/somalia.dart'; // 소말리아 번역 파일 가져오기
-import '../translation/south_africa.dart'; // 남아프리카공화국 번역 파일 가져오기
+// 남아프리카공화국 번역 파일 가져오기
 import '../translation/france.dart'; // 프랑스 번역 파일 가져오기
-import '../translation/cyprus.dart'; // 키프로스 번역 파일 가져오기
+// 키프로스 번역 파일 가져오기
 import '../translation/denmark.dart'; // 덴마크 번역 파일 가져오기
 import '../translation/madagascar.dart'; // 마다가스카르 번역 파일 가져오기
-import '../translation/mali.dart'; // 말리 번역 파일 가져오기
-import '../translation/palau.dart'; // 팔라우 번역 파일 가져오기
+// 말리 번역 파일 가져오기
+// 팔라우 번역 파일 가져오기
 import '../translation/iran.dart'; // 이란 번역 파일 가져오기
 import '../translation/iceland.dart'; // 아이슬란드 번역 파일 가져오기
-import '../translation/malawi.dart'; // 말라위 번역 파일 가져오기
-import '../translation/kuwait.dart'; // 쿠웨이트 번역 파일 가져오기
-import '../translation/liberia.dart'; // 라이베리아 번역 파일 가져오기
-import '../translation/macau.dart'; // 마카오 번역 파일 가져오기
-import '../translation/nauru.dart'; // 나우루 번역 파일 가져오기
-import '../translation/moldova.dart'; // 몰도바 번역 파일 가져오기
-import '../translation/micronesia.dart'; // 미크로네시아 번역 파일 가져오기
-import '../translation/marshall_islands.dart'; // 마셜 제도 번역 파일 가져오기
-import '../translation/jamaica.dart'; // 자메이카 번역 파일 가져오기
-import '../translation/sierra_leone.dart'; // 시에라리온 번역 파일 가져오기
-import '../translation/solomon_islands.dart'; // 솔로몬 제도 번역 파일 가져오기
+// 말라위 번역 파일 가져오기
+// 쿠웨이트 번역 파일 가져오기
+// 라이베리아 번역 파일 가져오기
+// 마카오 번역 파일 가져오기
+// 나우루 번역 파일 가져오기
+// 몰도바 번역 파일 가져오기
+// 미크로네시아 번역 파일 가져오기
+// 마셜 제도 번역 파일 가져오기
+// 자메이카 번역 파일 가져오기
+// 시에라리온 번역 파일 가져오기
+// 솔로몬 제도 번역 파일 가져오기
 import '../translation/austria.dart'; // 오스트리아 번역 파일 가져오기
 import '../translation/armenia.dart'; // 아르메니아 번역 파일 가져오기
 import '../translation/azerbaijan.dart'; // 아제르바이잔 번역 파일 가져오기
 import '../translation/bosnia.dart'; // 보스니아 헤르체고비나 번역 파일 가져오기
 import '../translation/bhutan.dart'; // 부탄 번역 파일 가져오기
-import '../translation/norway.dart'; // 노르웨이 번역 파일 가져오기
+// 노르웨이 번역 파일 가져오기
 import '../translation/estonia.dart'; // 에스토니아 번역 파일 가져오기
 import '../translation/finland.dart'; // 핀란드 번역 파일 가져오기
 import '../translation/greece.dart'; // 그리스 번역 파일 가져오기
@@ -572,7 +571,7 @@ class LanguageProvider with ChangeNotifier {
 
       // 시간 제한 설정 (5초)
       bool hasTimedOut = false;
-      Future.delayed(Duration(seconds: 5)).then((_) {
+      Future.delayed(const Duration(seconds: 5)).then((_) {
         if (_isLoadingCountry) {
           hasTimedOut = true;
           _isLoadingCountry = false;

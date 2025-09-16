@@ -739,3 +739,112 @@ exports.updateMultiplayerGameWinnerScore = functions.https.onCall(async (data, c
     throw new functions.https.HttpsError('internal', '점수 업데이트 중 오류가 발생했습니다: ' + error.message);
   }
 });
+
+// Helper function to get brain level from score
+function getBrainLevelFromScore(score) {
+    if (score >= 1000) return 5;
+    if (score >= 800) return 4;
+    if (score >= 600) return 3;
+    if (score >= 400) return 2;
+    return 1;
+}
+  
+// Helper function to get points needed for next level
+function getPointsToNextLevelFromScore(score) {
+    if (score >= 1000) return 0; // Max level
+    if (score >= 800) return 1000 - score;
+    if (score >= 600) return 800 - score;
+    if (score >= 400) return 600 - score;
+    return 400 - score;
+}
+
+// Scheduled function to send daily brain health notifications
+exports.sendDailyBrainNotifications = functions.pubsub
+    .schedule("every day 20:00")
+    .timeZone('Asia/Seoul')
+    .onRun(async (context) => {
+        console.log("Executing daily brain notification function.");
+
+        const usersSnapshot = await admin.firestore().collection("users").get();
+
+        if (usersSnapshot.empty) {
+            console.log("No users found. Exiting function.");
+            return null;
+        }
+
+        const today = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+
+        const todayStr = today.toISOString().split("T")[0]; // YYYY-MM-DD
+        const yesterdayStr = yesterday.toISOString().split("T")[0]; // YYYY-MM-DD
+
+        const promises = [];
+
+        usersSnapshot.forEach((doc) => {
+            const user = doc.data();
+
+            if (!user.fcmToken) {
+                console.log(`User ${doc.id} has no FCM token. Skipping.`);
+                return;
+            }
+
+            const brainHealth = user.brain_health;
+            if (!brainHealth) {
+                console.log(`User ${doc.id} has no brain health data. Skipping.`);
+                return;
+            }
+
+            const currentScore = brainHealth.brainHealthScore ?? 0;
+            const scoreHistory = brainHealth.scoreHistory || {};
+            const yesterdayScore = scoreHistory[yesterdayStr] ?? currentScore;
+
+            const currentLevel = getBrainLevelFromScore(currentScore);
+            const yesterdayLevel = getBrainLevelFromScore(yesterdayScore);
+
+            let title = "";
+            let body = "";
+
+            if (currentLevel < yesterdayLevel) {
+                title = "Let's Boost Your Brain! 💪";
+                body = `Your brain level was ${yesterdayLevel} yesterday, but it's ${currentLevel} today. Let's play a game to level up!`;
+            } else {
+                const pointsToNext = getPointsToNextLevelFromScore(currentScore);
+                if (pointsToNext > 0) {
+                    title = "You're So Close! ✨";
+                    body = `You are only ${pointsToNext} points away from Level ${currentLevel + 1}. You can do it!`;
+                } else {
+                    title = "Amazing Brain! 🧠🏆";
+                    body = "You've reached the highest brain level! Keep playing to maintain your sharp mind.";
+                }
+            }
+
+            if (title && body) {
+                const message = {
+                    token: user.fcmToken,
+                    notification: { title, body },
+                    data: { screen: "brain_health_page" },
+                };
+                promises.push(admin.messaging().send(message));
+            }
+            
+            // Update score history for today if it doesn't exist
+            if (!scoreHistory[todayStr]) {
+                const scoreHistoryUpdate = {
+                    ...scoreHistory,
+                    [todayStr]: currentScore
+                };
+                const update = { "brain_health.scoreHistory": scoreHistoryUpdate };
+                promises.push(doc.ref.update(update));
+            }
+        });
+
+        try {
+            await Promise.all(promises);
+            console.log("Successfully processed all users for daily notifications.");
+        } catch (error) {
+            console.error("Error processing user notifications:", error);
+        }
+
+        return null;
+    });

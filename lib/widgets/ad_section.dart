@@ -11,14 +11,14 @@ class AdSection extends StatelessWidget {
   final VoidCallback onRetry;
 
   const AdSection({
-    Key? key,
+    super.key,
     required this.isBannerAdReady,
     this.bannerAd,
     required this.isAdLoading,
     this.adLoadError,
     required this.instagramGradientStart,
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class AdSection extends StatelessWidget {
     if (isBannerAdReady && bannerAd != null) {
       // 광고 높이를 제한하여 메모리 게임 공간 확보
       final adHeight = bannerAd!.size.height.toDouble();
-      final maxAdHeight = 80.0; // 최대 광고 높이 제한
+      const maxAdHeight = 80.0; // 최대 광고 높이 제한
       final finalAdHeight = adHeight > maxAdHeight ? maxAdHeight : adHeight;
 
-      return Container(
+      return SizedBox(
         height: finalAdHeight,
         child: AdWidget(ad: bannerAd!),
       );
@@ -39,7 +39,7 @@ class AdSection extends StatelessWidget {
     if (isAdLoading) {
       return Container(
         height: 30, // 40에서 30으로 줄임
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             horizontal: 16, vertical: 2), // vertical도 4에서 2로 줄임
         decoration: BoxDecoration(
           color: Colors.grey.shade100,
@@ -60,7 +60,7 @@ class AdSection extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 6), // 8에서 6으로 줄임
+              const SizedBox(width: 6), // 8에서 6으로 줄임
               Text(
                 '광고 로딩 중...',
                 style: GoogleFonts.notoSans(
@@ -78,7 +78,7 @@ class AdSection extends StatelessWidget {
     if (adLoadError != null) {
       return Container(
         height: 28, // 높이 제한 추가
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             horizontal: 16, vertical: 2), // vertical을 4에서 2로 줄임
         decoration: BoxDecoration(
           color: Colors.red.shade50,
@@ -86,7 +86,7 @@ class AdSection extends StatelessWidget {
           border: Border.all(color: Colors.red.shade200),
         ),
         child: Padding(
-          padding: EdgeInsets.all(6), // 8에서 6으로 줄임
+          padding: const EdgeInsets.all(6), // 8에서 6으로 줄임
           child: Row(
             children: [
               Icon(
@@ -94,7 +94,7 @@ class AdSection extends StatelessWidget {
                 color: Colors.red.shade600,
                 size: 12, // 14에서 12로 줄임
               ),
-              SizedBox(width: 4), // 6에서 4로 줄임
+              const SizedBox(width: 4), // 6에서 4로 줄임
               Expanded(
                 child: Text(
                   '광고 로드 실패: ${_getAdErrorCause(adLoadError!.code)}',
@@ -106,9 +106,15 @@ class AdSection extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(width: 3), // 4에서 3으로 줄임
+              const SizedBox(width: 3), // 4에서 3으로 줄임
               TextButton(
                 onPressed: onRetry,
+                style: TextButton.styleFrom(
+                  minimumSize: const Size(0, 0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 3, vertical: 1), // 4,2에서 3,1로 줄임
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -117,7 +123,7 @@ class AdSection extends StatelessWidget {
                       size: 11, // 12에서 11로 줄임
                       color: instagramGradientStart,
                     ),
-                    SizedBox(width: 1), // 2에서 1로 줄임
+                    const SizedBox(width: 1), // 2에서 1로 줄임
                     Text(
                       '재시도',
                       style: GoogleFonts.notoSans(
@@ -127,12 +133,6 @@ class AdSection extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                style: TextButton.styleFrom(
-                  minimumSize: Size(0, 0),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3, vertical: 1), // 4,2에서 3,1로 줄임
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ),
             ],
@@ -144,7 +144,7 @@ class AdSection extends StatelessWidget {
     // 초기 상태 (아직 광고 로드 시도하지 않음)
     return Container(
       height: 30, // 40에서 30으로 줄임
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
           horizontal: 16, vertical: 2), // vertical을 4에서 2로 줄임
       decoration: BoxDecoration(
         color: Colors.grey.shade100,

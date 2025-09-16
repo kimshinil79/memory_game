@@ -11,7 +11,12 @@ import 'package:flag/flag.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:async';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'utils/route_observer.dart';
 import 'data/countries.dart';
 import 'widgets/player_selection_dialog.dart';
@@ -37,77 +42,161 @@ import 'package:dynamic_color/dynamic_color.dart';
 // Constants for SharedPreferences keys
 const String PREF_USER_COUNTRY_CODE = 'user_country_code';
 
+// FCM background handler (must be a top-level function)
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  try {
+    await Firebase.initializeApp();
+  } catch (_) {}
+  // Background message received
+  print('📩 [BG] FCM message: id=${message.messageId}, data=${message.data}');
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Firebase 초기화
   await Firebase.initializeApp();
 
-  // AdMob 초기화
-  try {
-    await MobileAds.instance.initialize();
-    print('✅ AdMob 초기화 완료');
+  // FCM init (mobile only)
+  if (Platform.isAndroid || Platform.isIOS) {
+    // Register background handler
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    // 현재 기기의 테스트 ID 출력 (디버그용)
-    if (Platform.isAndroid) {
-      print('📱 Android 기기에서 실행 중');
-      print('   광고를 로드하면 콘솔에서 테스트 기기 ID를 확인할 수 있습니다.');
-      print(
-          '   "Use RequestConfiguration.Builder().setTestDeviceIds" 메시지를 찾아보세요.');
-    } else if (Platform.isIOS) {
-      print('📱 iOS 기기에서 실행 중');
-      print('   광고를 로드하면 콘솔에서 테스트 기기 ID를 확인할 수 있습니다.');
-      print(
-          '   "GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers" 메시지를 찾아보세요.');
-    }
-
-    // AdMob 설정 업데이트 (선택사항)
-    await MobileAds.instance.updateRequestConfiguration(
-      RequestConfiguration(
-        testDeviceIds: <String>[
-          'kGADSimulatorID', // iOS 시뮬레이터
-          'f5a2f4769de04e58b6d610ca1ad1abe1', // Android 에뮬레이터 일반적인 테스트 ID
-
-          // 실제 테스트 기기 ID를 여기에 추가하세요 (예시):
-          // 'ABCDEF012345ABCDEF012345ABCDEF01',  // 실제 Android 기기 ID
-          // '2077ef9a63d2b398840261c8221a0c9b',  // 실제 iOS 기기 ID
-
-          // 여러 기기를 추가할 수 있습니다:
-          // 'YOUR_ANDROID_PHONE_ID',
-          // 'YOUR_ANDROID_TABLET_ID',
-          // 'YOUR_IPHONE_ID',
-          // 'YOUR_IPAD_ID',
-        ],
-        tagForChildDirectedTreatment: TagForChildDirectedTreatment.unspecified,
-      ),
+    // Request permission (iOS)
+    final messaging = FirebaseMessaging.instance;
+    await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+      provisional: false,
     );
-    print('✅ AdMob 테스트 디바이스 설정 완료');
-  } catch (e) {
-    print('❌ AdMob 초기화 실패: $e');
+
+    // Get and persist FCM token to Firestore
+    try {
+      final token = await messaging.getToken();
+      print('🔑 FCM token: $token');
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null && token != null) {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'fcmToken': token,
+          'fcmUpdatedAt': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+      }
+
+      // Listen for token refresh
+      FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+        final currentUser = FirebaseAuth.instance.currentUser;
+        if (currentUser != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(currentUser.uid)
+              .set({
+            'fcmToken': newToken,
+            'fcmUpdatedAt': FieldValue.serverTimestamp(),
+          }, SetOptions(merge: true));
+        }
+      });
+    } catch (e) {
+      print('FCM init error: $e');
+    }
+  }
+
+  // Local Notifications setup (mobile only)
+  if (Platform.isAndroid || Platform.isIOS) {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    // Android channel
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // name
+      description:
+          'This channel is used for important notifications.', // description
+      importance: Importance.max,
+    );
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    // iOS foreground notification presentation options
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
+
+  // AdMob 초기화 (모바일 플랫폼에서만)
+  if (Platform.isAndroid || Platform.isIOS) {
+    try {
+      await MobileAds.instance.initialize();
+      print('✅ AdMob 초기화 완료');
+
+      // 실행 환경 확인 및 광고 모드 안내
+      if (Platform.isAndroid) {
+        print('📱 Android 기기에서 실행 중');
+        // 에뮬레이터인지 실제 기기인지 확인
+        print('🔍 실행 환경 확인:');
+        print('   - 에뮬레이터: 항상 테스트 광고 표시');
+        print('   - 실제 기기: 실제 광고 표시 (설정 후 최대 24시간 소요)');
+        print('   - 새 광고 단위: 처음에는 테스트 광고 표시될 수 있음');
+      } else if (Platform.isIOS) {
+        print('📱 iOS 기기에서 실행 중');
+        print('🔍 실행 환경 확인:');
+        print('   - 시뮬레이터: 항상 테스트 광고 표시');
+        print('   - 실제 기기: 실제 광고 표시 (설정 후 최대 24시간 소요)');
+        print('   - 새 광고 단위: 처음에는 테스트 광고 표시될 수 있음');
+      }
+
+      // AdMob 설정 업데이트 (실제 광고용)
+      await MobileAds.instance.updateRequestConfiguration(
+        RequestConfiguration(
+          // 실제 광고를 위해 테스트 기기 ID 제거
+          testDeviceIds: <String>[],
+          tagForChildDirectedTreatment:
+              TagForChildDirectedTreatment.unspecified,
+          // 최대 광고 콘텐츠 등급 설정 (선택사항)
+          maxAdContentRating: MaxAdContentRating.t,
+        ),
+      );
+      print('✅ AdMob 실제 광고 설정 완료');
+      print('💡 참고: 에뮬레이터에서는 항상 "Test Ad"가 표시됩니다.');
+      print('   실제 광고를 보려면 실제 기기에서 테스트하세요.');
+    } catch (e) {
+      print('❌ AdMob 초기화 실패: $e');
+    }
+  } else {
+    print('🌐 웹 플랫폼에서 실행 중 - AdMob 초기화 건너뜀');
   }
 
   // Configure Google Fonts to use local fonts as fallbacks
   GoogleFonts.config.allowRuntimeFetching = true;
 
-  // 렌더링 최적화 설정
-  if (Platform.isAndroid) {
+  // 렌더링 최적화 설정 (모바일 플랫폼에서만)
+  if (Platform.isAndroid || Platform.isIOS) {
     // 세로 방향 고정 및 시스템 UI 최적화
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    // Android 15+ edge-to-edge compatible system UI configuration
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
       ),
     );
 
-    // 렌더링 성능 최적화
+    // Use immersive mode to hide navigation bar completely
     await SystemChrome.setEnabledSystemUIMode(
-      // SystemUiMode.edgeToEdge,
-      SystemUiMode
-          .immersiveSticky, // Change to immersiveSticky to hide system buttons
-      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+      SystemUiMode.immersiveSticky,
+      overlays: [SystemUiOverlay.top],
     );
   }
 
@@ -215,6 +304,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
+    // FCM foreground message handling
+    if (Platform.isAndroid || Platform.isIOS) {
+      _setupFCM();
+      _setupRemoteConfig();
+    }
+
     // 초기 화면 크기 설정
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateFoldableState();
@@ -249,6 +344,167 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     // 앱 시작 시 TTS 언어 초기화
     _initializeTTSLanguage();
+  }
+
+  void _setupFCM() {
+    // 1. App is in foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('📩 [FG] FCM message received: ${message.notification?.title}');
+      final notification = message.notification;
+      if (notification != null) {
+        // Use flutter_local_notifications to show notification
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                'high_importance_channel', // channel id
+                'High Importance Notifications', // channel name
+                channelDescription:
+                    'This channel is used for important notifications.',
+                importance: Importance.max,
+                priority: Priority.high,
+                icon: '@mipmap/ic_launcher',
+              ),
+              iOS: const DarwinNotificationDetails(
+                presentAlert: true,
+                presentBadge: true,
+                presentSound: true,
+              ),
+            ));
+      }
+    });
+
+    // 2. App is in background and user taps on notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('📩 Notification tapped (background): ${message.data}');
+      // You can navigate to a specific page based on message data
+    });
+
+    // 3. App is terminated and user taps on notification
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print('📩 Notification tapped (terminated): ${message.data}');
+        // You can navigate to a specific page based on message data
+      }
+    });
+  }
+
+  Future<void> _setupRemoteConfig() async {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(hours: 1),
+    ));
+
+    await remoteConfig.setDefaults(const {
+      "latest_version": "1.0.0",
+    });
+
+    await remoteConfig.fetchAndActivate();
+
+    final packageInfo = await PackageInfo.fromPlatform();
+    final currentVersion = packageInfo.version;
+    final latestVersion = remoteConfig.getString('latest_version');
+
+    if (_isUpdateRequired(currentVersion, latestVersion)) {
+      _showUpdateDialog();
+    }
+  }
+
+  bool _isUpdateRequired(String currentVersion, String latestVersion) {
+    final currentParts = currentVersion.split('.').map(int.parse).toList();
+    final latestParts = latestVersion.split('.').map(int.parse).toList();
+
+    for (var i = 0; i < latestParts.length; i++) {
+      if (i >= currentParts.length || latestParts[i] > currentParts[i]) {
+        return true;
+      }
+      if (latestParts[i] < currentParts[i]) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  void _showUpdateDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // User must choose an option
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Update Available'),
+          content: const Text(
+              'A new version of the app is available. Please update to continue.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Update Now'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog first
+                _performUpdate();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _performUpdate() async {
+    if (Platform.isAndroid) {
+      await _performInAppUpdate();
+    } else if (Platform.isIOS) {
+      await _launchStoreURL();
+    }
+  }
+
+  Future<void> _performInAppUpdate() async {
+    try {
+      // Check if in-app update is available
+      final updateInfo = await InAppUpdate.checkForUpdate();
+
+      if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+        // Flexible update (user can continue using the app)
+        if (updateInfo.immediateUpdateAllowed) {
+          // Immediate update (blocks the app until update is complete)
+          await InAppUpdate.performImmediateUpdate();
+        } else {
+          // Flexible update (downloads in background)
+          await InAppUpdate.startFlexibleUpdate();
+        }
+      } else {
+        // Fallback to Play Store
+        await _launchStoreURL();
+      }
+    } catch (e) {
+      print('In-app update failed: $e');
+      // Fallback to Play Store
+      await _launchStoreURL();
+    }
+  }
+
+  Future<void> _launchStoreURL() async {
+    // App Store URLs
+    final String appStoreUrl =
+        'https://apps.apple.com/app/idYOUR_APP_ID'; // iOS App Store ID needed
+    final String playStoreUrl =
+        'https://play.google.com/store/apps/details?id=com.brainhealth.memorygame';
+
+    String url = '';
+    if (Platform.isIOS) {
+      url = appStoreUrl;
+    } else if (Platform.isAndroid) {
+      url = playStoreUrl;
+    }
+
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -614,225 +870,228 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     ];
 
     // Return Scaffold directly since MaterialApp is now in main()
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white,
-                Color(0xFFF5F5F5),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white,
+                  Color(0xFFF5F5F5),
+                ],
+              ),
             ),
           ),
-        ),
-        backgroundColor: Colors.transparent,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
-                    colors: [
-                      instagramGradientStart,
-                      instagramGradientEnd,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ).createShader(bounds),
-                  child: Consumer<LanguageProvider>(
-                    builder: (context, languageProvider, child) {
-                      final translations = languageProvider.getUITranslations();
-                      return Container(
-                        constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.6,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            translations['app_title'] ?? 'Memory Game',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+          backgroundColor: Colors.transparent,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  ShaderMask(
+                    shaderCallback: (bounds) => LinearGradient(
+                      colors: [
+                        instagramGradientStart,
+                        instagramGradientEnd,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(bounds),
+                    child: Consumer<LanguageProvider>(
+                      builder: (context, languageProvider, child) {
+                        final translations =
+                            languageProvider.getUITranslations();
+                        return Container(
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.6,
+                          ),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              translations['app_title'] ?? 'Memory Game',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
+                  Spacer(),
+                  _buildUserProfileButton(),
+                ],
+              ),
+              if (_currentIndex == 0 && _user != null) ...[
+                const SizedBox(height: 12),
+                Container(
+                  height: 44,
+                  child: _buildDynamicControlButtons(),
                 ),
-                Spacer(),
-                _buildUserProfileButton(),
               ],
+            ],
+          ),
+          actions: [
+            SizedBox(width: 16),
+          ],
+        ),
+        body: Stack(
+          children: [
+            PageView(
+              controller: _pageController,
+              physics: const PageScrollPhysics(),
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              children: _pages,
             ),
-            if (_currentIndex == 0 && _user != null) ...[
-              const SizedBox(height: 12),
-              Container(
-                height: 44,
-                child: _buildDynamicControlButtons(),
+            if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
+              Positioned.fill(
+                child: Builder(
+                  builder: (context) {
+                    // 게임 탭(0)에서는 튜토리얼이 켜져 있으면 스크롤 방해하지 않도록 오버레이 비활성화
+                    if (_currentIndex == 0) {
+                      final tutorialVisible =
+                          _memoryGamePage?.isTutorialVisible() ?? false;
+                      if (tutorialVisible) return const SizedBox.shrink();
+                    }
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        _showSignInDialog(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(18),
+              topRight: Radius.circular(18),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 8,
+                offset: Offset(0, -3),
               ),
             ],
-          ],
-        ),
-        actions: [
-          SizedBox(width: 16),
-        ],
-      ),
-      body: Stack(
-        children: [
-          PageView(
-            controller: _pageController,
-            physics: const PageScrollPhysics(),
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            children: _pages,
           ),
-          if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
-            Positioned.fill(
-              child: Builder(
-                builder: (context) {
-                  // 게임 탭(0)에서는 튜토리얼이 켜져 있으면 스크롤 방해하지 않도록 오버레이 비활성화
-                  if (_currentIndex == 0) {
-                    final tutorialVisible =
-                        _memoryGamePage?.isTutorialVisible() ?? false;
-                    if (tutorialVisible) return const SizedBox.shrink();
-                  }
-                  return GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      _showSignInDialog(context);
-                    },
-                  );
-                },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () => _changeTab(0),
+                  child: SizedBox(
+                    height: 50,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: _currentIndex == 0
+                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icon/memory.png',
+                            width: 22,
+                            height: 22,
+                            color: _currentIndex == 0
+                                ? Color(0xFF833AB4)
+                                : Colors.grey.withOpacity(0.6),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-        ],
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
+              Expanded(
+                child: InkWell(
+                  onTap: () => _changeTab(1),
+                  child: SizedBox(
+                    height: 50,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: _currentIndex == 1
+                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icon/brain.png',
+                            width: 22,
+                            height: 22,
+                            color: _currentIndex == 1
+                                ? Color(0xFF833AB4)
+                                : Colors.grey.withOpacity(0.6),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () => _changeTab(2),
+                  child: SizedBox(
+                    height: 50,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: _currentIndex == 2
+                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icon/exam.png',
+                            width: 22,
+                            height: 22,
+                            color: _currentIndex == 2
+                                ? Color(0xFF833AB4)
+                                : Colors.grey.withOpacity(0.6),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: Offset(0, -3),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: InkWell(
-                onTap: () => _changeTab(0),
-                child: SizedBox(
-                  // The Game tab has 20px overflow
-                  height: 44,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: _currentIndex == 0
-                              ? Color(0xFF833AB4).withOpacity(0.1)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset(
-                          'assets/icon/memory.png',
-                          width: 24,
-                          height: 24,
-                          color: _currentIndex == 0
-                              ? Color(0xFF833AB4)
-                              : Colors.grey.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: InkWell(
-                onTap: () => _changeTab(1),
-                child: SizedBox(
-                  // Health tab has 12px overflow
-                  height: 52,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: _currentIndex == 1
-                              ? Color(0xFF833AB4).withOpacity(0.1)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset(
-                          'assets/icon/brain.png',
-                          width: 26,
-                          height: 26,
-                          color: _currentIndex == 1
-                              ? Color(0xFF833AB4)
-                              : Colors.grey.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: InkWell(
-                onTap: () => _changeTab(2),
-                child: SizedBox(
-                  // Test tab has 12px overflow
-                  height: 52,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: _currentIndex == 2
-                              ? Color(0xFF833AB4).withOpacity(0.1)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset(
-                          'assets/icon/exam.png',
-                          width: 26,
-                          height: 26,
-                          color: _currentIndex == 2
-                              ? Color(0xFF833AB4)
-                              : Colors.grey.withOpacity(0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -1251,26 +1510,114 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _showDeleteAccountConfirmDialog(BuildContext context) {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+    final translations = languageProvider.getUITranslations();
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Delete Account'),
-        content: Text(
-            'Are you sure you want to delete your account? This action cannot be undone. All your data will be permanently lost.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red.shade50,
+                    ),
+                    child: Icon(
+                      Icons.delete_forever_rounded,
+                      size: 24,
+                      color: Colors.red.shade400,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        translations['delete_account'] ?? 'Delete Account',
+                        style: GoogleFonts.montserrat(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Colors.grey.shade100,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          translations['no'] ?? 'No',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _deleteUserAccount();
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Colors.red.shade50,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          translations['yes'] ?? 'Yes',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.red.shade400,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _deleteUserAccount();
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: Text('Delete'),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -1416,6 +1763,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               _saveUserCountryToLocalStorage(_userCountryCode!);
             }
           }
+          // Update FCM token after successful sign-in
+          await _updateFCMTokenForCurrentUser();
         }
       } catch (e) {
         print('Sign in error: $e');
@@ -1473,6 +1822,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             _userGender = userData['gender'];
             _userCountryCode = userData['country'];
           });
+          // Update FCM token after successful sign-up
+          await _updateFCMTokenForCurrentUser();
         }
       } catch (e) {
         print('Sign up error: $e');
@@ -1824,6 +2175,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
     } catch (e) {
       print('TTS 언어 초기화 오류: $e');
+    }
+  }
+
+  Future<void> _updateFCMTokenForCurrentUser() async {
+    if (Platform.isAndroid || Platform.isIOS) {
+      try {
+        final user = FirebaseAuth.instance.currentUser;
+        final token = await FirebaseMessaging.instance.getToken();
+        if (user != null && token != null) {
+          print('🔄 Updating FCM token for user ${user.uid}');
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .set({
+            'fcmToken': token,
+            'fcmUpdatedAt': FieldValue.serverTimestamp(),
+          }, SetOptions(merge: true));
+        }
+      } catch (e) {
+        print('❌ Failed to update FCM token: $e');
+      }
     }
   }
 }

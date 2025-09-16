@@ -15,6 +15,8 @@ Map<String, String> afTranslations = {
   'next': 'بل',
   'continue': 'ادامه',
   'settings': 'تنظیمات',
+  'push_notifications': 'اعلانات فوری',
+  'receive_game_notifications': 'دریافت اعلانات بازی',
   'profile': 'پروفایل',
   'home': 'کور',
   'game': 'لوبه',

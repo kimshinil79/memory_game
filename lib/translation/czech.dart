@@ -20,6 +20,8 @@ const Map<String, String> csTranslations = {
   'next': 'Další',
   'continue': 'Pokračovat',
   'settings': 'Nastavení',
+  'push_notifications': 'Push notifikace',
+  'receive_game_notifications': 'Přijímat herní oznámení',
   'profile': 'Profil',
   'home': 'Domů',
   'game': 'Hra',

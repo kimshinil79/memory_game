@@ -22,6 +22,8 @@ const Map<String, String> coTranslations = {
   'next': 'Dopu',
   'continue': 'Cuntinuà',
   'settings': 'Parametri',
+  'push_notifications': 'Notificazioni push',
+  'receive_game_notifications': 'Ricevi notifiche di u ghjocu',
   'profile': 'Prufilu',
   'home': 'Accasgiu',
   'game': 'Ghjocu',
