@@ -108,14 +108,6 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                         color: Colors.black87,
                       ),
                     ),
-                    Text(
-                      translations['compete_with_others'] ??
-                          'Compete with players worldwide',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 12 * widget.textScaleFactor,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
                   ],
                 ),
               ),

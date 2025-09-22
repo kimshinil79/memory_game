@@ -213,15 +213,15 @@ class BrainHealthProvider with ChangeNotifier {
         daysSinceLastGame = 7;
       }
 
-      // 비활동 패널티 계산 (하루만 안해도 패널티 적용)
-      if (daysSinceLastGame > 0) {
-        // 하루마다 감소량을 2.0에서 1.0으로 감소
-        inactivityPenalty = daysSinceLastGame * 1.0;
-        // 최대 패널티도 20에서 10으로 감소
-        inactivityPenalty = inactivityPenalty.clamp(0, 10);
+      // 비활동 패널티 계산 (3일 이후부터 패널티 적용으로 완화)
+      if (daysSinceLastGame > 3) {
+        // 3일 유예 기간 후 하루마다 0.5점씩 감소 (더욱 완화)
+        inactivityPenalty = (daysSinceLastGame - 3) * 0.5;
+        // 최대 패널티를 5점으로 더욱 감소
+        inactivityPenalty = inactivityPenalty.clamp(0, 5);
 
-        // 레벨 감소도 최대 4단계에서 2단계로 제한
-        levelDropDueToInactivity = daysSinceLastGame.clamp(0, 2);
+        // 레벨 감소는 7일 이후부터 최대 1단계로 제한
+        levelDropDueToInactivity = daysSinceLastGame > 7 ? 1 : 0;
       }
 
       // 그리드 성능 평가
@@ -286,34 +286,36 @@ class BrainHealthProvider with ChangeNotifier {
           persistenceBonus -
           inactivityPenalty; // 비활동 패널티 적용
 
-      // 로그 함수를 사용해 높은 점수대에서 진행이 느려지도록 조정
-      // 85점 이상부터 점수 획득이 급격히 어려워짐
+      // 로그 함수를 사용해 높은 점수대에서 진행이 느려지도록 조정 (완화됨)
+      // 90점 이상부터 점수 획득이 조금씩 어려워짐 (85점에서 90점으로 상향)
       double finalIndex = rawIndex;
-      if (rawIndex > 85) {
-        double excess = rawIndex - 85;
-        double logFactor =
-            1 + (0.5 * (1 - (1 / (1 + 0.1 * excess)))); // 로그 기반 감쇠 함수
-        finalIndex = 85 + (excess / logFactor);
+      if (rawIndex > 90) {
+        double excess = rawIndex - 90;
+        double logFactor = 1 +
+            (0.3 *
+                (1 -
+                    (1 / (1 + 0.15 * excess)))); // 감쇠 효과 완화 (0.5→0.3, 0.1→0.15)
+        finalIndex = 90 + (excess / logFactor);
       }
 
       finalIndex = finalIndex.clamp(0, 100);
 
-      // 지수 레벨 계산 (1-5) - 상위 레벨 기준 상향
+      // 지수 레벨 계산 (1-5) - 무지개 등급 달성 가능하도록 조정
       int indexLevel;
       if (finalIndex < 35) {
         // 40에서 35로 감소
         indexLevel = 1;
-      } else if (finalIndex < 60) {
-        // 55에서 60으로 증가
+      } else if (finalIndex < 55) {
+        // 60에서 55로 감소 (레벨 2 달성 쉽게)
         indexLevel = 2;
-      } else if (finalIndex < 80) {
-        // 70에서 80으로 증가
+      } else if (finalIndex < 75) {
+        // 80에서 75로 감소 (레벨 3 달성 쉽게)
         indexLevel = 3;
-      } else if (finalIndex < 95) {
-        // 85에서 95로 증가
+      } else if (finalIndex < 92) {
+        // 95에서 92로 감소 (적당한 도전 유지)
         indexLevel = 4;
       } else {
-        indexLevel = 5;
+        indexLevel = 5; // 92점 이상이면 무지개 등급!
       }
 
       // 비활동으로 인한 레벨 감소 적용
@@ -322,7 +324,14 @@ class BrainHealthProvider with ChangeNotifier {
       // 다음 레벨까지 필요한 포인트 계산
       double pointsToNext = 0;
       if (indexLevel < 5) {
-        List<double> thresholds = [0, 35, 60, 80, 95, 100]; // 기준 업데이트
+        List<double> thresholds = [
+          0,
+          35,
+          55,
+          75,
+          92,
+          100
+        ]; // 무지개 등급 92점으로 적당한 도전 유지
         pointsToNext = thresholds[indexLevel] - finalIndex;
         pointsToNext = pointsToNext.abs().ceil().toDouble();
       }

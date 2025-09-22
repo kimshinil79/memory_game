@@ -13,6 +13,7 @@ import '../widgets/auth/sign_up_dialog.dart'; // SignUpDialog 추가
 import '../providers/language_provider.dart';
 import '../widgets/tutorials/brain_health_tutorial_overlay.dart';
 import '../widgets/user_ranking_widget.dart';
+import '../widgets/top_grid_fastest_widget.dart';
 
 class BrainHealthPage extends StatefulWidget {
   const BrainHealthPage({super.key});
@@ -120,6 +121,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           provider: brainHealthProvider,
                           textScaleFactor: _textScaleFactor,
                         ),
+                        const SizedBox(height: 16),
+                        const TopGridFastestWidget(),
                         const SizedBox(height: 32),
                         _buildActivityChart(brainHealthProvider),
                         const SizedBox(height: 32),
@@ -524,63 +527,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ),
                 const SizedBox(height: 16),
 
-                // Index Components
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade50,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        translations['index_components'] ?? 'Index Components',
-                        style: GoogleFonts.notoSans(
-                          fontSize: 16 * _textScaleFactor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      _buildIndexComponent(
-                        translations['age_factor'] ?? 'Age Factor',
-                        data['ageComponent'] as double? ?? 0.0,
-                        Icons.person,
-                        Colors.blue,
-                        isNegative: true,
-                      ),
-                      _buildIndexComponent(
-                        translations['recent_activity'] ?? 'Recent Activity',
-                        data['activityComponent'] as double? ?? 0.0,
-                        Icons.trending_up,
-                        Colors.green,
-                      ),
-                      _buildIndexComponent(
-                        translations['game_performance'] ?? 'Game Performance',
-                        data['performanceComponent'] as double? ?? 0.0,
-                        Icons.psychology,
-                        Colors.purple,
-                      ),
-                      _buildIndexComponent(
-                        translations['persistence_bonus'] ??
-                            'Persistence Bonus',
-                        data['persistenceBonus'] as double? ?? 0.0,
-                        Icons.emoji_events,
-                        Colors.amber,
-                      ),
-                      _buildIndexComponent(
-                        translations['inactivity_penalty'] ??
-                            'Inactivity Penalty',
-                        data['inactivityPenalty'] as double? ?? 0.0,
-                        Icons.timer_off,
-                        Colors.redAccent,
-                        isNegative: true,
-                      ),
-                    ],
-                  ),
-                ),
-
                 // Add inactivity warning if needed
                 if ((data['daysSinceLastGame'] as int? ?? 0) > 0)
                   Container(
@@ -683,46 +629,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     double nextThreshold = thresholds[currentLevel];
     double pointsNeeded = nextThreshold - currentIndex;
     return pointsNeeded > 0 ? pointsNeeded : 0.0;
-  }
-
-  Widget _buildIndexComponent(
-      String title, double value, IconData icon, Color color,
-      {bool isNegative = false}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, color: color, size: 16 * _textScaleFactor),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: GoogleFonts.notoSans(
-                fontSize: 14 * _textScaleFactor,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Text(
-            isNegative
-                ? '-${value.toStringAsFixed(1)}'
-                : '+${value.toStringAsFixed(1)}',
-            style: GoogleFonts.notoSans(
-              fontSize: 14 * _textScaleFactor,
-              fontWeight: FontWeight.bold,
-              color: isNegative ? Colors.red : Colors.green,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _buildInfoCards(BrainHealthProvider provider) {

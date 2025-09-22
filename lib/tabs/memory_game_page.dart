@@ -402,19 +402,24 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         return;
       }
 
-      setState(() {
-        if (_remainingTime > 0) {
-          _remainingTime--;
+      if (mounted) {
+        setState(() {
+          if (_remainingTime > 0) {
+            _remainingTime--;
 
-          // 경과 시간 업데이트
-          if (_gameStartTime != null) {
-            _elapsedTime = DateTime.now().difference(_gameStartTime!).inSeconds;
+            // 경과 시간 업데이트
+            if (_gameStartTime != null) {
+              _elapsedTime =
+                  DateTime.now().difference(_gameStartTime!).inSeconds;
+            }
+          } else {
+            _timer?.cancel();
+            _showTimeUpDialog();
           }
-        } else {
-          _timer?.cancel();
-          _showTimeUpDialog();
-        }
-      });
+        });
+      } else {
+        timer.cancel();
+      }
     });
 
     // Ensure the UI updates immediately when the timer starts
@@ -1097,10 +1102,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   Future<void> _loadGameTimeLimit() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _gameTimeLimit = prefs.getInt('gameTimeLimit') ?? 60;
-      _remainingTime = _gameTimeLimit; // 남은 시간도 초기화
-    });
+    if (mounted) {
+      setState(() {
+        _gameTimeLimit = prefs.getInt('gameTimeLimit') ?? 60;
+        _remainingTime = _gameTimeLimit; // 남은 시간도 초기화
+      });
+    }
   }
 
   String getLocalizedWord(String word) {
@@ -1424,9 +1431,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     prefs = await SharedPreferences.getInstance();
     bool tutorialShown = prefs?.getBool(_tutorialPrefKey) ?? false;
 
-    setState(() {
-      _showTutorial = !tutorialShown;
-    });
+    if (mounted) {
+      setState(() {
+        _showTutorial = !tutorialShown;
+      });
+    }
   }
 
   // 튜토리얼 표시 여부 저장
@@ -1443,9 +1452,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 튜토리얼 닫기
   void _closeTutorial() {
-    setState(() {
-      _showTutorial = false;
-    });
+    if (mounted) {
+      setState(() {
+        _showTutorial = false;
+      });
+    }
     _saveTutorialPreference();
   }
 
@@ -1863,7 +1874,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
 
     // UI 업데이트
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   // Override TabNavigationObserver methods
