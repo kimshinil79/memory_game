@@ -12,6 +12,11 @@
 .swiftpm/
 migrate_working_dir/
 
+# Large build files
+*.aab
+*.apk
+release_files/
+
 # IntelliJ related
 *.iml
 *.ipr
