@@ -198,11 +198,11 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
     return Tab(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          // 탭의 최대 너비 계산 (패딩 고려)
-          final maxWidth = constraints.maxWidth - 16; // 좌우 패딩 8px씩
+          // 탭의 최대 너비 계산 (패딩을 더 적게 고려하여 더 많은 공간 확보)
+          final maxWidth = constraints.maxWidth - 8; // 좌우 패딩 4px씩으로 줄임
 
-          // 기본 폰트 크기
-          double fontSize = 13 * widget.textScaleFactor;
+          // 기본 폰트 크기를 더 크게 설정
+          double fontSize = 14 * widget.textScaleFactor;
 
           // 텍스트 크기 측정을 위한 임시 스타일
           TextStyle measureStyle = GoogleFonts.notoSans(
@@ -218,14 +218,16 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
           );
           textPainter.layout();
 
-          // 텍스트가 너무 길면 폰트 크기 줄이기
+          // 텍스트가 너무 길면 폰트 크기 줄이기 (최소 크기를 10px로 상향 조정)
           while (textPainter.width > maxWidth &&
-              fontSize > 9 * widget.textScaleFactor) {
-            fontSize -= 0.5 * widget.textScaleFactor;
+              fontSize > 10 * widget.textScaleFactor) {
+            fontSize -= 0.3 * widget.textScaleFactor; // 더 세밀한 조정
             measureStyle = GoogleFonts.notoSans(
               fontSize: fontSize,
               fontWeight: FontWeight.w600,
-              letterSpacing: fontSize < 12 * widget.textScaleFactor ? 0.1 : 0.3,
+              letterSpacing: fontSize < 13 * widget.textScaleFactor
+                  ? 0.0
+                  : 0.2, // 레터 스페이싱 더 줄임
             );
             textPainter.text = TextSpan(text: text, style: measureStyle);
             textPainter.layout();
@@ -252,8 +254,9 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                   style: GoogleFonts.notoSans(
                     fontSize: fontSize,
                     fontWeight: fontWeight,
-                    letterSpacing:
-                        fontSize < 12 * widget.textScaleFactor ? 0.1 : 0.3,
+                    letterSpacing: fontSize < 13 * widget.textScaleFactor
+                        ? 0.0
+                        : 0.2, // 동일한 레터 스페이싱 적용
                     color: color,
                   ),
                   textAlign: TextAlign.center,
