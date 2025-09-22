@@ -93,7 +93,7 @@ const Map<String, String> msSGTranslations = {
   'its_a_tie': 'Seri!',
   'points_divided': 'Mata dibahagikan!',
   'time_seconds': 'Masa: {seconds} saat',
-  'flips': 'Flip: {count} kali',
+  'flips': 'Flip:  kali',
   'players_score_multiplier': '({players} pemain ×{multiplier})',
   'points_divided_explanation': '(Mata dibahagikan antara pemain)',
   'health_score': 'Kesihatan +{points}',

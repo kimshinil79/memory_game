@@ -96,7 +96,7 @@ const Map<String, String> caADTranslations = {
   'its_a_tie': 'Empat!',
   'points_divided': 'Els punts es divideixen entre els jugadors empatats!',
   'time_seconds': 'Temps: {seconds} segons',
-  'flips': 'Voltes: {count}',
+  'flips': 'Voltes: ',
   'players_score_multiplier': '({players} jugadors: Punts ×{multiplier})',
   'points_divided_explanation':
       '(Els punts es divideixen entre els jugadors empatats)',

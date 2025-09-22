@@ -108,7 +108,7 @@ const Map<String, String> krTranslations = {
   'its_a_tie': '무승부입니다!',
   'points_divided': '점수가 동점자들에게 균등하게 나눠집니다!',
   'time_seconds': '시간: {seconds}초',
-  'flips': '뒤집기: {count}',
+  'flips': '뒤집기: ',
   'players_score_multiplier': '({players}인 플레이: 점수 x{multiplier})',
   'points_divided_explanation': '(점수가 동점자들에게 나눠집니다)',
   'health_score': '두뇌 건강 점수: +{points}',

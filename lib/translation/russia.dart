@@ -93,7 +93,7 @@ const Map<String, String> ruRUTranslations = {
   'its_a_tie': 'Ничья!',
   'points_divided': 'Очки разделены!',
   'time_seconds': 'Время: {seconds} секунд',
-  'flips': 'Перевороты: {count}',
+  'flips': 'Перевороты: ',
   'players_score_multiplier': '({players} игроков ×{multiplier})',
   'points_divided_explanation': '(очки разделены между игроками)',
   'health_score': 'Здоровье +{points}',

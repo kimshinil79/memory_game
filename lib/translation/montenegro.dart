@@ -93,7 +93,7 @@ const Map<String, String> meTranslations = {
   'its_a_tie': 'Нерешено!',
   'points_divided': 'Подељени поени!',
   'time_seconds': 'Време: {seconds} секунди',
-  'flips': 'Окретања: {count}',
+  'flips': 'Окретања: ',
   'players_score_multiplier': '({players} играча ×{multiplier})',
   'points_divided_explanation': '(поени подељени између играча)',
   'health_score': 'Здравствени резултат +{points}',

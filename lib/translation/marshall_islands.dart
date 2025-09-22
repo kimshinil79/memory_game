@@ -93,7 +93,7 @@ const Map<String, String> mhTranslations = {
   'its_a_tie': 'Kōnnaan kein kajin!',
   'points_divided': 'Kōnnaan kein kajin!',
   'time_seconds': 'Kōnnaan kein kajin {seconds}',
-  'flips': 'Kōnnaan kein kajin {count}',
+  'flips': 'Kōnnaan kein kajin ',
   'players_score_multiplier': '({players} Kōnnaan kein kajin ×{multiplier})',
   'points_divided_explanation': '(Kōnnaan kein kajin)',
   'health_score': 'Kōnnaan kein kajin +{points}',

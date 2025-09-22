@@ -95,7 +95,7 @@ const Map<String, String> elGRTranslations = {
   'its_a_tie': 'Ισοπαλία!',
   'points_divided': 'Διαιρεμένοι Πόντοι!',
   'time_seconds': 'Χρόνος: {seconds} δευτερόλεπτα',
-  'flips': 'Αναποδογυρίσματα: {count}',
+  'flips': 'Αναποδογυρίσματα: ',
   'players_score_multiplier': '({players} παίκτες: πόντοι ×{multiplier})',
   'points_divided_explanation': '(Διαιρεμένοι πόντοι)',
   'health_score': 'Πόντοι Εγκεφαλικής Υγείας: +{points}',

@@ -93,7 +93,7 @@ const Map<String, String> arTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'عدد الالتفافات: {count}',
+  'flips': 'عدد الالتفافات: ',
   'players_score_multiplier': '({players} لاعب: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط)',
   'health_score': 'نقاط صحة الدماغ: +{points}',

@@ -95,7 +95,7 @@ const Map<String, String> nnNOTranslations = {
   'its_a_tie': 'Uavgjort!',
   'points_divided': 'Poeng delt!',
   'time_seconds': 'Tid: {seconds} sekund',
-  'flips': 'Vendingar: {count}',
+  'flips': 'Vendingar: ',
   'players_score_multiplier': '({players} spelarar ×{multiplier})',
   'points_divided_explanation': '(poeng delt mellom spelarane)',
   'health_score': 'Helse +{points}',

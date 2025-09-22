@@ -96,7 +96,7 @@ const Map<String, String> ptAOTranslations = {
   'its_a_tie': 'Empate!',
   'points_divided': 'Os pontos são divididos entre os jogadores empatados!',
   'time_seconds': 'Tempo: {seconds} segundos',
-  'flips': 'Viradas: {count}',
+  'flips': 'Viradas: ',
   'players_score_multiplier': '({players} jogadores: Pontos ×{multiplier})',
   'points_divided_explanation':
       '(Os pontos são divididos entre os jogadores empatados)',

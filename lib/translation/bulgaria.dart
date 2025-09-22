@@ -93,7 +93,7 @@ const Map<String, String> bgTranslations = {
   'its_a_tie': 'Равенство!',
   'points_divided': 'Точките се делят при равенство!',
   'time_seconds': 'Време: {seconds} секунди',
-  'flips': 'Обръщания: {count}',
+  'flips': 'Обръщания: ',
   'players_score_multiplier': '({players} играча: точки ×{multiplier})',
   'points_divided_explanation': '(Точките се делят при равенство)',
   'health_score': 'Точки за здравето на мозъка: +{points}',

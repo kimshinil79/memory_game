@@ -95,7 +95,7 @@ const Map<String, String> arYETranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'القلبات: {count}',
+  'flips': 'القلبات: ',
   'players_score_multiplier': '({players} لاعب ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط بين اللاعبين)',
   'health_score': 'صحة +{points}',

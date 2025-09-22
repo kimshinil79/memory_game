@@ -96,7 +96,7 @@ const Map<String, String> siLKTranslations = {
   'its_a_tie': 'සමානයි!',
   'points_divided': 'ලකුණු බෙදා ගන්නා ලදී!',
   'time_seconds': 'කාලය: {seconds} තත්පර',
-  'flips': 'පෙරළීම්: {count} වතාවක්',
+  'flips': 'පෙරළීම්:  වතාවක්',
   'players_score_multiplier': '({players} ක්‍රීඩකයින් ×{multiplier})',
   'points_divided_explanation': '(ලකුණු ක්‍රීඩකයින් අතර බෙදා ගනී)',
   'health_score': 'සෞඛ්‍යය +{points}',

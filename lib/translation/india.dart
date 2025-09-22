@@ -93,7 +93,7 @@ const Map<String, String> hiTranslations = {
   'its_a_tie': 'बराबरी!',
   'points_divided': 'अंक विभाजित!',
   'time_seconds': 'समय: {seconds} सेकंड',
-  'flips': 'फ्लिप: {count}',
+  'flips': 'फ्लिप: ',
   'players_score_multiplier': '({players} खिलाड़ी: अंक ×{multiplier})',
   'points_divided_explanation': '(अंक विभाजित)',
   'health_score': 'मस्तिष्क स्वास्थ्य अंक: +{points}',

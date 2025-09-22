@@ -107,7 +107,7 @@ Map<String, String> enTranslations = {
   'its_a_tie': 'It\'s a Tie!',
   'points_divided': 'Points are divided equally among tied players!',
   'time_seconds': 'Time: {seconds} seconds',
-  'flips': 'Flips: {count}',
+  'flips': 'Flips: ',
   'players_score_multiplier': '({players} Players: Score x{multiplier})',
   'points_divided_explanation': '(Points divided among tied players)',
   'health_score': 'Health Score: +{points}',

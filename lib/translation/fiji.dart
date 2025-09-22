@@ -95,7 +95,7 @@ const Map<String, String> fjTranslations = {
   'its_a_tie': 'E tautau!',
   'points_divided': 'E tautau na points!',
   'time_seconds': 'Na gauna: {seconds} na sekoni',
-  'flips': 'Na i vakavou: {count}',
+  'flips': 'Na i vakavou: ',
   'players_score_multiplier': '({players} na dau meci: points ×{multiplier})',
   'points_divided_explanation': '(E tautau na points)',
   'health_score': 'Na bula ni bula points: +{points}',

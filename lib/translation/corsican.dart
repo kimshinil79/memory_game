@@ -95,7 +95,7 @@ const Map<String, String> coTranslations = {
   'its_a_tie': 'Pareghju !',
   'points_divided': 'I punti sò divisi in casu di pareghju !',
   'time_seconds': 'Tempu : {seconds} secondi',
-  'flips': 'Girate : {count}',
+  'flips': 'Girate : ',
   'players_score_multiplier': '({players} ghjucatori : puntu ×{multiplier})',
   'points_divided_explanation': '(I punti sò divisi in casu di pareghju)',
   'health_score': 'Punti di salute cerebrale : +{points}',

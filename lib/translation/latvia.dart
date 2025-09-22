@@ -95,7 +95,7 @@ const Map<String, String> lvLVTranslations = {
   'its_a_tie': 'Neizšķirts!',
   'points_divided': 'Punkti dalīti!',
   'time_seconds': 'Laiks: {seconds} sekundes',
-  'flips': 'Apmaiņas: {count}',
+  'flips': 'Apmaiņas: ',
   'players_score_multiplier': '({players} spēlētāji: punkti ×{multiplier})',
   'points_divided_explanation': '(Punkti dalīti)',
   'health_score': 'Smadzeņu veselības punkti: +{points}',

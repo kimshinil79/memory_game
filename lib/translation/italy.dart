@@ -93,7 +93,7 @@ const Map<String, String> itTranslations = {
   'its_a_tie': 'Pareggio!',
   'points_divided': 'Punti divisi!',
   'time_seconds': 'Tempo: {seconds} secondi',
-  'flips': 'Giri: {count}',
+  'flips': 'Giri: ',
   'players_score_multiplier': '({players} giocatori: punti ×{multiplier})',
   'points_divided_explanation': '(Punti divisi)',
   'health_score': 'Punteggio salute cervello: +{points}',

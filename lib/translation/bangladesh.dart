@@ -96,7 +96,7 @@ const Map<String, String> bnBDTranslations = {
   'its_a_tie': 'ড্র!',
   'points_divided': 'ড্র হলে পয়েন্ট ভাগ করা হবে!',
   'time_seconds': 'সময়: {seconds} সেকেন্ড',
-  'flips': 'ফ্লিপ: {count}',
+  'flips': 'ফ্লিপ: ',
   'players_score_multiplier': '({players} খেলোয়াড়: পয়েন্ট ×{multiplier})',
   'points_divided_explanation': '(ড্র হলে পয়েন্ট ভাগ করা হবে)',
   'health_score': 'মস্তিষ্কের স্বাস্থ্য পয়েন্ট: +{points}',

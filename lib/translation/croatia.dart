@@ -95,7 +95,7 @@ const Map<String, String> hrTranslations = {
   'its_a_tie': 'Izjednačeno!',
   'points_divided': 'Bodovi se dijele u slučaju izjednačenja!',
   'time_seconds': 'Vrijeme: {seconds} sekundi',
-  'flips': 'Okretanja: {count}',
+  'flips': 'Okretanja: ',
   'players_score_multiplier': '({players} igrača: bodovi ×{multiplier})',
   'points_divided_explanation': '(Bodovi se dijele u slučaju izjednačenja)',
   'health_score': 'Bodovi zdravlja mozga: +{points}',

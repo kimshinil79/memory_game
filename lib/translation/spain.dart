@@ -96,7 +96,7 @@ const Map<String, String> esESTranslations = {
   'its_a_tie': '¡Es un empate!',
   'points_divided': '¡Puntos divididos!',
   'time_seconds': 'Tiempo: {seconds} segundos',
-  'flips': 'Volteos: {count} veces',
+  'flips': 'Volteos:  veces',
   'players_score_multiplier': '({players} jugadores ×{multiplier})',
   'points_divided_explanation': '(Los puntos se dividen entre los jugadores)',
   'health_score': 'Salud +{points}',

@@ -92,7 +92,7 @@ const Map<String, String> azTranslations = {
   'its_a_tie': 'Bərabər!',
   'points_divided': 'Xallar bərabərlik halında bölüşdürülür!',
   'time_seconds': 'Vaxt: {seconds} saniyə',
-  'flips': 'Çevirmələr: {count}',
+  'flips': 'Çevirmələr: ',
   'players_score_multiplier': '({players} oyunçu: xal ×{multiplier})',
   'points_divided_explanation': '(Xallar bərabərlik halında bölüşdürülür)',
   'health_score': 'Beyin Sağlamlığı Xalı: +{points}',

@@ -94,7 +94,7 @@ const Map<String, String> stLSTranslations = {
   'its_a_tie': 'Ho lekana!',
   'points_divided': 'Lintlha li arolitsoe!',
   'time_seconds': 'Nako: {seconds} metsotsoana',
-  'flips': 'Ho fetola: {count}',
+  'flips': 'Ho fetola: ',
   'players_score_multiplier': '({players} bapapali: Lintlha ×{multiplier})',
   'points_divided_explanation': '(Lintlha li arolitsoe)',
   'health_score': 'Lintlha tsa bophelo ba boko: +{points}',

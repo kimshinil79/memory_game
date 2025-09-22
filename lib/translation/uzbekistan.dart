@@ -93,7 +93,7 @@ const Map<String, String> uzUZTranslations = {
   'its_a_tie': 'Durang!',
   'points_divided': 'Ballar bo\'lingan!',
   'time_seconds': 'Vaqt: {seconds} soniya',
-  'flips': 'Aylantirishlar: {count}',
+  'flips': 'Aylantirishlar: ',
   'players_score_multiplier': '({players} o\'yinchi ×{multiplier})',
   'points_divided_explanation': '(Ballar o\'yinchilar o\'rtasida bo\'lingan)',
   'health_score': 'Sog\'liq +{points}',

@@ -96,7 +96,7 @@ const Map<String, String> toTOTranslations = {
   'its_a_tie': 'ʻOku tatau!',
   'points_divided': 'ʻOku vaevae ʻa e ngaahi poini!',
   'time_seconds': 'Taimi: {seconds} sekoni',
-  'flips': 'Feliuliu: {count}',
+  'flips': 'Feliuliu: ',
   'players_score_multiplier': '({players} kau taʻanga ×{multiplier})',
   'points_divided_explanation':
       '(ʻOku vaevae ʻa e ngaahi poini ki he kau taʻanga)',

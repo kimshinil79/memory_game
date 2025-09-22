@@ -93,7 +93,7 @@ const Map<String, String> ptPTTranslations = {
   'its_a_tie': 'Empate!',
   'points_divided': 'Pontos divididos!',
   'time_seconds': 'Tempo: {seconds} segundos',
-  'flips': 'Viragens: {count}',
+  'flips': 'Viragens: ',
   'players_score_multiplier': '({players} jogadores ×{multiplier})',
   'points_divided_explanation': '(pontos divididos entre jogadores)',
   'health_score': 'Saúde +{points}',

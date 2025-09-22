@@ -95,7 +95,7 @@ const Map<String, String> myTranslations = {
   'its_a_tie': 'သရေကျပါသည်!',
   'points_divided': 'အမှတ်များခွဲဝေပါသည်',
   'time_seconds': 'အချိန်: {seconds} စက္ကန့်',
-  'flips': 'လှန်ချက်များ: {count}',
+  'flips': 'လှန်ချက်များ: ',
   'players_score_multiplier': 'ကစားသမားများ: {players} × {multiplier}',
   'points_divided_explanation':
       'အမှတ်များကို ကစားသမားများကြားတွင် တူညီစွာခွဲဝေပါသည်',

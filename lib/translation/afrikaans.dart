@@ -93,7 +93,7 @@ const Map<String, String> afkTranslations = {
   'its_a_tie': 'Dit is \'n gelykop!',
   'points_divided': 'Punte word gelykop verdeel tussen gelykop spelers!',
   'time_seconds': 'Tyd: {seconds} sekondes',
-  'flips': 'Omkeer: {count}',
+  'flips': 'Omkeer: ',
   'players_score_multiplier': '({players} Spelers: Telling x{multiplier})',
   'points_divided_explanation': '(Punte word tussen gelykop spelers verdeel)',
   'health_score': 'Breingesondheid Telling: +{points}',

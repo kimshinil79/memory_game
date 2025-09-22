@@ -95,7 +95,7 @@ const Map<String, String> frMLTranslations = {
   'its_a_tie': 'Égalité!',
   'points_divided': 'Points divisés!',
   'time_seconds': 'Temps: {seconds} secondes',
-  'flips': 'Retournements: {count}',
+  'flips': 'Retournements: ',
   'players_score_multiplier': '({players} joueurs ×{multiplier})',
   'points_divided_explanation': '(Points divisés entre les joueurs)',
   'health_score': 'Score de santé +{points}',

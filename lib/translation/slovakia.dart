@@ -93,7 +93,7 @@ const Map<String, String> skSKTranslations = {
   'its_a_tie': 'Remíza!',
   'points_divided': 'Body sa delia!',
   'time_seconds': 'Čas: {seconds} sekúnd',
-  'flips': 'Otočenia: {count} krát',
+  'flips': 'Otočenia:  krát',
   'players_score_multiplier': '({players} hráčov ×{multiplier})',
   'points_divided_explanation': '(Body sa delia medzi hráčov)',
   'health_score': 'Zdravie +{points}',

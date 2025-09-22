@@ -95,7 +95,7 @@ const Map<String, String> sqTranslations = {
   'points_divided':
       'Pikët ndahen në mënyrë të barabartë midis lojtarëve të barazuar!',
   'time_seconds': 'Koha: {seconds} sekonda',
-  'flips': 'Kthe: {count}',
+  'flips': 'Kthe: ',
   'players_score_multiplier': '({players} Lojtarë: Pikët x{multiplier})',
   'points_divided_explanation': '(Pikët ndahen midis lojtarëve të barazuar)',
   'health_score': 'Pikët e Shëndetit të Trurit: +{points}',

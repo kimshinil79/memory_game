@@ -93,7 +93,7 @@ const Map<String, String> biVUTranslations = {
   'its_a_tie': 'I dra!',
   'points_divided': 'Poin i divaed!',
   'time_seconds': 'Taem: {seconds} sekon',
-  'flips': 'Flip: {count}',
+  'flips': 'Flip: ',
   'players_score_multiplier': '({players} pleia ×{multiplier})',
   'points_divided_explanation': '(Poin i divaed long ol pleia)',
   'health_score': 'Helt +{points}',

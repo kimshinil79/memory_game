@@ -95,7 +95,7 @@ const Map<String, String> zhCNTranslations = {
   'its_a_tie': '平局！',
   'points_divided': '平局时分数平分！',
   'time_seconds': '时间：{seconds}秒',
-  'flips': '翻牌次数：{count}',
+  'flips': '翻牌次数：',
   'players_score_multiplier': '（{players}名玩家：分数×{multiplier}）',
   'points_divided_explanation': '（平局时分数平分）',
   'health_score': '大脑健康点数：+{points}',

@@ -93,7 +93,7 @@ const Map<String, String> mtMTTranslations = {
   'its_a_tie': 'Pari!',
   'points_divided': 'Punti maqsuma!',
   'time_seconds': 'Ħin: {seconds} sekondi',
-  'flips': 'Dawriet: {count}',
+  'flips': 'Dawriet: ',
   'players_score_multiplier': '({players} plejers ×{multiplier})',
   'points_divided_explanation': '(Punti maqsuma bejn il-plejers)',
   'health_score': 'Punteġġ tas-saħħa +{points}',

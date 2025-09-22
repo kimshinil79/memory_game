@@ -94,7 +94,7 @@ const Map<String, String> euTranslations = {
   'its_a_tie': 'Berdinketa!',
   'points_divided': 'Puntuak berdinketan banatzen dira!',
   'time_seconds': 'Denbora: {seconds} segundo',
-  'flips': 'Itzuli: {count}',
+  'flips': 'Itzuli: ',
   'players_score_multiplier': '({players} jokalari: puntuak ×{multiplier})',
   'points_divided_explanation': '(Puntuak berdinketan banatzen dira)',
   'health_score': 'Burmuinaren osasun puntuak: +{points}',

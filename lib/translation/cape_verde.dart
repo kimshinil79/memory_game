@@ -95,7 +95,7 @@ const Map<String, String> ptCVTranslations = {
   'its_a_tie': 'Empate!',
   'points_divided': 'Pontos divididos em caso de empate!',
   'time_seconds': 'Tempo: {seconds} segundos',
-  'flips': 'Viradas: {count}',
+  'flips': 'Viradas: ',
   'players_score_multiplier': '({players} jogadores: pontos ×{multiplier})',
   'points_divided_explanation': '(Pontos divididos em caso de empate)',
   'health_score': 'Pontos de saúde cerebral: +{points}',

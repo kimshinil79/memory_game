@@ -95,7 +95,7 @@ const Map<String, String> arBHtranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'يتم تقسيم النقاط في حالة التعادل!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'القلبات: {count}',
+  'flips': 'القلبات: ',
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(يتم تقسيم النقاط في حالة التعادل)',
   'health_score': 'نقاط صحة الدماغ: +{points}',

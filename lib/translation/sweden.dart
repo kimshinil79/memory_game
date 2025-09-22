@@ -95,7 +95,7 @@ const Map<String, String> svSETranslations = {
   'its_a_tie': 'Det blev oavgjort!',
   'points_divided': 'Poängen delas lika mellan de oavgjorda!',
   'time_seconds': 'Tid: {seconds} sekunder',
-  'flips': 'Vändningar: {count}',
+  'flips': 'Vändningar: ',
   'players_score_multiplier': '({players} spelare: poäng x{multiplier})',
   'points_divided_explanation': '(Poängen delas mellan de oavgjorda)',
   'health_score': 'Hjärnhälsopoäng: +{points}',

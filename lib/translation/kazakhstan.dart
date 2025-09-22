@@ -95,7 +95,7 @@ const Map<String, String> kkKZTranslations = {
   'its_a_tie': 'Тең ойын!',
   'points_divided': 'Ұпайлар бөлінді!',
   'time_seconds': 'Уақыт: {seconds} секунд',
-  'flips': 'Аудару: {count}',
+  'flips': 'Аудару: ',
   'players_score_multiplier': '({players} ойыншы: ұпай ×{multiplier})',
   'points_divided_explanation': '(Ұпайлар бөлінді)',
   'health_score': 'Ми денсаулығы ұпайы: +{points}',

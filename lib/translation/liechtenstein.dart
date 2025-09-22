@@ -95,7 +95,7 @@ const Map<String, String> deLITranslations = {
   'its_a_tie': 'Unentschieden!',
   'points_divided': 'Punkte geteilt!',
   'time_seconds': 'Zeit: {seconds} Sekunden',
-  'flips': 'Umdrehungen: {count}',
+  'flips': 'Umdrehungen: ',
   'players_score_multiplier': '({players} Spieler: Punkte ×{multiplier})',
   'points_divided_explanation': '(Punkte geteilt)',
   'health_score': 'Gehirngesundheitspunkte: +{points}',

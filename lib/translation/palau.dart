@@ -91,7 +91,7 @@ const Map<String, String> enPWTranslations = {
   'its_a_tie': 'It\'s a tie!',
   'points_divided': 'Points divided!',
   'time_seconds': 'Time: {seconds} seconds',
-  'flips': 'Flips: {count}',
+  'flips': 'Flips: ',
   'players_score_multiplier': '({players} players ×{multiplier})',
   'points_divided_explanation': '(points divided between players)',
   'health_score': 'Health +{points}',

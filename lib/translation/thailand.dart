@@ -95,7 +95,7 @@ const Map<String, String> thTHTranslations = {
   'its_a_tie': 'เสมอ!',
   'points_divided': 'คะแนนถูกแบ่ง!',
   'time_seconds': 'เวลา: {seconds} วินาที',
-  'flips': 'พลิก: {count}',
+  'flips': 'พลิก: ',
   'players_score_multiplier': '({players} ผู้เล่น ×{multiplier})',
   'points_divided_explanation': '(คะแนนถูกแบ่งระหว่างผู้เล่น)',
   'health_score': 'สุขภาพ +{points}',

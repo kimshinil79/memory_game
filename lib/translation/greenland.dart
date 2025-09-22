@@ -95,7 +95,7 @@ const Map<String, String> klGLTranslations = {
   'its_a_tie': 'Qujanaq!',
   'points_divided': 'Qujanaq!',
   'time_seconds': 'Ullumi: {seconds} ullumi',
-  'flips': 'Sulini: {count}',
+  'flips': 'Sulini: ',
   'players_score_multiplier': '({players} erinarsuut: qujanaq ×{multiplier})',
   'points_divided_explanation': '(Qujanaq)',
   'health_score': 'Qarasaasit qujanaq: +{points}',

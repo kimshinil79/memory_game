@@ -95,7 +95,7 @@ const Map<String, String> tiERTranslations = {
   'its_a_tie': 'ማዕረ!',
   'points_divided': 'ነጥብታት ኣብ ማዕረ ይካፈሉ!',
   'time_seconds': 'ሰዓት: {seconds} ካልኢት',
-  'flips': 'ምውሳድ: {count}',
+  'flips': 'ምውሳድ: ',
   'players_score_multiplier': '({players} ተጻወትያን: ነጥብታት ×{multiplier})',
   'points_divided_explanation': '(ነጥብታት ኣብ ማዕረ ይካፈሉ)',
   'health_score': 'ነጥብታት ጥዕና ኣእምሮ: +{points}',

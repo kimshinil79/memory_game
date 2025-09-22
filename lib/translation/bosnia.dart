@@ -95,7 +95,7 @@ const Map<String, String> bsBATranslations = {
   'its_a_tie': 'Neriješeno!',
   'points_divided': 'Bodovi se dijele u slučaju neriješenog!',
   'time_seconds': 'Vrijeme: {seconds} sekundi',
-  'flips': 'Okretanja: {count}',
+  'flips': 'Okretanja: ',
   'players_score_multiplier': '({players} igrača: bodovi ×{multiplier})',
   'points_divided_explanation': '(Bodovi se dijele u slučaju neriješenog)',
   'health_score': 'Bodovi zdravlja mozga: +{points}',

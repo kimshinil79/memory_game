@@ -95,7 +95,7 @@ const Map<String, String> neTranslations = {
   'its_a_tie': 'बराबर!',
   'points_divided': 'अंक विभाजित गरियो!',
   'time_seconds': 'समय: {seconds} सेकेन्ड',
-  'flips': 'पल्टाइहरू: {count}',
+  'flips': 'पल्टाइहरू: ',
   'players_score_multiplier': '({players} खेलाडी ×{multiplier})',
   'points_divided_explanation': '(अंक खेलाडीहरू बीच विभाजित गरियो)',
   'health_score': 'स्वास्थ्य अंक +{points}',

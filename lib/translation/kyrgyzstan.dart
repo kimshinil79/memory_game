@@ -95,7 +95,7 @@ const Map<String, String> kyKGTranslations = {
   'its_a_tie': 'Тең оюн!',
   'points_divided': 'Упайлар бөлүштүрүлдү!',
   'time_seconds': 'Убакыт: {seconds} секунд',
-  'flips': 'Айландыруулар: {count}',
+  'flips': 'Айландыруулар: ',
   'players_score_multiplier': '({players} оюнчу: упай ×{multiplier})',
   'points_divided_explanation': '(Упайлар бөлүштүрүлдү)',
   'health_score': 'Мээ саламаттыгы упайы: +{points}',

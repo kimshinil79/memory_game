@@ -93,7 +93,7 @@ const Map<String, String> maTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'النقاط موزعة!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'القلبات: {count}',
+  'flips': 'القلبات: ',
   'players_score_multiplier': '({players} لاعبين ×{multiplier})',
   'points_divided_explanation': '(النقاط موزعة بين اللاعبين)',
   'health_score': 'نقاط الصحة +{points}',

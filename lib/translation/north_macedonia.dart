@@ -95,7 +95,7 @@ const Map<String, String> mkMKTranslations = {
   'its_a_tie': 'Нерешено!',
   'points_divided': 'Поделени поени!',
   'time_seconds': 'Време: {seconds} секунди',
-  'flips': 'Превртувања: {count}',
+  'flips': 'Превртувања: ',
   'players_score_multiplier': '({players} играчи ×{multiplier})',
   'points_divided_explanation': '(поените се поделени меѓу играчите)',
   'health_score': 'Здравје +{points}',

@@ -93,7 +93,7 @@ const Map<String, String> msBNTranslations = {
   'its_a_tie': 'Seri!',
   'points_divided': 'Mata dibahagikan sekiranya seri!',
   'time_seconds': 'Masa: {seconds} saat',
-  'flips': 'Kali terbalik: {count}',
+  'flips': 'Kali terbalik: ',
   'players_score_multiplier': '({players} pemain: mata ×{multiplier})',
   'points_divided_explanation': '(Mata dibahagikan sekiranya seri)',
   'health_score': 'Mata kesihatan otak: +{points}',

@@ -95,7 +95,7 @@ const Map<String, String> isISTranslations = {
   'its_a_tie': 'Jafntefli!',
   'points_divided': 'Stigin eru jafnt deilt á milli jafnteflis!',
   'time_seconds': 'Tími: {seconds} sekúndur',
-  'flips': 'Snúningar: {count}',
+  'flips': 'Snúningar: ',
   'players_score_multiplier': '({players} leikmenn: stig x{multiplier})',
   'points_divided_explanation': '(Stigin eru deilt á milli jafnteflis)',
   'health_score': 'Heilbrigði heilans stig: +{points}',

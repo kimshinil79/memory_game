@@ -94,7 +94,7 @@ const Map<String, String> arDZTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'يتم تقسيم النقاط بالتساوي بين اللاعبين المتعادلين!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'قلب: {count}',
+  'flips': 'قلب: ',
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(يتم تقسيم النقاط بين اللاعبين المتعادلين)',
   'health_score': 'نقاط صحة الدماغ: +{points}',

@@ -93,7 +93,7 @@ const Map<String, String> plPLTranslations = {
   'its_a_tie': 'Remis!',
   'points_divided': 'Punkty podzielone!',
   'time_seconds': 'Czas: {seconds} sekund',
-  'flips': 'Odkrycia: {count}',
+  'flips': 'Odkrycia: ',
   'players_score_multiplier': '({players} graczy ×{multiplier})',
   'points_divided_explanation': '(punkty podzielone między graczy)',
   'health_score': 'Zdrowie +{points}',

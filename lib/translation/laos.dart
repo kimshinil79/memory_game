@@ -95,7 +95,7 @@ const Map<String, String> loLATranslations = {
   'its_a_tie': 'ເທົ່າກັນ!',
   'points_divided': 'ແບ່ງຄະແນນ!',
   'time_seconds': 'ເວລາ: {seconds} ວິນາທີ',
-  'flips': 'ການພິກ: {count}',
+  'flips': 'ການພິກ: ',
   'players_score_multiplier': '({players} ຜູ້ຫຼິ້ນ: ຄະແນນ ×{multiplier})',
   'points_divided_explanation': '(ແບ່ງຄະແນນ)',
   'health_score': 'ຄະແນນສຸຂະພາບສະໝອງ: +{points}',

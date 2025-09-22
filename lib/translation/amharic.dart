@@ -94,7 +94,7 @@ const Map<String, String> amTranslations = {
   'its_a_tie': 'እኩል ነው!',
   'points_divided': 'ነጥቦች በእኩል ተጫዋቾች መካከል ተከፋፍለዋል!',
   'time_seconds': 'ጊዜ: {seconds} ሰከንድ',
-  'flips': 'መዞር: {count}',
+  'flips': 'መዞር: ',
   'players_score_multiplier': '({players} ተጫዋቾች: ነጥቦች x{multiplier})',
   'points_divided_explanation': '(ነጥቦች በእኩል ተጫዋቾች መካከል ተከፋፍለዋል)',
   'health_score': 'የአንጎል ጤና ነጥቦች: +{points}',

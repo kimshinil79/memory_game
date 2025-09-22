@@ -95,7 +95,7 @@ const Map<String, String> mnMNGTranslations = {
   'its_a_tie': 'Тэнцсэн!',
   'points_divided': 'Оноо хуваагдсан',
   'time_seconds': 'Цаг: {seconds} секунд',
-  'flips': 'Эргүүлсэн: {count}',
+  'flips': 'Эргүүлсэн: ',
   'players_score_multiplier': 'Тоглогчид: {players} × {multiplier}',
   'points_divided_explanation': 'Оноог тоглогчдын дунд тэгш хуваана',
   'health_score': 'Эрүүл мэндийн оноо: {points}',

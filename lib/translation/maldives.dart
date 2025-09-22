@@ -96,7 +96,7 @@ const Map<String, String> dvTranslations = {
   'its_a_tie': 'އެއްކޮށްފައިވަނީ!',
   'points_divided': 'ޕޮއިންޓް ބަދަލުކުރެވިއްޖެ!',
   'time_seconds': 'ވަގުތު: {seconds} ސިކަންޑް',
-  'flips': 'ފުލުވުން: {count}',
+  'flips': 'ފުލުވުން: ',
   'players_score_multiplier': '({players} ކުދިކޮށްފައިވާ މީހުން ×{multiplier})',
   'points_divided_explanation':
       '(ޕޮއިންޓް ކުދިކޮށްފައިވާ މީހުންގެ މެދުގައި ބަދަލުކުރެވިއްޖެ)',

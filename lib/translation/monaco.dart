@@ -95,7 +95,7 @@ const Map<String, String> mcMCTTranslations = {
   'its_a_tie': 'C\'est une égalité !',
   'points_divided': 'Points divisés',
   'time_seconds': 'Temps : {seconds} secondes',
-  'flips': 'Retournements : {count}',
+  'flips': 'Retournements : ',
   'players_score_multiplier': 'Joueurs : {players} × {multiplier}',
   'points_divided_explanation':
       'Les points sont divisés équitablement entre les joueurs',

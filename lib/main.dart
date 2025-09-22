@@ -567,11 +567,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       if (!mounted) return;
 
       if (user == null) {
+        print('❌ 로그인된 사용자가 없습니다.');
         setState(() {
           _user = null;
           _nickname = null;
         });
       } else {
+        print('✅ 로그인된 사용자 발견: ${user.uid}');
         _fetchUserProfile(user);
       }
     });
@@ -583,11 +585,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     try {
       String uid = user.uid;
 
+      // 현재 로그인된 사용자의 문서 이름 출력
+      print('🔑 현재 로그인된 사용자 문서 이름: $uid');
+
       DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
       if (userDoc.exists) {
         Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        String? nickname = userData['nickname'] as String?;
+
+        // 닉네임도 함께 출력
+        print('👤 사용자 닉네임: ${nickname ?? '없음'}');
         if (mounted) {
           setState(() {
             _user = user;

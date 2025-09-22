@@ -93,7 +93,7 @@ const Map<String, String> heTranslations = {
   'its_a_tie': 'תיקו!',
   'points_divided': 'הנקודות חולקו!',
   'time_seconds': 'זמן: {seconds} שניות',
-  'flips': 'היפוכים: {count}',
+  'flips': 'היפוכים: ',
   'players_score_multiplier': '({players} שחקנים: נקודות ×{multiplier})',
   'points_divided_explanation': '(הנקודות חולקו)',
   'health_score': 'ציון בריאות מוח: +{points}',

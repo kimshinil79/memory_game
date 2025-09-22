@@ -95,7 +95,7 @@ const Map<String, String> msTranslations = {
   'its_a_tie': 'Seri!',
   'points_divided': 'Mata dibahagikan!',
   'time_seconds': 'Masa: {seconds} saat',
-  'flips': 'Terbalik: {count}',
+  'flips': 'Terbalik: ',
   'players_score_multiplier': '({players} pemain ×{multiplier})',
   'points_divided_explanation': '(Mata dibahagikan antara pemain)',
   'health_score': 'Mata kesihatan +{points}',

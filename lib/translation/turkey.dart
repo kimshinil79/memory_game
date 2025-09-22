@@ -93,7 +93,7 @@ const Map<String, String> trTRTranslations = {
   'its_a_tie': 'Berabere!',
   'points_divided': 'Puanlar bölündü!',
   'time_seconds': 'Süre: {seconds} saniye',
-  'flips': 'Çevirme: {count}',
+  'flips': 'Çevirme: ',
   'players_score_multiplier': '({players} Oyuncu ×{multiplier})',
   'points_divided_explanation': '(Puanlar oyuncular arasında bölündü)',
   'health_score': 'Sağlık +{points}',

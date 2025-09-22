@@ -95,7 +95,7 @@ const Map<String, String> koKPTranslations = {
   'its_a_tie': '무승부!',
   'points_divided': '점수 분배!',
   'time_seconds': '시간: {seconds}초',
-  'flips': '뒤집기: {count}',
+  'flips': '뒤집기: ',
   'players_score_multiplier': '({players}명 ×{multiplier})',
   'points_divided_explanation': '(점수가 플레이어들 사이에서 분배됨)',
   'health_score': '건강 점수 +{points}',

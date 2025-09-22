@@ -93,7 +93,7 @@ const Map<String, String> urPKTranslations = {
   'its_a_tie': 'برابر!',
   'points_divided': 'پوائنٹس تقسیم ہو گئے!',
   'time_seconds': 'وقت: {seconds} سیکنڈ',
-  'flips': 'پلٹائیں: {count}',
+  'flips': 'پلٹائیں: ',
   'players_score_multiplier': '({players} کھلاڑی ×{multiplier})',
   'points_divided_explanation': '(پوائنٹس کھلاڑیوں کے درمیان تقسیم ہو گئے)',
   'health_score': 'صحت +{points}',

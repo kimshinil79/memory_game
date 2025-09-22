@@ -95,7 +95,7 @@ const Map<String, String> daTranslations = {
   'its_a_tie': 'Uafgjort!',
   'points_divided': 'Point deles ved uafgjort!',
   'time_seconds': 'Tid: {seconds} sekunder',
-  'flips': 'Vendninger: {count}',
+  'flips': 'Vendninger: ',
   'players_score_multiplier': '({players} spillere: point ×{multiplier})',
   'points_divided_explanation': '(Point deles ved uafgjort)',
   'health_score': 'Hjernehelbred point: +{points}',

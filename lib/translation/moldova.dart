@@ -95,7 +95,7 @@ const Map<String, String> mdMDATranslations = {
   'its_a_tie': 'Este egalitate!',
   'points_divided': 'Puncte împărțite',
   'time_seconds': 'Timp: {seconds} secunde',
-  'flips': 'Întoarceri: {count}',
+  'flips': 'Întoarceri: ',
   'players_score_multiplier': 'Jucători: {players} × {multiplier}',
   'points_divided_explanation':
       'Punctele sunt împărțite în mod egal între jucători',

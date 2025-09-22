@@ -95,7 +95,7 @@ const Map<String, String> etTranslations = {
   'its_a_tie': 'Viik!',
   'points_divided': 'Punktid jagunevad viigi korral!',
   'time_seconds': 'Aeg: {seconds} sekundit',
-  'flips': 'Pööramisi: {count}',
+  'flips': 'Pööramisi: ',
   'players_score_multiplier': '({players} mängijat: punktid ×{multiplier})',
   'points_divided_explanation': '(Punktid jagunevad viigi korral)',
   'health_score': 'Aju tervise punktid: +{points}',

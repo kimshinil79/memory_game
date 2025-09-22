@@ -93,7 +93,7 @@ const Map<String, String> viVNTranslations = {
   'its_a_tie': 'Hòa!',
   'points_divided': 'Điểm được chia!',
   'time_seconds': 'Thời gian: {seconds} giây',
-  'flips': 'Lật: {count}',
+  'flips': 'Lật: ',
   'players_score_multiplier': '({players} người chơi ×{multiplier})',
   'points_divided_explanation': '(Điểm được chia cho người chơi)',
   'health_score': 'Sức khỏe +{points}',

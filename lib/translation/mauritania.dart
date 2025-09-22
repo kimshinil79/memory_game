@@ -95,7 +95,7 @@ const Map<String, String> mrMRTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'عدد الوجهات: {count}',
+  'flips': 'عدد الوجهات: ',
   'players_score_multiplier': 'اللاعبون: {players} × {multiplier}',
   'points_divided_explanation': 'تم تقسيم النقاط بالتساوي بين اللاعبين',
   'health_score': 'درجة الصحة: {points}',

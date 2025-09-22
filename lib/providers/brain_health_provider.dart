@@ -49,6 +49,12 @@ class BrainHealthProvider with ChangeNotifier {
   double _inactivityPenalty = 0.0;
   int _daysSinceLastGame = 0;
 
+  // 스트릭 시스템 관련 변수들
+  int _currentStreak = 0; // 현재 연속 완료 횟수
+  int _longestStreak = 0; // 최장 연속 완료 기록
+  DateTime? _lastGameDate; // 마지막 게임 완료 날짜
+  int _streakBonus = 0; // 현재 스트릭으로 인한 보너스 점수
+
   int get brainHealthScore => _brainHealthScore;
   int get totalGamesPlayed => _totalGamesPlayed;
   int get totalMatchesFound => _totalMatchesFound;
@@ -57,6 +63,12 @@ class BrainHealthProvider with ChangeNotifier {
   List<ScoreRecord> get scoreHistory => _scoreHistory;
   bool get isLoading => _isLoading;
   String? get error => _error;
+
+  // 스트릭 시스템 getter들
+  int get currentStreak => _currentStreak;
+  int get longestStreak => _longestStreak;
+  DateTime? get lastGameDate => _lastGameDate;
+  int get streakBonus => _streakBonus;
   int get brainHealthIndexLevel => _brainHealthIndexLevel; // BHI 레벨 getter 추가
   double get brainHealthIndex => _brainHealthIndex; // BHI 값 getter 추가
   // BHI 컴포넌트 getter들 추가
@@ -575,6 +587,9 @@ class BrainHealthProvider with ChangeNotifier {
         _userId = user.uid;
         print('User ID set: $_userId');
 
+        // 앱 재실행 시 현재 로그인된 사용자 문서 이름 출력
+        print('🔑 BrainHealthProvider - 현재 로그인된 사용자 문서 이름: $_userId');
+
         // 사용자 문서가 존재하는지 확인하고 없으면 생성
         try {
           DocumentReference userRef =
@@ -757,6 +772,26 @@ class BrainHealthProvider with ChangeNotifier {
           _bestTimesByGridSize = {};
         }
 
+        // 스트릭 데이터 로드
+        _currentStreak = prefs.getInt('${userKeyPrefix}currentStreak') ?? 0;
+        _longestStreak = prefs.getInt('${userKeyPrefix}longestStreak') ?? 0;
+        String? lastGameDateStr =
+            prefs.getString('${userKeyPrefix}lastGameDate');
+        if (lastGameDateStr != null) {
+          try {
+            _lastGameDate = DateTime.parse(lastGameDateStr);
+          } catch (e) {
+            print('Error parsing last game date: $e');
+            _lastGameDate = null;
+          }
+        }
+
+        // 스트릭 보너스 계산
+        _streakBonus = _calculateStreakBonus(_currentStreak);
+
+        print(
+            'Loaded streak data from local: current=$_currentStreak, longest=$_longestStreak, bonus=$_streakBonus');
+
         // 로컬에서 점수 기록 가져오기
         List<String>? scoreHistory =
             prefs.getStringList('${userKeyPrefix}scoreHistory');
@@ -913,6 +948,50 @@ class BrainHealthProvider with ChangeNotifier {
                 dataChanged = true;
               }
             });
+          }
+
+          // 스트릭 데이터 로드
+          if (brainHealthData.containsKey('currentStreak')) {
+            int firebaseCurrentStreak =
+                _safeIntFromDynamic(brainHealthData['currentStreak']);
+            if (_currentStreak != firebaseCurrentStreak) {
+              _currentStreak = firebaseCurrentStreak;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('longestStreak')) {
+            int firebaseLongestStreak =
+                _safeIntFromDynamic(brainHealthData['longestStreak']);
+            if (_longestStreak != firebaseLongestStreak) {
+              _longestStreak = firebaseLongestStreak;
+              dataChanged = true;
+            }
+          }
+
+          if (brainHealthData.containsKey('lastGameDate') &&
+              brainHealthData['lastGameDate'] != null) {
+            final timestamp = brainHealthData['lastGameDate'] as Timestamp?;
+            if (timestamp != null) {
+              DateTime firebaseLastGameDate = timestamp.toDate();
+              if (_lastGameDate == null ||
+                  !_lastGameDate!.isAtSameMomentAs(firebaseLastGameDate)) {
+                _lastGameDate = firebaseLastGameDate;
+                dataChanged = true;
+              }
+            }
+          }
+
+          // 스트릭 보너스 재계산
+          int newStreakBonus = _calculateStreakBonus(_currentStreak);
+          if (_streakBonus != newStreakBonus) {
+            _streakBonus = newStreakBonus;
+            dataChanged = true;
+          }
+
+          if (dataChanged) {
+            print(
+                'Loaded streak data: current=$_currentStreak, longest=$_longestStreak, bonus=$_streakBonus');
           }
 
           // BHI 레벨 로드
@@ -1244,6 +1323,9 @@ class BrainHealthProvider with ChangeNotifier {
       }
     }
 
+    // 스트릭 업데이트 (점수 계산 전에 먼저 수행)
+    _updateStreak();
+
     // 로컬 데이터 먼저 업데이트
     _totalGamesPlayed++;
     _totalMatchesFound += matchesFound;
@@ -1261,24 +1343,33 @@ class BrainHealthProvider with ChangeNotifier {
       _bestTimesByGridSize[gridSize] = timeInSeconds;
     }
 
-    // 점수 계산
-    int pointsEarned = customPoints ??
+    // 기본 점수 계산
+    int basePoints = customPoints ??
         calculateGameCompletionPoints(matchesFound, timeInSeconds, gridSize);
 
     // 커스텀 점수가 없을 때만 멀티플레이어 배수 적용
     if (customPoints == null && playerCount > 1) {
-      pointsEarned *= playerCount;
-      print('멀티플레이어 배수 적용: $pointsEarned ($playerCount명)');
+      basePoints *= playerCount;
+      print('멀티플레이어 배수 적용: $basePoints ($playerCount명)');
     }
 
-    _brainHealthScore += pointsEarned;
+    // 스트릭 보너스 추가
+    int streakBonusPoints = _streakBonus;
+    int totalPointsEarned = basePoints + streakBonusPoints;
+
+    _brainHealthScore += totalPointsEarned;
+
+    print(
+        'Base points: $basePoints, Streak bonus: $streakBonusPoints, Total earned: $totalPointsEarned');
+    print(
+        'Current streak: ${_currentStreak}, Longest streak: ${_longestStreak}');
 
     // 로컬 데이터를 Firebase에 먼저 저장
     try {
       // 점수 기록 저장
       print('Saving score record with value: $_brainHealthScore');
       await _saveScoreRecord(ScoreRecord(DateTime.now(), _brainHealthScore));
-      if (_disposed) return pointsEarned;
+      if (_disposed) return totalPointsEarned;
       print('Score record saved successfully');
 
       // 기본 데이터 저장
@@ -1289,6 +1380,10 @@ class BrainHealthProvider with ChangeNotifier {
         'brain_health.totalMatchesFound': _totalMatchesFound,
         'brain_health.bestTime': _bestTime,
         'brain_health.bestTimesByGridSize': _bestTimesByGridSize,
+        'brain_health.currentStreak': _currentStreak,
+        'brain_health.longestStreak': _longestStreak,
+        'brain_health.lastGameDate':
+            _lastGameDate != null ? Timestamp.fromDate(_lastGameDate!) : null,
         'brain_health.lastUpdated': FieldValue.serverTimestamp(),
       });
       print('Basic game data saved to Firebase');
@@ -1300,7 +1395,7 @@ class BrainHealthProvider with ChangeNotifier {
     try {
       print('Fetching latest data from Firebase before calculating BHI');
       await _loadFirebaseData();
-      if (_disposed) return pointsEarned;
+      if (_disposed) return totalPointsEarned;
       print('Latest data loaded from Firebase');
     } catch (e) {
       print('Error loading latest data from Firebase: $e');
@@ -1387,6 +1482,15 @@ class BrainHealthProvider with ChangeNotifier {
           '${userKeyPrefix}daysSinceLastGame', _daysSinceLastGame);
       await prefs.setString('${userKeyPrefix}bestTimesByGridSize',
           jsonEncode(_bestTimesByGridSize));
+
+      // 스트릭 데이터 저장
+      await prefs.setInt('${userKeyPrefix}currentStreak', _currentStreak);
+      await prefs.setInt('${userKeyPrefix}longestStreak', _longestStreak);
+      if (_lastGameDate != null) {
+        await prefs.setString(
+            '${userKeyPrefix}lastGameDate', _lastGameDate!.toIso8601String());
+      }
+
       print('All data saved to local storage');
     } catch (e) {
       print('Error saving to local storage: $e');
@@ -1395,7 +1499,7 @@ class BrainHealthProvider with ChangeNotifier {
     if (!_disposed) {
       notifyListeners();
     }
-    return pointsEarned;
+    return totalPointsEarned;
   }
 
   // 데이터 새로고침
@@ -1765,6 +1869,63 @@ class BrainHealthProvider with ChangeNotifier {
       'totalGamesPlayed': _totalGamesPlayed,
       'scoreHistoryCount': _scoreHistory.length,
     };
+  }
+
+  // 스트릭 보너스 계산 메서드
+  int _calculateStreakBonus(int streak) {
+    if (streak <= 1) return 0;
+
+    // 스트릭에 따른 보너스 점수 계산
+    // 2연속: 5점, 3연속: 12점, 4연속: 22점, 5연속: 35점, ...
+    // 공식: (streak - 1) * streak * 2.5 (반올림)
+    if (streak <= 10) {
+      return ((streak - 1) * streak * 2.5).round();
+    } else if (streak <= 20) {
+      // 10연속 이후부터는 증가폭을 줄임
+      int baseBonus = ((10 - 1) * 10 * 2.5).round(); // 10연속 보너스: 225점
+      int additionalBonus = (streak - 10) * 15; // 11연속부터는 연속당 15점씩 추가
+      return baseBonus + additionalBonus;
+    } else {
+      // 20연속 이후부터는 더욱 증가폭을 줄임
+      int baseBonus =
+          ((10 - 1) * 10 * 2.5).round() + (10 * 15); // 20연속까지의 보너스: 375점
+      int additionalBonus = (streak - 20) * 10; // 21연속부터는 연속당 10점씩 추가
+      return baseBonus + additionalBonus;
+    }
+  }
+
+  // 스트릭 업데이트 메서드 (24시간 내 연속 플레이면 매 게임마다 증가)
+  void _updateStreak() {
+    final DateTime now = DateTime.now();
+
+    if (_lastGameDate == null) {
+      // 첫 게임 완료
+      _currentStreak = 1;
+      _lastGameDate = now; // 전체 타임스탬프 저장
+    } else {
+      final Duration sinceLast = now.difference(_lastGameDate!);
+
+      if (sinceLast.inHours < 24) {
+        // 24시간 이내 연속 플레이 → 스트릭 증가
+        _currentStreak++;
+        _lastGameDate = now;
+      } else {
+        // 24시간 초과 → 스트릭 리셋
+        _currentStreak = 1;
+        _lastGameDate = now;
+      }
+    }
+
+    // 최장 스트릭 업데이트
+    if (_currentStreak > _longestStreak) {
+      _longestStreak = _currentStreak;
+    }
+
+    // 스트릭 보너스 계산
+    _streakBonus = _calculateStreakBonus(_currentStreak);
+
+    print(
+        '스트릭 업데이트: 현재 ${_currentStreak}연속, 보너스: ${_streakBonus}점, 최장: ${_longestStreak}연속');
   }
 
   // 현재 Brain Health 점수 가져오기

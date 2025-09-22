@@ -93,7 +93,7 @@ const Map<String, String> huTranslations = {
   'its_a_tie': 'Döntetlen!',
   'points_divided': 'Pontok megosztva!',
   'time_seconds': 'Idő: {seconds} másodperc',
-  'flips': 'Fordítások: {count}',
+  'flips': 'Fordítások: ',
   'players_score_multiplier': '({players} játékos: pontok ×{multiplier})',
   'points_divided_explanation': '(Pontok megosztva)',
   'health_score': 'Agy egészség pontok: +{points}',

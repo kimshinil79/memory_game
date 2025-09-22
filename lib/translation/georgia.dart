@@ -96,7 +96,7 @@ const Map<String, String> kaGETranslations = {
   'its_a_tie': 'ფრეა!',
   'points_divided': 'ქულები თანაბრად იყოფა ფრეზე!',
   'time_seconds': 'დრო: {seconds} წამი',
-  'flips': 'გადაბრუნება: {count}',
+  'flips': 'გადაბრუნება: ',
   'players_score_multiplier': '({players} მოთამაშე: ქულა x{multiplier})',
   'points_divided_explanation': '(ქულები იყოფა ფრეზე)',
   'health_score': 'ტვინის ჯანმრთელობის ქულა: +{points}',

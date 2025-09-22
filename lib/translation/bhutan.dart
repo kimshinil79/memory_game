@@ -97,7 +97,7 @@ const Map<String, String> dzTranslations = {
   'its_a_tie': 'མཉམ་པ།',
   'points_divided': 'མཉམ་པའི་གོ་སྐབས་སུ་གོ་ཐོབ་བགོས་པ།',
   'time_seconds': 'དུས་ཚོད་: {seconds} སྐར་མ།',
-  'flips': 'བསྒྱུར་བ་: {count}',
+  'flips': 'བསྒྱུར་བ་: ',
   'players_score_multiplier': '({players} རྩེད་མོ་བ་: གོ་ཐོབ་ ×{multiplier})',
   'points_divided_explanation': '(མཉམ་པའི་གོ་སྐབས་སུ་གོ་ཐོབ་བགོས་པ།)',
   'health_score': 'ཀླད་པའི་བདེ་ཐང་གི་གོ་ཐོབ་: +{points}',

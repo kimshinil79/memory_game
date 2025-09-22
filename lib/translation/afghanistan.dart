@@ -90,7 +90,7 @@ Map<String, String> afTranslations = {
   'its_a_tie': 'برابري ده!',
   'points_divided': 'نمرې د برابرو لوبغاړو ترمنځ ویشل کیږي!',
   'time_seconds': 'وخت: {seconds} ثانیې',
-  'flips': 'ګرځول: {count}',
+  'flips': 'ګرځول: ',
   'players_score_multiplier': '({players} لوبغاړي: نمره x{multiplier})',
   'points_divided_explanation': '(نمرې د برابرو لوبغاړو ترمنځ ویشل کیږي)',
   'health_score': 'د مغز روغتیا نمره: +{points}',

@@ -93,7 +93,7 @@ const Map<String, String> roROTranslations = {
   'its_a_tie': 'Egalitate!',
   'points_divided': 'Puncte împărțite!',
   'time_seconds': 'Timp: {seconds} secunde',
-  'flips': 'Întoarceri: {count}',
+  'flips': 'Întoarceri: ',
   'players_score_multiplier': '({players} jucători ×{multiplier})',
   'points_divided_explanation': '(puncte împărțite între jucători)',
   'health_score': 'Sănătate +{points}',

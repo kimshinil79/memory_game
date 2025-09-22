@@ -95,7 +95,7 @@ const Map<String, String> eoTranslations = {
   'its_a_tie': 'Egaleco!',
   'points_divided': 'Poentoj estas dividitaj en egaleco!',
   'time_seconds': 'Tempo: {seconds} sekundoj',
-  'flips': 'Turnoj: {count}',
+  'flips': 'Turnoj: ',
   'players_score_multiplier': '({players} ludantoj: poentoj ×{multiplier})',
   'points_divided_explanation': '(Poentoj estas dividitaj en egaleco)',
   'health_score': 'Cerebraj sanpoentoj: +{points}',

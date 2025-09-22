@@ -93,7 +93,7 @@ const Map<String, String> taLKTranslations = {
   'its_a_tie': 'சமநிலை!',
   'points_divided': 'புள்ளிகள் பிரிக்கப்பட்டுள்ளன!',
   'time_seconds': 'நேரம்: {seconds} வினாடிகள்',
-  'flips': 'புரட்டுகள்: {count} முறை',
+  'flips': 'புரட்டுகள்:  முறை',
   'players_score_multiplier': '({players} விளையாட்டாளர்கள் ×{multiplier})',
   'points_divided_explanation':
       '(புள்ளிகள் விளையாட்டாளர்களுக்கு இடையே பிரிக்கப்படுகின்றன)',

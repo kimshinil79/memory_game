@@ -95,7 +95,7 @@ const Map<String, String> jaTranslations = {
   'its_a_tie': '引き分け！',
   'points_divided': 'ポイントが分割されました！',
   'time_seconds': '時間: {seconds}秒',
-  'flips': 'めくり: {count}',
+  'flips': 'めくり: ',
   'players_score_multiplier': '({players}人: ポイント×{multiplier})',
   'points_divided_explanation': '(ポイント分割)',
   'health_score': '脳の健康スコア: +{points}',

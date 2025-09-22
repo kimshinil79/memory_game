@@ -95,7 +95,7 @@ const Map<String, String> nyTranslations = {
   'its_a_tie': 'Zimagwirizana!',
   'points_divided': 'Maphuzu agawidwa!',
   'time_seconds': 'Nthawi: {seconds} masekondi',
-  'flips': 'Kupindula: {count}',
+  'flips': 'Kupindula: ',
   'players_score_multiplier': '({players} osewera ×{multiplier})',
   'points_divided_explanation': '(Maphuzu agawidwa pakati pa osewera)',
   'health_score': 'Maphuzu a thanzi +{points}',

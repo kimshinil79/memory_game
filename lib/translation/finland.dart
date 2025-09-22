@@ -95,7 +95,7 @@ const Map<String, String> fiTranslations = {
   'its_a_tie': 'Tasapeli!',
   'points_divided': 'Pisteet jaettu!',
   'time_seconds': 'Aika: {seconds} sekuntia',
-  'flips': 'Kääntöjä: {count}',
+  'flips': 'Kääntöjä: ',
   'players_score_multiplier': '({players} pelaajaa: pisteet ×{multiplier})',
   'points_divided_explanation': '(Pisteet jaettu)',
   'health_score': 'Aivoterveyttä pisteet: +{points}',

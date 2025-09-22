@@ -93,7 +93,7 @@ const Map<String, String> idTranslations = {
   'its_a_tie': 'Seri!',
   'points_divided': 'Poin dibagi!',
   'time_seconds': 'Waktu: {seconds} detik',
-  'flips': 'Balik: {count}',
+  'flips': 'Balik: ',
   'players_score_multiplier': '({players} pemain: poin ×{multiplier})',
   'points_divided_explanation': '(Poin dibagi)',
   'health_score': 'Poin Kesehatan Otak: +{points}',

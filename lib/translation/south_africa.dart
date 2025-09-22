@@ -93,7 +93,7 @@ const Map<String, String> enZATranslations = {
   'its_a_tie': "It's a tie!",
   'points_divided': 'Points divided!',
   'time_seconds': 'Time: {seconds} seconds',
-  'flips': 'Flips: {count} times',
+  'flips': 'Flips:  times',
   'players_score_multiplier': '({players} players ×{multiplier})',
   'points_divided_explanation': '(Points are divided among players)',
   'health_score': 'Health +{points}',

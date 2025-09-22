@@ -93,7 +93,7 @@ const Map<String, String> rwRWTranslations = {
   'its_a_tie': 'Byagenze!',
   'points_divided': 'Amanota yagabanyijwe!',
   'time_seconds': 'Igihe: {seconds} amasegonda',
-  'flips': 'Guhindura: {count}',
+  'flips': 'Guhindura: ',
   'players_score_multiplier': '({players} abakinnyi ×{multiplier})',
   'points_divided_explanation': '(amanota yagabanyijwe hagati y\'abakinnyi)',
   'health_score': 'Ubuzima +{points}',

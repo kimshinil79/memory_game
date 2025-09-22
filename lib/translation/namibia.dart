@@ -95,7 +95,7 @@ const Map<String, String> naTranslations = {
   'its_a_tie': "It's a tie!",
   'points_divided': 'Points divided',
   'time_seconds': 'Time: {seconds} seconds',
-  'flips': 'Flips: {count}',
+  'flips': 'Flips: ',
   'players_score_multiplier': 'Players: {players} × {multiplier}',
   'points_divided_explanation': 'Points are divided equally among players',
   'health_score': 'Health Score: {points}',

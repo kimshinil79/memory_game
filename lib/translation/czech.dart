@@ -93,7 +93,7 @@ const Map<String, String> csTranslations = {
   'its_a_tie': 'Remíza!',
   'points_divided': 'Body se dělí v případě remízy!',
   'time_seconds': 'Čas: {seconds} sekund',
-  'flips': 'Otočení: {count}',
+  'flips': 'Otočení: ',
   'players_score_multiplier': '({players} hráči: body ×{multiplier})',
   'points_divided_explanation': '(Body se dělí v případě remízy)',
   'health_score': 'Body zdraví mozku: +{points}',

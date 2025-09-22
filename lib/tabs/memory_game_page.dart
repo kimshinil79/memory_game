@@ -2277,6 +2277,19 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       translations = <String, String>{};
     }
 
+    // 스트릭 정보 가져오기
+    final brainHealthProvider =
+        Provider.of<BrainHealthProvider>(context, listen: false);
+    int currentStreak = brainHealthProvider.currentStreak;
+    int streakBonus = brainHealthProvider.streakBonus;
+
+    // 기본 점수 계산 (스트릭 보너스 제외)
+    int calculatedBasePoints =
+        brainHealthProvider.calculateGameCompletionPoints(
+            gameImages.length ~/ 2, // 매치된 카드 쌍의 개수
+            elapsedTime,
+            widget.gridSize);
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -2292,6 +2305,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           instagramGradientStart: instagramGradientStart,
           instagramGradientEnd: instagramGradientEnd,
           translations: translations,
+          basePoints: calculatedBasePoints,
+          streakBonus: streakBonus,
+          currentStreak: currentStreak,
           onNewGame: () {
             Navigator.of(context).pop();
             initializeGame();

@@ -96,7 +96,7 @@ const Map<String, String> tnTranslations = {
   'its_a_tie': 'Go lekane!',
   'points_divided': 'Dintlha di arogantswe ka tekatekano!',
   'time_seconds': 'Nako: {seconds} metsotswana',
-  'flips': 'Diphetogo: {count}',
+  'flips': 'Diphetogo: ',
   'players_score_multiplier': '({players} bamapadi: dintlha ×{multiplier})',
   'points_divided_explanation': '(Dintlha di arogantswe ka tekatekano)',
   'health_score': 'Dintlha tsa bophelo jwa boko: +{points}',

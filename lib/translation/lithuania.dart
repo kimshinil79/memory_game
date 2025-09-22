@@ -93,7 +93,7 @@ const Map<String, String> ltTranslations = {
   'its_a_tie': 'Lygiosios!',
   'points_divided': 'Taškai padalinti!',
   'time_seconds': 'Laikas: {seconds} sekundės',
-  'flips': 'Apvertimai: {count}',
+  'flips': 'Apvertimai: ',
   'players_score_multiplier': '({players} žaidėjai: taškai ×{multiplier})',
   'points_divided_explanation': '(Taškai padalinti)',
   'health_score': 'Smegenų sveikatos taškai: +{points}',

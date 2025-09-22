@@ -97,7 +97,7 @@ const Map<String, String> elCYTranslations = {
   'its_a_tie': 'Ισοπαλία!',
   'points_divided': 'Οι βαθμοί μοιράζονται σε ισοπαλία!',
   'time_seconds': 'Χρόνος: {seconds} δευτερόλεπτα',
-  'flips': 'Αναποδογυρίσματα: {count}',
+  'flips': 'Αναποδογυρίσματα: ',
   'players_score_multiplier': '({players} παίκτες: βαθμοί ×{multiplier})',
   'points_divided_explanation': '(Βαθμοί μοιράστηκαν σε ισοπαλία)',
   'health_score': 'Βαθμοί υγείας εγκεφάλου: +{points}',

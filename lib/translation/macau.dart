@@ -93,7 +93,7 @@ const Map<String, String> moTranslations = {
   'its_a_tie': '平局！',
   'points_divided': '分数已分配！',
   'time_seconds': '时间：{seconds}秒',
-  'flips': '翻牌：{count}次',
+  'flips': '翻牌：次',
   'players_score_multiplier': '（{players}名玩家 ×{multiplier}）',
   'points_divided_explanation': '（分数在玩家之间分配）',
   'health_score': '健康分数 +{points}',

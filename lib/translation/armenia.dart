@@ -93,7 +93,7 @@ const Map<String, String> amTranslations = {
   'its_a_tie': 'Ոչ-ոքի!',
   'points_divided': 'Միավորները հավասարապես բաժանվում են ոչ-ոքիի դեպքում!',
   'time_seconds': 'Ժամանակ՝ {seconds} վայրկյան',
-  'flips': 'Շրջումներ՝ {count}',
+  'flips': 'Շրջումներ՝ ',
   'players_score_multiplier': '({players} խաղացող՝ միավոր x{multiplier})',
   'points_divided_explanation': '(Միավորները բաժանվում են ոչ-ոքիի դեպքում)',
   'health_score': 'Ուղեղի առողջության միավոր՝ +{points}',

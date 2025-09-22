@@ -95,7 +95,7 @@ const Map<String, String> arLBTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'القلبات: {count}',
+  'flips': 'القلبات: ',
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط)',
   'health_score': 'نقاط صحة الدماغ: +{points}',

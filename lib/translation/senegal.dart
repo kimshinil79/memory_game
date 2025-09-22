@@ -93,7 +93,7 @@ const Map<String, String> frSNTranslations = {
   'its_a_tie': 'Égalité!',
   'points_divided': 'Points divisés!',
   'time_seconds': 'Temps: {seconds} secondes',
-  'flips': 'Retournements: {count}',
+  'flips': 'Retournements: ',
   'players_score_multiplier': '({players} joueurs ×{multiplier})',
   'points_divided_explanation': '(points divisés entre les joueurs)',
   'health_score': 'Santé +{points}',

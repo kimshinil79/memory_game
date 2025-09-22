@@ -93,7 +93,7 @@ const Map<String, String> kmTranslations = {
   'its_a_tie': 'ស្មើគ្នា!',
   'points_divided': 'ពិន្ទុត្រូវបានបែងចែកនៅពេលស្មើគ្នា!',
   'time_seconds': 'ពេលវេលា៖ {seconds} វិនាទី',
-  'flips': 'ចំនួនដងបត់៖ {count}',
+  'flips': 'ចំនួនដងបត់៖ ',
   'players_score_multiplier': '({players} អ្នកលេង៖ ពិន្ទុ ×{multiplier})',
   'points_divided_explanation': '(ពិន្ទុត្រូវបានបែងចែកនៅពេលស្មើគ្នា)',
   'health_score': 'ពិន្ទុសុខភាពខួរក្បាល៖ +{points}',

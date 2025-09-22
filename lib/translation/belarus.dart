@@ -94,7 +94,7 @@ const Map<String, String> beTranslations = {
   'its_a_tie': 'Нічыя!',
   'points_divided': 'Ачкі дзеляцца ў выпадку нічыі!',
   'time_seconds': 'Час: {seconds} секунд',
-  'flips': 'Перавароты: {count}',
+  'flips': 'Перавароты: ',
   'players_score_multiplier': '({players} гульцоў: ачкі ×{multiplier})',
   'points_divided_explanation': '(Ачкі дзеляцца ў выпадку нічыі)',
   'health_score': 'Ачкі здароўя мозгу: +{points}',

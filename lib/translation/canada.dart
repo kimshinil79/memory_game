@@ -95,7 +95,7 @@ const Map<String, String> enCATranslations = {
   'its_a_tie': 'It\'s a tie!',
   'points_divided': 'Points divided in case of tie!',
   'time_seconds': 'Time: {seconds} seconds',
-  'flips': 'Flips: {count}',
+  'flips': 'Flips: ',
   'players_score_multiplier': '({players} players: points ×{multiplier})',
   'points_divided_explanation': '(Points divided in case of tie)',
   'health_score': 'Brain health points: +{points}',

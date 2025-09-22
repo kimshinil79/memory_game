@@ -95,7 +95,7 @@ const Map<String, String> mxMEXTranslations = {
   'its_a_tie': '¡Es un empate!',
   'points_divided': 'Puntos divididos',
   'time_seconds': 'Tiempo: {seconds} segundos',
-  'flips': 'Volteos: {count}',
+  'flips': 'Volteos: ',
   'players_score_multiplier': 'Jugadores: {players} × {multiplier}',
   'points_divided_explanation':
       'Los puntos se dividen equitativamente entre los jugadores',

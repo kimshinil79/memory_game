@@ -95,7 +95,7 @@ const Map<String, String> swTZTranslations = {
   'its_a_tie': 'Mpango!',
   'points_divided': 'Pointi zimegawanywa!',
   'time_seconds': 'Muda: {seconds} sekunde',
-  'flips': 'Mageuzi: {count}',
+  'flips': 'Mageuzi: ',
   'players_score_multiplier': '({players} mchezaji ×{multiplier})',
   'points_divided_explanation': '(Pointi zimegawanywa kati ya wachezaji)',
   'health_score': 'Afya +{points}',

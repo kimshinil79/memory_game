@@ -95,7 +95,7 @@ const Map<String, String> ptMOZTranslations = {
   'its_a_tie': 'Empate!',
   'points_divided': 'Pontos divididos',
   'time_seconds': 'Tempo: {seconds} segundos',
-  'flips': 'Viradas: {count}',
+  'flips': 'Viradas: ',
   'players_score_multiplier': 'Jogadores: {players} × {multiplier}',
   'points_divided_explanation':
       'Os pontos são divididos igualmente entre os jogadores',

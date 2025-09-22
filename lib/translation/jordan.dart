@@ -95,7 +95,7 @@ const Map<String, String> arJOTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'قلب: {count}',
+  'flips': 'قلب: ',
   'players_score_multiplier': '({players} لاعبين: نقاط ×{multiplier})',
   'points_divided_explanation': '(تقسيم النقاط)',
   'health_score': 'درجة صحة الدماغ: +{points}',

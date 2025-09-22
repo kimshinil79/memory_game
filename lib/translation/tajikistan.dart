@@ -95,7 +95,7 @@ const Map<String, String> tgTJTranslations = {
   'its_a_tie': 'Мусовӣ!',
   'points_divided': 'Нуқтаҳо тақсим шуданд!',
   'time_seconds': 'Вақт: {seconds} сония',
-  'flips': 'Чаппаниҳо: {count}',
+  'flips': 'Чаппаниҳо: ',
   'players_score_multiplier': '({players} бозигар ×{multiplier})',
   'points_divided_explanation': '(Нуқтаҳо байни бозигарон тақсим шуданд)',
   'health_score': 'Саломатӣ +{points}',

@@ -94,7 +94,7 @@ const Map<String, String> soSOTranslations = {
   'its_a_tie': "Waa is barbar dhig!",
   'points_divided': 'Dhibcaha waa la qaybiyay!',
   'time_seconds': 'Waqtiga: {seconds} ilbiriqsi',
-  'flips': 'Roolasho: {count} jeer',
+  'flips': 'Roolasho:  jeer',
   'players_score_multiplier': '({players} ciyaaryahan ×{multiplier})',
   'points_divided_explanation': '(Dhibcaha waxaa loo qaybiyaa ciyaaryahannada)',
   'health_score': 'Caafimaad +{points}',

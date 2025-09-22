@@ -95,7 +95,7 @@ const Map<String, String> arKMTranslations = {
   'its_a_tie': 'تعادل!',
   'points_divided': 'تم تقسيم النقاط في حالة التعادل!',
   'time_seconds': 'الوقت: {seconds} ثانية',
-  'flips': 'عدد الالتفافات: {count}',
+  'flips': 'عدد الالتفافات: ',
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط في حالة التعادل)',
   'health_score': 'نقاط صحة الدماغ: +{points}',

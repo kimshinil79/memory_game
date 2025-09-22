@@ -95,7 +95,7 @@ const Map<String, String> swKETranslations = {
   'its_a_tie': 'Mchezo wa usawa!',
   'points_divided': 'Pointi zimegawanywa!',
   'time_seconds': 'Muda: {seconds} sekunde',
-  'flips': 'Mageuzi: {count}',
+  'flips': 'Mageuzi: ',
   'players_score_multiplier': '({players} wachezaji: pointi ×{multiplier})',
   'points_divided_explanation': '(Pointi zimegawanywa)',
   'health_score': 'Pointi za afya ya ubongo: +{points}',

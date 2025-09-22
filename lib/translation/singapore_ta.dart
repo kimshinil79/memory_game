@@ -93,7 +93,7 @@ const Map<String, String> taSGTranslations = {
   'its_a_tie': 'சமநிலை!',
   'points_divided': 'புள்ளிகள் பிரிக்கப்பட்டுள்ளன!',
   'time_seconds': 'நேரம்: {seconds} வினாடிகள்',
-  'flips': 'புரட்டுகள்: {count} முறை',
+  'flips': 'புரட்டுகள்:  முறை',
   'players_score_multiplier': '({players} வீரர்கள் ×{multiplier})',
   'points_divided_explanation':
       '(புள்ளிகள் வீரர்களுக்கு இடையே பிரிக்கப்பட்டுள்ளன)',

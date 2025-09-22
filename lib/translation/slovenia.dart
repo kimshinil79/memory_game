@@ -93,7 +93,7 @@ const Map<String, String> slSITranslations = {
   'its_a_tie': 'Izenačeno!',
   'points_divided': 'Točke so razdeljene!',
   'time_seconds': 'Čas: {seconds} sekund',
-  'flips': 'Obratov: {count} krat',
+  'flips': 'Obratov:  krat',
   'players_score_multiplier': '({players} igralcev ×{multiplier})',
   'points_divided_explanation': '(Točke so razdeljene med igralce)',
   'health_score': 'Zdravje +{points}',

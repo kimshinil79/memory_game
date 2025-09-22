@@ -93,7 +93,7 @@ const Map<String, String> mgTranslations = {
   'its_a_tie': 'Mitovy ny isa!',
   'points_divided': 'Zara-petra ny isa!',
   'time_seconds': 'Fotoana: {seconds} segondra',
-  'flips': 'Fihodinana: {count}',
+  'flips': 'Fihodinana: ',
   'players_score_multiplier': '({players} mpikambana ×{multiplier})',
   'points_divided_explanation': '(Zara-petra ny isa eo amin\'ny mpikambana)',
   'health_score': 'Isa fahasalamana +{points}',

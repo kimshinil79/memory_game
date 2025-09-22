@@ -94,7 +94,7 @@ const Map<String, String> rnTranslations = {
   'its_a_tie': 'Batsinze!',
   'points_divided': 'Amapointe yagabanyijwe!',
   'time_seconds': 'Igihe: {seconds} amasegonda',
-  'flips': 'Guhindura: {count}',
+  'flips': 'Guhindura: ',
   'players_score_multiplier': '({players} abakinnyi: amapointe ×{multiplier})',
   'points_divided_explanation': '(Amapointe yagabanyijwe)',
   'health_score': 'Amapointe y\'ubuzima bw\'ubwonko: +{points}',

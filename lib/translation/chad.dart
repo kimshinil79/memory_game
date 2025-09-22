@@ -96,7 +96,7 @@ const Map<String, String> frTDTranslations = {
   'its_a_tie': 'Égalité !',
   'points_divided': 'Points divisés en cas d\'égalité !',
   'time_seconds': 'Temps : {seconds} secondes',
-  'flips': 'Retournements : {count}',
+  'flips': 'Retournements : ',
   'players_score_multiplier': '({players} joueurs : points ×{multiplier})',
   'points_divided_explanation': '(Points divisés en cas d\'égalité)',
   'health_score': 'Points de santé cérébrale : +{points}',

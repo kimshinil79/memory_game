@@ -95,7 +95,7 @@ const Map<String, String> filTranslations = {
   'its_a_tie': 'Tabla!',
   'points_divided': 'Hati ang mga puntos!',
   'time_seconds': 'Oras: {seconds} segundo',
-  'flips': 'Mga pag-flip: {count}',
+  'flips': 'Mga pag-flip: ',
   'players_score_multiplier': '({players} manlalaro: puntos ×{multiplier})',
   'points_divided_explanation': '(Hati ang mga puntos)',
   'health_score': 'Kalusugan ng utak puntos: +{points}',

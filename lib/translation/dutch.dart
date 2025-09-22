@@ -93,7 +93,7 @@ const Map<String, String> nlTranslations = {
   'its_a_tie': 'Gelijkspel!',
   'points_divided': 'Punten worden gedeeld bij gelijkspel!',
   'time_seconds': 'Tijd: {seconds} seconden',
-  'flips': 'Omgedraaid: {count}',
+  'flips': 'Omgedraaid: ',
   'players_score_multiplier': '({players} spelers: punten ×{multiplier})',
   'points_divided_explanation': '(Punten gedeeld bij gelijkspel)',
   'health_score': 'Hersengezondheid punten: +{points}',

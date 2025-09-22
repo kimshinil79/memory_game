@@ -93,7 +93,7 @@ const Map<String, String> faTranslations = {
   'its_a_tie': 'مساوی!',
   'points_divided': 'امتیازات تقسیم شد!',
   'time_seconds': 'زمان: {seconds} ثانیه',
-  'flips': 'تعداد برگرداندن: {count}',
+  'flips': 'تعداد برگرداندن: ',
   'players_score_multiplier': '({players} بازیکن: امتیاز ×{multiplier})',
   'points_divided_explanation': '(امتیازات تقسیم شد)',
   'health_score': 'امتیاز سلامت مغز: +{points}',

@@ -95,7 +95,7 @@ const Map<String, String> ukUATranslations = {
   'its_a_tie': 'Нічия!',
   'points_divided': 'Очки розділені!',
   'time_seconds': 'Час: {seconds} секунд',
-  'flips': 'Перевертання: {count}',
+  'flips': 'Перевертання: ',
   'players_score_multiplier': '({players} Гравців ×{multiplier})',
   'points_divided_explanation': '(Очки розділені між гравцями)',
   'health_score': 'Здоров\'я +{points}',
