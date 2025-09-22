@@ -259,5 +259,9 @@ const Map<String, String> frCGTranslations = {
   'poop_brain_fun':
       'Votre cerveau maintenant est comme un smartphone à 1% de batterie - a désespérément besoin de charge !',
   'keep_playing_memory_games':
-      'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau de cerveau !'
+      'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau de cerveau !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

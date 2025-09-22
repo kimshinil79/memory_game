@@ -250,4 +250,8 @@ const Map<String, String> mnMNGTranslations = {
       'Баас ч гэсэн бордоо болж чадна! Оролдсоор байгаарай!',
   'keep_playing_memory_games':
       'Тархины эрүүл мэндийг сайжруулахын тулд ой тоглоом тоглосоор байгаарай!',
+  // Ranking tabs
+  'total': 'Нийт',
+  'weekly': 'Долоо хоног',
+  'monthly': 'Сар',
 };

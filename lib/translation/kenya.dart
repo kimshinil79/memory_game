@@ -240,5 +240,9 @@ const Map<String, String> swKETranslations = {
   'poop_brain_fun_comment':
       'Ni wakati wa kujifunza ubongo wako! Wote tumekuwa hapa hapo awali!',
   'keep_playing_memory_games':
-      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!'
+      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!',
+  // Ranking tabs
+  'total': 'Jumla',
+  'weekly': 'Kila wiki',
+  'monthly': 'Kila mwezi',
 };

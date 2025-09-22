@@ -254,5 +254,9 @@ const Map<String, String> eoTranslations = {
       'Via cerebro estas iom dormanta. Sed ne perdu esperon! Vi kreskos.',
   'poop_level_fun_comment': 'Feka cerebro! Sed ne zorgu, vi kreskos! 💩😅',
   'keep_playing_memory_games':
-      'Daŭre ludu memorludojn por plibonigi vian cerbon!'
+      'Daŭre ludu memorludojn por plibonigi vian cerbon!',
+  // Ranking tabs
+  'total': 'Totalo',
+  'weekly': 'Semajne',
+  'monthly': 'Monate',
 };

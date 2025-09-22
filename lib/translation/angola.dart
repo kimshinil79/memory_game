@@ -262,4 +262,8 @@ const Map<String, String> ptAOTranslations = {
       'Seu cérebro agora é como um smartphone com 1% de bateria - precisa desesperadamente de recarga!',
   'keep_playing_memory_games':
       'Continue jogando jogos de memória para aumentar seu nível cerebral!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Semanal',
+  'monthly': 'Mensal',
 };

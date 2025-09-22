@@ -243,4 +243,8 @@ const Map<String, String> meTranslations = {
       'Чак и каки може постати ђубриво! Наставите да покушавате!',
   'keep_playing_memory_games':
       'Наставите да играте игре меморије да побољшате здравље мозга!',
+  // Ranking tabs
+  'total': 'Ukupno',
+  'weekly': 'Sedmično',
+  'monthly': 'Mjesečno',
 };

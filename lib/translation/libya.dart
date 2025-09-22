@@ -231,5 +231,9 @@ const Map<String, String> arLYTranslations = {
   'poop_brain': 'دماغ ضعيف',
   'poop_brain_description': 'يحتاج إلى تحسين. لا تقلق، كل شخص يبدأ من مكان ما!',
   'poop_brain_fun_comment': 'حان الوقت لتدريب دماغك! الجميع كان هنا من قبل!',
-  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!'
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

@@ -241,5 +241,9 @@ const Map<String, String> nnNOTranslations = {
       'Treng meir øving. Ikkje gje opp, alle kan forbetra seg!',
   'poop_brain_fun_comment': 'Sjølv bæsj kan bli gjødsel! Hald fram å prøva!',
   'keep_playing_memory_games':
-      'Hald fram å spela minne-spel for å forbetra hjernesundheita!'
+      'Hald fram å spela minne-spel for å forbetra hjernesundheita!',
+  // Ranking tabs
+  'total': 'Totalt',
+  'weekly': 'Ukentlig',
+  'monthly': 'Månedlig',
 };

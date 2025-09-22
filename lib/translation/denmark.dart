@@ -254,5 +254,9 @@ const Map<String, String> daTranslations = {
   'poop_brain_fun':
       'Din hjerne lige nu er som en smartphone på 1% batteri - desperat behov for opladning!',
   'keep_playing_memory_games':
-      'Bliv ved med at spille hukommelsesspil for at øge dit hjerne niveau!'
+      'Bliv ved med at spille hukommelsesspil for at øge dit hjerne niveau!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Ugentlig',
+  'monthly': 'Månedlig',
 };

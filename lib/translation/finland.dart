@@ -234,5 +234,9 @@ const Map<String, String> fiTranslations = {
       'Aivosi ovat vähän unelias. Mutta älä menetä toivoasi! Kasvat.',
   'poop_level_fun_comment': 'Kakkaaivot! Mutta älä huoli, kasvat! 💩😅',
   'keep_playing_memory_games':
-      'Jatka muistipelien pelaamista aivojesi parantamiseksi!'
+      'Jatka muistipelien pelaamista aivojesi parantamiseksi!',
+  // Ranking tabs
+  'total': 'Yhteensä',
+  'weekly': 'Viikoittain',
+  'monthly': 'Kuukausittain',
 };

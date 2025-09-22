@@ -228,4 +228,8 @@ const Map<String, String> zhSGTranslations = {
   'poop_brain_desc': '刚刚开始您的大脑健康之旅。',
   'poop_brain_fun': '您现在的大脑就像电量只有1%的智能手机 - 急需充电！',
   'keep_playing_memory_games': '继续玩记忆游戏来提升您的大脑等级！',
+  // Ranking tabs
+  'total': '總計',
+  'weekly': '每週',
+  'monthly': '每月',
 };

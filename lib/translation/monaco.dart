@@ -255,4 +255,8 @@ const Map<String, String> mcMCTTranslations = {
       'Même le caca peut devenir de l\'engrais ! Continuez à essayer !',
   'keep_playing_memory_games':
       'Continuez à jouer aux jeux de mémoire pour améliorer votre santé cérébrale !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

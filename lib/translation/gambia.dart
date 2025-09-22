@@ -234,5 +234,9 @@ const Map<String, String> enGMTranslations = {
       'Your brain is a bit sleepy. But don\'t lose hope! You will grow.',
   'poop_level_fun_comment': 'Poop brain! But don\'t worry, you will grow! 💩😅',
   'keep_playing_memory_games':
-      'Keep playing memory games to improve your brain!'
+      'Keep playing memory games to improve your brain!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Weekly',
+  'monthly': 'Monthly',
 };

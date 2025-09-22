@@ -263,4 +263,8 @@ const Map<String, String> caADTranslations = {
       'El teu cervell ara mateix és com un telèfon intel·ligent amb 1% de bateria - necessita càrrega desesperadament!',
   'keep_playing_memory_games':
       'Continua jugant a jocs de memòria per augmentar el teu nivell cerebral!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Setmanal',
+  'monthly': 'Mensual',
 };

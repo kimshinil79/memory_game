@@ -221,4 +221,8 @@ const Map<String, String> jaTranslations = {
   'poop_brain_desc': '脳の健康の旅を始めたばかりです。',
   'poop_brain_fun': 'あなたの脳は今、バッテリー1％のスマートフォンのようです - 急速充電が必要です！',
   'keep_playing_memory_games': '記憶ゲームを続けて脳レベルを上げましょう！',
+  // Ranking tabs
+  'total': '合計',
+  'weekly': '週間',
+  'monthly': '月間',
 };

@@ -229,5 +229,9 @@ const Map<String, String> koKPTranslations = {
   'poop_brain': '똥 뇌',
   'poop_brain_description': '더 많은 연습이 필요합니다. 포기하지 마세요, 모든 사람이 향상될 수 있습니다!',
   'poop_brain_fun_comment': '똥도 비료가 될 수 있습니다! 계속 노력하세요!',
-  'keep_playing_memory_games': '뇌 건강을 향상시키기 위해 기억력 게임을 계속 플레이하세요!'
+  'keep_playing_memory_games': '뇌 건강을 향상시키기 위해 기억력 게임을 계속 플레이하세요!',
+  // Ranking tabs
+  'total': '전체',
+  'weekly': '주간',
+  'monthly': '월간',
 };

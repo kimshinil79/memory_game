@@ -232,5 +232,9 @@ const Map<String, String> huTranslations = {
       'Az agyad egy kicsit álmos. De ne veszítsd el a reményt! Fejlődni fogsz.',
   'poop_level_fun_comment': 'Kaki agy! De ne izgulj, fejlődni fogsz! 💩😅',
   'keep_playing_memory_games':
-      'Folytasd a memóriajátékok játszását az agyad fejlesztéséhez!'
+      'Folytasd a memóriajátékok játszását az agyad fejlesztéséhez!',
+  // Ranking tabs
+  'total': 'Összesen',
+  'weekly': 'Hetente',
+  'monthly': 'Havonta',
 };

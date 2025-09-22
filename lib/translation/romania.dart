@@ -248,5 +248,9 @@ const Map<String, String> roROTranslations = {
   'poop_brain_fun_comment':
       'Chiar și rahatul poate deveni îngrășământ! Continuă să încerci!',
   'keep_playing_memory_games':
-      'Continuă să joci jocuri de memorie pentru a-ți îmbunătăți sănătatea creierului!'
+      'Continuă să joci jocuri de memorie pentru a-ți îmbunătăți sănătatea creierului!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Săptămânal',
+  'monthly': 'Lunar',
 };

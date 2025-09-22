@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flag/flag.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/brain_health_provider.dart';
 import '../providers/language_provider.dart';
 
-class UserRankingWidget extends StatelessWidget {
+class UserRankingWidget extends StatefulWidget {
   final BrainHealthProvider provider;
   final double textScaleFactor;
 
@@ -16,254 +17,646 @@ class UserRankingWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<UserRankingWidget> createState() => _UserRankingWidgetState();
+}
+
+class _UserRankingWidgetState extends State<UserRankingWidget>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Get translations from language provider
     final translations =
         Provider.of<LanguageProvider>(context).getUITranslations();
 
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: provider.getUserRankings(),
-      builder: (context, snapshot) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            Colors.grey.shade50.withOpacity(0.8),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.12),
+            spreadRadius: 0,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.08),
+            spreadRadius: 0,
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: Colors.grey.shade200.withOpacity(0.8),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 헤더와 탭바 - 개선된 디자인
+          Row(
             children: [
-              Row(
-                children: [
-                  Text(
-                    translations['user_rankings'] ?? 'User Rankings',
-                    style: GoogleFonts.notoSans(
-                      fontSize: 20 * textScaleFactor,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.purple.shade100, Colors.purple.shade50],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                ],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.leaderboard,
+                  color: Colors.purple.shade700,
+                  size: 20 * widget.textScaleFactor,
+                ),
               ),
-              const SizedBox(height: 16),
-              if (snapshot.connectionState == ConnectionState.waiting)
-                const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              else if (snapshot.hasError)
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      translations['failed_to_load_rankings'] ??
-                          'Failed to load rankings',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 16 * textScaleFactor,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                )
-              else if (!snapshot.hasData || snapshot.data!.isEmpty)
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      translations['no_ranking_data'] ??
-                          'No ranking data available',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 16 * textScaleFactor,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ),
-                )
-              else
-                Column(
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 랭킹 헤더
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 40 * textScaleFactor,
-                              child: Text(translations['rank'] ?? 'Rank',
-                                  style: GoogleFonts.notoSans(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14 * textScaleFactor))),
-                          const SizedBox(width: 8),
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.only(left: 4.0),
-                            child: Text(translations['user'] ?? 'User',
-                                style: GoogleFonts.notoSans(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14 * textScaleFactor)),
-                          )),
-                          // 뇌 이미지에 대한 설명 추가
-                          InkWell(
-                            onTap: () => _showBrainLevelInfo(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.purple.withOpacity(0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              padding: const EdgeInsets.all(4),
-                              child: Icon(
-                                Icons.help_outline,
-                                color: Colors.purple,
-                                size: 16 * textScaleFactor,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              width: 80 * textScaleFactor,
-                              child: Text(translations['score'] ?? 'Score',
-                                  style: GoogleFonts.notoSans(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14 * textScaleFactor),
-                                  textAlign: TextAlign.end)),
-                        ],
+                    Text(
+                      translations['user_rankings'] ?? 'User Rankings',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 20 * widget.textScaleFactor,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                       ),
                     ),
-                    const Divider(),
-                    // 랭킹 목록을 Container로 감싸서 높이 제한
-                    SizedBox(
-                      height: 300, // 고정된 높이 설정
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          final ranking = snapshot.data![index];
-                          bool isCurrentUser =
-                              ranking['isCurrentUser'] ?? false;
-
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8.0),
-                            decoration: BoxDecoration(
-                              color: isCurrentUser
-                                  ? Colors.blue.withOpacity(0.1)
-                                  : null,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 40 * textScaleFactor,
-                                  child: Text(
-                                    '#${ranking['rank']}',
-                                    style: GoogleFonts.notoSans(
-                                      fontWeight: isCurrentUser
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                      fontSize: 14 * textScaleFactor,
-                                      color: _getRankColor(ranking['rank']),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      // 국가 국기 표시
-                                      if (ranking['countryCode'] != null)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: Builder(
-                                            builder: (context) {
-                                              try {
-                                                return Flag.fromString(
-                                                  ranking['countryCode']
-                                                      .toString()
-                                                      .toUpperCase(),
-                                                  height: 16 * textScaleFactor,
-                                                  width: 24 * textScaleFactor,
-                                                  borderRadius: 4,
-                                                );
-                                              } catch (e) {
-                                                // 오류 발생 시 간단한 컨테이너로 대체
-                                                return Container(
-                                                  height: 16 * textScaleFactor,
-                                                  width: 24 * textScaleFactor,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      // 사용자 닉네임
-                                      Expanded(
-                                        child: Text(
-                                          ranking['displayName'],
-                                          style: GoogleFonts.notoSans(
-                                            fontWeight: isCurrentUser
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
-                                            fontSize: 14 * textScaleFactor,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      // Brain level icon
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 4.0, right: 4.0),
-                                        child: Image.asset(
-                                          'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
-                                          width: 18 * textScaleFactor,
-                                          height: 18 * textScaleFactor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 80 * textScaleFactor,
-                                  child: Text(
-                                    '${ranking['score']}',
-                                    style: GoogleFonts.notoSans(
-                                      fontWeight: isCurrentUser
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                      fontSize: 14 * textScaleFactor,
-                                    ),
-                                    textAlign: TextAlign.end,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                    Text(
+                      translations['compete_with_others'] ??
+                          'Compete with players worldwide',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 12 * widget.textScaleFactor,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ],
                 ),
+              ),
             ],
           ),
-        );
+          const SizedBox(height: 16),
+
+          // 탭바 추가 - 개선된 디자인
+          Container(
+            height: 48,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.grey.shade200, width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.08),
+                  spreadRadius: 0,
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: TabBar(
+              controller: _tabController,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.purple.shade400,
+                    Colors.purple.shade600,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.purple.withOpacity(0.3),
+                    spreadRadius: 0,
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.grey.shade600,
+              // 커스텀 탭에서 직접 스타일을 관리하므로 기본 스타일은 제거
+              dividerColor: Colors.transparent,
+              indicatorPadding: EdgeInsets.zero,
+              tabs: [
+                _buildAdaptiveTab(translations['total'] ?? '전체'),
+                _buildAdaptiveTab(translations['weekly'] ?? '주간'),
+                _buildAdaptiveTab(translations['monthly'] ?? '월간'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // 탭 내용
+          SizedBox(
+            height: 350, // 고정된 높이 설정
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildRankingContent('total', translations),
+                _buildRankingContent('weekly', translations),
+                _buildRankingContent('monthly', translations),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 동적으로 크기 조절되는 탭을 빌드하는 메서드
+  Widget _buildAdaptiveTab(String text) {
+    return Tab(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // 탭의 최대 너비 계산 (패딩 고려)
+          final maxWidth = constraints.maxWidth - 16; // 좌우 패딩 8px씩
+
+          // 기본 폰트 크기
+          double fontSize = 13 * widget.textScaleFactor;
+
+          // 텍스트 크기 측정을 위한 임시 스타일
+          TextStyle measureStyle = GoogleFonts.notoSans(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.3,
+          );
+
+          // 텍스트 크기 측정
+          TextPainter textPainter = TextPainter(
+            text: TextSpan(text: text, style: measureStyle),
+            textDirection: TextDirection.ltr,
+          );
+          textPainter.layout();
+
+          // 텍스트가 너무 길면 폰트 크기 줄이기
+          while (textPainter.width > maxWidth &&
+              fontSize > 9 * widget.textScaleFactor) {
+            fontSize -= 0.5 * widget.textScaleFactor;
+            measureStyle = GoogleFonts.notoSans(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+              letterSpacing: fontSize < 12 * widget.textScaleFactor ? 0.1 : 0.3,
+            );
+            textPainter.text = TextSpan(text: text, style: measureStyle);
+            textPainter.layout();
+          }
+
+          return Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: AnimatedBuilder(
+              animation: _tabController,
+              builder: (context, child) {
+                // 현재 탭의 인덱스 확인
+                final currentIndex = _tabController.index;
+                final tabIndex = _getTabIndex(text);
+                final isSelected = currentIndex == tabIndex;
+
+                // 선택 상태에 따른 색상 및 스타일 결정
+                final color = isSelected ? Colors.white : Colors.grey.shade600;
+                final fontWeight =
+                    isSelected ? FontWeight.w600 : FontWeight.w500;
+
+                return Text(
+                  text,
+                  style: GoogleFonts.notoSans(
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                    letterSpacing:
+                        fontSize < 12 * widget.textScaleFactor ? 0.1 : 0.3,
+                    color: color,
+                  ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // 탭 텍스트로부터 인덱스를 구하는 헬퍼 메서드
+  int _getTabIndex(String text) {
+    final translations = Provider.of<LanguageProvider>(context, listen: false)
+        .getUITranslations();
+    if (text == (translations['total'] ?? '전체')) return 0;
+    if (text == (translations['weekly'] ?? '주간')) return 1;
+    if (text == (translations['monthly'] ?? '월간')) return 2;
+    return 0;
+  }
+
+  // 랭킹 콘텐츠를 빌드하는 메서드
+  Widget _buildRankingContent(String period, Map<String, String> translations) {
+    // period에 따라 다른 데이터를 가져옵니다
+    Future<List<Map<String, dynamic>>> future;
+
+    switch (period) {
+      case 'weekly':
+        future = _getWeeklyRankings();
+        break;
+      case 'monthly':
+        future = _getMonthlyRankings();
+        break;
+      case 'total':
+      default:
+        future = widget.provider.getUserRankings();
+        break;
+    }
+
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                translations['failed_to_load_rankings'] ??
+                    'Failed to load rankings',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16 * widget.textScaleFactor,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                translations['no_ranking_data'] ?? 'No ranking data available',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16 * widget.textScaleFactor,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Column(
+            children: [
+              // 랭킹 헤더
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        width: 40 * widget.textScaleFactor,
+                        child: Text(translations['rank'] ?? 'Rank',
+                            style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor))),
+                    const SizedBox(width: 8),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(translations['user'] ?? 'User',
+                          style: GoogleFonts.notoSans(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14 * widget.textScaleFactor)),
+                    )),
+                    // 뇌 이미지에 대한 설명 추가
+                    InkWell(
+                      onTap: () => _showBrainLevelInfo(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.purple.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.help_outline,
+                          color: Colors.purple,
+                          size: 16 * widget.textScaleFactor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        width: 80 * widget.textScaleFactor,
+                        child: Text(translations['score'] ?? 'Score',
+                            style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor),
+                            textAlign: TextAlign.end)),
+                  ],
+                ),
+              ),
+              const Divider(),
+              // 랭킹 목록을 Container로 감싸서 높이 제한
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final ranking = snapshot.data![index];
+                    bool isCurrentUser = ranking['isCurrentUser'] ?? false;
+
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        color:
+                            isCurrentUser ? Colors.blue.withOpacity(0.1) : null,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 40 * widget.textScaleFactor,
+                            child: Text(
+                              '#${ranking['rank']}',
+                              style: GoogleFonts.notoSans(
+                                fontWeight: isCurrentUser
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: _getRankColor(ranking['rank']),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                // 국가 국기 표시
+                                if (ranking['countryCode'] != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Builder(
+                                      builder: (context) {
+                                        try {
+                                          return Flag.fromString(
+                                            ranking['countryCode']
+                                                .toString()
+                                                .toUpperCase(),
+                                            height: 16 * widget.textScaleFactor,
+                                            width: 24 * widget.textScaleFactor,
+                                            borderRadius: 4,
+                                          );
+                                        } catch (e) {
+                                          // 오류 발생 시 간단한 컨테이너로 대체
+                                          return Container(
+                                            height: 16 * widget.textScaleFactor,
+                                            width: 24 * widget.textScaleFactor,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                // 사용자 닉네임
+                                Expanded(
+                                  child: Text(
+                                    ranking['displayName'],
+                                    style: GoogleFonts.notoSans(
+                                      fontWeight: isCurrentUser
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                      fontSize: 14 * widget.textScaleFactor,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                // Brain level icon
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 4.0, right: 4.0),
+                                  child: Image.asset(
+                                    'assets/icon/level${ranking['brainHealthIndexLevel'] ?? 1}_brain.png',
+                                    width: 18 * widget.textScaleFactor,
+                                    height: 18 * widget.textScaleFactor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 80 * widget.textScaleFactor,
+                            child: Text(
+                              '${ranking['score']}',
+                              style: GoogleFonts.notoSans(
+                                fontWeight: isCurrentUser
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 14 * widget.textScaleFactor,
+                              ),
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        }
       },
     );
+  }
+
+  // 주간 랭킹 데이터를 가져오는 메서드
+  Future<List<Map<String, dynamic>>> _getWeeklyRankings() async {
+    try {
+      final rankings = await widget.provider.getUserRankings();
+
+      // 각 유저의 주간 점수를 계산
+      final weeklyRankings = <Map<String, dynamic>>[];
+      final now = DateTime.now();
+      final oneWeekAgo = now.subtract(const Duration(days: 7));
+
+      for (final ranking in rankings) {
+        final userId = ranking['userId'] as String?;
+        if (userId == null) continue;
+
+        // 해당 유저의 주간 점수 계산
+        final weeklyScore =
+            await _calculateUserWeeklyScore(userId, oneWeekAgo, now);
+
+        final weeklyRanking = Map<String, dynamic>.from(ranking);
+        weeklyRanking['score'] = weeklyScore;
+        weeklyRankings.add(weeklyRanking);
+      }
+
+      // 주간 점수로 정렬
+      weeklyRankings
+          .sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
+
+      // 새로운 순위 부여
+      for (int i = 0; i < weeklyRankings.length; i++) {
+        weeklyRankings[i]['rank'] = i + 1;
+      }
+
+      return weeklyRankings;
+    } catch (e) {
+      print('Error getting weekly rankings: $e');
+      return [];
+    }
+  }
+
+  // 월간 랭킹 데이터를 가져오는 메서드
+  Future<List<Map<String, dynamic>>> _getMonthlyRankings() async {
+    try {
+      final rankings = await widget.provider.getUserRankings();
+
+      // 각 유저의 월간 점수를 계산
+      final monthlyRankings = <Map<String, dynamic>>[];
+      final now = DateTime.now();
+      final oneMonthAgo = now.subtract(const Duration(days: 30));
+
+      for (final ranking in rankings) {
+        final userId = ranking['userId'] as String?;
+        if (userId == null) continue;
+
+        // 해당 유저의 월간 점수 계산
+        final monthlyScore =
+            await _calculateUserMonthlyScore(userId, oneMonthAgo, now);
+
+        final monthlyRanking = Map<String, dynamic>.from(ranking);
+        monthlyRanking['score'] = monthlyScore;
+        monthlyRankings.add(monthlyRanking);
+      }
+
+      // 월간 점수로 정렬
+      monthlyRankings
+          .sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
+
+      // 새로운 순위 부여
+      for (int i = 0; i < monthlyRankings.length; i++) {
+        monthlyRankings[i]['rank'] = i + 1;
+      }
+
+      return monthlyRankings;
+    } catch (e) {
+      print('Error getting monthly rankings: $e');
+      return [];
+    }
+  }
+
+  // 특정 유저의 주간 점수를 계산 (기간 내 순증가치 기반)
+  Future<int> _calculateUserWeeklyScore(
+      String userId, DateTime startDate, DateTime endDate) async {
+    return _calculateUserScoreDelta(userId, startDate, endDate);
+  }
+
+  // 특정 유저의 월간 점수를 계산 (기간 내 순증가치 기반)
+  Future<int> _calculateUserMonthlyScore(
+      String userId, DateTime startDate, DateTime endDate) async {
+    return _calculateUserScoreDelta(userId, startDate, endDate);
+  }
+
+  // 기간 내 순증가치(Delta)를 계산: 누적 점수 스냅샷에서 종료값 - 시작값
+  Future<int> _calculateUserScoreDelta(
+      String userId, DateTime startDate, DateTime endDate) async {
+    try {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (!userDoc.exists) return 0;
+
+      final userData = userDoc.data() as Map<String, dynamic>;
+      if (!userData.containsKey('brain_health') ||
+          !(userData['brain_health'] is Map) ||
+          !(userData['brain_health'] as Map).containsKey('scoreHistory')) {
+        return 0;
+      }
+
+      final scoreHistoryMap =
+          (userData['brain_health']['scoreHistory'] as Map<String, dynamic>);
+
+      // 타임스탬프 오름차순 정렬된 리스트로 변환
+      final entries = scoreHistoryMap.entries
+          .map((e) {
+            try {
+              final ts = int.parse(e.key);
+              return MapEntry<DateTime, int>(
+                  DateTime.fromMillisecondsSinceEpoch(ts),
+                  (e.value as num).toInt());
+            } catch (_) {
+              return null;
+            }
+          })
+          .whereType<MapEntry<DateTime, int>>()
+          .toList()
+        ..sort((a, b) => a.key.compareTo(b.key));
+
+      if (entries.isEmpty) return 0;
+
+      // 기간 내 엔트리들
+      final inPeriod = entries
+          .where((e) => !e.key.isBefore(startDate) && !e.key.isAfter(endDate))
+          .toList();
+      if (inPeriod.isEmpty) return 0;
+
+      // 시작 기준값: 시작일 이전의 마지막 값이 있으면 그 값, 없으면 기간 내 첫 값
+      int startBaseline;
+      final beforeStart =
+          entries.where((e) => e.key.isBefore(startDate)).toList();
+      if (beforeStart.isNotEmpty) {
+        startBaseline = beforeStart.last.value;
+      } else {
+        startBaseline = inPeriod.first.value;
+      }
+
+      // 종료값: 기간 내 마지막 값
+      final endValue = inPeriod.last.value;
+
+      final delta = endValue - startBaseline;
+      return delta > 0 ? delta : 0;
+    } catch (e) {
+      print('Error calculating score delta for user $userId: $e');
+      return 0;
+    }
   }
 
   // 랭킹에 따른 색상 반환

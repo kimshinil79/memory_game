@@ -235,4 +235,8 @@ const Map<String, String> skSKTranslations = {
       'Váš mozog je teraz ako smartphone s 1% batériou - zúfalo potrebuje nabíjanie!',
   'keep_playing_memory_games':
       'Pokračujte v hraní hier na pamäť, aby ste zvýšili úroveň svojho mozgu!',
+  // Ranking tabs
+  'total': 'Celkom',
+  'weekly': 'Týždenne',
+  'monthly': 'Mesačne',
 };

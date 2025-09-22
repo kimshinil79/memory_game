@@ -241,5 +241,9 @@ const Map<String, String> trTRTranslations = {
   'poop_brain_fun':
       'Beyniniz güç tasarrufu modunda %20 bataryası olan bir akıllı telefon gibi. Şarj zamanı!',
   'keep_playing_memory_games':
-      'Beyin seviyenizi geliştirmek için hafıza oyunları oynamaya devam edin!'
+      'Beyin seviyenizi geliştirmek için hafıza oyunları oynamaya devam edin!',
+  // Ranking tabs
+  'total': 'Toplam',
+  'weekly': 'Haftalık',
+  'monthly': 'Aylık',
 };

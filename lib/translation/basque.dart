@@ -259,4 +259,8 @@ const Map<String, String> euTranslations = {
       'Ez kezkatu, denak hasten dira nonbaitetik - eta kaka ere ontzi handia izan daiteke hazkunde handia lortzeko!',
   'keep_playing_memory_games':
       'Jarraitu memoria jokoak jokatzen zure burmuinaren maila igotzeko!',
+  // Ranking tabs
+  'total': 'Guztira',
+  'weekly': 'Astero',
+  'monthly': 'Hilean',
 };

@@ -236,4 +236,8 @@ const Map<String, String> srRSTranslations = {
       'Твој мозак је сада као паметни телефон са 1% батерије - очајнички треба пуњење!',
   'keep_playing_memory_games':
       'Настави да играш игре меморије да повећаш ниво свог мозга!',
+  // Ranking tabs
+  'total': 'Ukupno',
+  'weekly': 'Sedmično',
+  'monthly': 'Mjesečno',
 };

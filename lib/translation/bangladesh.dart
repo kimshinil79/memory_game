@@ -258,4 +258,8 @@ const Map<String, String> bnBDTranslations = {
       'চিন্তা করবেন না, সবাই কোথাও না কোথাও শুরু করে - এমনকি মলও মহান বৃদ্ধির জন্য সার হতে পারে!',
   'keep_playing_memory_games':
       'আপনার মস্তিষ্কের স্তর বাড়াতে মেমরি গেম খেলা চালিয়ে যান!',
+  // Ranking tabs
+  'total': 'মোট',
+  'weekly': 'সাপ্তাহিক',
+  'monthly': 'মাসিক',
 };

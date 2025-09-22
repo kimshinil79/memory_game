@@ -249,5 +249,9 @@ const Map<String, String> ptMOZTranslations = {
   'poop_brain_fun_comment':
       'Até o cocó pode tornar-se fertilizante! Continue a tentar!',
   'keep_playing_memory_games':
-      'Continue a jogar jogos de memória para melhorar a sua saúde cerebral!'
+      'Continue a jogar jogos de memória para melhorar a sua saúde cerebral!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Semanal',
+  'monthly': 'Mensal',
 };

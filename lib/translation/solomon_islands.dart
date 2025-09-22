@@ -234,4 +234,8 @@ const Map<String, String> enSBTranslations = {
       'Your brain right now is like a smartphone at 1% battery - desperately needs charging!',
   'keep_playing_memory_games':
       'Keep playing memory games to increase your brain level!',
+  // Ranking tabs
+  'total': 'Olgeta',
+  'weekly': 'Evri wik',
+  'monthly': 'Evri manis',
 };

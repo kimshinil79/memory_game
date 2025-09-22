@@ -242,5 +242,9 @@ const Map<String, String> enUSTranslations = {
   'poop_brain_fun':
       'Your brain is like a smartphone with 20% battery in power saving mode. Time to charge!',
   'keep_playing_memory_games':
-      'Keep playing memory games to improve your brain level!'
+      'Keep playing memory games to improve your brain level!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Weekly',
+  'monthly': 'Monthly',
 };

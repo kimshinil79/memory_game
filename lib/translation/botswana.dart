@@ -260,5 +260,9 @@ const Map<String, String> tnTranslations = {
   'poop_brain_fun':
       'O se ka wa tshwenyega, mongwe le mongwe o simolola gongwe - le leswe le ka nna monontsha wa kgolo e kgolo!',
   'keep_playing_memory_games':
-      'Tswela pele o tshameka dipapadi tsa gopolo go oketsa maemo a boko jwa gago!'
+      'Tswela pele o tshameka dipapadi tsa gopolo go oketsa maemo a boko jwa gago!',
+  // Ranking tabs
+  'total': 'Kakaretso',
+  'weekly': 'Beke le beke',
+  'monthly': 'Kgwedi le kgwedi',
 };

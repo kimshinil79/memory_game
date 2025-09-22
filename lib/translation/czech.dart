@@ -250,5 +250,9 @@ const Map<String, String> csTranslations = {
   'poop_brain_fun':
       'Váš mozek je teď jako smartphone na 1% baterie - zoufale potřebuje nabití!',
   'keep_playing_memory_games':
-      'Pokračujte ve hře pexeso pro zvýšení úrovně mozku!'
+      'Pokračujte ve hře pexeso pro zvýšení úrovně mozku!',
+  // Ranking tabs
+  'total': 'Celkem',
+  'weekly': 'Týdně',
+  'monthly': 'Měsíčně',
 };

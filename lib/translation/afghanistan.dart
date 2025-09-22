@@ -248,4 +248,8 @@ Map<String, String> afTranslations = {
   'poop_brain_fun':
       'ستاسې مغز اوس د هغه سمارټ فون په څیر دی چې د 1% بیټرۍ لري - ګړندي چارج ته اړتیا لري!',
   'keep_playing_memory_games': 'د مغز کچه د لوړولو لپاره د حافظې لوبې ولوبوئ!',
+  // Ranking tabs
+  'total': 'ټول',
+  'weekly': 'د اونۍ',
+  'monthly': 'د مياشتې',
 };

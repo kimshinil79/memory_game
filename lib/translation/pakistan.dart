@@ -244,5 +244,9 @@ const Map<String, String> urPKTranslations = {
   'poop_brain_fun_comment':
       'یہاں تک کہ پاخانہ بھی کھاد بن سکتا ہے! کوشش جاری رکھیں!',
   'keep_playing_memory_games':
-      'اپنے دماغ کی صحت بہتر بنانے کے لیے یادداشت کے کھیل کھیلتے رہیں!'
+      'اپنے دماغ کی صحت بہتر بنانے کے لیے یادداشت کے کھیل کھیلتے رہیں!',
+  // Ranking tabs
+  'total': 'کل',
+  'weekly': 'ہفتہ وار',
+  'monthly': 'ماہانہ',
 };

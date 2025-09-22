@@ -255,5 +255,9 @@ const Map<String, String> hrTranslations = {
   'poop_brain_fun':
       'Tvoj mozak sada je kao pametni telefon na 1% baterije - očajnički treba punjenje!',
   'keep_playing_memory_games':
-      'Nastavi igrati igre pamćenja da povećaš svoju razinu mozga!'
+      'Nastavi igrati igre pamćenja da povećaš svoju razinu mozga!',
+  // Ranking tabs
+  'total': 'Ukupno',
+  'weekly': 'Tjedno',
+  'monthly': 'Mjesečno',
 };

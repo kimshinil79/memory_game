@@ -243,4 +243,8 @@ const Map<String, String> msTranslations = {
   'poop_brain_fun_comment': 'Even poop can become fertilizer! Keep trying!',
   'keep_playing_memory_games':
       'Keep playing memory games to improve your brain health!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Weekly',
+  'monthly': 'Monthly',
 };

@@ -233,5 +233,9 @@ const Map<String, String> arSYTranslations = {
   'poop_brain_desc': 'بداية رحلة صحة دماغك. هناك مساحة كبيرة للنمو!',
   'poop_brain_fun':
       'دماغك مثل هاتف ذكي بـ 20% بطارية في وضع توفير الطاقة. وقت الشحن!',
-  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!'
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين مستوى دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

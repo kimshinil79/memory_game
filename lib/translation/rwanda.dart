@@ -244,5 +244,9 @@ const Map<String, String> rwRWTranslations = {
   'poop_brain_fun_comment':
       'Ni n\'ubwihemu bushobora kuba ifumbire! Komeza ukagerageza!',
   'keep_playing_memory_games':
-      'Komeza gukina imikino y\'ibuka kugira ngo uteze imbere ubuzima bw\'ubwonko bwawe!'
+      'Komeza gukina imikino y\'ibuka kugira ngo uteze imbere ubuzima bw\'ubwonko bwawe!',
+  // Ranking tabs
+  'total': 'Byose',
+  'weekly': 'Icyumweru',
+  'monthly': 'Ukwezi',
 };

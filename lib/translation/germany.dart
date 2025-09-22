@@ -237,5 +237,9 @@ const Map<String, String> deDETranslations = {
   'poop_level_fun_comment':
       'Kacke-Gehirn! Aber machen Sie sich keine Sorgen, Sie werden wachsen! 💩😅',
   'keep_playing_memory_games':
-      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn zu verbessern!'
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn zu verbessern!',
+  // Ranking tabs
+  'total': 'Gesamt',
+  'weekly': 'Wöchentlich',
+  'monthly': 'Monatlich',
 };

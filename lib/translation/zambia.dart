@@ -240,5 +240,9 @@ const Map<String, String> enZMTranslations = {
   'poop_brain_fun':
       'Your brain is like a smartphone with 20% battery in power saving mode. Time to charge!',
   'keep_playing_memory_games':
-      'Keep playing memory games to improve your brain level!'
+      'Keep playing memory games to improve your brain level!',
+  // Ranking tabs
+  'total': 'Zonse',
+  'weekly': 'Sabata iliyonse',
+  'monthly': 'Mwezi uliowonse',
 };

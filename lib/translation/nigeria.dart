@@ -239,5 +239,9 @@ const Map<String, String> enNGTranslations = {
       'Needs more practice. Don\'t give up, everyone can improve!',
   'poop_brain_fun_comment': 'Even poop can become fertilizer! Keep trying!',
   'keep_playing_memory_games':
-      'Keep playing memory games to improve your brain health!'
+      'Keep playing memory games to improve your brain health!',
+  // Ranking tabs
+  'total': 'Gbogbo',
+  'weekly': 'Osemose',
+  'monthly': 'Osuosu',
 };

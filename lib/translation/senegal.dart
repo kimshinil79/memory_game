@@ -243,4 +243,8 @@ const Map<String, String> frSNTranslations = {
       'Votre cerveau en ce moment est comme un smartphone à 1% de batterie - a désespérément besoin de se recharger !',
   'keep_playing_memory_games':
       'Continuez à jouer aux jeux de mémoire pour augmenter votre niveau de cerveau !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

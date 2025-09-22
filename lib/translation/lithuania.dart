@@ -238,5 +238,9 @@ const Map<String, String> ltTranslations = {
   'poop_brain_fun_comment':
       'Laikas treniruoti smegenis! Visi čia kadaise buvome!',
   'keep_playing_memory_games':
-      'Toliau žaiskite atminties žaidimus, kad pagerėtų jūsų smegenų lygis!'
+      'Toliau žaiskite atminties žaidimus, kad pagerėtų jūsų smegenų lygis!',
+  // Ranking tabs
+  'total': 'Iš viso',
+  'weekly': 'Savaitė',
+  'monthly': 'Mėnesio',
 };

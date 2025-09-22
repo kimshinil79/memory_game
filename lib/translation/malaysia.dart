@@ -244,5 +244,9 @@ const Map<String, String> msTranslations = {
   'poop_brain_fun_comment':
       'Walaupun tahi pun boleh jadi baja! Terus berusaha!',
   'keep_playing_memory_games':
-      'Terus main permainan ingatan untuk meningkatkan kesihatan otak anda!'
+      'Terus main permainan ingatan untuk meningkatkan kesihatan otak anda!',
+  // Ranking tabs
+  'total': 'Jumlah',
+  'weekly': 'Mingguan',
+  'monthly': 'Bulanan',
 };

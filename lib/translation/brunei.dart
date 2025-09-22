@@ -256,4 +256,8 @@ const Map<String, String> msBNTranslations = {
       'Jangan risau, semua orang bermula dari suatu tempat - dan bahkan najis pun boleh menjadi baja untuk pertumbuhan yang hebat!',
   'keep_playing_memory_games':
       'Teruskan bermain permainan ingatan untuk meningkatkan tahap otak anda!',
+  // Ranking tabs
+  'total': 'Jumlah',
+  'weekly': 'Mingguan',
+  'monthly': 'Bulanan',
 };

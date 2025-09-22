@@ -227,5 +227,9 @@ const Map<String, String> hkTranslations = {
   'poop_level_name': '💩 便便等级',
   'poop_level_description': '您的大脑有点困倦。但不要失去希望！您会成长的。',
   'poop_level_fun_comment': '便便大脑！但别担心，您会成长的！ 💩😅',
-  'keep_playing_memory_games': '继续玩记忆游戏来改善您的大脑！'
+  'keep_playing_memory_games': '继续玩记忆游戏来改善您的大脑！',
+  // Ranking tabs
+  'total': '總計',
+  'weekly': '每週',
+  'monthly': '每月',
 };

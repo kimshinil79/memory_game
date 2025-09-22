@@ -239,5 +239,9 @@ const Map<String, String> lvLVTranslations = {
   'poop_brain_fun_comment':
       'Ir laiks trenēt jūsu smadzenes! Visi esam bijuši šeit!',
   'keep_playing_memory_games':
-      'Turpiniet spēlēt atmiņas spēles, lai uzlabotu savu smadzeņu līmeni!'
+      'Turpiniet spēlēt atmiņas spēles, lai uzlabotu savu smadzeņu līmeni!',
+  // Ranking tabs
+  'total': 'Kopā',
+  'weekly': 'Nedēļas',
+  'monthly': 'Mēneša',
 };

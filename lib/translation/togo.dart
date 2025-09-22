@@ -243,5 +243,9 @@ const Map<String, String> frTGTranslations = {
   'poop_brain_fun':
       'Votre cerveau est comme un smartphone avec 20% de batterie en mode économie d\'énergie. Temps de recharger !',
   'keep_playing_memory_games':
-      'Continuez à jouer aux jeux de mémoire pour améliorer votre niveau cérébral !'
+      'Continuez à jouer aux jeux de mémoire pour améliorer votre niveau cérébral !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

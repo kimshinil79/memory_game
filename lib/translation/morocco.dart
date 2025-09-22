@@ -234,4 +234,8 @@ const Map<String, String> maTranslations = {
   'poop_brain_fun_comment':
       'حتى البراز يمكن أن يصبح سماداً! استمر في المحاولة!',
   'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين صحة دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

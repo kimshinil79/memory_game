@@ -241,5 +241,9 @@ const Map<String, String> plPLTranslations = {
       'Potrzeba więcej praktyki. Nie poddawaj się, każdy może się poprawić!',
   'poop_brain_fun_comment': 'Nawet kupa może stać się nawozem! Próbuj dalej!',
   'keep_playing_memory_games':
-      'Kontynuuj granie w gry pamięciowe, aby poprawić zdrowie mózgu!'
+      'Kontynuuj granie w gry pamięciowe, aby poprawić zdrowie mózgu!',
+  // Ranking tabs
+  'total': 'Łącznie',
+  'weekly': 'Tygodniowo',
+  'monthly': 'Miesięcznie',
 };

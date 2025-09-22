@@ -228,4 +228,8 @@ const Map<String, String> moTranslations = {
   'poop_brain_description': '需要更多练习。不要放弃，每个人都有改进的空间！',
   'poop_brain_fun_comment': '即使是便便也能变成肥料！继续努力！',
   'keep_playing_memory_games': '继续玩记忆游戏来提升你的大脑健康！',
+  // Ranking tabs
+  'total': '總計',
+  'weekly': '每週',
+  'monthly': '每月',
 };

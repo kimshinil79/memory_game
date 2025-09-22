@@ -253,5 +253,9 @@ const Map<String, String> etTranslations = {
       'Sinu aju on veidi uimane. Aga ära kaota lootust! Sa kasvad.',
   'poop_level_fun_comment': 'Kakaju! Aga ära muretse, sa kasvad! 💩😅',
   'keep_playing_memory_games':
-      'Jätka mälumängude mängimist oma aju parandamiseks!'
+      'Jätka mälumängude mängimist oma aju parandamiseks!',
+  // Ranking tabs
+  'total': 'Kokku',
+  'weekly': 'Nädala',
+  'monthly': 'Kuud',
 };

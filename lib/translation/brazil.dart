@@ -257,4 +257,8 @@ const Map<String, String> ptBRTranslations = {
       'Não se preocupe, todo mundo começa em algum lugar - e até mesmo cocô pode ser fertilizante para um grande crescimento!',
   'keep_playing_memory_games':
       'Continue jogando jogos de memória para aumentar o nível do seu cérebro!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Semanal',
+  'monthly': 'Mensal',
 };

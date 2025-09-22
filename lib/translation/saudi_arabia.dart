@@ -230,4 +230,8 @@ const Map<String, String> arSATranslations = {
   'poop_brain_desc': 'بداية رحلة صحة دماغك.',
   'poop_brain_fun': 'دماغك الآن مثل هاتف ذكي ببطارية 1% - يحتاج شحن بشدة!',
   'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

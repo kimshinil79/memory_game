@@ -258,5 +258,9 @@ const Map<String, String> coTranslations = {
   'poop_brain_fun':
       'U vostru cervellu avà hè cum\'è un smartphone à 1% di batteria - hà bisognu disperatamente di carica!',
   'keep_playing_memory_games':
-      'Cuntinuate à ghjucà à i ghjochi di memoria per aumentà u vostru livellu di cervellu!'
+      'Cuntinuate à ghjucà à i ghjochi di memoria per aumentà u vostru livellu di cervellu!',
+  // Ranking tabs
+  'total': 'Totale',
+  'weekly': 'Settimanale',
+  'monthly': 'Mensile',
 };

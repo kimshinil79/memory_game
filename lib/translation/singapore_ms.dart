@@ -242,4 +242,8 @@ const Map<String, String> msSGTranslations = {
       'Otak anda sekarang seperti telefon pintar dengan bateri 1% - sangat memerlukan pengecasan!',
   'keep_playing_memory_games':
       'Teruskan bermain permainan ingatan untuk meningkatkan tahap otak anda!',
+  // Ranking tabs
+  'total': 'Jumlah',
+  'weekly': 'Mingguan',
+  'monthly': 'Bulanan',
 };

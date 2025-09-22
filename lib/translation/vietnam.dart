@@ -238,5 +238,9 @@ const Map<String, String> viVNTranslations = {
   'poop_brain_fun':
       'Não bộ của bạn như một chiếc smartphone có 20% pin ở chế độ tiết kiệm pin. Đã đến lúc sạc!',
   'keep_playing_memory_games':
-      'Tiếp tục chơi các trò chơi trí nhớ để cải thiện cấp độ não bộ của bạn!'
+      'Tiếp tục chơi các trò chơi trí nhớ để cải thiện cấp độ não bộ của bạn!',
+  // Ranking tabs
+  'total': 'Tổng cộng',
+  'weekly': 'Hàng tuần',
+  'monthly': 'Hàng tháng',
 };

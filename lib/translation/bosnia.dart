@@ -254,5 +254,9 @@ const Map<String, String> bsBATranslations = {
   'poop_brain_fun':
       'Ne brini, svi počinju negdje - i čak i kaka može biti gnojivo za veliki rast!',
   'keep_playing_memory_games':
-      'Nastavi igrati igre pamćenja da povećaš nivo mozga!'
+      'Nastavi igrati igre pamćenja da povećaš nivo mozga!',
+  // Ranking tabs
+  'total': 'Ukupno',
+  'weekly': 'Sedmično',
+  'monthly': 'Mjesečno',
 };

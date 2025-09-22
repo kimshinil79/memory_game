@@ -243,4 +243,8 @@ const Map<String, String> soSOTranslations = {
       'Maskaxdaadu hadda waa sida taleefan casri ah oo 1% batari leh - aad bay ugu baahan tahay in la buuxiyo!',
   'keep_playing_memory_games':
       'Sii wad ciyaarida ciyaaraha xusuusta si aad u kordhiso heerka maskaxdaada!',
+  // Ranking tabs
+  'total': 'Wadarta',
+  'weekly': 'Toddobaadba',
+  'monthly': 'Bishaba',
 };

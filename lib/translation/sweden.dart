@@ -260,5 +260,9 @@ const Map<String, String> svSETranslations = {
   'poop_brain_fun':
       'Din hjärna är som en smartphone med 20% batteri i energisparläge. Dags att ladda!',
   'keep_playing_memory_games':
-      'Fortsätt spela minneslekar för att förbättra din hjärnnivå!'
+      'Fortsätt spela minneslekar för att förbättra din hjärnnivå!',
+  // Ranking tabs
+  'total': 'Totalt',
+  'weekly': 'Veckovis',
+  'monthly': 'Månadsvis',
 };

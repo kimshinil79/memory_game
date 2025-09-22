@@ -221,4 +221,8 @@ const Map<String, String> zhCNTranslations = {
   'poop_brain_desc': '刚刚开始大脑健康之旅',
   'poop_brain_fun': '您的大脑现在就像电量1%的智能手机 - 急需充电！',
   'keep_playing_memory_games': '继续玩记忆游戏来提高您的大脑等级！',
+  // Ranking tabs
+  'total': '总计',
+  'weekly': '每周',
+  'monthly': '每月',
 };

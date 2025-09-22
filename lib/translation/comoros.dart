@@ -245,5 +245,9 @@ const Map<String, String> arKMTranslations = {
   'poop_brain_level1': 'دماغ البراز (المستوى 1)',
   'poop_brain_desc': 'تبدأ رحلة صحة دماغك للتو.',
   'poop_brain_fun': 'دماغك الآن مثل هاتف ذكي ببطارية 1% - يحتاج شحن بشدة!',
-  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!'
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

@@ -259,5 +259,9 @@ const Map<String, String> filPHTranslations = {
   'poop_brain_fun_comment':
       'Kahit ang tae ay pwedeng maging pataba! Patuloy na subukan!',
   'keep_playing_memory_games':
-      'Patuloy na maglaro ng mga laro ng memorya para mapabuti ang kalusugan ng inyong utak!'
+      'Patuloy na maglaro ng mga laro ng memorya para mapabuti ang kalusugan ng inyong utak!',
+  // Ranking tabs
+  'total': 'Kabuuan',
+  'weekly': 'Lingguhan',
+  'monthly': 'Buwanan',
 };

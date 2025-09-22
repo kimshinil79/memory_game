@@ -259,5 +259,9 @@ const Map<String, String> rnTranslations = {
   'poop_brain_fun':
       'Ntugire ubwoba, abantu bose batangirana ahantu runaka - n\'amavi arashobora kuba ifumbire y\'ubwiyongere bukomeye!',
   'keep_playing_memory_games':
-      'Komeza gukina imikino y\'ibibutso kugirango wongere urwego rw\'ubwonko bwawe!'
+      'Komeza gukina imikino y\'ibibutso kugirango wongere urwego rw\'ubwonko bwawe!',
+  // Ranking tabs
+  'total': 'Ubuhamya',
+  'weekly': 'Umunsi ku munsi',
+  'monthly': 'Ukwezi ku kwezi',
 };

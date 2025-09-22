@@ -238,5 +238,9 @@ const Map<String, String> frTranslations = {
   'poop_level_fun_comment':
       'Cerveau de caca ! Mais ne vous inquiétez pas, vous grandirez ! 💩😅',
   'keep_playing_memory_games':
-      'Continuez à jouer aux jeux de mémoire pour améliorer votre cerveau !'
+      'Continuez à jouer aux jeux de mémoire pour améliorer votre cerveau !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

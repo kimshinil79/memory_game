@@ -238,5 +238,8 @@ const Map<String, String> amTranslations = {
   'poop_brain_level1': 'ጸያፍ አንጎል (ደረጃ 1)',
   'poop_brain_desc': 'የአንጎል ጤና ጉዞዎን አሁን ጀምረዋል።',
   'poop_brain_fun': 'አንጎልዎ አሁን 1% ባትሪ ያለው ስማርት ፎን ይመስላል - አስቸኳይ ባትሪ ያስፈልገዋል!',
-  'keep_playing_memory_games': 'የአንጎል ደረጃዎን ለማሳደግ የማስታወሻ ጨዋታዎችን መጫወት ይቀጥሉ!'
+  'keep_playing_memory_games': 'የአንጎል ደረጃዎን ለማሳደግ የማስታወሻ ጨዋታዎችን መጫወት ይቀጥሉ!',
+  'total': 'ጠቅላላ',
+  'weekly': 'ሳምንታዊ',
+  'monthly': 'ወርሃዊ',
 };

@@ -235,5 +235,9 @@ const Map<String, String> fjTranslations = {
   'poop_level_fun_comment':
       'Na bula ca! Ia sega ni vakabauta, o na vakaukauwa! 💩😅',
   'keep_playing_memory_games':
-      'Toso na meci ni nanuma me vakavou na nomuni bula!'
+      'Toso na meci ni nanuma me vakavou na nomuni bula!',
+  // Ranking tabs
+  'total': 'Sa rui',
+  'weekly': 'Na macawa',
+  'monthly': 'Na vula',
 };

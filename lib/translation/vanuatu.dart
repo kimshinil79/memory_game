@@ -238,5 +238,9 @@ const Map<String, String> biVUTranslations = {
   'poop_brain_fun':
       'Braen blong yu i olsem wan smafon we gat 20% bateri long sev paua mod. Taem blong jasem!',
   'keep_playing_memory_games':
-      'Gohed blong pleim memori gem blong mekem levol blong braen blong yu i gud!'
+      'Gohed blong pleim memori gem blong mekem levol blong braen blong yu i gud!',
+  // Ranking tabs
+  'total': 'Olgeta',
+  'weekly': 'Evri wik',
+  'monthly': 'Evri manis',
 };

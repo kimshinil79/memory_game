@@ -230,5 +230,9 @@ const Map<String, String> heTranslations = {
   'poop_level_name': '💩 רמת קקי',
   'poop_level_description': 'המוח שלך קצת עייף. אבל אל תפסיד תקווה! אתה תגדל.',
   'poop_level_fun_comment': 'מוח קקי! אבל אל תדאג, אתה תגדל! 💩😅',
-  'keep_playing_memory_games': 'המשך לשחק משחקי זיכרון כדי לשפר את המוח שלך!'
+  'keep_playing_memory_games': 'המשך לשחק משחקי זיכרון כדי לשפר את המוח שלך!',
+  // Ranking tabs
+  'total': 'סה״כ',
+  'weekly': 'שבועי',
+  'monthly': 'חודשי',
 };

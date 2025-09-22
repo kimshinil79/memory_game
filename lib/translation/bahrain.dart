@@ -251,4 +251,8 @@ const Map<String, String> arBHtranslations = {
   'poop_brain_fun':
       'لا تقلق، الجميع يبدأ من مكان ما - وحتى البراز يمكن أن يكون سماداً لنمو عظيم!',
   'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لزيادة مستوى دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

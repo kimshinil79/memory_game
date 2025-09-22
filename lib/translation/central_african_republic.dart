@@ -259,4 +259,8 @@ const Map<String, String> frCFTranslations = {
       'Ne vous inquiétez pas, tout le monde commence quelque part - et même le caca peut être de l\'engrais pour une grande croissance !',
   'keep_playing_memory_games':
       'Continuez à jouer aux jeux de mémoire pour augmenter le niveau de votre cerveau !',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

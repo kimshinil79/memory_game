@@ -254,5 +254,9 @@ const Map<String, String> isISTranslations = {
   'poop_level_fun_comment':
       'Skítheili! En ekki hafa áhyggjur, þú munt vaxa! 💩😅',
   'keep_playing_memory_games':
-      'Haltu áfram að spila minnisleiki til að bæta heilann þinn!'
+      'Haltu áfram að spila minnisleiki til að bæta heilann þinn!',
+  // Ranking tabs
+  'total': 'Samtals',
+  'weekly': 'Vikulega',
+  'monthly': 'Mánaðarlega',
 };

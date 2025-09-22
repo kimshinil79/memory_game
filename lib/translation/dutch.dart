@@ -255,5 +255,9 @@ const Map<String, String> nlTranslations = {
   'poop_brain_fun':
       'Je brein nu is als een smartphone op 1% batterij - heeft wanhopig opladen nodig!',
   'keep_playing_memory_games':
-      'Blijf geheugenspellen spelen om je hersenniveau te verhogen!'
+      'Blijf geheugenspellen spelen om je hersenniveau te verhogen!',
+  // Ranking tabs
+  'total': 'Totaal',
+  'weekly': 'Wekelijks',
+  'monthly': 'Maandelijks',
 };

@@ -249,5 +249,9 @@ const Map<String, String> mgTranslations = {
   'poop_brain_fun_comment':
       'Na ny diky aza dia afaka lasa zezika! Manohy mihetsika!',
   'keep_playing_memory_games':
-      'Manohy mitendry lalao fahatsiarovana mba hanatsarana ny fahasalamana atidoha!'
+      'Manohy mitendry lalao fahatsiarovana mba hanatsarana ny fahasalamana atidoha!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Hebdomadaire',
+  'monthly': 'Mensuel',
 };

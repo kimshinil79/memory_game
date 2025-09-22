@@ -241,5 +241,9 @@ const Map<String, String> mtMTTranslations = {
   'poop_brain_fun_comment':
       'Anke l-ħażin jista\' jsir fertilizzant! Kompli tipprova!',
   'keep_playing_memory_games':
-      'Kompli tilgħab logħob tal-memorja biex ittejjeb is-saħħa tal-moħħ tiegħek!'
+      'Kompli tilgħab logħob tal-memorja biex ittejjeb is-saħħa tal-moħħ tiegħek!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Kull ġimgħa',
+  'monthly': 'Kull xahar',
 };

@@ -261,4 +261,8 @@ const Map<String, String> sqTranslations = {
       'Truri juaj tani është si një telefon inteligjent me 1% baterie - ka nevojë desperate për ngarkesë!',
   'keep_playing_memory_games':
       'Vazhdoni të luani lojëra memoriesh për të rritur nivelin e trurit tuaj!',
+  // Ranking tabs
+  'total': 'Gjithsej',
+  'weekly': 'Javore',
+  'monthly': 'Mujore',
 };

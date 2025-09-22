@@ -235,5 +235,9 @@ const Map<String, String> klGLTranslations = {
   'poop_level_fun_comment':
       'Anerniqartumik qarasaasit! Kisimiillutit, angijuniaqaakkit! 💩😅',
   'keep_playing_memory_games':
-      'Qarasaasit anguniarpakkinut erinarsunik sulirivit!'
+      'Qarasaasit anguniarpakkinut erinarsunik sulirivit!',
+  // Ranking tabs
+  'total': 'Atuakkat',
+  'weekly': 'Sapaat',
+  'monthly': 'Qaammat',
 };

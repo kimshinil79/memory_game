@@ -252,5 +252,8 @@ const Map<String, String> afkTranslations = {
   'poop_brain_fun':
       'Jou brein is nou soos \'n slimfoon met 1% battery - het desperaat laai nodig!',
   'keep_playing_memory_games':
-      'Hou aan om geheue speletjies te speel om jou brein vlak te verhoog!'
+      'Hou aan om geheue speletjies te speel om jou brein vlak te verhoog!',
+  'total': 'Totaal',
+  'weekly': 'Weekliks',
+  'monthly': 'Maandeliks',
 };

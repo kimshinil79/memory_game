@@ -266,4 +266,9 @@ Map<String, String> enTranslations = {
       'Your brain right now is like a smartphone at 1% battery - desperately needs charging!',
   'keep_playing_memory_games':
       'Keep playing memory games to increase your brain level!',
+
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Weekly',
+  'monthly': 'Monthly',
 };

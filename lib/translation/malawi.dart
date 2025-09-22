@@ -249,5 +249,9 @@ const Map<String, String> nyTranslations = {
   'poop_brain_fun_comment':
       'Ngakhale ndowe ikhoza kukhala feteleza! Pitirizani kuyesetsa!',
   'keep_playing_memory_games':
-      'Pitirizani kusewera masewera a kumbukumbu kuti muwongolere thanzi la ubongo!'
+      'Pitirizani kusewera masewera a kumbukumbu kuti muwongolere thanzi la ubongo!',
+  // Ranking tabs
+  'total': 'Zonse',
+  'weekly': 'Sabata iliyonse',
+  'monthly': 'Mwezi uliowonse',
 };

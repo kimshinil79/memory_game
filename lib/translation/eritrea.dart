@@ -238,5 +238,9 @@ const Map<String, String> tiERTranslations = {
   'poop_level_name': '💩 ደረጃ ማቆሎ',
   'poop_level_description': 'ኣእምሮኻ ቁሩብ ድሙ ኣሎ። ግን ተስፋ ኣይቁረጽ! ትዓቢ እኻ።',
   'poop_level_fun_comment': 'ማቆሎ ኣእምሮ! ግን ኣይፋል፣ ትዓቢ እኻ! 💩😅',
-  'keep_playing_memory_games': 'ንኣእምሮኻ ንምምሕያሽ ዘርኣዊ ጸወታታት ቀጽሎ!'
+  'keep_playing_memory_games': 'ንኣእምሮኻ ንምምሕያሽ ዘርኣዊ ጸወታታት ቀጽሎ!',
+  // Ranking tabs
+  'total': 'በአጠቃላይ',
+  'weekly': 'በሳምንት',
+  'monthly': 'በወር',
 };

@@ -247,5 +247,9 @@ const Map<String, String> toTOTranslations = {
   'poop_brain_fun':
       'Ko ho ʻuto ʻoku hangē ko e telafoni mahino mo e pāteli 20% ʻi he founga fakamolemole. Ko e taimi ia ke sekā!',
   'keep_playing_memory_games':
-      'Fakahokohoko pe ʻa e taʻanga ʻa e ngaahi taʻanga fakamanatu ke fakalakalaka ho tingata ʻuto!'
+      'Fakahokohoko pe ʻa e taʻanga ʻa e ngaahi taʻanga fakamanatu ke fakalakalaka ho tingata ʻuto!',
+  // Ranking tabs
+  'total': 'Kotoa',
+  'weekly': 'Uike',
+  'monthly': 'Mahina',
 };

@@ -240,5 +240,9 @@ const Map<String, String> stLSTranslations = {
   'poop_brain_fun_comment':
       'Ke nako ea ho ikatisa boko ba hau! Bohle re kile ra ba mona!',
   'keep_playing_memory_games':
-      'Tsoela pele ho bapala lipapali tsa hopolo ho ntlafatsa boemo ba boko ba hau!'
+      'Tsoela pele ho bapala lipapali tsa hopolo ho ntlafatsa boemo ba boko ba hau!',
+  // Ranking tabs
+  'total': 'Kakaretso',
+  'weekly': 'Beke le beke',
+  'monthly': 'Kgwedi le kgwedi',
 };

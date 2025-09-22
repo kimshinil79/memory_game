@@ -242,5 +242,9 @@ const Map<String, String> uzUZTranslations = {
   'poop_brain_fun':
       'Sizning miyangiz quvvat tejash rejimida 20% batareya bilan aqlli telefon kabi. Zaryad vaqti!',
   'keep_playing_memory_games':
-      'Miya darajangizni yaxshilash uchun xotira o\'yinlarini o\'ynashda davom eting!'
+      'Miya darajangizni yaxshilash uchun xotira o\'yinlarini o\'ynashda davom eting!',
+  // Ranking tabs
+  'total': 'Jami',
+  'weekly': 'Haftalik',
+  'monthly': 'Oylik',
 };

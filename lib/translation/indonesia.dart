@@ -235,5 +235,9 @@ const Map<String, String> idTranslations = {
   'poop_level_fun_comment':
       'Otak kotoran! Tapi jangan khawatir, Anda akan berkembang! 💩😅',
   'keep_playing_memory_games':
-      'Terus bermain permainan memori untuk meningkatkan otak Anda!'
+      'Terus bermain permainan memori untuk meningkatkan otak Anda!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Mingguan',
+  'monthly': 'Bulanan',
 };

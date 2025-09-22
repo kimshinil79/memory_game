@@ -257,4 +257,8 @@ const Map<String, String> azTranslations = {
       'Beyniniz indi 1% batareyası olan smartphone kimi - çarələsiz şəkildə doldurulmağa ehtiyacı var!',
   'keep_playing_memory_games':
       'Beyin səviyyənizi artırmaq üçün yaddaş oyunları oynamağa davam edin!',
+  // Ranking tabs
+  'total': 'Cəmi',
+  'weekly': 'Həftəlik',
+  'monthly': 'Aylıq',
 };

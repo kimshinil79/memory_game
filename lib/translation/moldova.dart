@@ -255,5 +255,9 @@ const Map<String, String> mdMDATranslations = {
   'poop_brain_fun_comment':
       'Chiar și rahatul poate deveni îngrășământ! Continuați să încercați!',
   'keep_playing_memory_games':
-      'Continuați să jucați jocuri de memorie pentru a vă îmbunătăți sănătatea creierului!'
+      'Continuați să jucați jocuri de memorie pentru a vă îmbunătăți sănătatea creierului!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Săptămânal',
+  'monthly': 'Lunar',
 };

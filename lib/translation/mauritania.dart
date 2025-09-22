@@ -235,5 +235,9 @@ const Map<String, String> mrMRTranslations = {
       'يحتاج إلى مزيد من التدريب. لا تستسلم، يمكن للجميع التحسن!',
   'poop_brain_fun_comment':
       'حتى البراز يمكن أن يصبح سماداً! استمر في المحاولة!',
-  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين صحة دماغك!'
+  'keep_playing_memory_games': 'استمر في لعب ألعاب الذاكرة لتحسين صحة دماغك!',
+  // Ranking tabs
+  'total': 'المجموع',
+  'weekly': 'أسبوعي',
+  'monthly': 'شهري',
 };

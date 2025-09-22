@@ -236,4 +236,8 @@ const Map<String, String> slSITranslations = {
       'Vaši možgani so zdaj kot pametni telefon z 1% baterije - obupno potrebujejo polnjenje!',
   'keep_playing_memory_games':
       'Nadaljujte z igranjem iger spomina za povečanje ravni vaših možganov!',
+  // Ranking tabs
+  'total': 'Skupaj',
+  'weekly': 'Tedensko',
+  'monthly': 'Mesečno',
 };

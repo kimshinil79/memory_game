@@ -251,5 +251,9 @@ const Map<String, String> mxMEXTranslations = {
   'poop_brain_fun_comment':
       '¡Incluso la caca puede convertirse en fertilizante! ¡Sigue intentando!',
   'keep_playing_memory_games':
-      '¡Sigue jugando juegos de memoria para mejorar tu salud cerebral!'
+      '¡Sigue jugando juegos de memoria para mejorar tu salud cerebral!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Semanal',
+  'monthly': 'Mensual',
 };

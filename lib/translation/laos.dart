@@ -238,5 +238,9 @@ const Map<String, String> loLATranslations = {
   'poop_brain_fun_comment':
       'ເວລາຝຶກສະໝອງຂອງທ່ານມາເຖິງແລ້ວ! ທຸກຄົນເຄີຍຢູ່ບ່ອນນີ້!',
   'keep_playing_memory_games':
-      'ສືບຕໍ່ຫຼິ້ນເກມຄວາມຈຳເພື່ອປັບປຸງລະດັບສະໝອງຂອງທ່ານ!'
+      'ສືບຕໍ່ຫຼິ້ນເກມຄວາມຈຳເພື່ອປັບປຸງລະດັບສະໝອງຂອງທ່ານ!',
+  // Ranking tabs
+  'total': 'ລວມ',
+  'weekly': 'ອາທິດ',
+  'monthly': 'ເດືອນ',
 };

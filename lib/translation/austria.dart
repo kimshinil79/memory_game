@@ -262,4 +262,8 @@ const Map<String, String> deATTranslations = {
       'Ihr Gehirn ist jetzt wie ein Smartphone mit 1% Akku - braucht dringend Aufladung!',
   'keep_playing_memory_games':
       'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu erhöhen!',
+  // Ranking tabs
+  'total': 'Gesamt',
+  'weekly': 'Wöchentlich',
+  'monthly': 'Monatlich',
 };

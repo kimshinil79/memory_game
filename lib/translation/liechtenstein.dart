@@ -240,5 +240,9 @@ const Map<String, String> deLITranslations = {
   'poop_brain_fun_comment':
       'Zeit, Ihr Gehirn zu trainieren! Jeder war schon mal hier!',
   'keep_playing_memory_games':
-      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu verbessern!'
+      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu verbessern!',
+  // Ranking tabs
+  'total': 'Gesamt',
+  'weekly': 'Wöchentlich',
+  'monthly': 'Monatlich',
 };

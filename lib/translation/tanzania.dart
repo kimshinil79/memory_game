@@ -242,5 +242,9 @@ const Map<String, String> swTZTranslations = {
   'poop_brain_fun':
       'Ubongo wako ni kama simu mahiri yenye betri ya 20% katika hali ya kuokoa nishati. Wakati wa kuchaji!',
   'keep_playing_memory_games':
-      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!'
+      'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!',
+  // Ranking tabs
+  'total': 'Jumla',
+  'weekly': 'Kila wiki',
+  'monthly': 'Kila mwezi',
 };

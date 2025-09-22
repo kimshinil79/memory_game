@@ -244,4 +244,9 @@ const Map<String, String> krTranslations = {
   'poop_brain_desc': '두뇌 건강 여행을 막 시작했습니다.',
   'poop_brain_fun': '지금 당신의 두뇌는 배터리 1%인 스마트폰 같아요 - 충전이 절실히 필요해요!',
   'keep_playing_memory_games': '두뇌 레벨을 높이기 위해 메모리 게임을 계속 플레이하세요!',
+
+  // Ranking tabs
+  'total': '전체',
+  'weekly': '주간',
+  'monthly': '월간',
 };

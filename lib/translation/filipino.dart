@@ -239,5 +239,9 @@ const Map<String, String> filTranslations = {
   'poop_level_fun_comment':
       'Utak na dumi! Pero huwag mag-alala, lalaki ka! 💩😅',
   'keep_playing_memory_games':
-      'Magpatuloy sa paglalaro ng mga laro ng memorya para mapahusay ang inyong utak!'
+      'Magpatuloy sa paglalaro ng mga laro ng memorya para mapahusay ang inyong utak!',
+  // Ranking tabs
+  'total': 'Kabuuan',
+  'weekly': 'Lingguhan',
+  'monthly': 'Buwanan',
 };

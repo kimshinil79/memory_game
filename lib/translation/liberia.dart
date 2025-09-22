@@ -240,5 +240,9 @@ const Map<String, String> lrTranslations = {
   'poop_brain_fun_comment':
       'Time to train your brain! Everyone has been here before!',
   'keep_playing_memory_games':
-      'Keep playing memory games to improve your brain level!'
+      'Keep playing memory games to improve your brain level!',
+  // Ranking tabs
+  'total': 'Total',
+  'weekly': 'Weekly',
+  'monthly': 'Monthly',
 };

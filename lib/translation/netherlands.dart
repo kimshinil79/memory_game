@@ -242,5 +242,9 @@ const Map<String, String> nlTranslations = {
       'Heeft meer oefening nodig. Geef niet op, iedereen kan verbeteren!',
   'poop_brain_fun_comment': 'Zelfs poep kan mest worden! Blijf proberen!',
   'keep_playing_memory_games':
-      'Blijf geheugenspellen spelen om uw hersengezondheid te verbeteren!'
+      'Blijf geheugenspellen spelen om uw hersengezondheid te verbeteren!',
+  // Ranking tabs
+  'total': 'Totaal',
+  'weekly': 'Wekelijks',
+  'monthly': 'Maandelijks',
 };
