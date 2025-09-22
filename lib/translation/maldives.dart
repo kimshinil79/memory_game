@@ -101,6 +101,10 @@ const Map<String, String> dvTranslations = {
   'points_divided_explanation':
       '(ޕޮއިންޓް ކުދިކޮށްފައިވާ މީހުންގެ މެދުގައި ބަދަލުކުރެވިއްޖެ)',
   'health_score': 'ސިއްޙަތު ޕޮއިންޓް +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'އާ ކުދި',
   'times_up': 'ވަގުތު ފުރިހަމަވެއްޖެ!',
 
@@ -155,6 +159,7 @@ const Map<String, String> dvTranslations = {
   'login_prompt_desc':
       'ތިބާގެ މައިގަނޑު ސިއްޙަތުގެ ދަތުރު ހޯދުމަށް ލޮގް އިން ކުރާށެވެ.',
   'sign_in': 'ލޮގް އިން ކުރާށެވެ',
+  'login': 'Login',
   'create_account': 'އެކައުންޓް އުފެއްދާށެވެ',
 
   // User Rankings texts

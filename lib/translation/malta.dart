@@ -97,6 +97,10 @@ const Map<String, String> mtMTTranslations = {
   'players_score_multiplier': '({players} plejers ×{multiplier})',
   'points_divided_explanation': '(Punti maqsuma bejn il-plejers)',
   'health_score': 'Punteġġ tas-saħħa +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Logħba ġdida',
   'times_up': 'Ħin spiċċa!',
 
@@ -149,6 +153,7 @@ const Map<String, String> mtMTTranslations = {
   'start_tracking_brain_health': 'Ibda tsegwi s-saħħa tal-moħħ',
   'login_prompt_desc': 'Idħol biex issegwi s-saħħa tal-moħħ tiegħek.',
   'sign_in': 'Idħol',
+  'login': 'Login',
   'create_account': 'Oħloq kont',
 
   // User Rankings texts

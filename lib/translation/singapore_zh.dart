@@ -97,6 +97,10 @@ const Map<String, String> zhSGTranslations = {
   'players_score_multiplier': '（{players}名玩家 ×{multiplier}）',
   'points_divided_explanation': '（分数在玩家之间平分）',
   'health_score': '健康 +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': '新游戏',
   'times_up': '时间到！',
 
@@ -147,6 +151,7 @@ const Map<String, String> zhSGTranslations = {
   'start_tracking_brain_health': '开始追踪您的大脑健康',
   'login_prompt_desc': '登录以追踪您的大脑健康进展。',
   'sign_in': '登录',
+  'login': 'Login',
   'create_account': '创建账户',
 
   // User Rankings texts

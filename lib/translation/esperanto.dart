@@ -99,6 +99,10 @@ const Map<String, String> eoTranslations = {
   'players_score_multiplier': '({players} ludantoj: poentoj ×{multiplier})',
   'points_divided_explanation': '(Poentoj estas dividitaj en egaleco)',
   'health_score': 'Cerebraj sanpoentoj: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nova ludo',
   'times_up': 'Tempo finiĝis!',
 
@@ -159,6 +163,7 @@ const Map<String, String> eoTranslations = {
   'login_prompt_desc':
       'Ensalutu por spuri vian cerebran sanan indekson kaj vidi vian progreson. Plibonigu viajn kognajn kapablojn tra la memora ludo.',
   'sign_in': 'Ensaluti',
+  'login': 'Login',
   'create_account': 'Krei konton',
 
   // User Rankings texts

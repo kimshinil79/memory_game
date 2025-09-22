@@ -99,6 +99,10 @@ const Map<String, String> enPGTranslations = {
   'players_score_multiplier': '({players} players ×{multiplier})',
   'points_divided_explanation': '(points divided between players)',
   'health_score': 'Health +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'New game',
   'times_up': 'Time\'s up!',
 
@@ -150,6 +154,7 @@ const Map<String, String> enPGTranslations = {
   'start_tracking_brain_health': 'Start tracking brain health',
   'login_prompt_desc': 'Sign in to track your brain health progress.',
   'sign_in': 'Sign in',
+  'login': 'Login',
   'create_account': 'Create account',
 
   // User Rankings texts

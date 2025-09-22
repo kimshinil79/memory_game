@@ -97,6 +97,10 @@ const Map<String, String> heTranslations = {
   'players_score_multiplier': '({players} שחקנים: נקודות ×{multiplier})',
   'points_divided_explanation': '(הנקודות חולקו)',
   'health_score': 'ציון בריאות מוח: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'משחק חדש',
   'times_up': 'הזמן נגמר!',
 
@@ -147,6 +151,7 @@ const Map<String, String> heTranslations = {
   'start_tracking_brain_health': 'התחל מעקב אחר בריאות המוח',
   'login_prompt_desc': 'התחבר כדי לעקוב אחר בריאות המוח שלך.',
   'sign_in': 'התחבר',
+  'login': 'Login',
   'create_account': 'צור חשבון',
 
   // User Rankings texts

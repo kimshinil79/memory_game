@@ -99,6 +99,10 @@ const Map<String, String> etTranslations = {
   'players_score_multiplier': '({players} mängijat: punktid ×{multiplier})',
   'points_divided_explanation': '(Punktid jagunevad viigi korral)',
   'health_score': 'Aju tervise punktid: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Uus mäng',
   'times_up': 'Aeg läbi!',
 
@@ -158,6 +162,7 @@ const Map<String, String> etTranslations = {
   'login_prompt_desc':
       'Logi sisse, et jälgida oma aju tervise indeksit ja näha oma edenemist. Paranda oma kognitiivseid võimeid läbi mälumängu.',
   'sign_in': 'Logi sisse',
+  'login': 'Login',
   'create_account': 'Loo konto',
 
   // User Rankings texts

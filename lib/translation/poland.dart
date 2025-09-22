@@ -97,6 +97,10 @@ const Map<String, String> plPLTranslations = {
   'players_score_multiplier': '({players} graczy ×{multiplier})',
   'points_divided_explanation': '(punkty podzielone między graczy)',
   'health_score': 'Zdrowie +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nowa gra',
   'times_up': 'Koniec czasu!',
 
@@ -148,6 +152,7 @@ const Map<String, String> plPLTranslations = {
   'start_tracking_brain_health': 'Zacznij śledzić zdrowie mózgu',
   'login_prompt_desc': 'Zaloguj się, aby śledzić postęp zdrowia mózgu.',
   'sign_in': 'Zaloguj się',
+  'login': 'Zaloguj się',
   'create_account': 'Utwórz konto',
 
   // User Rankings texts

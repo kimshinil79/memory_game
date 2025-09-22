@@ -100,6 +100,10 @@ const Map<String, String> mcMCTTranslations = {
   'points_divided_explanation':
       'Les points sont divisés équitablement entre les joueurs',
   'health_score': 'Score de santé : {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nouveau jeu',
   'times_up': 'Le temps est écoulé !',
 
@@ -154,6 +158,7 @@ const Map<String, String> mcMCTTranslations = {
   'login_prompt_desc':
       'Connectez-vous pour suivre vos progrès dans l\'amélioration de votre santé cérébrale',
   'sign_in': 'Se connecter',
+  'login': 'Login',
   'create_account': 'Créer un compte',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> meTranslations = {
   'players_score_multiplier': '({players} играча ×{multiplier})',
   'points_divided_explanation': '(поени подељени између играча)',
   'health_score': 'Здравствени резултат +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Нова игра',
   'times_up': 'Време је истекло!',
 
@@ -149,6 +153,7 @@ const Map<String, String> meTranslations = {
   'start_tracking_brain_health': 'Почни праћење здравља мозга',
   'login_prompt_desc': 'Пријавите се да пратите напредак здравља мозга.',
   'sign_in': 'Пријави се',
+  'login': 'Login',
   'create_account': 'Направи налог',
 
   // User Rankings texts

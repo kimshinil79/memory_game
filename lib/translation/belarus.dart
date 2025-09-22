@@ -98,6 +98,10 @@ const Map<String, String> beTranslations = {
   'players_score_multiplier': '({players} гульцоў: ачкі ×{multiplier})',
   'points_divided_explanation': '(Ачкі дзеляцца ў выпадку нічыі)',
   'health_score': 'Ачкі здароўя мозгу: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Новая гульня',
   'times_up': 'Час скончыўся!',
 
@@ -159,6 +163,7 @@ const Map<String, String> beTranslations = {
   'login_prompt_desc':
       'Увайдзіце, каб адсочваць свой індэкс здароўя мозгу і назіраць за прагрэсам: палепшыце свае пазнавальныя здольнасці праз гульні на памяць:',
   'sign_in': 'Увайсці',
+  'login': 'Login',
   'create_account': 'Стварыць уліковы запіс',
 
   // User Rankings text

@@ -100,6 +100,10 @@ const Map<String, String> kaGETranslations = {
   'players_score_multiplier': '({players} მოთამაშე: ქულა x{multiplier})',
   'points_divided_explanation': '(ქულები იყოფა ფრეზე)',
   'health_score': 'ტვინის ჯანმრთელობის ქულა: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'ახალი თამაში',
   'times_up': 'დრო ამოიწურა!',
 
@@ -162,6 +166,7 @@ const Map<String, String> kaGETranslations = {
   'login_prompt_desc':
       'შედით სისტემაში ტვინის ჯანმრთელობისა და პროგრესის თვალყურის დევნებისთვის. გააუმჯობესეთ თქვენი კოგნიტური შესაძლებლობები მეხსიერების თამაშებით.',
   'sign_in': 'შესვლა',
+  'login': 'Login',
   'create_account': 'ანგარიშის შექმნა',
 
   // User Rankings texts

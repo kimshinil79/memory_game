@@ -33,6 +33,7 @@ Map<String, String> enTranslations = {
 
   // Sign In and Sign Up Dialog 텍스트
   'sign_in': 'Sign In',
+  'login': 'Login',
   'sign_in_button': 'Sign In',
   'sign_up': 'Sign Up',
   'sign_up_button': 'Sign Up',
@@ -111,6 +112,14 @@ Map<String, String> enTranslations = {
   'players_score_multiplier': '({players} Players: Score x{multiplier})',
   'points_divided_explanation': '(Points divided among tied players)',
   'health_score': 'Health Score: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'New Game',
   'times_up': 'Time\'s Up!',
   'retry': 'Retry',

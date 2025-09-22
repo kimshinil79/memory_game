@@ -99,6 +99,10 @@ const Map<String, String> tiERTranslations = {
   'players_score_multiplier': '({players} ተጻወትያን: ነጥብታት ×{multiplier})',
   'points_divided_explanation': '(ነጥብታት ኣብ ማዕረ ይካፈሉ)',
   'health_score': 'ነጥብታት ጥዕና ኣእምሮ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'ሓድሽ ጸወታ',
   'times_up': 'ሰዓት ተወዲኡ!',
 
@@ -153,6 +157,7 @@ const Map<String, String> tiERTranslations = {
   'login_prompt_desc':
       'ምልክት ጥዕና ኣእምሮኻ ንምክትታልን ምዕባለኻ ንምርኣይን እተወ። ብዘርኣዊ ጸወታ ኣእምሮኻ ምምሕያሽ።',
   'sign_in': 'ምእታው',
+  'login': 'Login',
   'create_account': 'ሕሳብ ምፍጣር',
 
   // User Rankings texts

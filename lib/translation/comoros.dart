@@ -99,6 +99,10 @@ const Map<String, String> arKMTranslations = {
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط في حالة التعادل)',
   'health_score': 'نقاط صحة الدماغ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -155,6 +159,7 @@ const Map<String, String> arKMTranslations = {
   'login_prompt_desc':
       'سجل دخولك لتتبع مؤشر صحة دماغك ورؤية تقدمك. حسّن مهاراتك المعرفية من خلال ألعاب الذاكرة.',
   'sign_in': 'تسجيل الدخول',
+  'login': 'Login',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> csTranslations = {
   'players_score_multiplier': '({players} hráči: body ×{multiplier})',
   'points_divided_explanation': '(Body se dělí v případě remízy)',
   'health_score': 'Body zdraví mozku: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nová hra',
   'times_up': 'Čas vypršel!',
 
@@ -155,6 +159,7 @@ const Map<String, String> csTranslations = {
   'login_prompt_desc':
       'Přihlaste se pro sledování vašeho indexu zdraví mozku a zobrazení pokroku. Zlepšete své kognitivní schopnosti prostřednictvím hry pexeso.',
   'sign_in': 'Přihlásit se',
+  'login': 'Login',
   'create_account': 'Vytvořit účet',
 
   // User Rankings texts

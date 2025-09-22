@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import '../../providers/brain_health_provider.dart';
+import '../../providers/language_provider.dart';
 
 class ProfileButton extends StatelessWidget {
   final User? user;
@@ -69,13 +70,20 @@ class ProfileButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 2),
                 ],
-                Text(
-                  user == null ? '로그인' : (nickname ?? 'User'),
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF14171A),
-                  ),
+                Consumer<LanguageProvider>(
+                  builder: (context, languageProvider, child) {
+                    final translations = languageProvider.getUITranslations();
+                    return Text(
+                      user == null
+                          ? (translations['login'] ?? 'Login')
+                          : (nickname ?? 'User'),
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF14171A),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

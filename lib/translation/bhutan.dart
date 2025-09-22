@@ -101,6 +101,10 @@ const Map<String, String> dzTranslations = {
   'players_score_multiplier': '({players} རྩེད་མོ་བ་: གོ་ཐོབ་ ×{multiplier})',
   'points_divided_explanation': '(མཉམ་པའི་གོ་སྐབས་སུ་གོ་ཐོབ་བགོས་པ།)',
   'health_score': 'ཀླད་པའི་བདེ་ཐང་གི་གོ་ཐོབ་: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'རྩེད་མོ་གསར་པ།',
   'times_up': 'དུས་ཚོད་ཟིན་པ།',
 
@@ -160,6 +164,7 @@ const Map<String, String> dzTranslations = {
   'login_prompt_desc':
       'ཀླད་པའི་བདེ་ཐང་གི་དཀར་ཆག་དང་བསྒྱུར་བ་ལ་བལྟ་བའི་ཆེད་དུ་ནང་འཛུལ་བྱེད་པ།',
   'sign_in': 'ནང་འཛུལ།',
+  'login': 'Login',
   'create_account': 'ཐོ་ཁོངས་གསར་བཟོ།',
 
   // User Rankings texts

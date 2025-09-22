@@ -100,6 +100,10 @@ const Map<String, String> mxMEXTranslations = {
   'points_divided_explanation':
       'Los puntos se dividen equitativamente entre los jugadores',
   'health_score': 'Puntuación de salud: {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nuevo juego',
   'times_up': '¡Se acabó el tiempo!',
 
@@ -154,6 +158,7 @@ const Map<String, String> mxMEXTranslations = {
   'login_prompt_desc':
       'Inicia sesión para rastrear tu progreso en la mejora de la salud cerebral',
   'sign_in': 'Iniciar sesión',
+  'login': 'Login',
   'create_account': 'Crear cuenta',
 
   // User Rankings texts

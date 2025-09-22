@@ -99,6 +99,10 @@ const Map<String, String> svSETranslations = {
   'players_score_multiplier': '({players} spelare: poäng x{multiplier})',
   'points_divided_explanation': '(Poängen delas mellan de oavgjorda)',
   'health_score': 'Hjärnhälsopoäng: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nytt spel',
   'times_up': 'Tiden är ute!',
 
@@ -159,6 +163,7 @@ const Map<String, String> svSETranslations = {
   'login_prompt_desc':
       'Logga in för att spåra din hjärnhälsa och framsteg. Förbättra dina kognitiva förmågor genom minneslekar.',
   'sign_in': 'Logga in',
+  'login': 'Login',
   'create_account': 'Skapa konto',
 
   // User Rankings 텍스트

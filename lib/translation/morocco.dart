@@ -97,6 +97,10 @@ const Map<String, String> maTranslations = {
   'players_score_multiplier': '({players} لاعبين ×{multiplier})',
   'points_divided_explanation': '(النقاط موزعة بين اللاعبين)',
   'health_score': 'نقاط الصحة +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -148,6 +152,7 @@ const Map<String, String> maTranslations = {
   'start_tracking_brain_health': 'ابدأ في تتبع صحة الدماغ',
   'login_prompt_desc': 'سجل الدخول لتتبع تقدم صحة دماغك',
   'sign_in': 'تسجيل الدخول',
+  'login': 'تسجيل الدخول',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

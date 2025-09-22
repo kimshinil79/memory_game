@@ -99,6 +99,10 @@ const Map<String, String> klGLTranslations = {
   'players_score_multiplier': '({players} erinarsuut: qujanaq ×{multiplier})',
   'points_divided_explanation': '(Qujanaq)',
   'health_score': 'Qarasaasit qujanaq: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Erinarsuut',
   'times_up': 'Ullumi!',
 
@@ -149,6 +153,7 @@ const Map<String, String> klGLTranslations = {
   'start_tracking_brain_health': 'Qarasaasit',
   'login_prompt_desc': 'Qarasaasit.',
   'sign_in': 'Sulini',
+  'login': 'Login',
   'create_account': 'Nalunaarsuut pilluarit',
 
   // User Rankings texts

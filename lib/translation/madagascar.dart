@@ -97,6 +97,10 @@ const Map<String, String> mgTranslations = {
   'players_score_multiplier': '({players} mpikambana ×{multiplier})',
   'points_divided_explanation': '(Zara-petra ny isa eo amin\'ny mpikambana)',
   'health_score': 'Isa fahasalamana +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Lalao vaovao',
   'times_up': 'Lany ny fotoana!',
 
@@ -152,6 +156,7 @@ const Map<String, String> mgTranslations = {
   'login_prompt_desc':
       'Midira mba hanaraha-maso ny fivoarana ny fahasalamana atidoha.',
   'sign_in': 'Midira',
+  'login': 'Login',
   'create_account': 'Mamorona kaonty',
 
   // User Rankings texts

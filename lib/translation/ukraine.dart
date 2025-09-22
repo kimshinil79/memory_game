@@ -99,6 +99,10 @@ const Map<String, String> ukUATranslations = {
   'players_score_multiplier': '({players} Гравців ×{multiplier})',
   'points_divided_explanation': '(Очки розділені між гравцями)',
   'health_score': 'Здоров\'я +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Нова гра',
   'times_up': 'Час вийшов!',
 
@@ -150,6 +154,7 @@ const Map<String, String> ukUATranslations = {
   'start_tracking_brain_health': 'Почати відстеження здоров\'я мозку',
   'login_prompt_desc': 'Увійдіть, щоб відстежувати прогрес здоров\'я мозку',
   'sign_in': 'Увійти',
+  'login': 'Login',
   'create_account': 'Створити обліковий запис',
 
   // User Rankings texts

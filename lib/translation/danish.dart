@@ -99,6 +99,10 @@ const Map<String, String> daTranslations = {
   'players_score_multiplier': '({players} spillere: point ×{multiplier})',
   'points_divided_explanation': '(Point deles ved uafgjort)',
   'health_score': 'Hjernehelbred point: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nyt spil',
   'times_up': 'Tiden er gået!',
 
@@ -158,6 +162,7 @@ const Map<String, String> daTranslations = {
   'login_prompt_desc':
       'Log ind for at spore dit hjernehelbred indeks og se din fremskridt. Forbedr dine kognitive evner gennem hukommelsesspillet.',
   'sign_in': 'Log ind',
+  'login': 'Login',
   'create_account': 'Opret konto',
 
   // User Rankings texts

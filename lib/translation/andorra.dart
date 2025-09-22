@@ -101,6 +101,10 @@ const Map<String, String> caADTranslations = {
   'points_divided_explanation':
       '(Els punts es divideixen entre els jugadors empatats)',
   'health_score': 'Punts de salut cerebral: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nou joc',
   'times_up': 'S\'ha acabat el temps!',
 
@@ -163,6 +167,7 @@ const Map<String, String> caADTranslations = {
   'login_prompt_desc':
       'Inicia sessió per registrar el teu índex de salut cerebral i fer seguiment del teu progrés. Millora les teves capacitats cognitives a través de jocs de memòria.',
   'sign_in': 'Inicia sessió',
+  'login': 'Login',
   'create_account': 'Crear compte',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> nlTranslations = {
   'players_score_multiplier': '({players} spelers: punten ×{multiplier})',
   'points_divided_explanation': '(Punten gedeeld bij gelijkspel)',
   'health_score': 'Hersengezondheid punten: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nieuw spel',
   'times_up': 'De tijd is om!',
 
@@ -159,6 +163,7 @@ const Map<String, String> nlTranslations = {
   'login_prompt_desc':
       'Log in om je hersen gezondheid index te volgen en je voortgang te zien. Verbeter je cognitieve vaardigheden door het geheugenspel.',
   'sign_in': 'Inloggen',
+  'login': 'Login',
   'create_account': 'Account aanmaken',
 
   // User Rankings texts

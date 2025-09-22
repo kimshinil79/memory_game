@@ -99,6 +99,10 @@ const Map<String, String> fjTranslations = {
   'players_score_multiplier': '({players} na dau meci: points ×{multiplier})',
   'points_divided_explanation': '(E tautau na points)',
   'health_score': 'Na bula ni bula points: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Na meci vou',
   'times_up': 'E sega ni gauna!',
 
@@ -149,6 +153,7 @@ const Map<String, String> fjTranslations = {
   'start_tracking_brain_health': 'Digitaka na bula ni bula',
   'login_prompt_desc': 'Digitaka na bula ni bula.',
   'sign_in': 'Digitaka',
+  'login': 'Login',
   'create_account': 'Vakatautauvatataka na i tuvatuva',
 
   // User Rankings texts

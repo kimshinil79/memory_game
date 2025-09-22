@@ -99,6 +99,10 @@ const Map<String, String> kkKZTranslations = {
   'players_score_multiplier': '({players} ойыншы: ұпай ×{multiplier})',
   'points_divided_explanation': '(Ұпайлар бөлінді)',
   'health_score': 'Ми денсаулығы ұпайы: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Жаңа ойын',
   'times_up': 'Уақыт аяқталды!',
 
@@ -149,6 +153,7 @@ const Map<String, String> kkKZTranslations = {
   'start_tracking_brain_health': 'Ми денсаулығын бақылауды бастау',
   'login_prompt_desc': 'Ми денсаулығыңызды бақылау үшін кіріңіз.',
   'sign_in': 'Кіру',
+  'login': 'Login',
   'create_account': 'Тіркелгі жасау',
 
   // User Rankings texts

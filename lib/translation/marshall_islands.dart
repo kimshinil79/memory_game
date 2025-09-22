@@ -97,6 +97,10 @@ const Map<String, String> mhTranslations = {
   'players_score_multiplier': '({players} Kōnnaan kein kajin ×{multiplier})',
   'points_divided_explanation': '(Kōnnaan kein kajin)',
   'health_score': 'Kōnnaan kein kajin +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Kōnnaan kein kajin',
   'times_up': 'Kōnnaan kein kajin!',
 
@@ -147,6 +151,7 @@ const Map<String, String> mhTranslations = {
   'start_tracking_brain_health': 'Kōnnaan kein kajin',
   'login_prompt_desc': 'Kōnnaan kein kajin.',
   'sign_in': 'Kōnnaan kein kajin',
+  'login': 'Login',
   'create_account': 'Kōnnaan kein kajin',
 
   // User Rankings texts

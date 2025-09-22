@@ -99,6 +99,10 @@ const Map<String, String> fiTranslations = {
   'players_score_multiplier': '({players} pelaajaa: pisteet ×{multiplier})',
   'points_divided_explanation': '(Pisteet jaettu)',
   'health_score': 'Aivoterveyttä pisteet: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Uusi peli',
   'times_up': 'Aika loppui!',
 
@@ -149,6 +153,7 @@ const Map<String, String> fiTranslations = {
   'start_tracking_brain_health': 'Aloita aivoterveyttä seuranta',
   'login_prompt_desc': 'Kirjaudu sisään seurataksesi aivoterveyttä.',
   'sign_in': 'Kirjaudu sisään',
+  'login': 'Login',
   'create_account': 'Luo tili',
 
   // User Rankings texts

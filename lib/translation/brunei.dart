@@ -97,6 +97,10 @@ const Map<String, String> msBNTranslations = {
   'players_score_multiplier': '({players} pemain: mata ×{multiplier})',
   'points_divided_explanation': '(Mata dibahagikan sekiranya seri)',
   'health_score': 'Mata kesihatan otak: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Permainan baru',
   'times_up': 'Masa tamat!',
 
@@ -156,6 +160,7 @@ const Map<String, String> msBNTranslations = {
   'login_prompt_desc':
       'Log masuk untuk mengesan indeks kesihatan otak anda dan lihat kemajuan anda. Tingkatkan kemahiran kognitif anda melalui permainan ingatan.',
   'sign_in': 'Log masuk',
+  'login': 'Login',
   'create_account': 'Cipta akaun',
 
   // User Rankings texts

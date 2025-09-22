@@ -100,6 +100,10 @@ const Map<String, String> tnTranslations = {
   'players_score_multiplier': '({players} bamapadi: dintlha ×{multiplier})',
   'points_divided_explanation': '(Dintlha di arogantswe ka tekatekano)',
   'health_score': 'Dintlha tsa bophelo jwa boko: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Papadi e ntsha',
   'times_up': 'Nako e fedile!',
 
@@ -159,6 +163,7 @@ const Map<String, String> tnTranslations = {
   'login_prompt_desc':
       'Tsenya go lebelela bophelo jwa boko le kgatelopele. Oketsa bokgoni jwa gago jwa go gopola ka papadi ya gopola.',
   'sign_in': 'Tsenya',
+  'login': 'Login',
   'create_account': 'Tlhamela akhaonto',
 
   // User Rankings texts

@@ -96,6 +96,10 @@ const Map<String, String> azTranslations = {
   'players_score_multiplier': '({players} oyunçu: xal ×{multiplier})',
   'points_divided_explanation': '(Xallar bərabərlik halında bölüşdürülür)',
   'health_score': 'Beyin Sağlamlığı Xalı: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Yeni oyun',
   'times_up': 'Vaxt bitdi!',
 
@@ -158,6 +162,7 @@ const Map<String, String> azTranslations = {
   'login_prompt_desc':
       'Beyin sağlamlığı xalınızı qeyd etmək və irəliləyişinizi izləmək üçün daxil olun: Yaddaş oyunları vasitəsilə kognitiv qabiliyyətlərinizi yaxşılaşdırın:',
   'sign_in': 'Daxil ol',
+  'login': 'Login',
   'create_account': 'Hesab yarat',
 
   // User Rankings text

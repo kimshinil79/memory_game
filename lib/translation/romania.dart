@@ -97,6 +97,10 @@ const Map<String, String> roROTranslations = {
   'players_score_multiplier': '({players} jucători ×{multiplier})',
   'points_divided_explanation': '(puncte împărțite între jucători)',
   'health_score': 'Sănătate +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Joc nou',
   'times_up': 'S-a terminat timpul!',
 
@@ -152,6 +156,7 @@ const Map<String, String> roROTranslations = {
   'login_prompt_desc':
       'Conectează-te pentru a-ți urmări progresul sănătății creierului.',
   'sign_in': 'Conectare',
+  'login': 'Login',
   'create_account': 'Creează cont',
 
   // User Rankings texts

@@ -32,6 +32,7 @@ const Map<String, String> krTranslations = {
 
   // Sign In and Sign Up Dialog 텍스트
   'sign_in': '로그인',
+  'login': '로그인',
   'sign_in_button': '로그인',
   'sign_up': '회원가입',
   'sign_up_button': '회원가입',
@@ -112,6 +113,10 @@ const Map<String, String> krTranslations = {
   'players_score_multiplier': '({players}인 플레이: 점수 x{multiplier})',
   'points_divided_explanation': '(점수가 동점자들에게 나눠집니다)',
   'health_score': '두뇌 건강 점수: +{points}',
+  'score_breakdown': '점수 분해',
+  'base_score': '기본 점수',
+  'streak_bonus': '연속 보너스',
+  'total_earned': '총 획득',
   'new_game': '새 게임',
   'times_up': '시간 종료!',
 

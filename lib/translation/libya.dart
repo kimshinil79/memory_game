@@ -99,6 +99,10 @@ const Map<String, String> arLYTranslations = {
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط)',
   'health_score': 'نقاط صحة الدماغ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -149,6 +153,7 @@ const Map<String, String> arLYTranslations = {
   'start_tracking_brain_health': 'ابدأ تتبع صحة الدماغ',
   'login_prompt_desc': 'سجل الدخول لتتبع صحة دماغك.',
   'sign_in': 'تسجيل الدخول',
+  'login': 'Login',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

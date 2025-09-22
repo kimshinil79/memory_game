@@ -99,6 +99,10 @@ const Map<String, String> swTZTranslations = {
   'players_score_multiplier': '({players} mchezaji ×{multiplier})',
   'points_divided_explanation': '(Pointi zimegawanywa kati ya wachezaji)',
   'health_score': 'Afya +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Mchezo Mpya',
   'times_up': 'Muda umekwisha!',
 
@@ -151,6 +155,7 @@ const Map<String, String> swTZTranslations = {
   'start_tracking_brain_health': 'Anza Kufuatilia Afya ya Ubongo',
   'login_prompt_desc': 'Ingia ili kufuatilia maendeleo ya afya ya ubongo wako.',
   'sign_in': 'Ingia',
+  'login': 'Login',
   'create_account': 'Unda Akaunti',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> kmTranslations = {
   'players_score_multiplier': '({players} អ្នកលេង៖ ពិន្ទុ ×{multiplier})',
   'points_divided_explanation': '(ពិន្ទុត្រូវបានបែងចែកនៅពេលស្មើគ្នា)',
   'health_score': 'ពិន្ទុសុខភាពខួរក្បាល៖ +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'ហ្គេមថ្មី',
   'times_up': 'ពេលវេលាអស់ហើយ!',
 
@@ -155,6 +159,7 @@ const Map<String, String> kmTranslations = {
   'login_prompt_desc':
       'ចូលដើម្បីតាមដានសន្ទស្សន៍សុខភាពខួរក្បាលរបស់អ្នក និងមើលវឌ្ឍនភាពរបស់អ្នក។ កែលម្អជំនាញផ្លូវចិត្តរបស់អ្នកតាមរយៈហ្គេមចងចាំ។',
   'sign_in': 'ចូល',
+  'login': 'Login',
   'create_account': 'បង្កើតគណនី',
 
   // User Rankings texts

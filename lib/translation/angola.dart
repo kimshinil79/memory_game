@@ -101,6 +101,10 @@ const Map<String, String> ptAOTranslations = {
   'points_divided_explanation':
       '(Os pontos são divididos entre os jogadores empatados)',
   'health_score': 'Pontos de saúde cerebral: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Novo jogo',
   'times_up': 'Tempo esgotado!',
 
@@ -162,6 +166,7 @@ const Map<String, String> ptAOTranslations = {
   'login_prompt_desc':
       'Faça login para registrar seu índice de saúde cerebral e acompanhar seu progresso. Melhore suas capacidades cognitivas através de jogos de memória.',
   'sign_in': 'Entrar',
+  'login': 'Login',
   'create_account': 'Criar conta',
 
   // User Rankings texts

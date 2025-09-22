@@ -99,6 +99,10 @@ const Map<String, String> mnMNGTranslations = {
   'players_score_multiplier': 'Тоглогчид: {players} × {multiplier}',
   'points_divided_explanation': 'Оноог тоглогчдын дунд тэгш хуваана',
   'health_score': 'Эрүүл мэндийн оноо: {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Шинэ тоглоом',
   'times_up': 'Цаг дууслаа!',
 
@@ -152,6 +156,7 @@ const Map<String, String> mnMNGTranslations = {
   'login_prompt_desc':
       'Тархины эрүүл мэндийг сайжруулах явцыг хянахын тулд нэвтрэх',
   'sign_in': 'Нэвтрэх',
+  'login': 'Login',
   'create_account': 'Бүртгүүлэх',
 
   // User Rankings texts

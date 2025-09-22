@@ -99,6 +99,10 @@ const Map<String, String> deLUTranslations = {
   'players_score_multiplier': '({players} Spieler: Punkte ×{multiplier})',
   'points_divided_explanation': '(Punkte geteilt)',
   'health_score': 'Gehirngesundheitspunkte: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Neues Spiel',
   'times_up': 'Zeit abgelaufen!',
 
@@ -150,6 +154,7 @@ const Map<String, String> deLUTranslations = {
   'login_prompt_desc':
       'Melden Sie sich an, um Ihre Gehirngesundheit zu verfolgen.',
   'sign_in': 'Anmelden',
+  'login': 'Login',
   'create_account': 'Konto erstellen',
 
   // User Rankings texts

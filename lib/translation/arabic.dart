@@ -98,6 +98,10 @@ const Map<String, String> arTranslations = {
   'players_score_multiplier': '({players} لاعبين: النقاط ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط بين اللاعبين المتعادلين)',
   'health_score': 'نقاط صحة الدماغ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -154,6 +158,7 @@ const Map<String, String> arTranslations = {
   'login_prompt_desc':
       'سجل الدخول لتسجيل مؤشر صحة دماغك وتتبع تقدمك. حسّن قدراتك المعرفية من خلال ألعاب الذاكرة.',
   'sign_in': 'تسجيل الدخول',
+  'login': 'تسجيل الدخول',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

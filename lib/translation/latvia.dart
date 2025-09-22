@@ -99,6 +99,10 @@ const Map<String, String> lvLVTranslations = {
   'players_score_multiplier': '({players} spēlētāji: punkti ×{multiplier})',
   'points_divided_explanation': '(Punkti dalīti)',
   'health_score': 'Smadzeņu veselības punkti: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Jauna spēle',
   'times_up': 'Laiks beidzies!',
 
@@ -149,6 +153,7 @@ const Map<String, String> lvLVTranslations = {
   'start_tracking_brain_health': 'Sākt sekot smadzeņu veselībai',
   'login_prompt_desc': 'Piesakieties, lai sekotu savai smadzeņu veselībai.',
   'sign_in': 'Pieslēgties',
+  'login': 'Login',
   'create_account': 'Izveidot kontu',
 
   // User Rankings texts

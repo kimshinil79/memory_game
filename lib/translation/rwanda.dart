@@ -97,6 +97,10 @@ const Map<String, String> rwRWTranslations = {
   'players_score_multiplier': '({players} abakinnyi ×{multiplier})',
   'points_divided_explanation': '(amanota yagabanyijwe hagati y\'abakinnyi)',
   'health_score': 'Ubuzima +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Umukino mushya',
   'times_up': 'Igihe cyarangiye!',
 
@@ -152,6 +156,7 @@ const Map<String, String> rwRWTranslations = {
   'login_prompt_desc':
       'Injira kugira ngo urebe iterambere ry\'ubuzima bw\'ubwonko bwawe.',
   'sign_in': 'Injira',
+  'login': 'Login',
   'create_account': 'Kurema konti',
 
   // User Rankings texts

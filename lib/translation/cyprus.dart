@@ -101,6 +101,10 @@ const Map<String, String> elCYTranslations = {
   'players_score_multiplier': '({players} παίκτες: βαθμοί ×{multiplier})',
   'points_divided_explanation': '(Βαθμοί μοιράστηκαν σε ισοπαλία)',
   'health_score': 'Βαθμοί υγείας εγκεφάλου: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Νέο παιχνίδι',
   'times_up': 'Τέλος χρόνου!',
 
@@ -162,6 +166,7 @@ const Map<String, String> elCYTranslations = {
   'login_prompt_desc':
       'Συνδεθείτε για να παρακολουθείτε τον δείκτη υγείας εγκεφάλου σας και να βλέπετε την πρόοδό σας. Βελτιώστε τις γνωστικές σας ικανότητες μέσω του παιχνιδιού μνήμης.',
   'sign_in': 'Σύνδεση',
+  'login': 'Login',
   'create_account': 'Δημιουργία λογαριασμού',
 
   // User Rankings texts

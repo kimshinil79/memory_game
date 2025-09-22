@@ -97,6 +97,10 @@ const Map<String, String> skSKTranslations = {
   'players_score_multiplier': '({players} hráčov ×{multiplier})',
   'points_divided_explanation': '(Body sa delia medzi hráčov)',
   'health_score': 'Zdravie +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nová hra',
   'times_up': 'Čas vypršal!',
 
@@ -148,6 +152,7 @@ const Map<String, String> skSKTranslations = {
   'start_tracking_brain_health': 'Začnite sledovať zdravie mozgu',
   'login_prompt_desc': 'Prihláste sa pre sledovanie pokroku zdravia mozgu.',
   'sign_in': 'Prihlásiť sa',
+  'login': 'Login',
   'create_account': 'Vytvoriť účet',
 
   // User Rankings texts

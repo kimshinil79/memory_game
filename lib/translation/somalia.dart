@@ -98,6 +98,10 @@ const Map<String, String> soSOTranslations = {
   'players_score_multiplier': '({players} ciyaaryahan ×{multiplier})',
   'points_divided_explanation': '(Dhibcaha waxaa loo qaybiyaa ciyaaryahannada)',
   'health_score': 'Caafimaad +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Ciyaar Cusub',
   'times_up': "Waqtiga wuu dhamaaday!",
 
@@ -152,6 +156,7 @@ const Map<String, String> soSOTranslations = {
   'login_prompt_desc':
       'Gal si aad u raadiso horumarka caafimaadka maskaxdaada.',
   'sign_in': 'Gal',
+  'login': 'Login',
   'create_account': 'Abuur Akoon',
 
   // User Rankings texts

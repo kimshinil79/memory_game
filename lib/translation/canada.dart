@@ -99,6 +99,10 @@ const Map<String, String> enCATranslations = {
   'players_score_multiplier': '({players} players: points ×{multiplier})',
   'points_divided_explanation': '(Points divided in case of tie)',
   'health_score': 'Brain health points: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'New game',
   'times_up': 'Time\'s up!',
 
@@ -157,6 +161,7 @@ const Map<String, String> enCATranslations = {
   'login_prompt_desc':
       'Sign in to track your brain health index and see your progress. Improve your cognitive skills through memory games.',
   'sign_in': 'Sign in',
+  'login': 'Login',
   'create_account': 'Create account',
 
   // User Rankings texts

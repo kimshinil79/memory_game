@@ -97,6 +97,10 @@ const Map<String, String> frSNTranslations = {
   'players_score_multiplier': '({players} joueurs ×{multiplier})',
   'points_divided_explanation': '(points divisés entre les joueurs)',
   'health_score': 'Santé +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nouvelle partie',
   'times_up': 'Le temps est écoulé!',
 
@@ -151,6 +155,7 @@ const Map<String, String> frSNTranslations = {
   'login_prompt_desc':
       'Connectez-vous pour suivre vos progrès en santé cérébrale.',
   'sign_in': 'Connexion',
+  'login': 'Login',
   'create_account': 'Créer un compte',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> biVUTranslations = {
   'players_score_multiplier': '({players} pleia ×{multiplier})',
   'points_divided_explanation': '(Poin i divaed long ol pleia)',
   'health_score': 'Helt +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Niu gem',
   'times_up': 'Taem i finis!',
 
@@ -149,6 +153,7 @@ const Map<String, String> biVUTranslations = {
   'start_tracking_brain_health': 'Statem lukluk long helt blong braen',
   'login_prompt_desc': 'Log in blong lukluk long wei braen blong yu i gohed',
   'sign_in': 'Log in',
+  'login': 'Login',
   'create_account': 'Mekem akont',
 
   // User Rankings texts

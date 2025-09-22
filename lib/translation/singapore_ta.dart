@@ -98,6 +98,10 @@ const Map<String, String> taSGTranslations = {
   'points_divided_explanation':
       '(புள்ளிகள் வீரர்களுக்கு இடையே பிரிக்கப்பட்டுள்ளன)',
   'health_score': 'ஆரோக்கியம் +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'புதிய விளையாட்டு',
   'times_up': 'நேரம் முடிந்துவிட்டது!',
 
@@ -154,6 +158,7 @@ const Map<String, String> taSGTranslations = {
   'login_prompt_desc':
       'உங்கள் மூளை ஆரோக்கிய முன்னேற்றத்தைக் கண்காணிக்க உள்நுழையவும்.',
   'sign_in': 'உள்நுழையவும்',
+  'login': 'Login',
   'create_account': 'கணக்கை உருவாக்கவும்',
 
   // User Rankings texts

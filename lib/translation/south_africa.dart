@@ -97,6 +97,10 @@ const Map<String, String> enZATranslations = {
   'players_score_multiplier': '({players} players ×{multiplier})',
   'points_divided_explanation': '(Points are divided among players)',
   'health_score': 'Health +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'New Game',
   'times_up': "Time's up!",
 
@@ -148,6 +152,7 @@ const Map<String, String> enZATranslations = {
   'start_tracking_brain_health': 'Start Tracking Brain Health',
   'login_prompt_desc': 'Sign in to track your brain health progress.',
   'sign_in': 'Sign In',
+  'login': 'Login',
   'create_account': 'Create Account',
 
   // User Rankings texts

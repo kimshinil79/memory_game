@@ -99,6 +99,10 @@ const Map<String, String> sqTranslations = {
   'players_score_multiplier': '({players} Lojtarë: Pikët x{multiplier})',
   'points_divided_explanation': '(Pikët ndahen midis lojtarëve të barazuar)',
   'health_score': 'Pikët e Shëndetit të Trurit: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Lojë e Re',
   'times_up': 'Koha mbaroi!',
 
@@ -163,6 +167,7 @@ const Map<String, String> sqTranslations = {
   'login_prompt_desc':
       'Hyni për të regjistruar rezultatin tuaj të shëndetit të trurit dhe për të ndjekur progresin tuaj. Përmirësoni aftësitë tuaja kognitive përmes lojërave të memories.',
   'sign_in': 'Hyr',
+  'login': 'Login',
   'create_account': 'Krijo llogari',
 
   // User Rankings texts

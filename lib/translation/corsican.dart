@@ -99,6 +99,10 @@ const Map<String, String> coTranslations = {
   'players_score_multiplier': '({players} ghjucatori : puntu ×{multiplier})',
   'points_divided_explanation': '(I punti sò divisi in casu di pareghju)',
   'health_score': 'Punti di salute cerebrale : +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Novu ghjocu',
   'times_up': 'U tempu hè finitu !',
 
@@ -162,6 +166,7 @@ const Map<String, String> coTranslations = {
   'login_prompt_desc':
       'Cunnettevi per seguì u vostru indice di salute cerebrale è vede i vostri prugressi. Migliurate e vostre capacità cognitive grazia à i ghjochi di memoria.',
   'sign_in': 'Cunnettevi',
+  'login': 'Login',
   'create_account': 'Creà un contu',
 
   // User Rankings texts

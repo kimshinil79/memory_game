@@ -97,6 +97,10 @@ const Map<String, String> bgTranslations = {
   'players_score_multiplier': '({players} играча: точки ×{multiplier})',
   'points_divided_explanation': '(Точките се делят при равенство)',
   'health_score': 'Точки за здравето на мозъка: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Нова игра',
   'times_up': 'Времето изтече!',
 
@@ -158,6 +162,7 @@ const Map<String, String> bgTranslations = {
   'login_prompt_desc':
       'Влез в профила си, за да проследяваш индекса на здравето на мозъка си и да виждаш прогреса си. Подобри когнитивните си умения чрез игри на паметта.',
   'sign_in': 'Вход',
+  'login': 'Login',
   'create_account': 'Създай акаунт',
 
   // User Rankings texts

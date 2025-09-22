@@ -99,6 +99,10 @@ const Map<String, String> deDETranslations = {
   'players_score_multiplier': '({players} Spieler: Punkte ×{multiplier})',
   'points_divided_explanation': '(Punkte geteilt)',
   'health_score': 'Gehirngesundheits-Punkte: +{points}',
+  'score_breakdown': 'Punkte Aufschlüsselung',
+  'base_score': 'Basis Punkte',
+  'streak_bonus': 'Serien Bonus',
+  'total_earned': 'Insgesamt Verdient',
   'new_game': 'Neues Spiel',
   'times_up': 'Zeit abgelaufen!',
 
@@ -150,6 +154,7 @@ const Map<String, String> deDETranslations = {
   'login_prompt_desc':
       'Melden Sie sich an, um Ihre Gehirngesundheit zu verfolgen.',
   'sign_in': 'Anmelden',
+  'login': 'Anmelden',
   'create_account': 'Konto erstellen',
 
   // User Rankings texts

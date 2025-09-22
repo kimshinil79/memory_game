@@ -99,6 +99,10 @@ const Map<String, String> ptBRTranslations = {
   'players_score_multiplier': '({players} jogadores: pontos ×{multiplier})',
   'points_divided_explanation': '(Pontos divididos em caso de empate)',
   'health_score': 'Pontos de saúde cerebral: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Novo jogo',
   'times_up': 'Tempo esgotado!',
 
@@ -159,6 +163,7 @@ const Map<String, String> ptBRTranslations = {
   'login_prompt_desc':
       'Faça login para monitorar seu índice de saúde cerebral e ver seu progresso. Melhore suas habilidades cognitivas através de jogos de memória.',
   'sign_in': 'Entrar',
+  'login': 'Login',
   'create_account': 'Criar conta',
 
   // User Rankings texts

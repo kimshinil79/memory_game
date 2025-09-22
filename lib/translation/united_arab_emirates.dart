@@ -99,6 +99,10 @@ const Map<String, String> arAETranslations = {
   'players_score_multiplier': '({players} لاعبين ×{multiplier})',
   'points_divided_explanation': '(تم تقسيم النقاط بين اللاعبين)',
   'health_score': 'صحة +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -149,6 +153,7 @@ const Map<String, String> arAETranslations = {
   'start_tracking_brain_health': 'ابدأ تتبع صحة دماغك',
   'login_prompt_desc': 'سجل الدخول لتتبع تقدم صحة دماغك',
   'sign_in': 'تسجيل الدخول',
+  'login': 'Login',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> urPKTranslations = {
   'players_score_multiplier': '({players} کھلاڑی ×{multiplier})',
   'points_divided_explanation': '(پوائنٹس کھلاڑیوں کے درمیان تقسیم ہو گئے)',
   'health_score': 'صحت +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'نیا کھیل',
   'times_up': 'وقت ختم ہو گیا!',
 
@@ -150,6 +154,7 @@ const Map<String, String> urPKTranslations = {
   'start_tracking_brain_health': 'دماغی صحت کو ٹریک کرنا شروع کریں',
   'login_prompt_desc': 'دماغی صحت کی پیشرفت کو ٹریک کرنے کے لیے لاگ ان کریں۔',
   'sign_in': 'سائن ان کریں',
+  'login': 'Login',
   'create_account': 'اکاؤنٹ بنائیں',
 
   // User Rankings texts

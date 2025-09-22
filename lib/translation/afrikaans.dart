@@ -97,6 +97,10 @@ const Map<String, String> afkTranslations = {
   'players_score_multiplier': '({players} Spelers: Telling x{multiplier})',
   'points_divided_explanation': '(Punte word tussen gelykop spelers verdeel)',
   'health_score': 'Breingesondheid Telling: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nuwe Speletjie',
   'times_up': 'Tyd is verby!',
 
@@ -157,6 +161,7 @@ const Map<String, String> afkTranslations = {
   'login_prompt_desc':
       'Teken in om jou breingesondheid telling te registreer en jou vordering te volg. Verbeter jou kognitiewe vermoëns deur geheue speletjies.',
   'sign_in': 'Teken in',
+  'login': 'Login',
   'create_account': 'Skep Rekening',
 
   // User Rankings texts

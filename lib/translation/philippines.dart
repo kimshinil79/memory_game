@@ -100,6 +100,10 @@ const Map<String, String> filPHTranslations = {
   'points_divided_explanation':
       '(hinati ang mga puntos sa pagitan ng mga manlalaro)',
   'health_score': 'Kalusugan +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Bagong Laro',
   'times_up': 'Tapos na ang Oras!',
 
@@ -159,6 +163,7 @@ const Map<String, String> filPHTranslations = {
   'login_prompt_desc':
       'Mag-log in para subaybayan ang iyong progreso sa kalusugan ng utak.',
   'sign_in': 'Mag-sign In',
+  'login': 'Login',
   'create_account': 'Gumawa ng Account',
 
   // User Rankings texts

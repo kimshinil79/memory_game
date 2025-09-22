@@ -97,6 +97,10 @@ const Map<String, String> amTranslations = {
   'players_score_multiplier': '({players} խաղացող՝ միավոր x{multiplier})',
   'points_divided_explanation': '(Միավորները բաժանվում են ոչ-ոքիի դեպքում)',
   'health_score': 'Ուղեղի առողջության միավոր՝ +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Նոր խաղ',
   'times_up': 'Ժամանակը վերջացել է!',
 
@@ -159,6 +163,7 @@ const Map<String, String> amTranslations = {
   'login_prompt_desc':
       'Մուտք գործեք՝ ձեր ուղեղի առողջության միավորը գրանցելու և ձեր առաջընթացը հետևելու համար: Բարելավեք ձեր ճանաչողական կարողությունները հիշողության խաղերի միջոցով:',
   'sign_in': 'Մուտք գործել',
+  'login': 'Login',
   'create_account': 'Ստեղծել հաշիվ',
 
   // User Rankings text

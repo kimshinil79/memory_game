@@ -99,6 +99,10 @@ const Map<String, String> neTranslations = {
   'players_score_multiplier': '({players} खेलाडी ×{multiplier})',
   'points_divided_explanation': '(अंक खेलाडीहरू बीच विभाजित गरियो)',
   'health_score': 'स्वास्थ्य अंक +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'नयाँ खेल',
   'times_up': 'समय सकियो!',
 
@@ -153,6 +157,7 @@ const Map<String, String> neTranslations = {
   'login_prompt_desc':
       'तपाईंको मस्तिष्क स्वास्थ्य प्रगति ट्र्याक गर्न साइन इन गर्नुहोस्।',
   'sign_in': 'साइन इन गर्नुहोस्',
+  'login': 'Login',
   'create_account': 'खाता सिर्जना गर्नुहोस्',
 
   // User Rankings texts

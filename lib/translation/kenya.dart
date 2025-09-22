@@ -99,6 +99,10 @@ const Map<String, String> swKETranslations = {
   'players_score_multiplier': '({players} wachezaji: pointi ×{multiplier})',
   'points_divided_explanation': '(Pointi zimegawanywa)',
   'health_score': 'Pointi za afya ya ubongo: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Mchezo mpya',
   'times_up': 'Muda umekwisha!',
 
@@ -150,6 +154,7 @@ const Map<String, String> swKETranslations = {
   'start_tracking_brain_health': 'Anza kufuatilia afya ya ubongo',
   'login_prompt_desc': 'Ingia ili kufuatilia afya ya ubongo wako.',
   'sign_in': 'Ingia',
+  'login': 'Login',
   'create_account': 'Unda akaunti',
 
   // User Rankings texts

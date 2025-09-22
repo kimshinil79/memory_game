@@ -98,6 +98,10 @@ const Map<String, String> stLSTranslations = {
   'players_score_multiplier': '({players} bapapali: Lintlha ×{multiplier})',
   'points_divided_explanation': '(Lintlha li arolitsoe)',
   'health_score': 'Lintlha tsa bophelo ba boko: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Papali e ncha',
   'times_up': 'Nako e felile!',
 
@@ -149,6 +153,7 @@ const Map<String, String> stLSTranslations = {
   'start_tracking_brain_health': 'Qala ho latela bophelo ba boko',
   'login_prompt_desc': 'Kena ho latela bophelo ba boko ba hau.',
   'sign_in': 'Kena',
+  'login': 'Login',
   'create_account': 'Theha akhaonto',
 
   // User Rankings texts

@@ -94,6 +94,10 @@ Map<String, String> afTranslations = {
   'players_score_multiplier': '({players} لوبغاړي: نمره x{multiplier})',
   'points_divided_explanation': '(نمرې د برابرو لوبغاړو ترمنځ ویشل کیږي)',
   'health_score': 'د مغز روغتیا نمره: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'نوې لوبه',
   'times_up': 'وخت پای ته رسیدلی!',
   'retry': 'بیا هڅه',
@@ -153,6 +157,7 @@ Map<String, String> afTranslations = {
   'login_prompt_desc':
       'ننوتل او د مغز روغتیا نمرې ثبت کړئ او پرمختګ تعقیب کړئ. د حافظې لوبې ولوبوئ ترڅو د پوهیدو وړتیا ښه کړئ.',
   'sign_in': 'ننوتل',
+  'login': 'ورود',
   'create_account': 'حساب جوړول',
 
   // User Rankings

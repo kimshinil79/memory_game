@@ -99,6 +99,10 @@ const Map<String, String> arJOTranslations = {
   'players_score_multiplier': '({players} لاعبين: نقاط ×{multiplier})',
   'points_divided_explanation': '(تقسيم النقاط)',
   'health_score': 'درجة صحة الدماغ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
   'times_up': 'انتهى الوقت!',
 
@@ -149,6 +153,7 @@ const Map<String, String> arJOTranslations = {
   'start_tracking_brain_health': 'بدء تتبع صحة الدماغ',
   'login_prompt_desc': 'سجل الدخول لتتبع صحة دماغك.',
   'sign_in': 'تسجيل الدخول',
+  'login': 'Login',
   'create_account': 'إنشاء حساب',
 
   // User Rankings texts

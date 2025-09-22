@@ -99,6 +99,10 @@ const Map<String, String> filTranslations = {
   'players_score_multiplier': '({players} manlalaro: puntos ×{multiplier})',
   'points_divided_explanation': '(Hati ang mga puntos)',
   'health_score': 'Kalusugan ng utak puntos: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Bagong laro',
   'times_up': 'Tapos na ang oras!',
 
@@ -150,6 +154,7 @@ const Map<String, String> filTranslations = {
   'start_tracking_brain_health': 'Simulan ang pag-track ng kalusugan ng utak',
   'login_prompt_desc': 'Mag-log in para ma-track ang kalusugan ng utak.',
   'sign_in': 'Mag-sign in',
+  'login': 'Login',
   'create_account': 'Gumawa ng account',
 
   // User Rankings texts

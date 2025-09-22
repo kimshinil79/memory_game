@@ -97,6 +97,10 @@ const Map<String, String> huTranslations = {
   'players_score_multiplier': '({players} játékos: pontok ×{multiplier})',
   'points_divided_explanation': '(Pontok megosztva)',
   'health_score': 'Agy egészség pontok: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Új játék',
   'times_up': 'Lejárt az idő!',
 
@@ -147,6 +151,7 @@ const Map<String, String> huTranslations = {
   'start_tracking_brain_health': 'Agy egészség követésének megkezdése',
   'login_prompt_desc': 'Jelentkezzen be az agy egészség követéséhez.',
   'sign_in': 'Bejelentkezés',
+  'login': 'Login',
   'create_account': 'Fiók létrehozása',
 
   // User Rankings texts

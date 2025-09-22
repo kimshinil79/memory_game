@@ -99,6 +99,10 @@ const Map<String, String> htTranslations = {
   'players_score_multiplier': '({players} joueurs ×{multiplier})',
   'points_divided_explanation': '(Points divisés entre les joueurs)',
   'health_score': 'Score de santé +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nouvelle partie',
   'times_up': 'Le temps est écoulé !',
 
@@ -157,6 +161,7 @@ const Map<String, String> htTranslations = {
   'login_prompt_desc':
       'Connectez-vous pour suivre vos progrès en santé cérébrale.',
   'sign_in': 'Se connecter',
+  'login': 'Login',
   'create_account': 'Créer un compte',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> uzUZTranslations = {
   'players_score_multiplier': '({players} o\'yinchi ×{multiplier})',
   'points_divided_explanation': '(Ballar o\'yinchilar o\'rtasida bo\'lingan)',
   'health_score': 'Sog\'liq +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Yangi o\'yin',
   'times_up': 'Vaqt tugadi!',
 
@@ -151,6 +155,7 @@ const Map<String, String> uzUZTranslations = {
   'login_prompt_desc':
       'Miya sog\'lig\'ingizning rivojlanishini kuzatish uchun tizimga kiring',
   'sign_in': 'Kirish',
+  'login': 'Login',
   'create_account': 'Hisob yaratish',
 
   // User Rankings texts

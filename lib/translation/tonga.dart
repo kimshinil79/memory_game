@@ -101,6 +101,10 @@ const Map<String, String> toTOTranslations = {
   'points_divided_explanation':
       '(ʻOku vaevae ʻa e ngaahi poini ki he kau taʻanga)',
   'health_score': 'Moʻui lelei +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Taʻanga foʻou',
   'times_up': 'ʻOku ʻosi ʻa e taimi!',
 
@@ -155,6 +159,7 @@ const Map<String, String> toTOTranslations = {
   'login_prompt_desc':
       'Hū ki he ʻetita ke fakamatala ʻa e moʻui lelei ʻo hoʻo ʻuto',
   'sign_in': 'Hū ki he ʻetita',
+  'login': 'Login',
   'create_account': 'Fokotuʻu ʻetita',
 
   // User Rankings texts

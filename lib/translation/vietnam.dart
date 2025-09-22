@@ -97,6 +97,10 @@ const Map<String, String> viVNTranslations = {
   'players_score_multiplier': '({players} người chơi ×{multiplier})',
   'points_divided_explanation': '(Điểm được chia cho người chơi)',
   'health_score': 'Sức khỏe +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Trò chơi mới',
   'times_up': 'Hết giờ!',
 
@@ -148,6 +152,7 @@ const Map<String, String> viVNTranslations = {
   'start_tracking_brain_health': 'Bắt đầu theo dõi sức khỏe não bộ',
   'login_prompt_desc': 'Đăng nhập để theo dõi sức khỏe não bộ của bạn',
   'sign_in': 'Đăng nhập',
+  'login': 'Đăng nhập',
   'create_account': 'Tạo tài khoản',
 
   // User Rankings texts

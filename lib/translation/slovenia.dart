@@ -97,6 +97,10 @@ const Map<String, String> slSITranslations = {
   'players_score_multiplier': '({players} igralcev ×{multiplier})',
   'points_divided_explanation': '(Točke so razdeljene med igralce)',
   'health_score': 'Zdravje +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nova igra',
   'times_up': 'Čas je potekel!',
 
@@ -148,6 +152,7 @@ const Map<String, String> slSITranslations = {
   'start_tracking_brain_health': 'Začnite spremljati zdravje možganov',
   'login_prompt_desc': 'Prijavite se za spremljanje napredka zdravja možganov.',
   'sign_in': 'Prijava',
+  'login': 'Login',
   'create_account': 'Ustvari račun',
 
   // User Rankings texts

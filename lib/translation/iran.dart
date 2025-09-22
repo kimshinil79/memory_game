@@ -97,6 +97,10 @@ const Map<String, String> faTranslations = {
   'players_score_multiplier': '({players} بازیکن: امتیاز ×{multiplier})',
   'points_divided_explanation': '(امتیازات تقسیم شد)',
   'health_score': 'امتیاز سلامت مغز: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'بازی جدید',
   'times_up': 'زمان تمام شد!',
 
@@ -147,6 +151,7 @@ const Map<String, String> faTranslations = {
   'start_tracking_brain_health': 'شروع ردیابی سلامت مغز',
   'login_prompt_desc': 'وارد شوید تا سلامت مغز خود را ردیابی کنید.',
   'sign_in': 'ورود',
+  'login': 'Login',
   'create_account': 'ایجاد حساب کاربری',
 
   // User Rankings texts

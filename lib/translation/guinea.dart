@@ -97,6 +97,10 @@ const Map<String, String> frGNTranslations = {
   'players_score_multiplier': '({players} joueurs : points ×{multiplier})',
   'points_divided_explanation': '(Points divisés)',
   'health_score': 'Points de santé cérébrale : +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nouveau jeu',
   'times_up': 'Temps écoulé !',
 
@@ -147,6 +151,7 @@ const Map<String, String> frGNTranslations = {
   'start_tracking_brain_health': 'Commencer le suivi de la santé cérébrale',
   'login_prompt_desc': 'Connectez-vous pour suivre votre santé cérébrale.',
   'sign_in': 'Se connecter',
+  'login': 'Login',
   'create_account': 'Créer un compte',
 
   // User Rankings texts

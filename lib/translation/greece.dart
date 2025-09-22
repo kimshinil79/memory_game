@@ -99,6 +99,10 @@ const Map<String, String> elGRTranslations = {
   'players_score_multiplier': '({players} παίκτες: πόντοι ×{multiplier})',
   'points_divided_explanation': '(Διαιρεμένοι πόντοι)',
   'health_score': 'Πόντοι Εγκεφαλικής Υγείας: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Νέο Παιχνίδι',
   'times_up': 'Τέλος χρόνου!',
 
@@ -150,6 +154,7 @@ const Map<String, String> elGRTranslations = {
   'login_prompt_desc':
       'Συνδεθείτε για να παρακολουθείτε την εγκεφαλική σας υγεία.',
   'sign_in': 'Σύνδεση',
+  'login': 'Login',
   'create_account': 'Δημιουργία Λογαριασμού',
 
   // User Rankings texts

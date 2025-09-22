@@ -99,6 +99,10 @@ const Map<String, String> amTranslations = {
   'players_score_multiplier': '({players} ተጫዋቾች: ነጥቦች ×{multiplier})',
   'points_divided_explanation': '(ነጥቦች በእኩልነት ይከፈላሉ)',
   'health_score': 'የአንጎል ጤና ነጥቦች: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'አዲስ ጨዋታ',
   'times_up': 'ጊዜው አልቋል!',
 
@@ -154,6 +158,7 @@ const Map<String, String> amTranslations = {
   'login_prompt_desc':
       'የአንጎልህን ጤና ኢንዴክስ ለመከታተል እና እድገትህን ለማየት ይግቡ. በማስታወሻ ጨዋታ የአእምሮ ችሎታህን አሻሽል.',
   'sign_in': 'ይግቡ',
+  'login': 'Login',
   'create_account': 'መለያ ፍጠር',
 
   // User Rankings texts

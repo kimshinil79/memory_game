@@ -97,6 +97,10 @@ const Map<String, String> ptPTTranslations = {
   'players_score_multiplier': '({players} jogadores ×{multiplier})',
   'points_divided_explanation': '(pontos divididos entre jogadores)',
   'health_score': 'Saúde +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Novo jogo',
   'times_up': 'Tempo esgotado!',
 
@@ -149,6 +153,7 @@ const Map<String, String> ptPTTranslations = {
   'login_prompt_desc':
       'Inicie sessão para monitorizar o seu progresso de saúde cerebral.',
   'sign_in': 'Iniciar sessão',
+  'login': 'Login',
   'create_account': 'Criar conta',
 
   // User Rankings texts

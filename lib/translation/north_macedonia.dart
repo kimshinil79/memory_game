@@ -99,6 +99,10 @@ const Map<String, String> mkMKTranslations = {
   'players_score_multiplier': '({players} играчи ×{multiplier})',
   'points_divided_explanation': '(поените се поделени меѓу играчите)',
   'health_score': 'Здравје +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Нова игра',
   'times_up': 'Времето истече!',
 
@@ -153,6 +157,7 @@ const Map<String, String> mkMKTranslations = {
   'login_prompt_desc':
       'Најавете се за да го следите напредокот на здравјето на мозокот.',
   'sign_in': 'Најави се',
+  'login': 'Login',
   'create_account': 'Создади сметка',
 
   // User Rankings texts

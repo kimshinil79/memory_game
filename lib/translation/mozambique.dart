@@ -100,6 +100,10 @@ const Map<String, String> ptMOZTranslations = {
   'points_divided_explanation':
       'Os pontos são divididos igualmente entre os jogadores',
   'health_score': 'Pontuação de saúde: {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Novo jogo',
   'times_up': 'Tempo esgotado!',
 
@@ -153,6 +157,7 @@ const Map<String, String> ptMOZTranslations = {
   'login_prompt_desc':
       'Faça login para acompanhar seu progresso na melhoria da saúde cerebral',
   'sign_in': 'Entrar',
+  'login': 'Login',
   'create_account': 'Criar conta',
 
   // User Rankings texts

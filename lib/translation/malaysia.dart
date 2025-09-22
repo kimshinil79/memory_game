@@ -99,6 +99,10 @@ const Map<String, String> msTranslations = {
   'players_score_multiplier': '({players} pemain ×{multiplier})',
   'points_divided_explanation': '(Mata dibahagikan antara pemain)',
   'health_score': 'Mata kesihatan +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Permainan Baru',
   'times_up': 'Masa Tamat!',
 
@@ -150,6 +154,7 @@ const Map<String, String> msTranslations = {
   'start_tracking_brain_health': 'Mula Pantau Kesihatan Otak',
   'login_prompt_desc': 'Log masuk untuk memantau kemajuan kesihatan otak anda.',
   'sign_in': 'Log Masuk',
+  'login': 'Login',
   'create_account': 'Cipta Akaun',
 
   // User Rankings texts

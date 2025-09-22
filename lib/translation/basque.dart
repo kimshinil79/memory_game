@@ -98,6 +98,10 @@ const Map<String, String> euTranslations = {
   'players_score_multiplier': '({players} jokalari: puntuak ×{multiplier})',
   'points_divided_explanation': '(Puntuak berdinketan banatzen dira)',
   'health_score': 'Burmuinaren osasun puntuak: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Joko berria',
   'times_up': 'Denbora agortu da!',
 
@@ -159,6 +163,7 @@ const Map<String, String> euTranslations = {
   'login_prompt_desc':
       'Saioa hasi zure burmuinaren osasunaren indizea jarraitzeko eta zure aurrerapena monitorizatzeko. Hobetu zure gaitasun kognitiboak memoria jokoetatik.',
   'sign_in': 'Saioa hasi',
+  'login': 'Login',
   'create_account': 'Kontua sortu',
 
   // User Rankings texts

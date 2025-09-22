@@ -100,6 +100,10 @@ const Map<String, String> mdMDATranslations = {
   'points_divided_explanation':
       'Punctele sunt împărțite în mod egal între jucători',
   'health_score': 'Scor de sănătate: {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Joc nou',
   'times_up': 'S-a terminat timpul!',
 
@@ -155,6 +159,7 @@ const Map<String, String> mdMDATranslations = {
   'login_prompt_desc':
       'Conectați-vă pentru a urmări progresul în îmbunătățirea sănătății creierului',
   'sign_in': 'Conectați-vă',
+  'login': 'Login',
   'create_account': 'Creați cont',
 
   // User Rankings texts

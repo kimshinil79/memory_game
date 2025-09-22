@@ -100,6 +100,10 @@ const Map<String, String> deATTranslations = {
   'players_score_multiplier': '({players} Spieler: Punkte ×{multiplier})',
   'points_divided_explanation': '(Punkte werden bei Unentschieden geteilt)',
   'health_score': 'Gehirngesundheitspunkte: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Neues Spiel',
   'times_up': 'Zeit ist abgelaufen!',
 
@@ -163,6 +167,7 @@ const Map<String, String> deATTranslations = {
   'login_prompt_desc':
       'Melden Sie sich an, um Ihren Gehirngesundheits-Index zu verfolgen und Ihren Fortschritt zu überwachen. Verbessern Sie Ihre kognitiven Fähigkeiten durch Gedächtnisspiele.',
   'sign_in': 'Anmelden',
+  'login': 'Login',
   'create_account': 'Konto erstellen',
 
   // User Rankings texts

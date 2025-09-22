@@ -99,6 +99,10 @@ const Map<String, String> kyKGTranslations = {
   'players_score_multiplier': '({players} оюнчу: упай ×{multiplier})',
   'points_divided_explanation': '(Упайлар бөлүштүрүлдү)',
   'health_score': 'Мээ саламаттыгы упайы: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Жаңы оюн',
   'times_up': 'Убакыт бүттү!',
 
@@ -150,6 +154,7 @@ const Map<String, String> kyKGTranslations = {
   'start_tracking_brain_health': 'Мээ саламаттыгын көзөмөлдөөнү баштоо',
   'login_prompt_desc': 'Мээ саламаттыгыңызды көзөмөлдөө үчүн кириңиз.',
   'sign_in': 'Кируу',
+  'login': 'Login',
   'create_account': 'Каттоо эсебин түзүү',
 
   // User Rankings texts

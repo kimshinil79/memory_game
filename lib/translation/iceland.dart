@@ -99,6 +99,10 @@ const Map<String, String> isISTranslations = {
   'players_score_multiplier': '({players} leikmenn: stig x{multiplier})',
   'points_divided_explanation': '(Stigin eru deilt á milli jafnteflis)',
   'health_score': 'Heilbrigði heilans stig: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nýr leikur',
   'times_up': 'Tíminn er liðinn!',
 
@@ -159,6 +163,7 @@ const Map<String, String> isISTranslations = {
   'login_prompt_desc':
       'Skráðu þig inn til að fylgjast með heilbrigði heilans og framvindu. Bættu þínar hugrænar hæfileika með minnisleikjum.',
   'sign_in': 'Skrá inn',
+  'login': 'Login',
   'create_account': 'Búa til reikning',
 
   // User Rankings texts

@@ -97,6 +97,10 @@ const Map<String, String> ltTranslations = {
   'players_score_multiplier': '({players} žaidėjai: taškai ×{multiplier})',
   'points_divided_explanation': '(Taškai padalinti)',
   'health_score': 'Smegenų sveikatos taškai: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Naujas žaidimas',
   'times_up': 'Laikas baigėsi!',
 
@@ -148,6 +152,7 @@ const Map<String, String> ltTranslations = {
   'start_tracking_brain_health': 'Pradėti stebėti smegenų sveikatą',
   'login_prompt_desc': 'Prisijunkite, kad stebėtumėte savo smegenų sveikatą.',
   'sign_in': 'Prisijungti',
+  'login': 'Login',
   'create_account': 'Sukurti paskyrą',
 
   // User Rankings texts

@@ -99,6 +99,10 @@ const Map<String, String> nnNOTranslations = {
   'players_score_multiplier': '({players} spelarar ×{multiplier})',
   'points_divided_explanation': '(poeng delt mellom spelarane)',
   'health_score': 'Helse +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nytt spel',
   'times_up': 'Tida er ute!',
 
@@ -150,6 +154,7 @@ const Map<String, String> nnNOTranslations = {
   'start_tracking_brain_health': 'Start å følgje hjernesundheita',
   'login_prompt_desc': 'Logg inn for å følgje framgangen i hjernesundheita.',
   'sign_in': 'Logg inn',
+  'login': 'Login',
   'create_account': 'Opprett konto',
 
   // User Rankings texts

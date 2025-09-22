@@ -99,6 +99,10 @@ const Map<String, String> tgTJTranslations = {
   'players_score_multiplier': '({players} бозигар ×{multiplier})',
   'points_divided_explanation': '(Нуқтаҳо байни бозигарон тақсим шуданд)',
   'health_score': 'Саломатӣ +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Бозии нав',
   'times_up': 'Вақт тамом шуд!',
 
@@ -152,6 +156,7 @@ const Map<String, String> tgTJTranslations = {
   'login_prompt_desc':
       'Барои пайгирии пешрафти саломатии мағзи худ ворид шавед.',
   'sign_in': 'Ворид шудан',
+  'login': 'Login',
   'create_account': 'Эҷоди ҳисоб',
 
   // User Rankings texts

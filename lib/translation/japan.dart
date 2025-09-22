@@ -99,6 +99,10 @@ const Map<String, String> jaTranslations = {
   'players_score_multiplier': '({players}人: ポイント×{multiplier})',
   'points_divided_explanation': '(ポイント分割)',
   'health_score': '脳の健康スコア: +{points}',
+  'score_breakdown': 'スコア内訳',
+  'base_score': 'ベーススコア',
+  'streak_bonus': '連続ボーナス',
+  'total_earned': '合計獲得',
   'new_game': '新しいゲーム',
   'times_up': '時間切れ！',
 
@@ -149,6 +153,7 @@ const Map<String, String> jaTranslations = {
   'start_tracking_brain_health': '脳の健康を追跡開始',
   'login_prompt_desc': '脳の健康を追跡するにはログインしてください。',
   'sign_in': 'サインイン',
+  'login': 'ログイン',
   'create_account': 'アカウントを作成',
 
   // User Rankings texts

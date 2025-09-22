@@ -97,6 +97,10 @@ const Map<String, String> idTranslations = {
   'players_score_multiplier': '({players} pemain: poin ×{multiplier})',
   'points_divided_explanation': '(Poin dibagi)',
   'health_score': 'Poin Kesehatan Otak: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Permainan Baru',
   'times_up': 'Waktu Habis!',
 
@@ -147,6 +151,7 @@ const Map<String, String> idTranslations = {
   'start_tracking_brain_health': 'Mulai Lacak Kesehatan Otak',
   'login_prompt_desc': 'Masuk untuk melacak kesehatan otak.',
   'sign_in': 'Masuk',
+  'login': 'Masuk',
   'create_account': 'Buat Akun',
 
   // User Rankings texts

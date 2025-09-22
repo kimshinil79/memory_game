@@ -99,6 +99,10 @@ const Map<String, String> loLATranslations = {
   'players_score_multiplier': '({players} ຜູ້ຫຼິ້ນ: ຄະແນນ ×{multiplier})',
   'points_divided_explanation': '(ແບ່ງຄະແນນ)',
   'health_score': 'ຄະແນນສຸຂະພາບສະໝອງ: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'ເກມໃໝ່',
   'times_up': 'ເວລາໝົດ!',
 
@@ -149,6 +153,7 @@ const Map<String, String> loLATranslations = {
   'start_tracking_brain_health': 'ເລີ່ມຕິດຕາມສຸຂະພາບສະໝອງ',
   'login_prompt_desc': 'ເຂົ້າສູ່ລະບົບເພື່ອຕິດຕາມສຸຂະພາບສະໝອງຂອງທ່ານ.',
   'sign_in': 'ເຂົ້າສູ່ລະບົບ',
+  'login': 'Login',
   'create_account': 'ສ້າງບັນຊີ',
 
   // User Rankings texts

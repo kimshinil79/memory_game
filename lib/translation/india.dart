@@ -97,6 +97,10 @@ const Map<String, String> hiTranslations = {
   'players_score_multiplier': '({players} खिलाड़ी: अंक ×{multiplier})',
   'points_divided_explanation': '(अंक विभाजित)',
   'health_score': 'मस्तिष्क स्वास्थ्य अंक: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'नया गेम',
   'times_up': 'समय समाप्त!',
 
@@ -147,6 +151,7 @@ const Map<String, String> hiTranslations = {
   'start_tracking_brain_health': 'मस्तिष्क स्वास्थ्य ट्रैकिंग शुरू करें',
   'login_prompt_desc': 'मस्तिष्क स्वास्थ्य ट्रैक करने के लिए लॉग इन करें।',
   'sign_in': 'साइन इन',
+  'login': 'लॉग इन',
   'create_account': 'खाता बनाएं',
 
   // User Rankings texts

@@ -99,6 +99,10 @@ const Map<String, String> zhCNTranslations = {
   'players_score_multiplier': '（{players}名玩家：分数×{multiplier}）',
   'points_divided_explanation': '（平局时分数平分）',
   'health_score': '大脑健康点数：+{points}',
+  'score_breakdown': '分数分解',
+  'base_score': '基础分数',
+  'streak_bonus': '连续奖励',
+  'total_earned': '总计获得',
   'new_game': '新游戏',
   'times_up': '时间到！',
 
@@ -149,6 +153,7 @@ const Map<String, String> zhCNTranslations = {
   'start_tracking_brain_health': '开始跟踪您的大脑健康',
   'login_prompt_desc': '登录以跟踪您的大脑健康指数并查看您的进度。通过记忆游戏提高您的认知能力。',
   'sign_in': '登录',
+  'login': '登录',
   'create_account': '创建账户',
 
   // User Rankings texts

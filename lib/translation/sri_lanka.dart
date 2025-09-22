@@ -100,6 +100,10 @@ const Map<String, String> siLKTranslations = {
   'players_score_multiplier': '({players} ක්‍රීඩකයින් ×{multiplier})',
   'points_divided_explanation': '(ලකුණු ක්‍රීඩකයින් අතර බෙදා ගනී)',
   'health_score': 'සෞඛ්‍යය +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'නව ක්‍රීඩාව',
   'times_up': 'කාලය අවසන්!',
 
@@ -151,6 +155,7 @@ const Map<String, String> siLKTranslations = {
   'start_tracking_brain_health': 'මොළ සෞඛ්‍යය අනුගමනය කිරීම ආරම්භ කරන්න',
   'login_prompt_desc': 'ඔබේ මොළ සෞඛ්‍ය ප්‍රගතිය අනුගමනය කිරීමට පිවිසෙන්න.',
   'sign_in': 'පිවිසෙන්න',
+  'login': 'Login',
   'create_account': 'ගිණුමක් සාදන්න',
 
   // User Rankings texts

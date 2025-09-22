@@ -100,6 +100,10 @@ const Map<String, String> esESTranslations = {
   'players_score_multiplier': '({players} jugadores ×{multiplier})',
   'points_divided_explanation': '(Los puntos se dividen entre los jugadores)',
   'health_score': 'Salud +{points}',
+  'score_breakdown': 'Desglose de Puntos',
+  'base_score': 'Puntos Base',
+  'streak_bonus': 'Bonus Racha',
+  'total_earned': 'Total Ganado',
   'new_game': 'Nuevo Juego',
   'times_up': '¡Se acabó el tiempo!',
 
@@ -152,6 +156,7 @@ const Map<String, String> esESTranslations = {
   'login_prompt_desc':
       'Inicia sesión para seguir tu progreso de salud cerebral.',
   'sign_in': 'Iniciar Sesión',
+  'login': 'Iniciar Sesión',
   'create_account': 'Crear Cuenta',
 
   // User Rankings texts

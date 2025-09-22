@@ -97,6 +97,10 @@ const Map<String, String> trTRTranslations = {
   'players_score_multiplier': '({players} Oyuncu ×{multiplier})',
   'points_divided_explanation': '(Puanlar oyuncular arasında bölündü)',
   'health_score': 'Sağlık +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Yeni Oyun',
   'times_up': 'Süre Doldu!',
 
@@ -149,6 +153,7 @@ const Map<String, String> trTRTranslations = {
   'login_prompt_desc':
       'Beyin sağlığınızdaki ilerlemeyi takip etmek için giriş yapın',
   'sign_in': 'Giriş Yap',
+  'login': 'Login',
   'create_account': 'Hesap Oluştur',
 
   // User Rankings texts

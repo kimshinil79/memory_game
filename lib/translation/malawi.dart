@@ -99,6 +99,10 @@ const Map<String, String> nyTranslations = {
   'players_score_multiplier': '({players} osewera ×{multiplier})',
   'points_divided_explanation': '(Maphuzu agawidwa pakati pa osewera)',
   'health_score': 'Maphuzu a thanzi +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Masewera atsopano',
   'times_up': 'Nthawi yatha!',
 
@@ -153,6 +157,7 @@ const Map<String, String> nyTranslations = {
   'login_prompt_desc':
       'Lowani kuti mutsatire kupita patsogolo kwa thanzi la ubongo.',
   'sign_in': 'Lowani',
+  'login': 'Login',
   'create_account': 'Pangani akaunti',
 
   // User Rankings texts

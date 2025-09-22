@@ -99,6 +99,10 @@ const Map<String, String> thTHTranslations = {
   'players_score_multiplier': '({players} ผู้เล่น ×{multiplier})',
   'points_divided_explanation': '(คะแนนถูกแบ่งระหว่างผู้เล่น)',
   'health_score': 'สุขภาพ +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'เกมใหม่',
   'times_up': 'หมดเวลา!',
 
@@ -149,6 +153,7 @@ const Map<String, String> thTHTranslations = {
   'start_tracking_brain_health': 'เริ่มติดตามสุขภาพสมอง',
   'login_prompt_desc': 'เข้าสู่ระบบเพื่อติดตามความก้าวหน้าของสุขภาพสมองของคุณ',
   'sign_in': 'เข้าสู่ระบบ',
+  'login': 'เข้าสู่ระบบ',
   'create_account': 'สร้างบัญชี',
 
   // User Rankings texts
@@ -236,7 +241,8 @@ const Map<String, String> thTHTranslations = {
   'poop_brain_desc': 'เริ่มต้นการเดินทางเพื่อสุขภาพสมอง มีพื้นที่เติบโตมากมาย!',
   'poop_brain_fun':
       'สมองของคุณเหมือนสมาร์ทโฟนที่มีแบตเตอรี่ 20% ในโหมดประหยัดพลังงาน ถึงเวลาชาร์จแล้ว!',
-  'keep_playing_memory_games': 'เล่นเกมความจำต่อไปเพื่อปรับปรุงระดับสมองของคุณ!',
+  'keep_playing_memory_games':
+      'เล่นเกมความจำต่อไปเพื่อปรับปรุงระดับสมองของคุณ!',
   // Ranking tabs
   'total': 'ทั้งหมด',
   'weekly': 'รายสัปดาห์',

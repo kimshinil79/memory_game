@@ -100,6 +100,10 @@ const Map<String, String> frCMTranslations = {
   'players_score_multiplier': '({players} joueurs : points ×{multiplier})',
   'points_divided_explanation': '(Points divisés en cas d\'égalité)',
   'health_score': 'Points de santé cérébrale : +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nouveau jeu',
   'times_up': 'Temps écoulé !',
 
@@ -161,6 +165,7 @@ const Map<String, String> frCMTranslations = {
   'login_prompt_desc':
       'Connectez-vous pour suivre votre indice de santé cérébrale et voir vos progrès. Améliorez vos compétences cognitives grâce aux jeux de mémoire.',
   'sign_in': 'Se connecter',
+  'login': 'Login',
   'create_account': 'Créer un compte',
 
   // User Rankings texts

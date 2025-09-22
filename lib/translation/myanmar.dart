@@ -100,6 +100,10 @@ const Map<String, String> myTranslations = {
   'points_divided_explanation':
       'အမှတ်များကို ကစားသမားများကြားတွင် တူညီစွာခွဲဝေပါသည်',
   'health_score': 'ကျန်းမာရေးအမှတ်: {points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'ဂိမ်းအသစ်',
   'times_up': 'အချိန်ကုန်သွားပါပြီ!',
 
@@ -152,6 +156,7 @@ const Map<String, String> myTranslations = {
   'start_tracking_brain_health': 'ဦးနှောက်ကျန်းမာရေးခြေရာခံခြင်းစတင်ရန်',
   'login_prompt_desc': 'ဦးနှောက်ကျန်းမာရေးတိုးတက်မှုကိုခြေရာခံရန် အကောင့်ဝင်ပါ',
   'sign_in': 'ဝင်ရန်',
+  'login': 'Login',
   'create_account': 'အကောင့်ဖန်တီးရန်',
 
   // User Rankings texts

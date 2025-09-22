@@ -99,6 +99,10 @@ const Map<String, String> koKPTranslations = {
   'players_score_multiplier': '({players}명 ×{multiplier})',
   'points_divided_explanation': '(점수가 플레이어들 사이에서 분배됨)',
   'health_score': '건강 점수 +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': '새 게임',
   'times_up': '시간 종료!',
 
@@ -149,6 +153,7 @@ const Map<String, String> koKPTranslations = {
   'start_tracking_brain_health': '뇌 건강 추적 시작',
   'login_prompt_desc': '뇌 건강 진행 상황을 추적하려면 로그인하세요.',
   'sign_in': '로그인',
+  'login': 'Login',
   'create_account': '계정 생성',
 
   // User Rankings texts

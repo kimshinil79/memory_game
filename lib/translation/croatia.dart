@@ -99,6 +99,10 @@ const Map<String, String> hrTranslations = {
   'players_score_multiplier': '({players} igrača: bodovi ×{multiplier})',
   'points_divided_explanation': '(Bodovi se dijele u slučaju izjednačenja)',
   'health_score': 'Bodovi zdravlja mozga: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nova igra',
   'times_up': 'Vrijeme je isteklo!',
 
@@ -158,6 +162,7 @@ const Map<String, String> hrTranslations = {
   'login_prompt_desc':
       'Prijavi se da pratiš svoj indeks zdravlja mozga i vidiš svoj napredak. Poboljšaj svoje kognitivne vještine kroz igru pamćenja.',
   'sign_in': 'Prijavi se',
+  'login': 'Login',
   'create_account': 'Kreiraj račun',
 
   // User Rankings texts

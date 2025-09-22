@@ -97,6 +97,10 @@ const Map<String, String> itTranslations = {
   'players_score_multiplier': '({players} giocatori: punti ×{multiplier})',
   'points_divided_explanation': '(Punti divisi)',
   'health_score': 'Punteggio salute cervello: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'Nuovo gioco',
   'times_up': 'Tempo scaduto!',
 
@@ -147,6 +151,7 @@ const Map<String, String> itTranslations = {
   'start_tracking_brain_health': 'Inizia a monitorare la salute del cervello',
   'login_prompt_desc': 'Accedi per monitorare la salute del tuo cervello.',
   'sign_in': 'Accedi',
+  'login': 'Login',
   'create_account': 'Crea account',
 
   // User Rankings texts

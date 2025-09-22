@@ -100,6 +100,10 @@ const Map<String, String> bnBDTranslations = {
   'players_score_multiplier': '({players} খেলোয়াড়: পয়েন্ট ×{multiplier})',
   'points_divided_explanation': '(ড্র হলে পয়েন্ট ভাগ করা হবে)',
   'health_score': 'মস্তিষ্কের স্বাস্থ্য পয়েন্ট: +{points}',
+  'score_breakdown': 'Score Breakdown',
+  'base_score': 'Base Score',
+  'streak_bonus': 'Streak Bonus',
+  'total_earned': 'Total Earned',
   'new_game': 'নতুন গেম',
   'times_up': 'সময় শেষ!',
 
@@ -161,6 +165,7 @@ const Map<String, String> bnBDTranslations = {
   'login_prompt_desc':
       'আপনার মস্তিষ্কের স্বাস্থ্য সূচক ট্র্যাক করতে এবং আপনার অগ্রগতি পর্যবেক্ষণ করতে লগইন করুন। মেমরি গেমের মাধ্যমে আপনার জ্ঞানীয় দক্ষতা উন্নত করুন।',
   'sign_in': 'সাইন ইন',
+  'login': 'লগ ইন',
   'create_account': 'অ্যাকাউন্ট তৈরি করুন',
 
   // User Rankings texts

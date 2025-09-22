@@ -97,6 +97,10 @@ const Map<String, String> ruRUTranslations = {
   'players_score_multiplier': '({players} игроков ×{multiplier})',
   'points_divided_explanation': '(очки разделены между игроками)',
   'health_score': 'Здоровье +{points}',
+  'score_breakdown': 'Разбивка Очков',
+  'base_score': 'Базовые Очки',
+  'streak_bonus': 'Бонус Серии',
+  'total_earned': 'Всего Заработано',
   'new_game': 'Новая игра',
   'times_up': 'Время вышло!',
 
@@ -151,6 +155,7 @@ const Map<String, String> ruRUTranslations = {
   'login_prompt_desc':
       'Войдите, чтобы отслеживать прогресс здоровья вашего мозга.',
   'sign_in': 'Войти',
+  'login': 'Вход',
   'create_account': 'Создать аккаунт',
 
   // User Rankings texts
