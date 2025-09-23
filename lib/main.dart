@@ -401,7 +401,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     ));
 
     await remoteConfig.setDefaults(const {
-      "latest_version": "1.0.0",
+      "latest_version": "1.2.0",
     });
 
     await remoteConfig.fetchAndActivate();
