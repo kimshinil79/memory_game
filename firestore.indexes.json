@@ -1,0 +1,61 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "leaderboards",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "gridSize",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "completionTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaderboards",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "gridSize",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "flipCount",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rankings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "gridSize",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "completionTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rankings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "gridSize",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "flipCount",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

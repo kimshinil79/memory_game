@@ -122,7 +122,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   Timer? _itemPopupTimer;
   bool _itemUsedInCurrentGame = false; // 현재 게임에서 아이템 사용 여부 추적
 
-  List<bool> cardBorderAnimationTriggers = [];
+  List<bool> cardMatchEffectTriggers = [];
 
   bool isInitialized = false;
   bool hasError = false;
@@ -714,7 +714,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
     // 카드 배열 초기화
     cardFlips = List.generate(gridRows * gridColumns, (_) => false);
-    cardBorderAnimationTriggers =
+    cardMatchEffectTriggers =
         List.generate(gridRows * gridColumns, (_) => false);
     selectedCards.clear();
 
@@ -818,18 +818,20 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     gameImages.shuffle();
   }
 
-  void _triggerBorderAnimation(int index) {
-    if (index >= 0 && index < cardBorderAnimationTriggers.length) {
+  void _triggerMatchEffect(int index) {
+    if (index >= 0 && index < cardMatchEffectTriggers.length) {
       if (!mounted) return;
 
       setState(() {
-        cardBorderAnimationTriggers[index] = true;
+        cardMatchEffectTriggers[index] = true;
       });
-      Future.delayed(const Duration(milliseconds: 300), () {
+
+      // 애니메이션 지속 시간을 1.2초로 증가
+      Future.delayed(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
-        if (index < cardBorderAnimationTriggers.length) {
+        if (index < cardMatchEffectTriggers.length) {
           setState(() {
-            cardBorderAnimationTriggers[index] = false;
+            cardMatchEffectTriggers[index] = false;
           });
         }
       });
@@ -962,9 +964,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
 
       if (isMatch) {
-        // 매치되는 즉시 테두리 애니메이션 트리거
-        _triggerBorderAnimation(selectedCards[0]);
-        _triggerBorderAnimation(selectedCards[1]);
+        // 매치되는 즉시 매치 효과 애니메이션 트리거
+        _triggerMatchEffect(selectedCards[0]);
+        _triggerMatchEffect(selectedCards[1]);
 
         // 아이템 드롭 처리 추가
         _handleItemDrop();
@@ -1087,15 +1089,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       return const SizedBox();
     }
 
-    bool showRedBorder = cardBorderAnimationTriggers.isNotEmpty &&
-        index < cardBorderAnimationTriggers.length &&
-        cardBorderAnimationTriggers[index];
+    bool showMatchEffect = cardMatchEffectTriggers.isNotEmpty &&
+        index < cardMatchEffectTriggers.length &&
+        cardMatchEffectTriggers[index];
 
     return MemoryCard(
       index: index,
       imageId: gameImages[index],
       isFlipped: cardFlips[index],
-      showRedBorder: showRedBorder,
+      showMatchEffect: showMatchEffect,
       onTap: () => onCardTap(index),
     );
   }
