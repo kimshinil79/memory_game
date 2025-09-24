@@ -1362,7 +1362,7 @@ class BrainHealthProvider with ChangeNotifier {
     print(
         'Base points: $basePoints, Streak bonus: $streakBonusPoints, Total earned: $totalPointsEarned');
     print(
-        'Current streak: ${_currentStreak}, Longest streak: ${_longestStreak}');
+        'Current streak: $_currentStreak, Longest streak: $_longestStreak');
 
     // 로컬 데이터를 Firebase에 먼저 저장
     try {
@@ -1894,23 +1894,24 @@ class BrainHealthProvider with ChangeNotifier {
     }
   }
 
-  // 스트릭 업데이트 메서드 (24시간 내 연속 플레이면 매 게임마다 증가)
+  // 스트릭 업데이트 메서드 (같은 날짜 내 연속 플레이면 매 게임마다 증가)
   void _updateStreak() {
     final DateTime now = DateTime.now();
+    final DateTime today = DateTime(now.year, now.month, now.day);
 
     if (_lastGameDate == null) {
       // 첫 게임 완료
       _currentStreak = 1;
-      _lastGameDate = now; // 전체 타임스탬프 저장
+      _lastGameDate = now;
     } else {
-      final Duration sinceLast = now.difference(_lastGameDate!);
+      final DateTime lastGameDay = DateTime(_lastGameDate!.year, _lastGameDate!.month, _lastGameDate!.day);
 
-      if (sinceLast.inHours < 24) {
-        // 24시간 이내 연속 플레이 → 스트릭 증가
+      if (lastGameDay.isAtSameMomentAs(today)) {
+        // 같은 날짜 내 연속 플레이 → 스트릭 증가
         _currentStreak++;
         _lastGameDate = now;
       } else {
-        // 24시간 초과 → 스트릭 리셋
+        // 날짜가 바뀜 → 스트릭 리셋
         _currentStreak = 1;
         _lastGameDate = now;
       }
@@ -1925,7 +1926,7 @@ class BrainHealthProvider with ChangeNotifier {
     _streakBonus = _calculateStreakBonus(_currentStreak);
 
     print(
-        '스트릭 업데이트: 현재 ${_currentStreak}연속, 보너스: ${_streakBonus}점, 최장: ${_longestStreak}연속');
+        '스트릭 업데이트: 현재 $_currentStreak연속 (오늘), 보너스: $_streakBonus점, 최장: $_longestStreak연속');
   }
 
   // 현재 Brain Health 점수 가져오기

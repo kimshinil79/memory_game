@@ -11,10 +11,10 @@ class UserRankingWidget extends StatefulWidget {
   final double textScaleFactor;
 
   const UserRankingWidget({
-    Key? key,
+    super.key,
     required this.provider,
     required this.textScaleFactor,
-  }) : super(key: key);
+  });
 
   @override
   State<UserRankingWidget> createState() => _UserRankingWidgetState();
@@ -601,7 +601,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
 
       final userData = userDoc.data() as Map<String, dynamic>;
       if (!userData.containsKey('brain_health') ||
-          !(userData['brain_health'] is Map) ||
+          userData['brain_health'] is! Map ||
           !(userData['brain_health'] as Map).containsKey('scoreHistory')) {
         return 0;
       }

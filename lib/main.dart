@@ -241,6 +241,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -278,13 +280,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   // 게임 타이머 및 상태 변수 추가
   Timer? _gameTimer;
-  bool _isGameActive = false;
-  int _displayedGrid = 4;
-  int _score = 0;
+  final bool _isGameActive = false;
+  final int _displayedGrid = 4;
+  final int _score = 0;
 
   // Add gradient color constants
-  final Color instagramGradientStart = Color(0xFF833AB4);
-  final Color instagramGradientEnd = Color(0xFFF77737);
+  static const Color instagramGradientStart = Color(0xFF833AB4);
+  static const Color instagramGradientEnd = Color(0xFFF77737);
 
   // 현재 게임 ID를 저장할 변수
   String? _currentGameId;
@@ -357,7 +359,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             notification.hashCode,
             notification.title,
             notification.body,
-            NotificationDetails(
+            const NotificationDetails(
               android: AndroidNotificationDetails(
                 'high_importance_channel', // channel id
                 'High Importance Notifications', // channel name
@@ -367,7 +369,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 priority: Priority.high,
                 icon: '@mipmap/ic_launcher',
               ),
-              iOS: const DarwinNotificationDetails(
+              iOS: DarwinNotificationDetails(
                 presentAlert: true,
                 presentBadge: true,
                 presentSound: true,
@@ -488,9 +490,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   Future<void> _launchStoreURL() async {
     // App Store URLs
-    final String appStoreUrl =
+    const String appStoreUrl =
         'https://apps.apple.com/app/idYOUR_APP_ID'; // iOS App Store ID needed
-    final String playStoreUrl =
+    const String playStoreUrl =
         'https://play.google.com/store/apps/details?id=com.brainhealth.memorygame';
 
     String url = '';
@@ -872,10 +874,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       );
     }
 
-    List<Widget> _pages = [
+    List<Widget> pages = [
       _memoryGamePage!,
-      BrainHealthPage(),
-      TestPage(),
+      const BrainHealthPage(),
+      const TestPage(),
     ];
 
     // Return Scaffold directly since MaterialApp is now in main()
@@ -885,7 +887,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           elevation: 0,
           toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -935,20 +937,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       },
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   _buildUserProfileButton(),
                 ],
               ),
               if (_currentIndex == 0 && _user != null) ...[
                 const SizedBox(height: 12),
-                Container(
+                SizedBox(
                   height: 44,
                   child: _buildDynamicControlButtons(),
                 ),
               ],
             ],
           ),
-          actions: [
+          actions: const [
             SizedBox(width: 16),
           ],
         ),
@@ -962,7 +964,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _currentIndex = index;
                 });
               },
-              children: _pages,
+              children: pages,
             ),
             if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
               Positioned.fill(
@@ -991,7 +993,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(18),
               topRight: Radius.circular(18),
             ),
@@ -999,7 +1001,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 8,
-                offset: Offset(0, -3),
+                offset: const Offset(0, -3),
               ),
             ],
           ),
@@ -1016,10 +1018,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       children: [
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: _currentIndex == 0
-                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                ? const Color(0xFF833AB4).withOpacity(0.1)
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1028,7 +1030,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                             width: 22,
                             height: 22,
                             color: _currentIndex == 0
-                                ? Color(0xFF833AB4)
+                                ? const Color(0xFF833AB4)
                                 : Colors.grey.withOpacity(0.6),
                           ),
                         ),
@@ -1047,10 +1049,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       children: [
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: _currentIndex == 1
-                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                ? const Color(0xFF833AB4).withOpacity(0.1)
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1059,7 +1061,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                             width: 22,
                             height: 22,
                             color: _currentIndex == 1
-                                ? Color(0xFF833AB4)
+                                ? const Color(0xFF833AB4)
                                 : Colors.grey.withOpacity(0.6),
                           ),
                         ),
@@ -1078,10 +1080,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       children: [
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: _currentIndex == 2
-                                ? Color(0xFF833AB4).withOpacity(0.1)
+                                ? const Color(0xFF833AB4).withOpacity(0.1)
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1090,7 +1092,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                             width: 22,
                             height: 22,
                             color: _currentIndex == 2
-                                ? Color(0xFF833AB4)
+                                ? const Color(0xFF833AB4)
                                 : Colors.grey.withOpacity(0.6),
                           ),
                         ),
@@ -1136,7 +1138,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 : screenWidth * 0.025;
 
         // 버튼 높이를 44px로 고정하여 일관성 확보
-        final buttonHeight = 44.0;
+        const buttonHeight = 44.0;
 
         final buttonPadding = isSmallScreen
             ? EdgeInsets.symmetric(horizontal: screenWidth * 0.025, vertical: 8)
@@ -1273,20 +1275,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: buttonHeight,
         padding: buttonPadding,
         decoration: BoxDecoration(
-          color: isGradient ? instagramGradientStart : Color(0xFFFAFBFC),
+          color: isGradient ? instagramGradientStart : const Color(0xFFFAFBFC),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: isGradient ? instagramGradientStart : Color(0xFFE1E8ED),
+            color: isGradient ? instagramGradientStart : const Color(0xFFE1E8ED),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
               blurRadius: 4,
               spreadRadius: 0,
             ),
@@ -1300,7 +1302,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             Icon(
               icon,
               size: iconSize,
-              color: isGradient ? Colors.white : Color(0xFF657786),
+              color: isGradient ? Colors.white : const Color(0xFF657786),
             ),
             SizedBox(width: buttonPadding.horizontal * 0.3),
             Flexible(
@@ -1311,7 +1313,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: fontSize,
-                    color: isGradient ? Colors.white : Color(0xFF14171A),
+                    color: isGradient ? Colors.white : const Color(0xFF14171A),
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -1336,20 +1338,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return GestureDetector(
       onTap: () => _showLanguageSelectionDialog(context),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: buttonHeight,
         padding: buttonPadding,
         decoration: BoxDecoration(
-          color: Color(0xFFFAFBFC),
+          color: const Color(0xFFFAFBFC),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: Color(0xFFE1E8ED),
+            color: const Color(0xFFE1E8ED),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
               blurRadius: 4,
               spreadRadius: 0,
             ),
@@ -1368,7 +1370,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 Icon(
                   Icons.volume_up_rounded,
                   size: iconSize,
-                  color: Color(0xFF657786),
+                  color: const Color(0xFF657786),
                 ),
                 SizedBox(width: buttonPadding.horizontal * 0.3),
                 Flag.fromString(
@@ -1500,12 +1502,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to update profile. Please try again.'),
+            title: const Text('Error'),
+            content: const Text('Failed to update profile. Please try again.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -1638,7 +1640,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => AlertDialog(
+          builder: (context) => const AlertDialog(
             content: Row(
               children: [
                 CircularProgressIndicator(),
@@ -1663,7 +1665,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Account deleted successfully'),
             backgroundColor: Colors.green,
           ),
@@ -1682,12 +1684,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Failed to delete account. Please try again.'),
+          title: const Text('Error'),
+          content: const Text('Failed to delete account. Please try again.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -1781,12 +1783,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to sign in. Please check your credentials.'),
+            title: const Text('Error'),
+            content: const Text('Failed to sign in. Please check your credentials.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -1840,12 +1842,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to create account. Please try again.'),
+            title: const Text('Error'),
+            content: const Text('Failed to create account. Please try again.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -2041,7 +2043,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     });
 
     // 약간의 지연 후 UI 업데이트 강제 (화면 전환 문제 방지)
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
         setState(() {
           // _currentIndex를 강제로 0으로 설정하여 UI 업데이트
@@ -2148,7 +2150,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           Provider.of<LanguageProvider>(context, listen: false);
 
       // 앱 시작 시 약간의 지연을 두어 LanguageProvider가 완전히 초기화되도록 함
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future.delayed(const Duration(milliseconds: 1000));
 
       String currentLanguage = languageProvider.currentLanguage;
       print('앱 시작 시 TTS 언어 설정: $currentLanguage');
@@ -2173,7 +2175,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       // TestPage는 didChangeDependencies에서 자동으로 언어를 설정하므로 별도 처리 불필요
 
       // 추가로 2초 후에 한 번 더 확인하여 확실하게 설정
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
           String finalLanguage = languageProvider.currentLanguage;
           if (finalLanguage.isEmpty) {

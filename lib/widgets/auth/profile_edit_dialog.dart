@@ -111,7 +111,7 @@ class ProfileEditDialogContent extends StatefulWidget {
   final int? userAge;
 
   const ProfileEditDialogContent({
-    Key? key,
+    super.key,
     required this.dialogContext,
     required this.nicknameController,
     required this.birthdayController,
@@ -127,7 +127,7 @@ class ProfileEditDialogContent extends StatefulWidget {
     this.passwordError,
     required this.showPasswordFields,
     this.userAge,
-  }) : super(key: key);
+  });
 
   @override
   _ProfileEditDialogContentState createState() =>
@@ -281,13 +281,13 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
       ),
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           width: 350,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                SizedBox(width: 40), // 왼쪽 공간
+                const SizedBox(width: 40), // 왼쪽 공간
                 Expanded(
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
@@ -315,7 +315,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 ),
               ]),
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 controller: widget.nicknameController,
                 style: _getTextStyle(fontSize: 16),
@@ -332,10 +332,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  prefixIcon: Icon(Icons.person_outline),
+                  prefixIcon: const Icon(Icons.person_outline),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               GestureDetector(
                 onTap: () async {
                   final DateTime? picked = await showDatePicker(
@@ -380,15 +380,15 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.calendar_today),
+                    prefixIcon: const Icon(Icons.calendar_today),
                   ),
                   enabled: false,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Gender selection
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10),
@@ -403,7 +403,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         color: Colors.grey[600]!,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Expanded(
@@ -414,7 +414,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
                                 color: selectedGender == 'Male'
@@ -438,7 +438,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                         ? Colors.white
                                         : Colors.blue.shade700,
                                   ),
-                                  SizedBox(width: 4),
+                                  const SizedBox(width: 4),
                                   Expanded(
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
@@ -460,7 +460,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: InkWell(
                             onTap: () {
@@ -469,7 +469,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
                                 color: selectedGender == 'Female'
@@ -493,7 +493,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                         ? Colors.white
                                         : Colors.pink.shade700,
                                   ),
-                                  SizedBox(width: 4),
+                                  const SizedBox(width: 4),
                                   Expanded(
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
@@ -520,10 +520,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Country selection
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10),
@@ -558,7 +558,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () async {
                         final country =
@@ -595,7 +595,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Short Password (PIN)
               TextField(
                 controller: widget.shortPasswordController,
@@ -616,7 +616,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  prefixIcon: Icon(Icons.pin_outlined),
+                  prefixIcon: const Icon(Icons.pin_outlined),
                   errorText: shortPasswordError,
                   errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   counterText: "",
@@ -627,7 +627,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // Change Password Section
               InkWell(
@@ -645,7 +645,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   });
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
@@ -674,7 +674,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               ),
 
               if (showPasswordFields) ...[
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextField(
                   controller: widget.currentPasswordController,
                   obscureText: true,
@@ -693,10 +693,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(Icons.lock_outline),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TextField(
                   controller: widget.newPasswordController,
                   obscureText: true,
@@ -715,10 +715,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.vpn_key_outlined),
+                    prefixIcon: const Icon(Icons.vpn_key_outlined),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TextField(
                   controller: widget.confirmPasswordController,
                   obscureText: true,
@@ -737,14 +737,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.check_circle_outline),
+                    prefixIcon: const Icon(Icons.check_circle_outline),
                     errorText: passwordError,
                     errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   ),
                 ),
               ],
 
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   Expanded(
@@ -759,7 +759,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         side: BorderSide(color: Colors.grey.shade300),
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
                         t('cancel'),
@@ -767,7 +767,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
@@ -799,7 +799,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
                         t('save'),
@@ -809,7 +809,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Sign Out 버튼 추가
               ElevatedButton(
                 onPressed: () {
@@ -823,8 +823,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     borderRadius: BorderRadius.circular(10),
                     side: BorderSide(color: Colors.red.shade200),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  minimumSize: Size(double.infinity, 48),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  minimumSize: const Size(double.infinity, 48),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -833,7 +833,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       Icons.logout,
                       size: 20 * _textScaleFactor,
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       t('sign_out'),
                       style: _getTextStyle(
@@ -844,7 +844,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   ],
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
             ],
           ),
         ),
@@ -876,7 +876,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               title: Row(
                 children: [
                   Icon(Icons.settings, color: Colors.grey[600]),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Flexible(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -897,7 +897,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 children: [
                   // 푸쉬 알림 설정
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.grey[50],
                       borderRadius: BorderRadius.circular(12),
@@ -910,7 +910,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           color: Colors.blue[600],
                           size: 24,
                         ),
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -927,7 +927,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                   textAlign: TextAlign.start,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
@@ -953,12 +953,12 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             await prefs.setBool(
                                 'push_notifications_enabled', value);
                           },
-                          activeColor: Colors.blue[600],
+                          activeThumbColor: Colors.blue[600],
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // 회원탈퇴 버튼
                   SizedBox(
                     width: double.infinity,
@@ -974,16 +974,16 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: Colors.red.shade300),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.delete_forever_outlined,
                             size: 20,
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(

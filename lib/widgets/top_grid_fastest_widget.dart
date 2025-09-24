@@ -164,8 +164,8 @@ class _TopGridFastestWidgetState extends State<TopGridFastestWidget>
                 future: _future,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Column(
-                      children: const [
+                    return const Column(
+                      children: [
                         _SkeletonRow(),
                         _SkeletonRow(),
                         _SkeletonRow(),

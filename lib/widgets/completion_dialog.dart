@@ -395,7 +395,7 @@ class CompletionDialog extends StatelessWidget {
           if (currentStreak > 1 && streakBonus > 0) ...[
             _buildScoreRow(
               label:
-                  "${currentStreak} ${translations['streak_bonus'] ?? 'Streak Bonus'} 🔥",
+                  "$currentStreak ${translations['streak_bonus'] ?? 'Streak Bonus'} 🔥",
               value: "+$streakBonus",
               color: const Color(0xFFED8936),
               isHighlight: true,
