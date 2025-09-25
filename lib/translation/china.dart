@@ -230,4 +230,18 @@ const Map<String, String> zhCNTranslations = {
   'total': '总计',
   'weekly': '每周',
   'monthly': '每月',
+
+
+  // Promotional messages
+  'promo_message_1': '通过游戏开始您孩子的大脑发育！🎨 提升记忆技能的有趣游戏！',
+  'promo_message_2': '完美适合您孩子的专注力！✨ 在短时间会话中培养专注力和观察技能。',
+  'promo_message_3': '通过弹窗游戏提升学习效率！🚀 训练您的记忆力，这是学习的基础。',
+  'promo_message_4': '您能比朋友更快完成吗？👀 通过挑战体验成就感和大脑激活！',
+  'promo_message_5': '考试季的大脑维生素！🧠 通过快速训练课程增强专注力和记忆力！',
+  'promo_message_6': '快速休息时间！💫 在给大脑充电的同时缓解压力。',
+  'promo_message_7': '加班后疲惫的大脑？💡 每天只需5分钟就能提升工作专注力。',
+  'promo_message_8': '摆脱智能手机成瘾！📵 用促进大脑的游戏替代无意义的滚动。',
+  'promo_message_9': '增强父母的记忆力！✅ 为痴呆症预防点赞！持续的脑力锻炼是答案。',
+  'promo_message_10': '告别健忘！👋 用有趣的记忆游戏保持年轻的大脑！',
+
 };

@@ -254,4 +254,5 @@ const Map<String, String> naTranslations = {
   'total': 'Totaal',
   'weekly': 'Weekliks',
   'monthly': 'Maandeliks',
+
 };

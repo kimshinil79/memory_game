@@ -245,4 +245,16 @@ const Map<String, String> fjTranslations = {
   'total': 'Sa rui',
   'weekly': 'Na macawa',
   'monthly': 'Na vula',
+
+  // Promotional messages
+  'promo_message_1': 'Tekivutaka na veivakatoroicaketaki ni mona ni luvemu ena qito! 🎨 Qito talei e vakaukauwataka na kila-ka ni vakanananu!',
+  'promo_message_2': 'Vinaka sara me baleta na vakasama ni luvemu! ✨ Tarai cake na kila-ka ni vakasama kei na vakanananu ena gauna lekaleka ni qito.',
+  'promo_message_3': 'Vakaukauwataka na cakacaka ni vuli ena qito pop-up! 🚀 Vakatara na vakanananu, na yavu ni vuli.',
+  'promo_message_4': 'E rawa ni o vakaotia vakalevu cake mai vei ira na nomu itokani? 👀 Vakila na rawaka kei na veivakaukauwataki ni mona ena veika dredre!',
+  'promo_message_5': 'Vitamini ni mona ena gauna ni veisaqa! 🧠 Vakaukauwataka na vakasama kei na vakanananu ena gauna lekaleka ni vakatara!',
+  'promo_message_6': 'Gauna ni oca vakamalua! 💫 Kauta laivi na oca ena gauna o vakaukauwataka tale tiko kina na nomu mona.',
+  'promo_message_7': 'Mona oca mai na cakacaka vakalotu? 💡 Vakaukauwataka na cakacaka ena 5 na miniti ga ena dua na siga.',
+  'promo_message_8': 'Dro tani mai na nodra vakanuinui ni talevoni veikauyaki! 📵 Veisautaka na taqaya galala ena qito e vakaukauwataka na mona.',
+  'promo_message_9': 'Vakaukauwataka na vakanananu ni itubutubu! ✅ Rawa ni tarovi na mate ni dementia! Na veivakatara ni mona e sega ni mudu na kena isau.',
+  'promo_message_10': 'Tofau na guilecava! 👋 Maroroya na mona cauravou ena qito vakanananu talei!',
 };

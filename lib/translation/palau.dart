@@ -247,4 +247,16 @@ const Map<String, String> enPWTranslations = {
   'total': 'Omeluluches',
   'weekly': 'Wiik ra rechad',
   'monthly': 'Klok ra rechad',
+
+  // Promotional messages
+  'promo_message_1': 'Omeketmokl a ralm el mochu kldei el blengur! 🎨 Meleches a omereng er a uldarsel!',
+  'promo_message_2': 'Kirek a kldei el blengur! ✨ Melam a focus ma omereng el mochu kldei!',
+  'promo_message_3': 'Omekrael a omereng er a uldarsel el mochu kldei! 🚀 Melam a uldarsel, a uldarsel er a melam!',
+  'promo_message_4': 'Kau mo er a blengur el mochu kldei? 👀 Melam a omereng er a kldei ma kldei!',
+  'promo_message_5': 'Ralm el mochu kldei el blengur! 🧠 Omeketmokl a focus ma uldarsel el mochu kldei!',
+  'promo_message_6': 'Kirek a kldei el blengur! 💫 Omeketmokl a kldei el mochu kldei el blengur!',
+  'promo_message_7': 'Blengur el mochu kldei el blengur? 💡 Omeketmokl a focus er a blengur el mochu kldei!',
+  'promo_message_8': 'Oketmokl a smartphone el mochu kldei! 📵 Omeketmokl a blengur el mochu kldei el blengur!',
+  'promo_message_9': 'Omeketmokl a uldarsel er a delmerab! ✅ Kirek a kldei el mochu kldei el blengur!',
+  'promo_message_10': 'Melam a uldarsel el mochu kldei! 👋 Omeketmokl a blengur el mochu kldei el blengur!',
 };

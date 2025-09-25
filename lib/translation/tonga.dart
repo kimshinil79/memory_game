@@ -257,4 +257,16 @@ const Map<String, String> toTOTranslations = {
   'total': 'Kotoa',
   'weekly': 'Uike',
   'monthly': 'Mahina',
+
+  // Promotional messages
+  'promo_message_1': 'Kamata \'a e tupu \'a e \'uto \'o ho\'o ki\'i tamasi\'i \'i he va\'inga! 🎨 Ngaahi va\'inga fakafiefia \'oku tokoni ke toe lelei ange \'a e potu fakamanatu!',
+  'promo_message_2': 'Lelei \'aupito ki he tokanga \'a ho\'o ki\'i tamasi\'i! ✨ Langahake \'a e potu fakamanatu mo e potu ki he siofia lelei \'i he ngaahi lēsoni nounou.',
+  'promo_message_3': 'Fakalelei\'i \'a e faingamālie \'o e ako \'aki \'a e ngaahi va\'inga pop-up! 🚀 Faiako\'i ho\'o fakamanatu, ko e makatu\'unga \'o e ako.',
+  'promo_message_4': 'Te ke lava \'o \'osi vave ange \'i ho\'o ngaahi kaungāme\'a? 👀 A\'usia \'a e lavame\'a mo e fakaakeake \'o e \'uto \'i he ngaahi pole!',
+  'promo_message_5': 'Vitamini \'o e \'uto \'i he fa\'ahita\'u \'o e \'eksameni! 🧠 Fakalelei\'i \'a e tokanga mo e fakamanatu \'aki \'a e ngaahi lēsoni vave \'o e faiako\'i!',
+  'promo_message_6': 'Taimi mālōlō vave! 💫 Fakasi\'isi\'i \'a e loto-mo\'ua \'i ho\'o fakafo\'ou \'a e \'uto.',
+  'promo_message_7': '\'Uto vaivai mei he ho\'ata? 💡 Tokoni ke lelei ange \'a e tokanga ki he ngaahi ngāue \'aki \'a e miniti \'e 5 pē \'i he \'aho.',
+  'promo_message_8': 'Hola mei he faka\'uli\'i \'o e telefoni \'atamai! 📵 Fetongi \'a e liliu \'i he telefoni \'o \'ikai ha\'o faka\'uhinga \'aki \'a e ngaahi va\'inga \'oku fakalelei\'i \'a e \'uto.',
+  'promo_message_9': 'Fakalelei\'i \'a e fakamanatu \'a e ngaahi mātu\'a! ✅ Faka\'amu lelei ki he ta\'ofi \'o e mahaki \'o e hekesu! Ko e faiako\'i ma\'u pē \'o e \'uto ko e tali ia.',
+  'promo_message_10': 'Tuku \'a e fakangalongalo! 👋 Tauhi \'a e \'uto kei talavou \'aki \'a e ngaahi va\'inga fakamanatu fakafiefia!',
 };

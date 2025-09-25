@@ -248,4 +248,16 @@ const Map<String, String> ltTranslations = {
   'total': 'Iš viso',
   'weekly': 'Savaitė',
   'monthly': 'Mėnesio',
+
+  // Promotional messages
+  'promo_message_1': 'Pradėkite savo vaiko smegenų vystymą žaidimo metu! 🎨 Linksmi žaidimai, kurie stiprina atminties įgūdžius!',
+  'promo_message_2': 'Puikiai tinka jūsų vaiko koncentracijai! ✨ Ugdykite dėmesio ir stebėjimo įgūdžius per trumpas sesijas.',
+  'promo_message_3': 'Padidinkite mokymosi efektyvumą su iššokančiaisiais žaidimais! 🚀 Treniruokite savo atmintį, mokymosi pagrindą.',
+  'promo_message_4': 'Ar galite baigti greičiau nei jūsų draugai? 👀 Patirkite pasiekimus ir smegenų aktyvavimą per iššūkius!',
+  'promo_message_5': 'Smegenų vitaminas egzaminų sezono metu! 🧠 Pagerinkite dėmesį ir atmintį greitomis treniruotėmis!',
+  'promo_message_6': 'Greitoji pertrauka! 💫 Sumažinkite stresą, kol įkraunate savo smegenis.',
+  'promo_message_7': 'Pavargusios smegenys nuo viršvalandžių? 💡 Padidinkite darbo dėmesį tik 5 minutėmis per dieną.',
+  'promo_message_8': 'Išvenkite išmaniojo telefono priklausomybės! 📵 Pakeiskite beprasmį naršymą smegenis stiprinančiais žaidimais.',
+  'promo_message_9': 'Pagerinkite tėvų atmintį! ✅ Nykštys į viršų demencijos prevencijai! Nuoseklus smegenų mankštinimas yra atsakymas.',
+  'promo_message_10': 'Atsisveikinkite su užmaršumu! 👋 Palaikykite jaunas smegenis su linksmais atminties žaidimais!',
 };

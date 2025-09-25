@@ -244,4 +244,16 @@ const Map<String, String> enGMTranslations = {
   'total': 'Total',
   'weekly': 'Weekly',
   'monthly': 'Monthly',
+
+  // Promotional messages
+  'promo_message_1': 'Start your child\'s brain development through play! 🎨 Fun games that boost memory skills!',
+  'promo_message_2': 'Perfect for your child\'s concentration! ✨ Build focus and observation skills in short sessions.',
+  'promo_message_3': 'Boost learning efficiency with popup games! 🚀 Train your memory, the foundation of studying.',
+  'promo_message_4': 'Can you finish faster than your friends? 👀 Experience achievement and brain activation through challenges!',
+  'promo_message_5': 'Brain vitamin during exam season! 🧠 Enhance focus and memory with quick training sessions!',
+  'promo_message_6': 'Quick break time! 💫 Relieve stress while recharging your brain.',
+  'promo_message_7': 'Tired brain from overtime? 💡 Boost work focus with just 5 minutes a day.',
+  'promo_message_8': 'Escape smartphone addiction! 📵 Replace mindless scrolling with brain-boosting games.',
+  'promo_message_9': 'Enhance parents\' memory! ✅ Thumbs up for dementia prevention! Consistent brain exercise is the answer.',
+  'promo_message_10': 'Say goodbye to forgetfulness! 👋 Maintain a young brain with fun memory games!',
 };

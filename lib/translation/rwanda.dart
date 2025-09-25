@@ -254,4 +254,16 @@ const Map<String, String> rwRWTranslations = {
   'total': 'Byose',
   'weekly': 'Icyumweru',
   'monthly': 'Ukwezi',
+
+  // Promotional messages
+  'promo_message_1': 'Tangira iterambere ry\'ubwonko bw\'umwana wawe ukina! 🎨 Imikino ishimishije ituma ubushobozi bwo kwibuka bwiyongera!',
+  'promo_message_2': 'Ibyiza ku guhuza ibitekerezo kw\'umwana wawe! ✨ Wubake ubushobozi bwo kwibanda no kureba mu gihe gito.',
+  'promo_message_3': 'Ongera imikorere yo kwiga ukoresheje imikino y\'ibirangantego (popup)! 🚀 Hanga ubushobozi bwawe bwo kwibuka, urufatiro rwo kwiga.',
+  'promo_message_4': 'Urashobora kurangiza vuba kurusha inshuti zawe? 👀 Gerageza kugera ku byo wifuza no gukora kw\'ubwonko binyuze mu bikorwa bigoye!',
+  'promo_message_5': 'Vitamine y\'ubwonko mu gihe cy\'ibizamini! 🧠 Nonehoza ukwibanda no kwibuka binyuze mu myitozo yihuse!',
+  'promo_message_6': 'Akanya gato ko kuruhuka! 💫 Kuraho stress mu gihe wongeye imbaraga mu bwonko bwawe.',
+  'promo_message_7': 'Ubwonko bunaniwe kubera akazi k\'inyongera? 💡 Ongera imyitwarire yo gukora ukoresheje iminota 5 gusa ku munsi.',
+  'promo_message_8': 'Hunga urugomo rwa telefone igendanwa (smartphone)! 📵 Simbuza gukoresha telefone uko bitariho n\'imikino ituma ubwonko bukora neza.',
+  'promo_message_9': 'Ongera ubushobozi bwo kwibuka bw\'ababyeyi! ✅ Birakwiye gushimirwa ku bw\'ibiranga indwara zo kwibagirwa! Imyitozo y\'ubwonko ihoraho niyo gisubizo.',
+  'promo_message_10': 'Vuga kwaheri ku kwibagirwa! 👋 Gira ubwonko bucyeye ukoresheje imikino ishimishije yo kwibuka!',
 };

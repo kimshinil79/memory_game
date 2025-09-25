@@ -259,4 +259,5 @@ const Map<String, String> myTranslations = {
   'total': 'စုစုပေါင်း',
   'weekly': 'အပတ်စဉ်',
   'monthly': 'လစဉ်',
+
 };

@@ -251,4 +251,5 @@ const Map<String, String> enNZTranslations = {
   'total': 'Katoa',
   'weekly': 'Wiki',
   'monthly': 'Marama',
+
 };

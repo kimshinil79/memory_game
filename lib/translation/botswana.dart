@@ -270,4 +270,16 @@ const Map<String, String> tnTranslations = {
   'total': 'Kakaretso',
   'weekly': 'Beke le beke',
   'monthly': 'Kgwedi le kgwedi',
+
+  // Promotional messages
+  'promo_message_1': 'Simolola tlhabololo ya boko ya ngwana wa gago ka motshameko! 🎨 Metshameko e monate e e godisang bokgoni jwa go gakologelwa!',
+  'promo_message_2': 'E siametse sentle go ngwana wa gago go tlhoma mogopolo! ✨ Aga bokgoni jwa go tlhoma mogopolo le go lebelela mo ditshupong tse dikhutshwane.',
+  'promo_message_3': 'Oketsa bokgoni jwa go ithuta ka metshameko ya go tlhaga! 🚀 Thapisa go gakologelwa ga gago, motheo wa go ithuta.',
+  'promo_message_4': 'A o kgona go fetsa ka bonako go feta ditsala tsa gago? 👀 Bona katlego le tsosoloso ya boko ka dikgwetlho!',
+  'promo_message_5': 'Diboko tsa boko ka nako ya ditlhatlhobo! 🧠 Kgodisa go tlhoma mogopolo le go gakologelwa ka dithapiso tse di bofefo!',
+  'promo_message_6': 'Nako e khutshwane ya go ikhutsa! 💫 Fokotsa kgotlhang fa o ntse o tlhatlhetsa boko jwa gago.',
+  'promo_message_7': 'Boko bo lapileng ka ntlha ya go berekela nako e telele? 💡 Oketsa tlhokomelo ya tiro ka metsotso e 5 fela ka letsatsi.',
+  'promo_message_8': 'Tshaba kgolagano ya smartphone! 📵 Tlogela go thetsa o sena boikaelelo ka metshameko e e tlhabololang boko.',
+  'promo_message_9': 'Godisa go gakologelwa ga batsadi! ✅ Tumiso go thibelo ya bolwetse jwa boko! Boitsholo jwa boko jo bo sa kgaotseng ke karabo.',
+  'promo_message_10': 'Reela go lebala! 👋 Boloka boko jo bošwa ka metshameko e e monate ya go gakologelwa!',
 };

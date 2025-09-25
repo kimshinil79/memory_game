@@ -251,4 +251,16 @@ const Map<String, String> enPGTranslations = {
   'total': 'Olgeta',
   'weekly': 'Evri wik',
   'monthly': 'Evri manis',
+
+  // Promotional messages
+  'promo_message_1': 'Statim save bilong pikinini bilong yu long pilai! 🎨 Ol gutpela pilai i mekim bel i wok gut!',
+  'promo_message_2': 'Em i gutpela tru long pikinini bilong yu i putim tingting! ✨ Yu ken wokim bel bilong yu long lukim gut na tingting long liklik taim.',
+  'promo_message_3': 'Mekim save bilong skul i go moa gut long ol popap pilai! 🚀 Trenim tingting bilong yu, em i as bilong skul.',
+  'promo_message_4': 'Yu ken pinisim kwiktaim moa long ol pren bilong yu? 👀 Traim dispela wok strong na bel bilong yu bai wok gut!',
+  'promo_message_5': 'Vitamin bilong bel long taim bilong eksam! 🧠 Mekim tingting na bel i wok gut long ol kwiktaim tren!',
+  'promo_message_6': 'Kwiktaim brek! 💫 Lusim stress taim yu mekim bel bilong yu i kisim nupela strong.',
+  'promo_message_7': 'Bel i les long wok sotaim? 💡 Mekim bel bilong yu i wok gut long wok long 5 minit tasol long wanpela de.',
+  'promo_message_8': 'Ranim long wok sotskul long fon! 📵 Senisim bel i no gat wok long pilai i mekim bel i wok gut.',
+  'promo_message_9': 'Mekim ol papamama i save gut long bel bilong ol! ✅ Hamamas long pasim sik bilong bel i slip! Kontinuim tren bilong bel em i bekim.',
+  'promo_message_10': 'Tok bai bai long lusim tingting! 👋 Holim bel i yangpela long ol gutpela pilai bilong bel!',
 };

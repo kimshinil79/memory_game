@@ -265,4 +265,18 @@ const Map<String, String> nlTranslations = {
   'total': 'Totaal',
   'weekly': 'Wekelijks',
   'monthly': 'Maandelijks',
+
+
+  // Promotional messages
+  'promo_message_1': 'Begin de hersenontwikkeling van uw kind door te spelen! 🎨 Leuke spellen die geheugenvaardigheden stimuleren!',
+  'promo_message_2': 'Perfect voor de concentratie van uw kind! ✨ Bouw focus- en observatievaardigheden op in korte sessies.',
+  'promo_message_3': 'Verhoog de leerefficiëntie met popup-spellen! 🚀 Train uw geheugen, de basis van studeren.',
+  'promo_message_4': 'Kunt u sneller klaar zijn dan uw vrienden? 👀 Ervaar prestaties en hersenactivatie door uitdagingen!',
+  'promo_message_5': 'Hersenvitamine tijdens examentijd! 🧠 Verbeter focus en geheugen met snelle trainingssessies!',
+  'promo_message_6': 'Snelle pauze! 💫 Verlicht stress terwijl u uw hersenen oplaadt.',
+  'promo_message_7': 'Moe brein van overwerk? 💡 Verhoog werkfocus met slechts 5 minuten per dag.',
+  'promo_message_8': 'Ontsnap aan smartphoneverslaving! 📵 Vervang doelloos scrollen door hersenstimulerende spellen.',
+  'promo_message_9': 'Verbeter het geheugen van ouders! ✅ Duim omhoog voor dementiepreventie! Consistente hersentraining is het antwoord.',
+  'promo_message_10': 'Zeg vaarwel tegen vergeetachtigheid! 👋 Behoud een jong brein met leuke geheugenspellen!',
+
 };

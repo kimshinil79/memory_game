@@ -244,4 +244,16 @@ const Map<String, String> skSKTranslations = {
   'total': 'Celkom',
   'weekly': 'Týždenne',
   'monthly': 'Mesačne',
+
+  // Promotional messages
+  'promo_message_1': 'Začnite rozvoj mozgu svojho dieťaťa hrou! 🎨 Zábavné hry, ktoré posilňujú pamäťové schopnosti!',
+  'promo_message_2': 'Ideálne pre koncentráciu vášho dieťaťa! ✨ Budujte zručnosti sústredenia a pozorovania v krátkych sedeniach.',
+  'promo_message_3': 'Zvýšte efektivitu učenia pomocou pop-up hier! 🚀 Trénujte svoju pamäť, základ štúdia.',
+  'promo_message_4': 'Dokážete skončiť rýchlejšie ako vaši priatelia? 👀 Zažite úspech a aktiváciu mozgu prostredníctvom výziev!',
+  'promo_message_5': 'Mozgový vitamín počas skúškového obdobia! 🧠 Zlepšite sústredenie a pamäť rýchlymi tréningovými sedeniami!',
+  'promo_message_6': 'Rýchly čas na prestávku! 💫 Zbavte sa stresu a zároveň dobite energiu svojho mozgu.',
+  'promo_message_7': 'Unavený mozog z nadčasov? 💡 Zvýšte pracovné sústredenie len s 5 minútami denne.',
+  'promo_message_8': 'Utečte pred závislosťou na smartfóne! 📵 Nahraďte bezduché posúvanie hrami, ktoré posilňujú mozog.',
+  'promo_message_9': 'Zlepšite pamäť rodičov! ✅ Palec hore pre prevenciu demencie! Konzistentné cvičenie mozgu je odpoveďou.',
+  'promo_message_10': 'Rozlúčte sa so zábudlivosťou! 👋 Udržujte mladý mozog zábavnými pamäťovými hrami!',
 };

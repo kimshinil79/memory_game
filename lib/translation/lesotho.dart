@@ -250,4 +250,16 @@ const Map<String, String> stLSTranslations = {
   'total': 'Kakaretso',
   'weekly': 'Beke le beke',
   'monthly': 'Kgwedi le kgwedi',
+
+  // Promotional messages
+  'promo_message_1': 'Qala nts\'etsopele ea boko ba ngoana oa hau ka papali! 🎨 Lipapali tse monate tse matlafatsang bokhoni ba ho hopola!',
+  'promo_message_2': 'E nepahetse bakeng sa ho tsepamisa maikutlo ha ngoana oa hau! ✨ Haha bokhoni ba ho tsepamisa maikutlo le ho shebella ka likaroloana tse khutšoane.',
+  'promo_message_3': 'Matlafatsa katleho ea ho ithuta ka lipapali tsa pop-up! 🚀 Koetlisa mohopolo oa hau, motheo oa ho ithuta.',
+  'promo_message_4': 'Na u ka qeta kapele ho feta metsoalle ea hau? 👀 Fumana katleho le ts\'ebetso ea boko ka liphephetso!',
+  'promo_message_5': 'Vithamine ea boko nakong ea liteko! 🧠 Ntlafatsa ho tsepamisa maikutlo le mohopolo ka litlelase tsa koetliso tse potlakileng!',
+  'promo_message_6': 'Nako ea khefu e potlakileng! 💫 Fokotsa khatello ea maikutlo ha u ntse u nchafatsa boko ba hau.',
+  'promo_message_7': 'Boko bo khathetseng ke ho sebetsa nako e eketsehileng? 💡 Matlafatsa ho tsepamisa maikutlo mosebetsing ka metsotso e 5 feela ka letsatsi.',
+  'promo_message_8': 'Baleha ho lemalla smartphone! 📵 Tlosa ho thella ho se nang kelello ka lipapali tse matlafatsang boko.',
+  'promo_message_9': 'Matlafatsa mohopolo oa batsoali! ✅ Hantle haholo bakeng sa thibelo ea lefu la ho tloha kelellong! Boikoetliso ba boko bo tsoelang pele ke karabo.',
+  'promo_message_10': 'Re ho lebala sala hantle! 👋 Boloka boko bo bocha ka lipapali tse monate tsa mohopolo!',
 };

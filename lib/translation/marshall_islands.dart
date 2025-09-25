@@ -246,4 +246,16 @@ const Map<String, String> mhTranslations = {
   'total': 'Aolep',
   'weekly': 'Juon jān',
   'monthly': 'Juon bwilọọk',
+
+  // Promotional messages
+  'promo_message_1': 'Jino aņ kōm̧m̧an bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an! 🎨 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_2': 'Em̧m̧an ļōm̧an bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! ✨ Kōm̧m̧an bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an!',
+  'promo_message_3': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an! 🚀 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_4': 'Kōm̧m̧an kōm̧m̧an kōn kōm̧m̧an kōm̧m̧an? 👀 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_5': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧! 🧠 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧ kōm̧m̧an kōm̧m̧an!',
+  'promo_message_6': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! 💫 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_7': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧! 💡 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_8': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧! 📵 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_9': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! ✅ Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  'promo_message_10': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! 👋 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
 };

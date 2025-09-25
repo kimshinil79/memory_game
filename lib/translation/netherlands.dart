@@ -252,4 +252,5 @@ const Map<String, String> nlTranslations = {
   'total': 'Totaal',
   'weekly': 'Wekelijks',
   'monthly': 'Maandelijks',
+
 };

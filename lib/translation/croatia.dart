@@ -265,4 +265,16 @@ const Map<String, String> hrTranslations = {
   'total': 'Ukupno',
   'weekly': 'Tjedno',
   'monthly': 'Mjesečno',
+
+  // Promotional messages
+  'promo_message_1': 'Započnite razvoj mozga vašeg djeteta kroz igru! 🎨 Zabavne igre koje jačaju memorijske vještine!',
+  'promo_message_2': 'Savršeno za koncentraciju vašeg djeteta! ✨ Izgradite vještine fokusa i promatranja u kratkim sesijama.',
+  'promo_message_3': 'Povećajte učinkovitost učenja uz skočne igre! 🚀 Trenirajte svoje pamćenje, temelj učenja.',
+  'promo_message_4': 'Možete li završiti brže od svojih prijatelja? 👀 Doživite postignuće i aktivaciju mozga kroz izazove!',
+  'promo_message_5': 'Vitamin za mozak tijekom sezone ispita! 🧠 Poboljšajte fokus i pamćenje brzim treninzima!',
+  'promo_message_6': 'Vrijeme za brzu pauzu! 💫 Oslobodite se stresa dok punite svoj mozak.',
+  'promo_message_7': 'Umoran mozak od prekovremenog rada? 💡 Povećajte fokus na poslu sa samo 5 minuta dnevno.',
+  'promo_message_8': 'Pobjegnite od ovisnosti o pametnom telefonu! 📵 Zamijenite besciljno listanje igrama koje potiču mozak.',
+  'promo_message_9': 'Poboljšajte pamćenje roditelja! ✅ Palac gore za prevenciju demencije! Dosljedna vježba mozga je odgovor.',
+  'promo_message_10': 'Recite zbogom zaboravljivosti! 👋 Održite mlad mozak uz zabavne igre pamćenja!',
 };

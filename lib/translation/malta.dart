@@ -251,4 +251,16 @@ const Map<String, String> mtMTTranslations = {
   'total': 'Total',
   'weekly': 'Kull ġimgħa',
   'monthly': 'Kull xahar',
+
+  // Promotional messages
+  'promo_message_1': 'Ibda l-iżvilupp tal-moħħ tat-tifel/tifla tiegħek permezz tal-logħob! 🎨 Logħob divertenti li jsaħħaħ il-ħiliet tal-memorja!',
+  'promo_message_2': 'Perfett għall-konċentrazzjoni tat-tifel/tifla tiegħek! ✨ Ibni ħiliet ta\' fokus u osservazzjoni f\'sessjonijiet qosra.',
+  'promo_message_3': 'Agħti spinta lill-effiċjenza tat-tagħlim b\'logħob popup! 🚀 Ħarreġ il-memorja tiegħek, il-pedament tal-istudju.',
+  'promo_message_4': 'Tista\' tispiċċa aktar malajr minn sħabek? 👀 Esperjenza ta\' kisba u attivazzjoni tal-moħħ permezz ta\' sfidi!',
+  'promo_message_5': 'Vitamina tal-moħħ matul l-istaġun tal-eżamijiet! 🧠 Ittejjeb il-fokus u l-memorja b\'sessjonijiet ta\' taħriġ mgħaġġel!',
+  'promo_message_6': 'Ħin ta\' waqfa mgħaġġla! 💫 Serħ l-istress waqt li terġa\' tiċċarġja l-moħħ tiegħek.',
+  'promo_message_7': 'Moħħ għajjien mis-sahra? 💡 Agħti spinta lill-fokus tax-xogħol b\'5 minuti biss kuljum.',
+  'promo_message_8': 'Aħrab il-vizzju tal-ismartphone! 📵 Ibdel l-iskrolljar bla moħħ b\'logħob li jsaħħaħ il-moħħ.',
+  'promo_message_9': 'Ittejjeb il-memorja tal-ġenituri! ✅ Tajjeb ħafna għall-prevenzjoni tad-dimensja! Eżerċizzju konsistenti tal-moħħ huwa t-tweġiba.',
+  'promo_message_10': 'Għid addiju lill-minsi! 👋 Żomm moħħ żagħżugħ b\'logħob divertenti tal-memorja!',
 };

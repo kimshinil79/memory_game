@@ -251,4 +251,16 @@ const Map<String, String> trTRTranslations = {
   'total': 'Toplam',
   'weekly': 'Haftalık',
   'monthly': 'Aylık',
+
+  // Promotional messages
+  'promo_message_1': 'Çocuğunuzun beyin gelişimini oyun yoluyla başlatın! 🎨 Hafıza becerilerini artıran eğlenceli oyunlar!',
+  'promo_message_2': 'Çocuğunuzun konsantrasyonu için mükemmel! ✨ Kısa seanslarda odaklanma ve gözlem becerilerini geliştirin.',
+  'promo_message_3': 'Açılır (pop-up) oyunlarla öğrenme verimliliğini artırın! 🚀 Çalışmanın temeli olan hafızanızı eğitin.',
+  'promo_message_4': 'Arkadaşlarınızdan daha hızlı bitirebilir misiniz? 👀 Zorluklar aracılığıyla başarıyı ve beyin aktivasyonunu deneyimleyin!',
+  'promo_message_5': 'Sınav sezonunda beyin vitamini! 🧠 Hızlı eğitim seanslarıyla odaklanma ve hafızayı güçlendirin!',
+  'promo_message_6': 'Hızlı mola zamanı! 💫 Beyninizi yeniden şarj ederken stresi azaltın.',
+  'promo_message_7': 'Fazla mesai nedeniyle yorgun beyin? 💡 Günde sadece 5 dakika ile iş odağını artırın.',
+  'promo_message_8': 'Akıllı telefon bağımlılığından kaçının! 📵 Beyin güçlendirici oyunlarla anlamsız kaydırmayı değiştirin.',
+  'promo_message_9': 'Ebeveynlerin hafızasını güçlendirin! ✅ Demans (bunama) önleme için alkış! Tutarlı beyin egzersizi cevaptır.',
+  'promo_message_10': 'Unutkanlığa elveda deyin! 👋 Eğlenceli hafıza oyunlarıyla genç bir beyni koruyun!',
 };

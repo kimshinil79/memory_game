@@ -250,4 +250,16 @@ const Map<String, String> deLITranslations = {
   'total': 'Gesamt',
   'weekly': 'Wöchentlich',
   'monthly': 'Monatlich',
+
+  // Promotional messages
+  'promo_message_1': 'Starten Sie die Gehirnentwicklung Ihres Kindes spielerisch! 🎨 Lustige Spiele, die das Gedächtnis fördern!',
+  'promo_message_2': 'Perfekt für die Konzentration Ihres Kindes! ✨ Bauen Sie Fokus- und Beobachtungsfähigkeiten in kurzen Sitzungen auf.',
+  'promo_message_3': 'Steigern Sie die Lerneffizienz mit Pop-up-Spielen! 🚀 Trainieren Sie Ihr Gedächtnis, die Grundlage des Lernens.',
+  'promo_message_4': 'Können Sie schneller fertig werden als Ihre Freunde? 👀 Erleben Sie Erfolg und Gehirnaktivierung durch Herausforderungen!',
+  'promo_message_5': 'Gehirn-Vitamin während der Prüfungszeit! 🧠 Verbessern Sie Fokus und Gedächtnis mit schnellen Trainingseinheiten!',
+  'promo_message_6': 'Kurze Pause gefällig! 💫 Bauen Sie Stress ab, während Sie Ihr Gehirn aufladen.',
+  'promo_message_7': 'Müdes Gehirn von Überstunden? 💡 Steigern Sie den Arbeitsfokus mit nur 5 Minuten am Tag.',
+  'promo_message_8': 'Entkommen Sie der Smartphone-Sucht! 📵 Ersetzen Sie das gedankenlose Scrollen durch gehirnfördernde Spiele.',
+  'promo_message_9': 'Verbessern Sie das Gedächtnis der Eltern! ✅ Daumen hoch für Demenzprävention! Konstantes Gehirntraining ist die Antwort.',
+  'promo_message_10': 'Verabschieden Sie sich von Vergesslichkeit! 👋 Behalten Sie ein junges Gehirn mit lustigen Gedächtnisspielen!',
 };

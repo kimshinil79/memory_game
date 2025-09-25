@@ -538,12 +538,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   void _showTimeUpDialog() {
     if (!mounted) return;
 
+    // 번역 정보 가져오기
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+    final translations = languageProvider.getTranslations(languageProvider.uiLanguage);
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return TimeUpDialog(
           onRetry: initializeGame,
+          translations: translations,
         );
       },
     );

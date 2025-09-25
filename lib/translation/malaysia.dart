@@ -254,4 +254,16 @@ const Map<String, String> msTranslations = {
   'total': 'Jumlah',
   'weekly': 'Mingguan',
   'monthly': 'Bulanan',
+
+  // Promotional messages
+  'promo_message_1': 'Mulakan perkembangan otak anak anda melalui permainan! 🎨 Permainan yang menyeronokkan yang meningkatkan kemahiran memori!',
+  'promo_message_2': 'Sempurna untuk tumpuan anak anda! ✨ Bina kemahiran fokus dan pemerhatian dalam sesi pendek.',
+  'promo_message_3': 'Tingkatkan kecekapan pembelajaran dengan permainan pop timbul! 🚀 Latih memori anda, asas pembelajaran.',
+  'promo_message_4': 'Bolehkah anda menghabiskan lebih cepat daripada rakan-rakan anda? 👀 Alami pencapaian dan pengaktifan otak melalui cabaran!',
+  'promo_message_5': 'Vitamin otak semasa musim peperiksaan! 🧠 Tingkatkan fokus dan memori dengan sesi latihan pantas!',
+  'promo_message_6': 'Masa rehat pantas! 💫 Kurangkan tekanan sambil mengecas semula otak anda.',
+  'promo_message_7': 'Otak letih dari kerja lebih masa? 💡 Tingkatkan fokus kerja dengan hanya 5 minit sehari.',
+  'promo_message_8': 'Lari dari ketagihan telefon pintar! 📵 Gantikan skrol tanpa berfikir dengan permainan yang meningkatkan otak.',
+  'promo_message_9': 'Tingkatkan memori ibu bapa! ✅ Angkat tangan untuk pencegahan demensia! Senaman otak yang konsisten adalah jawapannya.',
+  'promo_message_10': 'Ucapkan selamat tinggal kepada pelupa! 👋 Kekalkan otak muda dengan permainan memori yang menyeronokkan!',
 };

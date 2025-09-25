@@ -252,4 +252,5 @@ const Map<String, String> msTranslations = {
   'total': 'Total',
   'weekly': 'Weekly',
   'monthly': 'Monthly',
+
 };

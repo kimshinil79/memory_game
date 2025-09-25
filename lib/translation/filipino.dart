@@ -249,4 +249,16 @@ const Map<String, String> filTranslations = {
   'total': 'Kabuuan',
   'weekly': 'Lingguhan',
   'monthly': 'Buwanan',
+
+  // Promotional messages
+  'promo_message_1': 'Simulan ang pagpapaunlad ng utak ng iyong anak sa pamamagitan ng laro! 🎨 Nakakatuwang mga laro na nagpapalakas ng kasanayan sa memorya!',
+  'promo_message_2': 'Perpekto para sa konsentrasyon ng iyong anak! ✨ Bumuo ng mga kasanayan sa pokus at pagmamasid sa maiikling sesyon.',
+  'promo_message_3': 'Palakasin ang kahusayan sa pag-aaral gamit ang mga popup na laro! 🚀 Sanayin ang iyong memorya, ang pundasyon ng pag-aaral.',
+  'promo_message_4': 'Kaya mo bang tapusin nang mas mabilis kaysa sa iyong mga kaibigan? 👀 Damhin ang tagumpay at pag-activate ng utak sa pamamagitan ng mga hamon!',
+  'promo_message_5': 'Bitamina para sa utak sa panahon ng pagsusulit! 🧠 Palakasin ang pokus at memorya sa mabilis na mga sesyon ng pagsasanay!',
+  'promo_message_6': 'Mabilisang oras ng pahinga! 💫 Pawiin ang stress habang nire-recharge ang iyong utak.',
+  'promo_message_7': 'Pagod na utak mula sa overtime? 💡 Palakasin ang pokus sa trabaho sa loob lamang ng 5 minuto bawat araw.',
+  'promo_message_8': 'Takasan ang adiksyon sa smartphone! 📵 Palitan ang walang kabuluhang pag-scroll ng mga laro na nagpapalakas ng utak.',
+  'promo_message_9': 'Palakasin ang memorya ng mga magulang! ✅ Good job para sa pag-iwas sa demensya! Ang tuloy-tuloy na pag-eehersisyo ng utak ang sagot.',
+  'promo_message_10': 'Magpaalam sa pagiging makakalimutin! 👋 Panatilihin ang isang batang utak sa nakakatuwang mga laro sa memorya!',
 };

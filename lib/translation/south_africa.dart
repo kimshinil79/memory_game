@@ -244,4 +244,16 @@ const Map<String, String> enZATranslations = {
   'total': 'Totaal',
   'weekly': 'Weekliks',
   'monthly': 'Maandeliks',
+
+  // Promotional messages
+  'promo_message_1': 'Qala ukuthuthukiswa kobuchopho bomntwana wakho ngokudlala! 🎨 Imidlalo ejabulisayo ethuthukisa amakhono enkumbulo!',
+  'promo_message_2': 'Iphelele ekugxiliseni kwengqondo komntwana wakho! ✨ Yakha amakhono okugxila nawokubona ezikhathini ezimfushane.',
+  'promo_message_3': 'Khulisa ukusebenza kahle kokufunda ngemidlalo ye-popup! 🚀 Qeqesha inkumbulo yakho, isisekelo sokufunda.',
+  'promo_message_4': 'Ungakwazi ukuqeda ngokushesha kunabangani bakho? 👀 Zitholele impumelelo nokuvuseleleka kobuchopho ngezinkinga!',
+  'promo_message_5': 'I-vitamin yobuchopho ngesikhathi sezivivinyo! 🧠 Thuthukisa ukugxila nenkumbulo ngezikhathi zokuqeqesha okusheshayo!',
+  'promo_message_6': 'Isikhathi sokuphumula esisheshayo! 💫 Yehlisa ingcindezi ngenkathi uvuselela ubuchopho bakho.',
+  'promo_message_7': 'Ubuchopho obukhathazekile ngokusebenza isikhathi esengeziwe? 💡 Khulisa ukugxila emsebenzini ngemizuzu emi-5 nje ngosuku.',
+  'promo_message_8': 'Balekela umlutha we-smartphone! 📵 Faka esikhundleni sokuskrola okungenangqondo ngemidlalo ethuthukisa ubuchopho.',
+  'promo_message_9': 'Thuthukisa inkumbulo yabazali! ✅ Thumbs up ekuvimbeleni i-dementia! Ukuzivocavoca ubuchopho okungaguquki kuyimpendulo.',
+  'promo_message_10': 'Valelisa ekukhohlweni! 👋 Gcina ubuchopho obuncane ngemidlalo yenkumbulo ejabulisayo!',
 };

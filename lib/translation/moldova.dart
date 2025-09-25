@@ -265,4 +265,16 @@ const Map<String, String> mdMDATranslations = {
   'total': 'Total',
   'weekly': 'Săptămânal',
   'monthly': 'Lunar',
+
+  // Promotional messages
+  'promo_message_1': 'Începeți dezvoltarea creierului copilului dumneavoastră prin joacă! 🎨 Jocuri distractive care stimulează abilitățile de memorie!',
+  'promo_message_2': 'Perfect pentru concentrarea copilului dumneavoastră! ✨ Construiți abilități de focalizare și observare în sesiuni scurte.',
+  'promo_message_3': 'Sporiți eficiența învățării cu jocuri pop-up! 🚀 Antrenați-vă memoria, baza studiului.',
+  'promo_message_4': 'Puteți termina mai repede decât prietenii dumneavoastră? 👀 Experimentați realizarea și activarea creierului prin provocări!',
+  'promo_message_5': 'Vitamina pentru creier în timpul sesiunii de examene! 🧠 Îmbunătățiți concentrarea și memoria cu sesiuni rapide de antrenament!',
+  'promo_message_6': 'Timp de pauză rapidă! 💫 Eliberați stresul în timp ce vă reîncărcați creierul.',
+  'promo_message_7': 'Creier obosit de la ore suplimentare? 💡 Sporiți concentrarea la locul de muncă cu doar 5 minute pe zi.',
+  'promo_message_8': 'Evadați din dependența de smartphone! 📵 Înlocuiți derularea fără minte cu jocuri care stimulează creierul.',
+  'promo_message_9': 'Îmbunătățiți memoria părinților! ✅ Felicitări pentru prevenirea demenței! Exercițiul cerebral constant este răspunsul.',
+  'promo_message_10': 'Spuneți adio uitării! 👋 Mențineți un creier tânăr cu jocuri de memorie distractive!',
 };

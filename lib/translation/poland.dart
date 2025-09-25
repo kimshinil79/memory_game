@@ -251,4 +251,16 @@ const Map<String, String> plPLTranslations = {
   'total': 'Łącznie',
   'weekly': 'Tygodniowo',
   'monthly': 'Miesięcznie',
+
+  // Promotional messages
+  'promo_message_1': 'Rozpocznij rozwój mózgu swojego dziecka poprzez zabawę! 🎨 Zabawne gry, które poprawiają zdolności pamięci!',
+  'promo_message_2': 'Idealne dla koncentracji Twojego dziecka! ✨ Buduj umiejętności skupienia i obserwacji w krótkich sesjach.',
+  'promo_message_3': 'Zwiększ efektywność nauki za pomocą gier typu pop-up! 🚀 Trenuj swoją pamięć, podstawę nauki.',
+  'promo_message_4': 'Czy potrafisz ukończyć szybciej niż Twoi znajomi? 👀 Doświadcz osiągnięć i aktywacji mózgu poprzez wyzwania!',
+  'promo_message_5': 'Witamina dla mózgu w sezonie egzaminacyjnym! 🧠 Popraw skupienie i pamięć dzięki szybkim sesjom treningowym!',
+  'promo_message_6': 'Szybka przerwa! 💫 Zredukuj stres, jednocześnie ładując swój mózg.',
+  'promo_message_7': 'Zmęczony mózg z powodu nadgodzin? 💡 Zwiększ koncentrację w pracy za pomocą zaledwie 5 minut dziennie.',
+  'promo_message_8': 'Ucieknij od uzależnienia od smartfona! 📵 Zastąp bezmyślne przewijanie grami wzmacniającymi mózg.',
+  'promo_message_9': 'Wzmocnij pamięć rodziców! ✅ Kciuk w górę za zapobieganie demencji! Konsekwentne ćwiczenie mózgu jest odpowiedzią.',
+  'promo_message_10': 'Pożegnaj się z zapominalstwem! 👋 Utrzymaj młody mózg dzięki zabawnym grom pamięciowym!',
 };

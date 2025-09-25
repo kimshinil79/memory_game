@@ -263,4 +263,16 @@ const Map<String, String> etTranslations = {
   'total': 'Kokku',
   'weekly': 'Nädala',
   'monthly': 'Kuud',
+
+  // Promotional messages
+  'promo_message_1': 'Alusta oma lapse aju arengut läbi mängu! 🎨 Lõbusad mängud, mis tõstavad mäluhoskusi!',
+  'promo_message_2': 'Täiuslik sinu lapse keskendumiseks! ✨ Arenda fookuse ja vaatlusoskusi lühikeste sessioonidega.',
+  'promo_message_3': 'Tõsta õppimise efektiivsust hüpikmängudega! 🚀 Treeni oma mälu, mis on õppimise alus.',
+  'promo_message_4': 'Kas suudad lõpetada kiiremini kui sinu sõbrad? 👀 Koge saavutustunnet ja aju aktiveerimist läbi väljakutsete!',
+  'promo_message_5': 'Ajunägemine eksamiperioodil! 🧠 Tõsta fookust ja mälu kiirete treeningsessioonidega!',
+  'promo_message_6': 'Kiire paus! 💫 Leevenda stressi samal ajal oma aju laadides.',
+  'promo_message_7': 'Väsinud aju ületööst? 💡 Tõsta tööfookust vaid 5 minutiga päevas.',
+  'promo_message_8': 'Põgene nutitelefonisõltuvusest! 📵 Asenda mõttetu kerimine ajutegevust parandavate mängudega.',
+  'promo_message_9': 'Paranda vanemate mälu! ✅ Pöial üles dementsuse ennetamiseks! Järjepidev ajutreening on vastus.',
+  'promo_message_10': 'Ütle unustamisele hüvasti! 👋 Säilita noor aju lõbusate mälumängudega!',
 };

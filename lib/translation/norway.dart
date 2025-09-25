@@ -251,4 +251,16 @@ const Map<String, String> nnNOTranslations = {
   'total': 'Totalt',
   'weekly': 'Ukentlig',
   'monthly': 'Månedlig',
+
+  // Promotional messages
+  'promo_message_1': 'Start barnets hjerneutvikling gjennom lek! 🎨 Morsomme spill som øker hukommelsesferdighetene!',
+  'promo_message_2': 'Perfekt for barnets konsentrasjon! ✨ Bygg fokus- og observasjonsevner i korte økter.',
+  'promo_message_3': 'Øk læringseffektiviteten med popup-spill! 🚀 Tren hukommelsen din, grunnlaget for studier.',
+  'promo_message_4': 'Kan du fullføre raskere enn vennene dine? 👀 Opplev prestasjon og hjerneaktivering gjennom utfordringer!',
+  'promo_message_5': 'Hjernevamin under eksamenssesongen! 🧠 Forbedre fokus og hukommelse med raske treningsøkter!',
+  'promo_message_6': 'Rask pause! 💫 Lindre stress mens du lader opp hjernen.',
+  'promo_message_7': 'Sliten hjerne av overtid? 💡 Øk arbeidsfokuset med bare 5 minutter om dagen.',
+  'promo_message_8': 'Unngå smarttelefonavhengighet! 📵 Bytt ut tankeløs scrolling med hjerneforsterkende spill.',
+  'promo_message_9': 'Forbedre foreldrenes hukommelse! ✅ Tommel opp for demensforebygging! Konsekvent hjernetrening er svaret.',
+  'promo_message_10': 'Si farvel til glemsomhet! 👋 Oppretthold en ung hjerne med morsomme hukommelsesspill!',
 };

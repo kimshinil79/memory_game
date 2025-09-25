@@ -268,4 +268,16 @@ const Map<String, String> coTranslations = {
   'total': 'Totale',
   'weekly': 'Settimanale',
   'monthly': 'Mensile',
+
+  // Promotional messages
+  'promo_message_1': 'Principià u sviluppu di u cervellu di u vostru zitellu attraversu u ghjocu! 🎨 Ghjochi divertenti chì rinfurzanu e cumpetenze di memoria!',
+  'promo_message_2': 'Perfettu per a cuncentrazione di u vostru zitellu! ✨ Custruite e cumpetenze di focu è osservazione in sessioni brevi.',
+  'promo_message_3': 'Aumenta l\'efficienza di l\'apprendimentu cù ghjochi popup! 🚀 Allena a vostra memoria, u fundamentu di u studiu.',
+  'promo_message_4': 'Pudete finisce più prestu cà i vostri amichi? 👀 Sperimenta u successu è l\'attivazione di u cervellu attraversu sfide!',
+  'promo_message_5': 'Vitamina cerebrale durante a stagione di l\'esami! 🧠 Migliurà u focu è a memoria cù sessioni di furmazione rapida!',
+  'promo_message_6': 'Tempu di pausa rapida! 💫 Alleviate u stress mentre ricaricate u vostru cervellu.',
+  'promo_message_7': 'Cervellu stancu da l\'ore supplementarie? 💡 Aumenta u focu di u travagliu cù solu 5 minuti à ghjornu.',
+  'promo_message_8': 'Scappate di l\'addiction à u smartphone! 📵 Rimpiazzate u scorrimentu senza sensu cù ghjochi chì rinfurzanu u cervellu.',
+  'promo_message_9': 'Migliurà a memoria di i genitori! ✅ Pollice in su per a prevenzione di a dimenza! L\'eserciziu coherente di u cervellu hè a risposta.',
+  'promo_message_10': 'Dì addiu à a sminticanza! 👋 Mantene un cervellu ghjovanu cù ghjochi di memoria divertenti!',
 };

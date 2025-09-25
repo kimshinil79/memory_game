@@ -246,4 +246,18 @@ const Map<String, String> itTranslations = {
   'total': 'Totale',
   'weekly': 'Settimanale',
   'monthly': 'Mensile',
+
+
+  // Promotional messages
+  'promo_message_1': 'Inizia lo sviluppo cerebrale di tuo figlio attraverso il gioco! 🎨 Giochi divertenti che potenziano le abilità di memoria!',
+  'promo_message_2': 'Perfetto per la concentrazione di tuo figlio! ✨ Sviluppa abilità di focus e osservazione in sessioni brevi.',
+  'promo_message_3': 'Aumenta l\'efficienza di apprendimento con giochi popup! 🚀 Allena la tua memoria, fondamento dello studio.',
+  'promo_message_4': 'Riesci a finire più velocemente dei tuoi amici? 👀 Sperimenta il successo e l\'attivazione cerebrale attraverso le sfide!',
+  'promo_message_5': 'Vitamina cerebrale durante la stagione degli esami! 🧠 Migliora focus e memoria con sessioni di allenamento rapide!',
+  'promo_message_6': 'Tempo di pausa veloce! 💫 Allevia lo stress mentre ricarichi il tuo cervello.',
+  'promo_message_7': 'Cervello stanco per gli straordinari? 💡 Aumenta la concentrazione lavorativa con solo 5 minuti al giorno.',
+  'promo_message_8': 'Scappa dalla dipendenza da smartphone! 📵 Sostituisci lo scorrimento senza senso con giochi che potenziano il cervello.',
+  'promo_message_9': 'Migliora la memoria dei genitori! ✅ Pollice in su per la prevenzione della demenza! L\'esercizio cerebrale costante è la risposta.',
+  'promo_message_10': 'Dì addio alla dimenticanza! 👋 Mantieni un cervello giovane con giochi di memoria divertenti!',
+
 };

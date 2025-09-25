@@ -259,4 +259,16 @@ const Map<String, String> mgTranslations = {
   'total': 'Total',
   'weekly': 'Hebdomadaire',
   'monthly': 'Mensuel',
+
+  // Promotional messages
+  'promo_message_1': 'Atombohy amin\'ny lalao ny fampandrosoana ny atidohan\'ny zanakao! 🎨 Lalao mahafinaritra mampitombo ny fahaiza-mahatazana!',
+  'promo_message_2': 'Tonga lafatra ho an\'ny fifantohan\'ny zanakao! ✨ Manangana fahaiza- mifantoka sy mijery ao anatin\'ny fotoana fohy.',
+  'promo_message_3': 'Ampitomboy ny fahombiazan\'ny fianarana amin\'ny lalao mipoitra! 🚀 Ampiofanina ny fahatazanao, ny fototry ny fianarana.',
+  'promo_message_4': 'Afaka mamita haingana kokoa noho ny namanao ve ianao? 👀 Andramo ny fahombiazana sy ny fampandehanana ny atidoha amin\'ny alalan\'ny fanamby!',
+  'promo_message_5': 'Vitamina atidoha mandritra ny fotoam-pisedrana! 🧠 Ampitomboy ny fifantohana sy ny fahatazana amin\'ny fotoam-piofanana haingana!',
+  'promo_message_6': 'Fotoana fohy fiatoana! 💫 Mampihena ny adin-tsaina eo am-panafarana ny atidohanao.',
+  'promo_message_7': 'Atidoha reraka noho ny ora fanampiny? 💡 Ampitomboy ny fifantohana amin\'ny asa amin\'ny 5 minitra isan\'andro fotsiny.',
+  'promo_message_8': 'Mandosira ny fiankinan-doha amin\'ny smartphone! 📵 Soloy lalao mampitombo ny atidoha ny fikorisana tsy misy dikany.',
+  'promo_message_9': 'Ampitomboy ny fahatazan\'ny ray aman-dreny! ✅ Tsara ho an\'ny fisorohana ny dementia! Ny fanazaran-tena tsy tapaka ho an\'ny atidoha no valiny.',
+  'promo_message_10': 'Manaova veloma ny fanadinoana! 👋 Tazonina ho tanora ny atidoha amin\'ny lalao fahatazana mahafinaritra!',
 };

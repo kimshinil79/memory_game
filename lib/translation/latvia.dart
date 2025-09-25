@@ -249,4 +249,16 @@ const Map<String, String> lvLVTranslations = {
   'total': 'Kopā',
   'weekly': 'Nedēļas',
   'monthly': 'Mēneša',
+
+  // Promotional messages
+  'promo_message_1': 'Sāciet bērna smadzeņu attīstību caur spēli! 🎨 Jautras spēles, kas uzlabo atmiņas prasmes!',
+  'promo_message_2': 'Ideāli piemērots jūsu bērna koncentrēšanās spējai! ✨ Veidojiet fokusa un novērošanas prasmes īsās sesijās.',
+  'promo_message_3': 'Uzlabojiet mācību efektivitāti ar uznirstošajām spēlēm! 🚀 Trenējiet savu atmiņu, kas ir mācīšanās pamats.',
+  'promo_message_4': 'Vai jūs varat pabeigt ātrāk nekā jūsu draugi? 👀 Pieredziet sasniegumus un smadzeņu aktivizēšanu, izmantojot izaicinājumus!',
+  'promo_message_5': 'Smadzeņu vitamīns eksāmenu sezonā! 🧠 Uzlabojiet fokusu un atmiņu ar ātrām apmācību sesijām!',
+  'promo_message_6': 'Ātra pauze! 💫 Atbrīvojieties no stresa, kamēr uzlādējat savas smadzenes.',
+  'promo_message_7': 'Nogurušas smadzenes no virsstundām? 💡 Uzlabojiet darba fokusu tikai ar 5 minūtēm dienā.',
+  'promo_message_8': 'Izbēdziet no viedtālruņa atkarības! 📵 Aizstājiet bezmērķīgu ritināšanu ar smadzeņu darbību uzlabojošām spēlēm.',
+  'promo_message_9': 'Uzlabojiet vecāku atmiņu! ✅ Īkšķis uz augšu demences profilaksei! Konsekventa smadzeņu vingrošana ir atbilde.',
+  'promo_message_10': 'Atvadieties no aizmāršības! 👋 Uzturiet jaunas smadzenes ar jautrām atmiņas spēlēm!',
 };

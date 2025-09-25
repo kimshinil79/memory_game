@@ -254,4 +254,5 @@ const Map<String, String> nrTranslations = {
   'total': 'Eamwit',
   'weekly': 'Emangon',
   'monthly': 'Eaibok',
+
 };

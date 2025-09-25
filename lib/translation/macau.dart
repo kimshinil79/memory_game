@@ -237,4 +237,16 @@ const Map<String, String> moTranslations = {
   'total': '總計',
   'weekly': '每週',
   'monthly': '每月',
+
+  // Promotional messages
+  'promo_message_1': '透過遊戲開始您小朋友嘅大腦發展！🎨 有趣嘅遊戲，提升記憶力！',
+  'promo_message_2': '完美配合您小朋友嘅專注力！✨ 喺短時間訓練入面，建立專注同觀察能力。',
+  'promo_message_3': '用彈出式遊戲提升學習效率！🚀 訓練您嘅記憶力，學習嘅基礎。',
+  'promo_message_4': '你可唔可以快過你嘅朋友完成？👀 透過挑戰，體驗成就感同大腦激活！',
+  'promo_message_5': '考試季節嘅大腦維他命！🧠 透過快速訓練，增強專注力同記憶力！',
+  'promo_message_6': '快速休息時間！💫 喺為大腦充電嘅同時，緩解壓力。',
+  'promo_message_7': '加班導致大腦疲勞？💡 每日只需5分鐘，提升工作專注力。',
+  'promo_message_8': '擺脫手機成癮！📵 用益智遊戲取代無意識嘅滑手機。',
+  'promo_message_9': '增強父母嘅記憶力！✅ 預防認知障礙症，畀個讚！持續嘅大腦鍛煉係答案。',
+  'promo_message_10': '同善忘講拜拜！👋 用有趣嘅記憶遊戲保持年輕嘅大腦！',
 };

@@ -270,4 +270,16 @@ const Map<String, String> svSETranslations = {
   'total': 'Totalt',
   'weekly': 'Veckovis',
   'monthly': 'Månadsvis',
+
+  // Promotional messages
+  'promo_message_1': 'Starta ditt barns hjärnans utveckling genom lek! 🎨 Roliga spel som ökar minnesförmågan!',
+  'promo_message_2': 'Perfekt för ditt barns koncentration! ✨ Bygg fokus- och observationsförmåga i korta sessioner.',
+  'promo_message_3': 'Öka inlärningseffektiviteten med popup-spel! 🚀 Träna ditt minne, grunden för studier.',
+  'promo_message_4': 'Kan du avsluta snabbare än dina vänner? 👀 Upplev prestation och hjärnaktivering genom utmaningar!',
+  'promo_message_5': 'Hjärn vitamin under tentaperioden! 🧠 Förbättra fokus och minne med snabba träningspass!',
+  'promo_message_6': 'Snabb paus! 💫 Lindra stress medan du laddar om din hjärna.',
+  'promo_message_7': 'Trött hjärna från övertid? 💡 Öka arbetsfokus med bara 5 minuter om dagen.',
+  'promo_message_8': 'Fly smarttelefonberoende! 📵 Ersätt tanklöst rullande med hjärnförstärkande spel.',
+  'promo_message_9': 'Förbättra föräldrars minne! ✅ Tummen upp för demensförebyggande! Konsekvent hjärnträning är svaret.',
+  'promo_message_10': 'Säg hejdå till glömska! 👋 Behåll en ung hjärna med roliga minnesspel!',
 };

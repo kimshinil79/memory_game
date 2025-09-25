@@ -261,4 +261,16 @@ const Map<String, String> mxMEXTranslations = {
   'total': 'Total',
   'weekly': 'Semanal',
   'monthly': 'Mensual',
+
+  // Promotional messages
+  'promo_message_1': '¡Inicia el desarrollo cerebral de tu hijo a través del juego! 🎨 ¡Juegos divertidos que potencian las habilidades de memoria!',
+  'promo_message_2': '¡Perfecto para la concentración de tu hijo! ✨ Desarrolla habilidades de enfoque y observación en sesiones cortas.',
+  'promo_message_3': '¡Potencia la eficiencia del aprendizaje con juegos emergentes! 🚀 Entrena tu memoria, el fundamento del estudio.',
+  'promo_message_4': '¿Puedes terminar más rápido que tus amigos? 👀 ¡Experimenta el logro y la activación cerebral a través de desafíos!',
+  'promo_message_5': '¡Vitamina cerebral durante la temporada de exámenes! 🧠 ¡Mejora el enfoque y la memoria con sesiones de entrenamiento rápidas!',
+  'promo_message_6': '¡Tiempo de descanso rápido! 💫 Alivia el estrés mientras recargas tu cerebro.',
+  'promo_message_7': '¿Cerebro cansado por las horas extras? 💡 Aumenta el enfoque en el trabajo con solo 5 minutos al día.',
+  'promo_message_8': '¡Escapa de la adicción al smartphone! 📵 Reemplaza el desplazamiento sin sentido con juegos que estimulan el cerebro.',
+  'promo_message_9': '¡Mejora la memoria de los padres! ✅ ¡Pulgar arriba para la prevención de la demencia! El ejercicio cerebral constante es la respuesta.',
+  'promo_message_10': '¡Di adiós al olvido! 👋 ¡Mantén un cerebro joven con divertidos juegos de memoria!',
 };

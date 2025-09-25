@@ -264,4 +264,16 @@ const Map<String, String> eoTranslations = {
   'total': 'Totalo',
   'weekly': 'Semajne',
   'monthly': 'Monate',
+
+  // Promotional messages
+  'promo_message_1': 'Komencu la cerban disvolviĝon de via infano per ludo! 🎨 Amuzaj ludoj, kiuj plibonigas memorajn kapablojn!',
+  'promo_message_2': 'Perfekta por la koncentriĝo de via infano! ✨ Konstruu fokusajn kaj observajn kapablojn en mallongaj sesioj.',
+  'promo_message_3': 'Akcelu lernan efikecon per ŝprucfenestraj ludoj! 🚀 Trejnu vian memoron, la fundamenton de studado.',
+  'promo_message_4': 'Ĉu vi povas fini pli rapide ol viaj amikoj? 👀 Spertu atingon kaj cerban aktivigon per defioj!',
+  'promo_message_5': 'Cerba vitamino dum ekzamena sezono! 🧠 Plibonigu fokuson kaj memoron per rapidaj trejnaj sesioj!',
+  'promo_message_6': 'Rapida paŭzotempo! 💫 Malpezigu streĉon dum vi reŝargas vian cerbon.',
+  'promo_message_7': 'Laca cerbo pro kromlaboro? 💡 Plifortigu laboran fokuson per nur 5 minutoj tage.',
+  'promo_message_8': 'Eskapu saĝtelefona dependeco! 📵 Anstataŭigu senpensan ruladon per cerbo-fortigaj ludoj.',
+  'promo_message_9': 'Plibonigu la memoron de gepatroj! ✅ Dikfingro supren por prevento de demenco! Konsekvenca cerba ekzerco estas la respondo.',
+  'promo_message_10': 'Adiaŭu forgesemecon! 👋 Konservu junan cerbon per amuzaj memoraj ludoj!',
 };

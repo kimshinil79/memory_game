@@ -245,4 +245,16 @@ const Map<String, String> klGLTranslations = {
   'total': 'Atuakkat',
   'weekly': 'Sapaat',
   'monthly': 'Qaammat',
+
+  // Promotional messages
+  'promo_message_1': 'Aallartit seqinnersuup ajuannik ineriartortitsinera pinnguaatinik! 🎨 Pinnguaatit nuannissutaasut eqqaamannissinnaanermik nukittorsaataasut!',
+  'promo_message_2': 'Piukkunnartoq meeqqatit eqqarsaatigisinnaasaannut! ✨ Eqqanaarsinnaaneq isiginnissinnaanerlu pikkoriffiusut ataatsimoortitsinerillu naatsut aqqutigalugit pilersinneqartarput.',
+  'promo_message_3': 'Eqqumiitsuliorneq ineriartortiuk pop-up pinnguaatinik! 🚀 Eqqaamannissinnaaneq sungiusaruk, ilinniartitaanerup tunngavia.',
+  'promo_message_4': 'Naammassisinnaaviuk ikinngutivit siorna? 👀 Misilittagaqarlutit angusaqarlutillu ajuup aallartisinneqarneranik unammillernerit aqqutigalugit!',
+  'promo_message_5': 'Ajuumik vitamininik misilitsinnerup nalaani! 🧠 Eqqanaarsinnaaneq eqqaamannissinnaanerlu sukkanerpaamik sungiusarneq aqqutigalugu!',
+  'promo_message_6': 'Piffissaq naasoq uninnissamut! 💫 Ernguttarnerup ajuannik nassitsinermut aalajangiguk.',
+  'promo_message_7': 'Ajuut nalaatsornerissinnermut suliarisimasaq? 💡 Suliarinninnissamut eqqanaarsinnaaneq sukateruk ullut tamaasa minutsini arfinilinni.',
+  'promo_message_8': 'Ikerartoq smartphone-mik akornuserneqarnermut! 📵 Sukkasuumik sukkanerpaamik sukkanerpaamik sungiusarneq aqqutigalugu ajuunik nukittorsaaqataanik pinnguaatinik taarsiuk.',
+  'promo_message_9': 'Angajoqqaanik eqqaamannissinnaaneq ineriartortiuk! ✅ Dementia-mik pinaveersaartitsinermut tunngatillugu kusaatsaat! Ajuup sungiusarnermi aalajangersimajuaannarneq akissuteqaatigineqarpoq.',
+  'promo_message_10': 'Eqqaamannissinnaanermik ajornartorsiutinik atugaqarnermut akissuteqaatigiuk! 👋 Ajuut inuusuttut eqqaamannissinnaanermik nuannissutaasunik pinnguaatinik atortut!',
 };

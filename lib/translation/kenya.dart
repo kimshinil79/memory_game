@@ -250,4 +250,16 @@ const Map<String, String> swKETranslations = {
   'total': 'Jumla',
   'weekly': 'Kila wiki',
   'monthly': 'Kila mwezi',
+
+  // Promotional messages
+  'promo_message_1': 'Anzisha ukuaji wa ubongo wa mtoto wako kupitia mchezo! 🎨 Michezo ya kufurahisha inayokuza ujuzi wa kumbukumbu!',
+  'promo_message_2': 'Inafaa kabisa kwa umakini wa mtoto wako! ✨ Jenga ujuzi wa kuzingatia na uchunguzi katika vipindi vifupi.',
+  'promo_message_3': 'Ongeza ufanisi wa kujifunza kwa michezo ibukizi! 🚀 Fundisha kumbukumbu yako, msingi wa kusoma.',
+  'promo_message_4': 'Je, unaweza kumaliza haraka kuliko marafiki zako? 👀 Pata mafanikio na uanzishaji wa ubongo kupitia changamoto!',
+  'promo_message_5': 'Vitamini ya ubongo wakati wa msimu wa mitihani! 🧠 Boresha umakini na kumbukumbu kwa vipindi vya mafunzo ya haraka!',
+  'promo_message_6': 'Muda mfupi wa mapumziko! 💫 Ondoa mfadhaiko huku ukichaji upya ubongo wako.',
+  'promo_message_7': 'Ubongo umechoka kutokana na saa za ziada? 💡 Ongeza umakini wa kazi kwa dakika 5 tu kwa siku.',
+  'promo_message_8': 'Epuka uraibu wa simu mahiri! 📵 Badilisha uendeshaji usio na akili kwa michezo inayokuza ubongo.',
+  'promo_message_9': 'Boresha kumbukumbu ya wazazi! ✅ Hongera kwa kuzuia shida ya akili! Mazoezi ya ubongo ya mara kwa mara ndiyo jibu.',
+  'promo_message_10': 'Sema kwaheri kwa kusahau! 👋 Dumisha ubongo mchanga kwa michezo ya kufurahisha ya kumbukumbu!',
 };

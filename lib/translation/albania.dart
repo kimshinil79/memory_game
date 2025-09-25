@@ -270,4 +270,16 @@ const Map<String, String> sqTranslations = {
   'total': 'Gjithsej',
   'weekly': 'Javore',
   'monthly': 'Mujore',
+
+  // Promotional messages
+  'promo_message_1': 'Filloni zhvillimin e trurit të fëmijës tuaj përmes lojës! 🎨 Lojëra argëtuese që nxisin aftësitë e kujtesës!',
+  'promo_message_2': 'Perfekte për përqendrimin e fëmijës tuaj! ✨ Ndërtoni aftësitë e fokusit dhe vëzhgimit në seanca të shkurtra.',
+  'promo_message_3': 'Rritni efikasitetin e të mësuarit me lojërat popup! 🚀 Stërvitni kujtesën tuaj, themelin e studimit.',
+  'promo_message_4': 'Mund ta përfundoni më shpejt se miqtë tuaj? 👀 Përjetoni arritje dhe aktivizim të trurit përmes sfidave!',
+  'promo_message_5': 'Vitamina e trurit gjatë sezonit të provimeve! 🧠 Përmirësoni fokusin dhe kujtesën me seanca të shpejta trajnimi!',
+  'promo_message_6': 'Kohë e shpejtë pushimi! 💫 Lehtësoni stresin ndërsa ringarkoni trurin tuaj.',
+  'promo_message_7': 'Truri i lodhur nga orët shtesë? 💡 Rritni fokusin në punë me vetëm 5 minuta në ditë.',
+  'promo_message_8': 'Shpëtoni nga varësia nga smartfoni! 📵 Zëvendësoni lëvizjen pa mend me lojëra që nxisin trurin.',
+  'promo_message_9': 'Përmirësoni kujtesën e prindërve! ✅ Gishtat lart për parandalimin e demencës! Ushtrimi i vazhdueshëm i trurit është përgjigja.',
+  'promo_message_10': 'Thoni lamtumirë harresës! 👋 Mbani një tru të ri me lojëra argëtuese kujtese!',
 };

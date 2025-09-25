@@ -249,4 +249,5 @@ const Map<String, String> enNGTranslations = {
   'total': 'Gbogbo',
   'weekly': 'Osemose',
   'monthly': 'Osuosu',
+
 };

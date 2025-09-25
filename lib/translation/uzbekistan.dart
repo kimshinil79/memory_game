@@ -252,4 +252,16 @@ const Map<String, String> uzUZTranslations = {
   'total': 'Jami',
   'weekly': 'Haftalik',
   'monthly': 'Oylik',
+
+  // Promotional messages
+  'promo_message_1': 'Farzandingiz miyasining rivojlanishini o\'yin orqali boshlang! 🎨 Xotira ko\'nikmalarini oshiruvchi qiziqarli o\'yinlar!',
+  'promo_message_2': 'Farzandingizning diqqatini jamlashi uchun mukammal! ✨ Qisqa seanslarda e\'tibor va kuzatish ko\'nikmalarini shakllantiring.',
+  'promo_message_3': 'Pop-up o\'yinlar bilan o\'qish samaradorligini oshiring! 🚀 O\'qishning asosiy poydevori bo\'lgan xotirangizni mashq qiling.',
+  'promo_message_4': 'Do\'stlaringizdan tezroq tugata olasizmi? 👀 Qiyinchiliklar orqali yutuq va miya faollashuvini his qiling!',
+  'promo_message_5': 'Imtihon mavsumida miya vitamini! 🧠 Tezkor mashg\'ulotlar bilan diqqatni jamlash va xotirani kuchaytiring!',
+  'promo_message_6': 'Tez tanaffus vaqti! 💫 Miyangizni qayta zaryad qilayotganda stressni yengillashtiring.',
+  'promo_message_7': 'Qo\'shimcha ishdan charchagan miya? 💡 Kuniga atigi 5 daqiqa bilan ishga diqqatni jamlashni kuchaytiring.',
+  'promo_message_8': 'Smartfon qaramligidan qoching! 📵 Maqsadsiz aylantirishni miyani mustahkamlovchi o\'yinlar bilan almashtiring.',
+  'promo_message_9': 'Ota-onalarning xotirasini yaxshilang! ✅ Demensiyaning oldini olish uchun a\'lo! Muntazam miya mashqi javobdir.',
+  'promo_message_10': 'Unutuvchanlik bilan xayrlashing! 👋 Qiziqarli xotira o\'yinlari bilan yosh miyani saqlang!',
 };

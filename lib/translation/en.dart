@@ -84,8 +84,6 @@ Map<String, String> enTranslations = {
   'edit_profile': 'Edit Profile',
   'enter_nickname': 'Enter nickname',
   'select_birthday': 'Select birthday',
-  'select_country': 'Select country',
-  'multi_game_pin': 'Multiplayer PIN',
   'enter_two_digit_pin': 'Enter two-digit PIN',
   'two_digit_pin_helper': 'This PIN is used for multiplayer game sessions',
   'change_password': 'Change Password',
@@ -116,13 +114,8 @@ Map<String, String> enTranslations = {
   'base_score': 'Base Score',
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
-  'score_breakdown': 'Score Breakdown',
-  'base_score': 'Base Score',
-  'streak_bonus': 'Streak Bonus',
-  'total_earned': 'Total Earned',
   'new_game': 'New Game',
   'times_up': 'Time\'s Up!',
-  'retry': 'Retry',
 
   // Tutorial Overlay 텍스트
   'memory_game_guide': 'Memory Game Guide',
@@ -196,7 +189,6 @@ Map<String, String> enTranslations = {
   'welcome_to_brain_health': 'Welcome to Brain Health!',
   'start_playing_memory_games':
       'Start playing memory games\nto track your progress',
-  'score': 'Score',
   'date_range': 'Date Range',
   'last_7_days': 'Last 7 Days',
   'last_30_days': 'Last 30 Days',
@@ -246,7 +238,6 @@ Map<String, String> enTranslations = {
   'start_learning': 'Start Learning',
   'test_result': 'Test Result',
   'your_score': 'Your score',
-  'continue': 'Continue',
   'new_test': 'New Test',
   'submit': 'Submit',
 
@@ -280,4 +271,16 @@ Map<String, String> enTranslations = {
   'total': 'Total',
   'weekly': 'Weekly',
   'monthly': 'Monthly',
+
+  // Promotional messages
+  'promo_message_1': 'Start your child\'s brain development through play! 🎨 Fun games that boost memory skills!',
+  'promo_message_2': 'Perfect for your child\'s concentration! ✨ Build focus and observation skills in short sessions.',
+  'promo_message_3': 'Boost learning efficiency with popup games! 🚀 Train your memory, the foundation of studying.',
+  'promo_message_4': 'Can you finish faster than your friends? 👀 Experience achievement and brain activation through challenges!',
+  'promo_message_5': 'Brain vitamin during exam season! 🧠 Enhance focus and memory with quick training sessions!',
+  'promo_message_6': 'Quick break time! 💫 Relieve stress while recharging your brain.',
+  'promo_message_7': 'Tired brain from overtime? 💡 Boost work focus with just 5 minutes a day.',
+  'promo_message_8': 'Escape smartphone addiction! 📵 Replace mindless scrolling with brain-boosting games.',
+  'promo_message_9': 'Enhance parents\' memory! ✅ Thumbs up for dementia prevention! Consistent brain exercise is the answer.',
+  'promo_message_10': 'Say goodbye to forgetfulness! 👋 Maintain a young brain with fun memory games!',
 };

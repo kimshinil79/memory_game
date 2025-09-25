@@ -244,4 +244,16 @@ const Map<String, String> fiTranslations = {
   'total': 'Yhteensä',
   'weekly': 'Viikoittain',
   'monthly': 'Kuukausittain',
+
+  // Promotional messages
+  'promo_message_1': 'Käynnistä lapsesi aivojen kehitys leikin kautta! 🎨 Hauskat pelit, jotka tehostavat muistitaitoja!',
+  'promo_message_2': 'Täydellinen lapsesi keskittymiskyvylle! ✨ Rakenna keskittymis- ja havainnointitaitoja lyhyissä sessioissa.',
+  'promo_message_3': 'Tehosta oppimisen tehokkuutta ponnahdusikkunapeleillä! 🚀 Harjoita muistiasi, joka on opiskelun perusta.',
+  'promo_message_4': 'Pystytkö lopettamaan nopeammin kuin ystäväsi? 👀 Koe saavutus ja aivojen aktivointi haasteiden kautta!',
+  'promo_message_5': 'Aivovitamiini tenttikaudella! 🧠 Paranna keskittymistä ja muistia nopeilla harjoitussessioilla!',
+  'promo_message_6': 'Nopea taukoaika! 💫 Lievitä stressiä samalla kun lataat aivojasi.',
+  'promo_message_7': 'Väsyneet aivot ylitöistä? 💡 Tehosta työn keskittymistä vain 5 minuutilla päivässä.',
+  'promo_message_8': 'Pakene älypuhelinriippuvuudesta! 📵 Korvaa ajatukseton selaaminen aivoja tehostavilla peleillä.',
+  'promo_message_9': 'Paranna vanhempien muistia! ✅ Peukku ylös dementian ehkäisyyn! Johdonmukainen aivoharjoittelu on vastaus.',
+  'promo_message_10': 'Sano hyvästit unohtelulle! 👋 Säilytä nuoret aivot hauskoilla muistipeleillä!',
 };

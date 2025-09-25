@@ -257,4 +257,16 @@ const Map<String, String> muMUTranslations = {
   'total': 'Total',
   'weekly': 'Hebdomadaire',
   'monthly': 'Mensuel',
+
+  // Promotional messages
+  'promo_message_1': 'Kòmans devlopman sèvo zot zanfan atraver zot zame! 🎨 Ze amizan ki ogmant kapasite memorwar!',
+  'promo_message_2': 'Parfè pou konsantrasyon zot zanfan! ✨ Konstwi kapasite fokus ek observasyon dan sesyon kourt.',
+  'promo_message_3': 'Ogmanté l\'éfikasité aprantisaz ar ze pop-up! 🚀 Antrenn zot memorwar, fondasyon lékol.',
+  'promo_message_4': 'Zot kapav fini pli vit ki zot kamarad? 👀 Eksperyans akonplisman ek aktivasyon sèvo atraver defi!',
+  'promo_message_5': 'Vitamin sèvo pandan sézon egzamin! 🧠 Amélior fokus ek memorwar ar sesyon fòrmasyon rapid!',
+  'promo_message_6': 'Ti tan pou repo rapid! 💫 Soulaz stres pandan ki zot re-sarz zot sèvo.',
+  'promo_message_7': 'Sèvo fatige par travay an plis? 💡 Ogmanté fokus travay ar zis 5 minit par zour.',
+  'promo_message_8': 'Soz avek adiksyon smartphone! 📵 Remplas skroling san lespri ar ze ki donn boost servis.',
+  'promo_message_9': 'Amélior memorwar paran! ✅ Pouce anlè pou prevansyon demans! Egzersis sèvo konstan se repons lan.',
+  'promo_message_10': 'Dir orevwar avek bliyé! 👋 Kenbe enn zenn sèvo ar ze memorwar amizan!',
 };

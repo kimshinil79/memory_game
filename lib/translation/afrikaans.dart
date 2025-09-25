@@ -261,4 +261,5 @@ const Map<String, String> afkTranslations = {
   'total': 'Totaal',
   'weekly': 'Weekliks',
   'monthly': 'Maandeliks',
+
 };

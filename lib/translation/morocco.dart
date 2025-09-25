@@ -243,4 +243,5 @@ const Map<String, String> maTranslations = {
   'total': 'المجموع',
   'weekly': 'أسبوعي',
   'monthly': 'شهري',
+
 };

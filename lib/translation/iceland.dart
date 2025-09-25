@@ -264,4 +264,16 @@ const Map<String, String> isISTranslations = {
   'total': 'Samtals',
   'weekly': 'Vikulega',
   'monthly': 'Mánaðarlega',
+
+  // Promotional messages
+  'promo_message_1': 'Byrjaðu þroska barnsins þíns með leik! 🎨 Skemmtilegir leikir sem efla minnisgetu!',
+  'promo_message_2': 'Fullkomið fyrir einbeitingu barnsins þíns! ✨ Byggðu upp fókus og athugunarkunnáttu í stuttum lotum.',
+  'promo_message_3': 'Efla námsvirkni með sprettiglugga leikjum! 🚀 Þjálfaðu minnið þitt, grunninn að námi.',
+  'promo_message_4': 'Geturðu klárað hraðar en vinir þínir? 👀 Upplifðu árangur og virkjun heila með áskorunum!',
+  'promo_message_5': 'Heilavítamín á próftímum! 🧠 Efla fókus og minni með snöggum æfingum!',
+  'promo_message_6': 'Stutt hlé! 💫 Losaðu um streitu á meðan þú endurhleður heilann.',
+  'promo_message_7': 'Þreyttur heili eftir yfirvinnu? 💡 Efla vinnuáherslu með aðeins 5 mínútum á dag.',
+  'promo_message_8': 'Forðastu snjallsímafíkn! 📵 Skiptu út huglausri flettingu fyrir heilaeflandi leiki.',
+  'promo_message_9': 'Efla minni foreldra! ✅ Frábært fyrir forvarnir gegn vitglöpum! Stöðug heilaæfing er svarið.',
+  'promo_message_10': 'Segðu bless við gleymsku! 👋 Haltu ungum heila með skemmtilegum minnisleikjum!',
 };

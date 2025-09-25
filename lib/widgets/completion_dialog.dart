@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
+import 'dart:math';
 
 class CompletionDialog extends StatelessWidget {
   final int elapsedTime;
@@ -34,6 +37,23 @@ class CompletionDialog extends StatelessWidget {
     this.streakBonus = 0,
     this.currentStreak = 0,
   });
+
+  // 홍보 메시지 키 리스트
+  static const List<String> _promotionalMessageKeys = [
+    'promo_message_1',
+    'promo_message_2',
+    'promo_message_3',
+    'promo_message_4',
+    'promo_message_5',
+    'promo_message_6',
+    'promo_message_7',
+    'promo_message_8',
+    'promo_message_9',
+    'promo_message_10',
+  ];
+
+  // 구글 플레이 스토어 링크
+  static const String _playStoreLink = 'https://play.google.com/store/apps/details?id=com.brainhealth.memorygame&pcampaignid=web_share';
 
   @override
   Widget build(BuildContext context) {
@@ -100,22 +120,22 @@ class CompletionDialog extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20),
 
-                    // 게임 통계 카드들
+                    // 게임 통계 카드들 (미니멀)
                     Row(
                       children: [
                         Expanded(
-                          child: _buildStatCard(
+                          child: _buildMinimalStatCard(
                             icon: Icons.schedule,
                             label: translations['time'] ?? "Time",
                             value: "${elapsedTime}s",
                             color: const Color(0xFF4299E1),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 6),
                         Expanded(
-                          child: _buildStatCard(
+                          child: _buildMinimalStatCard(
                             icon: Icons.flip_camera_android,
                             label: translations['flips'] ?? "Flips",
                             value: flipCount.toString(),
@@ -124,12 +144,12 @@ class CompletionDialog extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 16),
+
+                    // 점수 분해 표시 (컴팩트)
+                    _buildCompactScoreBreakdown(),
+
                     const SizedBox(height: 20),
-
-                    // 점수 분해 표시
-                    _buildScoreBreakdown(),
-
-                    const SizedBox(height: 24),
 
                     // 버튼
                     Container(
@@ -179,6 +199,11 @@ class CompletionDialog extends StatelessWidget {
                         ),
                       ),
                     ),
+                    
+                    const SizedBox(height: 20),
+
+                    // 홍보성 글과 복사하기 버튼
+                    _buildPromotionalSection(),
                   ],
                 ),
               ),
@@ -222,55 +247,48 @@ class CompletionDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard({
+  Widget _buildMinimalStatCard({
     required IconData icon,
     required String label,
     required String value,
     required Color color,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.2),
-          width: 1,
-        ),
+        color: color.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             icon,
             color: color,
-            size: 24,
+            size: 16,
           ),
-          const SizedBox(height: 8),
-          // 라벨 크기 동적 조정
+          const SizedBox(width: 4),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               label,
               style: GoogleFonts.poppins(
-                fontSize: _getDynamicFontSize(label, 12, 10, 14),
-                color: const Color(0xFF718096),
+                fontSize: _getDynamicFontSize(label, 10, 8, 12),
                 fontWeight: FontWeight.w500,
+                color: const Color(0xFF718096),
               ),
-              textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(height: 4),
-          // 값 크기 동적 조정
+          const SizedBox(width: 4),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               value,
               style: GoogleFonts.poppins(
-                fontSize: _getDynamicFontSize(value, 18, 16, 20),
+                fontSize: _getDynamicFontSize(value, 14, 12, 16),
                 fontWeight: FontWeight.bold,
                 color: color,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -320,9 +338,9 @@ class CompletionDialog extends StatelessWidget {
     return adjustedSize.clamp(minSize, maxSize);
   }
 
-  Widget _buildScoreBreakdown() {
+  Widget _buildCompactScoreBreakdown() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -332,52 +350,17 @@ class CompletionDialog extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: const Color(0xFF667EEA).withOpacity(0.2),
         ),
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF667EEA).withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  Icons.psychology,
-                  color: Color(0xFF667EEA),
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    translations['score_breakdown'] ?? "Score Breakdown",
-                    style: GoogleFonts.poppins(
-                      fontSize: _getDynamicFontSize(
-                          translations['score_breakdown'] ?? "Score Breakdown",
-                          16,
-                          12,
-                          18),
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF2D3748),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
 
           // 기본 점수
           if (basePoints > 0)
-            _buildScoreRow(
+            _buildCompactScoreRow(
               label: translations['base_score'] ?? "Base Score",
               value: "+$basePoints",
               color: const Color(0xFF48BB78),
@@ -385,7 +368,7 @@ class CompletionDialog extends StatelessWidget {
 
           // 멀티플레이어 보너스
           if (numberOfPlayers > 1 && multiplier > 1)
-            _buildScoreRow(
+            _buildCompactScoreRow(
               label: "${numberOfPlayers}P Bonus (x$multiplier)",
               value: "+${(basePoints * (multiplier - 1))}",
               color: const Color(0xFF4299E1),
@@ -393,9 +376,8 @@ class CompletionDialog extends StatelessWidget {
 
           // 스트릭 보너스
           if (currentStreak > 1 && streakBonus > 0) ...[
-            _buildScoreRow(
-              label:
-                  "$currentStreak ${translations['streak_bonus'] ?? 'Streak Bonus'} 🔥",
+            _buildCompactScoreRow(
+              label: "$currentStreak ${translations['streak_bonus'] ?? 'Streak Bonus'} 🔥",
               value: "+$streakBonus",
               color: const Color(0xFFED8936),
               isHighlight: true,
@@ -404,13 +386,13 @@ class CompletionDialog extends StatelessWidget {
 
           // 구분선
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 12),
+            margin: const EdgeInsets.symmetric(vertical: 8),
             height: 1,
             color: const Color(0xFFE2E8F0),
           ),
 
           // 총합
-          _buildScoreRow(
+          _buildCompactScoreRow(
             label: translations['total_earned'] ?? "Total Earned",
             value: "+$finalPointsEarned",
             color: const Color(0xFF667EEA),
@@ -421,7 +403,7 @@ class CompletionDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildScoreRow({
+  Widget _buildCompactScoreRow({
     required String label,
     required String value,
     required Color color,
@@ -429,7 +411,7 @@ class CompletionDialog extends StatelessWidget {
     bool isHighlight = false,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -441,8 +423,8 @@ class CompletionDialog extends StatelessWidget {
               child: Text(
                 label,
                 style: GoogleFonts.poppins(
-                  fontSize: _getDynamicFontSize(label, isBold ? 14 : 13,
-                      isBold ? 11 : 10, isBold ? 16 : 15),
+                  fontSize: _getDynamicFontSize(label, isBold ? 13 : 12,
+                      isBold ? 10 : 9, isBold ? 15 : 14),
                   fontWeight: isBold ? FontWeight.w600 : FontWeight.w500,
                   color: isHighlight ? color : const Color(0xFF4A5568),
                 ),
@@ -450,17 +432,17 @@ class CompletionDialog extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
           Flexible(
             flex: 1,
             child: Container(
               padding: isHighlight
-                  ? const EdgeInsets.symmetric(horizontal: 8, vertical: 2)
+                  ? const EdgeInsets.symmetric(horizontal: 6, vertical: 1)
                   : EdgeInsets.zero,
               decoration: isHighlight
                   ? BoxDecoration(
                       color: color.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6),
                     )
                   : null,
               child: FittedBox(
@@ -468,8 +450,8 @@ class CompletionDialog extends StatelessWidget {
                 child: Text(
                   value,
                   style: GoogleFonts.poppins(
-                    fontSize: _getDynamicFontSize(value, isBold ? 16 : 14,
-                        isBold ? 13 : 12, isBold ? 18 : 16),
+                    fontSize: _getDynamicFontSize(value, isBold ? 15 : 13,
+                        isBold ? 12 : 11, isBold ? 17 : 15),
                     fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
                     color: color,
                   ),
@@ -480,5 +462,107 @@ class CompletionDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildPromotionalSection() {
+    // 랜덤으로 홍보 메시지 선택
+    final random = Random();
+    final selectedKey = _promotionalMessageKeys[random.nextInt(_promotionalMessageKeys.length)];
+    final selectedMessage = translations[selectedKey] ?? selectedKey;
+    
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7FAFC),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFFE2E8F0),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        children: [
+          // 홍보 메시지 (더 크게)
+          Text(
+            selectedMessage,
+            style: GoogleFonts.poppins(
+              fontSize: _getDynamicFontSize(selectedMessage, 15, 13, 17),
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFF4A5568),
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          
+          // SNS 공유 버튼
+          GestureDetector(
+            onTap: () => _shareToSNS(selectedMessage),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFF667EEA), // 인스타그램 그라데이션과 맞춤
+                    const Color(0xFF764BA2),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF667EEA).withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 공유 아이콘
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(
+                      Icons.share,
+                      color: Color(0xFF667EEA),
+                      size: 14,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '공유하기',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _shareToSNS(String message) async {
+    final shareText = '$message\n\n🧠 Brain Health Memory Game - 두뇌 건강을 위한 메모리 게임!\n구글 플레이 스토어에서 다운로드: $_playStoreLink';
+    
+    try {
+      await Share.share(
+        shareText,
+        subject: 'Brain Health Memory Game - 두뇌 건강 게임',
+      );
+    } catch (e) {
+      print('공유 기능을 사용할 수 없습니다: $e');
+    }
   }
 }

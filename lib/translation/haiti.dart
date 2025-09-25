@@ -264,4 +264,16 @@ const Map<String, String> htTranslations = {
   'total': 'Total',
   'weekly': 'Chak semèn',
   'monthly': 'Chak mwa',
+
+  // Promotional messages
+  'promo_message_1': 'Kòmanse devlopman sèvo pitit ou a atravè jwèt! 🎨 Jwèt amizan ki ogmante kapasite memwa!',
+  'promo_message_2': 'Pafè pou konsantrasyon pitit ou a! ✨ Konstwi kapasite konsantre ak obsèvasyon nan sesyon kout.',
+  'promo_message_3': 'Ogmante efikasite aprantisaj ak jwèt pop-up! 🚀 Antrene memwa ou, fondasyon etid la.',
+  'promo_message_4': 'Èske ou ka fini pi vit pase zanmi ou yo? 👀 Eksperyans akonplisman ak aktivasyon sèvo atravè defi!',
+  'promo_message_5': 'Vitamin sèvo pandan sezon egzamen an! 🧠 Amelyore konsantre ak memwa ak sesyon fòmasyon rapid!',
+  'promo_message_6': 'Ti tan pou repo rapid! 💫 Soulaje estrès pandan w ap rechaje sèvo ou.',
+  'promo_message_7': 'Sèvo fatige ak travay siplemantè? 💡 Ogmante konsantre sou travay ak sèlman 5 minit pa jou.',
+  'promo_message_8': 'Sove tèt ou anba adiksyon nan smartphone! 📵 Ranplase defilman san sans ak jwèt ki ranfòse sèvo.',
+  'promo_message_9': 'Amelyore memwa paran yo! ✅ Gwo pous anlè pou prevansyon demans! Egzèsis sèvo ki konsistan se repons lan.',
+  'promo_message_10': 'Di orevwa bliye! 👋 Kenbe yon jèn sèvo ak jwèt memwa amizan!',
 };

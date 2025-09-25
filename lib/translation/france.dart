@@ -248,4 +248,18 @@ const Map<String, String> frTranslations = {
   'total': 'Total',
   'weekly': 'Hebdomadaire',
   'monthly': 'Mensuel',
+
+
+  // Promotional messages
+  'promo_message_1': 'Commencez le développement cérébral de votre enfant par le jeu ! 🎨 Des jeux amusants qui stimulent les compétences de mémoire !',
+  'promo_message_2': 'Parfait pour la concentration de votre enfant ! ✨ Développez la concentration et les compétences d\'observation en sessions courtes.',
+  'promo_message_3': 'Améliorez l\'efficacité d\'apprentissage avec des jeux popup ! 🚀 Entraînez votre mémoire, fondement des études.',
+  'promo_message_4': 'Pouvez-vous finir plus vite que vos amis ? 👀 Vivez l\'accomplissement et l\'activation cérébrale par les défis !',
+  'promo_message_5': 'Vitamine cérébrale pendant la saison d\'examens ! 🧠 Améliorez la concentration et la mémoire avec des sessions d\'entraînement rapides !',
+  'promo_message_6': 'Temps de pause rapide ! 💫 Soulagez le stress tout en rechargeant votre cerveau.',
+  'promo_message_7': 'Cerveau fatigué des heures supplémentaires ? 💡 Boostez la concentration au travail avec seulement 5 minutes par jour.',
+  'promo_message_8': 'Échappez à l\'addiction au smartphone ! 📵 Remplacez le défilement sans but par des jeux stimulants pour le cerveau.',
+  'promo_message_9': 'Améliorez la mémoire des parents ! ✅ Pouce levé pour la prévention de la démence ! L\'exercice cérébral constant est la réponse.',
+  'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants !',
+
 };

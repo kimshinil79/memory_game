@@ -252,4 +252,16 @@ const Map<String, String> soSOTranslations = {
   'total': 'Wadarta',
   'weekly': 'Toddobaadba',
   'monthly': 'Bishaba',
+
+  // Promotional messages
+  'promo_message_1': 'Ka bilow horumarka maskaxda ilmahaaga ciyaar! 🎨 Ciyaaro madadaalo leh oo kor u qaada xirfadaha xusuusta!',
+  'promo_message_2': 'Ku fiican feejignaanta ilmahaaga! ✨ Ku dhiso xirfadaha diiradda saarista iyo indho-indheynta kalfadhiyo gaagaaban.',
+  'promo_message_3': 'Kordhi waxtarka waxbarashada ciyaaraha soo booda! 🚀 Tababar xusuustaada, aasaaska waxbarashada.',
+  'promo_message_4': 'Ma dhammaysan kartaa asxaabtaada si ka dhakhso badan? 👀 La kulan guul iyo dhaqdhaqaaqa maskaxda iyada oo loo marayo caqabado!',
+  'promo_message_5': 'Fiitamiin maskaxda xilliga imtixaanka! 🧠 Kor u qaad diiradda iyo xusuusta tababbarro degdeg ah!',
+  'promo_message_6': 'Waqti nasasho degdeg ah! 💫 Iska yaree walaaca inta aad dib u buuxinayso maskaxdaada.',
+  'promo_message_7': 'Maskax ka daalan saacadaha dheeraadka ah? 💡 Kor u qaad diiradda shaqada 5 daqiiqo oo keliya maalintii.',
+  'promo_message_8': 'Ka bax balwadda taleefanka casriga ah! 📵 Ku beddel socodsiinta miyir la\'aanta ciyaaraha kor u qaada maskaxda.',
+  'promo_message_9': 'Kobci xusuusta waalidiinta! ✅ Gacan taag ka hortagga waallida! Jimicsiga maskaxda ee joogtada ah ayaa ah jawaabta.',
+  'promo_message_10': 'Nabad geli halmaanka! 👋 Ku ilaali maskax da\'yar ciyaaro xusuus ah oo madadaalo leh!',
 };

@@ -248,4 +248,16 @@ const Map<String, String> viVNTranslations = {
   'total': 'Tổng cộng',
   'weekly': 'Hàng tuần',
   'monthly': 'Hàng tháng',
+
+  // Promotional messages
+  'promo_message_1': 'Bắt đầu phát triển trí não của con bạn thông qua vui chơi! 🎨 Các trò chơi vui nhộn giúp tăng cường kỹ năng ghi nhớ!',
+  'promo_message_2': 'Hoàn hảo cho sự tập trung của con bạn! ✨ Xây dựng kỹ năng tập trung và quan sát trong các buổi học ngắn.',
+  'promo_message_3': 'Tăng cường hiệu quả học tập với các trò chơi pop-up! 🚀 Rèn luyện trí nhớ của bạn, nền tảng của việc học.',
+  'promo_message_4': 'Bạn có thể hoàn thành nhanh hơn bạn bè của mình không? 👀 Trải nghiệm thành tích và kích hoạt trí não thông qua các thử thách!',
+  'promo_message_5': 'Vitamin cho não trong mùa thi! 🧠 Tăng cường sự tập trung và trí nhớ bằng các buổi tập luyện nhanh!',
+  'promo_message_6': 'Thời gian giải lao nhanh! 💫 Giải tỏa căng thẳng trong khi nạp lại năng lượng cho bộ não của bạn.',
+  'promo_message_7': 'Bộ não mệt mỏi vì làm việc ngoài giờ? 💡 Tăng cường sự tập trung vào công việc chỉ với 5 phút mỗi ngày.',
+  'promo_message_8': 'Thoát khỏi chứng nghiện điện thoại thông minh! 📵 Thay thế việc lướt vô định bằng các trò chơi tăng cường trí não.',
+  'promo_message_9': 'Tăng cường trí nhớ của cha mẹ! ✅ Rất tốt cho việc phòng ngừa chứng mất trí nhớ! Tập thể dục não nhất quán là câu trả lời.',
+  'promo_message_10': 'Nói lời tạm biệt với tính hay quên! 👋 Duy trì một bộ não trẻ trung với các trò chơi ghi nhớ vui nhộn!',
 };

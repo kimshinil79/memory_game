@@ -237,4 +237,16 @@ const Map<String, String> zhSGTranslations = {
   'total': '總計',
   'weekly': '每週',
   'monthly': '每月',
+
+  // Promotional messages
+  'promo_message_1': '通过玩耍开启您孩子的大脑发育！ 🎨 有趣的游戏，提升记忆力！',
+  'promo_message_2': '非常适合您孩子的专注力！ ✨ 在短时间内培养专注和观察能力。',
+  'promo_message_3': '使用弹出式游戏提高学习效率！ 🚀 训练您的记忆力，这是学习的基础。',
+  'promo_message_4': '您能比您的朋友更快完成吗？ 👀 通过挑战，体验成就感和大脑激活！',
+  'promo_message_5': '考试季的大脑维生素！ 🧠 通过快速训练，增强注意力和记忆力！',
+  'promo_message_6': '快速休息时间！ 💫 在为大脑充电的同时，缓解压力。',
+  'promo_message_7': '加班导致大脑疲劳？ 💡 每天只需 5 分钟，提升工作专注力。',
+  'promo_message_8': '摆脱智能手机成瘾！ 📵 用健脑游戏取代无意识的滑动。',
+  'promo_message_9': '增强父母的记忆力！ ✅ 为预防痴呆点赞！持续的大脑锻炼是答案。',
+  'promo_message_10': '对健忘说再见！ 👋 用有趣的记忆游戏保持年轻的大脑！',
 };

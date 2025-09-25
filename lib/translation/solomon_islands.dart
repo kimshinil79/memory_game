@@ -243,4 +243,16 @@ const Map<String, String> enSBTranslations = {
   'total': 'Olgeta',
   'weekly': 'Evri wik',
   'monthly': 'Evri manis',
+
+  // Promotional messages
+  'promo_message_1': 'Startim olketa brein bilong pikinini blo u thru long pilai! 🎨 Ol gudfala gem wea helpim olketa luvim save!',
+  'promo_message_2': 'Hem fitim gud tru long pikinini blo u go long fokus! ✨ Wokem ap olketa skill bilong lukluk gudfala long liklik taem.',
+  'promo_message_3': 'Pulimap olketa save bilong skul long olketa popap gem! 🚀 Trenim memori blo u, hem datfala foundation bilong stadi.',
+  'promo_message_4': 'U save finisim kwiktaem winim olketa fren blo u? 👀 Traem olketa challenge mekem yu feel gudfala mo brein blo yu save wakap!',
+  'promo_message_5': 'Brein vitamin long taem bilong eksam! 🧠 Mekem fokus mo memori i kam gudfala long kwik trensesen!',
+  'promo_message_6': 'Kwiktaem breik! 💫 Lusim stress taem u recharjim brein blo u.',
+  'promo_message_7': 'Brein hem taed long wok ova taem? 💡 Pulimap wok fokus long 5 minit nomoa long wan dei.',
+  'promo_message_8': 'Ranwe long smartphone addiction! 📵 Jenisim skroling wea nomoa minin long gem wea boostim brein.',
+  'promo_message_9': 'Pulimap memori bilong olketa dadi mami! ✅ Thumbs up for stopim dementia! Kisim tren bilong brein evritaem hem datfala ansa.',
+  'promo_message_10': 'Sei gudbae long forgetim! 👋 Holim young brein long olketa fun memori gem!',
 };

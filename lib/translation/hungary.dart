@@ -242,4 +242,16 @@ const Map<String, String> huTranslations = {
   'total': 'Összesen',
   'weekly': 'Hetente',
   'monthly': 'Havonta',
+
+  // Promotional messages
+  'promo_message_1': 'Kezdje gyermeke agyának fejlődését játékon keresztül! 🎨 Szórakoztató játékok, amelyek fellendítik a memóriakészségeket!',
+  'promo_message_2': 'Tökéletes gyermeke koncentrációjához! ✨ Építse a fókusz és a megfigyelés készségeit rövid foglalkozásokon.',
+  'promo_message_3': 'Növelje a tanulási hatékonyságot felugró játékokkal! 🚀 Edzze a memóriáját, a tanulás alapját.',
+  'promo_message_4': 'Tud gyorsabban végezni, mint a barátai? 👀 Tapasztalja meg az elért eredményt és az agy aktiválását kihívások révén!',
+  'promo_message_5': 'Agyvitamin a vizsgaidőszakban! 🧠 Növelje a fókuszt és a memóriát gyors edzésekkel!',
+  'promo_message_6': 'Gyors szünetidő! 💫 Enyhítse a stresszt, miközben feltölti az agyát.',
+  'promo_message_7': 'Fáradt agy a túlóráktól? 💡 Növelje a munkára való összpontosítást mindössze napi 5 perc gyakorlással.',
+  'promo_message_8': 'Meneküljön az okostelefon-függőségtől! 📵 Cserélje le a céltalan görgetést agyerősítő játékokra.',
+  'promo_message_9': 'Fokozza a szülők memóriáját! ✅ Piros pont a demencia megelőzéséért! A következetes agytorna a válasz.',
+  'promo_message_10': 'Mondjon búcsút a feledékenységnek! 👋 Tartsa fiatalon az agyát szórakoztató memóriajátékokkal!',
 };

@@ -272,4 +272,16 @@ const Map<String, String> caADTranslations = {
   'total': 'Total',
   'weekly': 'Setmanal',
   'monthly': 'Mensual',
+
+  // Promotional messages
+  'promo_message_1': 'Comenceu el desenvolupament cerebral del vostre fill a través del joc! 🎨 Jocs divertits que augmenten les habilitats de memòria!',
+  'promo_message_2': 'Perfecte per a la concentració del vostre fill! ✨ Desenvolupeu habilitats d\'enfocament i observació en sessions curtes.',
+  'promo_message_3': 'Augmenteu l\'eficiència d\'aprenentatge amb jocs emergents! 🚀 Entreneu la vostra memòria, la base de l\'estudi.',
+  'promo_message_4': 'Podeu acabar més ràpid que els vostres amics? 👀 Experimenteu l\'assoliment i l\'activació cerebral mitjançant desafiaments!',
+  'promo_message_5': 'Vitamina cerebral durant l\'època d\'exàmens! 🧠 Milloreu l\'enfocament i la memòria amb sessions d\'entrenament ràpides!',
+  'promo_message_6': 'Hora de descans ràpid! 💫 Alleugeu l\'estrès mentre recarregueu el vostre cervell.',
+  'promo_message_7': 'Cervell cansat per les hores extres? 💡 Augmenteu l\'enfocament laboral amb només 5 minuts al dia.',
+  'promo_message_8': 'Escapeu de l\'addicció al telèfon intel·ligent! 📵 Substituïu el desplaçament sense sentit per jocs que estimulen el cervell.',
+  'promo_message_9': 'Milloreu la memòria dels pares! ✅ Polze amunt per a la prevenció de la demència! L\'exercici cerebral constant és la resposta.',
+  'promo_message_10': 'Digueu adéu a l\'oblit! 👋 Mantingueu un cervell jove amb jocs de memòria divertits!',
 };

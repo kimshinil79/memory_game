@@ -268,4 +268,16 @@ const Map<String, String> euTranslations = {
   'total': 'Guztira',
   'weekly': 'Astero',
   'monthly': 'Hilean',
+
+  // Promotional messages
+  'promo_message_1': 'Hasi zure haurraren garunaren garapena jolasaren bidez! 🎨 Memoria gaitasunak areagotzen dituzten jolas dibertigarriak!',
+  'promo_message_2': 'Ezin hobea zure haurraren kontzentraziorako! ✨ Fokua eta behaketa gaitasunak eraiki saio laburretan.',
+  'promo_message_3': 'Ikaskuntza eraginkortasuna areagotu pop-up jokoekin! 🚀 Entrenatu zure memoria, ikasketaren oinarria.',
+  'promo_message_4': 'Zure lagunek baino azkarrago amaitu dezakezu? 👀 Esperimentatu lorpena eta garunaren aktibazioa erronken bidez!',
+  'promo_message_5': 'Garuneko bitamina azterketa garaian! 🧠 Hobetu fokua eta memoria entrenamendu saio azkarrekin!',
+  'promo_message_6': 'Atsedenaldi azkarra! 💫 Estresa arindu, zure garuna kargatzen duzun bitartean.',
+  'promo_message_7': 'Ordu estrako lanaren ondorioz nekatutako garuna? 💡 Handitu laneko fokua egunean 5 minuturekin bakarrik.',
+  'promo_message_8': 'Ihes egin telefono adimendunaren mendekotasunetik! 📵 Ordeztu zentzurik gabeko korritzea garuna sustatzen duten jolasekin.',
+  'promo_message_9': 'Hobetu gurasoen memoria! ✅ Hatz lodia gora dementzia prebenitzeko! Garuneko ariketa koherentea da erantzuna.',
+  'promo_message_10': 'Agur esan ahazteari! 👋 Mantendu garun gaztea memoria jolas dibertigarriekin!',
 };

@@ -271,4 +271,16 @@ const Map<String, String> ptAOTranslations = {
   'total': 'Total',
   'weekly': 'Semanal',
   'monthly': 'Mensal',
+
+  // Promotional messages
+  'promo_message_1': 'Comece o desenvolvimento cerebral do seu filho através da brincadeira! 🎨 Jogos divertidos que impulsionam as habilidades de memória!',
+  'promo_message_2': 'Perfeito para a concentração do seu filho! ✨ Construa habilidades de foco e observação em sessões curtas.',
+  'promo_message_3': 'Aumente a eficiência da aprendizagem com jogos pop-up! 🚀 Treine sua memória, o alicerce do estudo.',
+  'promo_message_4': 'Consegue terminar mais rápido do que os seus amigos? 👀 Experimente a conquista e a ativação cerebral através de desafios!',
+  'promo_message_5': 'Vitamina cerebral durante a época de exames! 🧠 Melhore o foco e a memória com sessões rápidas de treino!',
+  'promo_message_6': 'Tempo de pausa rápida! 💫 Alivie o stress enquanto recarrega o seu cérebro.',
+  'promo_message_7': 'Cérebro cansado de horas extras? 💡 Aumente o foco no trabalho com apenas 5 minutos por dia.',
+  'promo_message_8': 'Fuja do vício em smartphone! 📵 Substitua a rolagem sem pensar por jogos que impulsionam o cérebro.',
+  'promo_message_9': 'Melhore a memória dos pais! ✅ Polegar para cima para a prevenção da demência! Exercício cerebral consistente é a resposta.',
+  'promo_message_10': 'Diga adeus ao esquecimento! 👋 Mantenha um cérebro jovem com jogos de memória divertidos!',
 };

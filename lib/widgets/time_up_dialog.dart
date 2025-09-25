@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../providers/language_provider.dart';
 
 class TimeUpDialog extends StatelessWidget {
   final VoidCallback onRetry;
+  final Map<String, String> translations;
 
   // Instagram gradient colors
   static const Color instagramGradientStart = Color(0xFF833AB4);
@@ -13,13 +12,11 @@ class TimeUpDialog extends StatelessWidget {
   const TimeUpDialog({
     super.key,
     required this.onRetry,
+    required this.translations,
   });
 
   @override
   Widget build(BuildContext context) {
-    // 번역 텍스트를 위한 언어 제공자
-    final translations = Provider.of<LanguageProvider>(context, listen: false)
-        .getUITranslations();
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

@@ -260,4 +260,16 @@ const Map<String, String> csTranslations = {
   'total': 'Celkem',
   'weekly': 'Týdně',
   'monthly': 'Měsíčně',
+
+  // Promotional messages
+  'promo_message_1': 'Začněte rozvoj mozku svého dítěte hrou! 🎨 Zábavné hry, které posilují paměťové dovednosti!',
+  'promo_message_2': 'Ideální pro koncentraci vašeho dítěte! ✨ Budujte dovednosti soustředění a pozorování v krátkých sezeních.',
+  'promo_message_3': 'Zvyšte efektivitu učení s vyskakovacími hrami! 🚀 Trénujte svou paměť, základ studia.',
+  'promo_message_4': 'Dokážete to dokončit rychleji než vaši přátelé? 👀 Zažijte úspěch a aktivaci mozku prostřednictvím výzev!',
+  'promo_message_5': 'Mozkový vitamin během zkouškového období! 🧠 Zlepšete soustředění a paměť rychlými tréninkovými sezeními!',
+  'promo_message_6': 'Rychlá přestávka! 💫 Zbavte se stresu a dobijte svůj mozek.',
+  'promo_message_7': 'Unavený mozek z přesčasů? 💡 Zvyšte pracovní soustředění s pouhými 5 minutami denně.',
+  'promo_message_8': 'Unikněte závislosti na smartphonu! 📵 Nahraďte bezduché posouvání hrami, které posilují mozek.',
+  'promo_message_9': 'Zlepšete paměť rodičů! ✅ Palec nahoru pro prevenci demence! Konzistentní cvičení mozku je odpověď.',
+  'promo_message_10': 'Dejte sbohem zapomnětlivosti! 👋 Udržujte mladý mozek zábavnými paměťovými hrami!',
 };

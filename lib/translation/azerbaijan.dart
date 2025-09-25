@@ -266,4 +266,16 @@ const Map<String, String> azTranslations = {
   'total': 'Cəmi',
   'weekly': 'Həftəlik',
   'monthly': 'Aylıq',
+
+  // Promotional messages
+  'promo_message_1': 'Uşağınızın beyin inkişafını oyunla başlayın! 🎨 Yaddaş bacarıqlarını artıran əyləncəli oyunlar!',
+  'promo_message_2': 'Uşağınızın diqqəti üçün mükəmməldir! ✨ Qısa seanslarda fokuslanma və müşahidə bacarıqlarını inkişaf etdirin.',
+  'promo_message_3': 'Pop-up oyunlarla öyrənmə effektivliyini artırın! 🚀 Öyrənmənin əsası olan yaddaşınızı məşq edin.',
+  'promo_message_4': 'Dostlarınızdan daha tez bitirə bilərsiniz? 👀 Çağırışlar vasitəsilə nailiyyət və beyin aktivasiyasını yaşayın!',
+  'promo_message_5': 'İmtahan mövsümündə beyin vitamini! 🧠 Sürətli təlim seansları ilə fokus və yaddaşı gücləndirin!',
+  'promo_message_6': 'Tez fasilə vaxtı! 💫 Beyninizi enerji ilə doldurarkən stresi azaldın.',
+  'promo_message_7': 'Əlavə işdən yorulmuş beyin? 💡 Gündə cəmi 5 dəqiqə ilə iş fokusunu artırın.',
+  'promo_message_8': 'Smartfon asılılığından qaçın! 📵 Mənasız skroll etməyi beyinə faydalı oyunlarla əvəz edin.',
+  'promo_message_9': 'Valideynlərin yaddaşını gücləndirin! ✅ Demensiyanın qarşısının alınması üçün əla! Ardıcıl beyin məşqi cavabdır.',
+  'promo_message_10': 'Unutqanlıqla vidalaşın! 👋 Əyləncəli yaddaş oyunları ilə gənc beyni qoruyun!',
 };

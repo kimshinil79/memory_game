@@ -259,4 +259,5 @@ const Map<String, String> ptMOZTranslations = {
   'total': 'Total',
   'weekly': 'Semanal',
   'monthly': 'Mensal',
+
 };

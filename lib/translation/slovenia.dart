@@ -245,4 +245,16 @@ const Map<String, String> slSITranslations = {
   'total': 'Skupaj',
   'weekly': 'Tedensko',
   'monthly': 'Mesečno',
+
+  // Promotional messages
+  'promo_message_1': 'Začnite razvoj možganov svojega otroka z igro! 🎨 Zabavne igre, ki spodbujajo spominske sposobnosti!',
+  'promo_message_2': 'Popolno za koncentracijo vašega otroka! ✨ Zgradite spretnosti osredotočanja in opazovanja v kratkih seansah.',
+  'promo_message_3': 'Povečajte učinkovitost učenja s pojavnimi igrami! 🚀 Trenirajte svoj spomin, temelj študija.',
+  'promo_message_4': 'Ali lahko končate hitreje kot vaši prijatelji? 👀 Doživite dosežke in aktivacijo možganov skozi izzive!',
+  'promo_message_5': 'Možganski vitamin v času izpitov! 🧠 Izboljšajte osredotočenost in spomin s hitrimi treningi!',
+  'promo_message_6': 'Hiter čas za odmor! 💫 Sprosite stres med polnjenjem možganov.',
+  'promo_message_7': 'Utrujeni možgani od nadur? 💡 Povečajte delovno osredotočenost z le 5 minutami na dan.',
+  'promo_message_8': 'Pobegnite od odvisnosti od pametnega telefona! 📵 Zamenjajte nesmiselno pomikanje z igrami, ki spodbujajo možgane.',
+  'promo_message_9': 'Izboljšajte spomin staršev! ✅ Palec gor za preprečevanje demence! Dosledno možgansko vadbo je odgovor.',
+  'promo_message_10': 'Poslovite se od pozabljivosti! 👋 Ohranjajte mlade možgane z zabavnimi spominskimi igrami!',
 };

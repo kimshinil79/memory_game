@@ -258,4 +258,5 @@ const Map<String, String> neTranslations = {
   'total': 'कुल',
   'weekly': 'साप्ताहिक',
   'monthly': 'मासिक',
+
 };

@@ -259,4 +259,16 @@ const Map<String, String> nyTranslations = {
   'total': 'Zonse',
   'weekly': 'Sabata iliyonse',
   'monthly': 'Mwezi uliowonse',
+
+  // Promotional messages
+  'promo_message_1': 'Yambitsani chitukuko cha ubongo wa mwana wanu kudzera mu masewera! 🎨 Masewera osangalatsa omwe amalimbikitsa luso la kukumbukira!',
+  'promo_message_2': 'Zokwanira pa chidwi cha mwana wanu! ✨ Pangani luso la chidwi ndi kuyang\'anira mu magawo afupiafupi.',
+  'promo_message_3': 'Limbikitsani mphamvu zophunzirira ndi masewera otuluka! 🚀 Phunzitsani kukumbukira kwanu, maziko a kuphunzira.',
+  'promo_message_4': 'Kodi mungathe kumaliza mofulumira kuposa anzanu? 👀 Dziwani zokhudza kupambana ndi kuyambitsa ubongo kudzera mu zovuta!',
+  'promo_message_5': 'Vitamini ya ubongo pa nthawi ya mayeso! 🧠 Limbikitsani chidwi ndi kukumbukira ndi magawo ophunzitsira achangu!',
+  'promo_message_6': 'Nthawi yopuma mwachangu! 💫 Chepetsani nkhawa pamene mukutsitsimutsa ubongo wanu.',
+  'promo_message_7': 'Ubongo wotopa chifukwa cha nthawi yowonjezera? 💡 Limbikitsani chidwi cha ntchito ndi mphindi 5 zokha patsiku.',
+  'promo_message_8': 'Pezani ufulu ku chizolowezi cha foni yam\'manja! 📵 Sinthani kusewerera kopanda nzeru ndi masewera olimbikitsa ubongo.',
+  'promo_message_9': 'Limbikitsani kukumbukira kwa makolo! ✅ Zabwino pa kupewa matenda a dementia! Kuchita masewera olimbitsa ubongo mosalekeza ndiye yankho.',
+  'promo_message_10': 'Tiyeni titsanzikane ndi kuyiwalika! 👋 Sungani ubongo wanu kukhala wachinyamata ndi masewera okumbukira osangalatsa!',
 };
