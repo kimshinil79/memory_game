@@ -262,4 +262,18 @@ const Map<String, String> afkTranslations = {
   'weekly': 'Weekliks',
   'monthly': 'Maandeliks',
 
+
+
+  // Promotional messages
+  'promo_message_1': 'Begin jou kind se breinontwikkeling deur speel! 🎨 Pret speletjies wat geheuevaardighede versterk!',
+  'promo_message_2': 'Perfek vir jou kind se konsentrasie! ✨ Bou fokus en waarnemingsvaardighede in kort sessies.',
+  'promo_message_3': 'Verhoog leerdoeltreffendheid met popup speletjies! 🚀 Oefen jou geheue, die grondslag van studie.',
+  'promo_message_4': 'Kan jy vinniger as jou vriende klaar? 👀 Ervaar prestasie en breinaktivering deur uitdagings!',
+  'promo_message_5': 'Brein vitamien tydens eksamen seisoen! 🧠 Versterk fokus en geheue met vinnige oefensessies!',
+  'promo_message_6': 'Vinnige rus tyd! 💫 Verlig spanning terwyl jy jou brein herlaai.',
+  'promo_message_7': 'Moeë brein van oortyd? 💡 Versterk werk fokus met net 5 minute per dag.',
+  'promo_message_8': 'Ontsnap slimfoon verslawing! 📵 Vervang doelloos skuif met brein-versterkende speletjies.',
+  'promo_message_9': 'Versterk ouers se geheue! ✅ Duim op vir demensie voorkoming! Bestendige breinoefening is die antwoord.',
+  'promo_message_10': 'Sê totsiens aan vergeetagtigheid! 👋 Handhaaf /n jong brein met pret geheue speletjies!',
+
 };
