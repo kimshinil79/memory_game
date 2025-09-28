@@ -483,9 +483,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           targetLanguage = finalLanguage;
         });
 
-        // TTS 언어 설정을 강제로 적용
-        await flutterTts.setLanguage(finalLanguage);
-        print('MemoryGamePage TTS 언어 설정 완료: $finalLanguage');
+        // TTS 언어 설정을 안전하게 적용
+        try {
+          await flutterTts.stop(); // 기존 TTS 정지
+          await flutterTts.setLanguage(finalLanguage);
+          print('MemoryGamePage TTS 언어 설정 완료: $finalLanguage');
+        } catch (ttsError) {
+          print('TTS 언어 설정 오류: $ttsError');
+          // TTS 오류가 발생해도 앱이 크래시되지 않도록 처리
+        }
 
         // 선택된 언어를 다시 로컬에 저장 (안전을 위해)
         await prefs.setString('selectedLanguage', finalLanguage);
@@ -497,8 +503,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         setState(() {
           targetLanguage = 'ko-KR';
         });
-        await flutterTts.setLanguage('ko-KR');
-        print('오류로 인해 기본 언어(ko-KR)로 설정됨');
+        try {
+          await flutterTts.stop();
+          await flutterTts.setLanguage('ko-KR');
+          print('오류로 인해 기본 언어(ko-KR)로 설정됨');
+        } catch (ttsError) {
+          print('기본 언어 TTS 설정 오류: $ttsError');
+        }
 
         // 오류 발생 시에도 기본 언어를 로컬에 저장
         try {
@@ -573,7 +584,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _itemPopupTimer?.cancel();
     _itemPopupTimer = null;
     audioPlayer.dispose();
-    flutterTts.stop();
+    
+    // TTS 안전하게 정리 (비동기 호출이지만 await 없이 처리)
+    try {
+      flutterTts.stop();
+    } catch (e) {
+      print('TTS 정리 중 오류: $e');
+    }
     _animationController.dispose();
 
     // 앱 생명주기 관찰자 제거
@@ -583,7 +600,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _parentIndexedStack = null;
 
     // BannerAd 정리
-    myBanner?.dispose();
+    try {
+      myBanner?.dispose();
+    } catch (e) {
+      print('광고 정리 중 오류: $e');
+    }
 
     super.dispose();
   }
@@ -917,11 +938,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           if (index < gameImages.length) {
             final translatedWord = getLocalizedWord(gameImages[index]);
             print('targetLanguage: $targetLanguage');
+            
+            // TTS 안전하게 사용
+            await flutterTts.stop(); // 기존 음성 정지
+            await Future.delayed(const Duration(milliseconds: 100)); // 짧은 지연
             await flutterTts.setLanguage(targetLanguage);
             await flutterTts.speak(translatedWord);
           }
         } catch (e) {
           print('번역 또는 음성 재생 오류: $e');
+          // TTS 오류가 발생해도 게임은 계속 진행
         }
 
         if (selectedCards.length == 2) {
@@ -940,10 +966,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       if (widget.isMultiplayerMode && index < gameImages.length) {
         try {
           final translatedWord = getLocalizedWord(gameImages[index]);
+          
+          // TTS 안전하게 사용
+          await flutterTts.stop(); // 기존 음성 정지
+          await Future.delayed(const Duration(milliseconds: 100)); // 짧은 지연
           await flutterTts.setLanguage(targetLanguage);
           await flutterTts.speak(translatedWord);
         } catch (e) {
           print('멀티플레이어 모드 음성 재생 오류: $e');
+          // TTS 오류가 발생해도 게임은 계속 진행
         }
       }
     } catch (e) {
@@ -2516,8 +2547,30 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   void _onScoreChanged(Map<int, int> scores) {
     if (!mounted) return;
 
+    print('_onScoreChanged 호출됨: $scores');
+    print('현재 widget.playerScores 키들: ${widget.playerScores.keys.toList()}');
+
     setState(() {
-      // UI 업데이트
+      // 로컬 멀티플레이어 모드에서 실시간 점수 업데이트
+      if (widget.numberOfPlayers > 1 && !widget.isMultiplayerMode && _memoryGameService != null) {
+        print('로컬 멀티플레이어 모드에서 점수 업데이트 시작');
+        
+        // widget.playerScores의 실제 키들을 사용
+        List<String> playerKeys = widget.playerScores.keys.toList();
+        
+        // memory_game_service의 점수를 widget.playerScores에 반영
+        for (int i = 0; i < widget.numberOfPlayers && i < playerKeys.length; i++) {
+          int currentScore = _memoryGameService!.getPlayerScore(i);
+          String playerKey = playerKeys[i];
+          
+          print('플레이어 $i ($playerKey)의 점수 업데이트: $currentScore');
+          
+          // 점수 업데이트
+          widget.updatePlayerScore(playerKey, currentScore);
+        }
+        
+        print('점수 업데이트 완료. 현재 widget.playerScores: ${widget.playerScores}');
+      }
     });
   }
 
@@ -2538,33 +2591,53 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // BannerAd 초기화 메서드
   void _initializeBannerAd() {
+    // 모바일 플랫폼에서만 광고 로드
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      print('웹 플랫폼에서는 AdMob 광고를 사용하지 않습니다');
+      return;
+    }
+
     // AdMob 초기화가 완료된 후 광고 로드
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadBannerAd();
+      try {
+        _loadBannerAd();
+      } catch (e) {
+        print('광고 초기화 중 오류: $e');
+      }
     });
   }
 
   void _loadBannerAd() {
-    // 기존 광고가 있다면 dispose
-    if (myBanner != null) {
-      myBanner!.dispose();
-      myBanner = null;
+    try {
+      // 기존 광고가 있다면 dispose
+      if (myBanner != null) {
+        try {
+          myBanner!.dispose();
+        } catch (e) {
+          print('기존 광고 dispose 중 오류: $e');
+        }
+        myBanner = null;
+      }
+
+      // 로딩 상태 시작
+      if (mounted) {
+        setState(() {
+          _isAdLoading = true;
+          _adLoadError = null; // 이전 에러 정보 초기화
+          _isBannerAdReady = false;
+        });
+      }
+    } catch (e) {
+      print('광고 로딩 준비 중 오류: $e');
+      return;
     }
 
-    // 로딩 상태 시작
-    if (mounted) {
-      setState(() {
-        _isAdLoading = true;
-        _adLoadError = null; // 이전 에러 정보 초기화
-        _isBannerAdReady = false;
-      });
-    }
+    try {
+      String adUnitId = Platform.isAndroid
+          ? 'ca-app-pub-7181238773192957/9331854982' // Android 실제 배너 광고 단위 ID
+          : 'ca-app-pub-7181238773192957/9331854982'; // iOS 실제 배너 광고 단위 ID (Android와 동일)
 
-    String adUnitId = Platform.isAndroid
-        ? 'ca-app-pub-7181238773192957/9331854982' // Android 실제 배너 광고 단위 ID
-        : 'ca-app-pub-7181238773192957/9331854982'; // iOS 실제 배너 광고 단위 ID (Android와 동일)
-
-    myBanner = BannerAd(
+      myBanner = BannerAd(
       adUnitId: adUnitId,
       size: AdSize.banner,
       request: const AdRequest(
@@ -2618,7 +2691,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       ),
     );
 
-    myBanner!.load();
+      myBanner!.load();
+    } catch (e) {
+      print('광고 생성 및 로딩 중 오류: $e');
+      if (mounted) {
+        setState(() {
+          _isBannerAdReady = false;
+          _isAdLoading = false;
+          _adLoadError = null;
+        });
+      }
+    }
   }
 
   // 광고 에러 코드에 따른 원인 설명
