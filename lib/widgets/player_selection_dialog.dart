@@ -595,7 +595,10 @@ class _PlayerSelectionDialogWidgetState
         // 혼자하기 버튼
         if (_selectedUsers.isNotEmpty)
           GestureDetector(
-            onTap: _clearAllSelections,
+            onTap: () {
+              _clearAllSelections();
+              Navigator.of(context).pop(<Map<String, dynamic>>[]);
+            },
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: _horizontalSpacing * 0.8,
