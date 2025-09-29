@@ -281,6 +281,10 @@ const Map<String, String> nlBETranslations = {
   'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants !',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Snelste per Raster',
-
+  'top_fastest_by_grid': 'Snelste per Raster',     
+  // Player Selection Dialog
+  'search_players': 'Zoek spelers...',
+  'solo_play': 'Solo Spel',
+  'no_search_results': 'Geen spelers gevonden',
+  'try_different_search': 'Probeer een andere zoekterm',
 };

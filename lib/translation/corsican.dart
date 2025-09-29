@@ -282,6 +282,10 @@ const Map<String, String> coTranslations = {
   'promo_message_10': 'Dì addiu à a sminticanza! 👋 Mantene un cervellu ghjovanu cù ghjochi di memoria divertenti!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Più Veloce per Griglia',
-
+  'top_fastest_by_grid': 'Più Veloce per Griglia',     
+  // Player Selection Dialog
+  'search_players': 'Ricerca ghjucatori...',
+  'solo_play': 'Ghjocu Solu',
+  'no_search_results': 'Nisun ghjucatore truvatu',
+  'try_different_search': 'Pruvà un altru termine di ricerca',
 };

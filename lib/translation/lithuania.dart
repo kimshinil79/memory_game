@@ -262,6 +262,10 @@ const Map<String, String> ltTranslations = {
   'promo_message_10': 'Atsisveikinkite su užmaršumu! 👋 Palaikykite jaunas smegenis su linksmais atminties žaidimais!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Greičiausi pagal Tinklelį',
-
+  'top_fastest_by_grid': 'Greičiausi pagal Tinklelį',     
+  // Player Selection Dialog
+  'search_players': 'Ieškoti žaidėjų...',
+  'solo_play': 'Solo žaidimas',
+  'no_search_results': 'Žaidėjų nerasta',
+  'try_different_search': 'Išbandykite kitą paieškos terminą',
 };

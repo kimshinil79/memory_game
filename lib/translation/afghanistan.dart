@@ -274,4 +274,13 @@ Map<String, String> afTranslations = {
   'top_fastest_by_grid': 'افغانستان - سریع ترین رکوردها',
 
 
+
+  // Player Selection Dialog
+  'search_players': 'پلیر پلټل...',
+  'solo_play': 'تنها لوبه',
+  'no_search_results': 'هیڅ پلیر ونه موندل شو',
+  'try_different_search': 'د بیلا پلټنې ټکي هڅه وکړئ',
+
+
+
 };

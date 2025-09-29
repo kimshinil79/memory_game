@@ -267,4 +267,13 @@ const Map<String, String> deDETranslations = {
   'top_fastest_by_grid': 'Schnellste nach Raster',
 
 
+
+  // Player Selection Dialog
+  'search_players': 'Spieler suchen...',
+  'solo_play': 'Einzelspieler',
+  'no_search_results': 'Keine Spieler gefunden',
+  'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
+
+
+
 };

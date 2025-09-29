@@ -275,6 +275,10 @@ const Map<String, String> kmTranslations = {
   'promo_message_10': 'និយាយលាទៅការភ្លេចភ្លាំង! 👋 រក្សាខួរក្បាលវ័យក្មេងជាមួយហ្គេមចងចាំសប្បាយៗ!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'លឿនបំផុតតាម Grid',
-
+  'top_fastest_by_grid': 'លឿនបំផុតតាម Grid',     
+  // Player Selection Dialog
+  'search_players': 'ស្វែងរកអ្នកលេង...',
+  'solo_play': 'លេងតែម្នាក់',
+  'no_search_results': 'រកមិនឃើញអ្នកលេង',
+  'try_different_search': 'សាកល្បងពាក្យស្វែងរកផ្សេងទៀត',
 };

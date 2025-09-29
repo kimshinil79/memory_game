@@ -279,5 +279,9 @@ const Map<String, String> daTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Hurtigste efter Gitter',
-
+  // Player Selection Dialog
+  'search_players': 'Søg spillere...',
+  'solo_play': 'Solo Spil',
+  'no_search_results': 'Ingen spillere fundet',
+  'try_different_search': 'Prøv et andet søgeord',
 };

@@ -278,6 +278,10 @@ const Map<String, String> htTranslations = {
   'promo_message_10': 'Di orevwa bliye! 👋 Kenbe yon jèn sèvo ak jwèt memwa amizan!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Plus Rapides par Grille',
-
+  'top_fastest_by_grid': 'Plus Rapides par Grille',     
+  // Player Selection Dialog
+  'search_players': 'Chèche jwè...',
+  'solo_play': 'Jwèt Solo',
+  'no_search_results': 'Pa gen jwè yo jwenn',
+  'try_different_search': 'Eseye yon lòt tèm rechèch',
 };

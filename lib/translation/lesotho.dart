@@ -264,6 +264,10 @@ const Map<String, String> stLSTranslations = {
   'promo_message_10': 'Re ho lebala sala hantle! 👋 Boloka boko bo bocha ka lipapali tse monate tsa mohopolo!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Bofefo ka Grid',
-
+  'top_fastest_by_grid': 'Bofefo ka Grid',     
+  // Player Selection Dialog
+  'search_players': 'Funa abadlali...',
+  'solo_play': 'Ukudlala wedwa',
+  'no_search_results': 'Abukho abadlali abatholakele',
+  'try_different_search': 'Zama igama lokusesha elinye',
 };

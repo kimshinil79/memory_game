@@ -259,6 +259,10 @@ const Map<String, String> slSITranslations = {
   'promo_message_10': 'Poslovite se od pozabljivosti! 👋 Ohranjajte mlade možgane z zabavnimi spominskimi igrami!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Najhitrejši po Mreži',
-
+  'top_fastest_by_grid': 'Najhitrejši po Mreži',     
+  // Player Selection Dialog
+  'search_players': 'Išči igralce...',
+  'solo_play': 'Solo igra',
+  'no_search_results': 'Ni igralcev najdenih',
+  'try_different_search': 'Poskusite z drugačnim iskalnim izrazom',
 };

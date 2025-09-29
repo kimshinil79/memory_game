@@ -259,6 +259,10 @@ const Map<String, String> srRSTranslations = {
   'promo_message_10': 'Recite zbogom zaboravnosti! 👋 Održite mlad mozak uz zabavne igre pamćenja!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Најбржи по Мрежи',
-
+  'top_fastest_by_grid': 'Најбржи по Мрежи',     
+  // Player Selection Dialog
+  'search_players': 'Претражи играче...',
+  'solo_play': 'Соло игра',
+  'no_search_results': 'Нису пронађени играчи',
+  'try_different_search': 'Покушајте са другим појмом претраге',
 };

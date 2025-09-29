@@ -266,4 +266,13 @@ const Map<String, String> itTranslations = {
   'top_fastest_by_grid': 'Più Veloce per Griglia',
 
 
+
+  // Player Selection Dialog
+  'search_players': 'Cerca giocatori...',
+  'solo_play': 'Gioco Singolo',
+  'no_search_results': 'Nessun giocatore trovato',
+  'try_different_search': 'Prova con un termine di ricerca diverso',
+
+
+
 };

@@ -266,5 +266,9 @@ const Map<String, String> plPLTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Najszybsze według Siatki',
-
+  // Player Selection Dialog
+  'search_players': 'Szukaj graczy...',
+  'solo_play': 'Gra solo',
+  'no_search_results': 'Nie znaleziono graczy',
+  'try_different_search': 'Spróbuj innego terminu wyszukiwania',
 };

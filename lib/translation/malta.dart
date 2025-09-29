@@ -265,6 +265,10 @@ const Map<String, String> mtMTTranslations = {
   'promo_message_10': 'Għid addiju lill-minsi! 👋 Żomm moħħ żagħżugħ b\'logħob divertenti tal-memorja!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Aktar Veloċi skont Grid',
-
+  'top_fastest_by_grid': 'Aktar Veloċi skont Grid',     
+  // Player Selection Dialog
+  'search_players': 'Fittex plejers...',
+  'solo_play': 'Logħba waħda',
+  'no_search_results': 'Ma nstabu l-ebda plejers',
+  'try_different_search': 'Ipprova terminu ieħor ta\' tfittxija',
 };

@@ -266,6 +266,10 @@ const Map<String, String> soSOTranslations = {
   'promo_message_10': 'Nabad geli halmaanka! 👋 Ku ilaali maskax da\'yar ciyaaro xusuus ah oo madadaalo leh!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Dhaqdhaqaaqa Ugu Dheer ee Grid',
-
+  'top_fastest_by_grid': 'Dhaqdhaqaaqa Ugu Dheer ee Grid',     
+  // Player Selection Dialog
+  'search_players': 'Raadi ciyaartoyda...',
+  'solo_play': 'Ciyaar Kelid',
+  'no_search_results': 'Ciyaartoy lama helin',
+  'try_different_search': 'Isticmaal erey raadid kale',
 };

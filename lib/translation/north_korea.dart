@@ -253,6 +253,10 @@ const Map<String, String> koKPTranslations = {
   'promo_message_10': '건망증에 안녕을 고하세요! 👋 재미있는 기억 놀이로 젊은 두뇌를 유지하세요!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': '격자별 최고 기록',
-
+  'top_fastest_by_grid': '격자별 최고 기록',     
+  // Player Selection Dialog
+  'search_players': '플레이어 검색...',
+  'solo_play': '혼자하기',
+  'no_search_results': '검색 결과가 없습니다',
+  'try_different_search': '다른 검색어를 시도해보세요',
 };

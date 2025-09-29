@@ -267,5 +267,9 @@ const Map<String, String> uzUZTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Torga ko\'ra eng tez',
-
+  // Player Selection Dialog
+  'search_players': 'O\'yinchilarni qidirish...',
+  'solo_play': 'Yolg\'iz o\'yin',
+  'no_search_results': 'O\'yinchilar topilmadi',
+  'try_different_search': 'Boshqa qidiruv so\'zini sinab ko\'ring',
 };

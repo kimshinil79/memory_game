@@ -97,9 +97,12 @@ class _PlayerSelectionDialogWidgetState
       minSize: 16, maxSize: 28); // 0.042 → 0.05, 14-24 → 16-28
   double get _bodyFontSize => _getProportionalSize(0.045,
       minSize: 14, maxSize: 26); // 0.038 → 0.045, 12-22 → 14-26
+  double get _buttonFontSize => _getProportionalSize(0.05,
+      minSize: 16, maxSize: 28); // 0.042 → 0.05, 14-24 → 16-28
+
   // 사용자 리스트 관련 크기 - 화면 크기에 비례하여 연속적으로 조정
-  double get _userListHeight => _getProportionalHeight(0.4,
-      minSize: 220, maxSize: 450); // 0.38 → 0.4, 200-400 → 220-450
+  double get _userItemFontSize => _getProportionalSize(0.045,
+      minSize: 16, maxSize: 28); // 0.038 → 0.045, 14-24 → 16-28
 
   // 버튼 크기 - 화면 높이에 비례하여 연속적으로 조정
   double get _buttonHeight => _getProportionalHeight(0.065,
@@ -114,6 +117,7 @@ class _PlayerSelectionDialogWidgetState
   // 아이콘 크기 - 화면 너비에 비례하여 연속적으로 조정
   double get _iconSize => _getProportionalSize(0.075,
       minSize: 28, maxSize: 48); // 0.065 → 0.075, 24-40 → 28-48
+
 
 
   // 리스트 항목 내부 요소들의 동적 크기 계산 메서드들
@@ -372,165 +376,165 @@ class _PlayerSelectionDialogWidgetState
         child: Container(
           padding: EdgeInsets.all(_dialogPadding),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Header with gradient text
-              ShaderMask(
-                shaderCallback: (bounds) => const LinearGradient(
-                  colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ).createShader(bounds),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['select_players'] ?? 'Select Players',
-                    style: _getTextStyle(
-                      fontSize: _titleFontSize,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              SizedBox(height: _verticalSpacing),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  _translations['select_up_to_3_players'] ??
-                      'Select up to 3 other players',
-                  style: _getTextStyle(
-                    fontSize: _subtitleFontSize,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: _horizontalSpacing,
-                    vertical: _verticalSpacing * 0.5),
-                margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF833AB4).withOpacity(0.08),
-                  borderRadius:
-                      BorderRadius.circular(_dialogBorderRadius * 0.6),
-                ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['you_will_be_included'] ??
-                        'You will always be included as a player',
-                    style: _getTextStyle(
-                      fontSize: _bodyFontSize,
-                      color: const Color(0xFF833AB4),
-                      fontWeight: FontWeight.w500,
+                // Header with gradient text
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      _translations['select_players'] ?? 'Select Players',
+                      style: _getTextStyle(
+                        fontSize: _titleFontSize,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: _verticalSpacing * 1.2),
-              _buildSearchBar(),
-              SizedBox(height: _verticalSpacing * 0.8),
-              _buildActionChips(),
-              SizedBox(height: _verticalSpacing * 1.2),
-              // Scrollable content area
-              Expanded(
-                child: _buildUsersList(),
-              ),
-              SizedBox(height: _verticalSpacing * 1),
-              // Action buttons - always visible at bottom
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Cancel button
-                  Expanded(
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).pop(null),
-                      borderRadius:
-                          BorderRadius.circular(_dialogBorderRadius * 0.85),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: _buttonHeight * 0.25,
-                            horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
-                        height: _buttonHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(
-                              _dialogBorderRadius * 0.85),
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              _translations['cancel'] ?? 'Cancel',
+                SizedBox(height: _verticalSpacing),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _translations['select_up_to_3_players'] ??
+                        'Select up to 3 other players',
+                    style: _getTextStyle(
+                      fontSize: _subtitleFontSize,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: _horizontalSpacing,
+                      vertical: _verticalSpacing * 0.5),
+                  margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF833AB4).withOpacity(0.08),
+                    borderRadius:
+                        BorderRadius.circular(_dialogBorderRadius * 0.6),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      _translations['you_will_be_included'] ??
+                          'You will always be included as a player',
+                      style: _getTextStyle(
+                        fontSize: _bodyFontSize,
+                        color: const Color(0xFF833AB4),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: _verticalSpacing * 1.2),
+                _buildSearchBar(),
+                SizedBox(height: _verticalSpacing * 0.8),
+                _buildActionChips(),
+                SizedBox(height: _verticalSpacing * 1.2),
+                Expanded(
+                  child: _buildUsersList(),
+                ),
+                SizedBox(height: _verticalSpacing * 1),
+                // Action buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Cancel button
+                    Expanded(
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pop(null),
+                        borderRadius:
+                            BorderRadius.circular(_dialogBorderRadius * 0.85),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _buttonHeight * 0.25,
+                              horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
+                          height: _buttonHeight,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                _dialogBorderRadius * 0.85),
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                _translations['cancel'] ?? 'Cancel',
                                 style: _getTextStyle(
-                                  fontSize: _bodyFontSize,
+                                  fontSize: _buttonFontSize, // 버튼 폰트 크기
                                   color: Colors.grey.shade700,
                                   fontWeight: FontWeight.w600,
                                 ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                      width:
-                          _getDynamicButtonSpacing(_dialogWidth)), // 동적 버튼 간격
-                  // Confirm button
-                  Expanded(
-                    child: InkWell(
-                      onTap: () async {
-                        // 선택된 유저 목록에 대해 PIN 인증 진행
-                        List<Map<String, dynamic>> verifiedUsers =
-                            await _verifySelectedUsersPin();
-                        // 선택된 플레이어가 없어도 다이얼로그를 닫음
-                        Navigator.of(context).pop(verifiedUsers);
-                      },
-                      borderRadius:
-                          BorderRadius.circular(_dialogBorderRadius * 0.85),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: _buttonHeight * 0.25,
-                            horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
-                        height: _buttonHeight,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF833AB4), Color(0xFFF77737)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(
-                              _dialogBorderRadius * 0.85),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF833AB4).withOpacity(0.3),
-                              blurRadius: _dialogWidth * 0.025, // 동적 그림자
-                              offset:
-                                  Offset(0, _dialogWidth * 0.006), // 동적 오프셋
+                    SizedBox(
+                        width:
+                            _getDynamicButtonSpacing(_dialogWidth)), // 동적 버튼 간격
+                    // Confirm button
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
+                          // 선택된 유저 목록에 대해 PIN 인증 진행
+                          List<Map<String, dynamic>> verifiedUsers =
+                              await _verifySelectedUsersPin();
+                          // 선택된 플레이어가 없어도 다이얼로그를 닫음
+                          Navigator.of(context).pop(verifiedUsers);
+                        },
+                        borderRadius:
+                            BorderRadius.circular(_dialogBorderRadius * 0.85),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _buttonHeight * 0.25,
+                              horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
+                          height: _buttonHeight,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              _translations['confirm'] ?? 'Confirm',
+                            borderRadius: BorderRadius.circular(
+                                _dialogBorderRadius * 0.85),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF833AB4).withOpacity(0.3),
+                                blurRadius: _dialogWidth * 0.025, // 동적 그림자
+                                offset:
+                                    Offset(0, _dialogWidth * 0.006), // 동적 오프셋
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                _translations['confirm'] ?? 'Confirm',
                                 style: _getTextStyle(
-                                  fontSize: _bodyFontSize,
+                                  fontSize: _buttonFontSize, // 버튼 폰트 크기
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                 ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -669,117 +673,108 @@ class _PlayerSelectionDialogWidgetState
 
   Widget _buildUsersList() {
     if (_isLoading) {
-      return Container(
-        height: _userListHeight,
-        child: const Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
-          ),
+      return const Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
         ),
       );
     }
 
     if (_error != null) {
-      return Container(
-        height: _userListHeight,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.error_outline,
-                color: Colors.red.shade400,
-                size: _iconSize,
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: Colors.red.shade400,
+              size: _iconSize,
+            ),
+            SizedBox(height: _verticalSpacing),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                _translations['failed_to_load_users'] ??
+                    'Failed to load users',
+                style: _getTextStyle(
+                  fontSize: _subtitleFontSize,
+                  color: Colors.red.shade400,
+                ),
               ),
-              SizedBox(height: _verticalSpacing),
-              FittedBox(
+            ),
+            SizedBox(height: _verticalSpacing * 0.5),
+            ElevatedButton(
+              onPressed: _fetchUsers,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF833AB4),
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(_dialogBorderRadius * 0.7),
+                ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: _horizontalSpacing,
+                    vertical: _verticalSpacing * 0.5),
+              ),
+              child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  _translations['failed_to_load_users'] ??
-                      'Failed to load users',
+                  _translations['retry'] ?? 'Retry',
                   style: _getTextStyle(
-                    fontSize: _subtitleFontSize,
-                    color: Colors.red.shade400,
+                    fontSize: _bodyFontSize,
+                    color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(height: _verticalSpacing * 0.5),
-              ElevatedButton(
-                onPressed: _fetchUsers,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF833AB4),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(_dialogBorderRadius * 0.7),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: _horizontalSpacing,
-                      vertical: _verticalSpacing * 0.5),
-                ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['retry'] ?? 'Retry',
-                    style: _getTextStyle(
-                      fontSize: _bodyFontSize,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
 
     if (_filteredUsers.isEmpty) {
-      return Container(
-        height: _userListHeight,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                _searchController.text.isNotEmpty 
-                    ? Icons.search_off 
-                    : Icons.people_outline,
-                color: Colors.grey.shade400,
-                size: _iconSize * 1.2,
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              _searchController.text.isNotEmpty 
+                  ? Icons.search_off 
+                  : Icons.people_outline,
+              color: Colors.grey.shade400,
+              size: _iconSize * 1.2,
+            ),
+            SizedBox(height: _verticalSpacing * 0.5),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                _searchController.text.isNotEmpty
+                    ? _translations['no_search_results'] ?? 'No players found'
+                    : _translations['no_other_users'] ?? 'No other users found',
+                style: _getTextStyle(
+                  fontSize: _subtitleFontSize,
+                  color: Colors.grey.shade600,
+                ),
               ),
-              SizedBox(height: _verticalSpacing * 0.5),
+            ),
+            if (_searchController.text.isNotEmpty) ...[
+              SizedBox(height: _verticalSpacing * 0.3),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  _searchController.text.isNotEmpty
-                      ? _translations['no_search_results'] ?? 'No players found'
-                      : _translations['no_other_users'] ?? 'No other users found',
+                  _translations['try_different_search'] ?? 'Try a different search term',
                   style: _getTextStyle(
-                    fontSize: _subtitleFontSize,
-                    color: Colors.grey.shade600,
+                    fontSize: _bodyFontSize,
+                    color: Colors.grey.shade500,
                   ),
                 ),
               ),
-              if (_searchController.text.isNotEmpty) ...[
-                SizedBox(height: _verticalSpacing * 0.3),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    _translations['try_different_search'] ?? 'Try a different search term',
-                    style: _getTextStyle(
-                      fontSize: _bodyFontSize,
-                      color: Colors.grey.shade500,
-                    ),
-                  ),
-                ),
-              ],
             ],
-          ),
+          ],
         ),
       );
     }
 
-    // Scrollable container without fixed height
+    // Scrollable container for user list
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -860,7 +855,7 @@ class _PlayerSelectionDialogWidgetState
                                           (_translations['unknown_player'] ??
                                               'Unknown Player'),
                                       style: _getTextStyle(
-                                        fontSize: _bodyFontSize,
+                                        fontSize: _userItemFontSize, // 사용자 아이템 폰트 크기
                                         fontWeight: FontWeight.w600,
                                         color: isSelected
                                             ? Colors.white

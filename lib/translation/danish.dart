@@ -278,6 +278,10 @@ const Map<String, String> daTranslations = {
   'promo_message_10': 'Sig farvel til glemsomhed! 👋 Vedligehold en ung hjerne med sjove hukommelsesspil!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Hurtigste efter Gitter',
-
+  'top_fastest_by_grid': 'Hurtigste efter Gitter',     
+  // Player Selection Dialog
+  'search_players': 'Søg spillere...',
+  'solo_play': 'Solo Spil',
+  'no_search_results': 'Ingen spillere fundet',
+  'try_different_search': 'Prøv et andet søgeord',
 };

@@ -264,5 +264,9 @@ const Map<String, String> ukUATranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Найшвидші за сіткою',
-
+  // Player Selection Dialog
+  'search_players': 'Пошук гравців...',
+  'solo_play': 'Одиночна гра',
+  'no_search_results': 'Гравців не знайдено',
+  'try_different_search': 'Спробуйте інший пошуковий запит',
 };

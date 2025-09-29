@@ -269,5 +269,11 @@ const Map<String, String> krTranslations = {
   
   // Top Fastest by Grid
   'top_fastest_by_grid': '그리드별 최고 기록',
+  
+  // Player Selection Dialog
+  'search_players': '플레이어 검색...',
+  'solo_play': '혼자하기',
+  'no_search_results': '검색 결과가 없습니다',
+  'try_different_search': '다른 검색어를 시도해보세요',
 
 };

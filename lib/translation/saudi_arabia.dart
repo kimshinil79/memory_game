@@ -8,7 +8,7 @@ const Map<String, String> arSATranslations = {
   'middle_eastern_languages': 'لغات الشرق الأوسط',
   'african_languages': 'اللغات الأفريقية',
   'cancel': 'إلغاء',
-  'ok': 'موافق',
+  'ok': 'موافق',    
   'yes': 'نعم',
   'no': 'لا',
   'save': 'حفظ',
@@ -254,5 +254,9 @@ const Map<String, String> arSATranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'الأسرع حسب الشبكة',
-
+  // Player Selection Dialog
+  'search_players': 'البحث عن اللاعبين...',   
+  'solo_play': 'لعب منفرد',
+  'no_search_results': 'لم يتم العثور على لاعبين',
+  'try_different_search': 'جرب مصطلح بحث مختلف',
 };

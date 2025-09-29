@@ -278,6 +278,10 @@ const Map<String, String> eoTranslations = {
   'promo_message_10': 'Adiaŭu forgesemecon! 👋 Konservu junan cerbon per amuzaj memoraj ludoj!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Plej Rapidaj laŭ Krado',
-
+  'top_fastest_by_grid': 'Plej Rapidaj laŭ Krado',     
+  // Player Selection Dialog
+  'search_players': 'Serĉu ludantojn...',
+  'solo_play': 'Sola ludo',
+  'no_search_results': 'Neniuj ludantoj trovitaj',
+  'try_different_search': 'Provu alian serĉan terminon',
 };

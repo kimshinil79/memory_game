@@ -286,6 +286,10 @@ const Map<String, String> caADTranslations = {
   'promo_message_10': 'Digueu adéu a l\'oblit! 👋 Mantingueu un cervell jove amb jocs de memòria divertits!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Més Ràpids per Quadrícula',
-
+  'top_fastest_by_grid': 'Més Ràpids per Quadrícula',     
+  // Player Selection Dialog
+  'search_players': 'Buscar jugadores...',
+  'solo_play': 'Juego Solo',
+  'no_search_results': 'No se encontraron jugadores',
+  'try_different_search': 'Prueba con un término de búsqueda diferente',
 };

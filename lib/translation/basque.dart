@@ -282,6 +282,10 @@ const Map<String, String> euTranslations = {
   'promo_message_10': 'Agur esan ahazteari! 👋 Mantendu garun gaztea memoria jolas dibertigarriekin!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Sarearen Arabera Azkarrenak',
-
+  'top_fastest_by_grid': 'Sarearen Arabera Azkarrenak',     
+  // Player Selection Dialog
+  'search_players': 'Bilatu jokalariak...',
+  'solo_play': 'Bakarkako jokoa',
+  'no_search_results': 'Ez da jokalaririk aurkitu',
+  'try_different_search': 'Saiatu beste bilaketa termino batekin',
 };

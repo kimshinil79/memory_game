@@ -284,6 +284,10 @@ const Map<String, String> sqTranslations = {
   'promo_message_10': 'Thoni lamtumirë harresës! 👋 Mbani një tru të ri me lojëra argëtuese kujtese!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Më të Shpejtat sipas Rrjetit',
-
+  'top_fastest_by_grid': 'Më të Shpejtat sipas Rrjetit',     
+  // Player Selection Dialog
+  'search_players': 'Kërko lojtarë...',
+  'solo_play': 'Lojë e vetme',
+  'no_search_results': 'Nuk u gjetën lojtarë',
+  'try_different_search': 'Provo një term tjetër kërkimi',
 };

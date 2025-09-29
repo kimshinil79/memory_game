@@ -279,6 +279,10 @@ const Map<String, String> ptCVTranslations = {
   'promo_message_10': 'Diga adeus ao esquecimento! 👋 Mantenha um cérebro jovem com jogos de memória divertidos!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Mais Rápidos por Grade',
-
+  'top_fastest_by_grid': 'Mais Rápidos por Grade',     
+  // Player Selection Dialog
+  'search_players': 'Procurar jogadores...',
+  'solo_play': 'Jogo Solo',
+  'no_search_results': 'Nenhum jogador encontrado',
+  'try_different_search': 'Tente um termo de busca diferente',
 };

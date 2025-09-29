@@ -263,5 +263,11 @@ const Map<String, String> viVNTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Nhanh nhất theo Lưới',
+  
+  // Player Selection Dialog
+  'search_players': 'Tìm kiếm người chơi...',
+  'solo_play': 'Chơi đơn',
+  'no_search_results': 'Không tìm thấy người chơi',
+  'try_different_search': 'Thử từ khóa tìm kiếm khác',
 
 };

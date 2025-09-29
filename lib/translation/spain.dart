@@ -1,6 +1,12 @@
 // 스페인 번역 파일
 const Map<String, String> esTranslations = {  // Top Fastest by Grid
   'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
+
+  // Player Selection Dialog
+  'solo_play': 'Juego Solo',
+  'no_search_results': 'No se encontraron jugadores',
+  'try_different_search': 'Prueba con un término de búsqueda diferente',
+
 };
 
 // Spain translations (Spanish)
@@ -273,6 +279,15 @@ const Map<String, String> esESTranslations = {
 
 
   'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
+
+
+
+  // Player Selection Dialog
+  'search_players': 'Buscar jugadores...',
+  'solo_play': 'Juego Solo',
+  'no_search_results': 'No se encontraron jugadores',
+  'try_different_search': 'Prueba con un término de búsqueda diferente',
+
 
 
 };

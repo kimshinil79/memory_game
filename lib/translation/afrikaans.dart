@@ -279,7 +279,10 @@ const Map<String, String> afkTranslations = {
   // Top Fastest by Grid
 
 
-  'top_fastest_by_grid': 'Top Vinnigste per Rooster',
-
-
+  'top_fastest_by_grid': 'Top Vinnigste per Rooster',     
+  // Player Selection Dialog
+  'search_players': 'Soek spelers...',
+  'solo_play': 'Solo Spel',
+  'no_search_results': 'Geen spelers gevind nie',
+  'try_different_search': 'Probeer \'n ander soekterm',
 };

@@ -263,7 +263,10 @@ const Map<String, String> myTranslations = {
   // Top Fastest by Grid
 
 
-  'top_fastest_by_grid': 'ဂရစ်ဒ်အလိုက် အမြန်ဆုံး',
-
-
+  'top_fastest_by_grid': 'ဂရစ်ဒ်အလိုက် အမြန်ဆုံး',     
+  // Player Selection Dialog
+  'search_players': 'ကစားသမားများကို ရှာဖွေပါ...',
+  'solo_play': 'တစ်ယောက်တည်း ကစားခြင်း',
+  'no_search_results': 'ကစားသမားများ မတွေ့ရှိပါ',
+  'try_different_search': 'မတူညီသော ရှာဖွေမှု စကားလုံးကို စမ်းကြည့်ပါ',
 };

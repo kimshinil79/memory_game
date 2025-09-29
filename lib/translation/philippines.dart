@@ -284,5 +284,9 @@ const Map<String, String> filPHTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Pinakamabilis ayon sa Grid',
-
+  // Player Selection Dialog
+  'search_players': 'Maghanap ng mga manlalaro...',
+  'solo_play': 'Solo na Laro',
+  'no_search_results': 'Walang nahanap na manlalaro',
+  'try_different_search': 'Subukan ang ibang termino sa paghahanap',
 };

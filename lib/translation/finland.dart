@@ -259,5 +259,9 @@ const Map<String, String> fiTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Nopeimmat Ruudukon Mukaan',
-
+  // Player Selection Dialog
+  'search_players': 'Hae pelaajia...',
+  'solo_play': 'Solo Peli',
+  'no_search_results': 'Pelaajia ei löytynyt',
+  'try_different_search': 'Kokeile eri hakusanaa',
 };

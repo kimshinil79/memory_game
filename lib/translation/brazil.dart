@@ -282,4 +282,12 @@ const Map<String, String> ptBRTranslations = {
 
   'top_fastest_by_grid': 'Mais Rápidos por Grade',
 
+
+  // Player Selection Dialog
+  'search_players': 'Buscar jogadores...',
+  'solo_play': 'Jogo Solo',
+  'no_search_results': 'Nenhum jogador encontrado',
+  'try_different_search': 'Tente um termo de busca diferente',
+
+
 };

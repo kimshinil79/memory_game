@@ -260,5 +260,9 @@ const Map<String, String> idTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Tercepat menurut Grid',
-
+  // Player Selection Dialog
+  'search_players': 'Cari pemain...',
+  'solo_play': 'Bermain Sendiri',
+  'no_search_results': 'Tidak ada pemain ditemukan',
+  'try_different_search': 'Coba kata kunci pencarian yang berbeda',
 };

@@ -264,6 +264,10 @@ const Map<String, String> deLUTranslations = {
   'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants !',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Schnellste nach Raster',
-
+  'top_fastest_by_grid': 'Schnellste nach Raster',     
+  // Player Selection Dialog
+  'search_players': 'Spiller sichen...',
+  'solo_play': 'Solo Spill',
+  'no_search_results': 'Keng Spiller fonnt',
+  'try_different_search': 'Probéiert en anere Sichbegrëff',
 };

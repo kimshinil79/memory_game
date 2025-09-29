@@ -273,4 +273,13 @@ const Map<String, String> arTranslations = {
   'top_fastest_by_grid': 'الأسرع حسب الشبكة',
 
 
+
+  // Player Selection Dialog
+  'search_players': 'البحث عن اللاعبين...',
+  'solo_play': 'لعب منفرد',
+  'no_search_results': 'لم يتم العثور على لاعبين',
+  'try_different_search': 'جرب مصطلح بحث مختلف',
+
+
+
 };

@@ -263,6 +263,10 @@ const Map<String, String> filTranslations = {
   'promo_message_10': 'Magpaalam sa pagiging makakalimutin! 👋 Panatilihin ang isang batang utak sa nakakatuwang mga laro sa memorya!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Pinakamabilis ayon sa Grid',
-
+  'top_fastest_by_grid': 'Pinakamabilis ayon sa Grid',     
+  // Player Selection Dialog
+  'search_players': 'Maghanap ng mga manlalaro...',
+  'solo_play': 'Solo na Laro',
+  'no_search_results': 'Walang nahanap na manlalaro',
+  'try_different_search': 'Subukan ang ibang termino sa paghahanap',
 };

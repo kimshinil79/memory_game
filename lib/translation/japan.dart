@@ -249,4 +249,14 @@ const Map<String, String> jaTranslations = {
 
 
 
+
+  // Player Selection Dialog
+  'search_players': 'プレイヤーを検索...',
+  'solo_play': 'ソロプレイ',
+  'no_search_results': 'プレイヤーが見つかりません',
+  'try_different_search': '別の検索語句をお試しください',
+
+
+
+
 };

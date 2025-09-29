@@ -284,6 +284,10 @@ const Map<String, String> tnTranslations = {
   'promo_message_10': 'Reela go lebala! 👋 Boloka boko jo bošwa ka metshameko e e monate ya go gakologelwa!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Bofefo ka Grid',
-
+  'top_fastest_by_grid': 'Bofefo ka Grid',     
+  // Player Selection Dialog
+  'search_players': 'Funa abadlali...',
+  'solo_play': 'Ukudlala wedwa',
+  'no_search_results': 'Abukho abadlali abatholakele',
+  'try_different_search': 'Zama igama lokusesha elinye',
 };

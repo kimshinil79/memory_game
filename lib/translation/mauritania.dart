@@ -259,6 +259,10 @@ const Map<String, String> mrMRTranslations = {
   'promo_message_10': 'وداعاً للنسيان! 👋 حافظ على دماغ شاب بألعاب الذاكرة الممتعة!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Plus Rapides par Grille',
-
+  'top_fastest_by_grid': 'Plus Rapides par Grille',     
+  // Player Selection Dialog
+  'search_players': 'البحث عن اللاعبين...',
+  'solo_play': 'لعب منفرد',
+  'no_search_results': 'لم يتم العثور على لاعبين',
+  'try_different_search': 'جرب مصطلح بحث مختلف',
 };

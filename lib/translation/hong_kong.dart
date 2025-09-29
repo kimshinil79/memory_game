@@ -252,5 +252,9 @@ const Map<String, String> hkTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': '網格最快記錄',
-
+  // Player Selection Dialog
+  'search_players': '搜索玩家...',
+  'solo_play': '單人遊戲',
+  'no_search_results': '未找到玩家',
+  'try_different_search': '請嘗試其他搜索詞',
 };

@@ -273,6 +273,10 @@ const Map<String, String> mgTranslations = {
   'promo_message_10': 'Manaova veloma ny fanadinoana! 👋 Tazonina ho tanora ny atidoha amin\'ny lalao fahatazana mahafinaritra!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Plus Rapides par Grille',
-
+  'top_fastest_by_grid': 'Plus Rapides par Grille',     
+  // Player Selection Dialog
+  'search_players': 'Rechercher des joueurs...',
+  'solo_play': 'Jeu Solo',
+  'no_search_results': 'Aucun joueur trouvé',
+  'try_different_search': 'Essayez un autre terme de recherche',
 };

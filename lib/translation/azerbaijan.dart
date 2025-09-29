@@ -280,6 +280,10 @@ const Map<String, String> azTranslations = {
   'promo_message_10': 'Unutqanlıqla vidalaşın! 👋 Əyləncəli yaddaş oyunları ilə gənc beyni qoruyun!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Şəbəkəyə Görə Ən Sürətli',
-
+  'top_fastest_by_grid': 'Şəbəkəyə Görə Ən Sürətli',     
+  // Player Selection Dialog
+  'search_players': 'Oyunçuları axtar...',
+  'solo_play': 'Tək oyun',
+  'no_search_results': 'Oyunçu tapılmadı',
+  'try_different_search': 'Başqa axtarış terminini sınayın',
 };

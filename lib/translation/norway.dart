@@ -266,5 +266,9 @@ const Map<String, String> nnNOTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Raskeste etter Rutenett',
-
+  // Player Selection Dialog
+  'search_players': 'Søk spillere...',
+  'solo_play': 'Solo Spill',
+  'no_search_results': 'Ingen spillere funnet',
+  'try_different_search': 'Prøv et annet søkeord',
 };

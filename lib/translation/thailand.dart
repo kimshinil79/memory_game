@@ -262,5 +262,9 @@ const Map<String, String> thTHTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'เร็วที่สุดตาม Grid',
-
+  // Player Selection Dialog
+  'search_players': 'ค้นหาผู้เล่น...',
+  'solo_play': 'เล่นคนเดียว',
+  'no_search_results': 'ไม่พบผู้เล่น',
+  'try_different_search': 'ลองใช้คำค้นหาอื่น',
 };

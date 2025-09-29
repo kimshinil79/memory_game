@@ -263,6 +263,10 @@ const Map<String, String> lvLVTranslations = {
   'promo_message_10': 'Atvadieties no aizmāršības! 👋 Uzturiet jaunas smadzenes ar jautrām atmiņas spēlēm!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Ātrākie pēc Režģa',
-
+  'top_fastest_by_grid': 'Ātrākie pēc Režģa',     
+  // Player Selection Dialog
+  'search_players': 'Meklēt spēlētājus...',
+  'solo_play': 'Solo spēle',
+  'no_search_results': 'Spēlētāji nav atrasti',
+  'try_different_search': 'Izmēģiniet citu meklēšanas terminu',
 };

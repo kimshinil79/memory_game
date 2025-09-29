@@ -272,6 +272,10 @@ const Map<String, String> roROTranslations = {
   'promo_message_10': 'Spuneți adio uitării! 👋 Mențineți un creier tânăr cu jocuri de memorie distractive!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Cele mai Rapide pe Grilă',
-
+  'top_fastest_by_grid': 'Cele mai Rapide pe Grilă',     
+  // Player Selection Dialog
+  'search_players': 'Căutați jucători...',
+  'solo_play': 'Joc Solo',
+  'no_search_results': 'Nu s-au găsit jucători',
+  'try_different_search': 'Încercați un alt termen de căutare',
 };

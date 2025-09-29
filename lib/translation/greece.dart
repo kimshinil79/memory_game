@@ -263,6 +263,10 @@ const Map<String, String> elGRTranslations = {
   'promo_message_10': 'Πείτε αντίο στη λήθη! 👋 Διατηρήστε έναν νέο εγκέφαλο με διασκεδαστικά παιχνίδια μνήμης!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Ταχύτερα ανά Πλέγμα',
-
+  'top_fastest_by_grid': 'Ταχύτερα ανά Πλέγμα',     
+  // Player Selection Dialog
+  'search_players': 'Αναζήτηση παικτών...',
+  'solo_play': 'Μοναχικό παιχνίδι',
+  'no_search_results': 'Δεν βρέθηκαν παίκτες',
+  'try_different_search': 'Δοκιμάστε διαφορετικό όρο αναζήτησης',
 };

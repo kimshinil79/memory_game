@@ -266,6 +266,10 @@ const Map<String, String> swTZTranslations = {
   'promo_message_10': 'Sema kwaheri kwa kusahau! 👋 Dumisha ubongo mchanga kwa michezo ya kufurahisha ya kumbukumbu!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Haraka zaidi kwa Grid',
-
+  'top_fastest_by_grid': 'Haraka zaidi kwa Grid',     
+  // Player Selection Dialog
+  'search_players': 'Tafuta wachezaji...',
+  'solo_play': 'Kucheza peke yake',
+  'no_search_results': 'Hakuna wachezaji walipatikana',
+  'try_different_search': 'Jaribu neno lingine la utafutaji',
 };

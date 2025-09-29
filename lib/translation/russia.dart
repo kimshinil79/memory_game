@@ -276,4 +276,13 @@ const Map<String, String> ruRUTranslations = {
   'top_fastest_by_grid': 'Самые быстрые по сетке',
 
 
+
+  // Player Selection Dialog
+  'search_players': 'Поиск игроков...',
+  'solo_play': 'Одиночная игра',
+  'no_search_results': 'Игроки не найдены',
+  'try_different_search': 'Попробуйте другой поисковый запрос',
+
+
+
 };

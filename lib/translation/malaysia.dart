@@ -268,6 +268,10 @@ const Map<String, String> msTranslations = {
   'promo_message_10': 'Ucapkan selamat tinggal kepada pelupa! 👋 Kekalkan otak muda dengan permainan memori yang menyeronokkan!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Terpantas Mengikut Grid',
-
+  'top_fastest_by_grid': 'Terpantas Mengikut Grid',     
+  // Player Selection Dialog
+  'search_players': 'Cari pemain...',
+  'solo_play': 'Bermain Sendiri',
+  'no_search_results': 'Tiada pemain dijumpai',
+  'try_different_search': 'Cuba kata kunci pencarian yang berbeza',
 };

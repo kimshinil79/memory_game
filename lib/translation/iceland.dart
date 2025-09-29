@@ -279,5 +279,9 @@ const Map<String, String> isISTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Hraðast eftir Neti',
-
+  // Player Selection Dialog
+  'search_players': 'Leita að spilurum...',
+  'solo_play': 'Einstaklingsleikur',
+  'no_search_results': 'Engir spilarar fundust',
+  'try_different_search': 'Prófaðu annað leitarorð',
 };

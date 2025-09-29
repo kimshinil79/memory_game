@@ -265,6 +265,10 @@ const Map<String, String> enPGTranslations = {
   'promo_message_10': 'Tok bai bai long lusim tingting! 👋 Holim bel i yangpela long ol gutpela pilai bilong bel!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Top Fastest by Grid',
-
+  'top_fastest_by_grid': 'Top Fastest by Grid',     
+  // Player Selection Dialog
+  'search_players': 'Search players...',
+  'solo_play': 'Solo Play',
+  'no_search_results': 'No players found',
+  'try_different_search': 'Try a different search term',
 };

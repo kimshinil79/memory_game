@@ -277,6 +277,10 @@ const Map<String, String> etTranslations = {
   'promo_message_10': 'Ütle unustamisele hüvasti! 👋 Säilita noor aju lõbusate mälumängudega!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Kiireimad Võrgu Järgi',
-
+  'top_fastest_by_grid': 'Kiireimad Võrgu Järgi',     
+  // Player Selection Dialog
+  'search_players': 'Otsi mängijaid...',
+  'solo_play': 'Solo mäng',
+  'no_search_results': 'Mängijaid ei leitud',
+  'try_different_search': 'Proovi teist otsinguterminit',
 };

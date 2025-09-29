@@ -274,6 +274,10 @@ const Map<String, String> csTranslations = {
   'promo_message_10': 'Dejte sbohem zapomnětlivosti! 👋 Udržujte mladý mozek zábavnými paměťovými hrami!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Nejrychlejší podle Mřížky',
-
+  'top_fastest_by_grid': 'Nejrychlejší podle Mřížky',         
+  // Player Selection Dialog
+  'search_players': 'Hledat hráče...',
+  'solo_play': 'Solo hra',
+  'no_search_results': 'Žádní hráči nenalezeni',
+  'try_different_search': 'Zkuste jiný vyhledávací termín',
 };

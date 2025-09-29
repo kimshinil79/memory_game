@@ -254,6 +254,10 @@ const Map<String, String> heTranslations = {
   'promo_message_10': 'תגיד שלום לשכחה! 👋 שמור על מוח צעיר עם משחקי זיכרון מהנים!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'המהירים ביותר לפי רשת',
-
+  'top_fastest_by_grid': 'המהירים ביותר לפי רשת',     
+  // Player Selection Dialog
+  'search_players': 'חפש שחקנים...',
+  'solo_play': 'משחק יחיד',
+  'no_search_results': 'לא נמצאו שחקנים',
+  'try_different_search': 'נסה מונח חיפוש אחר',
 };

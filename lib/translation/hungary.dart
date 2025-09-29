@@ -256,6 +256,10 @@ const Map<String, String> huTranslations = {
   'promo_message_10': 'Mondjon búcsút a feledékenységnek! 👋 Tartsa fiatalon az agyát szórakoztató memóriajátékokkal!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Leggyorsabb Rácsonként',
-
+  'top_fastest_by_grid': 'Leggyorsabb Rácsonként',  
+  // Player Selection Dialog
+  'search_players': 'Játékosok keresése...',
+  'solo_play': 'Solo játék',
+  'no_search_results': 'Nincsenek játékosok',
+  'try_different_search': 'Próbáljon másik keresési kifejezést',
 };

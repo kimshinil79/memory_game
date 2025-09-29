@@ -275,6 +275,10 @@ const Map<String, String> mxMEXTranslations = {
   'promo_message_10': '¡Di adiós al olvido! 👋 ¡Mantén un cerebro joven con divertidos juegos de memoria!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
-
+  'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',     
+  // Player Selection Dialog
+  'search_players': 'Buscar jugadores...',
+  'solo_play': 'Juego Solo',
+  'no_search_results': 'No se encontraron jugadores',
+  'try_different_search': 'Prueba con un término de búsqueda diferente',
 };

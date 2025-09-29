@@ -261,6 +261,9 @@ const Map<String, String> hiTranslations = {
 
 
   'top_fastest_by_grid': 'ग्रिड के अनुसार शीर्ष सबसे तेज़',
-
-
+  // Player Selection Dialog
+  'search_players': 'खिलाड़ी खोजें...',
+  'solo_play': 'एकल खेल',
+  'no_search_results': 'कोई खिलाड़ी नहीं मिला',
+  'try_different_search': 'अलग खोज शब्द आज़माएं',
 };

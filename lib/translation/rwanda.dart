@@ -268,6 +268,10 @@ const Map<String, String> rwRWTranslations = {
   'promo_message_10': 'Vuga kwaheri ku kwibagirwa! 👋 Gira ubwonko bucyeye ukoresheje imikino ishimishije yo kwibuka!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Vuba cyane ku Grid',
-
+  'top_fastest_by_grid': 'Vuba cyane ku Grid',     
+  // Player Selection Dialog
+  'search_players': 'Shakisha abakinnyi...',
+  'solo_play': 'Gukina wenyine',
+  'no_search_results': 'Nta bakinnyi babonye',
+  'try_different_search': 'Gerageza ijambo ry\'ushakisha rindi',
 };

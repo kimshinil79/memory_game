@@ -249,4 +249,14 @@ const Map<String, String> zhCNTranslations = {
 
 
 
+
+  // Player Selection Dialog
+  'search_players': '搜索玩家...',
+  'solo_play': '单人游戏',
+  'no_search_results': '未找到玩家',
+  'try_different_search': '请尝试其他搜索词',
+
+
+
+
 };

@@ -285,5 +285,9 @@ const Map<String, String> svSETranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Snabbaste efter Rutnät',
-
+  // Player Selection Dialog
+  'search_players': 'Sök spelare...',
+  'solo_play': 'Solo Spel',
+  'no_search_results': 'Inga spelare hittades',
+  'try_different_search': 'Prova en annan sökterm',
 };

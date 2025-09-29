@@ -259,6 +259,10 @@ const Map<String, String> klGLTranslations = {
   'promo_message_10': 'Eqqaamannissinnaanermik ajornartorsiutinik atugaqarnermut akissuteqaatigiuk! 👋 Ajuut inuusuttut eqqaamannissinnaanermik nuannissutaasunik pinnguaatinik atortut!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Hurtigste efter Gitter',
-
+  'top_fastest_by_grid': 'Hurtigste efter Gitter',     
+  // Player Selection Dialog
+  'search_players': 'Ujarpaat...',
+  'solo_play': 'Ataasiq',
+  'no_search_results': 'Ujarpaat nassaqanngitsoq',
+  'try_different_search': 'Allaat ujarpaat',
 };

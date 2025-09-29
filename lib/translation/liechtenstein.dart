@@ -264,6 +264,10 @@ const Map<String, String> deLITranslations = {
   'promo_message_10': 'Verabschieden Sie sich von Vergesslichkeit! 👋 Behalten Sie ein junges Gehirn mit lustigen Gedächtnisspielen!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Schnellste nach Raster',
-
+  'top_fastest_by_grid': 'Schnellste nach Raster',     
+  // Player Selection Dialog
+  'search_players': 'Spieler suchen...',
+  'solo_play': 'Einzelspieler',
+  'no_search_results': 'Keine Spieler gefunden',
+  'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
 };

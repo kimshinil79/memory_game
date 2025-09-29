@@ -258,6 +258,10 @@ const Map<String, String> enZATranslations = {
   'promo_message_10': 'Valelisa ekukhohlweni! 👋 Gcina ubuchopho obuncane ngemidlalo yenkumbulo ejabulisayo!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Okusheshayo ngeGrid',
-
+  'top_fastest_by_grid': 'Okusheshayo ngeGrid',     
+  // Player Selection Dialog
+  'search_players': 'Funa abadlali...',
+  'solo_play': 'Ukudlala wedwa',
+  'no_search_results': 'Abukho abadlali abatholakele',
+  'try_different_search': 'Zama igama lokusesha elinye',
 };

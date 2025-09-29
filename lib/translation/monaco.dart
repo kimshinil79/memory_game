@@ -278,6 +278,10 @@ const Map<String, String> mcMCTTranslations = {
   'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants !',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Plus Rapides par Grille',
-
+  'top_fastest_by_grid': 'Plus Rapides par Grille',     
+  // Player Selection Dialog
+  'search_players': 'Rechercher des joueurs...',
+  'solo_play': 'Jeu Solo',
+  'no_search_results': 'Aucun joueur trouvé',
+  'try_different_search': 'Essayez un autre terme de recherche',
 };

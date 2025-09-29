@@ -278,6 +278,10 @@ const Map<String, String> bsBATranslations = {
   'promo_message_10': 'Recite zbogom zaboravnosti! 👋 Održite mlad mozak uz zabavne igre pamćenja!',
   // Top Fastest by Grid
 
-  'top_fastest_by_grid': 'Najbrži po Mreži',
-
+  'top_fastest_by_grid': 'Najbrži po Mreži',     
+  // Player Selection Dialog
+  'search_players': 'Pretraži igrače...',
+  'solo_play': 'Solo igra',
+  'no_search_results': 'Nisu pronađeni igrači',
+  'try_different_search': 'Pokušajte s drugim pojmom pretrage',
 };

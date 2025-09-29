@@ -270,5 +270,9 @@ const Map<String, String> tgTJTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Суръаттарин дар тор',
-
+  // Player Selection Dialog
+  'search_players': 'Ҷустуҷӯи бозигарон...',
+  'solo_play': 'Бозии танҳо',
+  'no_search_results': 'Ҳеҷ бозигаре ёфт нашуд',
+  'try_different_search': 'Ҳарфҳои ҷустуҷӯии дигарро санҷед',
 };

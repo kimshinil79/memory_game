@@ -1,7 +1,3 @@
-// 스리랑카 번역 파일
-const Map<String, String> siTranslations = {  // Top Fastest by Grid
-  'top_fastest_by_grid': 'ග්‍රිඩ් අනුව ශ්‍රේෂ්ඨතම වේගවත්',
-};
 
 // Sri Lanka translations (Sinhala)
 const Map<String, String> siLKTranslations = {
@@ -269,5 +265,9 @@ const Map<String, String> siLKTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'ග්‍රිඩ් අනුව ශ්‍රේෂ්ඨතම වේගවත්',
-
+  // Player Selection Dialog
+  'search_players': 'ක්‍රීඩකයින් සොයන්න...',
+  'solo_play': 'තනි ක්‍රීඩාව',
+  'no_search_results': 'ක්‍රීඩකයින් හමු නොවීය',
+  'try_different_search': 'වෙනස් සෙවුම් පදයක් උත්සාහ කරන්න',
 };

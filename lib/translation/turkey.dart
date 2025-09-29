@@ -266,5 +266,11 @@ const Map<String, String> trTRTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'Kafes Bazında En Hızlı',
+  
+  // Player Selection Dialog
+  'search_players': 'Oyuncu ara...',
+  'solo_play': 'Tek Oyunculu',
+  'no_search_results': 'Oyuncu bulunamadı',
+  'try_different_search': 'Farklı bir arama terimi deneyin',
 
 };

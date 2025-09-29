@@ -262,7 +262,10 @@ const Map<String, String> neTranslations = {
   // Top Fastest by Grid
 
 
-  'top_fastest_by_grid': 'ग्रिड अनुसार शीर्ष सबैभन्दा छिटो',
-
-
+  'top_fastest_by_grid': 'ग्रिड अनुसार शीर्ष सबैभन्दा छिटो',     
+  // Player Selection Dialog
+  'search_players': 'खेलाडीहरू खोज्नुहोस्...',
+  'solo_play': 'एकल खेल',
+  'no_search_results': 'कुनै खेलाडी फेला परेन',
+  'try_different_search': 'अर्को खोज शब्द प्रयास गर्नुहोस्',
 };

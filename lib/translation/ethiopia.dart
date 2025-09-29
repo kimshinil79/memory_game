@@ -268,5 +268,9 @@ const Map<String, String> amTranslations = {
   // Top Fastest by Grid
 
   'top_fastest_by_grid': 'በግሪድ በመሠረት ከፍተኛ ፍጥነት',
-
+  // Player Selection Dialog
+  'search_players': 'ተጫዋቾችን ፍለግ...',
+  'solo_play': 'ብቻ ተጫዋች',
+  'no_search_results': 'ተጫዋቾች አልተገኙም',      
+  'try_different_search': 'የተለየ የፍለግ ቃል ይሞክሩ',
 };
