@@ -255,4 +255,10 @@ const Map<String, String> naTranslations = {
   'weekly': 'Weekliks',
   'monthly': 'Maandeliks',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Bofefo ka Grid',
+
+
 };

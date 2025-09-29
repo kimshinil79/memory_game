@@ -265,4 +265,10 @@ const Map<String, String> ptPTTranslations = {
   'promo_message_9': 'Melhore a memória dos pais! ✅ Polegar para cima para prevenção de demência! Exercício cerebral consistente é a resposta.',
   'promo_message_10': 'Digam adeus ao esquecimento! 👋 Mantenha um cérebro jovem com jogos de memória divertidos!',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Mais Rápidos por Grade',
+
+
 };

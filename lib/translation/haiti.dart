@@ -276,4 +276,8 @@ const Map<String, String> htTranslations = {
   'promo_message_8': 'Sove tèt ou anba adiksyon nan smartphone! 📵 Ranplase defilman san sans ak jwèt ki ranfòse sèvo.',
   'promo_message_9': 'Amelyore memwa paran yo! ✅ Gwo pous anlè pou prevansyon demans! Egzèsis sèvo ki konsistan se repons lan.',
   'promo_message_10': 'Di orevwa bliye! 👋 Kenbe yon jèn sèvo ak jwèt memwa amizan!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Plus Rapides par Grille',
+
 };

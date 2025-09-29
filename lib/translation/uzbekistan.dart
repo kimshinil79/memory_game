@@ -264,4 +264,8 @@ const Map<String, String> uzUZTranslations = {
   'promo_message_8': 'Smartfon qaramligidan qoching! 📵 Maqsadsiz aylantirishni miyani mustahkamlovchi o\'yinlar bilan almashtiring.',
   'promo_message_9': 'Ota-onalarning xotirasini yaxshilang! ✅ Demensiyaning oldini olish uchun a\'lo! Muntazam miya mashqi javobdir.',
   'promo_message_10': 'Unutuvchanlik bilan xayrlashing! 👋 Qiziqarli xotira o\'yinlari bilan yosh miyani saqlang!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Torga ko\'ra eng tez',
+
 };

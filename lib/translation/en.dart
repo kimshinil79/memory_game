@@ -283,4 +283,11 @@ Map<String, String> enTranslations = {
   'promo_message_8': 'Escape smartphone addiction! 📵 Replace mindless scrolling with brain-boosting games.',
   'promo_message_9': 'Enhance parents\' memory! ✅ Thumbs up for dementia prevention! Consistent brain exercise is the answer.',
   'promo_message_10': 'Say goodbye to forgetfulness! 👋 Maintain a young brain with fun memory games!',
+  
+  // Top Fastest by Grid
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

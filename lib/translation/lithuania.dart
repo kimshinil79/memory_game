@@ -260,4 +260,8 @@ const Map<String, String> ltTranslations = {
   'promo_message_8': 'Išvenkite išmaniojo telefono priklausomybės! 📵 Pakeiskite beprasmį naršymą smegenis stiprinančiais žaidimais.',
   'promo_message_9': 'Pagerinkite tėvų atmintį! ✅ Nykštys į viršų demencijos prevencijai! Nuoseklus smegenų mankštinimas yra atsakymas.',
   'promo_message_10': 'Atsisveikinkite su užmaršumu! 👋 Palaikykite jaunas smegenis su linksmais atminties žaidimais!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Greičiausi pagal Tinklelį',
+
 };

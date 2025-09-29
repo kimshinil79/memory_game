@@ -259,4 +259,10 @@ const Map<String, String> neTranslations = {
   'weekly': 'साप्ताहिक',
   'monthly': 'मासिक',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'ग्रिड अनुसार शीर्ष सबैभन्दा छिटो',
+
+
 };

@@ -253,4 +253,10 @@ const Map<String, String> nlTranslations = {
   'weekly': 'Wekelijks',
   'monthly': 'Maandelijks',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Snelste per Raster',
+
+
 };

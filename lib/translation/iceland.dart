@@ -276,4 +276,8 @@ const Map<String, String> isISTranslations = {
   'promo_message_8': 'Forðastu snjallsímafíkn! 📵 Skiptu út huglausri flettingu fyrir heilaeflandi leiki.',
   'promo_message_9': 'Efla minni foreldra! ✅ Frábært fyrir forvarnir gegn vitglöpum! Stöðug heilaæfing er svarið.',
   'promo_message_10': 'Segðu bless við gleymsku! 👋 Haltu ungum heila með skemmtilegum minnisleikjum!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Hraðast eftir Neti',
+
 };

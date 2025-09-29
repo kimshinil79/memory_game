@@ -254,4 +254,8 @@ const Map<String, String> huTranslations = {
   'promo_message_8': 'Meneküljön az okostelefon-függőségtől! 📵 Cserélje le a céltalan görgetést agyerősítő játékokra.',
   'promo_message_9': 'Fokozza a szülők memóriáját! ✅ Piros pont a demencia megelőzéséért! A következetes agytorna a válasz.',
   'promo_message_10': 'Mondjon búcsút a feledékenységnek! 👋 Tartsa fiatalon az agyát szórakoztató memóriajátékokkal!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Leggyorsabb Rácsonként',
+
 };

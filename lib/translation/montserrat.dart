@@ -253,4 +253,10 @@ const Map<String, String> msTranslations = {
   'weekly': 'Weekly',
   'monthly': 'Monthly',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
+
 };

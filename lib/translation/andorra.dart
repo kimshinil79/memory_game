@@ -284,4 +284,8 @@ const Map<String, String> caADTranslations = {
   'promo_message_8': 'Escapeu de l\'addicció al telèfon intel·ligent! 📵 Substituïu el desplaçament sense sentit per jocs que estimulen el cervell.',
   'promo_message_9': 'Milloreu la memòria dels pares! ✅ Polze amunt per a la prevenció de la demència! L\'exercici cerebral constant és la resposta.',
   'promo_message_10': 'Digueu adéu a l\'oblit! 👋 Mantingueu un cervell jove amb jocs de memòria divertits!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Més Ràpids per Quadrícula',
+
 };

@@ -273,4 +273,8 @@ const Map<String, String> mxMEXTranslations = {
   'promo_message_8': '¡Escapa de la adicción al smartphone! 📵 Reemplaza el desplazamiento sin sentido con juegos que estimulan el cerebro.',
   'promo_message_9': '¡Mejora la memoria de los padres! ✅ ¡Pulgar arriba para la prevención de la demencia! El ejercicio cerebral constante es la respuesta.',
   'promo_message_10': '¡Di adiós al olvido! 👋 ¡Mantén un cerebro joven con divertidos juegos de memoria!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
+
 };

@@ -280,4 +280,8 @@ const Map<String, String> coTranslations = {
   'promo_message_8': 'Scappate di l\'addiction à u smartphone! 📵 Rimpiazzate u scorrimentu senza sensu cù ghjochi chì rinfurzanu u cervellu.',
   'promo_message_9': 'Migliurà a memoria di i genitori! ✅ Pollice in su per a prevenzione di a dimenza! L\'eserciziu coherente di u cervellu hè a risposta.',
   'promo_message_10': 'Dì addiu à a sminticanza! 👋 Mantene un cervellu ghjovanu cù ghjochi di memoria divertenti!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Più Veloce per Griglia',
+
 };

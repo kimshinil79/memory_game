@@ -264,4 +264,8 @@ const Map<String, String> soSOTranslations = {
   'promo_message_8': 'Ka bax balwadda taleefanka casriga ah! 📵 Ku beddel socodsiinta miyir la\'aanta ciyaaraha kor u qaada maskaxda.',
   'promo_message_9': 'Kobci xusuusta waalidiinta! ✅ Gacan taag ka hortagga waallida! Jimicsiga maskaxda ee joogtada ah ayaa ah jawaabta.',
   'promo_message_10': 'Nabad geli halmaanka! 👋 Ku ilaali maskax da\'yar ciyaaro xusuus ah oo madadaalo leh!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Dhaqdhaqaaqa Ugu Dheer ee Grid',
+
 };

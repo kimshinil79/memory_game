@@ -260,4 +260,8 @@ const Map<String, String> tiERTranslations = {
   'promo_message_8': 'ካብ ጽምዋ ናይ ስማርትፎን ተበገሱ! 📵 ንዓቃል ምዝዋር ብሓንጎል ዘዕብዩ ጸወታታት ለውጥዎ።',
   'promo_message_9': 'ንዘኽሪ ወለዲ ኣዕቢ! ✅ ንምክልኻል ሕማም ዘኽሪ ዕምሪ ይሃብ! ቀጻሊ ልምምድ ሓንጎል መልሲ እዩ።',
   'promo_message_10': 'ንምርሳዕ ደሓን ኩኑ! 👋 ብመዘናግዒ ጸወታታት ዘኽሪ ንእሽቶ ሓንጎል ይሓልዉ!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'በግሪድ በመሠረት ከፍተኛ ፍጥነት',
+
 };

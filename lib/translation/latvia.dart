@@ -261,4 +261,8 @@ const Map<String, String> lvLVTranslations = {
   'promo_message_8': 'Izbēdziet no viedtālruņa atkarības! 📵 Aizstājiet bezmērķīgu ritināšanu ar smadzeņu darbību uzlabojošām spēlēm.',
   'promo_message_9': 'Uzlabojiet vecāku atmiņu! ✅ Īkšķis uz augšu demences profilaksei! Konsekventa smadzeņu vingrošana ir atbilde.',
   'promo_message_10': 'Atvadieties no aizmāršības! 👋 Uzturiet jaunas smadzenes ar jautrām atmiņas spēlēm!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Ātrākie pēc Režģa',
+
 };

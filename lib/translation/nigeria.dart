@@ -250,4 +250,10 @@ const Map<String, String> enNGTranslations = {
   'weekly': 'Osemose',
   'monthly': 'Osuosu',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
+
 };

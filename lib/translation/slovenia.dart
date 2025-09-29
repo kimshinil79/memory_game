@@ -257,4 +257,8 @@ const Map<String, String> slSITranslations = {
   'promo_message_8': 'Pobegnite od odvisnosti od pametnega telefona! 📵 Zamenjajte nesmiselno pomikanje z igrami, ki spodbujajo možgane.',
   'promo_message_9': 'Izboljšajte spomin staršev! ✅ Palec gor za preprečevanje demence! Dosledno možgansko vadbo je odgovor.',
   'promo_message_10': 'Poslovite se od pozabljivosti! 👋 Ohranjajte mlade možgane z zabavnimi spominskimi igrami!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Najhitrejši po Mreži',
+
 };

@@ -256,4 +256,8 @@ const Map<String, String> fiTranslations = {
   'promo_message_8': 'Pakene älypuhelinriippuvuudesta! 📵 Korvaa ajatukseton selaaminen aivoja tehostavilla peleillä.',
   'promo_message_9': 'Paranna vanhempien muistia! ✅ Peukku ylös dementian ehkäisyyn! Johdonmukainen aivoharjoittelu on vastaus.',
   'promo_message_10': 'Sano hyvästit unohtelulle! 👋 Säilytä nuoret aivot hauskoilla muistipeleillä!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Nopeimmat Ruudukon Mukaan',
+
 };

@@ -277,4 +277,8 @@ const Map<String, String> mdMDATranslations = {
   'promo_message_8': 'Evadați din dependența de smartphone! 📵 Înlocuiți derularea fără minte cu jocuri care stimulează creierul.',
   'promo_message_9': 'Îmbunătățiți memoria părinților! ✅ Felicitări pentru prevenirea demenței! Exercițiul cerebral constant este răspunsul.',
   'promo_message_10': 'Spuneți adio uitării! 👋 Mențineți un creier tânăr cu jocuri de memorie distractive!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Cele mai Rapide pe Grilă',
+
 };

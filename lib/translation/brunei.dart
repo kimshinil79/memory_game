@@ -277,4 +277,8 @@ const Map<String, String> msBNTranslations = {
   'promo_message_8': 'Lari dari ketagihan telefon pintar! 📵 Gantikan skrol tanpa berfikir dengan permainan yang meningkatkan otak.',
   'promo_message_9': 'Tingkatkan memori ibu bapa! ✅ Angkat tangan untuk pencegahan demensia! Senaman otak yang konsisten adalah jawapannya.',
   'promo_message_10': 'Ucapkan selamat tinggal kepada pelupa! 👋 Kekalkan otak muda dengan permainan memori yang menyeronokkan!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Terpantas Mengikut Grid',
+
 };

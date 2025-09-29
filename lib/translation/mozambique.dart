@@ -260,4 +260,10 @@ const Map<String, String> ptMOZTranslations = {
   'weekly': 'Semanal',
   'monthly': 'Mensal',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Mais Rápidos por Grade',
+
+
 };

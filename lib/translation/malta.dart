@@ -263,4 +263,8 @@ const Map<String, String> mtMTTranslations = {
   'promo_message_8': 'Aħrab il-vizzju tal-ismartphone! 📵 Ibdel l-iskrolljar bla moħħ b\'logħob li jsaħħaħ il-moħħ.',
   'promo_message_9': 'Ittejjeb il-memorja tal-ġenituri! ✅ Tajjeb ħafna għall-prevenzjoni tad-dimensja! Eżerċizzju konsistenti tal-moħħ huwa t-tweġiba.',
   'promo_message_10': 'Għid addiju lill-minsi! 👋 Żomm moħħ żagħżugħ b\'logħob divertenti tal-memorja!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Aktar Veloċi skont Grid',
+
 };

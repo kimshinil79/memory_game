@@ -244,4 +244,10 @@ const Map<String, String> maTranslations = {
   'weekly': 'أسبوعي',
   'monthly': 'شهري',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Plus Rapides par Grille',
+
+
 };

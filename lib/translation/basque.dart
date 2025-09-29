@@ -280,4 +280,8 @@ const Map<String, String> euTranslations = {
   'promo_message_8': 'Ihes egin telefono adimendunaren mendekotasunetik! 📵 Ordeztu zentzurik gabeko korritzea garuna sustatzen duten jolasekin.',
   'promo_message_9': 'Hobetu gurasoen memoria! ✅ Hatz lodia gora dementzia prebenitzeko! Garuneko ariketa koherentea da erantzuna.',
   'promo_message_10': 'Agur esan ahazteari! 👋 Mantendu garun gaztea memoria jolas dibertigarriekin!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Sarearen Arabera Azkarrenak',
+
 };

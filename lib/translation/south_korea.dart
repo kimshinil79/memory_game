@@ -266,4 +266,8 @@ const Map<String, String> krTranslations = {
   'promo_message_8': '스마트폰 중독에서 벗어나세요! 📵 무의미한 스크롤링을 두뇌 활성화 게임으로 바꾸세요.',
   'promo_message_9': '부모님의 기억력 향상! ✅ 치매 예방에 좋아요! 꾸준한 두뇌 운동이 답입니다.',
   'promo_message_10': '건망증과 작별하세요! 👋 재미있는 메모리 게임으로 젊은 두뇌를 유지하세요!',
+  
+  // Top Fastest by Grid
+  'top_fastest_by_grid': '그리드별 최고 기록',
+
 };

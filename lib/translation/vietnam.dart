@@ -260,4 +260,8 @@ const Map<String, String> viVNTranslations = {
   'promo_message_8': 'Thoát khỏi chứng nghiện điện thoại thông minh! 📵 Thay thế việc lướt vô định bằng các trò chơi tăng cường trí não.',
   'promo_message_9': 'Tăng cường trí nhớ của cha mẹ! ✅ Rất tốt cho việc phòng ngừa chứng mất trí nhớ! Tập thể dục não nhất quán là câu trả lời.',
   'promo_message_10': 'Nói lời tạm biệt với tính hay quên! 👋 Duy trì một bộ não trẻ trung với các trò chơi ghi nhớ vui nhộn!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Nhanh nhất theo Lưới',
+
 };

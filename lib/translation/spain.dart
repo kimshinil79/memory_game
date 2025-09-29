@@ -1,5 +1,7 @@
 // 스페인 번역 파일
-const Map<String, String> esTranslations = {};
+const Map<String, String> esTranslations = {  // Top Fastest by Grid
+  'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
+};
 
 // Spain translations (Spanish)
 const Map<String, String> esESTranslations = {
@@ -266,5 +268,11 @@ const Map<String, String> esESTranslations = {
   'promo_message_8': '¡Escapa de la adicción al smartphone! 📵 Reemplaza el desplazamiento sin sentido con juegos que potencian el cerebro.',
   'promo_message_9': '¡Mejora la memoria de los padres! ✅ ¡Pulgar arriba para la prevención de la demencia! El ejercicio cerebral constante es la respuesta.',
   'promo_message_10': '¡Di adiós al olvido! 👋 ¡Mantén un cerebro joven con juegos de memoria divertidos!',
+
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Más Rápidos por Cuadrícula',
+
 
 };

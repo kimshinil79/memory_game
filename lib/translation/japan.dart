@@ -243,5 +243,10 @@ const Map<String, String> jaTranslations = {
   'promo_message_8': 'スマートフォン依存から脱却！📵 無意味なスクロールを脳を活性化するゲームに置き換えましょう。',
   'promo_message_9': '親の記憶力を向上！✅ 認知症予防に賛成！継続的な脳の運動が答えです。',
   'promo_message_10': '物忘れとお別れしましょう！👋 楽しい記憶ゲームで若い脳を維持しましょう！',
+  
+  // Top Fastest by Grid
+  'top_fastest_by_grid': 'グリッド別最高記録',
+
+
 
 };

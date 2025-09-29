@@ -256,4 +256,8 @@ const Map<String, String> enZATranslations = {
   'promo_message_8': 'Balekela umlutha we-smartphone! 📵 Faka esikhundleni sokuskrola okungenangqondo ngemidlalo ethuthukisa ubuchopho.',
   'promo_message_9': 'Thuthukisa inkumbulo yabazali! ✅ Thumbs up ekuvimbeleni i-dementia! Ukuzivocavoca ubuchopho okungaguquki kuyimpendulo.',
   'promo_message_10': 'Valelisa ekukhohlweni! 👋 Gcina ubuchopho obuncane ngemidlalo yenkumbulo ejabulisayo!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Okusheshayo ngeGrid',
+
 };

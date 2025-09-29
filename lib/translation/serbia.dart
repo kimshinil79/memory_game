@@ -257,4 +257,8 @@ const Map<String, String> srRSTranslations = {
   'promo_message_8': 'Pobegnite od zavisnosti od pametnog telefona! 📵 Zamenite besmisleno skrolovanje igrama koje jačaju mozak.',
   'promo_message_9': 'Poboljšajte pamćenje roditelja! ✅ Palac gore za prevenciju demencije! Dosledna vežba mozga je odgovor.',
   'promo_message_10': 'Recite zbogom zaboravnosti! 👋 Održite mlad mozak uz zabavne igre pamćenja!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Најбржи по Мрежи',
+
 };

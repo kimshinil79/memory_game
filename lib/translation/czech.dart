@@ -272,4 +272,8 @@ const Map<String, String> csTranslations = {
   'promo_message_8': 'Unikněte závislosti na smartphonu! 📵 Nahraďte bezduché posouvání hrami, které posilují mozek.',
   'promo_message_9': 'Zlepšete paměť rodičů! ✅ Palec nahoru pro prevenci demence! Konzistentní cvičení mozku je odpověď.',
   'promo_message_10': 'Dejte sbohem zapomnětlivosti! 👋 Udržujte mladý mozek zábavnými paměťovými hrami!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Nejrychlejší podle Mřížky',
+
 };

@@ -264,4 +264,8 @@ const Map<String, String> frSNTranslations = {
   'promo_message_8': 'Échappez à la dépendance au smartphone ! 📵 Remplacez le défilement sans but par des jeux stimulants pour le cerveau.',
   'promo_message_9': 'Améliorez la mémoire des parents ! ✅ Pouce levé pour la prévention de la démence ! L\'exercice cérébral cohérent est la réponse.',
   'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Plus Rapides par Grille',
+
 };

@@ -257,4 +257,8 @@ const Map<String, String> fjTranslations = {
   'promo_message_8': 'Dro tani mai na nodra vakanuinui ni talevoni veikauyaki! 📵 Veisautaka na taqaya galala ena qito e vakaukauwataka na mona.',
   'promo_message_9': 'Vakaukauwataka na vakanananu ni itubutubu! ✅ Rawa ni tarovi na mate ni dementia! Na veivakatara ni mona e sega ni mudu na kena isau.',
   'promo_message_10': 'Tofau na guilecava! 👋 Maroroya na mona cauravou ena qito vakanananu talei!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

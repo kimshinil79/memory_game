@@ -282,4 +282,8 @@ const Map<String, String> svSETranslations = {
   'promo_message_8': 'Fly smarttelefonberoende! 📵 Ersätt tanklöst rullande med hjärnförstärkande spel.',
   'promo_message_9': 'Förbättra föräldrars minne! ✅ Tummen upp för demensförebyggande! Konsekvent hjärnträning är svaret.',
   'promo_message_10': 'Säg hejdå till glömska! 👋 Behåll en ung hjärna med roliga minnesspel!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Snabbaste efter Rutnät',
+
 };

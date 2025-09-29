@@ -266,4 +266,8 @@ const Map<String, String> rwRWTranslations = {
   'promo_message_8': 'Hunga urugomo rwa telefone igendanwa (smartphone)! 📵 Simbuza gukoresha telefone uko bitariho n\'imikino ituma ubwonko bukora neza.',
   'promo_message_9': 'Ongera ubushobozi bwo kwibuka bw\'ababyeyi! ✅ Birakwiye gushimirwa ku bw\'ibiranga indwara zo kwibagirwa! Imyitozo y\'ubwonko ihoraho niyo gisubizo.',
   'promo_message_10': 'Vuga kwaheri ku kwibagirwa! 👋 Gira ubwonko bucyeye ukoresheje imikino ishimishije yo kwibuka!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Vuba cyane ku Grid',
+
 };

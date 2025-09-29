@@ -263,4 +263,8 @@ const Map<String, String> plPLTranslations = {
   'promo_message_8': 'Ucieknij od uzależnienia od smartfona! 📵 Zastąp bezmyślne przewijanie grami wzmacniającymi mózg.',
   'promo_message_9': 'Wzmocnij pamięć rodziców! ✅ Kciuk w górę za zapobieganie demencji! Konsekwentne ćwiczenie mózgu jest odpowiedzią.',
   'promo_message_10': 'Pożegnaj się z zapominalstwem! 👋 Utrzymaj młody mózg dzięki zabawnym grom pamięciowym!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Najszybsze według Siatki',
+
 };

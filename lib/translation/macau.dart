@@ -249,4 +249,8 @@ const Map<String, String> moTranslations = {
   'promo_message_8': '擺脫手機成癮！📵 用益智遊戲取代無意識嘅滑手機。',
   'promo_message_9': '增強父母嘅記憶力！✅ 預防認知障礙症，畀個讚！持續嘅大腦鍛煉係答案。',
   'promo_message_10': '同善忘講拜拜！👋 用有趣嘅記憶遊戲保持年輕嘅大腦！',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': '網格最快記錄',
+
 };

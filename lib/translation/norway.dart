@@ -263,4 +263,8 @@ const Map<String, String> nnNOTranslations = {
   'promo_message_8': 'Unngå smarttelefonavhengighet! 📵 Bytt ut tankeløs scrolling med hjerneforsterkende spill.',
   'promo_message_9': 'Forbedre foreldrenes hukommelse! ✅ Tommel opp for demensforebygging! Konsekvent hjernetrening er svaret.',
   'promo_message_10': 'Si farvel til glemsomhet! 👋 Oppretthold en ung hjerne med morsomme hukommelsesspill!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Raskeste etter Rutenett',
+
 };

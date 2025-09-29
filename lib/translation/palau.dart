@@ -259,4 +259,8 @@ const Map<String, String> enPWTranslations = {
   'promo_message_8': 'Oketmokl a smartphone el mochu kldei! 📵 Omeketmokl a blengur el mochu kldei el blengur!',
   'promo_message_9': 'Omeketmokl a uldarsel er a delmerab! ✅ Kirek a kldei el mochu kldei el blengur!',
   'promo_message_10': 'Melam a uldarsel el mochu kldei! 👋 Omeketmokl a blengur el mochu kldei el blengur!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

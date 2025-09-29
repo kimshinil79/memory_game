@@ -262,4 +262,8 @@ const Map<String, String> stLSTranslations = {
   'promo_message_8': 'Baleha ho lemalla smartphone! 📵 Tlosa ho thella ho se nang kelello ka lipapali tse matlafatsang boko.',
   'promo_message_9': 'Matlafatsa mohopolo oa batsoali! ✅ Hantle haholo bakeng sa thibelo ea lefu la ho tloha kelellong! Boikoetliso ba boko bo tsoelang pele ke karabo.',
   'promo_message_10': 'Re ho lebala sala hantle! 👋 Boloka boko bo bocha ka lipapali tse monate tsa mohopolo!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Bofefo ka Grid',
+
 };

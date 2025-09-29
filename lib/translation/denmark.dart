@@ -276,4 +276,8 @@ const Map<String, String> daTranslations = {
   'promo_message_8': 'Undgå smartphoneafhængighed! 📵 Erstat tankeløs scrolling med hjerneforstærkende spil.',
   'promo_message_9': 'Forbedr forældres hukommelse! ✅ Tommel op for demensforebyggelse! Konsekvent hjernetræning er svaret.',
   'promo_message_10': 'Sig farvel til glemsomhed! 👋 Vedligehold en ung hjerne med sjove hukommelsesspil!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Hurtigste efter Gitter',
+
 };

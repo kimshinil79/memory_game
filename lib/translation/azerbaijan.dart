@@ -278,4 +278,8 @@ const Map<String, String> azTranslations = {
   'promo_message_8': 'Smartfon asılılığından qaçın! 📵 Mənasız skroll etməyi beyinə faydalı oyunlarla əvəz edin.',
   'promo_message_9': 'Valideynlərin yaddaşını gücləndirin! ✅ Demensiyanın qarşısının alınması üçün əla! Ardıcıl beyin məşqi cavabdır.',
   'promo_message_10': 'Unutqanlıqla vidalaşın! 👋 Əyləncəli yaddaş oyunları ilə gənc beyni qoruyun!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Şəbəkəyə Görə Ən Sürətli',
+
 };

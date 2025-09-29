@@ -261,4 +261,10 @@ const Map<String, String> deDETranslations = {
   'promo_message_9': 'Verbessern Sie das Gedächtnis der Eltern! ✅ Daumen hoch für Demenzprävention! Regelmäßige Gehirnübungen sind die Antwort.',
   'promo_message_10': 'Sagen Sie dem Vergessen Lebewohl! 👋 Behalten Sie ein junges Gehirn mit spaßigen Gedächtnisspielen!',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Schnellste nach Raster',
+
+
 };

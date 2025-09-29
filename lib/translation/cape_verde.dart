@@ -277,4 +277,8 @@ const Map<String, String> ptCVTranslations = {
   'promo_message_8': 'Fuja do vício em smartphone! 📵 Substitua a rolagem sem pensar por jogos que impulsionam o cérebro.',
   'promo_message_9': 'Melhore a memória dos pais! ✅ Polegar para cima para a prevenção da demência! Exercício cerebral consistente é a resposta.',
   'promo_message_10': 'Diga adeus ao esquecimento! 👋 Mantenha um cérebro jovem com jogos de memória divertidos!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Mais Rápidos por Grade',
+
 };

@@ -271,4 +271,8 @@ const Map<String, String> mgTranslations = {
   'promo_message_8': 'Mandosira ny fiankinan-doha amin\'ny smartphone! 📵 Soloy lalao mampitombo ny atidoha ny fikorisana tsy misy dikany.',
   'promo_message_9': 'Ampitomboy ny fahatazan\'ny ray aman-dreny! ✅ Tsara ho an\'ny fisorohana ny dementia! Ny fanazaran-tena tsy tapaka ho an\'ny atidoha no valiny.',
   'promo_message_10': 'Manaova veloma ny fanadinoana! 👋 Tazonina ho tanora ny atidoha amin\'ny lalao fahatazana mahafinaritra!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Plus Rapides par Grille',
+
 };

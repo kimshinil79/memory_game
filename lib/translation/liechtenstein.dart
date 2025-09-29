@@ -262,4 +262,8 @@ const Map<String, String> deLITranslations = {
   'promo_message_8': 'Entkommen Sie der Smartphone-Sucht! 📵 Ersetzen Sie das gedankenlose Scrollen durch gehirnfördernde Spiele.',
   'promo_message_9': 'Verbessern Sie das Gedächtnis der Eltern! ✅ Daumen hoch für Demenzprävention! Konstantes Gehirntraining ist die Antwort.',
   'promo_message_10': 'Verabschieden Sie sich von Vergesslichkeit! 👋 Behalten Sie ein junges Gehirn mit lustigen Gedächtnisspielen!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Schnellste nach Raster',
+
 };

@@ -282,4 +282,8 @@ const Map<String, String> tnTranslations = {
   'promo_message_8': 'Tshaba kgolagano ya smartphone! 📵 Tlogela go thetsa o sena boikaelelo ka metshameko e e tlhabololang boko.',
   'promo_message_9': 'Godisa go gakologelwa ga batsadi! ✅ Tumiso go thibelo ya bolwetse jwa boko! Boitsholo jwa boko jo bo sa kgaotseng ke karabo.',
   'promo_message_10': 'Reela go lebala! 👋 Boloka boko jo bošwa ka metshameko e e monate ya go gakologelwa!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Bofefo ka Grid',
+
 };

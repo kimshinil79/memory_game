@@ -276,4 +276,8 @@ const Map<String, String> eoTranslations = {
   'promo_message_8': 'Eskapu saĝtelefona dependeco! 📵 Anstataŭigu senpensan ruladon per cerbo-fortigaj ludoj.',
   'promo_message_9': 'Plibonigu la memoron de gepatroj! ✅ Dikfingro supren por prevento de demenco! Konsekvenca cerba ekzerco estas la respondo.',
   'promo_message_10': 'Adiaŭu forgesemecon! 👋 Konservu junan cerbon per amuzaj memoraj ludoj!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Plej Rapidaj laŭ Krado',
+
 };

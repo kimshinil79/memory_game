@@ -252,4 +252,10 @@ const Map<String, String> enNZTranslations = {
   'weekly': 'Wiki',
   'monthly': 'Marama',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
+
 };

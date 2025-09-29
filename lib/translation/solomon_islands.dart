@@ -255,4 +255,8 @@ const Map<String, String> enSBTranslations = {
   'promo_message_8': 'Ranwe long smartphone addiction! 📵 Jenisim skroling wea nomoa minin long gem wea boostim brein.',
   'promo_message_9': 'Pulimap memori bilong olketa dadi mami! ✅ Thumbs up for stopim dementia! Kisim tren bilong brein evritaem hem datfala ansa.',
   'promo_message_10': 'Sei gudbae long forgetim! 👋 Holim young brein long olketa fun memori gem!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

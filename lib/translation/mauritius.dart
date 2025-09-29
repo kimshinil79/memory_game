@@ -269,4 +269,8 @@ const Map<String, String> muMUTranslations = {
   'promo_message_8': 'Soz avek adiksyon smartphone! 📵 Remplas skroling san lespri ar ze ki donn boost servis.',
   'promo_message_9': 'Amélior memorwar paran! ✅ Pouce anlè pou prevansyon demans! Egzersis sèvo konstan se repons lan.',
   'promo_message_10': 'Dir orevwar avek bliyé! 👋 Kenbe enn zenn sèvo ar ze memorwar amizan!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Plus Rapides par Grille',
+
 };

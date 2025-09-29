@@ -256,4 +256,8 @@ const Map<String, String> skSKTranslations = {
   'promo_message_8': 'Utečte pred závislosťou na smartfóne! 📵 Nahraďte bezduché posúvanie hrami, ktoré posilňujú mozog.',
   'promo_message_9': 'Zlepšite pamäť rodičov! ✅ Palec hore pre prevenciu demencie! Konzistentné cvičenie mozgu je odpoveďou.',
   'promo_message_10': 'Rozlúčte sa so zábudlivosťou! 👋 Udržujte mladý mozog zábavnými pamäťovými hrami!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Najrýchlejšie podľa Mriežky',
+
 };

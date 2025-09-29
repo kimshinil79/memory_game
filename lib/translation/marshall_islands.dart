@@ -258,4 +258,8 @@ const Map<String, String> mhTranslations = {
   'promo_message_8': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧! 📵 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
   'promo_message_9': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! ✅ Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
   'promo_message_10': 'Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧! 👋 Kōm̧m̧an kōm̧m̧an jekdo̧o̧n bōroin ļeo nejūm̧ bōroin ļeo nejūm̧ kōn kōm̧m̧an kōm̧m̧an bōroin ļeo nejūm̧!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

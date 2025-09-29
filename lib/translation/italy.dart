@@ -260,4 +260,10 @@ const Map<String, String> itTranslations = {
   'promo_message_9': 'Migliora la memoria dei genitori! ✅ Pollice in su per la prevenzione della demenza! L\'esercizio cerebrale costante è la risposta.',
   'promo_message_10': 'Dì addio alla dimenticanza! 👋 Mantieni un cervello giovane con giochi di memoria divertenti!',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Più Veloce per Griglia',
+
+
 };

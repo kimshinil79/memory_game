@@ -275,4 +275,8 @@ const Map<String, String> etTranslations = {
   'promo_message_8': 'Põgene nutitelefonisõltuvusest! 📵 Asenda mõttetu kerimine ajutegevust parandavate mängudega.',
   'promo_message_9': 'Paranda vanemate mälu! ✅ Pöial üles dementsuse ennetamiseks! Järjepidev ajutreening on vastus.',
   'promo_message_10': 'Ütle unustamisele hüvasti! 👋 Säilita noor aju lõbusate mälumängudega!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Kiireimad Võrgu Järgi',
+
 };

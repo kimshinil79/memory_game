@@ -264,4 +264,8 @@ const Map<String, String> swTZTranslations = {
   'promo_message_8': 'Epuka uraibu wa simu mahiri! 📵 Badilisha uendeshaji usio na akili kwa michezo inayokuza ubongo.',
   'promo_message_9': 'Boresha kumbukumbu ya wazazi! ✅ Hongera kwa kuzuia shida ya akili! Mazoezi ya ubongo ya mara kwa mara ndiyo jibu.',
   'promo_message_10': 'Sema kwaheri kwa kusahau! 👋 Dumisha ubongo mchanga kwa michezo ya kufurahisha ya kumbukumbu!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Haraka zaidi kwa Grid',
+
 };

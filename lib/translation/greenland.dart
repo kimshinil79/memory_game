@@ -257,4 +257,8 @@ const Map<String, String> klGLTranslations = {
   'promo_message_8': 'Ikerartoq smartphone-mik akornuserneqarnermut! 📵 Sukkasuumik sukkanerpaamik sukkanerpaamik sungiusarneq aqqutigalugu ajuunik nukittorsaaqataanik pinnguaatinik taarsiuk.',
   'promo_message_9': 'Angajoqqaanik eqqaamannissinnaaneq ineriartortiuk! ✅ Dementia-mik pinaveersaartitsinermut tunngatillugu kusaatsaat! Ajuup sungiusarnermi aalajangersimajuaannarneq akissuteqaatigineqarpoq.',
   'promo_message_10': 'Eqqaamannissinnaanermik ajornartorsiutinik atugaqarnermut akissuteqaatigiuk! 👋 Ajuut inuusuttut eqqaamannissinnaanermik nuannissutaasunik pinnguaatinik atortut!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Hurtigste efter Gitter',
+
 };

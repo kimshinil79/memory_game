@@ -263,4 +263,8 @@ const Map<String, String> enPGTranslations = {
   'promo_message_8': 'Ranim long wok sotskul long fon! 📵 Senisim bel i no gat wok long pilai i mekim bel i wok gut.',
   'promo_message_9': 'Mekim ol papamama i save gut long bel bilong ol! ✅ Hamamas long pasim sik bilong bel i slip! Kontinuim tren bilong bel em i bekim.',
   'promo_message_10': 'Tok bai bai long lusim tingting! 👋 Holim bel i yangpela long ol gutpela pilai bilong bel!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };

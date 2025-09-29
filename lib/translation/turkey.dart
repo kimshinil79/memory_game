@@ -263,4 +263,8 @@ const Map<String, String> trTRTranslations = {
   'promo_message_8': 'Akıllı telefon bağımlılığından kaçının! 📵 Beyin güçlendirici oyunlarla anlamsız kaydırmayı değiştirin.',
   'promo_message_9': 'Ebeveynlerin hafızasını güçlendirin! ✅ Demans (bunama) önleme için alkış! Tutarlı beyin egzersizi cevaptır.',
   'promo_message_10': 'Unutkanlığa elveda deyin! 👋 Eğlenceli hafıza oyunlarıyla genç bir beyni koruyun!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Kafes Bazında En Hızlı',
+
 };

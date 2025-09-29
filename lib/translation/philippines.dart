@@ -281,4 +281,8 @@ const Map<String, String> filPHTranslations = {
   'promo_message_8': 'Takasan ang adiksyon sa smartphone! 📵 Palitan ang walang kabuluhang pag-scroll ng mga laro na nagpapalakas ng utak.',
   'promo_message_9': 'Palakasin ang memorya ng mga magulang! ✅ Good job para sa pag-iwas sa demensya! Ang tuloy-tuloy na pag-eehersisyo ng utak ang sagot.',
   'promo_message_10': 'Magpaalam sa pagiging makakalimutin! 👋 Panatilihin ang isang batang utak sa nakakatuwang mga laro sa memorya!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Pinakamabilis ayon sa Grid',
+
 };

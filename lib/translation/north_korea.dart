@@ -251,4 +251,8 @@ const Map<String, String> koKPTranslations = {
   'promo_message_8': '스마트폰 중독에서 벗어나세요! 📵 의미 없는 화면 넘기기를 두뇌 강화 놀이로 바꾸세요.',
   'promo_message_9': '어버이들의 기억력을 높이세요! ✅ 치매 예방에 엄지손가락! 지속적인 두뇌 운동이 해답입니다.',
   'promo_message_10': '건망증에 안녕을 고하세요! 👋 재미있는 기억 놀이로 젊은 두뇌를 유지하세요!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': '격자별 최고 기록',
+
 };

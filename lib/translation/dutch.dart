@@ -279,4 +279,10 @@ const Map<String, String> nlTranslations = {
   'promo_message_9': 'Verbeter het geheugen van ouders! ✅ Duim omhoog voor dementiepreventie! Consistente hersentraining is het antwoord.',
   'promo_message_10': 'Zeg vaarwel tegen vergeetachtigheid! 👋 Behoud een jong brein met leuke geheugenspellen!',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Snelste per Raster',
+
+
 };

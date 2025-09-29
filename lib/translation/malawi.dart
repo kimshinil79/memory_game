@@ -271,4 +271,8 @@ const Map<String, String> nyTranslations = {
   'promo_message_8': 'Pezani ufulu ku chizolowezi cha foni yam\'manja! 📵 Sinthani kusewerera kopanda nzeru ndi masewera olimbikitsa ubongo.',
   'promo_message_9': 'Limbikitsani kukumbukira kwa makolo! ✅ Zabwino pa kupewa matenda a dementia! Kuchita masewera olimbitsa ubongo mosalekeza ndiye yankho.',
   'promo_message_10': 'Tiyeni titsanzikane ndi kuyiwalika! 👋 Sungani ubongo wanu kukhala wachinyamata ndi masewera okumbukira osangalatsa!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Bofefo ka Grid',
+
 };

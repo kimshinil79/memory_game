@@ -260,4 +260,10 @@ const Map<String, String> myTranslations = {
   'weekly': 'အပတ်စဉ်',
   'monthly': 'လစဉ်',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'ဂရစ်ဒ်အလိုက် အမြန်ဆုံး',
+
+
 };

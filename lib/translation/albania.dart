@@ -282,4 +282,8 @@ const Map<String, String> sqTranslations = {
   'promo_message_8': 'Shpëtoni nga varësia nga smartfoni! 📵 Zëvendësoni lëvizjen pa mend me lojëra që nxisin trurin.',
   'promo_message_9': 'Përmirësoni kujtesën e prindërve! ✅ Gishtat lart për parandalimin e demencës! Ushtrimi i vazhdueshëm i trurit është përgjigja.',
   'promo_message_10': 'Thoni lamtumirë harresës! 👋 Mbani një tru të ri me lojëra argëtuese kujtese!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Më të Shpejtat sipas Rrjetit',
+
 };

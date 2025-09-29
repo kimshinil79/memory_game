@@ -276,4 +276,10 @@ const Map<String, String> afkTranslations = {
   'promo_message_9': 'Versterk ouers se geheue! ✅ Duim op vir demensie voorkoming! Bestendige breinoefening is die antwoord.',
   'promo_message_10': 'Sê totsiens aan vergeetagtigheid! 👋 Handhaaf /n jong brein met pret geheue speletjies!',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Top Vinnigste per Rooster',
+
+
 };

@@ -255,4 +255,10 @@ const Map<String, String> nrTranslations = {
   'weekly': 'Emangon',
   'monthly': 'Eaibok',
 
+  // Top Fastest by Grid
+
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
+
 };

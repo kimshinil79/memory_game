@@ -257,4 +257,8 @@ const Map<String, String> idTranslations = {
   'promo_message_8': 'Hindari kecanduan smartphone! 📵 Ganti scrolling tanpa tujuan dengan permainan peningkat otak.',
   'promo_message_9': 'Tingkatkan memori orang tua! ✅ Jempol untuk pencegahan demensia! Latihan otak yang konsisten adalah jawabannya.',
   'promo_message_10': 'Ucapkan selamat tinggal pada pelupa! 👋 Pertahankan otak muda dengan permainan memori yang menyenangkan!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Tercepat menurut Grid',
+
 };

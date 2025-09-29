@@ -269,4 +269,8 @@ const Map<String, String> toTOTranslations = {
   'promo_message_8': 'Hola mei he faka\'uli\'i \'o e telefoni \'atamai! 📵 Fetongi \'a e liliu \'i he telefoni \'o \'ikai ha\'o faka\'uhinga \'aki \'a e ngaahi va\'inga \'oku fakalelei\'i \'a e \'uto.',
   'promo_message_9': 'Fakalelei\'i \'a e fakamanatu \'a e ngaahi mātu\'a! ✅ Faka\'amu lelei ki he ta\'ofi \'o e mahaki \'o e hekesu! Ko e faiako\'i ma\'u pē \'o e \'uto ko e tali ia.',
   'promo_message_10': 'Tuku \'a e fakangalongalo! 👋 Tauhi \'a e \'uto kei talavou \'aki \'a e ngaahi va\'inga fakamanatu fakafiefia!',
+  // Top Fastest by Grid
+
+  'top_fastest_by_grid': 'Top Fastest by Grid',
+
 };
