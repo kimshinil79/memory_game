@@ -363,7 +363,7 @@ class _PlayerSelectionDialogWidgetState
         borderRadius: BorderRadius.circular(_dialogBorderRadius),
       ),
       elevation: 10,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF0B0D13),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: _dialogWidth,
@@ -377,7 +377,7 @@ class _PlayerSelectionDialogWidgetState
               // Header with gradient text
               ShaderMask(
                 shaderCallback: (bounds) => const LinearGradient(
-                  colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                  colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ).createShader(bounds),
@@ -412,7 +412,7 @@ class _PlayerSelectionDialogWidgetState
                     vertical: _verticalSpacing * 0.5),
                 margin: EdgeInsets.only(top: _verticalSpacing * 0.5),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF833AB4).withOpacity(0.08),
+                  color: const Color(0xFFFF2D95).withOpacity(0.08),
                   borderRadius:
                       BorderRadius.circular(_dialogBorderRadius * 0.6),
                 ),
@@ -423,7 +423,7 @@ class _PlayerSelectionDialogWidgetState
                         'You will always be included as a player',
                     style: _getTextStyle(
                       fontSize: _bodyFontSize,
-                      color: const Color(0xFF833AB4),
+                      color: const Color(0xFFFF2D95),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -497,7 +497,7 @@ class _PlayerSelectionDialogWidgetState
                         height: _buttonHeight,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -505,7 +505,7 @@ class _PlayerSelectionDialogWidgetState
                               _dialogBorderRadius * 0.85),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF833AB4).withOpacity(0.3),
+                              color: const Color(0xFFFF2D95).withOpacity(0.3),
                               blurRadius: _dialogWidth * 0.025, // 동적 그림자
                               offset:
                                   Offset(0, _dialogWidth * 0.006), // 동적 오프셋
@@ -643,12 +643,12 @@ class _PlayerSelectionDialogWidgetState
           decoration: BoxDecoration(
             color: _selectedUsers.isEmpty 
                 ? Colors.grey.shade100 
-                : const Color(0xFF833AB4).withOpacity(0.1),
+                : const Color(0xFFFF2D95).withOpacity(0.1),
             borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.4),
             border: Border.all(
               color: _selectedUsers.isEmpty 
                   ? Colors.grey.shade300 
-                  : const Color(0xFF833AB4).withOpacity(0.3),
+                  : const Color(0xFFFF2D95).withOpacity(0.3),
               width: 1,
             ),
           ),
@@ -661,7 +661,7 @@ class _PlayerSelectionDialogWidgetState
                 fontWeight: FontWeight.w500,
                 color: _selectedUsers.isEmpty 
                     ? Colors.grey.shade600 
-                    : const Color(0xFF833AB4),
+                    : const Color(0xFFFF2D95),
               ),
             ),
           ),
@@ -676,7 +676,7 @@ class _PlayerSelectionDialogWidgetState
         height: _userListHeight,
         child: const Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF833AB4)),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF2D95)),
           ),
         ),
       );
@@ -710,7 +710,7 @@ class _PlayerSelectionDialogWidgetState
               ElevatedButton(
                 onPressed: _fetchUsers,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF833AB4),
+                  backgroundColor: const Color(0xFFFF2D95),
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(_dialogBorderRadius * 0.7),
@@ -806,18 +806,18 @@ class _PlayerSelectionDialogWidgetState
               decoration: BoxDecoration(
                 gradient: isSelected
                     ? const LinearGradient(
-                        colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                        colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       )
                     : null,
-                color: isSelected ? null : Colors.white,
+                color: isSelected ? null : const Color(0xFF2A2F3A),
                 borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.55),
                 boxShadow: [
                   BoxShadow(
                     color: isSelected
-                        ? const Color(0xFF833AB4).withOpacity(0.2)
-                        : Colors.black.withOpacity(0.05),
+                        ? const Color(0xFFFF2D95).withOpacity(0.2)
+                        : const Color(0xFF00E5FF).withOpacity(0.1),
                     blurRadius: _screenWidth * 0.015,
                     offset: Offset(0, _screenHeight * 0.004),
                   ),
@@ -867,7 +867,7 @@ class _PlayerSelectionDialogWidgetState
                                         fontWeight: FontWeight.w600,
                                         color: isSelected
                                             ? Colors.white
-                                            : Colors.grey.shade800,
+                                            : Colors.white,
                                       ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -888,11 +888,11 @@ class _PlayerSelectionDialogWidgetState
                             shape: BoxShape.circle,
                             color: isSelected
                                 ? Colors.white
-                                : Colors.grey.shade100,
+                                : const Color(0xFF00E5FF).withOpacity(0.1),
                             border: isSelected
                                 ? null
                                 : Border.all(
-                                    color: Colors.grey.shade300,
+                                    color: const Color(0xFF00E5FF),
                                     width: _dialogWidth *
                                         0.008), // 컨테이너 폭 기반 동적 테두리
                           ),
@@ -901,7 +901,7 @@ class _PlayerSelectionDialogWidgetState
                                   Icons.check,
                                   size: _getDynamicSelectionIconSize(
                                       _dialogWidth), // 컨테이너 폭 기반 동적 아이콘 크기
-                                  color: const Color(0xFF833AB4),
+                                  color: const Color(0xFFFF2D95),
                                 )
                               : null,
                         ),
@@ -997,7 +997,7 @@ class _PlayerSelectionDialogWidgetState
                           width: pinDialogWidth,
                           padding: const EdgeInsets.all(0),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: const Color(0xFF0B0D13),
                             borderRadius:
                                 BorderRadius.circular(pinDialogBorderRadius),
                             boxShadow: [
@@ -1017,8 +1017,8 @@ class _PlayerSelectionDialogWidgetState
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                     colors: [
-                                      Color(0xFF833AB4),
-                                      Color(0xFFF77737)
+                                      Color(0xFFFF2D95),
+                                      Color(0xFF00E5FF)
                                     ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -1082,7 +1082,7 @@ class _PlayerSelectionDialogWidgetState
                                       child: Row(
                                         children: [
                                           CircleAvatar(
-                                            backgroundColor: const Color(0xFF833AB4)
+                                            backgroundColor: const Color(0xFFFF2D95)
                                                 .withOpacity(0.1),
                                             radius: dialogWidth * 0.05,
                                             child: FittedBox(
@@ -1095,7 +1095,7 @@ class _PlayerSelectionDialogWidgetState
                                                 style: getDialogTextStyle(
                                                   fontSize: pinTitleFontSize,
                                                   fontWeight: FontWeight.bold,
-                                                  color: const Color(0xFF833AB4),
+                                                  color: const Color(0xFFFF2D95),
                                                 ),
                                               ),
                                             ),
@@ -1162,7 +1162,7 @@ class _PlayerSelectionDialogWidgetState
                                           borderRadius:
                                               BorderRadius.circular(16),
                                           borderSide: const BorderSide(
-                                              color: Color(0xFF833AB4),
+                                              color: Color(0xFFFF2D95),
                                               width: 2),
                                         ),
                                       ),
@@ -1274,7 +1274,7 @@ class _PlayerSelectionDialogWidgetState
                           width: MediaQuery.of(context).size.width * 0.9,
                           padding: const EdgeInsets.all(0),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: const Color(0xFF0B0D13),
                             borderRadius: BorderRadius.circular(28),
                             boxShadow: [
                               BoxShadow(
@@ -1371,7 +1371,7 @@ class _PlayerSelectionDialogWidgetState
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w500,
-                                                    color: Colors.black87,
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
@@ -1382,7 +1382,7 @@ class _PlayerSelectionDialogWidgetState
                                             '멀티플레이어를 위한 2자리 PIN 번호를 생성하세요',
                                             style: GoogleFonts.poppins(
                                               fontSize: 13,
-                                              color: Colors.black54,
+                                              color: Colors.grey.shade300,
                                             ),
                                           ),
                                         ],

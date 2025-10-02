@@ -30,7 +30,7 @@ class LanguageDialog {
           borderRadius: BorderRadius.circular(28),
         ),
         elevation: 10,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0B0D13),
         child: LanguageSelectionContent(languageProvider: languageProvider),
       ),
     );
@@ -298,7 +298,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
           // Header with gradient text
           ShaderMask(
             shaderCallback: (bounds) => const LinearGradient(
-              colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+              colors: [Color(0xFFFF2D95), Color(0xFFF77737)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ).createShader(bounds),
@@ -316,9 +316,9 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
           // Search box
           Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: const Color(0xFF2A2F3A),
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Colors.grey.shade200, width: 1.5),
+              border: Border.all(color: const Color(0xFF00E5FF), width: 1.5),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.03),
@@ -330,7 +330,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
             child: Row(
               children: [
-                Icon(Icons.search, color: Colors.grey.shade400, size: 20),
+                Icon(Icons.search, color: Colors.grey.shade300, size: 20),
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
@@ -340,14 +340,14 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                           translations['search_language'] ?? 'Search language',
                       hintStyle: GoogleFonts.poppins(
                         fontSize: 14,
-                        color: Colors.grey.shade400,
+                        color: Colors.grey.shade300,
                       ),
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Colors.grey.shade800,
+                      color: Colors.white,
                     ),
                     onChanged: (value) {
                       setState(() {
@@ -365,7 +365,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                       });
                     },
                     child: Icon(Icons.close,
-                        color: Colors.grey.shade400, size: 20),
+                        color: Colors.grey.shade300, size: 20),
                   ),
               ],
             ),
@@ -376,9 +376,9 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
           Container(
             height: 400,
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: const Color(0xFF2A2F3A),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.grey.shade200, width: 1.5),
+              border: Border.all(color: const Color(0xFF00E5FF), width: 1.5),
             ),
             child: DefaultTabController(
               length: groupedLanguages.length + 1,
@@ -386,7 +386,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: const Color(0xFF0B0D13),
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -401,7 +401,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                     ),
                     child: TabBar(
                       isScrollable: true,
-                      labelColor: const Color(0xFF833AB4),
+                      labelColor: const Color(0xFFFF2D95),
                       unselectedLabelColor: Colors.grey.shade600,
                       labelStyle: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
@@ -414,7 +414,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                       indicator: const UnderlineTabIndicator(
                         borderSide: BorderSide(
                           width: 3,
-                          color: Color(0xFF833AB4),
+                          color: Color(0xFFFF2D95),
                         ),
                       ),
                       tabs: [
@@ -462,14 +462,14 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                  colors: [Color(0xFFFF2D95), Color(0xFFF77737)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF833AB4).withOpacity(0.3),
+                    color: const Color(0xFFFF2D95).withOpacity(0.3),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -510,14 +510,14 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                 Icon(
                   Icons.search_off,
                   size: 48,
-                  color: Colors.grey.shade400,
+                  color: Colors.grey.shade300,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'No languages found',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade300,
                   ),
                 ),
               ],
@@ -536,18 +536,18 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                 decoration: BoxDecoration(
                   gradient: isSelected
                       ? const LinearGradient(
-                          colors: [Color(0xFF833AB4), Color(0xFFF77737)],
+                          colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         )
                       : null,
-                  color: isSelected ? null : Colors.white,
+                  color: isSelected ? null : const Color(0xFF2A2F3A),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
                       color: isSelected
-                          ? const Color(0xFF833AB4).withOpacity(0.2)
-                          : Colors.black.withOpacity(0.03),
+                          ? const Color(0xFFFF2D95).withOpacity(0.2)
+                          : const Color(0xFF00E5FF).withOpacity(0.1),
                       blurRadius: isSelected ? 6 : 4,
                       offset: const Offset(0, 2),
                     ),
@@ -598,9 +598,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.grey.shade800,
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -616,7 +614,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                               ),
                               child: const Icon(
                                 Icons.check,
-                                color: Color(0xFF833AB4),
+                                color: Color(0xFFFF2D95),
                                 size: 20,
                               ),
                             ),

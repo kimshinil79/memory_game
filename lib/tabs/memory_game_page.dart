@@ -3,7 +3,7 @@ import '/item_list.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
-import 'dart:io';
+// import 'dart:io'; // 광고 비활성화로 제거
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -20,9 +20,9 @@ import '../widgets/memory_card.dart';
 import '../widgets/item_popup.dart';
 import '../widgets/completion_dialog.dart';
 import '../widgets/score_board.dart';
-import '../widgets/ad_section.dart';
+// import '../widgets/ad_section.dart'; // 광고 비활성화로 제거
 import 'dart:math';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart'; // 광고 비활성화로 제거
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -157,8 +157,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation;
 
-  final Color instagramGradientStart = const Color(0xFF833AB4);
-  final Color instagramGradientEnd = const Color(0xFFF77737);
+  // Neon K-pop Demon Hunters vibe
+  final Color instagramGradientStart = const Color(0xFFFF2D95); // neon pink
+  final Color instagramGradientEnd = const Color(0xFF00E5FF); // neon cyan
 
   //final translator = GoogleTranslator();
   String targetLanguage = 'en-US';
@@ -195,11 +196,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   // Add a field to store the IndexedStack reference
   IndexedStack? _parentIndexedStack;
 
-  // BannerAd 변수 추가
-  BannerAd? myBanner;
-  bool _isBannerAdReady = false;
-  LoadAdError? _adLoadError; // 광고 로드 에러 정보 저장
-  bool _isAdLoading = false; // 광고 로딩 상태 추적
+  // BannerAd 변수 추가 (임시 비활성화)
+  // BannerAd? myBanner;
+  // bool _isBannerAdReady = false;
+  // LoadAdError? _adLoadError; // 광고 로드 에러 정보 저장
+  // bool _isAdLoading = false; // 광고 로딩 상태 추적
 
   @override
   void initState() {
@@ -244,8 +245,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 앱 생명주기 관찰자 등록
     WidgetsBinding.instance.addObserver(this);
 
-    // BannerAd 초기화
-    _initializeBannerAd();
+    // BannerAd 초기화 (임시 비활성화)
+    // _initializeBannerAd();
   }
 
   // MemoryGameService 초기화 메서드
@@ -599,12 +600,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // Clear the stored reference to IndexedStack
     _parentIndexedStack = null;
 
-    // BannerAd 정리
-    try {
-      myBanner?.dispose();
-    } catch (e) {
-      print('광고 정리 중 오류: $e');
-    }
+    // BannerAd 정리 (임시 비활성화)
+    // try {
+    //   myBanner?.dispose();
+    // } catch (e) {
+    //   print('광고 정리 중 오류: $e');
+    // }
 
     super.dispose();
   }
@@ -1511,14 +1512,15 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0B0D13), // dark sci-fi background
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFFF5F7FA), // 밝은 회색빛 하얀색
-              Color(0xFFE3E6E8), // 은은한 회색
+              const Color(0xFF0B0D13),
+              const Color(0xFF121826),
             ],
           ),
         ),
@@ -1604,12 +1606,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                             isGameStarted &&
                                             _elapsedTime >= _timeAddMinElapsed
                                         ? instagramGradientStart
-                                        : Colors.grey,
+                                        : const Color(0xFF2A2F3A),
                                     foregroundColor: Colors.white,
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    minimumSize: const Size(50, 30),
+                                        horizontal: 10),
+                                    minimumSize: const Size(56, 32),
                                     shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: instagramGradientEnd, width: 1.2),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                   ),
@@ -1641,18 +1644,18 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               final gridCols = int.parse(gridDimensions[0]);
                               final gridRows = int.parse(gridDimensions[1]);
 
-                              // 게임 영역 계산: 타이머 바로 아래부터 광고 영역 바로 위까지
+                              // 게임 영역 계산: 타이머 바로 아래부터 화면 하단까지 (광고 비활성화)
                               const timerBarHeight = 45.0; // 타이머 바 높이
-                              final adHeight =
-                                  (_isBannerAdReady && myBanner != null)
-                                      ? myBanner!.size.height.toDouble()
-                                      : 0.0;
-                              const maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
+                              // final adHeight =
+                              //     (_isBannerAdReady && myBanner != null)
+                              //         ? myBanner!.size.height.toDouble()
+                              //         : 0.0;
+                              // const maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
 
-                              // 사용 가능한 게임 영역 높이 계산
+                              // 사용 가능한 게임 영역 높이 계산 (광고 공간 제외하지 않음)
                               final availableHeight = viewportHeight -
                                   timerBarHeight -
-                                  maxAdSectionHeight -
+                                  // maxAdSectionHeight - // 광고 비활성화로 제거
                                   16; // 16은 여유 공간
 
                               // 카드 간격 계산 (화면 크기와 방향에 따라 동적 조정) - 간격을 더 줄임
@@ -1831,8 +1834,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                       ),
                     ),
 
-                    // 배너 광고 표시
-                    _buildAdSection(),
+                    // 배너 광고 표시 (임시 비활성화)
+                    // _buildAdSection(),
                   ],
                 ),
               ),
@@ -2589,148 +2592,148 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     return playerIndex == _memoryGameService!.currentPlayerIndex;
   }
 
-  // BannerAd 초기화 메서드
-  void _initializeBannerAd() {
-    // 모바일 플랫폼에서만 광고 로드
-    if (!Platform.isAndroid && !Platform.isIOS) {
-      print('웹 플랫폼에서는 AdMob 광고를 사용하지 않습니다');
-      return;
-    }
+  // BannerAd 초기화 메서드 (임시 비활성화)
+  // void _initializeBannerAd() {
+  //   // 모바일 플랫폼에서만 광고 로드
+  //   if (!Platform.isAndroid && !Platform.isIOS) {
+  //     print('웹 플랫폼에서는 AdMob 광고를 사용하지 않습니다');
+  //     return;
+  //   }
 
-    // AdMob 초기화가 완료된 후 광고 로드
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        _loadBannerAd();
-      } catch (e) {
-        print('광고 초기화 중 오류: $e');
-      }
-    });
-  }
+  //   // AdMob 초기화가 완료된 후 광고 로드
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     try {
+  //       _loadBannerAd();
+  //     } catch (e) {
+  //       print('광고 초기화 중 오류: $e');
+  //     }
+  //   });
+  // }
 
-  void _loadBannerAd() {
-    try {
-      // 기존 광고가 있다면 dispose
-      if (myBanner != null) {
-        try {
-          myBanner!.dispose();
-        } catch (e) {
-          print('기존 광고 dispose 중 오류: $e');
-        }
-        myBanner = null;
-      }
+  // void _loadBannerAd() {
+  //   try {
+  //     // 기존 광고가 있다면 dispose
+  //     if (myBanner != null) {
+  //       try {
+  //         myBanner!.dispose();
+  //       } catch (e) {
+  //         print('기존 광고 dispose 중 오류: $e');
+  //       }
+  //       myBanner = null;
+  //     }
 
-      // 로딩 상태 시작
-      if (mounted) {
-        setState(() {
-          _isAdLoading = true;
-          _adLoadError = null; // 이전 에러 정보 초기화
-          _isBannerAdReady = false;
-        });
-      }
-    } catch (e) {
-      print('광고 로딩 준비 중 오류: $e');
-      return;
-    }
+  //     // 로딩 상태 시작
+  //     if (mounted) {
+  //       setState(() {
+  //         _isAdLoading = true;
+  //         _adLoadError = null; // 이전 에러 정보 초기화
+  //         _isBannerAdReady = false;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('광고 로딩 준비 중 오류: $e');
+  //     return;
+  //   }
 
-    try {
-      String adUnitId = Platform.isAndroid
-          ? 'ca-app-pub-7181238773192957/9331854982' // Android 실제 배너 광고 단위 ID
-          : 'ca-app-pub-7181238773192957/9331854982'; // iOS 실제 배너 광고 단위 ID (Android와 동일)
+  //   try {
+  //     String adUnitId = Platform.isAndroid
+  //         ? 'ca-app-pub-7181238773192957/9331854982' // Android 실제 배너 광고 단위 ID
+  //         : 'ca-app-pub-7181238773192957/9331854982'; // iOS 실제 배너 광고 단위 ID (Android와 동일)
 
-      myBanner = BannerAd(
-      adUnitId: adUnitId,
-      size: AdSize.banner,
-      request: const AdRequest(
-        // 실제 광고 요청 설정
-        nonPersonalizedAds: false, // 개인화 광고 허용 (수익 향상)
-      ),
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('✅ 배너 광고가 성공적으로 로드되었습니다');
-          print('   광고 크기: ${(ad as BannerAd).size}');
-          if (mounted) {
-            setState(() {
-              _isBannerAdReady = true;
-              _isAdLoading = false;
-              _adLoadError = null; // 성공 시 에러 정보 초기화
-            });
-          }
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('❌ 배너 광고 로드 실패: $error');
-          print('   에러 코드: ${error.code}');
-          print('   에러 도메인: ${error.domain}');
-          print('   에러 메시지: ${error.message}');
-          print('   가능한 원인: ${_getAdErrorCause(error.code)}');
-          print('');
-          print('🔧 해결 방법:');
-          print('   1. 실제 기기에서 테스트해보세요 (에뮬레이터에서는 광고가 잘 안 나옵니다)');
-          print('   2. 인터넷 연결을 확인하세요');
-          print('   3. 이 기기를 테스트 기기로 등록하려면 위의 로그에서 테스트 기기 ID를 찾아보세요');
-          print('   4. 에러 코드 3 (광고 없음)은 정상적인 상황입니다');
-          print('');
-          ad.dispose();
-          if (mounted) {
-            setState(() {
-              _isBannerAdReady = false;
-              _isAdLoading = false;
-              _adLoadError = error; // 에러 정보 저장
-            });
-          }
-          // 15초 후 재시도
-          Future.delayed(const Duration(seconds: 15), () {
-            if (mounted && !_isBannerAdReady && _adLoadError != null) {
-              print('🔄 배너 광고 재시도 중...');
-              _loadBannerAd();
-            }
-          });
-        },
-        onAdOpened: (Ad ad) => print('📱 배너 광고가 열렸습니다'),
-        onAdClosed: (Ad ad) => print('❌ 배너 광고가 닫혔습니다'),
-        onAdImpression: (Ad ad) => print('👁️ 배너 광고 노출됨'),
-      ),
-    );
+  //     myBanner = BannerAd(
+  //     adUnitId: adUnitId,
+  //     size: AdSize.banner,
+  //     request: const AdRequest(
+  //       // 실제 광고 요청 설정
+  //       nonPersonalizedAds: false, // 개인화 광고 허용 (수익 향상)
+  //     ),
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (Ad ad) {
+  //         print('✅ 배너 광고가 성공적으로 로드되었습니다');
+  //         print('   광고 크기: ${(ad as BannerAd).size}');
+  //         if (mounted) {
+  //           setState(() {
+  //             _isBannerAdReady = true;
+  //             _isAdLoading = false;
+  //             _adLoadError = null; // 성공 시 에러 정보 초기화
+  //           });
+  //         }
+  //       },
+  //       onAdFailedToLoad: (Ad ad, LoadAdError error) {
+  //         print('❌ 배너 광고 로드 실패: $error');
+  //         print('   에러 코드: ${error.code}');
+  //         print('   에러 도메인: ${error.domain}');
+  //         print('   에러 메시지: ${error.message}');
+  //         print('   가능한 원인: ${_getAdErrorCause(error.code)}');
+  //         print('');
+  //         print('🔧 해결 방법:');
+  //         print('   1. 실제 기기에서 테스트해보세요 (에뮬레이터에서는 광고가 잘 안 나옵니다)');
+  //         print('   2. 인터넷 연결을 확인하세요');
+  //         print('   3. 이 기기를 테스트 기기로 등록하려면 위의 로그에서 테스트 기기 ID를 찾아보세요');
+  //         print('   4. 에러 코드 3 (광고 없음)은 정상적인 상황입니다');
+  //         print('');
+  //         ad.dispose();
+  //         if (mounted) {
+  //           setState(() {
+  //             _isBannerAdReady = false;
+  //             _isAdLoading = false;
+  //             _adLoadError = error; // 에러 정보 저장
+  //           });
+  //         }
+  //         // 15초 후 재시도
+  //         Future.delayed(const Duration(seconds: 15), () {
+  //           if (mounted && !_isBannerAdReady && _adLoadError != null) {
+  //             print('🔄 배너 광고 재시도 중...');
+  //             _loadBannerAd();
+  //           }
+  //         });
+  //       },
+  //       onAdOpened: (Ad ad) => print('📱 배너 광고가 열렸습니다'),
+  //       onAdClosed: (Ad ad) => print('❌ 배너 광고가 닫혔습니다'),
+  //       onAdImpression: (Ad ad) => print('👁️ 배너 광고 노출됨'),
+  //     ),
+  //   );
 
-      myBanner!.load();
-    } catch (e) {
-      print('광고 생성 및 로딩 중 오류: $e');
-      if (mounted) {
-        setState(() {
-          _isBannerAdReady = false;
-          _isAdLoading = false;
-          _adLoadError = null;
-        });
-      }
-    }
-  }
+  //     myBanner!.load();
+  //   } catch (e) {
+  //     print('광고 생성 및 로딩 중 오류: $e');
+  //     if (mounted) {
+  //       setState(() {
+  //         _isBannerAdReady = false;
+  //         _isAdLoading = false;
+  //         _adLoadError = null;
+  //       });
+  //     }
+  //   }
+  // }
 
-  // 광고 에러 코드에 따른 원인 설명
-  String _getAdErrorCause(int errorCode) {
-    switch (errorCode) {
-      case 0:
-        return "내부 오류 - AdMob SDK 문제";
-      case 1:
-        return "잘못된 요청 - 광고 단위 ID 또는 요청 설정 문제";
-      case 2:
-        return "네트워크 오류 - 인터넷 연결 확인 필요";
-      case 3:
-        return "광고 없음 - 현재 표시할 광고가 없음 (에뮬레이터에서 흔함)";
-      case 8:
-        return "앱 ID 무료 등록 - AdMob 계정 설정 필요";
-      default:
-        return "알 수 없는 오류 ($errorCode)";
-    }
-  }
+  // // 광고 에러 코드에 따른 원인 설명
+  // String _getAdErrorCause(int errorCode) {
+  //   switch (errorCode) {
+  //     case 0:
+  //       return "내부 오류 - AdMob SDK 문제";
+  //     case 1:
+  //       return "잘못된 요청 - 광고 단위 ID 또는 요청 설정 문제";
+  //     case 2:
+  //       return "네트워크 오류 - 인터넷 연결 확인 필요";
+  //     case 3:
+  //       return "광고 없음 - 현재 표시할 광고가 없음 (에뮬레이터에서 흔함)";
+  //     case 8:
+  //       return "앱 ID 무료 등록 - AdMob 계정 설정 필요";
+  //     default:
+  //       return "알 수 없는 오류 ($errorCode)";
+  //   }
+  // }
 
-  // 광고 섹션 빌드 메서드
-  Widget _buildAdSection() {
-    return AdSection(
-      isBannerAdReady: _isBannerAdReady,
-      bannerAd: myBanner,
-      isAdLoading: _isAdLoading,
-      adLoadError: _adLoadError,
-      instagramGradientStart: instagramGradientStart,
-      onRetry: _loadBannerAd,
-    );
-  }
+  // 광고 섹션 빌드 메서드 (임시 비활성화)
+  // Widget _buildAdSection() {
+  //   return AdSection(
+  //     isBannerAdReady: _isBannerAdReady,
+  //     bannerAd: myBanner,
+  //     isAdLoading: _isAdLoading,
+  //     adLoadError: _adLoadError,
+  //     instagramGradientStart: instagramGradientStart,
+  //     onRetry: _loadBannerAd,
+  //   );
+  // }
 }

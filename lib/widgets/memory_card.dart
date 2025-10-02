@@ -205,7 +205,7 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
                             ),
                           )
                         : Image.asset(
-                            'assets/icon/memoryGame.png',
+                            'assets/icon/memoryGame_KDH.png',
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,

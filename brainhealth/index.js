@@ -19,6 +19,17 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
+// Safe server timestamp helper (works on emulator and production)
+function getServerTimestamp() {
+  try {
+    const fv = admin.firestore && admin.firestore.FieldValue;
+    if (fv && typeof fv.serverTimestamp === 'function') {
+      return fv.serverTimestamp();
+    }
+  } catch (_) {}
+  return admin.firestore.Timestamp.now();
+}
+
 // 게임 결과 저장 및 브레인 헬스 인덱스 업데이트
 exports.saveGameResult = functions.https.onCall(async (data, context) => {
   // 인증 확인
@@ -97,7 +108,7 @@ exports.saveGameResult = functions.https.onCall(async (data, context) => {
         bestTimesByGridSize,
         bestTime: bestTime === Infinity ? 0 : bestTime,
         scoreHistory: scoreHistory,
-        lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+        lastUpdated: getServerTimestamp(),
         ageComponent: brainHealthResult.ageComponent,
         activityComponent: brainHealthResult.activityComponent,
         performanceComponent: brainHealthResult.performanceComponent,
@@ -209,9 +220,9 @@ exports.getBrainHealthStats = functions.https.onCall(async (data, context) => {
   }
 });
 
-// 15분마다 실행되는 스케줄러 함수 - Brain Health Index 업데이트
+// 2시간마다 실행되는 스케줄러 함수 - Brain Health Index 업데이트
 exports.updateBrainHealthIndex = functions.pubsub
-  .schedule('*/15 * * * *') // 15분마다 실행
+  .schedule('0 */2 * * *') // 2시간마다 실행 (매 2시간의 0분에 실행)
   .timeZone('Asia/Seoul') // 한국 시간대 기준
   .onRun(async (context) => {
     try {
@@ -278,7 +289,8 @@ exports.updateBrainHealthIndex = functions.pubsub
 async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed, totalMatchesFound, bestTimesByGridSize) {
   try {
     // 기본 지수 값 (60으로 설정)
-    const baseIndex = 60.0;
+    // 기본 지수값을 낮춰 전체 레벨을 보수적으로 조정
+    const baseIndex = 50.0;
 
     // 현재 날짜
     const now = new Date();
@@ -329,13 +341,33 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
       ageAdjustment = Math.min(ageAdjustment, 20); // 최대 감소량 20
     }
 
-    // 지난 일주일간 게임 활동 평가
+    // 지난 일주일간 게임 활동 평가 (활동 빈도에 큰 가중치)
     let recentGames = 0;
     const recentGameDates = [];
 
     // 점수 기록에서 최근 활동 확인
     for (const timestamp in scoreHistory) {
-      const date = new Date(parseInt(timestamp));
+      let date;
+      
+      // timestamp가 숫자인지 날짜 문자열인지 확인
+      if (!isNaN(timestamp) && timestamp.length > 10) {
+        // 숫자 형식의 timestamp (밀리초)
+        date = new Date(parseInt(timestamp));
+      } else if (timestamp.includes('-')) {
+        // 날짜 문자열 형식 (YYYY-MM-DD)
+        date = new Date(timestamp);
+      } else {
+        // 기타 형식은 건너뜀
+        console.log(`Invalid timestamp format: ${timestamp}`);
+        continue;
+      }
+      
+      // 유효한 날짜인지 확인
+      if (isNaN(date.getTime())) {
+        console.log(`Invalid date from timestamp: ${timestamp}`);
+        continue;
+      }
+      
       const daysDifference = Math.floor((now - date) / (1000 * 60 * 60 * 24));
       
       if (daysDifference <= 7) {
@@ -343,14 +375,6 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
         recentGameDates.push(date);
       }
     }
-
-    // 최근 게임 활동 기반 조정 (보상 증가)
-    let activityAdjustment = recentGames * 1.5; // 게임당 1.5점
-    activityAdjustment = Math.min(activityAdjustment, 15); // 최대 15점
-
-    // 연속 활동 부재에 대한 패널티 추가
-    let inactivityPenalty = 0;
-    let levelDropDueToInactivity = 0; // 비활동으로 인한 레벨 감소 추적
 
     // 최근 게임 날짜 정렬
     recentGameDates.sort((a, b) => b - a); // 최신 날짜가 앞으로 오도록 정렬
@@ -360,18 +384,50 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
     if (recentGameDates.length > 0) {
       daysSinceLastGame = Math.floor((now - recentGameDates[0]) / (1000 * 60 * 60 * 24));
     } else {
-      daysSinceLastGame = 7; // 최근 기록이 없으면 최대 패널티
+      daysSinceLastGame = 999; // 최근 기록이 없으면 매우 오래된 것으로 간주
     }
 
-    // 비활동 패널티 계산 (3일 이후부터 패널티 적용으로 완화)
+    // ⭐ 3일 이상 안하면 무조건 똥뇌(레벨 1)로 강제 설정
     if (daysSinceLastGame > 3) {
-      // 3일 유예 기간 후 하루마다 0.5점씩 감소 (더욱 완화)
-      inactivityPenalty = (daysSinceLastGame - 3) * 0.5;
-      // 최대 패널티를 5점으로 더욱 감소
-      inactivityPenalty = Math.min(inactivityPenalty, 5);
+      console.log(`User has been inactive for ${daysSinceLastGame} days - forcing level 1`);
+      return {
+        brainHealthIndex: 20.0, // 똥뇌 레벨에 해당하는 낮은 점수
+        indexLevel: 1,
+        pointsToNextLevel: 10, // 레벨 2까지 10점 필요
+        ageComponent: ageAdjustment,
+        activityComponent: 0,
+        performanceComponent: 0,
+        persistenceBonus: 0,
+        inactivityPenalty: 999, // 최대 패널티 표시
+        daysSinceLastGame: daysSinceLastGame,
+        levelDropDueToInactivity: 5, // 모든 레벨 상실
+        details: {
+          age: userAge,
+          recentGames: recentGames,
+          totalGames: totalGamesPlayed,
+          reason: 'Inactive for more than 3 days'
+        }
+      };
+    }
 
-      // 레벨 감소는 7일 이후부터 최대 1단계로 제한
-      levelDropDueToInactivity = daysSinceLastGame > 7 ? 1 : 0;
+    // 활동 빈도에 큰 가중치 부여 (게임당 3.0점, 최대 25점)
+    let activityAdjustment = recentGames * 3.0;
+    activityAdjustment = Math.min(activityAdjustment, 25);
+
+    // 비활동 패널티 (3일 이내에도 활동 빈도가 적으면 패널티)
+    let inactivityPenalty = 0;
+    let levelDropDueToInactivity = 0;
+    
+    // 최근 3일간 게임 횟수 체크
+    const gamesInLast3Days = recentGameDates.filter(date => {
+      const daysDiff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+      return daysDiff <= 3;
+    }).length;
+    
+    // 3일간 게임이 2번 미만이면 패널티
+    if (gamesInLast3Days < 2) {
+      inactivityPenalty = 5; // 활동 부족 패널티
+      levelDropDueToInactivity = 1;
     }
 
     // 그리드 성능 평가
@@ -410,14 +466,15 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
             expectedTime = 50;
         }
 
-        // 기대 시간보다 빠를수록 더 높은 점수 (보상 감소)
-        const timeFactor = Math.max(0.5, Math.min(expectedTime / bestTime, 1.8)); // 최대 보상 1.8
-        gridPerformance += timeFactor * 1.5; // 가중치 1.5
+        // 기대 시간보다 빠를수록 더 높은 점수 (보상 대폭 감소)
+        const timeFactor = Math.max(0.5, Math.min(expectedTime / bestTime, 1.5)); // 최대 보상 1.5
+        gridPerformance += timeFactor * 0.8; // 가중치 0.8 (활동 빈도보다 낮게)
       }
     }
 
     // 그리드 성능 점수 제한
-    gridPerformance = Math.min(gridPerformance, 18); // 최대 18점
+    // 성능 보상 상한 대폭 하향: 최대 8점 (활동 빈도가 더 중요)
+    gridPerformance = Math.min(gridPerformance, 8);
 
     // 플레이 횟수에 따른 보너스 (지속적인 플레이 필요)
     let persistenceBonus = 0;
@@ -448,16 +505,14 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
 
     // 지수 레벨 계산 (1-5) - 무지개 등급 달성 가능하도록 조정
     let indexLevel;
-    if (finalIndex < 35) {
+    // 레벨 기준을 상향 조정 (더 엄격)
+    if (finalIndex < 30) {
       indexLevel = 1;
     } else if (finalIndex < 55) {
-      // 60에서 55로 감소 (레벨 2 달성 쉽게)
       indexLevel = 2;
-    } else if (finalIndex < 75) {
-      // 80에서 75로 감소 (레벨 3 달성 쉽게)
+    } else if (finalIndex < 78) {
       indexLevel = 3;
-    } else if (finalIndex < 92) {
-      // 95에서 92로 감소 (적당한 도전 유지)
+    } else if (finalIndex < 94) {
       indexLevel = 4;
     } else {
       indexLevel = 5; // 92점 이상이면 무지개 등급!
@@ -469,7 +524,8 @@ async function calculateBrainHealthIndex(userId, scoreHistory, totalGamesPlayed,
     // 다음 레벨까지 필요한 포인트 계산
     let pointsToNext = 0;
     if (indexLevel < 5) {
-      const thresholds = [0, 35, 55, 75, 92, 100]; // 무지개 등급 92점으로 적당한 도전 유지
+      // 상향된 임계값에 맞춰 다음 레벨까지 점수 계산
+      const thresholds = [0, 30, 55, 78, 94, 100];
       pointsToNext = thresholds[indexLevel] - finalIndex;
       pointsToNext = Math.ceil(Math.abs(pointsToNext));
     }
@@ -713,7 +769,7 @@ exports.updateMultiplayerGameWinnerScore = functions.https.onCall(async (data, c
       'brain_health.totalMatchesFound': totalMatchesFound,
       'brain_health.bestTimesByGridSize': bestTimesByGridSize,
       'brain_health.scoreHistory': scoreHistory,
-      'brain_health.lastUpdated': admin.firestore.FieldValue.serverTimestamp(),
+      'brain_health.lastUpdated': getServerTimestamp(),
       'brain_health.ageComponent': brainHealthResult.ageComponent,
       'brain_health.activityComponent': brainHealthResult.activityComponent,
       'brain_health.performanceComponent': brainHealthResult.performanceComponent,
@@ -761,6 +817,214 @@ function getPointsToNextLevelFromScore(score) {
     return 400 - score;
 }
 
+// Multi-language notification messages
+const notificationMessages = {
+    // English (default)
+    en: {
+        levelDown: {
+            title: "Let's Boost Your Brain! 💪",
+            body: "Your brain level was {yesterdayLevel} yesterday, but it's {currentLevel} today. Let's play a game to level up!"
+        },
+        levelUp: {
+            title: "You're So Close! ✨",
+            body: "You are only {pointsToNext} points away from Level {nextLevel}. You can do it!"
+        },
+        maxLevel: {
+            title: "Amazing Brain! 🧠🏆",
+            body: "You've reached the highest brain level! Keep playing to maintain your sharp mind."
+        }
+    },
+    // Korean
+    ko: {
+        levelDown: {
+            title: "뇌 건강을 향상시켜요! 💪",
+            body: "어제 뇌 레벨이 {yesterdayLevel}이었는데 오늘은 {currentLevel}이에요. 게임을 해서 레벨을 올려보세요!"
+        },
+        levelUp: {
+            title: "조금만 더! ✨",
+            body: "레벨 {nextLevel}까지 {pointsToNext}점만 더 필요해요. 할 수 있어요!"
+        },
+        maxLevel: {
+            title: "놀라운 두뇌! 🧠🏆",
+            body: "최고 뇌 레벨에 도달했어요! 계속 플레이해서 날카로운 두뇌를 유지하세요."
+        }
+    },
+    // Japanese
+    ja: {
+        levelDown: {
+            title: "脳を鍛えましょう！ 💪",
+            body: "昨日の脳レベルは{yesterdayLevel}でしたが、今日は{currentLevel}です。ゲームをしてレベルアップしましょう！"
+        },
+        levelUp: {
+            title: "もう少しです！ ✨",
+            body: "レベル{nextLevel}まであと{pointsToNext}ポイントです。頑張って！"
+        },
+        maxLevel: {
+            title: "素晴らしい頭脳！ 🧠🏆",
+            body: "最高の脳レベルに到達しました！鋭い頭脳を維持するために続けてプレイしてください。"
+        }
+    },
+    // Chinese Simplified
+    zh: {
+        levelDown: {
+            title: "提升你的大脑！ 💪",
+            body: "你昨天的大脑等级是{yesterdayLevel}，但今天是{currentLevel}。让我们玩游戏来升级吧！"
+        },
+        levelUp: {
+            title: "你很接近了！ ✨",
+            body: "你距离{nextLevel}级只差{pointsToNext}分了。你可以做到的！"
+        },
+        maxLevel: {
+            title: "惊人的大脑！ 🧠🏆",
+            body: "你已经达到了最高的大脑等级！继续游戏来保持你敏锐的头脑。"
+        }
+    },
+    // Spanish
+    es: {
+        levelDown: {
+            title: "¡Mejoremos tu cerebro! 💪",
+            body: "Tu nivel cerebral era {yesterdayLevel} ayer, pero hoy es {currentLevel}. ¡Juguemos para subir de nivel!"
+        },
+        levelUp: {
+            title: "¡Estás muy cerca! ✨",
+            body: "Solo te faltan {pointsToNext} puntos para llegar al Nivel {nextLevel}. ¡Tú puedes!"
+        },
+        maxLevel: {
+            title: "¡Cerebro increíble! 🧠🏆",
+            body: "¡Has alcanzado el nivel cerebral más alto! Sigue jugando para mantener tu mente aguda."
+        }
+    },
+    // French
+    fr: {
+        levelDown: {
+            title: "Boostons votre cerveau ! 💪",
+            body: "Votre niveau cérébral était {yesterdayLevel} hier, mais c'est {currentLevel} aujourd'hui. Jouons pour monter de niveau !"
+        },
+        levelUp: {
+            title: "Vous êtes si proche ! ✨",
+            body: "Il ne vous manque que {pointsToNext} points pour atteindre le Niveau {nextLevel}. Vous pouvez le faire !"
+        },
+        maxLevel: {
+            title: "Cerveau incroyable ! 🧠🏆",
+            body: "Vous avez atteint le plus haut niveau cérébral ! Continuez à jouer pour maintenir votre esprit vif."
+        }
+    },
+    // German
+    de: {
+        levelDown: {
+            title: "Lass uns dein Gehirn stärken! 💪",
+            body: "Dein Gehirnlevel war gestern {yesterdayLevel}, aber heute ist es {currentLevel}. Lass uns ein Spiel spielen, um aufzusteigen!"
+        },
+        levelUp: {
+            title: "Du bist so nah dran! ✨",
+            body: "Du brauchst nur noch {pointsToNext} Punkte bis Level {nextLevel}. Du schaffst das!"
+        },
+        maxLevel: {
+            title: "Erstaunliches Gehirn! 🧠🏆",
+            body: "Du hast das höchste Gehirnlevel erreicht! Spiele weiter, um deinen scharfen Verstand zu erhalten."
+        }
+    },
+    // Portuguese
+    pt: {
+        levelDown: {
+            title: "Vamos impulsionar seu cérebro! 💪",
+            body: "Seu nível cerebral era {yesterdayLevel} ontem, mas hoje é {currentLevel}. Vamos jogar para subir de nível!"
+        },
+        levelUp: {
+            title: "Você está tão perto! ✨",
+            body: "Você está apenas a {pointsToNext} pontos do Nível {nextLevel}. Você consegue!"
+        },
+        maxLevel: {
+            title: "Cérebro incrível! 🧠🏆",
+            body: "Você alcançou o nível cerebral mais alto! Continue jogando para manter sua mente afiada."
+        }
+    },
+    // Arabic
+    ar: {
+        levelDown: {
+            title: "لنعزز دماغك! 💪",
+            body: "كان مستوى دماغك {yesterdayLevel} أمس، لكنه {currentLevel} اليوم. دعنا نلعب لنرتقي بالمستوى!"
+        },
+        levelUp: {
+            title: "أنت قريب جداً! ✨",
+            body: "أنت تحتاج فقط {pointsToNext} نقطة للوصول إلى المستوى {nextLevel}. يمكنك فعل ذلك!"
+        },
+        maxLevel: {
+            title: "دماغ مذهل! 🧠🏆",
+            body: "لقد وصلت إلى أعلى مستوى دماغي! استمر في اللعب للحفاظ على ذهنك الحاد."
+        }
+    },
+    // Russian
+    ru: {
+        levelDown: {
+            title: "Давайте улучшим ваш мозг! 💪",
+            body: "Вчера ваш уровень мозга был {yesterdayLevel}, а сегодня {currentLevel}. Давайте играть, чтобы повысить уровень!"
+        },
+        levelUp: {
+            title: "Вы так близко! ✨",
+            body: "Вам нужно всего {pointsToNext} очков до Уровня {nextLevel}. Вы можете это сделать!"
+        },
+        maxLevel: {
+            title: "Удивительный мозг! 🧠🏆",
+            body: "Вы достигли высшего уровня мозга! Продолжайте играть, чтобы поддерживать острый ум."
+        }
+    }
+};
+
+// Function to get language code from country code
+function getLanguageFromCountry(countryCode) {
+    const countryToLanguage = {
+        // Korean speaking countries
+        'kr': 'ko', 'kp': 'ko',
+        
+        // Japanese speaking countries
+        'jp': 'ja',
+        
+        // Chinese speaking countries
+        'cn': 'zh', 'tw': 'zh', 'hk': 'zh', 'mo': 'zh', 'sg': 'zh',
+        
+        // Spanish speaking countries
+        'es': 'es', 'mx': 'es', 'ar': 'es', 'co': 'es', 've': 'es', 'pe': 'es',
+        'cl': 'es', 'ec': 'es', 'bo': 'es', 'py': 'es', 'uy': 'es', 'gw': 'es',
+        'cu': 'es', 'do': 'es', 'pa': 'es', 'cr': 'es', 'sv': 'es', 'gt': 'es',
+        'hn': 'es', 'ni': 'es', 'pr': 'es',
+        
+        // French speaking countries
+        'fr': 'fr', 'be': 'fr', 'ch': 'fr', 'ca': 'fr', 'lu': 'fr', 'mc': 'fr',
+        'sn': 'fr', 'ml': 'fr', 'bf': 'fr', 'ne': 'fr', 'ci': 'fr', 'gn': 'fr',
+        'td': 'fr', 'cf': 'fr', 'cg': 'fr', 'ga': 'fr', 'cm': 'fr', 'dj': 'fr',
+        'mg': 'fr', 'km': 'fr', 'sc': 'fr', 'vu': 'fr',
+        
+        // German speaking countries
+        'de': 'de', 'at': 'de', 'li': 'de',
+        
+        // Portuguese speaking countries
+        'pt': 'pt', 'br': 'pt', 'ao': 'pt', 'mz': 'pt', 'gw': 'pt', 'cv': 'pt',
+        'st': 'pt', 'tl': 'pt',
+        
+        // Arabic speaking countries
+        'sa': 'ar', 'ae': 'ar', 'qa': 'ar', 'kw': 'ar', 'bh': 'ar', 'om': 'ar',
+        'jo': 'ar', 'lb': 'ar', 'sy': 'ar', 'iq': 'ar', 'ye': 'ar', 'eg': 'ar',
+        'ly': 'ar', 'tn': 'ar', 'dz': 'ar', 'ma': 'ar', 'sd': 'ar', 'so': 'ar',
+        'dj': 'ar', 'km': 'ar', 'td': 'ar', 'mr': 'ar',
+        
+        // Russian speaking countries
+        'ru': 'ru', 'by': 'ru', 'kz': 'ru', 'kg': 'ru', 'tj': 'ru', 'uz': 'ru',
+        'tm': 'ru', 'am': 'ru', 'az': 'ru', 'ge': 'ru', 'md': 'ru'
+    };
+    
+    return countryToLanguage[countryCode?.toLowerCase()] || 'en';
+}
+
+// Function to format message with variables
+function formatMessage(template, variables) {
+    let formatted = template;
+    for (const [key, value] of Object.entries(variables)) {
+        formatted = formatted.replace(new RegExp(`{${key}}`, 'g'), value);
+    }
+    return formatted;
+}
+
 // Scheduled function to send daily brain health notifications
 exports.sendDailyBrainNotifications = functions.pubsub
     .schedule("every day 20:00")
@@ -805,20 +1069,39 @@ exports.sendDailyBrainNotifications = functions.pubsub
             const currentLevel = getBrainLevelFromScore(currentScore);
             const yesterdayLevel = getBrainLevelFromScore(yesterdayScore);
 
+            // Get user's language based on country
+            const userCountry = user.country || 'us';
+            const userLanguage = getLanguageFromCountry(userCountry);
+            const messages = notificationMessages[userLanguage] || notificationMessages.en;
+
+            console.log(`User ${doc.id}: Country=${userCountry}, Language=${userLanguage}`);
+
             let title = "";
             let body = "";
 
             if (currentLevel < yesterdayLevel) {
-                title = "Let's Boost Your Brain! 💪";
-                body = `Your brain level was ${yesterdayLevel} yesterday, but it's ${currentLevel} today. Let's play a game to level up!`;
+                // Level decreased
+                const template = messages.levelDown;
+                title = template.title;
+                body = formatMessage(template.body, {
+                    yesterdayLevel: yesterdayLevel,
+                    currentLevel: currentLevel
+                });
             } else {
                 const pointsToNext = getPointsToNextLevelFromScore(currentScore);
                 if (pointsToNext > 0) {
-                    title = "You're So Close! ✨";
-                    body = `You are only ${pointsToNext} points away from Level ${currentLevel + 1}. You can do it!`;
+                    // Close to next level
+                    const template = messages.levelUp;
+                    title = template.title;
+                    body = formatMessage(template.body, {
+                        pointsToNext: pointsToNext,
+                        nextLevel: currentLevel + 1
+                    });
                 } else {
-                    title = "Amazing Brain! 🧠🏆";
-                    body = "You've reached the highest brain level! Keep playing to maintain your sharp mind.";
+                    // Max level reached
+                    const template = messages.maxLevel;
+                    title = template.title;
+                    body = template.body;
                 }
             }
 
@@ -826,9 +1109,13 @@ exports.sendDailyBrainNotifications = functions.pubsub
                 const message = {
                     token: user.fcmToken,
                     notification: { title, body },
-                    data: { screen: "brain_health_page" },
+                    data: { 
+                        screen: "brain_health_page",
+                        language: userLanguage 
+                    },
                 };
                 promises.push(admin.messaging().send(message));
+                console.log(`Sending notification to ${doc.id} in ${userLanguage}: ${title}`);
             }
             
             // Update score history for today if it doesn't exist

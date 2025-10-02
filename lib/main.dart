@@ -184,11 +184,11 @@ void main() async {
     // Android 15+ edge-to-edge compatible system UI configuration
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarDividerColor: Colors.transparent,
+        statusBarColor: Color(0xFF0B0D13), // 케이팝 데몬헌터스 다크 배경
+        statusBarIconBrightness: Brightness.light, // 다크 배경에 밝은 아이콘
+        systemNavigationBarColor: Color(0xFF0B0D13), // 네비게이션 바도 다크
+        systemNavigationBarIconBrightness: Brightness.light, // 네비게이션 아이콘도 밝게
+        systemNavigationBarDividerColor: Color(0xFF00E5FF), // 네온 시안 구분선
         systemNavigationBarContrastEnforced: false,
       ),
     );
@@ -225,8 +225,51 @@ void main() async {
       debugShowCheckedModeBanner: false,
       title: 'Memory Game',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFFF2D95),
+          brightness: Brightness.dark,
+          primary: const Color(0xFFFF2D95), // neon pink
+          secondary: const Color(0xFF00E5FF), // neon cyan
+          surface: const Color(0xFF121826),
+          background: const Color(0xFF0B0D13),
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: Colors.white,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF0B0D13),
+          elevation: 0,
+          foregroundColor: Colors.white,
+          centerTitle: false,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFF2D95),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color(0xFF00E5FF),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Color(0xFF00E5FF), width: 1.2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Color(0xFFFF2D95),
+        ),
       ),
       home: MultiProvider(
         providers: [
@@ -881,9 +924,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     ];
 
     // Return Scaffold directly since MaterialApp is now in main()
-    return SafeArea(
-      child: Scaffold(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Color(0xFF0B0D13), // 케이팝 데몬헌터스 다크 배경
+        statusBarIconBrightness: Brightness.light, // 다크 배경에 밝은 아이콘
+        systemNavigationBarColor: Color(0xFF0B0D13), // 네비게이션 바도 다크
+        systemNavigationBarIconBrightness: Brightness.light, // 네비게이션 아이콘도 밝게
+        systemNavigationBarDividerColor: Color(0xFF00E5FF), // 네온 시안 구분선
+        systemNavigationBarContrastEnforced: false,
+      ),
+      child: SafeArea(
+        child: Scaffold(
+        backgroundColor: const Color(0xFF0B0D13),
         appBar: AppBar(
+          backgroundColor: const Color(0xFF0B0D13),
           elevation: 0,
           toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
           flexibleSpace: Container(
@@ -892,13 +946,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Colors.white,
-                  Color(0xFFF5F5F5),
+                  Color(0xFF0B0D13),
+                  Color(0xFF1A1D26),
                 ],
               ),
             ),
           ),
-          backgroundColor: Colors.transparent,
+          //backgroundColor: Colors.transparent,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -954,18 +1008,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             SizedBox(width: 16),
           ],
         ),
-        body: Stack(
-          children: [
-            PageView(
-              controller: _pageController,
-              physics: const PageScrollPhysics(),
-              onPageChanged: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              children: pages,
-            ),
+        body: Container(
+          color: const Color(0xFF0B0D13),
+          child: Stack(
+            children: [
+              PageView(
+                controller: _pageController,
+                physics: const PageScrollPhysics(),
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                children: pages,
+              ),
             if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
               Positioned.fill(
                 child: Builder(
@@ -985,21 +1041,29 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   },
                 ),
               ),
-          ],
+            ],
+          ),
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).padding.bottom,
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF0B0D13),
+                Color(0xFF1A1D26),
+              ],
+            ),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(18),
               topRight: Radius.circular(18),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: const Color(0xFFFF2D95).withOpacity(0.3),
                 blurRadius: 8,
                 offset: const Offset(0, -3),
               ),
@@ -1020,18 +1084,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                           padding:
                               const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
+                            gradient: _currentIndex == 0
+                                ? const LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF2D95),
+                                      Color(0xFF00E5FF),
+                                    ],
+                                  )
+                                : null,
                             color: _currentIndex == 0
-                                ? const Color(0xFF833AB4).withOpacity(0.1)
+                                ? null
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
+                            boxShadow: _currentIndex == 0
+                                ? [
+                                    BoxShadow(
+                                      color: const Color(0xFFFF2D95).withOpacity(0.3),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : null,
                           ),
                           child: Image.asset(
                             'assets/icon/memory.png',
                             width: 22,
                             height: 22,
                             color: _currentIndex == 0
-                                ? const Color(0xFF833AB4)
-                                : Colors.grey.withOpacity(0.6),
+                                ? Colors.white
+                                : const Color(0xFF00E5FF).withOpacity(0.7),
                           ),
                         ),
                       ],
@@ -1051,18 +1132,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                           padding:
                               const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
+                            gradient: _currentIndex == 1
+                                ? const LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF2D95),
+                                      Color(0xFF00E5FF),
+                                    ],
+                                  )
+                                : null,
                             color: _currentIndex == 1
-                                ? const Color(0xFF833AB4).withOpacity(0.1)
+                                ? null
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
+                            boxShadow: _currentIndex == 1
+                                ? [
+                                    BoxShadow(
+                                      color: const Color(0xFFFF2D95).withOpacity(0.3),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : null,
                           ),
                           child: Image.asset(
                             'assets/icon/brain.png',
                             width: 22,
                             height: 22,
                             color: _currentIndex == 1
-                                ? const Color(0xFF833AB4)
-                                : Colors.grey.withOpacity(0.6),
+                                ? Colors.white
+                                : const Color(0xFF00E5FF).withOpacity(0.7),
                           ),
                         ),
                       ],
@@ -1082,18 +1180,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                           padding:
                               const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
+                            gradient: _currentIndex == 2
+                                ? const LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF2D95),
+                                      Color(0xFF00E5FF),
+                                    ],
+                                  )
+                                : null,
                             color: _currentIndex == 2
-                                ? const Color(0xFF833AB4).withOpacity(0.1)
+                                ? null
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
+                            boxShadow: _currentIndex == 2
+                                ? [
+                                    BoxShadow(
+                                      color: const Color(0xFFFF2D95).withOpacity(0.3),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : null,
                           ),
                           child: Image.asset(
                             'assets/icon/exam.png',
                             width: 22,
                             height: 22,
                             color: _currentIndex == 2
-                                ? const Color(0xFF833AB4)
-                                : Colors.grey.withOpacity(0.6),
+                                ? Colors.white
+                                : const Color(0xFF00E5FF).withOpacity(0.7),
                           ),
                         ),
                       ],
@@ -1103,6 +1218,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
@@ -1279,17 +1395,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         height: buttonHeight,
         padding: buttonPadding,
         decoration: BoxDecoration(
-          color: isGradient ? instagramGradientStart : const Color(0xFFFAFBFC),
+          gradient: isGradient 
+            ? LinearGradient(
+                colors: [instagramGradientStart, instagramGradientEnd],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : null,
+          color: isGradient ? null : const Color(0xFF2A2F3A),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: isGradient ? instagramGradientStart : const Color(0xFFE1E8ED),
-            width: 1,
+            color: isGradient ? instagramGradientEnd : const Color(0xFF00E5FF),
+            width: 1.5,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: isGradient 
+                ? instagramGradientStart.withOpacity(0.3)
+                : const Color(0xFF00E5FF).withOpacity(0.2),
               offset: const Offset(0, 2),
-              blurRadius: 4,
+              blurRadius: 8,
               spreadRadius: 0,
             ),
           ],
@@ -1302,7 +1427,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             Icon(
               icon,
               size: iconSize,
-              color: isGradient ? Colors.white : const Color(0xFF657786),
+              color: Colors.white,
             ),
             SizedBox(width: buttonPadding.horizontal * 0.3),
             Flexible(
@@ -1311,9 +1436,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 child: Text(
                   label,
                   style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontSize: fontSize,
-                    color: isGradient ? Colors.white : const Color(0xFF14171A),
+                    color: Colors.white,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -1342,17 +1467,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         height: buttonHeight,
         padding: buttonPadding,
         decoration: BoxDecoration(
-          color: const Color(0xFFFAFBFC),
+          color: const Color(0xFF2A2F3A),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: const Color(0xFFE1E8ED),
-            width: 1,
+            color: const Color(0xFF00E5FF),
+            width: 1.5,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: const Color(0xFF00E5FF).withOpacity(0.2),
               offset: const Offset(0, 2),
-              blurRadius: 4,
+              blurRadius: 8,
               spreadRadius: 0,
             ),
           ],
@@ -1370,7 +1495,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 Icon(
                   Icons.volume_up_rounded,
                   size: iconSize,
-                  color: const Color(0xFF657786),
+                  color: Colors.white,
                 ),
                 SizedBox(width: buttonPadding.horizontal * 0.3),
                 Flag.fromString(

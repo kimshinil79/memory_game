@@ -35,17 +35,17 @@ class ProfileButton extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFF1A1D26),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: const Color(0xFFE1E8ED),
-                width: 1,
+                color: const Color(0xFF00E5FF),
+                width: 1.5,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
                   offset: const Offset(0, 2),
-                  blurRadius: 4,
+                  blurRadius: 8,
                   spreadRadius: 0,
                 ),
               ],
@@ -79,8 +79,8 @@ class ProfileButton extends StatelessWidget {
                           : (nickname ?? 'User'),
                       style: GoogleFonts.inter(
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF14171A),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     );
                   },
