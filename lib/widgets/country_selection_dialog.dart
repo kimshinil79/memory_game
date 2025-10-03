@@ -25,13 +25,19 @@ class CountrySelectionDialog {
         return StatefulBuilder(
           builder: (context, setState) {
             return Dialog(
+              backgroundColor: const Color(0xFF0B0D13),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: Color(0xFF00E5FF), width: 1.5),
               ),
               child: Container(
                 width: 300,
                 height: 450,
                 padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF2A2F3A),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -40,27 +46,37 @@ class CountrySelectionDialog {
                         Icon(
                           Icons.public,
                           size: 28,
-                          color: Colors.blue.shade600,
+                          color: const Color(0xFF00E5FF),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           Icons.flag,
                           size: 24,
-                          color: Colors.green.shade600,
+                          color: const Color(0xFFFF2D95),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: searchController,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: '...',
-                        prefixIcon: const Icon(Icons.search),
+                        hintText: 'Search countries...',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        prefixIcon: const Icon(Icons.search, color: Color(0xFF00E5FF)),
                         filled: true,
-                        fillColor: Colors.grey[200],
+                        fillColor: const Color(0xFF1A1D26),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(color: Color(0xFF00E5FF), width: 1),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color(0xFF00E5FF), width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color(0xFFFF2D95), width: 2),
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12,
@@ -78,18 +94,45 @@ class CountrySelectionDialog {
                       child: ListView.builder(
                         itemCount: filteredCountries.length,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: Flag.fromString(
-                              filteredCountries[index].code,
-                              height: 24,
-                              width: 32,
-                              borderRadius: 4,
+                          final country = filteredCountries[index];
+                          final isSelected = selectedCountry?.code == country.code;
+                          
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 2),
+                            decoration: BoxDecoration(
+                              color: isSelected 
+                                  ? const Color(0xFF1A1D26)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: isSelected 
+                                    ? const Color(0xFFFF2D95)
+                                    : Colors.transparent,
+                                width: 1,
+                              ),
                             ),
-                            title: Text(filteredCountries[index].name),
-                            onTap: () {
-                              Navigator.of(dialogContext)
-                                  .pop(filteredCountries[index]);
-                            },
+                            child: ListTile(
+                              leading: Flag.fromString(
+                                country.code,
+                                height: 24,
+                                width: 32,
+                                borderRadius: 4,
+                              ),
+                              title: Text(
+                                country.name,
+                                style: TextStyle(
+                                  color: isSelected 
+                                      ? const Color(0xFFFF2D95)
+                                      : Colors.white,
+                                  fontWeight: isSelected 
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.of(dialogContext).pop(country);
+                              },
+                            ),
                           );
                         },
                       ),
@@ -97,8 +140,9 @@ class CountrySelectionDialog {
                     const SizedBox(height: 8),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.red.shade100,
+                        color: const Color(0xFF2A2F3A),
                         shape: BoxShape.circle,
+                        border: Border.all(color: Colors.red.shade400, width: 1),
                       ),
                       child: IconButton(
                         onPressed: () {
@@ -106,7 +150,7 @@ class CountrySelectionDialog {
                         },
                         icon: Icon(
                           Icons.close,
-                          color: Colors.red.shade700,
+                          color: Colors.red.shade400,
                         ),
                         iconSize: 20,
                       ),

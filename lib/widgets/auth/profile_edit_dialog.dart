@@ -276,13 +276,19 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: const Color(0xFF0A0C12),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
+        side: const BorderSide(color: Color(0xFF00D4FF), width: 1.5),
       ),
       child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(24),
           width: 350,
+          decoration: const BoxDecoration(
+            color: Color(0xFF1E2430),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -291,19 +297,27 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 Expanded(
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text(
-                      t('edit_profile'),
-                      style: _getTextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    child: ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFFFF4081), Color(0xFF00D4FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds),
+                      child: Text(
+                        t('edit_profile'),
+                        style: _getTextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
                 // Settings 버튼을 제목 오른쪽에 배치
                 IconButton(
-                  icon: Icon(Icons.settings, color: Colors.grey[600]),
+                  icon: const Icon(Icons.settings, color: Color(0xFF00D4FF)),
                   onPressed: () async {
                     final result = await _showSettingsDialog(context);
                     if (result != null && result['deleteAccount'] == true) {
@@ -318,21 +332,29 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               const SizedBox(height: 16),
               TextField(
                 controller: widget.nicknameController,
-                style: _getTextStyle(fontSize: 16),
+                style: _getTextStyle(fontSize: 16, color: Colors.white),
                 decoration: InputDecoration(
                   labelText: t('nickname'),
                   labelStyle:
-                      _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                      _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                   hintText: t('enter_nickname'),
                   hintStyle:
                       _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: const Color(0xFF252B3A),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
+                    borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                   ),
-                  prefixIcon: const Icon(Icons.person_outline),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                  ),
+                  prefixIcon: const Icon(Icons.person_outline, color: Color(0xFF00D4FF)),
                 ),
               ),
               const SizedBox(height: 16),
@@ -366,21 +388,29 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 },
                 child: TextField(
                   controller: widget.birthdayController,
-                  style: _getTextStyle(fontSize: 16),
+                  style: _getTextStyle(fontSize: 16, color: Colors.white),
                   decoration: InputDecoration(
                     labelText: t('birthday'),
                     labelStyle:
-                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                        _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                     hintText: t('select_birthday'),
                     hintStyle:
                         _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
-                    fillColor: Colors.grey[200],
+                    fillColor: const Color(0xFF252B3A),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                     ),
-                    prefixIcon: const Icon(Icons.calendar_today),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                    ),
+                    prefixIcon: const Icon(Icons.calendar_today, color: Color(0xFF00D4FF)),
                   ),
                   enabled: false,
                 ),
@@ -390,8 +420,9 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: const Color(0xFF252B3A),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0xFF00D4FF), width: 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,7 +431,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       t('gender'),
                       style: _getTextStyle(
                         fontSize: 14,
-                        color: Colors.grey[600]!,
+                        color: const Color(0xFF00D4FF),
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -418,14 +450,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
                                 color: selectedGender == 'Male'
-                                    ? Colors.blue.shade700
-                                    : Colors.white,
+                                    ? const Color(0xFF252B3A)
+                                    : const Color(0xFF2F3542),
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: selectedGender == 'Male'
-                                      ? Colors.blue.shade700
-                                      : Colors.grey.shade300,
-                                  width: 1,
+                                      ? const Color(0xFFFF4081)
+                                      : const Color(0xFF00D4FF),
+                                  width: selectedGender == 'Male' ? 2 : 1,
                                 ),
                               ),
                               child: Row(
@@ -435,8 +467,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                     Icons.male,
                                     size: 18 * _textScaleFactor,
                                     color: selectedGender == 'Male'
-                                        ? Colors.white
-                                        : Colors.blue.shade700,
+                                        ? const Color(0xFFFF4081)
+                                        : const Color(0xFF00D4FF),
                                   ),
                                   const SizedBox(width: 4),
                                   Expanded(
@@ -449,8 +481,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: selectedGender == 'Male'
-                                              ? Colors.white
-                                              : Colors.grey.shade700,
+                                              ? const Color(0xFFFF4081)
+                                              : Colors.white,
                                         ),
                                       ),
                                     ),
@@ -473,14 +505,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                   vertical: 12, horizontal: 16),
                               decoration: BoxDecoration(
                                 color: selectedGender == 'Female'
-                                    ? Colors.pink.shade700
-                                    : Colors.white,
+                                    ? const Color(0xFF252B3A)
+                                    : const Color(0xFF2F3542),
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: selectedGender == 'Female'
-                                      ? Colors.pink.shade700
-                                      : Colors.grey.shade300,
-                                  width: 1,
+                                      ? const Color(0xFFFF4081)
+                                      : const Color(0xFF00D4FF),
+                                  width: selectedGender == 'Female' ? 2 : 1,
                                 ),
                               ),
                               child: Row(
@@ -490,8 +522,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                     Icons.female,
                                     size: 18 * _textScaleFactor,
                                     color: selectedGender == 'Female'
-                                        ? Colors.white
-                                        : Colors.pink.shade700,
+                                        ? const Color(0xFFFF4081)
+                                        : const Color(0xFF00D4FF),
                                   ),
                                   const SizedBox(width: 4),
                                   Expanded(
@@ -504,8 +536,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: selectedGender == 'Female'
-                                              ? Colors.white
-                                              : Colors.grey.shade700,
+                                              ? const Color(0xFFFF4081)
+                                              : Colors.white,
                                         ),
                                       ),
                                     ),
@@ -525,8 +557,9 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: const Color(0xFF252B3A),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0xFF00D4FF), width: 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -541,8 +574,8 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             style: _getTextStyle(
                               fontSize: 14,
                               color: selectedCountry == null
-                                  ? Colors.grey[600]!
-                                  : Colors.black,
+                                  ? const Color(0xFF00D4FF)
+                                  : Colors.white,
                               fontWeight: selectedCountry == null
                                   ? FontWeight.normal
                                   : FontWeight.bold,
@@ -579,17 +612,17 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.purple,
+                        backgroundColor: const Color(0xFF2F3542),
+                        foregroundColor: const Color(0xFF00D4FF),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          side: BorderSide(color: Colors.purple.shade200),
+                          side: const BorderSide(color: Color(0xFF00D4FF)),
                         ),
                       ),
                       child: Text(
                         t('select_country'),
-                        style: _getTextStyle(fontSize: 14),
+                        style: _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF), fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],
@@ -602,28 +635,36 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 keyboardType: TextInputType.number,
                 onChanged: (_) => validateShortPassword(),
                 maxLength: 2,
-                style: _getTextStyle(fontSize: 16),
+                style: _getTextStyle(fontSize: 16, color: Colors.white),
                 decoration: InputDecoration(
                   labelText: t('multi_game_pin'),
                   labelStyle:
-                      _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                      _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                   hintText: t('enter_two_digit_pin'),
                   hintStyle:
                       _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: const Color(0xFF252B3A),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
+                    borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                   ),
-                  prefixIcon: const Icon(Icons.pin_outlined),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                  ),
+                  prefixIcon: const Icon(Icons.pin_outlined, color: Color(0xFF00D4FF)),
                   errorText: shortPasswordError,
                   errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   counterText: "",
                   helperText: t('two_digit_pin_helper'),
                   helperStyle: _getTextStyle(
                     fontSize: 12,
-                    color: Colors.grey[600]!,
+                    color: const Color(0xFF00D4FF),
                   ),
                 ),
               ),
@@ -647,8 +688,9 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: const Color(0xFF252B3A),
                     borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: const Color(0xFF00D4FF), width: 1),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -658,14 +700,14 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         style: _getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: const Color(0xFF00D4FF),
                         ),
                       ),
                       Icon(
                         showPasswordFields
                             ? Icons.keyboard_arrow_up
                             : Icons.keyboard_arrow_down,
-                        color: Colors.black54,
+                        color: const Color(0xFF00D4FF),
                         size: 24 * _textScaleFactor,
                       ),
                     ],
@@ -679,21 +721,29 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.currentPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
-                  style: _getTextStyle(fontSize: 16),
+                  style: _getTextStyle(fontSize: 16, color: Colors.white),
                   decoration: InputDecoration(
                     labelText: t('current_password'),
                     labelStyle:
-                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                        _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                     hintText: t('enter_current_password'),
                     hintStyle:
                         _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
-                    fillColor: Colors.grey[200],
+                    fillColor: const Color(0xFF252B3A),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                     ),
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                    ),
+                    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF00D4FF)),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -701,21 +751,29 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.newPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
-                  style: _getTextStyle(fontSize: 16),
+                  style: _getTextStyle(fontSize: 16, color: Colors.white),
                   decoration: InputDecoration(
                     labelText: t('new_password'),
                     labelStyle:
-                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                        _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                     hintText: t('enter_new_password'),
                     hintStyle:
                         _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
-                    fillColor: Colors.grey[200],
+                    fillColor: const Color(0xFF252B3A),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                     ),
-                    prefixIcon: const Icon(Icons.vpn_key_outlined),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                    ),
+                    prefixIcon: const Icon(Icons.vpn_key_outlined, color: Color(0xFF00D4FF)),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -723,21 +781,29 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   controller: widget.confirmPasswordController,
                   obscureText: true,
                   onChanged: (_) => validatePassword(),
-                  style: _getTextStyle(fontSize: 16),
+                  style: _getTextStyle(fontSize: 16, color: Colors.white),
                   decoration: InputDecoration(
                     labelText: t('confirm_password'),
                     labelStyle:
-                        _getTextStyle(fontSize: 14, color: Colors.grey[600]!),
+                        _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
                     hintText: t('confirm_new_password'),
                     hintStyle:
                         _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
                     filled: true,
-                    fillColor: Colors.grey[200],
+                    fillColor: const Color(0xFF252B3A),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
                     ),
-                    prefixIcon: const Icon(Icons.check_circle_outline),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
+                    ),
+                    prefixIcon: const Icon(Icons.check_circle_outline, color: Color(0xFF00D4FF)),
                     errorText: passwordError,
                     errorStyle: _getTextStyle(fontSize: 12, color: Colors.red),
                   ),
@@ -753,17 +819,17 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         Navigator.of(widget.dialogContext).pop();
                       },
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade50,
-                        foregroundColor: Colors.grey.shade700,
+                        backgroundColor: const Color(0xFF2F3542),
+                        foregroundColor: const Color(0xFF00D4FF),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        side: BorderSide(color: Colors.grey.shade300),
+                        side: const BorderSide(color: Color(0xFF00D4FF)),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
                         t('cancel'),
-                        style: _getTextStyle(fontSize: 14),
+                        style: _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF), fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
@@ -794,11 +860,12 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         Navigator.of(widget.dialogContext).pop(result);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.shade400,
+                        backgroundColor: const Color(0xFF252B3A),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        side: const BorderSide(color: Color(0xFFFF4081), width: 2),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
@@ -816,12 +883,12 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   Navigator.of(widget.dialogContext).pop({'signOut': true});
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade50,
+                  backgroundColor: const Color(0xFF2F3542),
                   foregroundColor: Colors.red.shade400,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.red.shade200),
+                    side: BorderSide(color: Colors.red.shade400),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   minimumSize: const Size(double.infinity, 48),
@@ -839,6 +906,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                       style: _getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.red.shade400,
                       ),
                     ),
                   ],

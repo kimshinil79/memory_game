@@ -45,32 +45,32 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.white,
-            Colors.grey.shade50.withOpacity(0.8),
+            Color(0xFF1E2430),
+            Color(0xFF2F3542),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.12),
+            color: const Color(0xFF00E5FF).withOpacity(0.2),
             spreadRadius: 0,
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
           BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
+            color: const Color(0xFFFF2D95).withOpacity(0.1),
             spreadRadius: 0,
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
         ],
         border: Border.all(
-          color: Colors.grey.shade200.withOpacity(0.8),
-          width: 1,
+          color: const Color(0xFF00E5FF),
+          width: 1.5,
         ),
       ),
       child: Column(
@@ -82,17 +82,24 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.purple.shade100, Colors.purple.shade50],
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFFF2D95).withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.leaderboard,
-                  color: Colors.purple.shade700,
-                  size: 20 * widget.textScaleFactor,
+                  color: Colors.white,
+                  size: 20,
                 ),
               ),
               const SizedBox(width: 12),
@@ -100,12 +107,19 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      translations['user_rankings'] ?? 'User Rankings',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 20 * widget.textScaleFactor,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds),
+                      child: Text(
+                        translations['user_rankings'] ?? 'User Rankings',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 20 * widget.textScaleFactor,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -120,12 +134,12 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
             height: 48,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: const Color(0xFF252B3A),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey.shade200, width: 1),
+              border: Border.all(color: const Color(0xFF00E5FF), width: 1),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.08),
+                  color: const Color(0xFF00E5FF).withOpacity(0.1),
                   spreadRadius: 0,
                   blurRadius: 8,
                   offset: const Offset(0, 2),
@@ -136,17 +150,17 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
               controller: _tabController,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [
-                    Colors.purple.shade400,
-                    Colors.purple.shade600,
+                    Color(0xFFFF2D95),
+                    Color(0xFF00E5FF),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(0.3),
+                    color: const Color(0xFFFF2D95).withOpacity(0.3),
                     spreadRadius: 0,
                     blurRadius: 8,
                     offset: const Offset(0, 2),
@@ -155,7 +169,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: Colors.white,
-              unselectedLabelColor: Colors.grey.shade600,
+              unselectedLabelColor: const Color(0xFF00E5FF),
               // 커스텀 탭에서 직접 스타일을 관리하므로 기본 스타일은 제거
               dividerColor: Colors.transparent,
               indicatorPadding: EdgeInsets.zero,
@@ -237,7 +251,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                 final isSelected = currentIndex == tabIndex;
 
                 // 선택 상태에 따른 색상 및 스타일 결정
-                final color = isSelected ? Colors.white : Colors.grey.shade600;
+                final color = isSelected ? Colors.white : const Color(0xFF00E5FF);
                 final fontWeight =
                     isSelected ? FontWeight.w600 : FontWeight.w500;
 
@@ -342,7 +356,8 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                         child: Text(translations['rank'] ?? 'Rank',
                             style: GoogleFonts.notoSans(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14 * widget.textScaleFactor))),
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: const Color(0xFF00E5FF)))),
                     const SizedBox(width: 8),
                     Expanded(
                         child: Padding(
@@ -350,21 +365,22 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                       child: Text(translations['user'] ?? 'User',
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14 * widget.textScaleFactor)),
+                              fontSize: 14 * widget.textScaleFactor,
+                              color: const Color(0xFF00E5FF))),
                     )),
                     // 뇌 이미지에 대한 설명 추가
                     InkWell(
                       onTap: () => _showBrainLevelInfo(context),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.purple.withOpacity(0.1),
+                          color: const Color(0xFF00E5FF).withOpacity(0.1),
                           shape: BoxShape.circle,
                         ),
                         padding: const EdgeInsets.all(4),
-                        child: Icon(
+                        child: const Icon(
                           Icons.help_outline,
-                          color: Colors.purple,
-                          size: 16 * widget.textScaleFactor,
+                          color: Color(0xFF00E5FF),
+                          size: 16,
                         ),
                       ),
                     ),
@@ -373,12 +389,16 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                         child: Text(translations['score'] ?? 'Score',
                             style: GoogleFonts.notoSans(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14 * widget.textScaleFactor),
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: const Color(0xFF00E5FF)),
                             textAlign: TextAlign.end)),
                   ],
                 ),
               ),
-              const Divider(),
+              Container(
+                height: 1,
+                color: const Color(0xFF00E5FF).withOpacity(0.3),
+              ),
               // 랭킹 목록을 Container로 감싸서 높이 제한
               Expanded(
                 child: ListView.builder(
@@ -392,9 +412,13 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                       padding: const EdgeInsets.symmetric(
                           vertical: 8.0, horizontal: 8.0),
                       decoration: BoxDecoration(
-                        color:
-                            isCurrentUser ? Colors.blue.withOpacity(0.1) : null,
-                        borderRadius: BorderRadius.circular(4),
+                        color: isCurrentUser 
+                            ? const Color(0xFFFF2D95).withOpacity(0.1) 
+                            : null,
+                        borderRadius: BorderRadius.circular(8),
+                        border: isCurrentUser 
+                            ? Border.all(color: const Color(0xFFFF2D95), width: 1)
+                            : null,
                       ),
                       child: Row(
                         children: [
@@ -407,7 +431,9 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                                     ? FontWeight.bold
                                     : FontWeight.normal,
                                 fontSize: 14 * widget.textScaleFactor,
-                                color: _getRankColor(ranking['rank']),
+                                color: isCurrentUser 
+                                    ? const Color(0xFFFF2D95)
+                                    : _getRankColor(ranking['rank']),
                               ),
                             ),
                           ),
@@ -455,6 +481,9 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                                           ? FontWeight.bold
                                           : FontWeight.normal,
                                       fontSize: 14 * widget.textScaleFactor,
+                                      color: isCurrentUser 
+                                          ? const Color(0xFFFF2D95)
+                                          : Colors.white,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -481,6 +510,9 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                                     ? FontWeight.bold
                                     : FontWeight.normal,
                                 fontSize: 14 * widget.textScaleFactor,
+                                color: isCurrentUser 
+                                    ? const Color(0xFFFF2D95)
+                                    : Colors.white,
                               ),
                               textAlign: TextAlign.end,
                             ),
@@ -656,10 +688,10 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
 
   // 랭킹에 따른 색상 반환
   Color _getRankColor(int rank) {
-    if (rank == 1) return Colors.amber.shade700; // 금메달
-    if (rank == 2) return Colors.blueGrey.shade400; // 은메달
-    if (rank == 3) return Colors.brown.shade400; // 동메달
-    return Colors.black87; // 기본 색상
+    if (rank == 1) return const Color(0xFFFFD700); // 금메달
+    if (rank == 2) return const Color(0xFFC0C0C0); // 은메달
+    if (rank == 3) return const Color(0xFFCD7F32); // 동메달
+    return const Color(0xFF00E5FF); // 기본 색상
   }
 
   void _showBrainLevelInfo(BuildContext context) {
@@ -674,8 +706,10 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: const Color(0xFF0B0D13),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24.0),
+            side: const BorderSide(color: Color(0xFF00E5FF), width: 1.5),
           ),
           elevation: 12,
           insetPadding: EdgeInsets.symmetric(
@@ -689,12 +723,12 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
             ),
             child: Container(
               padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(24.0)),
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.white, Colors.grey.shade50],
+                  colors: [Color(0xFF2A2F3A), Color(0xFF1E2430)],
                 ),
               ),
               child: Column(
@@ -707,20 +741,24 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                       Container(
                         padding: EdgeInsets.all(isSmallScreen ? 8 : 10),
                         decoration: BoxDecoration(
-                          color: Colors.purple.shade100,
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
                           borderRadius: BorderRadius.circular(14),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.purple.shade100.withOpacity(0.5),
+                              color: const Color(0xFFFF2D95).withOpacity(0.3),
                               blurRadius: 8,
                               offset: const Offset(0, 2),
                             ),
                           ],
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.psychology,
-                          color: Colors.purple.shade700,
-                          size: isSmallScreen ? 20 : 24,
+                          color: Colors.white,
+                          size: 20,
                         ),
                       ),
                       SizedBox(width: isSmallScreen ? 12 : 16),
@@ -728,13 +766,20 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              translations['brain_level_guide'] ??
-                                  'Brain Level Guide',
-                              style: GoogleFonts.notoSans(
-                                fontSize: isSmallScreen ? 18 : 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.purple.shade800,
+                            ShaderMask(
+                              shaderCallback: (bounds) => const LinearGradient(
+                                colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ).createShader(bounds),
+                              child: Text(
+                                translations['brain_level_guide'] ??
+                                    'Brain Level Guide',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: isSmallScreen ? 18 : 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                             Text(
@@ -742,7 +787,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                                   'Understand what each level means',
                               style: GoogleFonts.notoSans(
                                 fontSize: isSmallScreen ? 12 : 13,
-                                color: Colors.grey.shade600,
+                                color: const Color(0xFF00E5FF),
                               ),
                             ),
                           ],
@@ -750,13 +795,14 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
+                          color: const Color(0xFF252B3A),
                           shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFF00E5FF), width: 1),
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.close,
-                              color: Colors.grey.shade700,
-                              size: isSmallScreen ? 18 : 20),
+                          icon: const Icon(Icons.close,
+                              color: Color(0xFF00E5FF),
+                              size: 18),
                           onPressed: () => Navigator.pop(context),
                           padding: EdgeInsets.all(isSmallScreen ? 6 : 8),
                           constraints: const BoxConstraints(),
@@ -773,7 +819,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.purple.shade100, Colors.transparent],
+                        colors: [const Color(0xFF00E5FF), Colors.transparent],
                       ),
                     ),
                   ),
@@ -860,16 +906,16 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                   Container(
                     padding: EdgeInsets.all(isSmallScreen ? 10 : 12),
                     decoration: BoxDecoration(
-                      color: Colors.purple.shade50,
+                      color: const Color(0xFF252B3A),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.purple.shade100),
+                      border: Border.all(color: const Color(0xFF00E5FF), width: 1),
                     ),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.lightbulb_outline,
-                          color: Colors.purple.shade400,
-                          size: isSmallScreen ? 18 : 20,
+                          color: Color(0xFF00E5FF),
+                          size: 18,
                         ),
                         const SizedBox(width: 8),
                         Expanded(
@@ -878,7 +924,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                                 'Keep playing memory games to increase your brain level!',
                             style: GoogleFonts.notoSans(
                               fontSize: isSmallScreen ? 12 : 13,
-                              color: Colors.purple.shade800,
+                              color: const Color(0xFF00E5FF),
                             ),
                           ),
                         ),
@@ -910,16 +956,16 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFF252B3A),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.1),
+            color: color.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
-        border: Border.all(color: color.withOpacity(0.2), width: 1),
+        border: Border.all(color: color.withOpacity(0.5), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -954,7 +1000,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                   description,
                   style: GoogleFonts.notoSans(
                     fontSize: isSmallScreen ? 13 : 14,
-                    color: Colors.black87,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 4 : 6),
@@ -971,7 +1017,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                     style: GoogleFonts.notoSans(
                       fontSize: isSmallScreen ? 12 : 13,
                       fontStyle: FontStyle.italic,
-                      color: Colors.black54,
+                      color: const Color(0xFF00E5FF),
                     ),
                   ),
                 ),
