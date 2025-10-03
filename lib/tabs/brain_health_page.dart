@@ -276,12 +276,19 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          translations['brain_health_dashboard'] ?? 'Brain Health Dashboard',
-          style: GoogleFonts.notoSans(
-            fontSize: 28 * _textScaleFactor,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+        ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: Text(
+            translations['brain_health_dashboard'] ?? 'Brain Health Dashboard',
+            style: GoogleFonts.notoSans(
+              fontSize: 28 * _textScaleFactor,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -290,7 +297,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               'Play memory games to improve your brain health!',
           style: GoogleFonts.notoSans(
             fontSize: 16 * _textScaleFactor,
-            color: Colors.black54,
+            color: const Color(0xFF00E5FF),
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -306,32 +314,69 @@ class _BrainHealthPageState extends State<BrainHealthPage>
       future: _getBrainHealthIndexData(provider),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Card(
-            elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          return Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1E2430),
+                  Color(0xFF2F3542),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
+                  spreadRadius: 0,
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.1),
+                  spreadRadius: 0,
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+              border: Border.all(
+                color: const Color(0xFF00E5FF),
+                width: 1.5,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      translations['brain_health_index_title'] ??
-                          'Brain Health Index',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 20 * _textScaleFactor,
-                        fontWeight: FontWeight.bold,
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds),
+                      child: Text(
+                        translations['brain_health_index_title'] ??
+                            'Brain Health Index',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 20 * _textScaleFactor,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const CircularProgressIndicator(),
+                    const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00E5FF)),
+                    ),
                     const SizedBox(height: 16),
                     Text(
                         translations['calculating_brain_health_index'] ??
                             'Calculating your Brain Health Index...',
                         style: GoogleFonts.notoSans(
-                            fontSize: 16 * _textScaleFactor)),
+                            fontSize: 16 * _textScaleFactor,
+                            color: const Color(0xFF00E5FF))),
                   ],
                 ),
               ),
@@ -340,24 +385,51 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         }
 
         if (snapshot.hasError) {
-          return Card(
-            elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          return Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1E2430),
+                  Color(0xFF2F3542),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
+                  spreadRadius: 0,
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.1),
+                  spreadRadius: 0,
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+              border: Border.all(
+                color: const Color(0xFF00E5FF),
+                width: 1.5,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.error_outline,
-                        size: 48 * _textScaleFactor, color: Colors.red),
+                    const Icon(Icons.error_outline,
+                        size: 48, color: Color(0xFFFF2D95)),
                     const SizedBox(height: 16),
                     Text(
                         translations['error_calculating_index'] ??
                             'Error calculating Brain Health Index',
                         style: GoogleFonts.notoSans(
-                            fontSize: 16 * _textScaleFactor)),
+                            fontSize: 16 * _textScaleFactor,
+                            color: const Color(0xFFFF2D95))),
                   ],
                 ),
               ),
@@ -377,32 +449,58 @@ class _BrainHealthPageState extends State<BrainHealthPage>
         // Calculate percentage for circular indicator
         final percentage = brainHealthIndex / 100;
 
-        // Color based on index level
+        // Color based on index level - K-pop Demon Hunters theme
         Color progressColor;
         switch (indexLevel) {
           case 1:
-            progressColor = Colors.redAccent;
+            progressColor = const Color(0xFFFF2D95); // 네온 핑크
             break;
           case 2:
-            progressColor = Colors.orangeAccent;
+            progressColor = const Color(0xFF00E5FF); // 네온 시안
             break;
           case 3:
-            progressColor = Colors.amber;
+            progressColor = const Color(0xFF9C27B0); // 네온 보라
             break;
           case 4:
-            progressColor = Colors.lightGreen;
+            progressColor = const Color(0xFF4CAF50); // 네온 그린
             break;
           case 5:
-            progressColor = Colors.green;
+            progressColor = const Color(0xFFFFD700); // 골드
             break;
           default:
-            progressColor = Colors.blue;
+            progressColor = const Color(0xFF00E5FF); // 기본 네온 시안
         }
 
-        return Card(
-          elevation: 4,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        return Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF1E2430),
+                Color(0xFF2F3542),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: progressColor.withOpacity(0.2),
+                spreadRadius: 0,
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: const Color(0xFF00E5FF).withOpacity(0.1),
+                spreadRadius: 0,
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+            border: Border.all(
+              color: progressColor,
+              width: 1.5,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -414,12 +512,20 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          translations['brain_health_index_title'] ??
-                              'Brain Health Index',
-                          style: GoogleFonts.notoSans(
-                            fontSize: 20 * _textScaleFactor,
-                            fontWeight: FontWeight.bold,
+                        ShaderMask(
+                          shaderCallback: (bounds) => LinearGradient(
+                            colors: [progressColor, const Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ).createShader(bounds),
+                          child: Text(
+                            translations['brain_health_index_title'] ??
+                                'Brain Health Index',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 20 * _textScaleFactor,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -430,7 +536,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             child: Icon(
                               Icons.cloud_done,
                               size: 16,
-                              color: Colors.green,
+                              color: Color(0xFF4CAF50),
                             ),
                           )
                         else if (dataSource == 'calculated')
@@ -439,7 +545,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             child: Icon(
                               Icons.refresh,
                               size: 16,
-                              color: Colors.orange,
+                              color: Color(0xFF00E5FF),
                             ),
                           ),
                       ],
@@ -449,12 +555,19 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: progressColor.withOpacity(0.1),
+                        color: progressColor.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: progressColor.withOpacity(0.5),
-                          width: 1,
+                          color: progressColor,
+                          width: 1.5,
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: progressColor.withOpacity(0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -497,13 +610,14 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         '${translations['level'] ?? 'Level'} $indexLevel',
                         style: GoogleFonts.notoSans(
                           fontSize: 16 * _textScaleFactor,
+                          color: Colors.white,
                         ),
                       ),
                     ],
                   ),
                   circularStrokeCap: CircularStrokeCap.round,
                   progressColor: progressColor,
-                  backgroundColor: Colors.grey.shade200,
+                  backgroundColor: const Color(0xFF252B3A),
                 ),
                 const SizedBox(height: 20),
                 indexLevel < 5
@@ -514,6 +628,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         style: GoogleFonts.notoSans(
                           fontSize: 16 * _textScaleFactor,
                           fontWeight: FontWeight.w500,
+                          color: const Color(0xFF00E5FF),
                         ),
                       )
                     : Text(
@@ -522,7 +637,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         style: GoogleFonts.notoSans(
                           fontSize: 16 * _textScaleFactor,
                           fontWeight: FontWeight.w500,
-                          color: Colors.green,
+                          color: const Color(0xFFFFD700),
                         ),
                       ),
                 const SizedBox(height: 16),
@@ -533,14 +648,21 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                     margin: const EdgeInsets.only(top: 16),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade50,
+                      color: const Color(0xFFFF2D95).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.red.shade200),
+                      border: Border.all(color: const Color(0xFFFF2D95), width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFF2D95).withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [
                         const Icon(Icons.warning_amber_rounded,
-                            color: Colors.red),
+                            color: Color(0xFFFF2D95)),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -551,7 +673,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             style: GoogleFonts.notoSans(
                               fontSize: 14 * _textScaleFactor,
                               fontWeight: FontWeight.w500,
-                              color: Colors.red.shade700,
+                              color: const Color(0xFFFF2D95),
                             ),
                           ),
                         ),
@@ -639,12 +761,19 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          translations['game_statistics'] ?? 'Game Statistics',
-          style: GoogleFonts.notoSans(
-            fontSize: 20 * _textScaleFactor,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+        ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: Text(
+            translations['game_statistics'] ?? 'Game Statistics',
+            style: GoogleFonts.notoSans(
+              fontSize: 20 * _textScaleFactor,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -655,7 +784,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 icon: Icons.sports_esports,
                 title: translations['games_played'] ?? 'Games Played',
                 value: '${provider.totalGamesPlayed}',
-                color: Colors.blue,
+                color: const Color(0xFF00E5FF),
               ),
             ),
             const SizedBox(width: 16),
@@ -664,7 +793,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 icon: Icons.find_in_page,
                 title: translations['matches_found'] ?? 'Matches Found',
                 value: '${provider.totalMatchesFound}',
-                color: Colors.purple,
+                color: const Color(0xFFFF2D95),
               ),
             ),
           ],
@@ -684,25 +813,77 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     final gridSizes = provider.bestTimesByGridSize.keys.toList();
     gridSizes.sort(); // Sort grid sizes for consistent display
 
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF1E2430),
+            Color(0xFF2F3542),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFFF2D95).withOpacity(0.2),
+            spreadRadius: 0,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: const Color(0xFF00E5FF).withOpacity(0.1),
+            spreadRadius: 0,
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: const Color(0xFFFF2D95),
+          width: 1.5,
+        ),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Icons.speed,
-                    color: Colors.orange, size: 28 * _textScaleFactor),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFFF2D95).withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(Icons.speed, color: Colors.white, size: 24),
+                ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    translations['best_times'] ?? 'Best Times',
-                    style: GoogleFonts.notoSans(
-                      fontSize: 18 * _textScaleFactor,
-                      fontWeight: FontWeight.bold,
+                  child: ShaderMask(
+                    shaderCallback: (bounds) => const LinearGradient(
+                      colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(bounds),
+                    child: Text(
+                      translations['best_times'] ?? 'Best Times',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 18 * _textScaleFactor,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -714,7 +895,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 translations['no_records_yet'] ?? 'No records yet',
                 style: GoogleFonts.notoSans(
                   fontSize: 16 * _textScaleFactor,
-                  color: Colors.black54,
+                  color: const Color(0xFF00E5FF),
                 ),
               )
             else
@@ -732,6 +913,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             style: GoogleFonts.notoSans(
                               fontSize: 16 * _textScaleFactor,
                               fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
                           ),
                           Text(
@@ -739,13 +921,16 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             style: GoogleFonts.montserrat(
                               fontSize: 16 * _textScaleFactor,
                               fontWeight: FontWeight.bold,
-                              color: Colors.orange,
+                              color: const Color(0xFFFF2D95),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  const Divider(),
+                  Container(
+                    height: 1,
+                    color: const Color(0xFF00E5FF).withOpacity(0.3),
+                  ),
                   // Individual grid size best times
                   ...gridSizes.map((gridSize) {
                     final time = provider.bestTimesByGridSize[gridSize] ?? 0;
@@ -762,6 +947,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             '$gridSize ${translations['grid'] ?? 'Grid'}:',
                             style: GoogleFonts.notoSans(
                               fontSize: 15 * _textScaleFactor,
+                              color: const Color(0xFF00E5FF),
                             ),
                           ),
                           Text(
@@ -769,6 +955,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                             style: GoogleFonts.montserrat(
                               fontSize: 15 * _textScaleFactor,
                               fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -789,21 +976,57 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     required String value,
     required Color color,
   }) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF1E2430),
+            Color(0xFF2F3542),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.2),
+            spreadRadius: 0,
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+          BoxShadow(
+            color: const Color(0xFF00E5FF).withOpacity(0.1),
+            spreadRadius: 0,
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: color,
+          width: 1.5,
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: color, size: 28 * _textScaleFactor),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: color, width: 1),
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
             const SizedBox(height: 12),
             Text(
               title,
               style: GoogleFonts.notoSans(
                 fontSize: 14 * _textScaleFactor,
-                color: Colors.black54,
+                color: const Color(0xFF00E5FF),
+                fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(height: 4),
@@ -812,7 +1035,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               style: GoogleFonts.montserrat(
                 fontSize: 20 * _textScaleFactor,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.white,
               ),
             ),
           ],
@@ -829,41 +1052,77 @@ class _BrainHealthPageState extends State<BrainHealthPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          translations['benefits_of_brain_games'] ?? 'Benefits of Brain Games',
-          style: GoogleFonts.notoSans(
-            fontSize: 20 * _textScaleFactor,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+        ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: Text(
+            translations['benefits_of_brain_games'] ?? 'Benefits of Brain Games',
+            style: GoogleFonts.notoSans(
+              fontSize: 20 * _textScaleFactor,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Card(
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF1E2430),
+                Color(0xFF2F3542),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF00E5FF).withOpacity(0.2),
+                spreadRadius: 0,
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: const Color(0xFFFF2D95).withOpacity(0.1),
+                spreadRadius: 0,
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+            border: Border.all(
+              color: const Color(0xFF00E5FF),
+              width: 1.5,
+            ),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 _buildBenefitItem(
-                  icon: Icons.memory,
                   title: translations['short_term_memory_improvement'] ??
                       'Short-term Memory Improvement',
                   description: translations['short_term_memory_desc'] ??
                       'Memory games effectively strengthen short-term memory and memory capacity.',
                 ),
-                const Divider(),
+                Container(
+                  height: 1,
+                  color: const Color(0xFF00E5FF).withOpacity(0.3),
+                ),
                 _buildBenefitItem(
-                  icon: Icons.psychology,
                   title: translations['cognitive_function_enhancement'] ??
                       'Cognitive Function Enhancement',
                   description: translations['cognitive_function_desc'] ??
                       'Regular brain activity helps maintain and improve cognitive functions.',
                 ),
-                const Divider(),
+                Container(
+                  height: 1,
+                  color: const Color(0xFF00E5FF).withOpacity(0.3),
+                ),
                 _buildBenefitItem(
-                  icon: Icons.timer,
                   title: translations['response_time_reduction'] ??
                       'Response Time Reduction',
                   description: translations['response_time_desc'] ??
@@ -871,7 +1130,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                 ),
                 const Divider(),
                 _buildBenefitItem(
-                  icon: Icons.healing,
                   title: translations['dementia_prevention'] ??
                       'Dementia Prevention',
                   description: translations['dementia_prevention_desc'] ??
@@ -886,7 +1144,6 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   }
 
   Widget _buildBenefitItem({
-    required IconData icon,
     required String title,
     required String description,
   }) {
@@ -895,10 +1152,28 @@ class _BrainHealthPageState extends State<BrainHealthPage>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            'assets/icon/rainbowBrain.png',
-            width: 24 * _textScaleFactor,
-            height: 24 * _textScaleFactor,
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Image.asset(
+              'assets/icon/rainbowBrain.png',
+              width: 20,
+              height: 20,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -910,6 +1185,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   style: GoogleFonts.notoSans(
                     fontSize: 16 * _textScaleFactor,
                     fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -917,7 +1193,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   description,
                   style: GoogleFonts.notoSans(
                     fontSize: 14 * _textScaleFactor,
-                    color: Colors.black54,
+                    color: const Color(0xFF00E5FF),
                   ),
                 ),
               ],
@@ -953,13 +1229,20 @@ class _BrainHealthPageState extends State<BrainHealthPage>
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  translations['brain_health_progress'] ??
-                      'Brain Health Progress',
-                  style: GoogleFonts.notoSans(
-                    fontSize: 20 * _textScaleFactor,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                child: ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: Text(
+                    translations['brain_health_progress'] ??
+                        'Brain Health Progress',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 20 * _textScaleFactor,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -971,7 +1254,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                   _getDateRangeText(weeklyData),
                   style: GoogleFonts.notoSans(
                     fontSize: 12 * _textScaleFactor,
-                    color: Colors.black54,
+                    color: const Color(0xFF00E5FF),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -983,37 +1266,61 @@ class _BrainHealthPageState extends State<BrainHealthPage>
           height: 200,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF1E2430),
+                Color(0xFF2F3542),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+                color: const Color(0xFF00E5FF).withOpacity(0.2),
+                spreadRadius: 0,
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: const Color(0xFFFF2D95).withOpacity(0.1),
+                spreadRadius: 0,
+                blurRadius: 6,
+                offset: const Offset(0, 2),
               ),
             ],
+            border: Border.all(
+              color: const Color(0xFF00E5FF),
+              width: 1.5,
+            ),
           ),
           child: weeklyData.isEmpty || weeklyData[0].score == 0
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.psychology_outlined,
-                        size: 48 * _textScaleFactor,
-                        color: Colors.grey.shade400,
+                        size: 48,
+                        color: Color(0xFF00E5FF),
                       ),
                       const SizedBox(height: 16),
                       FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(
-                          translations['welcome_to_brain_health'] ??
-                              'Welcome to Brain Health!',
-                          style: GoogleFonts.notoSans(
-                            fontSize: 16 * _textScaleFactor,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                        child: ShaderMask(
+                          shaderCallback: (bounds) => const LinearGradient(
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ).createShader(bounds),
+                          child: Text(
+                            translations['welcome_to_brain_health'] ??
+                                'Welcome to Brain Health!',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 16 * _textScaleFactor,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -1026,7 +1333,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           textAlign: TextAlign.center,
                           style: GoogleFonts.notoSans(
                             fontSize: 14 * _textScaleFactor,
-                            color: Colors.black54,
+                            color: const Color(0xFF00E5FF),
                           ),
                         ),
                       ),
@@ -1059,7 +1366,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                   value.toInt().toString(),
                                   style: GoogleFonts.notoSans(
                                     fontSize: 12 * _textScaleFactor,
-                                    color: Colors.black54,
+                                    color: const Color(0xFF00E5FF),
                                   ),
                                 ),
                               );
@@ -1077,10 +1384,10 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                         LineChartBarData(
                           spots: spots,
                           isCurved: true,
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
-                              Colors.blue.shade300,
-                              Colors.blue.shade500,
+                              Color(0xFFFF2D95),
+                              Color(0xFF00E5FF),
                             ],
                           ),
                           barWidth: 3,
@@ -1092,17 +1399,18 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                 radius: 4 * _textScaleFactor,
                                 color: Colors.white,
                                 strokeWidth: 2 * _textScaleFactor,
-                                strokeColor: Colors.blue.shade500,
+                                strokeColor: const Color(0xFF00E5FF),
                               );
                             },
                           ),
                           belowBarData: BarAreaData(
                             show: true,
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [
-                                Colors.blue.shade200.withOpacity(0.3),
-                                Colors.blue.shade200.withOpacity(0.0),
+                                Color(0xFFFF2D95),
+                                Color(0xFF00E5FF),
                               ],
+                              stops: [0.0, 1.0],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -1111,7 +1419,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                       ],
                       lineTouchData: LineTouchData(
                         touchTooltipData: LineTouchTooltipData(
-                          tooltipBgColor: Colors.blue.shade700,
+                          tooltipBgColor: const Color(0xFF252B3A),
                           getTooltipItems: (List<LineBarSpot> touchedSpots) {
                             return touchedSpots.map((LineBarSpot spot) {
                               final index = spot.x.toInt();
@@ -1145,7 +1453,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           fitInsideVertically: true,
                           tooltipMargin: 8,
                           tooltipPadding: EdgeInsets.all(8 * _textScaleFactor),
-                          tooltipRoundedRadius: 8,
+                          tooltipRoundedRadius: 12,
                           showOnTopOfTheChartBoxArea: true,
                         ),
                         handleBuiltInTouches: true,
@@ -1155,7 +1463,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                           return spotIndexes.map((spotIndex) {
                             return TouchedSpotIndicatorData(
                               FlLine(
-                                  color: Colors.blue.shade300,
+                                  color: const Color(0xFF00E5FF),
                                   strokeWidth: 2 * _textScaleFactor),
                               FlDotData(
                                 getDotPainter: (spot, percent, barData, index) {
@@ -1163,7 +1471,7 @@ class _BrainHealthPageState extends State<BrainHealthPage>
                                     radius: 6 * _textScaleFactor,
                                     color: Colors.white,
                                     strokeWidth: 3 * _textScaleFactor,
-                                    strokeColor: Colors.blue.shade700,
+                                    strokeColor: const Color(0xFFFF2D95),
                                   );
                                 },
                               ),

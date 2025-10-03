@@ -33,12 +33,12 @@ class _TestPageState extends State<TestPage>
 
   late AnimationController _animationController;
 
-  // Updated colors for a more refreshing and modern look
-  final Color primaryColor = const Color(0xFF5B86E5);
-  final Color secondaryColor = const Color(0xFF36D1DC);
-  final Color accentColor = const Color(0xFFFF9190);
-  final Color bgColorLight = const Color(0xFFF8FDFF);
-  final Color bgColorDark = const Color(0xFFEDF7FC);
+  // K-pop Demon Hunters theme colors
+  final Color primaryColor = const Color(0xFFFF2D95); // Neon Pink
+  final Color secondaryColor = const Color(0xFF00E5FF); // Neon Cyan
+  final Color accentColor = const Color(0xFF9C27B0); // Neon Purple
+  final Color bgColorLight = const Color(0xFF0B0D13); // Dark background
+  final Color bgColorDark = const Color(0xFF1A1D26); // Darker background
 
   String _currentLanguage = '';
 
@@ -439,6 +439,7 @@ class _TestPageState extends State<TestPage>
             borderRadius: BorderRadius.circular(_dialogBorderRadius),
           ),
           elevation: 8,
+          backgroundColor: const Color(0xFF0B0D13),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: _dialogWidth,
@@ -447,12 +448,23 @@ class _TestPageState extends State<TestPage>
             child: Container(
               padding: EdgeInsets.all(_dialogPadding),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.white, bgColorLight],
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.circular(_dialogBorderRadius),
+                border: Border.all(
+                  color: const Color(0xFF00E5FF),
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF00E5FF).withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -461,8 +473,35 @@ class _TestPageState extends State<TestPage>
                     height: _screenWidth * 0.2,
                     width: _screenWidth * 0.2,
                     decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.1),
+                      gradient: score > 7
+                          ? const LinearGradient(
+                              colors: [Color(0xFFFFD700), Color(0xFFFFA000)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            )
+                          : score > 4
+                              ? const LinearGradient(
+                                  colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                )
+                              : const LinearGradient(
+                                  colors: [Color(0xFF9C27B0), Color(0xFFE91E63)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                       shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: score > 7
+                              ? const Color(0xFFFFD700).withOpacity(0.4)
+                              : score > 4
+                                  ? const Color(0xFFFF2D95).withOpacity(0.4)
+                                  : const Color(0xFF9C27B0).withOpacity(0.4),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
                     ),
                     child: Icon(
                       score > 7
@@ -471,22 +510,25 @@ class _TestPageState extends State<TestPage>
                               ? Icons.thumb_up
                               : Icons.emoji_emotions,
                       size: _screenWidth * 0.1,
-                      color: score > 7
-                          ? const Color(0xFFFFC107)
-                          : score > 4
-                              ? primaryColor
-                              : accentColor,
+                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: _verticalSpacing),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      translations['test_result'] ?? 'Test Result',
-                      style: GoogleFonts.poppins(
-                        fontSize: _dialogTitleSize,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
+                  ShaderMask(
+                    shaderCallback: (bounds) => const LinearGradient(
+                      colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(bounds),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        translations['test_result'] ?? 'Test Result',
+                        style: GoogleFonts.poppins(
+                          fontSize: _dialogTitleSize,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -497,7 +539,7 @@ class _TestPageState extends State<TestPage>
                       translations['your_score'] ?? 'Your score',
                       style: GoogleFonts.poppins(
                         fontSize: _dialogSubtitleSize,
-                        color: Colors.black54,
+                        color: const Color(0xFF00E5FF),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -513,7 +555,7 @@ class _TestPageState extends State<TestPage>
                           style: GoogleFonts.poppins(
                             fontSize: _dialogScoreSize,
                             fontWeight: FontWeight.bold,
-                            color: primaryColor,
+                            color: const Color(0xFFFF2D95),
                           ),
                         ),
                       ),
@@ -524,7 +566,7 @@ class _TestPageState extends State<TestPage>
                           style: GoogleFonts.poppins(
                             fontSize: _dialogScoreSize * 0.67,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black45,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -535,7 +577,7 @@ class _TestPageState extends State<TestPage>
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
+                        backgroundColor: const Color(0xFF2A2F3A),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius:
@@ -545,7 +587,11 @@ class _TestPageState extends State<TestPage>
                             vertical: _bottomButtonHeight * 0.25),
                         minimumSize: Size(double.infinity, _bottomButtonHeight),
                         elevation: 4,
-                        shadowColor: primaryColor.withOpacity(0.5),
+                        shadowColor: const Color(0xFFFF2D95).withOpacity(0.5),
+                        side: BorderSide(
+                          color: const Color(0xFFFF2D95),
+                          width: 2,
+                        ),
                       ),
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -603,28 +649,53 @@ class _TestPageState extends State<TestPage>
               width: _questionIndicatorSize,
               height: _questionIndicatorSize,
               decoration: BoxDecoration(
-                color: index == currentQuestion
-                    ? primaryColor
+                gradient: index == currentQuestion
+                    ? const LinearGradient(
+                        colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
                     : isTestSubmitted
                         ? userAnswers[index] == correctAnswers[index]
-                            ? const Color(0xFF4CAF50)
-                            : const Color(0xFFFF5252)
+                            ? const LinearGradient(
+                                colors: [Color(0xFF4CAF50), Color(0xFF66BB6A)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )
+                            : const LinearGradient(
+                                colors: [Color(0xFFFF5252), Color(0xFFFF6B6B)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )
                         : userAnswers[index] != null
-                            ? const Color(0xFFBBDEFB)
-                            : Colors.white,
+                            ? LinearGradient(
+                                colors: [
+                                  const Color(0xFF00E5FF).withOpacity(0.3),
+                                  const Color(0xFFFF2D95).withOpacity(0.3),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )
+                            : const LinearGradient(
+                                colors: [Color(0xFF2A2F3A), Color(0xFF1E2430)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                 borderRadius:
                     BorderRadius.circular(_questionIndicatorSize * 0.5),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: _screenWidth * 0.008,
-                    offset: Offset(0, _screenHeight * 0.002),
+                    color: index == currentQuestion
+                        ? const Color(0xFFFF2D95).withOpacity(0.4)
+                        : const Color(0xFF00E5FF).withOpacity(0.2),
+                    blurRadius: _screenWidth * 0.012,
+                    offset: Offset(0, _screenHeight * 0.003),
                   ),
                 ],
                 border: Border.all(
                   color: index == currentQuestion
-                      ? Colors.transparent
-                      : Colors.grey.withOpacity(0.2),
+                      ? const Color(0xFF00E5FF)
+                      : const Color(0xFF00E5FF).withOpacity(0.3),
                   width: _screenWidth * 0.003,
                 ),
               ),
@@ -634,9 +705,7 @@ class _TestPageState extends State<TestPage>
                   child: Text(
                     '${index + 1}',
                     style: GoogleFonts.poppins(
-                      color: index == currentQuestion || isTestSubmitted
-                          ? Colors.white
-                          : Colors.black54,
+                      color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: _questionIndicatorFontSize,
                     ),
@@ -660,9 +729,11 @@ class _TestPageState extends State<TestPage>
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
+              color: isSelected
+                  ? const Color(0xFFFF2D95).withOpacity(0.3)
+                  : const Color(0xFF00E5FF).withOpacity(0.2),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -672,13 +743,17 @@ class _TestPageState extends State<TestPage>
             children: [
               Container(
                 decoration: BoxDecoration(
-                  // 선택된 그림에 붉은 테두리 표시
+                  // 선택된 그림에 네온 테두리 표시
                   border: isSelected
                       ? Border.all(
-                          color: Colors.red, // 붉은 테두리
-                          width: 5,
+                          color: const Color(0xFFFF2D95), // 네온 핑크 테두리
+                          width: 4,
                         )
-                      : null, // 선택되지 않으면 테두리 없음
+                      : Border.all(
+                          color: const Color(0xFF00E5FF).withOpacity(0.3), // 네온 시안 테두리
+                          width: 2,
+                        ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
                   // 이미지를 컨테이너 중앙에 배치
@@ -709,9 +784,9 @@ class _TestPageState extends State<TestPage>
     bool isWrong =
         isTestSubmitted && userAnswers[currentQuestion] == option && !isCorrect;
     if (isCorrect) {
-      return const Color(0xFF4CAF50); // Green for correct
+      return const Color(0xFF4CAF50).withOpacity(0.3); // Green for correct
     } else if (isWrong) {
-      return const Color(0xFFFF5252); // Red for wrong
+      return const Color(0xFFFF5252).withOpacity(0.3); // Red for wrong
     } else {
       return Colors
           .transparent; // No overlay for selected but not correct/wrong
@@ -736,32 +811,41 @@ class _TestPageState extends State<TestPage>
           ElevatedButton(
             onPressed: currentQuestion > 0 ? () => navigateQuestion(-1) : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: primaryColor,
-              elevation: 3,
+              backgroundColor: const Color(0xFF2A2F3A),
+              foregroundColor: const Color(0xFF00E5FF),
+              elevation: 4,
               shape: const CircleBorder(),
               padding: EdgeInsets.all(_controlButtonSize * 0.25),
               fixedSize: Size(_controlButtonSize, _controlButtonSize),
-              shadowColor: Colors.black26,
+              shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
+              side: BorderSide(
+                color: const Color(0xFF00E5FF).withOpacity(0.5),
+                width: 2,
+              ),
             ),
             child: Icon(Icons.arrow_back_ios,
-                color: primaryColor, size: _controlIconSize),
+                color: const Color(0xFF00E5FF), size: _controlIconSize),
           ),
           Container(
             height: _playButtonSize,
             width: _playButtonSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [primaryColor, secondaryColor],
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: primaryColor.withOpacity(0.4),
+                  color: const Color(0xFFFF2D95).withOpacity(0.4),
                   blurRadius: _screenWidth * 0.025,
                   offset: Offset(0, _screenHeight * 0.005),
+                ),
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.3),
+                  blurRadius: _screenWidth * 0.015,
+                  offset: Offset(0, _screenHeight * 0.003),
                 ),
               ],
             ),
@@ -779,16 +863,20 @@ class _TestPageState extends State<TestPage>
                 ? () => navigateQuestion(1)
                 : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: primaryColor,
-              elevation: 3,
+              backgroundColor: const Color(0xFF2A2F3A),
+              foregroundColor: const Color(0xFF00E5FF),
+              elevation: 4,
               shape: const CircleBorder(),
               padding: EdgeInsets.all(_controlButtonSize * 0.25),
               fixedSize: Size(_controlButtonSize, _controlButtonSize),
-              shadowColor: Colors.black26,
+              shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
+              side: BorderSide(
+                color: const Color(0xFF00E5FF).withOpacity(0.5),
+                width: 2,
+              ),
             ),
             child: Icon(Icons.arrow_forward_ios,
-                color: primaryColor, size: _controlIconSize),
+                color: const Color(0xFF00E5FF), size: _controlIconSize),
           ),
         ],
       ),
@@ -806,7 +894,7 @@ class _TestPageState extends State<TestPage>
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: const Color(0xFF2A2F3A),
                   padding: EdgeInsets.symmetric(
                       vertical: _bottomButtonHeight * 0.25),
                   minimumSize: Size(double.infinity, _bottomButtonHeight),
@@ -815,7 +903,11 @@ class _TestPageState extends State<TestPage>
                         BorderRadius.circular(_bottomButtonHeight * 0.5),
                   ),
                   elevation: 5,
-                  shadowColor: primaryColor.withOpacity(0.5),
+                  shadowColor: const Color(0xFFFF2D95).withOpacity(0.5),
+                  side: BorderSide(
+                    color: const Color(0xFFFF2D95),
+                    width: 2,
+                  ),
                 ),
                 onPressed: showResultDialog,
                 child: FittedBox(
@@ -836,7 +928,7 @@ class _TestPageState extends State<TestPage>
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: const Color(0xFF2A2F3A),
                 padding:
                     EdgeInsets.symmetric(vertical: _bottomButtonHeight * 0.25),
                 minimumSize: Size(double.infinity, _bottomButtonHeight),
@@ -845,10 +937,10 @@ class _TestPageState extends State<TestPage>
                       BorderRadius.circular(_bottomButtonHeight * 0.5),
                 ),
                 elevation: 3,
-                shadowColor: Colors.black.withOpacity(0.1),
+                shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
                 side: BorderSide(
-                    color: primaryColor.withOpacity(0.5),
-                    width: _screenWidth * 0.003),
+                    color: const Color(0xFF00E5FF),
+                    width: 2),
               ),
               onPressed: initializeQuestions,
               child: FittedBox(
@@ -858,7 +950,7 @@ class _TestPageState extends State<TestPage>
                   style: GoogleFonts.poppins(
                     fontSize: _bottomButtonFontSize,
                     fontWeight: FontWeight.w600,
-                    color: primaryColor,
+                    color: const Color(0xFF00E5FF),
                   ),
                 ),
               ),
@@ -877,24 +969,32 @@ class _TestPageState extends State<TestPage>
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
+        backgroundColor: const Color(0xFF0B0D13),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [primaryColor, secondaryColor],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
+              colors: [Color(0xFF0B0D13), Color(0xFF1A1D26)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
         ),
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            translations['memory_test'] ?? 'Memory Test',
-            style: GoogleFonts.poppins(
-              fontSize: _appBarTitleSize,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-              letterSpacing: 0.5,
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              translations['memory_test'] ?? 'Memory Test',
+              style: GoogleFonts.poppins(
+                fontSize: _appBarTitleSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
         ),
@@ -902,13 +1002,13 @@ class _TestPageState extends State<TestPage>
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  bgColorLight,
-                  bgColorDark,
+                  Color(0xFF0B0D13),
+                  Color(0xFF1A1D26),
                 ],
               ),
             ),
@@ -1024,11 +1124,18 @@ class _TestPageState extends State<TestPage>
           decoration: BoxDecoration(
             // 컨테이너 스타일링
             border: Border.all(
-              color: primaryColor.withOpacity(0.3), // 메인 컬러로 테두리 설정
-              width: 0.0, // 테두리 두께
+              color: const Color(0xFF00E5FF).withOpacity(0.5), // 네온 시안 테두리
+              width: 2, // 테두리 두께
             ),
             borderRadius: BorderRadius.circular(16), // 둥근 모서리
-            color: Colors.white.withOpacity(0.05), // 아주 연한 흰색 배경
+            color: const Color(0xFF1E2430).withOpacity(0.3), // 어두운 배경
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF00E5FF).withOpacity(0.2),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
