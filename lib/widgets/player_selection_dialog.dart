@@ -455,9 +455,24 @@ class _PlayerSelectionDialogWidgetState
                             horizontal: _dialogWidth * 0.02), // 가로 패딩 추가
                         height: _buttonHeight,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF2A2F3A), Color(0xFF1E2430)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
                           borderRadius: BorderRadius.circular(
                               _dialogBorderRadius * 0.85),
+                          border: Border.all(
+                            color: const Color(0xFF00E5FF).withOpacity(0.5),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF00E5FF).withOpacity(0.1),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Center(
                           child: FittedBox(
@@ -466,7 +481,7 @@ class _PlayerSelectionDialogWidgetState
                               _translations['cancel'] ?? 'Cancel',
                                 style: _getTextStyle(
                                   fontSize: _bodyFontSize,
-                                  color: Colors.grey.shade700,
+                                  color: const Color(0xFF00E5FF),
                                   fontWeight: FontWeight.w600,
                                 ),
                             ),
@@ -541,15 +556,26 @@ class _PlayerSelectionDialogWidgetState
   Widget _buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        gradient: const LinearGradient(
+          colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.7),
-        border: Border.all(color: Colors.grey.shade200, width: 1),
+        border: Border.all(color: const Color(0xFF00E5FF).withOpacity(0.5), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00E5FF).withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: TextField(
         controller: _searchController,
         style: _getTextStyle(
           fontSize: _bodyFontSize,
-          color: Colors.black87,
+          color: Colors.white,
         ),
         onChanged: (value) {
           setState(() {}); // suffixIcon 업데이트를 위해 setState 호출
@@ -558,18 +584,18 @@ class _PlayerSelectionDialogWidgetState
           hintText: _translations['search_players'] ?? 'Search players...',
           hintStyle: _getTextStyle(
             fontSize: _bodyFontSize,
-            color: Colors.grey.shade500,
+            color: const Color(0xFF00E5FF).withOpacity(0.7),
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.grey.shade500,
+            color: const Color(0xFF00E5FF),
             size: _iconSize * 0.8,
           ),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
                   icon: Icon(
                     Icons.clear,
-                    color: Colors.grey.shade500,
+                    color: const Color(0xFF00E5FF),
                     size: _iconSize * 0.7,
                   ),
                   onPressed: () {
@@ -641,16 +667,33 @@ class _PlayerSelectionDialogWidgetState
             vertical: _verticalSpacing * 0.3,
           ),
           decoration: BoxDecoration(
-            color: _selectedUsers.isEmpty 
-                ? Colors.grey.shade100 
-                : const Color(0xFFFF2D95).withOpacity(0.1),
+            gradient: _selectedUsers.isEmpty 
+                ? const LinearGradient(
+                    colors: [Color(0xFF2A2F3A), Color(0xFF1E2430)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : const LinearGradient(
+                    colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
             borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.4),
             border: Border.all(
               color: _selectedUsers.isEmpty 
-                  ? Colors.grey.shade300 
-                  : const Color(0xFFFF2D95).withOpacity(0.3),
-              width: 1,
+                  ? const Color(0xFF00E5FF).withOpacity(0.3)
+                  : const Color(0xFFFF2D95).withOpacity(0.5),
+              width: 1.5,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: _selectedUsers.isEmpty 
+                    ? const Color(0xFF00E5FF).withOpacity(0.1)
+                    : const Color(0xFFFF2D95).withOpacity(0.2),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -659,9 +702,7 @@ class _PlayerSelectionDialogWidgetState
               style: _getTextStyle(
                 fontSize: _bodyFontSize * 0.85,
                 fontWeight: FontWeight.w500,
-                color: _selectedUsers.isEmpty 
-                    ? Colors.grey.shade600 
-                    : const Color(0xFFFF2D95),
+                color: Colors.white,
               ),
             ),
           ),
@@ -785,10 +826,21 @@ class _PlayerSelectionDialogWidgetState
     // Scrollable container without fixed height
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        gradient: const LinearGradient(
+          colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.7),
         border: Border.all(
-            color: Colors.grey.shade200, width: _screenWidth * 0.004),
+            color: const Color(0xFF00E5FF).withOpacity(0.5), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00E5FF).withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(_dialogBorderRadius * 0.7),

@@ -18,6 +18,7 @@ class _TopGridFastestWidgetState extends State<TopGridFastestWidget>
   String _selectedGrid = '4x4';
 
   late Future<List<Map<String, dynamic>>> _future;
+  late Stream<List<Map<String, dynamic>>> _stream;
 
   // K-pop Demon Hunters gradient colors
   final Color _gradientStart = const Color(0xFFFF2D95);
@@ -27,6 +28,7 @@ class _TopGridFastestWidgetState extends State<TopGridFastestWidget>
   void initState() {
     super.initState();
     _future = _fetchFastest(_selectedGrid);
+    _stream = _streamFastest(_selectedGrid);
   }
 
   Future<List<Map<String, dynamic>>> _fetchFastest(String gridSize) async {
@@ -97,10 +99,48 @@ class _TopGridFastestWidgetState extends State<TopGridFastestWidget>
     }
   }
 
+  Stream<List<Map<String, dynamic>>> _streamFastest(String gridSize) {
+    final fieldPath = 'brain_health.bestTimesByGridSize.$gridSize';
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where(fieldPath, isGreaterThan: 0)
+        .orderBy(fieldPath)
+        .limit(5)
+        .snapshots()
+        .map((snapshot) {
+      final List<Map<String, dynamic>> results = [];
+      for (final doc in snapshot.docs) {
+        final data = doc.data();
+        final nickname = (data['nickname'] as String?) ?? 'Player';
+        final country = (data['country'] as String?) ?? 'us';
+        final bestTimes = (data['brain_health'] != null &&
+                data['brain_health'] is Map &&
+                (data['brain_health'] as Map).containsKey('bestTimesByGridSize'))
+            ? ((data['brain_health'] as Map)['bestTimesByGridSize']
+                as Map<String, dynamic>)
+            : <String, dynamic>{};
+        final timeSec = (bestTimes[gridSize] is int)
+            ? bestTimes[gridSize] as int
+            : (bestTimes[gridSize] is double)
+                ? (bestTimes[gridSize] as double).round()
+                : 0;
+        if (timeSec > 0) {
+          results.add({
+            'nickname': nickname,
+            'country': country,
+            'time': timeSec,
+          });
+        }
+      }
+      return results;
+    });
+  }
+
   void _onSelect(String grid) {
     setState(() {
       _selectedGrid = grid;
       _future = _fetchFastest(_selectedGrid);
+      _stream = _streamFastest(_selectedGrid);
     });
   }
 
@@ -200,11 +240,11 @@ class _TopGridFastestWidgetState extends State<TopGridFastestWidget>
             const SizedBox(height: 12),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 250),
-              child: FutureBuilder<List<Map<String, dynamic>>>(
+              child: StreamBuilder<List<Map<String, dynamic>>>(
                 key: ValueKey<String>(_selectedGrid),
-                future: _future,
+                stream: _stream,
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (!snapshot.hasData) {
                     return const Column(
                       children: [
                         _SkeletonRow(),

@@ -938,23 +938,51 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
+              backgroundColor: const Color(0xFF0B0D13),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: Color(0xFF9C27B0), width: 2),
               ),
               title: Row(
                 children: [
-                  Icon(Icons.settings, color: Colors.grey[600]),
-                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF9C27B0), Color(0xFFE91E63)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF9C27B0).withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(Icons.settings, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 12),
                   Flexible(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(
-                        translations['settings'] ?? 'Settings',
-                        style: _getTextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [Color(0xFF9C27B0), Color(0xFFE91E63)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds),
+                        child: Text(
+                          translations['settings'] ?? 'Settings',
+                          style: _getTextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -967,16 +995,45 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[200]!),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: const Color(0xFF9C27B0).withOpacity(0.5), width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF9C27B0).withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.notifications_outlined,
-                          color: Colors.blue[600],
-                          size: 24,
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF00E5FF), Color(0xFF00BCD4)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF00E5FF).withOpacity(0.3),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.notifications_outlined,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -991,6 +1048,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                   style: _getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
+                                    color: Colors.white,
                                   ),
                                   textAlign: TextAlign.start,
                                 ),
@@ -1003,7 +1061,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                                       'Receive game notifications',
                                   style: _getTextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey[600]!,
+                                    color: const Color(0xFF00E5FF),
                                   ),
                                   textAlign: TextAlign.start,
                                 ),
@@ -1021,7 +1079,10 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                             await prefs.setBool(
                                 'push_notifications_enabled', value);
                           },
-                          activeThumbColor: Colors.blue[600],
+                          activeThumbColor: const Color(0xFF00E5FF),
+                          activeColor: const Color(0xFF00E5FF).withOpacity(0.3),
+                          inactiveThumbColor: const Color(0xFF2A2F3A),
+                          inactiveTrackColor: const Color(0xFF1E2430),
                         ),
                       ],
                     ),
@@ -1035,23 +1096,32 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         Navigator.of(context).pop({'deleteAccount': true});
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red.shade100,
-                        foregroundColor: Colors.red.shade700,
+                        backgroundColor: const Color(0xFF2A2F3A),
+                        foregroundColor: Colors.red.shade400,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: Colors.red.shade300),
+                          borderRadius: BorderRadius.circular(16),
+                          side: BorderSide(color: Colors.red.shade400, width: 2),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
+                        shadowColor: Colors.red.shade400.withOpacity(0.3),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.delete_forever_outlined,
-                            size: 20,
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade400.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.delete_forever_outlined,
+                              size: 18,
+                              color: Colors.red.shade400,
+                            ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 12),
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
@@ -1060,6 +1130,7 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                               style: _getTextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
+                                color: Colors.red.shade400,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1071,17 +1142,31 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                 ],
               ),
               actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      translations['close'] ?? 'Close',
-                      style: _getTextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600]!,
+                Container(
+                  margin: const EdgeInsets.only(bottom: 8, right: 8),
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1E2430),
+                      foregroundColor: const Color(0xFF9C27B0),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: const BorderSide(color: Color(0xFF9C27B0), width: 1.5),
                       ),
-                      textAlign: TextAlign.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        translations['close'] ?? 'Close',
+                        style: _getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF9C27B0),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
