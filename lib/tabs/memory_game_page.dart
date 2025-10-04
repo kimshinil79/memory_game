@@ -133,6 +133,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   late List<String> gameImages;
   List<bool> cardFlips = [];
   List<int> selectedCards = [];
+  String _randomCardImage = 'assets/icon/memoryGame1.png'; // 게임당 랜덤 카드 이미지
   final AudioPlayer audioPlayer = AudioPlayer();
   final FlutterTts flutterTts = FlutterTts();
   int flipCount = 0;
@@ -739,6 +740,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     widget.updateFlipCount(flipCount);
     pairCount = (gridRows * gridColumns) ~/ 2;
 
+    // 게임당 랜덤 카드 이미지 선택 (memoryGame1.png ~ memoryGame10.png)
+    final random = Random();
+    final imageNumber = random.nextInt(10) + 1; // 1부터 10까지
+    _randomCardImage = 'assets/icon/memoryGame$imageNumber.png';
+
     // 카드 배열 초기화
     cardFlips = List.generate(gridRows * gridColumns, (_) => false);
     cardMatchEffectTriggers =
@@ -1136,6 +1142,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       isFlipped: cardFlips[index],
       showMatchEffect: showMatchEffect,
       onTap: () => onCardTap(index),
+      cardBackImage: _randomCardImage,
     );
   }
 

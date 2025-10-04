@@ -6,6 +6,7 @@ class MemoryCard extends StatefulWidget {
   final bool isFlipped;
   final bool showMatchEffect;
   final VoidCallback onTap;
+  final String? cardBackImage; // 카드 뒷면 이미지
 
   const MemoryCard({
     super.key,
@@ -14,6 +15,7 @@ class MemoryCard extends StatefulWidget {
     required this.isFlipped,
     required this.showMatchEffect,
     required this.onTap,
+    this.cardBackImage,
   });
 
   @override
@@ -205,7 +207,7 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
                             ),
                           )
                         : Image.asset(
-                            'assets/icon/memoryGame_KDH.png',
+                            widget.cardBackImage ?? 'assets/icon/memoryGame1.png',
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,
