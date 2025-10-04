@@ -292,4 +292,6 @@ const Map<String, String> caADTranslations = {
   'solo_play': 'Juego Solo',
   'no_search_results': 'No se encontraron jugadores',
   'try_different_search': 'Prueba con un término de búsqueda diferente',
+'by_country': 'Per País',
+
 };

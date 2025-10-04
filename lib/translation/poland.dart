@@ -271,4 +271,6 @@ const Map<String, String> plPLTranslations = {
   'solo_play': 'Gra solo',
   'no_search_results': 'Nie znaleziono graczy',
   'try_different_search': 'Spróbuj innego terminu wyszukiwania',
+'by_country': 'By Country',
+
 };

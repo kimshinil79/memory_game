@@ -270,4 +270,6 @@ const Map<String, String> deLUTranslations = {
   'solo_play': 'Solo Spill',
   'no_search_results': 'Keng Spiller fonnt',
   'try_different_search': 'Probéiert en anere Sichbegrëff',
+'by_country': 'Par Pays',
+
 };

@@ -284,4 +284,6 @@ const Map<String, String> htTranslations = {
   'solo_play': 'Jwèt Solo',
   'no_search_results': 'Pa gen jwè yo jwenn',
   'try_different_search': 'Eseye yon lòt tèm rechèch',
+'by_country': 'Par Pays',
+
 };

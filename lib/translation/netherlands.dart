@@ -262,6 +262,8 @@ const Map<String, String> nlTranslations = {
   'search_players': 'Zoek spelers...',
   'solo_play': 'Solo Spel',
   'no_search_results': 'Geen spelers gevonden',
+  'by_country': 'Per Land',
+
   'try_different_search': 'Probeer een andere zoekterm',
 
 };

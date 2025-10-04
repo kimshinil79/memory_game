@@ -287,4 +287,6 @@ const Map<String, String> amTranslations = {
   'solo_play': 'Մենակ խաղ',
   'no_search_results': 'Խաղացողներ չգտնվեցին',
   'try_different_search': 'Փորձեք այլ որոնման տերմին',
+'by_country': 'Երկրի Կարգով',
+
 };

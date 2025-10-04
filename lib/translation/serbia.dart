@@ -265,4 +265,6 @@ const Map<String, String> srRSTranslations = {
   'solo_play': 'Соло игра',
   'no_search_results': 'Нису пронађени играчи',
   'try_different_search': 'Покушајте са другим појмом претраге',
+'by_country': 'По Земљама',
+
 };

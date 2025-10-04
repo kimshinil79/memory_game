@@ -269,4 +269,6 @@ const Map<String, String> ukUATranslations = {
   'solo_play': 'Одиночна гра',
   'no_search_results': 'Гравців не знайдено',
   'try_different_search': 'Спробуйте інший пошуковий запит',
+'by_country': 'За Країнами',
+
 };

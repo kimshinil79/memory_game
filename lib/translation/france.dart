@@ -273,8 +273,8 @@ const Map<String, String> frTranslations = {
   'search_players': 'Rechercher des joueurs...',
   'solo_play': 'Jeu Solo',
   'no_search_results': 'Aucun joueur trouvé',
+  'by_country': 'Par Pays',
+
   'try_different_search': 'Essayez un autre terme de recherche',
-
-
 
 };

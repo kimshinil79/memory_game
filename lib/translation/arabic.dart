@@ -278,8 +278,8 @@ const Map<String, String> arTranslations = {
   'search_players': 'البحث عن اللاعبين...',
   'solo_play': 'لعب منفرد',
   'no_search_results': 'لم يتم العثور على لاعبين',
+  'by_country': 'حسب البلد',
+
   'try_different_search': 'جرب مصطلح بحث مختلف',
-
-
 
 };

@@ -265,4 +265,6 @@ const Map<String, String> slSITranslations = {
   'solo_play': 'Solo igra',
   'no_search_results': 'Ni igralcev najdenih',
   'try_different_search': 'Poskusite z drugačnim iskalnim izrazom',
+'by_country': 'Po Državah',
+
 };

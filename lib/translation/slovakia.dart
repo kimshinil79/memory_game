@@ -264,4 +264,6 @@ const Map<String, String> skSKTranslations = {
   'solo_play': 'Solo hra',
   'no_search_results': 'Žiadni hráči nenájdení',
   'try_different_search': 'Skúste iný vyhľadávací termín',
+'by_country': 'Podľa Krajín',
+
 };

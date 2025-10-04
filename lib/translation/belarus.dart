@@ -289,4 +289,6 @@ const Map<String, String> beTranslations = {
   'solo_play': 'Адзіночная гульня',
   'no_search_results': 'Гульцы не знойдзены',
   'try_different_search': 'Паспрабуйце іншы пошукавы запыт',
+'by_country': 'Па Краінах',
+
 };

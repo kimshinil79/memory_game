@@ -285,4 +285,6 @@ const Map<String, String> afkTranslations = {
   'solo_play': 'Solo Spel',
   'no_search_results': 'Geen spelers gevind nie',
   'try_different_search': 'Probeer \'n ander soekterm',
+'by_country': 'Per Land',
+
 };

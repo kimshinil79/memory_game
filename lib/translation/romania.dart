@@ -278,4 +278,6 @@ const Map<String, String> roROTranslations = {
   'solo_play': 'Joc Solo',
   'no_search_results': 'Nu s-au găsit jucători',
   'try_different_search': 'Încercați un alt termen de căutare',
+'by_country': 'După Țară',
+
 };

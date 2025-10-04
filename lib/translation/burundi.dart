@@ -289,4 +289,6 @@ const Map<String, String> rnTranslations = {
   'solo_play': 'Gukina wenyine',
   'no_search_results': 'Nta bakinnyi babonye',
   'try_different_search': 'Gerageza ijambo ry\'ushakisha rindi',
+'by_country': 'Kwa Nchi',
+
 };

@@ -267,4 +267,6 @@ const Map<String, String> thTHTranslations = {
   'solo_play': 'เล่นคนเดียว',
   'no_search_results': 'ไม่พบผู้เล่น',
   'try_different_search': 'ลองใช้คำค้นหาอื่น',
+'by_country': 'ตามประเทศ',
+
 };

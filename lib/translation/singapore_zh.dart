@@ -257,4 +257,6 @@ const Map<String, String> zhSGTranslations = {
   'solo_play': '單人遊戲',
   'no_search_results': '未找到玩家',
   'try_different_search': '請嘗試其他搜索詞',
+'by_country': '按国家',
+
 };

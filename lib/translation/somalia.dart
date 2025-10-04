@@ -272,4 +272,6 @@ const Map<String, String> soSOTranslations = {
   'solo_play': 'Ciyaar Kelid',
   'no_search_results': 'Ciyaartoy lama helin',
   'try_different_search': 'Isticmaal erey raadid kale',
+'by_country': 'حسب البلد',
+
 };

@@ -270,4 +270,6 @@ const Map<String, String> enZMTranslations = {
   'solo_play': 'Ukudlala wedwa',
   'no_search_results': 'Abukho abadlali abatholakele',
   'try_different_search': 'Zama igama lokusesha elinye',
+'by_country': 'Kwa Nchi',
+
 };

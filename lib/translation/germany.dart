@@ -272,8 +272,8 @@ const Map<String, String> deDETranslations = {
   'search_players': 'Spieler suchen...',
   'solo_play': 'Einzelspieler',
   'no_search_results': 'Keine Spieler gefunden',
+  'by_country': 'Nach Land',
+
   'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
-
-
 
 };

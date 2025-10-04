@@ -288,4 +288,6 @@ const Map<String, String> nlTranslations = {
   'solo_play': 'Solo Spel',
   'no_search_results': 'Geen spelers gevonden',
   'try_different_search': 'Probeer een andere zoekterm',
+'by_country': 'Per Land',
+
 };

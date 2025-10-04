@@ -290,4 +290,6 @@ const Map<String, String> svSETranslations = {
   'solo_play': 'Solo Spel',
   'no_search_results': 'Inga spelare hittades',
   'try_different_search': 'Prova en annan sökterm',
+'by_country': 'Efter Land',
+
 };

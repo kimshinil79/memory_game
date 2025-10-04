@@ -265,4 +265,6 @@ const Map<String, String> klGLTranslations = {
   'solo_play': 'Ataasiq',
   'no_search_results': 'Ujarpaat nassaqanngitsoq',
   'try_different_search': 'Allaat ujarpaat',
+'by_country': 'Efter Land',
+
 };

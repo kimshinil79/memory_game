@@ -269,4 +269,6 @@ const Map<String, String> myTranslations = {
   'solo_play': 'တစ်ယောက်တည်း ကစားခြင်း',
   'no_search_results': 'ကစားသမားများ မတွေ့ရှိပါ',
   'try_different_search': 'မတူညီသော ရှာဖွေမှု စကားလုံးကို စမ်းကြည့်ပါ',
+'by_country': 'နိုင်ငံအလိုက်',
+
 };

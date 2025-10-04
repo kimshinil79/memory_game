@@ -273,5 +273,7 @@ const Map<String, String> urPKTranslations = {
   'search_players': 'کھلاڑی تلاش کریں...',
   'solo_play': 'اکیلے کھیل',
   'no_search_results': 'کوئی کھلاڑی نہیں ملا',
+  'by_country': 'ملک کے حساب سے',
+
   'try_different_search': 'مختلف تلاش کی اصطلاح آزمائیں',
   };

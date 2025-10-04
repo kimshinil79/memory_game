@@ -289,4 +289,6 @@ const Map<String, String> elCYTranslations = {
   'solo_play': 'Μοναχικό παιχνίδι',
   'no_search_results': 'Δεν βρέθηκαν παίκτες',
   'try_different_search': 'Δοκιμάστε διαφορετικό όρο αναζήτησης',
+'by_country': 'Κατά Χώρα',
+
 };

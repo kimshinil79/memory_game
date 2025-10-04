@@ -278,4 +278,6 @@ const Map<String, String> dvTranslations = {
   'solo_play': 'އެކަމަށް ކުރިން',
   'no_search_results': 'ގްރިޑް ގަދަ ފުރިހަމަ ވަގުތުން',
   'try_different_search': 'ގްރިޑް ގަދަ ފުރިހަމަ ވަގުތުން',
+'by_country': 'ރާޖުގެ ގޮތުން',
+
 };

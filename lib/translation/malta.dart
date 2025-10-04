@@ -271,4 +271,6 @@ const Map<String, String> mtMTTranslations = {
   'solo_play': 'Logħba waħda',
   'no_search_results': 'Ma nstabu l-ebda plejers',
   'try_different_search': 'Ipprova terminu ieħor ta\' tfittxija',
+'by_country': 'Per Pajjiż',
+
 };

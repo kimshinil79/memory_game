@@ -270,4 +270,6 @@ const Map<String, String> kyKGTranslations = {
   'solo_play': 'Жалгыз оюн',
   'no_search_results': 'Оюнчулар табылган жок',
   'try_different_search': 'Башка издөө терминин көрүңүз',
+'by_country': 'Өлкө Бойунча',
+
 };

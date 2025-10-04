@@ -279,4 +279,6 @@ const Map<String, String> mnMNGTranslations = {
   'solo_play': 'Ганцаарчилсан тоглоом',
   'no_search_results': 'Тоглогч олдсонгүй',
   'try_different_search': 'Өөр хайлтын нэр томъёо туршиж үзээрэй',
+'by_country': 'Улсаар',
+
 };

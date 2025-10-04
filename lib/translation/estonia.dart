@@ -283,4 +283,6 @@ const Map<String, String> etTranslations = {
   'solo_play': 'Solo mäng',
   'no_search_results': 'Mängijaid ei leitud',
   'try_different_search': 'Proovi teist otsinguterminit',
+'by_country': 'Riigi Järgi',
+
 };

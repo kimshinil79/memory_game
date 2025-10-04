@@ -287,4 +287,6 @@ const Map<String, String> nlBETranslations = {
   'solo_play': 'Solo Spel',
   'no_search_results': 'Geen spelers gevonden',
   'try_different_search': 'Probeer een andere zoekterm',
+'by_country': 'Par Pays',
+
 };

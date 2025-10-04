@@ -288,4 +288,6 @@ const Map<String, String> coTranslations = {
   'solo_play': 'Ghjocu Solu',
   'no_search_results': 'Nisun ghjucatore truvatu',
   'try_different_search': 'Pruvà un altru termine di ricerca',
+'by_country': 'Per Paese',
+
 };

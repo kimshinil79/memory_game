@@ -284,4 +284,6 @@ const Map<String, String> daTranslations = {
   'solo_play': 'Solo Spil',
   'no_search_results': 'Ingen spillere fundet',
   'try_different_search': 'Prøv et andet søgeord',
+'by_country': 'By Country',
+
 };

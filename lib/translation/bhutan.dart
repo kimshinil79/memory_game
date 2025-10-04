@@ -285,4 +285,6 @@ const Map<String, String> dzTranslations = {
   'solo_play': 'རང་ཉིད་ཀྱིས་རྩེད་མོ་རྩེ་བ',
   'no_search_results': 'རྩེད་མོ་བ་ཚོ་མ་རྙེད་པ',
   'try_different_search': 'འཚོལ་བའི་ཚིག་གཞན་ཞིག་ཚོད་ལྟ་བྱེད་པ',
+'by_country': 'རྒྱལ་ཁབ་ཀྱི་ཐོག་ནས།',
+
 };

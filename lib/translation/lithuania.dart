@@ -268,4 +268,6 @@ const Map<String, String> ltTranslations = {
   'solo_play': 'Solo žaidimas',
   'no_search_results': 'Žaidėjų nerasta',
   'try_different_search': 'Išbandykite kitą paieškos terminą',
+'by_country': 'Pagal Šalis',
+
 };

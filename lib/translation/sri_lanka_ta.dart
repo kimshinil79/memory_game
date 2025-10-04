@@ -276,5 +276,7 @@ const Map<String, String> taLKTranslations = {
   'search_players': 'விளையாட்டு வீரர்களைத் தேடுங்கள்...',
   'solo_play': 'தனி விளையாட்டு',
   'no_search_results': 'விளையாட்டு வீரர்கள் கிடைக்கவில்லை',
+  'by_country': 'By Country',
+
   'try_different_search': 'வேறு தேடல் சொல்லை முயற்சிக்கவும்',
   };

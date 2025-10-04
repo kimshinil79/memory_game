@@ -272,4 +272,6 @@ const Map<String, String> meTranslations = {
   'solo_play': 'Solo igra',
   'no_search_results': 'Nisu pronađeni igrači',
   'try_different_search': 'Pokušajte s drugim pojmom pretrage',
+'by_country': 'Po Zemljama',
+
 };

@@ -290,4 +290,6 @@ const Map<String, String> sqTranslations = {
   'solo_play': 'Lojë e vetme',
   'no_search_results': 'Nuk u gjetën lojtarë',
   'try_different_search': 'Provo një term tjetër kërkimi',
+'by_country': 'Sipas Vendit',
+
 };

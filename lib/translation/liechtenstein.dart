@@ -270,4 +270,6 @@ const Map<String, String> deLITranslations = {
   'solo_play': 'Einzelspieler',
   'no_search_results': 'Keine Spieler gefunden',
   'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
+'by_country': 'Nach Land',
+
 };

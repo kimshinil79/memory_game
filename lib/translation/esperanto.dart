@@ -284,4 +284,6 @@ const Map<String, String> eoTranslations = {
   'solo_play': 'Sola ludo',
   'no_search_results': 'Neniuj ludantoj trovitaj',
   'try_different_search': 'Provu alian serĉan terminon',
+'by_country': 'Laŭ Lando',
+
 };

@@ -278,4 +278,6 @@ const Map<String, String> taSGTranslations = {
   'solo_play': 'தனி விளையாட்டு',
   'no_search_results': 'விளையாட்டு வீரர்கள் கிடைக்கவில்லை',
   'try_different_search': 'வேறு தேடல் சொல்லை முயற்சிக்கவும்',
+'by_country': 'நாடு வாரியாக',
+
 };

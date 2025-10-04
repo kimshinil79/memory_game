@@ -286,4 +286,6 @@ const Map<String, String> bgTranslations = {
   'solo_play': 'Соло игра',
   'no_search_results': 'Не са намерени играчи',
   'try_different_search': 'Опитайте различен термин за търсене',
+'by_country': 'По Държави',
+
 };

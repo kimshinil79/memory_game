@@ -268,4 +268,6 @@ const Map<String, String> tiERTranslations = {
   'solo_play': 'ብቻ ተጫዋች',
   'no_search_results': 'ተጫዋቾች አልተገኙም',
   'try_different_search': 'የተለየ የፍለግ ቃል ይሞክሩ',
+'by_country': 'በሀገር',
+
 };

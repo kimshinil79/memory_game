@@ -279,4 +279,6 @@ const Map<String, String> mkMKTranslations = {
   'solo_play': 'Соло игра',
   'no_search_results': 'Не се пронајдени играчи',
   'try_different_search': 'Обидете се со друг поим за пребарување',
+'by_country': 'По Земји',
+
 };

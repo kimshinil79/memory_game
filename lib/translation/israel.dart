@@ -260,4 +260,6 @@ const Map<String, String> heTranslations = {
   'solo_play': 'משחק יחיד',
   'no_search_results': 'לא נמצאו שחקנים',
   'try_different_search': 'נסה מונח חיפוש אחר',
+'by_country': 'לפי מדינה',
+
 };

@@ -269,4 +269,6 @@ const Map<String, String> kkKZTranslations = {
   'solo_play': 'Жалғыз ойын',
   'no_search_results': 'Ойыншылар табылмады',
   'try_different_search': 'Басқа іздеу терминін көріңіз',
+'by_country': 'Ел Бойынша',
+
 };

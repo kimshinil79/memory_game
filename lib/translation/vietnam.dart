@@ -268,6 +268,8 @@ const Map<String, String> viVNTranslations = {
   'search_players': 'Tìm kiếm người chơi...',
   'solo_play': 'Chơi đơn',
   'no_search_results': 'Không tìm thấy người chơi',
+  'by_country': 'Theo Quốc Gia',
+
   'try_different_search': 'Thử từ khóa tìm kiếm khác',
 
 };

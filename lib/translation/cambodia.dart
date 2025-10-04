@@ -281,4 +281,6 @@ const Map<String, String> kmTranslations = {
   'solo_play': 'លេងតែម្នាក់',
   'no_search_results': 'រកមិនឃើញអ្នកលេង',
   'try_different_search': 'សាកល្បងពាក្យស្វែងរកផ្សេងទៀត',
+'by_country': 'តាមប្រទេស',
+
 };

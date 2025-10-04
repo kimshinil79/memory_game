@@ -286,4 +286,6 @@ const Map<String, String> azTranslations = {
   'solo_play': 'Tək oyun',
   'no_search_results': 'Oyunçu tapılmadı',
   'try_different_search': 'Başqa axtarış terminini sınayın',
+'by_country': 'Ölkəyə Görə',
+
 };

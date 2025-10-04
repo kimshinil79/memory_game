@@ -281,8 +281,8 @@ const Map<String, String> ruRUTranslations = {
   'search_players': 'Поиск игроков...',
   'solo_play': 'Одиночная игра',
   'no_search_results': 'Игроки не найдены',
+  'by_country': 'По Странам',
+
   'try_different_search': 'Попробуйте другой поисковый запрос',
-
-
 
 };

@@ -287,4 +287,6 @@ const Map<String, String> kaGETranslations = {
   'solo_play': 'მარტოხელა თამაში',
   'no_search_results': 'მოთამაშეები ვერ მოიძებნა',
   'try_different_search': 'სცადეთ სხვა ძიების ტერმინი',
+'by_country': 'ქვეყნის მიხედვით',
+
 };

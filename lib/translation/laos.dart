@@ -268,4 +268,6 @@ const Map<String, String> loLATranslations = {
   'solo_play': 'ຫຼິ້ນຄົນດຽວ',
   'no_search_results': 'ບໍ່ພົບຜູ້ຫຼິ້ນ',
   'try_different_search': 'ລອງໃຊ້ຄຳຄົ້ນຫາທີ່ແຕກຕ່າງ',
+'by_country': 'ຕາມປະເທດ',
+
 };

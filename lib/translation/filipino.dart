@@ -269,4 +269,6 @@ const Map<String, String> filTranslations = {
   'solo_play': 'Solo na Laro',
   'no_search_results': 'Walang nahanap na manlalaro',
   'try_different_search': 'Subukan ang ibang termino sa paghahanap',
+'by_country': 'Ayon sa Bansa',
+
 };

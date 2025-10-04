@@ -272,4 +272,6 @@ const Map<String, String> uzUZTranslations = {
   'solo_play': 'Yolg\'iz o\'yin',
   'no_search_results': 'O\'yinchilar topilmadi',
   'try_different_search': 'Boshqa qidiruv so\'zini sinab ko\'ring',
+'by_country': 'Davlat Bo\'yicha',
+
 };

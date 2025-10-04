@@ -279,8 +279,8 @@ Map<String, String> afTranslations = {
   'search_players': 'پلیر پلټل...',
   'solo_play': 'تنها لوبه',
   'no_search_results': 'هیڅ پلیر ونه موندل شو',
+  'by_country': 'د هیوادونو له مخې',
+
   'try_different_search': 'د بیلا پلټنې ټکي هڅه وکړئ',
-
-
 
 };

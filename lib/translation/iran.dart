@@ -261,4 +261,6 @@ const Map<String, String> faTranslations = {
   'solo_play': 'بازی تکی',
   'no_search_results': 'هیچ بازیکنی یافت نشد',
   'try_different_search': 'عبارت جستجوی دیگری را امتحان کنید',
+'by_country': 'بر اساس کشور',
+
 };

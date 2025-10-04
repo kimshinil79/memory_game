@@ -269,4 +269,6 @@ const Map<String, String> lvLVTranslations = {
   'solo_play': 'Solo spēle',
   'no_search_results': 'Spēlētāji nav atrasti',
   'try_different_search': 'Izmēģiniet citu meklēšanas terminu',
+'by_country': 'Pēc Valstīm',
+
 };

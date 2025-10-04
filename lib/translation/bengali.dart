@@ -283,4 +283,6 @@ const Map<String, String> bnTranslations = {
   'solo_play': 'একক খেলা',
   'no_search_results': 'কোন খেলোয়াড় পাওয়া যায়নি',
   'try_different_search': 'অন্য অনুসন্ধান শব্দ চেষ্টা করুন',
+'by_country': 'দেশ অনুযায়ী',
+
 };

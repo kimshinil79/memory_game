@@ -259,4 +259,6 @@ const Map<String, String> koKPTranslations = {
   'solo_play': '혼자하기',
   'no_search_results': '검색 결과가 없습니다',
   'try_different_search': '다른 검색어를 시도해보세요',
+'by_country': '국가별',
+
 };

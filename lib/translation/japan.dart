@@ -254,9 +254,8 @@ const Map<String, String> jaTranslations = {
   'search_players': 'プレイヤーを検索...',
   'solo_play': 'ソロプレイ',
   'no_search_results': 'プレイヤーが見つかりません',
+  'by_country': '国別',
+
   'try_different_search': '別の検索語句をお試しください',
-
-
-
 
 };

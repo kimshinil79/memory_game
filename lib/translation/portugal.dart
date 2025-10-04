@@ -274,6 +274,8 @@ const Map<String, String> ptPTTranslations = {
   'search_players': 'Procurar jogadores...',
   'solo_play': 'Jogo Solo',
   'no_search_results': 'Nenhum jogador encontrado',
+  'by_country': 'Por País',
+
   'try_different_search': 'Tente um termo de busca diferente',
 
 };

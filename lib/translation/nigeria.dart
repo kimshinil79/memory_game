@@ -258,5 +258,7 @@ const Map<String, String> enNGTranslations = {
   'search_players': 'Search players...',
   'solo_play': 'Solo Play',
   'no_search_results': 'No players found',
+  'by_country': 'By Country',
+
   'try_different_search': 'Try a different search term',
   };

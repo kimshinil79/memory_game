@@ -5,6 +5,8 @@ const Map<String, String> esTranslations = {  // Top Fastest by Grid
   // Player Selection Dialog
   'solo_play': 'Juego Solo',
   'no_search_results': 'No se encontraron jugadores',
+  'by_country': 'Por País',
+
   'try_different_search': 'Prueba con un término de búsqueda diferente',
 
 };
@@ -286,8 +288,8 @@ const Map<String, String> esESTranslations = {
   'search_players': 'Buscar jugadores...',
   'solo_play': 'Juego Solo',
   'no_search_results': 'No se encontraron jugadores',
+  'by_country': 'Por País',
+
   'try_different_search': 'Prueba con un término de búsqueda diferente',
-
-
 
 };

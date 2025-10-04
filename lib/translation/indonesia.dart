@@ -265,4 +265,6 @@ const Map<String, String> idTranslations = {
   'solo_play': 'Bermain Sendiri',
   'no_search_results': 'Tidak ada pemain ditemukan',
   'try_different_search': 'Coba kata kunci pencarian yang berbeda',
+'by_country': 'Berdasarkan Negara',
+
 };

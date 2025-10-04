@@ -277,4 +277,6 @@ const Map<String, String> toTOTranslations = {
   'solo_play': 'Solo Play',
   'no_search_results': 'No players found',
   'try_different_search': 'Try a different search term',
+'by_country': 'Berdasarkan Negara',
+
 };

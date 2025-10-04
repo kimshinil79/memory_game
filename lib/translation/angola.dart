@@ -291,4 +291,6 @@ const Map<String, String> ptAOTranslations = {
   'solo_play': 'Jogo Solo',
   'no_search_results': 'Nenhum jogador encontrado',
   'try_different_search': 'Tente um termo de busca diferente',
+'by_country': 'Por País',
+
 };

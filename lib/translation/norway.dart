@@ -271,4 +271,6 @@ const Map<String, String> nnNOTranslations = {
   'solo_play': 'Solo Spill',
   'no_search_results': 'Ingen spillere funnet',
   'try_different_search': 'Prøv et annet søkeord',
+'by_country': 'Etter Land',
+
 };

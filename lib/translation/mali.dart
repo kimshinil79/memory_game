@@ -273,4 +273,6 @@ const Map<String, String> frMLTranslations = {
   'solo_play': 'Jeu Solo',
   'no_search_results': 'Aucun joueur trouvé',
   'try_different_search': 'Essayez un autre terme de recherche',
+'by_country': 'Par Pays',
+
 };

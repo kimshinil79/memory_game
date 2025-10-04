@@ -271,8 +271,8 @@ const Map<String, String> itTranslations = {
   'search_players': 'Cerca giocatori...',
   'solo_play': 'Gioco Singolo',
   'no_search_results': 'Nessun giocatore trovato',
+  'by_country': 'Per Paese',
+
   'try_different_search': 'Prova con un termine di ricerca diverso',
-
-
 
 };

@@ -262,4 +262,6 @@ const Map<String, String> huTranslations = {
   'solo_play': 'Solo játék',
   'no_search_results': 'Nincsenek játékosok',
   'try_different_search': 'Próbáljon másik keresési kifejezést',
+'by_country': 'Ország Szerint',
+
 };

@@ -268,4 +268,6 @@ const Map<String, String> neTranslations = {
   'solo_play': 'एकल खेल',
   'no_search_results': 'कुनै खेलाडी फेला परेन',
   'try_different_search': 'अर्को खोज शब्द प्रयास गर्नुहोस्',
+'by_country': 'देश अनुसार',
+
 };

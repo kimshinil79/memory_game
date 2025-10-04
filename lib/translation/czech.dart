@@ -280,4 +280,6 @@ const Map<String, String> csTranslations = {
   'solo_play': 'Solo hra',
   'no_search_results': 'Žádní hráči nenalezeni',
   'try_different_search': 'Zkuste jiný vyhledávací termín',
+'by_country': 'Podle Zemí',
+
 };

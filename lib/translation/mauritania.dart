@@ -265,4 +265,6 @@ const Map<String, String> mrMRTranslations = {
   'solo_play': 'لعب منفرد',
   'no_search_results': 'لم يتم العثور على لاعبين',
   'try_different_search': 'جرب مصطلح بحث مختلف',
+'by_country': 'Par Pays',
+
 };

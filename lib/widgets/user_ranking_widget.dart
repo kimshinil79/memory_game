@@ -5,6 +5,7 @@ import 'package:flag/flag.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/brain_health_provider.dart';
 import '../providers/language_provider.dart';
+import '../data/countries.dart';
 
 class UserRankingWidget extends StatefulWidget {
   final BrainHealthProvider provider;
@@ -27,7 +28,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -177,6 +178,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                 _buildAdaptiveTab(translations['total'] ?? '전체'),
                 _buildAdaptiveTab(translations['weekly'] ?? '주간'),
                 _buildAdaptiveTab(translations['monthly'] ?? '월간'),
+                _buildAdaptiveTab(translations['by_country'] ?? '국가별'),
               ],
             ),
           ),
@@ -191,6 +193,7 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
                 _buildRankingContent('total', translations),
                 _buildRankingContent('weekly', translations),
                 _buildRankingContent('monthly', translations),
+                _buildCountryRankingContent(translations),
               ],
             ),
           ),
@@ -281,9 +284,10 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
   int _getTabIndex(String text) {
     final translations = Provider.of<LanguageProvider>(context, listen: false)
         .getUITranslations();
-    if (text == (translations['total'] ?? '전체')) return 0;
-    if (text == (translations['weekly'] ?? '주간')) return 1;
-    if (text == (translations['monthly'] ?? '월간')) return 2;
+    if (text == (translations['total'] ?? 'Total')) return 0;
+    if (text == (translations['weekly'] ?? 'Weekly')) return 1;
+    if (text == (translations['monthly'] ?? 'Monthly')) return 2;
+    if (text == (translations['by_country'] ?? 'By Country')) return 3;
     return 0;
   }
 
@@ -528,6 +532,242 @@ class _UserRankingWidgetState extends State<UserRankingWidget>
         }
       },
     );
+  }
+
+  // 국가별 랭킹 콘텐츠 빌드
+  Widget _buildCountryRankingContent(Map<String, String> translations) {
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _getCountryRankings(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                translations['failed_to_load_rankings'] ??
+                    'Failed to load rankings',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16 * widget.textScaleFactor,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                translations['no_ranking_data'] ?? 'No ranking data available',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16 * widget.textScaleFactor,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          );
+        } else {
+          final data = snapshot.data!;
+          return Column(
+            children: [
+              // 헤더
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        width: 40 * widget.textScaleFactor,
+                        child: Text(translations['rank'] ?? 'Rank',
+                            style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: const Color(0xFF00E5FF)))),
+                    const SizedBox(width: 8),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(
+                          translations['country'] ?? 'Country',
+                          style: GoogleFonts.notoSans(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14 * widget.textScaleFactor,
+                              color: const Color(0xFF00E5FF))),
+                    )),
+                    SizedBox(
+                        width: 80 * widget.textScaleFactor,
+                        child: Text(
+                            translations['total_score'] ?? 'Total',
+                            style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: const Color(0xFF00E5FF)),
+                            textAlign: TextAlign.end)),
+                  ],
+                ),
+              ),
+              Container(
+                height: 1,
+                color: const Color(0xFF00E5FF).withOpacity(0.3),
+              ),
+              // 목록
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final row = data[index];
+                    final countryCode =
+                        (row['countryCode'] as String).toUpperCase();
+                    final countryName = _countryNameFromCode(countryCode);
+                    final totalScore = row['totalScore'] as int;
+
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 40 * widget.textScaleFactor,
+                            child: Text(
+                              '#${row['rank']}',
+                              style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: _getRankColor(row['rank'] as int),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                // 국기
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      try {
+                                        return Flag.fromString(
+                                          countryCode,
+                                          height:
+                                              16 * widget.textScaleFactor,
+                                          width:
+                                              24 * widget.textScaleFactor,
+                                          borderRadius: 4,
+                                        );
+                                      } catch (e) {
+                                        return Container(
+                                          height:
+                                              16 * widget.textScaleFactor,
+                                          width:
+                                              24 * widget.textScaleFactor,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey
+                                                .withOpacity(0.2),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                                // 국가 이름 표시
+                                Expanded(
+                                  child: Text(
+                                    countryName,
+                                    style: GoogleFonts.notoSans(
+                                      fontSize:
+                                          14 * widget.textScaleFactor,
+                                      color: Colors.white,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 80 * widget.textScaleFactor,
+                            child: Text(
+                              '$totalScore',
+                              style: GoogleFonts.notoSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * widget.textScaleFactor,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  // 국가별 총점 랭킹 계산
+  Future<List<Map<String, dynamic>>> _getCountryRankings() async {
+    try {
+      final rankings = await widget.provider.getUserRankings();
+
+      // countryCode -> totalScore 매핑
+      final Map<String, int> totals = {};
+
+      for (final user in rankings) {
+        final code = (user['countryCode'] ?? 'UNKNOWN')
+            .toString()
+            .toUpperCase();
+        final score = (user['score'] as num? ?? 0).toInt();
+        totals.update(code, (v) => v + score, ifAbsent: () => score);
+      }
+
+      // 리스트로 변환 및 정렬
+      final List<Map<String, dynamic>> rows = totals.entries
+          .map((e) => {
+                'countryCode': e.key,
+                'totalScore': e.value,
+              })
+          .toList()
+        ..sort((a, b) => (b['totalScore'] as int).compareTo(a['totalScore'] as int));
+
+      // 순위 부여
+      for (int i = 0; i < rows.length; i++) {
+        rows[i]['rank'] = i + 1;
+      }
+
+      return rows;
+    } catch (e) {
+      print('Error building country rankings: $e');
+      return [];
+    }
+  }
+
+  // 국가 코드로부터 국가 이름을 얻는 헬퍼
+  String _countryNameFromCode(String code) {
+    try {
+      final match = countries.firstWhere(
+        (c) => c.code.toUpperCase() == code.toUpperCase(),
+        orElse: () => const Country('UNKNOWN', 'Unknown'),
+      );
+      return match.name;
+    } catch (_) {
+      return code; // fallback
+    }
   }
 
   // 주간 랭킹 데이터를 가져오는 메서드

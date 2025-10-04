@@ -264,4 +264,6 @@ const Map<String, String> fiTranslations = {
   'solo_play': 'Solo Peli',
   'no_search_results': 'Pelaajia ei löytynyt',
   'try_different_search': 'Kokeile eri hakusanaa',
+'by_country': 'Maan Mukaan',
+
 };

@@ -270,4 +270,6 @@ const Map<String, String> siLKTranslations = {
   'solo_play': 'තනි ක්‍රීඩාව',
   'no_search_results': 'ක්‍රීඩකයින් හමු නොවීය',
   'try_different_search': 'වෙනස් සෙවුම් පදයක් උත්සාහ කරන්න',
+'by_country': 'රට අනුව',
+
 };

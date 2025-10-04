@@ -288,4 +288,6 @@ const Map<String, String> euTranslations = {
   'solo_play': 'Bakarkako jokoa',
   'no_search_results': 'Ez da jokalaririk aurkitu',
   'try_different_search': 'Saiatu beste bilaketa termino batekin',
+'by_country': 'Herrialdeka',
+
 };

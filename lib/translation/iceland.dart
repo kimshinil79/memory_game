@@ -284,4 +284,6 @@ const Map<String, String> isISTranslations = {
   'solo_play': 'Einstaklingsleikur',
   'no_search_results': 'Engir spilarar fundust',
   'try_different_search': 'Prófaðu annað leitarorð',
+'by_country': 'Eftir Löndum',
+
 };

@@ -271,6 +271,8 @@ const Map<String, String> trTRTranslations = {
   'search_players': 'Oyuncu ara...',
   'solo_play': 'Tek Oyunculu',
   'no_search_results': 'Oyuncu bulunamadı',
+  'by_country': 'By Country',
+
   'try_different_search': 'Farklı bir arama terimi deneyin',
 
 };

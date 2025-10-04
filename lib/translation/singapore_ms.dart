@@ -271,4 +271,6 @@ const Map<String, String> msSGTranslations = {
   'solo_play': 'Bermain Sendiri',
   'no_search_results': 'Tiada pemain dijumpai',
   'try_different_search': 'Cuba kata kunci pencarian yang berbeza',
+'by_country': 'Mengikut Negara',
+
 };

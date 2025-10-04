@@ -266,4 +266,6 @@ const Map<String, String> hiTranslations = {
   'solo_play': 'एकल खेल',
   'no_search_results': 'कोई खिलाड़ी नहीं मिला',
   'try_different_search': 'अलग खोज शब्द आज़माएं',
+'by_country': 'देश के अनुसार',
+
 };

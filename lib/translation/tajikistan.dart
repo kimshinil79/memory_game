@@ -275,4 +275,6 @@ const Map<String, String> tgTJTranslations = {
   'solo_play': 'Бозии танҳо',
   'no_search_results': 'Ҳеҷ бозигаре ёфт нашуд',
   'try_different_search': 'Ҳарфҳои ҷустуҷӯии дигарро санҷед',
+'by_country': 'Аз Рӯи Кишвар',
+
 };
