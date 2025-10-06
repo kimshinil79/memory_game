@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/item_list.dart';
+import '/card_item_data/index.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
@@ -1183,143 +1184,80 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     }
   }
 
+  // 언어 코드와 맵을 매핑하는 Map
+  static final Map<String, Map<String, String>> _languageMaps = {
+    'af-ZA': afrikaansItemList,
+    'am-ET': amharicItemList,
+    'zu-ZA': zuluItemList,
+    'sw-KE': swahiliItemList,
+    'hi-IN': hindiItemList,
+    'bn-IN': bengaliItemList,
+    'id-ID': indonesianItemList,
+    'km-KH': khmerItemList,
+    'ne-NP': nepaliItemList,
+    'si-LK': sinhalaItemList,
+    'th-TH': thaiItemList,
+    'my-MM': myanmarItemList,
+    'lo-LA': laoItemList,
+    'fil-PH': filipinoItemList,
+    'ms-MY': malayItemList,
+    'jv-ID': javaneseItemList,
+    'su-ID': sundaneseItemList,
+    'ta-IN': tamilItemList,
+    'te-IN': teluguItemList,
+    'ml-IN': malayalamItemList,
+    'gu-IN': gujaratiItemList,
+    'kn-IN': kannadaItemList,
+    'mr-IN': marathiItemList,
+    'pa-IN': punjabiItemList,
+    'ur-PK': urduItemList,
+    'ur-IN': urduItemList,
+    'ur-AR': urduItemList,
+    'ur-SA': urduItemList,
+    'ur-AE': urduItemList,
+    'sv-SE': swedishItemList,
+    'no-NO': norwegianItemList,
+    'da-DK': danishItemList,
+    'fi-FI': finnishItemList,
+    'nb-NO': norwegianItemList,
+    'bg-BG': bulgarianItemList,
+    'el-GR': greekItemList,
+    'ro-RO': romanianItemList,
+    'sk-SK': slovakItemList,
+    'uk-UA': ukrainianItemList,
+    'hr-HR': croatianItemList,
+    'sl-SI': slovenianItemList,
+    'fa-IR': persianItemList,
+    'he-IL': hebrewItemList,
+    'mn-MN': mongolianItemList,
+    'sq-AL': albanianItemList,
+    'sr-RS': serbianItemList,
+    'uz-UZ': uzbekItemList,
+    'ko-KR': korItemList,
+    'es-ES': spaItemList,
+    'fr-FR': fraItemList,
+    'de-DE': deuItemList,
+    'ja-JP': jpnItemList,
+    'zh-CN': chnItemList,
+    'ru-RU': rusItemList,
+    'it-IT': itaItemList,
+    'pt-PT': porItemList,
+    'ar-SA': araItemList,
+    'tr-TR': turItemList,
+    'vi-VN': vieItemList,
+    'nl-NL': dutItemList,
+    'pl-PL': polItemList,
+    'cs-CZ': czeItemList,
+    'hu-HU': hunItemList,
+  };
+
   String getLocalizedWord(String word) {
-    // 기존 TranslationService 코드 제거, LanguageProvider 직접 사용
     final languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
     final languageCode = languageProvider.currentLanguage;
-
-    switch (languageCode) {
-      case 'af-ZA':
-        return afrikaansItemList[word] ?? word;
-      case 'am-ET':
-        return amharicItemList[word] ?? word;
-      case 'zu-ZA':
-        return zuluItemList[word] ?? word;
-      case 'sw-KE':
-        return swahiliItemList[word] ?? word;
-      case 'hi-IN':
-        return hindiItemList[word] ?? word;
-      case 'bn-IN':
-        return bengaliItemList[word] ?? word;
-      case 'id-ID':
-        return indonesianItemList[word] ?? word;
-      case 'km-KH':
-        return khmerItemList[word] ?? word;
-      case 'ne-NP':
-        return nepaliItemList[word] ?? word;
-      case 'si-LK':
-        return sinhalaItemList[word] ?? word;
-      case 'th-TH':
-        return thaiItemList[word] ?? word;
-      case 'my-MM':
-        return myanmarItemList[word] ?? word;
-      case 'lo-LA':
-        return laoItemList[word] ?? word;
-      case 'fil-PH':
-        return filipinoItemList[word] ?? word;
-      case 'ms-MY':
-        return malayItemList[word] ?? word;
-      case 'jv-ID':
-        return javaneseItemList[word] ?? word;
-      case 'su-ID':
-        return sundaneseItemList[word] ?? word;
-      case 'ta-IN':
-        return tamilItemList[word] ?? word;
-      case 'te-IN':
-        return teluguItemList[word] ?? word;
-      case 'ml-IN':
-        return malayalamItemList[word] ?? word;
-      case 'gu-IN':
-        return gujaratiItemList[word] ?? word;
-      case 'kn-IN':
-        return kannadaItemList[word] ?? word;
-      case 'mr-IN':
-        return marathiItemList[word] ?? word;
-      case 'pa-IN':
-        return punjabiItemList[word] ?? word;
-      case 'ur-PK':
-        return urduItemList[word] ?? word;
-      case 'ur-IN':
-        return urduItemList[word] ?? word;
-      case 'ur-AR':
-        return urduItemList[word] ?? word;
-      case 'ur-SA':
-        return urduItemList[word] ?? word;
-      case 'ur-AE':
-        return urduItemList[word] ?? word;
-      case 'sv-SE':
-        return swedishItemList[word] ?? word;
-      case 'no-NO':
-        return norwegianItemList[word] ?? word;
-      case 'da-DK':
-        return danishItemList[word] ?? word;
-      case 'fi-FI':
-        return finnishItemList[word] ?? word;
-      case 'nb-NO':
-        return norwegianItemList[word] ?? word;
-      case 'bg-BG':
-        return bulgarianItemList[word] ?? word;
-      case 'el-GR':
-        return greekItemList[word] ?? word;
-      case 'ro-RO':
-        return romanianItemList[word] ?? word;
-      case 'sk-SK':
-        return slovakItemList[word] ?? word;
-      case 'uk-UA':
-        return ukrainianItemList[word] ?? word;
-      case 'hr-HR':
-        return croatianItemList[word] ?? word;
-      case 'sl-SI':
-        return slovenianItemList[word] ?? word;
-      case 'fa-IR':
-        return persianItemList[word] ?? word;
-      case 'he-IL':
-        return hebrewItemList[word] ?? word;
-      case 'mn-MN':
-        return mongolianItemList[word] ?? word;
-      case 'sq-AL':
-        return albanianItemList[word] ?? word;
-      case 'sr-RS':
-        return serbianItemList[word] ?? word;
-      case 'uz-UZ':
-        return uzbekItemList[word] ?? word;
-
-      case 'ko-KR':
-        return korItemList[word] ?? word;
-      case 'es-ES':
-        return spaItemList[word] ?? word;
-      case 'fr-FR':
-        return fraItemList[word] ?? word;
-      case 'de-DE':
-        return deuItemList[word] ?? word;
-      case 'ja-JP':
-        return jpnItemList[word] ?? word;
-      case 'zh-CN':
-        return chnItemList[word] ?? word;
-      case 'ru-RU':
-        return rusItemList[word] ?? word;
-      case 'it-IT':
-        return itaItemList[word] ?? word;
-      case 'pt-PT':
-        return porItemList[word] ?? word;
-      case 'ar-SA':
-        return araItemList[word] ?? word;
-      case 'tr-TR':
-        return turItemList[word] ?? word;
-      case 'vi-VN':
-        return vieItemList[word] ?? word;
-      case 'nl-NL':
-        return dutItemList[word] ?? word;
-      case 'pl-PL':
-        return polItemList[word] ?? word;
-      case 'cs-CZ':
-        return czeItemList[word] ?? word;
-      case 'hu-HU':
-        return hunItemList[word] ?? word;
-      default:
-        return word; // 기본적으로 영어
-    }
+    
+    final languageMap = _languageMaps[languageCode];
+    return languageMap?[word] ?? word;
   }
 
   Future<void> _updateGameStatistics(

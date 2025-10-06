@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:math';
 import '/item_list.dart';
+import '/card_item_data/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/language_provider.dart';
@@ -361,46 +362,79 @@ class _TestPageState extends State<TestPage>
     setState(() {});
   }
 
+  // 언어 코드와 맵을 매핑하는 Map
+  static final Map<String, Map<String, String>> _languageMaps = {
+    'af-ZA': afrikaansItemList,
+    'am-ET': amharicItemList,
+    'zu-ZA': zuluItemList,
+    'sw-KE': swahiliItemList,
+    'hi-IN': hindiItemList,
+    'bn-IN': bengaliItemList,
+    'id-ID': indonesianItemList,
+    'km-KH': khmerItemList,
+    'ne-NP': nepaliItemList,
+    'si-LK': sinhalaItemList,
+    'th-TH': thaiItemList,
+    'my-MM': myanmarItemList,
+    'lo-LA': laoItemList,
+    'fil-PH': filipinoItemList,
+    'ms-MY': malayItemList,
+    'jv-ID': javaneseItemList,
+    'su-ID': sundaneseItemList,
+    'ta-IN': tamilItemList,
+    'te-IN': teluguItemList,
+    'ml-IN': malayalamItemList,
+    'gu-IN': gujaratiItemList,
+    'kn-IN': kannadaItemList,
+    'mr-IN': marathiItemList,
+    'pa-IN': punjabiItemList,
+    'ur-PK': urduItemList,
+    'ur-IN': urduItemList,
+    'ur-AR': urduItemList,
+    'ur-SA': urduItemList,
+    'ur-AE': urduItemList,
+    'sv-SE': swedishItemList,
+    'no-NO': norwegianItemList,
+    'da-DK': danishItemList,
+    'fi-FI': finnishItemList,
+    'nb-NO': norwegianItemList,
+    'bg-BG': bulgarianItemList,
+    'el-GR': greekItemList,
+    'ro-RO': romanianItemList,
+    'sk-SK': slovakItemList,
+    'uk-UA': ukrainianItemList,
+    'hr-HR': croatianItemList,
+    'sl-SI': slovenianItemList,
+    'fa-IR': persianItemList,
+    'he-IL': hebrewItemList,
+    'mn-MN': mongolianItemList,
+    'sq-AL': albanianItemList,
+    'sr-RS': serbianItemList,
+    'uz-UZ': uzbekItemList,
+    'ko-KR': korItemList,
+    'es-ES': spaItemList,
+    'fr-FR': fraItemList,
+    'de-DE': deuItemList,
+    'ja-JP': jpnItemList,
+    'zh-CN': chnItemList,
+    'ru-RU': rusItemList,
+    'it-IT': itaItemList,
+    'pt-PT': porItemList,
+    'ar-SA': araItemList,
+    'tr-TR': turItemList,
+    'vi-VN': vieItemList,
+    'nl-NL': dutItemList,
+    'pl-PL': polItemList,
+    'cs-CZ': czeItemList,
+    'hu-HU': hunItemList,
+  };
+
   String getLocalizedWord(String word) {
     final currentLanguage =
         Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-
-    switch (currentLanguage) {
-      case 'ko-KR':
-        return korItemList[word] ?? word;
-      case 'es-ES':
-        return spaItemList[word] ?? word;
-      case 'fr-FR':
-        return fraItemList[word] ?? word;
-      case 'de-DE':
-        return deuItemList[word] ?? word;
-      case 'ja-JP':
-        return jpnItemList[word] ?? word;
-      case 'zh-CN':
-        return chnItemList[word] ?? word;
-      case 'ru-RU':
-        return rusItemList[word] ?? word;
-      case 'it-IT':
-        return itaItemList[word] ?? word;
-      case 'pt-PT':
-        return porItemList[word] ?? word;
-      case 'ar-SA':
-        return araItemList[word] ?? word;
-      case 'tr-TR':
-        return turItemList[word] ?? word;
-      case 'vi-VN':
-        return vieItemList[word] ?? word;
-      case 'nl-NL':
-        return dutItemList[word] ?? word;
-      case 'pl-PL':
-        return polItemList[word] ?? word;
-      case 'cs-CZ':
-        return czeItemList[word] ?? word;
-      case 'hu-HU':
-        return hunItemList[word] ?? word;
-      default:
-        return word; // 기본적으로 영어로 반환
-    }
+    
+    final languageMap = _languageMaps[currentLanguage];
+    return languageMap?[word] ?? word;
   }
 
   void playAudio(int questionIndex) async {
