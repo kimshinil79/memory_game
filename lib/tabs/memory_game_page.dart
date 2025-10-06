@@ -849,6 +849,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     gameImages = List<String>.from(gameImages)
       ..addAll(List<String>.from(gameImages));
     gameImages.shuffle();
+
+    // 게임 초기화 시 모든 카드 단어들 출력
+    print('🎮 게임 초기화 완료!');
+    print('📊 그리드 크기: ${widget.gridSize} (${gridRows}x${gridColumns})');
+    print('🎯 총 카드 수: ${gameImages.length}개');
+    print('🔢 페어 수: $pairCount개');
+    print('📋 카드 단어 목록:');
+    for (int i = 0; i < gameImages.length; i++) {
+      print('  [$i]: "${gameImages[i]}"');
+    }
   }
 
   void _triggerMatchEffect(int index) {
@@ -878,6 +888,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         print('유효하지 않은 카드 인덱스: $index');
         return;
       }
+
+      // 카드 클릭 시 단어 출력
+      String cardWord = gameImages[index];
+      print('🎯 카드 클릭됨 - 인덱스: $index, 단어: "$cardWord"');
+      print('📊 현재 선택된 카드 수: ${selectedCards.length}');
+      print('🔄 카드 상태: ${cardFlips[index] ? "이미 뒤집힘" : "뒤집지 않음"}');
 
       // 카드가 이미 뒤집혔거나, 두 카드가 선택된 상태면 리턴
       if (cardFlips[index] || selectedCards.length == 2) return;
@@ -913,6 +929,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         selectedCards.add(index);
         // 카드 선택 시 별 애니메이션 트리거하지 않음
       });
+
+      print('🎉 카드 뒤집기 성공 - 인덱스: $index, 단어: "$cardWord"');
 
       // 멀티플레이어 모드에서는 Firestore 업데이트
       if (widget.isMultiplayerMode &&
@@ -1006,6 +1024,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       bool isMatch =
           gameImages[selectedCards[0]] == gameImages[selectedCards[1]];
 
+      // 매치 확인 시 단어들 출력
+      String card1Word = gameImages[selectedCards[0]];
+      String card2Word = gameImages[selectedCards[1]];
+      print('🔍 매치 확인 - 카드1: "$card1Word" vs 카드2: "$card2Word"');
+      print('✅ 매치 결과: ${isMatch ? "성공!" : "실패"}');
+
       if (isMatch) {
         // 매치되는 즉시 매치 효과 애니메이션 트리거
         _triggerMatchEffect(selectedCards[0]);
@@ -1049,8 +1073,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         }
       } else {
         // 매치 실패 시 카드 뒤집기 및 턴 변경
+        print('❌ 매치 실패 - 카드들을 다시 뒤집습니다');
         for (var index in selectedCards) {
           cardFlips[index] = false;
+          String word = gameImages[index];
+          print('🔄 카드 다시 뒤집기 - 인덱스: $index, 단어: "$word"');
         }
 
         // 멀티플레이어 모드에서는 턴 변경을 Firestore에 반영

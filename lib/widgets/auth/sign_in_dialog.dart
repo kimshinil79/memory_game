@@ -46,22 +46,85 @@ class SignInDialog {
       context: context,
       builder: (BuildContext dialogContext) {
         return Dialog(
+          backgroundColor: const Color(0xFF0B0D13),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(
+              color: Color(0xFF00E5FF),
+              width: 2,
+            ),
           ),
           child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.1),
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
             padding: const EdgeInsets.all(24),
             width: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  translations['sign_in'] ?? 'Sign In',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+                // Header with icon and title
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFFF2D95).withOpacity(0.3),
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.login,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds),
+                        child: Text(
+                          translations['sign_in'] ?? 'Sign In',
+                          style: GoogleFonts.notoSans(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
                 Autocomplete<String>(
@@ -91,15 +154,43 @@ class SignInDialog {
                     return TextField(
                       controller: fieldTextEditingController,
                       focusNode: fieldFocusNode,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: translations['email'] ?? 'Email',
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                        hintStyle: TextStyle(
+                          color: const Color(0xFF00E5FF).withOpacity(0.7),
                         ),
-                        prefixIcon: const Icon(Icons.email_outlined),
+                        filled: true,
+                        fillColor: const Color(0xFF252B3A),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: const Color(0xFF00E5FF).withOpacity(0.5),
+                            width: 1,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: const Color(0xFF00E5FF).withOpacity(0.5),
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFFF2D95),
+                            width: 2,
+                          ),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: const Color(0xFF00E5FF),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
                       ),
                     );
                   },
@@ -109,12 +200,27 @@ class SignInDialog {
                     return Align(
                       alignment: Alignment.topLeft,
                       child: Material(
-                        elevation: 4.0,
-                        borderRadius: BorderRadius.circular(10),
+                        elevation: 8.0,
+                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xFF252B3A),
                         child: Container(
                           constraints: const BoxConstraints(
                             maxHeight: 200,
                             maxWidth: 300,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color(0xFF00E5FF).withOpacity(0.5),
+                              width: 1,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF00E5FF).withOpacity(0.1),
+                                blurRadius: 10,
+                                spreadRadius: 1,
+                              ),
+                            ],
                           ),
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
@@ -127,15 +233,26 @@ class SignInDialog {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: index % 2 == 0 
+                                        ? const Color(0xFF252B3A) 
+                                        : const Color(0xFF2A2F3A),
+                                  ),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.history,
-                                          size: 16, color: Colors.grey[600]),
+                                      Icon(
+                                        Icons.history,
+                                        size: 16, 
+                                        color: const Color(0xFF00E5FF),
+                                      ),
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
                                           option,
-                                          style: const TextStyle(fontSize: 14),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -153,15 +270,43 @@ class SignInDialog {
                 TextField(
                   controller: passwordController,
                   obscureText: true,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     hintText: translations['password'] ?? 'Password',
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF00E5FF).withOpacity(0.7),
                     ),
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    filled: true,
+                    fillColor: const Color(0xFF252B3A),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: const Color(0xFF00E5FF).withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: const Color(0xFF00E5FF).withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: Color(0xFFFF2D95),
+                        width: 2,
+                      ),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: const Color(0xFF00E5FF),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -173,42 +318,81 @@ class SignInDialog {
                           Navigator.of(dialogContext).pop({'signUp': true});
                         },
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.purple.shade400,
+                          foregroundColor: const Color(0xFF00E5FF),
+                          backgroundColor: const Color(0xFF2A2F3A),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          side: BorderSide(color: Colors.purple.shade200),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          side: const BorderSide(
+                            color: Color(0xFF00E5FF),
+                            width: 1,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          elevation: 2,
+                          shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
                         ),
-                        child: Text(translations['sign_up'] ?? 'Sign Up'),
+                        child: Text(
+                          translations['sign_up'] ?? 'Sign Up',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final email = emailController.text.trim();
-                          final credentials = {
-                            'email': email,
-                            'password': passwordController.text,
-                          };
-
-                          // Save email to history if it's valid
-                          if (email.isNotEmpty && email.contains('@')) {
-                            await _saveEmailToHistory(email);
-                          }
-
-                          Navigator.of(dialogContext).pop(credentials);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple.shade400,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFFF2D95).withOpacity(0.3),
+                              blurRadius: 8,
+                              spreadRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: const Color(0xFF00E5FF).withOpacity(0.2),
+                              blurRadius: 6,
+                              spreadRadius: 1,
+                            ),
+                          ],
                         ),
-                        child: Text(translations['sign_in'] ?? 'Sign In'),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final email = emailController.text.trim();
+                            final credentials = {
+                              'email': email,
+                              'password': passwordController.text,
+                            };
+
+                            // Save email to history if it's valid
+                            if (email.isNotEmpty && email.contains('@')) {
+                              await _saveEmailToHistory(email);
+                            }
+
+                            Navigator.of(dialogContext).pop(credentials);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                          ),
+                          child: Text(
+                            translations['sign_in'] ?? 'Sign In',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],

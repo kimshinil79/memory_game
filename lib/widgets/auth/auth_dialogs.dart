@@ -14,34 +14,77 @@ class LoginRequiredDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: const Color(0xFF0B0D13),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(
+              color: Color(0xFF00E5FF),
+              width: 2,
+            ),
           ),
           child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.1),
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
             padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 70,
-                  height: 70,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                     shape: BoxShape.circle,
-                    color: Colors.purple.shade50,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFFF2D95).withOpacity(0.3),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                      ),
+                    ],
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.lock_outline_rounded,
-                    size: 40,
-                    color: Colors.purple.shade400,
+                    size: 45,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  translations['login_required'] ?? 'Login Required',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: Text(
+                    translations['login_required'] ?? 'Login Required',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -49,54 +92,84 @@ class LoginRequiredDialog {
                   translations['please_sign_in'] ??
                       'Please sign in to play the Memory Game',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
+                  style: GoogleFonts.notoSans(
                     fontSize: 16,
-                    color: Colors.grey.shade600,
+                    color: const Color(0xFF00E5FF),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(
-                      child: TextButton(
+                      child: OutlinedButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(0xFF00E5FF),
+                          backgroundColor: const Color(0xFF2A2F3A),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey.shade300),
                           ),
+                          side: const BorderSide(
+                            color: Color(0xFF00E5FF),
+                            width: 1,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          elevation: 2,
+                          shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
                         ),
                         child: Text(
                           translations['cancel'] ?? 'Cancel',
-                          style: GoogleFonts.montserrat(
+                          style: GoogleFonts.notoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade700,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          onSignInPressed();
-                        },
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.purple.shade50,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFFF2D95).withOpacity(0.3),
+                              blurRadius: 8,
+                              spreadRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: const Color(0xFF00E5FF).withOpacity(0.2),
+                              blurRadius: 6,
+                              spreadRadius: 1,
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          translations['sign_in'] ?? 'Sign In',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.purple.shade400,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            onSignInPressed();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: Text(
+                            translations['sign_in'] ?? 'Sign In',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -123,84 +196,168 @@ class SignOutConfirmDialog {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: const Color(0xFF0B0D13),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(
+              color: Color(0xFF00E5FF),
+              width: 2,
+            ),
           ),
           child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1E2430), Color(0xFF2A2F3A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.2),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+                BoxShadow(
+                  color: const Color(0xFFFF2D95).withOpacity(0.1),
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
             padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Header with icon and title
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 40,
-                      height: 40,
+                      width: 50,
+                      height: 50,
                       decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                         shape: BoxShape.circle,
-                        color: Colors.red.shade50,
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFFF2D95).withOpacity(0.3),
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                          ),
+                        ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.logout_rounded,
-                        size: 24,
-                        color: Colors.red.shade400,
+                        size: 28,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(width: 16),
-                    Text(
-                      translations['sign_out'] ?? 'Sign Out',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds),
+                      child: Text(
+                        translations['sign_out'] ?? 'Sign Out',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 16),
+                // Confirmation message
+                Text(
+                  translations['sign_out_confirm'] ?? 'Are you sure you want to sign out?',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.notoSans(
+                    fontSize: 16,
+                    color: const Color(0xFF00E5FF),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 const SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(
-                      child: TextButton(
+                      child: OutlinedButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(0xFF00E5FF),
+                          backgroundColor: const Color(0xFF2A2F3A),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey.shade300),
                           ),
+                          side: const BorderSide(
+                            color: Color(0xFF00E5FF),
+                            width: 1,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          elevation: 2,
+                          shadowColor: const Color(0xFF00E5FF).withOpacity(0.3),
                         ),
                         child: Text(
                           translations['cancel'] ?? 'Cancel',
-                          style: GoogleFonts.montserrat(
+                          style: GoogleFonts.notoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade700,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          onSignOutConfirmed();
-                        },
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.red.shade50,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFF2D95), Color(0xFF00E5FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFFF2D95).withOpacity(0.3),
+                              blurRadius: 8,
+                              spreadRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: const Color(0xFF00E5FF).withOpacity(0.2),
+                              blurRadius: 6,
+                              spreadRadius: 1,
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          translations['yes'] ?? 'Yes',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.red.shade400,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            onSignOutConfirmed();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: Text(
+                            translations['yes'] ?? 'Yes',
+                            style: GoogleFonts.notoSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
