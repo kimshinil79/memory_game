@@ -248,7 +248,7 @@ final List<String> itemList = [
   'zebra',
   'library', 'post office', 'traffic light', 'clock tower', 'pebble', 'moss', 'cactus', 'rainbow', 'toast', 'cookie', 'ice cream', 'jelly', 'writer', 'actor', 'crown', 'compass', 'flowerpot', 'roller skates', 'airport', 'goldfish', 'spider', 'light bulb', 'mirror', 'magnet',
   'toothbrush', 'soap', 'plate', 'spoon', 'mobile phone', 'key', 'newspaper', 'calendar', 'chair','sofa', 'refrigerator', 'stairs', 'pillow', 'candle', 'bank',
-  'bee', 'butterfly', 'eggplant', 'jacket', 'nurse', 'picnic', 'shoes', 'slide', 'squid', 'squirrel', 'tennis', 'train',
+  'beetle', 'cicada', 'dragonfly', 'earthworm', 'komodo dragon', 'mantis', 'mosquito', 'silkworm', 'stag beetle', 'table tennis',
 ];
 
 final Map<String, String> afrikaansItemList = {
@@ -496,6 +496,16 @@ final Map<String, String> afrikaansItemList = {
   'pillow': 'kussing',
   'candle': 'kers',
   'bank': 'bank',
+  'beetle': 'kewer',
+  'cicada': 'sikade',
+  'dragonfly': 'naaldekoker',
+  'earthworm': 'erdewurm',
+  'komodo dragon': 'komodo draak',
+  'mantis': 'hottentotsgot',
+  'mosquito': 'muskiet',
+  'silkworm': 'sywurm',
+  'stag beetle': 'hert kewer',
+  'table tennis': 'tafeltennis',
 };
 
 final Map<String, String> swahiliItemList = {
@@ -782,7 +792,17 @@ final Map<String, String> swahiliItemList = {
   'stairs': 'ngazi',
   'pillow': 'mto',
   'candle': 'mshumaa',
-  'bank': 'benki'
+  'bank': 'benki',
+  'beetle': 'mende',
+  'cicada': 'sikada',
+  'dragonfly': 'kereng\'ende',
+  'earthworm': 'mnyoo',
+  'komodo dragon': 'komodo dragon',
+  'mantis': 'dua',
+  'mosquito': 'mbu',
+  'silkworm': 'mnyoo wa hariri',
+  'stag beetle': 'mende wa pembe',
+  'table tennis': 'tenisi ya meza'
 };
 
 final Map<String, String> bengaliItemList = {
@@ -1069,7 +1089,17 @@ final Map<String, String> bengaliItemList = {
   'stairs': 'সিঁড়ি',
   'pillow': 'বালিশ',
   'candle': 'মোমবাতি',
-  'bank': 'ব্যাংক'
+  'bank': 'ব্যাংক',
+  'beetle': 'বিটল',
+  'cicada': 'সিকাডা',
+  'dragonfly': 'ড্রাগনফ্লাই',
+  'earthworm': 'কেঁচো',
+  'komodo dragon': 'কোমোডো ড্রাগন',
+  'mantis': 'ম্যান্টিস',
+  'mosquito': 'মশা',
+  'silkworm': 'রেশম কীট',
+  'stag beetle': 'স্ট্যাগ বিটল',
+  'table tennis': 'টেবিল টেনিস'
 };
 
 final Map<String, String> indonesianItemList = {
@@ -1356,7 +1386,17 @@ final Map<String, String> indonesianItemList = {
   'stairs': 'tangga',
   'pillow': 'bantal',
   'candle': 'lilin',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'kumbang',
+  'cicada': 'tonggeret',
+  'dragonfly': 'capung',
+  'earthworm': 'cacing tanah',
+  'komodo dragon': 'komodo',
+  'mantis': 'belalang sembah',
+  'mosquito': 'nyamuk',
+  'silkworm': 'ulat sutra',
+  'stag beetle': 'kumbang tanduk',
+  'table tennis': 'tenis meja'
 };
 
 final Map<String, String> khmerItemList = {
@@ -1643,7 +1683,17 @@ final Map<String, String> khmerItemList = {
   'stairs': 'ជណ្តើរ',
   'pillow': 'ខ្នើយ',
   'candle': 'ចង្កាយ',
-  'bank': 'ធនាគារ'
+  'bank': 'ធនាគារ',
+  'beetle': 'ពីងពាង',
+  'cicada': 'ពីងពាង',
+  'dragonfly': 'ពីងពាង',
+  'earthworm': 'ពីងពាង',
+  'komodo dragon': 'ពីងពាង',
+  'mantis': 'ពីងពាង',
+  'mosquito': 'ពីងពាង',
+  'silkworm': 'ពីងពាង',
+  'stag beetle': 'ពីងពាង',
+  'table tennis': 'ពីងពាង'
 };
 
 final Map<String, String> nepaliItemList = {
@@ -3648,7 +3698,17 @@ final Map<String, String> malayItemList = {
   'stairs': 'tangga',
   'pillow': 'bantal',
   'candle': 'lilin',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'kumbang',
+  'cicada': 'riang-riang',
+  'dragonfly': 'capung',
+  'earthworm': 'cacing tanah',
+  'komodo dragon': 'komodo',
+  'mantis': 'belalang sembah',
+  'mosquito': 'nyamuk',
+  'silkworm': 'ulat sutera',
+  'stag beetle': 'kumbang tanduk',
+  'table tennis': 'ping pong'
 };
 
 final Map<String, String> javaneseItemList = {
@@ -3935,7 +3995,17 @@ final Map<String, String> javaneseItemList = {
   'stairs': 'tangga',
   'pillow': 'bantal',
   'candle': 'lilin',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'kumbang',
+  'cicada': 'riang-riang',
+  'dragonfly': 'capung',
+  'earthworm': 'cacing tanah',
+  'komodo dragon': 'komodo',
+  'mantis': 'belalang sembah',
+  'mosquito': 'nyamuk',
+  'silkworm': 'ulat sutera',
+  'stag beetle': 'kumbang tanduk',
+  'table tennis': 'ping pong'
 };
 
 final Map<String, String> sundaneseItemList = {
@@ -4222,7 +4292,17 @@ final Map<String, String> sundaneseItemList = {
   'stairs': 'tangga',
   'pillow': 'bantal',
   'candle': 'lilin',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'kumbang',
+  'cicada': 'riang-riang',
+  'dragonfly': 'capung',
+  'earthworm': 'cacing tanah',
+  'komodo dragon': 'komodo',
+  'mantis': 'belalang sembah',
+  'mosquito': 'nyamuk',
+  'silkworm': 'ulat sutera',
+  'stag beetle': 'kumbang tanduk',
+  'table tennis': 'ping pong'
 };
 
 final Map<String, String> tamilItemList = {
@@ -4509,7 +4589,17 @@ final Map<String, String> tamilItemList = {
   'stairs': 'படிக்கட்டு',
   'pillow': 'தலையணை',
   'candle': 'மெழுகுவர்த்தி',
-  'bank': 'வங்கி'
+  'bank': 'வங்கி',
+  'beetle': 'வண்டு',
+  'cicada': 'சிக்காடா',
+  'dragonfly': 'டிராகன்ஃபிளை',
+  'earthworm': 'மண்புழு',
+  'komodo dragon': 'கோமோடோ டிராகன்',
+  'mantis': 'மாண்டிஸ்',
+  'mosquito': 'கொசு',
+  'silkworm': 'பட்டுப்புழு',
+  'stag beetle': 'ஸ்டாக் பீடில்',
+  'table tennis': 'டேபிள் டென்னிஸ்'
 };
 
 final Map<String, String> teluguItemList = {
@@ -4796,7 +4886,17 @@ final Map<String, String> teluguItemList = {
   'stairs': 'మెట్లు',
   'pillow': 'తలగడ',
   'candle': 'మొమ్బత్తి',
-  'bank': 'బ్యాంక్'
+  'bank': 'బ్యాంక్',
+  'beetle': 'వీటిల్',
+  'cicada': 'సికాడా',
+  'dragonfly': 'డ్రాగన్ ఫ్లై',
+  'earthworm': 'భూమి పురుగు',
+  'komodo dragon': 'కోమోడో డ్రాగన్',
+  'mantis': 'మాంటిస్',
+  'mosquito': 'దోమ',
+  'silkworm': 'పట్టు పురుగు',
+  'stag beetle': 'స్టాగ్ బీటిల్',
+  'table tennis': 'టేబుల్ టెన్నిస్'
 };
 
 final Map<String, String> malayalamItemList = {
@@ -5083,7 +5183,17 @@ final Map<String, String> malayalamItemList = {
   'stairs': 'പടികൾ',
   'pillow': 'തലയിണ',
   'candle': 'മെഴുകുതിരി',
-  'bank': 'ബാങ്ക്'
+  'bank': 'ബാങ്ക്',
+  'beetle': 'വീട്ടിൽ',
+  'cicada': 'സികാഡ',
+  'dragonfly': 'ഡ്രാഗൺ ഫ്ലൈ',
+  'earthworm': 'ഭൂമി പുരുഗ്',
+  'komodo dragon': 'കോമോഡോ ഡ്രാഗൺ',
+  'mantis': 'മാന്റിസ്',
+  'mosquito': 'കൊതുക്',
+  'silkworm': 'പട്ട് പുരുഗ്',
+  'stag beetle': 'സ്റ്റാഗ് ബീറ്റിൽ',
+  'table tennis': 'ടേബിൾ ടെന്നിസ്'
 };
 
 final Map<String, String> gujaratiItemList = {
@@ -5370,7 +5480,17 @@ final Map<String, String> gujaratiItemList = {
   'stairs': 'સીડી',
   'pillow': 'તકિયો',
   'candle': 'મીણબત્તી',
-  'bank': 'બેંક'
+  'bank': 'બેંક',
+  'beetle': 'વીલ્ડ',
+  'cicada': 'સિકાડા',
+  'dragonfly': 'ડ્રેગન ફ્લાય',
+  'earthworm': 'ભૂમિ પુરુગ',
+  'komodo dragon': 'કોમોડો ડ્રેગન',
+  'mantis': 'મેન્ટિસ',
+  'mosquito': 'મચ્છર',
+  'silkworm': 'પટ પુરુગ',
+  'stag beetle': 'સ્ટેગ બીટલ',
+  'table tennis': 'ટેબલ ટેનિસ'
 };
 
 final Map<String, String> kannadaItemList = {
@@ -5657,7 +5777,17 @@ final Map<String, String> kannadaItemList = {
   'stairs': 'ಮೆಟ್ಟಿಲುಗಳು',
   'pillow': 'ದಿಂಬು',
   'candle': 'ಮೇಣದಬತ್ತಿ',
-  'bank': 'ಬ್ಯಾಂಕ್'
+  'bank': 'ಬ್ಯಾಂಕ್',
+  'beetle': 'ವೀಲ್ಡ್',
+  'cicada': 'ಸಿಕಾಡ',
+  'dragonfly': 'ಡ್ರಾಗನ್ ಫ್ಲೈ',
+  'earthworm': 'ಭೂಮಿ ಹುಳು',
+  'komodo dragon': 'ಕೋಮೊಡೊ ಡ್ರಾಗನ್',
+  'mantis': 'ಮಾಂಟಿಸ್',
+  'mosquito': 'ಸೊಳ್ಳೆ',
+  'silkworm': 'ರೇಷ್ಮೆ ಹುಳು',
+  'stag beetle': 'ಸ್ಟ್ಯಾಗ್ ಬೀಟಲ್',
+  'table tennis': 'ಟೇಬಲ್ ಟೆನ್ನಿಸ್'
 };
 
 final Map<String, String> marathiItemList = {
@@ -5944,7 +6074,17 @@ final Map<String, String> marathiItemList = {
   'stairs': 'पायऱ्या',
   'pillow': 'उशी',
   'candle': 'मेणबत्ती',
-  'bank': 'बँक'
+  'bank': 'बँक',
+  'beetle': 'वील्ड',
+  'cicada': 'सिकाडा',
+  'dragonfly': 'ड्रॅगन फ्लाय',
+  'earthworm': 'भूमि पुतळा',
+  'komodo dragon': 'कोमोडो ड्रॅगन',
+  'mantis': 'मेंटिस',
+  'mosquito': 'डास',
+  'silkworm': 'रेशम पुतळा',
+  'stag beetle': 'स्टॅग बीटल',
+  'table tennis': 'टेबल टेनिस'
 };
 
 final Map<String, String> punjabiItemList = {
@@ -6231,7 +6371,17 @@ final Map<String, String> punjabiItemList = {
   'stairs': 'ਸੀੜੀਆਂ',
   'pillow': 'ਤਕੀਆ',
   'candle': 'ਮੋਮਬੱਤੀ',
-  'bank': 'ਬੈਂਕ'
+  'bank': 'ਬੈਂਕ',
+  'beetle': 'ਵੀਲਡ',
+  'cicada': 'ਸਿਕਾਡਾ',
+  'dragonfly': 'ਡ੍ਰੈਗਨ ਫਲਾਈ',
+  'earthworm': 'ਭੂਮੀ ਪੁਰੁਗ',
+  'komodo dragon': 'ਕੋਮੋਡੋ ਡ੍ਰੈਗਨ',
+  'mantis': 'ਮੇਂਟਿਸ',
+  'mosquito': 'ਮੱਛਰ',
+  'silkworm': 'ਰੇਸ਼ਮ ਪੁਰੁਗ',
+  'stag beetle': 'ਸਟੈਗ ਬੀਟਲ',
+  'table tennis': 'ਟੇਬਲ ਟੈਨਿਸ'
 };
 
 final Map<String, String> swedishItemList = {
@@ -6518,7 +6668,17 @@ final Map<String, String> swedishItemList = {
   'stairs': 'trappor',
   'pillow': 'kudde',
   'candle': 'ljus',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'skalbagge',
+  'cicada': 'cikada',
+  'dragonfly': 'trollslända',
+  'earthworm': 'daggmask',
+  'komodo dragon': 'komodoödla',
+  'mantis': 'bönsyrsa',
+  'mosquito': 'mygga',
+  'silkworm': 'silkesmask',
+  'stag beetle': 'hjortbagge',
+  'table tennis': 'bordtennis'
 };
 
 final Map danishItemList = {
@@ -6805,7 +6965,17 @@ final Map danishItemList = {
   'stairs': 'trapper',
   'pillow': 'pude',
   'candle': 'lys',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'bille',
+  'cicada': 'cikade',
+  'dragonfly': 'guldsmed',
+  'earthworm': 'regnorm',
+  'komodo dragon': 'komodovaran',
+  'mantis': 'knæler',
+  'mosquito': 'myg',
+  'silkworm': 'silkeorm',
+  'stag beetle': 'hjortebille',
+  'table tennis': 'bordtennis'
 };
 
 final Map<String, String> finnishItemList = {
@@ -7092,7 +7262,17 @@ final Map<String, String> finnishItemList = {
   'stairs': 'portaat',
   'pillow': 'tyyny',
   'candle': 'kynttilä',
-  'bank': 'pankki'
+  'bank': 'pankki',
+  'beetle': 'kovakuoriainen',
+  'cicada': 'sirittäjä',
+  'dragonfly': 'sudenkorento',
+  'earthworm': 'kastemato',
+  'komodo dragon': 'komodon lisko',
+  'mantis': 'rukoilijasirkka',
+  'mosquito': 'hyttynen',
+  'silkworm': 'silkkiperhonen',
+  'stag beetle': 'hirvenpää',
+  'table tennis': 'pöytätennis'
 };
 
 final Map<String, String> norwegianItemList = {
@@ -7380,7 +7560,17 @@ final Map<String, String> norwegianItemList = {
   'stairs': 'trapper',
   'pillow': 'pute',
   'candle': 'lys',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'bille',
+  'cicada': 'cikade',
+  'dragonfly': 'øyenstikker',
+  'earthworm': 'meitemark',
+  'komodo dragon': 'komodovaran',
+  'mantis': 'kneler',
+  'mosquito': 'mygg',
+  'silkworm': 'silkeorm',
+  'stag beetle': 'hjortebille',
+  'table tennis': 'bordtennis'
 };
 
 final Map<String, String> bulgarianItemList = {
@@ -7954,7 +8144,17 @@ final Map urduItemList = {
   'stairs': 'سیڑھیاں',
   'pillow': 'تکیہ',
   'candle': 'موم بتی',
-  'bank': 'بینک'
+  'bank': 'بینک',
+  'beetle': 'بھٹکا',
+  'cicada': 'سکاڈا',
+  'dragonfly': 'ڈریگن فلائی',
+  'earthworm': 'کیچوا',
+  'komodo dragon': 'کوموڈو ڈریگن',
+  'mantis': 'مینٹس',
+  'mosquito': 'مچھر',
+  'silkworm': 'ریشم کرم',
+  'stag beetle': 'اسٹیگ بیٹل',
+  'table tennis': 'ٹیبل ٹینس'
 };
 
 final Map<String, String> hindiItemList = {
@@ -8241,7 +8441,17 @@ final Map<String, String> hindiItemList = {
   'stairs': 'सीढ़ी',
   'pillow': 'तकिया',
   'candle': 'मोमबत्ती',
-  'bank': 'बैंक'
+  'bank': 'बैंक',
+  'beetle': 'भटकाव',
+  'cicada': 'सिकाडा',
+  'dragonfly': 'ड्रैगनफ्लाई',
+  'earthworm': 'केंचुआ',
+  'komodo dragon': 'कोमोडो ड्रैगन',
+  'mantis': 'मेंटिस',
+  'mosquito': 'मच्छर',
+  'silkworm': 'रेशम कृमि',
+  'stag beetle': 'स्टैग बीटल',
+  'table tennis': 'टेबल टेनिस'
 };
 
 final Map<String, String> amharicItemList = {
@@ -8528,7 +8738,17 @@ final Map<String, String> amharicItemList = {
   'stairs': 'ደረጃዎች',
   'pillow': 'መንጋጋ',
   'candle': 'ሻምድ',
-  'bank': 'ባንክ'
+  'bank': 'ባንክ',
+  'beetle': 'ማብረያ',
+  'cicada': 'ሲካዳ',
+  'dragonfly': 'ድራጎን ፍላይ',
+  'earthworm': 'አፈር ተርማ',
+  'komodo dragon': 'ኮሞዶ ድራጎን',
+  'mantis': 'ማንቲስ',
+  'mosquito': 'ሞስኪቶ',
+  'silkworm': 'ሲልክ ተርማ',
+  'stag beetle': 'ስታግ ቢትል',
+  'table tennis': 'ቴብል ቴኒስ'
 };
 
 final Map<String, String> zuluItemList = {
@@ -8815,7 +9035,17 @@ final Map<String, String> zuluItemList = {
   'stairs': 'i-stairs',
   'pillow': 'i-pillow',
   'candle': 'i-candle',
-  'bank': 'i-bank'
+  'bank': 'i-bank',
+  'beetle': 'i-beetle',
+  'cicada': 'i-cicada',
+  'dragonfly': 'i-dragonfly',
+  'earthworm': 'i-earthworm',
+  'komodo dragon': 'i-komodo dragon',
+  'mantis': 'i-mantis',
+  'mosquito': 'i-mosquito',
+  'silkworm': 'i-silkworm',
+  'stag beetle': 'i-stag beetle',
+  'table tennis': 'i-table tennis'
 };
 
 final Map<String, String> korItemList = {
@@ -9102,7 +9332,17 @@ final Map<String, String> korItemList = {
   'stairs': '계단',
   'pillow': '베개',
   'candle': '양초',
-  'bank': '은행'
+  'bank': '은행',
+  'beetle': '딱정벌레',
+  'cicada': '매미',
+  'dragonfly': '잠자리',
+  'earthworm': '지렁이',
+  'komodo dragon': '코모도 도마뱀',
+  'mantis': '사마귀',
+  'mosquito': '모기',
+  'silkworm': '누에',
+  'stag beetle': '사슴벌레',
+  'table tennis': '탁구'
 };
 
 final Map<String, String> spaItemList = {
@@ -9389,7 +9629,17 @@ final Map<String, String> spaItemList = {
   'stairs': 'escaleras',
   'pillow': 'almohada',
   'candle': 'vela',
-  'bank': 'banco'
+  'bank': 'banco',
+  'beetle': 'escarabajo',
+  'cicada': 'cigarra',
+  'dragonfly': 'libélula',
+  'earthworm': 'lombriz',
+  'komodo dragon': 'dragón de komodo',
+  'mantis': 'mantis',
+  'mosquito': 'mosquito',
+  'silkworm': 'gusano de seda',
+  'stag beetle': 'ciervo volante',
+  'table tennis': 'tenis de mesa'
 };
 
 final Map<String, String> fraItemList = {
@@ -9676,7 +9926,17 @@ final Map<String, String> fraItemList = {
   'stairs': 'escalier',
   'pillow': 'oreiller',
   'candle': 'bougie',
-  'bank': 'banque'
+  'bank': 'banque',
+  'beetle': 'scarabée',
+  'cicada': 'cigale',
+  'dragonfly': 'libellule',
+  'earthworm': 'ver de terre',
+  'komodo dragon': 'dragon de komodo',
+  'mantis': 'mante religieuse',
+  'mosquito': 'moustique',
+  'silkworm': 'ver à soie',
+  'stag beetle': 'lucane cerf-volant',
+  'table tennis': 'tennis de table'
 };
 
 final Map<String, String> deuItemList = {
@@ -9963,7 +10223,17 @@ final Map<String, String> deuItemList = {
   'stairs': 'Treppe',
   'pillow': 'Kissen',
   'candle': 'Kerze',
-  'bank': 'Bank'
+  'bank': 'Bank',
+  'beetle': 'Käfer',
+  'cicada': 'Zikade',
+  'dragonfly': 'Libelle',
+  'earthworm': 'Regenwurm',
+  'komodo dragon': 'komodowaran',
+  'mantis': 'Gottesanbeterin',
+  'mosquito': 'Mücke',
+  'silkworm': 'Seidenraupe',
+  'stag beetle': 'Hirschkäfer',
+  'table tennis': 'Tischtennis'
 };
 
 final Map<String, String> jpnItemList = {
@@ -10250,7 +10520,17 @@ final Map<String, String> jpnItemList = {
   'stairs': '階段',
   'pillow': '枕',
   'candle': 'ろうそく',
-  'bank': '銀行'
+  'bank': '銀行',
+  'beetle': 'カブトムシ',
+  'cicada': 'セミ',
+  'dragonfly': 'トンボ',
+  'earthworm': 'ミミズ',
+  'komodo dragon': 'コモドドラゴン',
+  'mantis': 'カマキリ',
+  'mosquito': '蚊',
+  'silkworm': '蚕',
+  'stag beetle': 'クワガタムシ',
+  'table tennis': '卓球'
 };
 
 final Map<String, String> chnItemList = {
@@ -10537,7 +10817,17 @@ final Map<String, String> chnItemList = {
   'stairs': '楼梯',
   'pillow': '枕头',
   'candle': '蜡烛',
-  'bank': '银行'
+  'bank': '银行',
+  'beetle': '甲虫',
+  'cicada': '蝉',
+  'dragonfly': '蜻蜓',
+  'earthworm': '蚯蚓',
+  'komodo dragon': '科莫多龙',
+  'mantis': '螳螂',
+  'mosquito': '蚊子',
+  'silkworm': '蚕',
+  'stag beetle': '锹甲',
+  'table tennis': '乒乓球'
 };
 
 final Map<String, String> greekItemList = {
@@ -10824,7 +11114,17 @@ final Map<String, String> greekItemList = {
   'stairs': 'σκάλες',
   'pillow': 'μαξιλάρι',
   'candle': 'κερί',
-  'bank': 'τράπεζα'
+  'bank': 'τράπεζα',
+  'beetle': 'σκαθάρι',
+  'cicada': 'τζιτζίκι',
+  'dragonfly': 'λιβελούλα',
+  'earthworm': 'σκουλήκι',
+  'komodo dragon': 'δράκος του κομόδο',
+  'mantis': 'μαντίδι',
+  'mosquito': 'κουνούπι',
+  'silkworm': 'μεταξοσκώληκας',
+  'stag beetle': 'ελαφόσκαρη',
+  'table tennis': 'επιτραπέζια αντισφαίριση'
 };
 
 final Map<String, String> romanianItemList = {
@@ -11111,7 +11411,17 @@ final Map<String, String> romanianItemList = {
   'stairs': 'scări',
   'pillow': 'pernă',
   'candle': 'lumânare',
-  'bank': 'bancă'
+  'bank': 'bancă',
+  'beetle': 'gândac',
+  'cicada': 'cicoare',
+  'dragonfly': 'libelulă',
+  'earthworm': 'râmă',
+  'komodo dragon': 'dragon komodo',
+  'mantis': 'călugăriță',
+  'mosquito': 'țânțar',
+  'silkworm': 'vierme de mătase',
+  'stag beetle': 'cerb zburător',
+  'table tennis': 'tenis de masă'
 };
 
 final Map<String, String> slovakItemList = {
@@ -11398,7 +11708,17 @@ final Map<String, String> slovakItemList = {
   'stairs': 'schody',
   'pillow': 'vankúš',
   'candle': 'sviečka',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'chrobák',
+  'cicada': 'cikáda',
+  'dragonfly': 'vážka',
+  'earthworm': 'dážďovka',
+  'komodo dragon': 'komodo drak',
+  'mantis': 'modlivka',
+  'mosquito': 'komár',
+  'silkworm': 'hodvábnik',
+  'stag beetle': 'roháč',
+  'table tennis': 'stolný tenis'
 };
 
 final Map<String, String> ukrainianItemList = {
@@ -11686,7 +12006,17 @@ final Map<String, String> ukrainianItemList = {
   'stairs': 'сходи',
   'pillow': 'подушка',
   'candle': 'свічка',
-  'bank': 'банк'
+  'bank': 'банк',
+  'beetle': 'жук',
+  'cicada': 'цикада',
+  'dragonfly': 'бабка',
+  'earthworm': 'дощовий черв\'як',
+  'komodo dragon': 'комодський дракон',
+  'mantis': 'богомол',
+  'mosquito': 'комар',
+  'silkworm': 'шовкопряд',
+  'stag beetle': 'олень-жук',
+  'table tennis': 'настільний теніс'
 };
 
 final Map<String, String> croatianItemList = {
@@ -11973,7 +12303,17 @@ final Map<String, String> croatianItemList = {
   'stairs': 'stepenice',
   'pillow': 'jastuk',
   'candle': 'svijeća',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'buba',
+  'cicada': 'cvrčak',
+  'dragonfly': 'vila',
+  'earthworm': 'kišna glista',
+  'komodo dragon': 'komodo zmaj',
+  'mantis': 'bogomoljka',
+  'mosquito': 'komarac',
+  'silkworm': 'svila gusjenica',
+  'stag beetle': 'jelenak',
+  'table tennis': 'stolni tenis'
 };
 
 final Map<String, String> slovenianItemList = {
@@ -12260,7 +12600,17 @@ final Map<String, String> slovenianItemList = {
   'stairs': 'stopnice',
   'pillow': 'blazina',
   'candle': 'sveča',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'hrošč',
+  'cicada': 'cvrčak',
+  'dragonfly': 'kačja pastirica',
+  'earthworm': 'deževnik',
+  'komodo dragon': 'komodo zmaj',
+  'mantis': 'bogomoljka',
+  'mosquito': 'komar',
+  'silkworm': 'svilen črv',
+  'stag beetle': 'jelenjak',
+  'table tennis': 'namizni tenis'
 };
 
 final Map<String, String> persianItemList = {
@@ -12547,7 +12897,17 @@ final Map<String, String> persianItemList = {
   'stairs': 'پله',
   'pillow': 'بالش',
   'candle': 'شمع',
-  'bank': 'بانک'
+  'bank': 'بانک',
+  'beetle': 'سوسک',
+  'cicada': 'جیرجیرک',
+  'dragonfly': 'سنجاقک',
+  'earthworm': 'کرم خاکی',
+  'komodo dragon': 'اژدهای کومودو',
+  'mantis': 'آخوندک',
+  'mosquito': 'پشه',
+  'silkworm': 'کرم ابریشم',
+  'stag beetle': 'سوسک شاخدار',
+  'table tennis': 'تنیس روی میز'
 };
 
 final Map<String, String> hebrewItemList = {
@@ -12834,7 +13194,17 @@ final Map<String, String> hebrewItemList = {
   'stairs': 'מדרגות',
   'pillow': 'כרית',
   'candle': 'נר',
-  'bank': 'בנק'
+  'bank': 'בנק',
+  'beetle': 'חיפושית',
+  'cicada': 'צרצר',
+  'dragonfly': 'שפירית',
+  'earthworm': 'תולעת אדמה',
+  'komodo dragon': 'דרקון קומודו',
+  'mantis': 'גמל שלמה',
+  'mosquito': 'יתוש',
+  'silkworm': 'תולעת משי',
+  'stag beetle': 'חיפושית איילים',
+  'table tennis': 'טניס שולחן'
 };
 
 final Map<String, String> mongolianItemList = {
@@ -13121,7 +13491,17 @@ final Map<String, String> mongolianItemList = {
   'stairs': 'шат',
   'pillow': 'дэр',
   'candle': 'лаа',
-  'bank': 'банк'
+  'bank': 'банк',
+  'beetle': 'хорхой',
+  'cicada': 'шувуу',
+  'dragonfly': 'хуурай',
+  'earthworm': 'хөрсний хорхой',
+  'komodo dragon': 'комодо луу',
+  'mantis': 'самар',
+  'mosquito': 'шумуул',
+  'silkworm': 'торгоны хорхой',
+  'stag beetle': 'буга хорхой',
+  'table tennis': 'ширээний теннис'
 };
 
 final Map<String, String> albanianItemList = {
@@ -13408,7 +13788,17 @@ final Map<String, String> albanianItemList = {
   'stairs': 'shkallë',
   'pillow': 'jastëk',
   'candle': 'qiri',
-  'bank': 'bankë'
+  'bank': 'bankë',
+  'beetle': 'brumbull',
+  'cicada': 'cikadë',
+  'dragonfly': 'libellulë',
+  'earthworm': 'krimb toke',
+  'komodo dragon': 'dragon komodo',
+  'mantis': 'mantis',
+  'mosquito': 'mushkonjë',
+  'silkworm': 'krimb mëndafshi',
+  'stag beetle': 'brumbull drej',
+  'table tennis': 'tenis tryeze'
 };
 
 final Map<String, String> rusItemList = {
@@ -13695,7 +14085,17 @@ final Map<String, String> rusItemList = {
   'stairs': 'лестница',
   'pillow': 'подушка',
   'candle': 'свеча',
-  'bank': 'банк'
+  'bank': 'банк',
+  'beetle': 'жук',
+  'cicada': 'цикада',
+  'dragonfly': 'стрекоза',
+  'earthworm': 'дождевой червь',
+  'komodo dragon': 'комодский варан',
+  'mantis': 'богомол',
+  'mosquito': 'комар',
+  'silkworm': 'шелкопряд',
+  'stag beetle': 'жук-олень',
+  'table tennis': 'настольный теннис'
 };
 
 final Map<String, String> itaItemList = {
@@ -13982,7 +14382,17 @@ final Map<String, String> itaItemList = {
   'stairs': 'scale',
   'pillow': 'cuscino',
   'candle': 'candela',
-  'bank': 'banca'
+  'bank': 'banca',
+  'beetle': 'scarabeo',
+  'cicada': 'cicala',
+  'dragonfly': 'libellula',
+  'earthworm': 'lombrigo',
+  'komodo dragon': 'drago di komodo',
+  'mantis': 'mantide',
+  'mosquito': 'zanzara',
+  'silkworm': 'baco da seta',
+  'stag beetle': 'cervo volante',
+  'table tennis': 'tennis da tavolo'
 };
 
 final Map<String, String> porItemList = {
@@ -14269,7 +14679,17 @@ final Map<String, String> porItemList = {
   'stairs': 'escadas',
   'pillow': 'travesseiro',
   'candle': 'vela',
-  'bank': 'banco'
+  'bank': 'banco',
+  'beetle': 'besouro',
+  'cicada': 'cigarra',
+  'dragonfly': 'libélula',
+  'earthworm': 'minhoca',
+  'komodo dragon': 'dragão de komodo',
+  'mantis': 'louva-a-deus',
+  'mosquito': 'mosquito',
+  'silkworm': 'bicho-da-seda',
+  'stag beetle': 'lucano',
+  'table tennis': 'tênis de mesa'
 };
 
 final Map<String, String> araItemList = {
@@ -14556,7 +14976,17 @@ final Map<String, String> araItemList = {
   'stairs': 'سلالم',
   'pillow': 'وسادة',
   'candle': 'شمعة',
-  'bank': 'بنك'
+  'bank': 'بنك',
+  'beetle': 'خنفساء',
+  'cicada': 'زيز',
+  'dragonfly': 'يعسوب',
+  'earthworm': 'دودة أرضية',
+  'komodo dragon': 'تنين كومودو',
+  'mantis': 'فرس النبي',
+  'mosquito': 'بعوضة',
+  'silkworm': 'دودة القز',
+  'stag beetle': 'خنفساء الأيل',
+  'table tennis': 'تنس الطاولة'
 };
 
 final Map<String, String> turItemList = {
@@ -14843,7 +15273,17 @@ final Map<String, String> turItemList = {
   'stairs': 'merdiven',
   'pillow': 'yastık',
   'candle': 'mum',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'böcek',
+  'cicada': 'ağustos böceği',
+  'dragonfly': 'yusufçuk',
+  'earthworm': 'toprak solucanı',
+  'komodo dragon': 'komodo ejderi',
+  'mantis': 'peygamber devesi',
+  'mosquito': 'sivrisinek',
+  'silkworm': 'ipek böceği',
+  'stag beetle': 'geyik böceği',
+  'table tennis': 'masa tenisi'
 };
 
 final Map<String, String> vieItemList = {
@@ -15130,7 +15570,17 @@ final Map<String, String> vieItemList = {
   'stairs': 'cầu thang',
   'pillow': 'gối',
   'candle': 'nến',
-  'bank': 'ngân hàng'
+  'bank': 'ngân hàng',
+  'beetle': 'bọ cánh cứng',
+  'cicada': 've sầu',
+  'dragonfly': 'chuồn chuồn',
+  'earthworm': 'giun đất',
+  'komodo dragon': 'rồng komodo',
+  'mantis': 'bọ ngựa',
+  'mosquito': 'muỗi',
+  'silkworm': 'tằm',
+  'stag beetle': 'bọ cánh cứng sừng',
+  'table tennis': 'bóng bàn'
 };
 
 final Map<String, String> dutItemList = {
@@ -15417,7 +15867,17 @@ final Map<String, String> dutItemList = {
   'stairs': 'trap',
   'pillow': 'kussen',
   'candle': 'kaars',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'kever',
+  'cicada': 'cicade',
+  'dragonfly': 'libel',
+  'earthworm': 'regenworm',
+  'komodo dragon': 'komodovaraan',
+  'mantis': 'bidsprinkhaan',
+  'mosquito': 'mug',
+  'silkworm': 'zijderups',
+  'stag beetle': 'vliegend hert',
+  'table tennis': 'tafeltennis'
 };
 
 final Map<String, String> serbianItemList = {
@@ -15704,7 +16164,17 @@ final Map<String, String> serbianItemList = {
   'stairs': 'stepenice',
   'pillow': 'jastuk',
   'candle': 'sveća',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'buba',
+  'cicada': 'cvrčak',
+  'dragonfly': 'vila',
+  'earthworm': 'kišna glista',
+  'komodo dragon': 'komodo zmaj',
+  'mantis': 'bogomoljka',
+  'mosquito': 'komarac',
+  'silkworm': 'svila gusjenica',
+  'stag beetle': 'jelenak',
+  'table tennis': 'stolni tenis'
 };
 
 final Map<String, String> uzbekItemList = {
@@ -15991,7 +16461,17 @@ final Map<String, String> uzbekItemList = {
   'stairs': 'narvon',
   'pillow': 'yostiq',
   'candle': 'sham',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'qo\'ng\'iz',
+  'cicada': 'chigirtka',
+  'dragonfly': 'yusufchik',
+  'earthworm': 'yer qurti',
+  'komodo dragon': 'komodo ajdari',
+  'mantis': 'bogomol',
+  'mosquito': 'chivin',
+  'silkworm': 'ipak qurti',
+  'stag beetle': 'bug\'u qo\'ng\'izi',
+  'table tennis': 'stol tennisi'
 };
 
 final Map<String, String> czeItemList = {
@@ -16278,7 +16758,17 @@ final Map<String, String> czeItemList = {
   'stairs': 'schody',
   'pillow': 'polštář',
   'candle': 'svíčka',
-  'bank': 'banka'
+  'bank': 'banka',
+  'beetle': 'brouk',
+  'cicada': 'cikáda',
+  'dragonfly': 'vážka',
+  'earthworm': 'žížala',
+  'komodo dragon': 'komodský varan',
+  'mantis': 'kudlanka',
+  'mosquito': 'komár',
+  'silkworm': 'bource morušový',
+  'stag beetle': 'roháč',
+  'table tennis': 'stolní tenis'
 };
 
 final Map<String, String> polItemList = {
@@ -16565,7 +17055,17 @@ final Map<String, String> polItemList = {
   'stairs': 'schody',
   'pillow': 'poduszka',
   'candle': 'świeca',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'chrząszcz',
+  'cicada': 'cykada',
+  'dragonfly': 'ważka',
+  'earthworm': 'dżdżownica',
+  'komodo dragon': 'waran z Komodo',
+  'mantis': 'modliszka',
+  'mosquito': 'komar',
+  'silkworm': 'jedwabnik',
+  'stag beetle': 'jelonek',
+  'table tennis': 'tenis stołowy'
 };
 
 final Map<String, String> hunItemList = {
@@ -16852,5 +17352,15 @@ final Map<String, String> hunItemList = {
   'stairs': 'lépcső',
   'pillow': 'párna',
   'candle': 'gyertya',
-  'bank': 'bank'
+  'bank': 'bank',
+  'beetle': 'bogár',
+  'cicada': 'cikáda',
+  'dragonfly': 'szitakötő',
+  'earthworm': 'földigiliszta',
+  'komodo dragon': 'komodói sárkány',
+  'mantis': 'imádkozó sáska',
+  'mosquito': 'szúnyog',
+  'silkworm': 'selyemhernyó',
+  'stag beetle': 'szarvasbogár',
+  'table tennis': 'asztalitenisz'
 };
