@@ -102,6 +102,7 @@ const Map<String, String> heTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'משחק חדש',
+  'share': 'שתף',
   'times_up': 'הזמן נגמר!',
 
   // Tutorial Overlay texts

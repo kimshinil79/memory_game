@@ -104,6 +104,7 @@ const Map<String, String> svSETranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nytt spel',
+  'share': 'Dela',
   'times_up': 'Tiden är ute!',
 
   // Tutorial Overlay 텍스트

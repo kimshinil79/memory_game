@@ -104,6 +104,7 @@ const Map<String, String> deLITranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Neues Spiel',
+  'share': 'Teilen',
   'times_up': 'Zeit abgelaufen!',
 
   // Tutorial Overlay texts

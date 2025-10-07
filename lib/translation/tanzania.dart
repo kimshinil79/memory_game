@@ -104,6 +104,7 @@ const Map<String, String> swTZTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Mchezo Mpya',
+  'share': 'Shiriki',
   'times_up': 'Muda umekwisha!',
 
   // Tutorial Overlay texts

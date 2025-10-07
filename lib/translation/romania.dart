@@ -102,6 +102,7 @@ const Map<String, String> roROTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Joc nou',
+  'share': 'Distribuie',
   'times_up': 'S-a terminat timpul!',
 
   // Tutorial Overlay texts

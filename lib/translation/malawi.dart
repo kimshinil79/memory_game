@@ -104,6 +104,7 @@ const Map<String, String> nyTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Masewera atsopano',
+  'share': 'Share',
   'times_up': 'Nthawi yatha!',
 
   // Tutorial Overlay texts

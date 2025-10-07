@@ -537,7 +537,7 @@ class CompletionDialog extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    '공유하기',
+                    translations['share'] ?? 'Share',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,

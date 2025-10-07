@@ -104,6 +104,7 @@ const Map<String, String> kyKGTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Жаңы оюн',
+  'share': 'Бөлүшүү',
   'times_up': 'Убакыт бүттү!',
 
   // Tutorial Overlay texts

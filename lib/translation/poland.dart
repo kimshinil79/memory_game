@@ -102,6 +102,7 @@ const Map<String, String> plPLTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nowa gra',
+  'share': 'Udostępnij',
   'times_up': 'Koniec czasu!',
 
   // Tutorial Overlay texts

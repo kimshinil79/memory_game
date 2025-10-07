@@ -104,6 +104,7 @@ const Map<String, String> coTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Novu ghjocu',
+  'share': 'Sparte',
   'times_up': 'U tempu hè finitu !',
 
   // Tutorial Overlay texts

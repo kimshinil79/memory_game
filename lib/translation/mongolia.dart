@@ -104,6 +104,7 @@ const Map<String, String> mnMNGTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Шинэ тоглоом',
+  'share': 'Хуваалцах',
   'times_up': 'Цаг дууслаа!',
 
   // Tutorial Overlay texts

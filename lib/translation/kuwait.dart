@@ -102,6 +102,7 @@ const Map<String, String> kwTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'لعبة جديدة',
+  'share': 'مشاركة',
   'times_up': 'انتهى الوقت!',
 
   // Tutorial Overlay texts

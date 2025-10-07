@@ -104,6 +104,7 @@ const Map<String, String> zhCNTranslations = {
   'streak_bonus': '连续奖励',
   'total_earned': '总计获得',
   'new_game': '新游戏',
+  'share': '分享',
   'times_up': '时间到！',
 
   // Tutorial Overlay texts

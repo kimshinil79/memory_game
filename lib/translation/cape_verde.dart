@@ -104,6 +104,7 @@ const Map<String, String> ptCVTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Novo jogo',
+  'share': 'Compartilhar',
   'times_up': 'Tempo esgotado!',
 
   // Tutorial Overlay texts

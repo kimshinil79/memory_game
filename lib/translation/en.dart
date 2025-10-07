@@ -115,6 +115,7 @@ Map<String, String> enTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'New Game',
+  'share': 'Share',
   'times_up': 'Time\'s Up!',
 
   // Tutorial Overlay 텍스트

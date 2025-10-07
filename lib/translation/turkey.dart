@@ -102,6 +102,7 @@ const Map<String, String> trTRTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Yeni Oyun',
+  'share': 'Paylaş',
   'times_up': 'Süre Doldu!',
 
   // Tutorial Overlay texts

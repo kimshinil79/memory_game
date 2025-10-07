@@ -104,6 +104,7 @@ const Map<String, String> tgTJTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Бозии нав',
+  'share': 'Мубодила',
   'times_up': 'Вақт тамом шуд!',
 
   // Tutorial Overlay texts

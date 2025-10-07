@@ -104,6 +104,7 @@ const Map<String, String> kkKZTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Жаңа ойын',
+  'share': 'Бөлісу',
   'times_up': 'Уақыт аяқталды!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> eoTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nova ludo',
+  'share': 'Dividi',
   'times_up': 'Tempo finiĝis!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> koKPTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': '새 게임',
+  'share': '공유',
   'times_up': '시간 종료!',
 
   // Tutorial Overlay texts

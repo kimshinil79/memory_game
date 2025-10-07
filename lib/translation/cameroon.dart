@@ -105,6 +105,7 @@ const Map<String, String> frCMTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nouveau jeu',
+  'share': 'Share',
   'times_up': 'Temps écoulé !',
 
   // Tutorial Overlay texts

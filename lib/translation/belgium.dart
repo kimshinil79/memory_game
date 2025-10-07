@@ -105,6 +105,7 @@ const Map<String, String> nlBETranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nieuw spel',
+  'share': 'Delen',
   'times_up': 'Tijd is om!',
 
   // Tutorial Overlay texts

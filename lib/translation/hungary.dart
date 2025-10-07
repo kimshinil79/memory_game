@@ -102,6 +102,7 @@ const Map<String, String> huTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Új játék',
+  'share': 'Megosztás',
   'times_up': 'Lejárt az idő!',
 
   // Tutorial Overlay texts

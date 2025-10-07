@@ -102,6 +102,7 @@ const Map<String, String> afkTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nuwe Speletjie',
+  'share': 'Share',
   'times_up': 'Tyd is verby!',
 
   // Tutorial Overlay texts

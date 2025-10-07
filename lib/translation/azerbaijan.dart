@@ -101,6 +101,7 @@ const Map<String, String> azTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Yeni oyun',
+  'share': 'Paylaş',
   'times_up': 'Vaxt bitdi!',
 
   // Tutorial Overlay text

@@ -104,6 +104,7 @@ const Map<String, String> sqTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Lojë e Re',
+  'share': 'Shpërndaj',
   'times_up': 'Koha mbaroi!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> etTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Uus mäng',
+  'share': 'Jaga',
   'times_up': 'Aeg läbi!',
 
   // Tutorial Overlay texts

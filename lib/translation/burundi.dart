@@ -103,6 +103,7 @@ const Map<String, String> rnTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Umukino mushya',
+  'share': 'Sangiza',
   'times_up': 'Igihe cyarangiye!',
 
   // Tutorial Overlay texts

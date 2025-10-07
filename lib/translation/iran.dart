@@ -102,6 +102,7 @@ const Map<String, String> faTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'بازی جدید',
+  'share': 'اشتراک گذاری',
   'times_up': 'زمان تمام شد!',
 
   // Tutorial Overlay texts

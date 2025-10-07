@@ -104,6 +104,7 @@ const Map<String, String> mkMKTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Нова игра',
+  'share': 'Сподели',
   'times_up': 'Времето истече!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> swKETranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Mchezo mpya',
+  'share': 'Share',
   'times_up': 'Muda umekwisha!',
 
   // Tutorial Overlay texts

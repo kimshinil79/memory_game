@@ -118,6 +118,7 @@ const Map<String, String> krTranslations = {
   'streak_bonus': '연속 보너스',
   'total_earned': '총 획득',
   'new_game': '새 게임',
+  'share': '공유하기',
   'times_up': '시간 종료!',
 
   // Tutorial Overlay 텍스트

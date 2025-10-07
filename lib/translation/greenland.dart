@@ -104,6 +104,7 @@ const Map<String, String> klGLTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Erinarsuut',
+  'share': 'Ilisagissaq',
   'times_up': 'Ullumi!',
 
   // Tutorial Overlay texts

@@ -103,6 +103,7 @@ const Map<String, String> siLKTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'නව ක්‍රීඩාව',
+  'share': 'බෙදාගන්න',
   'times_up': 'කාලය අවසන්!',
 
   // Tutorial Overlay texts

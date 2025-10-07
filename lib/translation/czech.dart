@@ -102,6 +102,7 @@ const Map<String, String> csTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nová hra',
+  'share': 'Sdílet',
   'times_up': 'Čas vypršel!',
 
   // Tutorial Overlay texts

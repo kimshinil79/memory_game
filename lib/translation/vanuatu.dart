@@ -102,6 +102,7 @@ const Map<String, String> biVUTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Niu gem',
+  'share': 'Share',
   'times_up': 'Taem i finis!',
 
   // Tutorial Overlay texts

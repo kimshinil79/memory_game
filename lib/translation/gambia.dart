@@ -104,6 +104,7 @@ const Map<String, String> enGMTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'New Game',
+  'share': 'Share',
   'times_up': 'Time\'s up!',
 
   // Tutorial Overlay texts

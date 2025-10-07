@@ -104,6 +104,7 @@ const Map<String, String> nnNOTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nytt spel',
+  'share': 'Del',
   'times_up': 'Tida er ute!',
 
   // Tutorial Overlay texts

@@ -105,6 +105,7 @@ const Map<String, String> mcMCTTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nouveau jeu',
+  'share': 'Partager',
   'times_up': 'Le temps est écoulé !',
 
   // Tutorial Overlay texts

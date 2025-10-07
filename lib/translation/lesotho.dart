@@ -103,6 +103,7 @@ const Map<String, String> stLSTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Papali e ncha',
+  'share': 'Share',
   'times_up': 'Nako e felile!',
 
   // Tutorial Overlay texts

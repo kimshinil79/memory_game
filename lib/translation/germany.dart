@@ -104,6 +104,7 @@ const Map<String, String> deDETranslations = {
   'streak_bonus': 'Serien Bonus',
   'total_earned': 'Insgesamt Verdient',
   'new_game': 'Neues Spiel',
+  'share': 'Teilen',
   'times_up': 'Zeit abgelaufen!',
 
   // Tutorial Overlay texts

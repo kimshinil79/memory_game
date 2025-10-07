@@ -99,6 +99,7 @@ Map<String, String> afTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'نوې لوبه',
+  'share': 'شریک کول',
   'times_up': 'وخت پای ته رسیدلی!',
 
   // Tutorial Overlay

@@ -106,6 +106,7 @@ const Map<String, String> caADTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nou joc',
+  'share': 'Compartir',
   'times_up': 'S\'ha acabat el temps!',
 
   // Tutorial Overlay texts

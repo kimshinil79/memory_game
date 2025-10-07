@@ -102,6 +102,7 @@ const Map<String, String> hkTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': '新游戏',
+  'share': '分享',
   'times_up': '时间到！',
 
   // Tutorial Overlay texts

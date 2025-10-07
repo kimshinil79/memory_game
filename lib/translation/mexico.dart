@@ -105,6 +105,7 @@ const Map<String, String> mxMEXTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nuevo juego',
+  'share': 'Compartir',
   'times_up': '¡Se acabó el tiempo!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> tiERTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'ሓድሽ ጸወታ',
+  'share': 'ኣካፍል',
   'times_up': 'ሰዓት ተወዲኡ!',
 
   // Tutorial Overlay texts

@@ -102,6 +102,7 @@ const Map<String, String> skSKTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nová hra',
+  'share': 'Zdieľať',
   'times_up': 'Čas vypršal!',
 
   // Tutorial Overlay texts

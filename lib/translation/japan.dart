@@ -104,6 +104,7 @@ const Map<String, String> jaTranslations = {
   'streak_bonus': '連続ボーナス',
   'total_earned': '合計獲得',
   'new_game': '新しいゲーム',
+  'share': '共有',
   'times_up': '時間切れ！',
 
   // Tutorial Overlay texts

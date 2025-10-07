@@ -102,6 +102,7 @@ const Map<String, String> msSGTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Permainan Baru',
+  'share': 'Kongsi',
   'times_up': 'Masa Tamat!',
 
   // Tutorial Overlay texts

@@ -103,6 +103,7 @@ const Map<String, String> taLKTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'புதிய விளையாட்டு',
+  'share': 'பகிர்',
   'times_up': 'நேரம் முடிந்துவிட்டது!',
 
   // Tutorial Overlay texts

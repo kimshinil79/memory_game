@@ -105,6 +105,7 @@ const Map<String, String> tnTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Papadi e ntsha',
+  'share': 'Share',
   'times_up': 'Nako e fedile!',
 
   // Tutorial Overlay texts

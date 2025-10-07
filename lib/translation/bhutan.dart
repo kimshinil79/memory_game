@@ -106,6 +106,7 @@ const Map<String, String> dzTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'རྩེད་མོ་གསར་པ།',
+  'share': 'འཕྲལ་',
   'times_up': 'དུས་ཚོད་ཟིན་པ།',
 
   // Tutorial Overlay texts

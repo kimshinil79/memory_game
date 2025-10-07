@@ -103,6 +103,7 @@ const Map<String, String> soSOTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Ciyaar Cusub',
+  'share': 'Wadaag',
   'times_up': "Waqtiga wuu dhamaaday!",
 
   // Tutorial Overlay texts

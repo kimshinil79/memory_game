@@ -104,6 +104,7 @@ const Map<String, String> ukUATranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Нова гра',
+  'share': 'Поділитися',
   'times_up': 'Час вийшов!',
 
   // Tutorial Overlay texts

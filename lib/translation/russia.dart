@@ -102,6 +102,7 @@ const Map<String, String> ruRUTranslations = {
   'streak_bonus': 'Бонус Серии',
   'total_earned': 'Всего Заработано',
   'new_game': 'Новая игра',
+  'share': 'Поделиться',
   'times_up': 'Время вышло!',
 
   // Tutorial Overlay texts

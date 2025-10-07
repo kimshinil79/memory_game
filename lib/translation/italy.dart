@@ -102,6 +102,7 @@ const Map<String, String> itTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nuovo gioco',
+  'share': 'Condividi',
   'times_up': 'Tempo scaduto!',
 
   // Tutorial Overlay texts

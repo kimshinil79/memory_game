@@ -105,6 +105,7 @@ const Map<String, String> deATTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Neues Spiel',
+  'share': 'Teilen',
   'times_up': 'Zeit ist abgelaufen!',
 
   // Tutorial Overlay texts

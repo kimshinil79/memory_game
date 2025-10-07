@@ -102,6 +102,7 @@ const Map<String, String> slSITranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nova igra',
+  'share': 'Deli',
   'times_up': 'Čas je potekel!',
 
   // Tutorial Overlay texts

@@ -102,6 +102,7 @@ const Map<String, String> mtMTTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Logħba ġdida',
+  'share': 'Aqsam',
   'times_up': 'Ħin spiċċa!',
 
   // Tutorial Overlay texts

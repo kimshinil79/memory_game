@@ -104,6 +104,7 @@ const Map<String, String> enCATranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'New game',
+  'share': 'Share',
   'times_up': 'Time\'s up!',
 
   // Tutorial Overlay texts

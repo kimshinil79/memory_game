@@ -105,6 +105,7 @@ const Map<String, String> kaGETranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'ახალი თამაში',
+  'share': 'გაზიარება',
   'times_up': 'დრო ამოიწურა!',
 
   // Tutorial Overlay texts

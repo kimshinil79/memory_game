@@ -104,6 +104,7 @@ const Map<String, String> neTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'नयाँ खेल',
+  'share': 'साझा गर्नुहोस्',
   'times_up': 'समय सकियो!',
 
   // Tutorial Overlay texts

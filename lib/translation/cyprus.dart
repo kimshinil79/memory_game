@@ -106,6 +106,7 @@ const Map<String, String> elCYTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Νέο παιχνίδι',
+  'share': 'Μοιραστείτε',
   'times_up': 'Τέλος χρόνου!',
 
   // Tutorial Overlay texts

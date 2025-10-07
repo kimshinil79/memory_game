@@ -103,6 +103,7 @@ const Map<String, String> beTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Новая гульня',
+  'share': 'Share',
   'times_up': 'Час скончыўся!',
 
   // Tutorial Overlay text

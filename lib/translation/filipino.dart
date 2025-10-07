@@ -104,6 +104,7 @@ const Map<String, String> filTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Bagong laro',
+  'share': 'Share',
   'times_up': 'Tapos na ang oras!',
 
   // Tutorial Overlay texts

@@ -104,6 +104,7 @@ const Map<String, String> daTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nyt spil',
+  'share': 'Share',
   'times_up': 'Tiden er gået!',
 
   // Tutorial Overlay texts

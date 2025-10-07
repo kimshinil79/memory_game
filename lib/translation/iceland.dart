@@ -104,6 +104,7 @@ const Map<String, String> isISTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nýr leikur',
+  'share': 'Deila',
   'times_up': 'Tíminn er liðinn!',
 
   // Tutorial Overlay texts

@@ -102,6 +102,7 @@ const Map<String, String> uzUZTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Yangi o\'yin',
+  'share': 'Ulashish',
   'times_up': 'Vaqt tugadi!',
 
   // Tutorial Overlay texts

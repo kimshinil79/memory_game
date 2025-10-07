@@ -102,6 +102,7 @@ const Map<String, String> ltTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Naujas žaidimas',
+  'share': 'Dalintis',
   'times_up': 'Laikas baigėsi!',
 
   // Tutorial Overlay texts

@@ -103,6 +103,7 @@ const Map<String, String> euTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Joko berria',
+  'share': 'Partekatu',
   'times_up': 'Denbora agortu da!',
 
   // Tutorial Overlay texts

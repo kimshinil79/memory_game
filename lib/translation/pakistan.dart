@@ -102,6 +102,7 @@ const Map<String, String> urPKTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'نیا کھیل',
+  'share': 'شیئر کریں',
   'times_up': 'وقت ختم ہو گیا!',
 
   // Tutorial Overlay texts

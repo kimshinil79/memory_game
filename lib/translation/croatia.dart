@@ -104,6 +104,7 @@ const Map<String, String> hrTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Nova igra',
+  'share': 'Podijeli',
   'times_up': 'Vrijeme je isteklo!',
 
   // Tutorial Overlay texts

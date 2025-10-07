@@ -102,6 +102,7 @@ const Map<String, String> kmTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'ហ្គេមថ្មី',
+  'share': 'ចែករំលែក',
   'times_up': 'ពេលវេលាអស់ហើយ!',
 
   // Tutorial Overlay texts

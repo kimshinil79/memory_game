@@ -104,6 +104,7 @@ const Map<String, String> lvLVTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Jauna spēle',
+  'share': 'Kopīgot',
   'times_up': 'Laiks beidzies!',
 
   // Tutorial Overlay texts

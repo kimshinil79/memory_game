@@ -102,6 +102,7 @@ const Map<String, String> viVNTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Trò chơi mới',
+  'share': 'Chia sẻ',
   'times_up': 'Hết giờ!',
 
   // Tutorial Overlay texts

@@ -102,6 +102,7 @@ const Map<String, String> idTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Permainan Baru',
+  'share': 'Bagikan',
   'times_up': 'Waktu Habis!',
 
   // Tutorial Overlay texts

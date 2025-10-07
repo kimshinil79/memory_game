@@ -104,6 +104,7 @@ const Map<String, String> loLATranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'ເກມໃໝ່',
+  'share': 'ແບ່ງປັນ',
   'times_up': 'ເວລາໝົດ!',
 
   // Tutorial Overlay texts

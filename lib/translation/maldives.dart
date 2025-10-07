@@ -106,6 +106,7 @@ const Map<String, String> dvTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'އާ ކުދި',
+  'share': 'ޙިއްސާ',
   'times_up': 'ވަގުތު ފުރިހަމަވެއްޖެ!',
 
   // Tutorial Overlay texts

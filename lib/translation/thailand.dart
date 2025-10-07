@@ -104,6 +104,7 @@ const Map<String, String> thTHTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'เกมใหม่',
+  'share': 'แบ่งปัน',
   'times_up': 'หมดเวลา!',
 
   // Tutorial Overlay texts

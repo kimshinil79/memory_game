@@ -102,6 +102,7 @@ const Map<String, String> mhTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Kōnnaan kein kajin',
+  'share': 'Share',
   'times_up': 'Kōnnaan kein kajin!',
 
   // Tutorial Overlay texts

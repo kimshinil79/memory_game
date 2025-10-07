@@ -102,6 +102,7 @@ const Map<String, String> mgTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Lalao vaovao',
+  'share': 'Mizara',
   'times_up': 'Lany ny fotoana!',
 
   // Tutorial Overlay texts

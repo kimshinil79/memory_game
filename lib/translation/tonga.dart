@@ -106,6 +106,7 @@ const Map<String, String> toTOTranslations = {
   'streak_bonus': 'Streak Bonus',
   'total_earned': 'Total Earned',
   'new_game': 'Taʻanga foʻou',
+  'share': 'Share',
   'times_up': 'ʻOku ʻosi ʻa e taimi!',
 
   // Tutorial Overlay texts
