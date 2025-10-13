@@ -21,6 +21,7 @@ import '../widgets/memory_card.dart';
 import '../widgets/item_popup.dart';
 import '../widgets/completion_dialog.dart';
 import '../widgets/score_board.dart';
+import '../widgets/points_deduction_popup.dart';
 // import '../widgets/ad_section.dart'; // 광고 비활성화로 제거
 import 'dart:math';
 // import 'package:google_mobile_ads/google_mobile_ads.dart'; // 광고 비활성화로 제거
@@ -192,6 +193,9 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   bool _canAddTime = true;
   final int _timeAddCost = 5; // 시간 추가 시 차감되는 Brain Health 점수
   final int _timeAddMinElapsed = 30; // 시간 추가 버튼이 활성화되기 위한 최소 경과 시간(초)
+
+  // 점수 차감 팝업 애니메이션 상태
+  bool _showPointsDeduction = false;
 
   DateTime? _gameStartTime; // 게임 시작 시점을 기록할 변수
 
@@ -1416,16 +1420,17 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     setState(() {
       _remainingTime += 30; // 30초 추가
       _canAddTime = false; // 쿨다운 시작
+      _showPointsDeduction = true; // 팝업 표시
     });
 
-    // 시간 추가 알림
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text('+30 seconds added! -$_timeAddCost Brain Health points'),
-    //     backgroundColor: Colors.green,
-    //     behavior: SnackBarBehavior.floating,
-    //   ),
-    // );
+    // 1.5초 후 팝업 숨기기
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      if (mounted) {
+        setState(() {
+          _showPointsDeduction = false;
+        });
+      }
+    });
 
     // 10초 후 다시 시간 추가 가능하게 설정
     Future.delayed(const Duration(seconds: 10), () {
@@ -1584,30 +1589,45 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                     // 시간 추가 버튼
                                     if (widget.isTimeAttackMode)
                                       Expanded(
-                                        child: ElevatedButton.icon(
-                                          onPressed: _canAddTime &&
-                                                  isGameStarted &&
-                                                  _elapsedTime >= _timeAddMinElapsed
-                                              ? _addExtraTime
-                                              : null,
-                                          icon: const Icon(Icons.timer, size: 14),
-                                          label: const Text('+30s',
-                                              style: TextStyle(fontSize: 12)),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: _canAddTime &&
-                                                    isGameStarted &&
-                                                    _elapsedTime >= _timeAddMinElapsed
-                                                ? instagramGradientStart
-                                                : const Color(0xFF2A2F3A),
-                                            foregroundColor: Colors.white,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            minimumSize: const Size(56, 32),
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(color: instagramGradientEnd, width: 1.2),
-                                              borderRadius: BorderRadius.circular(12),
-                                            ),
-                                          ),
+                                        child: Consumer<BrainHealthProvider>(
+                                          builder: (context, brainHealthProvider, child) {
+                                            final hasEnoughPoints = brainHealthProvider.brainHealthScore >= _timeAddCost;
+                                            final hasLessThan30Seconds = _remainingTime < 30;
+                                            final canUseButton = _canAddTime &&
+                                                isGameStarted &&
+                                                _elapsedTime >= _timeAddMinElapsed &&
+                                                hasEnoughPoints &&
+                                                hasLessThan30Seconds;
+                                            
+                                            return ElevatedButton.icon(
+                                              onPressed: canUseButton ? _addExtraTime : null,
+                                              icon: const Icon(Icons.timer, size: 14),
+                                              label: const Text(
+                                                '+30s',
+                                                style: TextStyle(fontSize: 12),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: canUseButton
+                                                    ? instagramGradientStart
+                                                    : const Color(0xFF2A2F3A),
+                                                foregroundColor: canUseButton 
+                                                    ? Colors.white 
+                                                    : Colors.white38,
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                minimumSize: const Size(56, 32),
+                                                shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                    color: canUseButton 
+                                                        ? instagramGradientEnd 
+                                                        : Colors.white24,
+                                                    width: 1.2,
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                   ],
@@ -1904,6 +1924,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                   });
                 },
                 onClose: _closeTutorial,
+              ),
+              // 점수 차감 팝업
+              PointsDeductionPopup(
+                show: _showPointsDeduction,
+                points: _timeAddCost,
               ),
             ],
           ),
