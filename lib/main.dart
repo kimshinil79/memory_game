@@ -1539,7 +1539,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       userAge: _userAge,
       userGender: _userGender,
       userCountryCode: _userCountryCode,
-      userBirthday: userBirthday,
       shortPW: _shortPW,
     );
 

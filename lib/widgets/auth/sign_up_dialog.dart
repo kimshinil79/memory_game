@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
-import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import '../../providers/language_provider.dart';
 import '../../data/countries.dart';
@@ -13,12 +11,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String PREF_USER_COUNTRY_CODE = 'user_country_code';
 
 class SignUpDialog {
+  // Gradient colors matching the app theme
+  static const Color instagramGradientStart = Color(0xFF833AB4);
+  static const Color instagramGradientEnd = Color(0xFFF77737);
+  
   static Future<Map<String, dynamic>?> show(BuildContext context) async {
     // Get screen size for responsive layout
     final Size screenSize = MediaQuery.of(context).size;
     // Calculate dialog width based on screen size
     final double dialogWidth =
-        screenSize.width > 600 ? 400 : screenSize.width * 0.85;
+        screenSize.width > 600 ? 450 : screenSize.width * 0.9;
 
     // Try to load saved country code from local storage
     String? savedCountryCode = await _loadSavedCountryCode();
@@ -64,14 +66,12 @@ class SignUpDialog {
     final TextEditingController shortPasswordController =
         TextEditingController();
     final TextEditingController nicknameController = TextEditingController();
-    final TextEditingController birthdayController = TextEditingController();
 
     String? selectedGender;
     Country? selectedCountry = initialCountry;
     String? selectedCountryCode = savedCountryCode;
     String? passwordError;
     String? shortPasswordError;
-    DateTime? selectedBirthday;
 
     return showDialog<Map<String, dynamic>?>(
       context: context,
@@ -88,7 +88,6 @@ class SignUpDialog {
                 });
 
                 // Update translations for the new country code
-                // This is done outside the dialog using the parent context
                 if (LanguageProvider.countryToLanguageMap
                     .containsKey(country.code.toUpperCase())) {
                   // Update the language provider in the parent context
@@ -139,474 +138,227 @@ class SignUpDialog {
             }
 
             return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+              backgroundColor: Colors.transparent,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth: dialogWidth,
-                  maxHeight: screenSize.height * 0.8, // Limit max height
+                  maxHeight: screenSize.height * 0.85,
                 ),
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Title with FittedBox to handle long text
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF0B0D13),
+                        Color(0xFF121826),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(
+                      color: instagramGradientStart.withOpacity(0.5),
+                      width: 2,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: instagramGradientStart.withOpacity(0.3),
+                        blurRadius: 30,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Title
+                          Text(
                             translations['create_account'] ?? 'Create Account',
                             style: GoogleFonts.montserrat(
-                              fontSize: 24,
+                              fontSize: 32,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: Colors.white,
+                              letterSpacing: 1.2,
+                              shadows: [
+                                Shadow(
+                                  color: instagramGradientStart.withOpacity(0.5),
+                                  blurRadius: 10,
+                                ),
+                              ],
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        const SizedBox(height: 24),
-                        // Email field
-                        TextField(
-                          controller: emailController,
-                          decoration: InputDecoration(
+                          const SizedBox(height: 32),
+                          // Email field
+                          _buildTextField(
+                            controller: emailController,
                             hintText: translations['email'] ?? 'Email',
-                            hintStyle: const TextStyle(
-                                fontSize: 14), // Slightly smaller hint text
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            isDense: true, // More compact field
+                            icon: Icons.email_outlined,
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Nickname field
-                        TextField(
-                          controller: nicknameController,
-                          decoration: InputDecoration(
+                          const SizedBox(height: 16),
+                          // Nickname field
+                          _buildTextField(
+                            controller: nicknameController,
                             hintText: translations['nickname'] ?? 'Nickname',
-                            hintStyle: const TextStyle(fontSize: 14),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: const Icon(Icons.person_outline),
-                            isDense: true,
+                            icon: Icons.person_outline,
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Birthday field with GestureDetector
-                        GestureDetector(
-                          onTap: () async {
-                            final DateTime? picked = await showDatePicker(
-                              context: dialogContext,
-                              initialDate:
-                                  selectedBirthday ?? DateTime(2000, 1, 1),
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime.now(),
-                              builder: (context, child) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                      primary: Colors.purple.shade400,
-                                      onPrimary: Colors.white,
-                                      onSurface: Colors.black,
-                                    ),
-                                  ),
-                                  child: child!,
-                                );
-                              },
-                            );
-                            if (picked != null) {
+                          const SizedBox(height: 16),
+                          // Gender selection
+                          _buildGenderSelector(
+                            translations: translations,
+                            selectedGender: selectedGender,
+                            onGenderSelected: (gender) {
                               setState(() {
-                                selectedBirthday = picked;
-                                birthdayController.text =
-                                    DateFormat('yyyy-MM-dd').format(picked);
+                                selectedGender = gender;
                               });
-                            }
-                          },
-                          child: AbsorbPointer(
-                            child: TextField(
-                              controller: birthdayController,
-                              decoration: InputDecoration(
-                                hintText:
-                                    translations['birthday'] ?? 'Birthday',
-                                hintStyle: const TextStyle(fontSize: 14),
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(Icons.cake_outlined),
-                                suffixIcon: const Icon(Icons.calendar_today),
-                                isDense: true,
-                              ),
-                            ),
+                            },
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Gender selection
-                        Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
+                          const SizedBox(height: 16),
+                          // Country selection
+                          _buildCountrySelector(
+                            translations: translations,
+                            selectedCountry: selectedCountry,
+                            onSelectCountry: selectCountry,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                translations['gender'] ?? 'Gender',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 14,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedGender = 'Male';
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12,
-                                            horizontal:
-                                                8), // Reduced horizontal padding
-                                        decoration: BoxDecoration(
-                                          color: selectedGender == 'Male'
-                                              ? Colors.blue.shade700
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: selectedGender == 'Male'
-                                                ? Colors.blue.shade700
-                                                : Colors.grey.shade300,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.male,
-                                              size: 16, // Smaller icon
-                                              color: selectedGender == 'Male'
-                                                  ? Colors.white
-                                                  : Colors.blue.shade700,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Flexible(
-                                              child: Text(
-                                                translations['male'] ?? 'Male',
-                                                style: TextStyle(
-                                                  fontSize: 13, // Smaller text
-                                                  fontWeight: FontWeight.bold,
-                                                  color: selectedGender ==
-                                                          'Male'
-                                                      ? Colors.white
-                                                      : Colors.grey.shade700,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedGender = 'Female';
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12,
-                                            horizontal:
-                                                8), // Reduced horizontal padding
-                                        decoration: BoxDecoration(
-                                          color: selectedGender == 'Female'
-                                              ? Colors.pink.shade700
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: selectedGender == 'Female'
-                                                ? Colors.pink.shade700
-                                                : Colors.grey.shade300,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.female,
-                                              size: 16, // Smaller icon
-                                              color: selectedGender == 'Female'
-                                                  ? Colors.white
-                                                  : Colors.pink.shade700,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Flexible(
-                                              child: Text(
-                                                translations['female'] ??
-                                                    'Female',
-                                                style: TextStyle(
-                                                  fontSize: 13, // Smaller text
-                                                  fontWeight: FontWeight.bold,
-                                                  color: selectedGender ==
-                                                          'Female'
-                                                      ? Colors.white
-                                                      : Colors.grey.shade700,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Country selection
-                        Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      selectedCountry == null
-                                          ? (translations['select_country'] ??
-                                              'Select Country')
-                                          : '${translations['country'] ?? 'Country'}: ${selectedCountry!.name}',
-                                      style: TextStyle(
-                                        color: selectedCountry == null
-                                            ? Colors.grey[600]
-                                            : Colors.black,
-                                        fontWeight: selectedCountry == null
-                                            ? FontWeight.normal
-                                            : FontWeight.bold,
-                                        fontSize: 14, // Slightly smaller text
-                                      ),
-                                      overflow: TextOverflow
-                                          .ellipsis, // Handle text overflow
-                                    ),
-                                  ),
-                                  if (selectedCountry != null)
-                                    Flag.fromString(
-                                      selectedCountry!.code,
-                                      height: 24,
-                                      width: 32,
-                                      borderRadius: 4,
-                                    ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              SizedBox(
-                                width: double.infinity, // Full width button
-                                child: ElevatedButton(
-                                  onPressed: selectCountry,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.purple,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      side: BorderSide(
-                                          color: Colors.purple.shade200),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical:
-                                            10), // Slightly reduced padding
-                                  ),
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                        translations['select_country_button'] ??
-                                            'Select Country'),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Password field
-                        TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          onChanged: (_) => validatePassword(),
-                          decoration: InputDecoration(
+                          const SizedBox(height: 16),
+                          // Password field
+                          _buildTextField(
+                            controller: passwordController,
                             hintText: translations['password'] ?? 'Password',
-                            hintStyle: const TextStyle(fontSize: 14),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            isDense: true,
+                            icon: Icons.lock_outline,
+                            obscureText: true,
+                            onChanged: (_) => validatePassword(),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Confirm password field
-                        TextField(
-                          controller: confirmPasswordController,
-                          obscureText: true,
-                          onChanged: (_) => validatePassword(),
-                          decoration: InputDecoration(
-                            hintText: translations['confirm_password'] ??
-                                'Confirm Password',
-                            hintStyle: const TextStyle(fontSize: 14),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: const Icon(Icons.lock_outline),
+                          const SizedBox(height: 16),
+                          // Confirm password field
+                          _buildTextField(
+                            controller: confirmPasswordController,
+                            hintText: translations['confirm_password'] ?? 'Confirm Password',
+                            icon: Icons.lock_outline,
+                            obscureText: true,
                             errorText: passwordError,
-                            isDense: true,
-                            // Allow error text to wrap
-                            errorMaxLines: 2,
+                            onChanged: (_) => validatePassword(),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // PIN field
-                        TextField(
-                          controller: shortPasswordController,
-                          keyboardType: TextInputType.number,
-                          onChanged: (_) => validateShortPassword(),
-                          maxLength: 2,
-                          decoration: InputDecoration(
-                            hintText: translations['multi_game_pin'] ??
-                                'Multi-Game PIN (2 digits)',
-                            hintStyle: const TextStyle(fontSize: 14),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: const Icon(Icons.pin_outlined),
+                          const SizedBox(height: 16),
+                          // PIN field
+                          _buildTextField(
+                            controller: shortPasswordController,
+                            hintText: translations['multi_game_pin'] ?? 'Multi-Game PIN (2 digits)',
+                            icon: Icons.pin_outlined,
+                            keyboardType: TextInputType.number,
+                            maxLength: 2,
                             errorText: shortPasswordError,
-                            counterText: "",
-                            helperText: translations['pin_helper_text'] ??
-                                "2-digit PIN for multiplayer games",
-                            helperStyle: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
-                            isDense: true,
-                            // Allow helper text to wrap
-                            helperMaxLines: 2,
-                            // Allow error text to wrap
-                            errorMaxLines: 2,
+                            helperText: translations['pin_helper_text'] ?? "2-digit PIN for multiplayer games",
+                            onChanged: (_) => validateShortPassword(),
                           ),
-                        ),
-                        const SizedBox(height: 24),
-                        // Button row
-                        Row(
-                          children: [
-                            Expanded(
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  Navigator.of(dialogContext).pop();
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.grey.shade700,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                          const SizedBox(height: 32),
+                          // Button row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.of(dialogContext).pop();
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    side: const BorderSide(color: Colors.white38, width: 2),
+                                    padding: const EdgeInsets.symmetric(vertical: 16),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
                                   ),
-                                  side: BorderSide(color: Colors.grey.shade300),
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                ),
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child:
-                                      Text(translations['cancel'] ?? 'Cancel'),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Validate passwords before submission
-                                  validatePassword();
-                                  validateShortPassword();
-                                  if (passwordError != null ||
-                                      shortPasswordError != null) {
-                                    return;
-                                  }
-
-                                  final userData = {
-                                    'email': emailController.text,
-                                    'password': passwordController.text,
-                                    'nickname': nicknameController.text,
-                                    'birthday': selectedBirthday != null
-                                        ? Timestamp.fromDate(selectedBirthday!)
-                                        : null,
-                                    'gender': selectedGender,
-                                    'country': selectedCountryCode,
-                                    'shortPW': shortPasswordController.text,
-                                  };
-                                  Navigator.of(dialogContext).pop(userData);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.purple.shade400,
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                ),
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
                                   child: Text(
-                                      translations['create_account_button'] ??
-                                          'Create Account'),
+                                    translations['cancel'] ?? 'Cancel',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                      colors: [instagramGradientStart, instagramGradientEnd],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: instagramGradientStart.withOpacity(0.6),
+                                        blurRadius: 20,
+                                        spreadRadius: 2,
+                                        offset: const Offset(0, 6),
+                                      ),
+                                      BoxShadow(
+                                        color: instagramGradientEnd.withOpacity(0.4),
+                                        blurRadius: 15,
+                                        spreadRadius: 1,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Validate passwords before submission
+                                      validatePassword();
+                                      validateShortPassword();
+                                      if (passwordError != null ||
+                                          shortPasswordError != null) {
+                                        return;
+                                      }
+
+                                      final userData = {
+                                        'email': emailController.text,
+                                        'password': passwordController.text,
+                                        'nickname': nicknameController.text,
+                                        'gender': selectedGender,
+                                        'country': selectedCountryCode,
+                                        'shortPW': shortPasswordController.text,
+                                      };
+                                      Navigator.of(dialogContext).pop(userData);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      foregroundColor: Colors.white,
+                                      shadowColor: Colors.transparent,
+                                      padding: const EdgeInsets.symmetric(vertical: 18),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      elevation: 0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.person_add_rounded,
+                                          size: 22,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          translations['create_account_button'] ?? 'Create Account',
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -615,6 +367,244 @@ class SignUpDialog {
           },
         );
       },
+    );
+  }
+
+  static Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    bool obscureText = false,
+    String? errorText,
+    String? helperText,
+    TextInputType? keyboardType,
+    int? maxLength,
+    void Function(String)? onChanged,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      maxLength: maxLength,
+      onChanged: onChanged,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.white38, fontSize: 14),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.1),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.white24),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.white24),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: instagramGradientStart, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.redAccent, width: 2),
+        ),
+        prefixIcon: Icon(icon, color: Colors.white70),
+        errorText: errorText,
+        helperText: helperText,
+        helperStyle: TextStyle(color: Colors.white54, fontSize: 12),
+        errorStyle: const TextStyle(color: Colors.redAccent),
+        counterText: "",
+        isDense: true,
+      ),
+    );
+  }
+
+  static Widget _buildGenderSelector({
+    required Map<String, String> translations,
+    required String? selectedGender,
+    required Function(String) onGenderSelected,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            translations['gender'] ?? 'Gender',
+            style: GoogleFonts.montserrat(
+              color: Colors.white70,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () => onGenderSelected('Male'),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      gradient: selectedGender == 'Male'
+                          ? const LinearGradient(
+                              colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+                            )
+                          : null,
+                      color: selectedGender == 'Male' ? null : Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: selectedGender == 'Male'
+                            ? Colors.blue
+                            : Colors.white24,
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.male,
+                          color: selectedGender == 'Male' ? Colors.white : Colors.blue.shade300,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          translations['male'] ?? 'Male',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: selectedGender == 'Male' ? Colors.white : Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: InkWell(
+                  onTap: () => onGenderSelected('Female'),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      gradient: selectedGender == 'Female'
+                          ? const LinearGradient(
+                              colors: [Color(0xFFEC407A), Color(0xFFD81B60)],
+                            )
+                          : null,
+                      color: selectedGender == 'Female' ? null : Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: selectedGender == 'Female'
+                            ? Colors.pink
+                            : Colors.white24,
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.female,
+                          color: selectedGender == 'Female' ? Colors.white : Colors.pink.shade300,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          translations['female'] ?? 'Female',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: selectedGender == 'Female' ? Colors.white : Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget _buildCountrySelector({
+    required Map<String, String> translations,
+    required Country? selectedCountry,
+    required VoidCallback onSelectCountry,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  selectedCountry == null
+                      ? (translations['select_country'] ?? 'Select Country')
+                      : '${translations['country'] ?? 'Country'}: ${selectedCountry.name}',
+                  style: GoogleFonts.montserrat(
+                    color: selectedCountry == null ? Colors.white38 : Colors.white,
+                    fontWeight: selectedCountry == null ? FontWeight.normal : FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (selectedCountry != null)
+                Flag.fromString(
+                  selectedCountry.code,
+                  height: 24,
+                  width: 32,
+                  borderRadius: 4,
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onSelectCountry,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: instagramGradientStart.withOpacity(0.2),
+                foregroundColor: Colors.white,
+                side: BorderSide(color: instagramGradientStart.withOpacity(0.5), width: 2),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: Text(
+                translations['select_country_button'] ?? 'Select Country',
+                style: GoogleFonts.montserrat(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

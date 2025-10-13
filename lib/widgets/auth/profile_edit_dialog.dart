@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
-import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/countries.dart';
@@ -17,12 +13,10 @@ class ProfileEditDialog {
     required int? userAge,
     required String? userGender,
     required String? userCountryCode,
-    Timestamp? userBirthday,
     String? shortPW,
   }) async {
     final TextEditingController nicknameController =
         TextEditingController(text: nickname);
-    final TextEditingController birthdayController = TextEditingController();
     final TextEditingController shortPasswordController =
         TextEditingController(text: shortPW);
     final TextEditingController currentPasswordController =
@@ -30,19 +24,6 @@ class ProfileEditDialog {
     final TextEditingController newPasswordController = TextEditingController();
     final TextEditingController confirmPasswordController =
         TextEditingController();
-
-    // Set initial birthday
-    DateTime? selectedBirthday;
-    if (userBirthday != null) {
-      selectedBirthday = userBirthday.toDate();
-      birthdayController.text =
-          DateFormat('yyyy-MM-dd').format(selectedBirthday);
-    } else if (userAge != null) {
-      // Approximate birthday from age
-      selectedBirthday = DateTime(DateTime.now().year - userAge, 1, 1);
-      birthdayController.text =
-          DateFormat('yyyy-MM-dd').format(selectedBirthday);
-    }
 
     String? selectedGender = userGender;
     String? selectedCountryCode = userCountryCode;
@@ -73,12 +54,10 @@ class ProfileEditDialog {
           child: ProfileEditDialogContent(
             dialogContext: dialogContext,
             nicknameController: nicknameController,
-            birthdayController: birthdayController,
             shortPasswordController: shortPasswordController,
             currentPasswordController: currentPasswordController,
             newPasswordController: newPasswordController,
             confirmPasswordController: confirmPasswordController,
-            selectedBirthday: selectedBirthday,
             selectedGender: selectedGender,
             selectedCountryCode: selectedCountryCode,
             selectedCountry: selectedCountry,
@@ -96,12 +75,10 @@ class ProfileEditDialog {
 class ProfileEditDialogContent extends StatefulWidget {
   final BuildContext dialogContext;
   final TextEditingController nicknameController;
-  final TextEditingController birthdayController;
   final TextEditingController shortPasswordController;
   final TextEditingController currentPasswordController;
   final TextEditingController newPasswordController;
   final TextEditingController confirmPasswordController;
-  final DateTime? selectedBirthday;
   final String? selectedGender;
   final String? selectedCountryCode;
   final Country? selectedCountry;
@@ -114,12 +91,10 @@ class ProfileEditDialogContent extends StatefulWidget {
     super.key,
     required this.dialogContext,
     required this.nicknameController,
-    required this.birthdayController,
     required this.shortPasswordController,
     required this.currentPasswordController,
     required this.newPasswordController,
     required this.confirmPasswordController,
-    this.selectedBirthday,
     this.selectedGender,
     this.selectedCountryCode,
     this.selectedCountry,
@@ -139,7 +114,6 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
   Map<String, String> _translations = {};
   bool _didInitProvider = false;
 
-  DateTime? selectedBirthday;
   String? selectedGender;
   String? selectedCountryCode;
   Country? selectedCountry;
@@ -175,7 +149,6 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
     super.initState();
 
     // 초기 상태 복사
-    selectedBirthday = widget.selectedBirthday;
     selectedGender = widget.selectedGender;
     selectedCountryCode = widget.selectedCountryCode;
     selectedCountry = widget.selectedCountry;
@@ -355,64 +328,6 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                     borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
                   ),
                   prefixIcon: const Icon(Icons.person_outline, color: Color(0xFF00D4FF)),
-                ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: () async {
-                  final DateTime? picked = await showDatePicker(
-                    context: widget.dialogContext,
-                    initialDate: selectedBirthday ?? DateTime(2000, 1, 1),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                    builder: (context, child) {
-                      return Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: Colors.purple.shade400,
-                            onPrimary: Colors.white,
-                            onSurface: Colors.black,
-                          ),
-                        ),
-                        child: child!,
-                      );
-                    },
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      selectedBirthday = picked;
-                      widget.birthdayController.text =
-                          DateFormat('yyyy-MM-dd').format(picked);
-                    });
-                  }
-                },
-                child: TextField(
-                  controller: widget.birthdayController,
-                  style: _getTextStyle(fontSize: 16, color: Colors.white),
-                  decoration: InputDecoration(
-                    labelText: t('birthday'),
-                    labelStyle:
-                        _getTextStyle(fontSize: 14, color: const Color(0xFF00D4FF)),
-                    hintText: t('select_birthday'),
-                    hintStyle:
-                        _getTextStyle(fontSize: 14, color: Colors.grey[400]!),
-                    filled: true,
-                    fillColor: const Color(0xFF252B3A),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Color(0xFF00D4FF), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Color(0xFFFF4081), width: 2),
-                    ),
-                    prefixIcon: const Icon(Icons.calendar_today, color: Color(0xFF00D4FF)),
-                  ),
-                  enabled: false,
                 ),
               ),
               const SizedBox(height: 16),
@@ -840,16 +755,6 @@ class _ProfileEditDialogContentState extends State<ProfileEditDialogContent> {
                         // 저장 로직
                         final result = {
                           'nickname': widget.nicknameController.text,
-                          'birthday': selectedBirthday != null
-                              ? Timestamp.fromDate(selectedBirthday!)
-                              : null,
-                          'age': selectedBirthday != null
-                              ? (DateTime.now()
-                                          .difference(selectedBirthday!)
-                                          .inDays /
-                                      365)
-                                  .floor()
-                              : widget.userAge,
                           'gender': selectedGender,
                           'country': selectedCountryCode,
                           'shortPW': widget.shortPasswordController.text,

@@ -4,7 +4,7 @@ import '/card_item_data/index.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
-// import 'dart:io'; // 광고 비활성화로 제거
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -22,9 +22,9 @@ import '../widgets/item_popup.dart';
 import '../widgets/completion_dialog.dart';
 import '../widgets/score_board.dart';
 import '../widgets/points_deduction_popup.dart';
-// import '../widgets/ad_section.dart'; // 광고 비활성화로 제거
+import '../widgets/ad_section.dart';
 import 'dart:math';
-// import 'package:google_mobile_ads/google_mobile_ads.dart'; // 광고 비활성화로 제거
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MemoryGamePage extends StatefulWidget {
   final int numberOfPlayers;
@@ -208,11 +208,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   // Add a field to store the IndexedStack reference
   IndexedStack? _parentIndexedStack;
 
-  // BannerAd 변수 추가 (임시 비활성화)
-  // BannerAd? myBanner;
-  // bool _isBannerAdReady = false;
-  // LoadAdError? _adLoadError; // 광고 로드 에러 정보 저장
-  // bool _isAdLoading = false; // 광고 로딩 상태 추적
+  // BannerAd 변수 추가
+  BannerAd? myBanner;
+  bool _isBannerAdReady = false;
+  LoadAdError? _adLoadError; // 광고 로드 에러 정보 저장
+  bool _isAdLoading = false; // 광고 로딩 상태 추적
 
   @override
   void initState() {
@@ -257,8 +257,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // 앱 생명주기 관찰자 등록
     WidgetsBinding.instance.addObserver(this);
 
-    // BannerAd 초기화 (임시 비활성화)
-    // _initializeBannerAd();
+    // BannerAd 초기화
+    _initializeBannerAd();
   }
 
   // MemoryGameService 초기화 메서드
@@ -622,12 +622,12 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     // Clear the stored reference to IndexedStack
     _parentIndexedStack = null;
 
-    // BannerAd 정리 (임시 비활성화)
-    // try {
-    //   myBanner?.dispose();
-    // } catch (e) {
-    //   print('광고 정리 중 오류: $e');
-    // }
+    // BannerAd 정리
+    try {
+      myBanner?.dispose();
+    } catch (e) {
+      print('광고 정리 중 오류: $e');
+    }
 
     super.dispose();
   }
@@ -1706,18 +1706,18 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               final gridCols = int.parse(gridDimensions[0]);
                               final gridRows = int.parse(gridDimensions[1]);
 
-                              // 게임 영역 계산: 타이머 바로 아래부터 화면 하단까지 (광고 비활성화)
+                              // 게임 영역 계산: 타이머 바로 아래부터 화면 하단까지
                               const timerBarHeight = 45.0; // 타이머 바 높이
-                              // final adHeight =
-                              //     (_isBannerAdReady && myBanner != null)
-                              //         ? myBanner!.size.height.toDouble()
-                              //         : 0.0;
-                              // const maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
+                              final adHeight =
+                                  (_isBannerAdReady && myBanner != null)
+                                      ? myBanner!.size.height.toDouble()
+                                      : 0.0;
+                              const maxAdSectionHeight = 80.0; // 광고 섹션 최대 높이
 
-                              // 사용 가능한 게임 영역 높이 계산 (광고 공간 제외하지 않음)
+                              // 사용 가능한 게임 영역 높이 계산 (광고 공간 제외)
                               final availableHeight = viewportHeight -
                                   timerBarHeight -
-                                  // maxAdSectionHeight - // 광고 비활성화로 제거
+                                  maxAdSectionHeight -
                                   16; // 16은 여유 공간
 
                               // 카드 간격 계산 (화면 크기와 방향에 따라 동적 조정) - 간격을 더 줄임
@@ -1903,8 +1903,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                       ),
                     ),
 
-                    // 배너 광고 표시 (임시 비활성화)
-                    // _buildAdSection(),
+                    // 배너 광고 표시
+                    _buildAdSection(),
                   ],
                 ),
               ),
@@ -2799,15 +2799,112 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   //   }
   // }
 
-  // 광고 섹션 빌드 메서드 (임시 비활성화)
-  // Widget _buildAdSection() {
-  //   return AdSection(
-  //     isBannerAdReady: _isBannerAdReady,
-  //     bannerAd: myBanner,
-  //     isAdLoading: _isAdLoading,
-  //     adLoadError: _adLoadError,
-  //     instagramGradientStart: instagramGradientStart,
-  //     onRetry: _loadBannerAd,
-  //   );
-  // }
+  // BannerAd 초기화 메서드
+  void _initializeBannerAd() {
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      print('웹 플랫폼에서는 AdMob 광고를 사용하지 않습니다');
+      return;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        _loadBannerAd();
+      } catch (e) {
+        print('광고 초기화 중 오류: $e');
+      }
+    });
+  }
+
+  void _loadBannerAd() {
+    try {
+      if (myBanner != null) {
+        try {
+          myBanner!.dispose();
+        } catch (e) {
+          print('기존 광고 dispose 중 오류: $e');
+        }
+        myBanner = null;
+      }
+
+      if (mounted) {
+        setState(() {
+          _isAdLoading = true;
+          _adLoadError = null;
+          _isBannerAdReady = false;
+        });
+      }
+    } catch (e) {
+      print('광고 로딩 준비 중 오류: $e');
+      return;
+    }
+
+    try {
+      String adUnitId = Platform.isAndroid
+          ? 'ca-app-pub-7181238773192957/9331854982'
+          : 'ca-app-pub-7181238773192957/9331854982';
+
+      myBanner = BannerAd(
+        adUnitId: adUnitId,
+        size: AdSize.banner,
+        request: const AdRequest(
+          nonPersonalizedAds: false,
+        ),
+        listener: BannerAdListener(
+          onAdLoaded: (Ad ad) {
+            print('✅ 배너 광고가 성공적으로 로드되었습니다');
+            if (mounted) {
+              setState(() {
+                _isBannerAdReady = true;
+                _isAdLoading = false;
+                _adLoadError = null;
+              });
+            }
+          },
+          onAdFailedToLoad: (Ad ad, LoadAdError error) {
+            print('❌ 배너 광고 로드 실패: $error');
+            ad.dispose();
+            if (mounted) {
+              setState(() {
+                _isBannerAdReady = false;
+                _isAdLoading = false;
+                _adLoadError = error;
+              });
+            }
+            Future.delayed(const Duration(seconds: 15), () {
+              if (mounted && !_isBannerAdReady && _adLoadError != null) {
+                print('🔄 배너 광고 재시도 중...');
+                _loadBannerAd();
+              }
+            });
+          },
+          onAdOpened: (Ad ad) => print('📱 배너 광고가 열렸습니다'),
+          onAdClosed: (Ad ad) => print('❌ 배너 광고가 닫혔습니다'),
+          onAdImpression: (Ad ad) => print('👁️ 배너 광고 노출됨'),
+        ),
+      );
+
+      myBanner!.load();
+    } catch (e) {
+      print('광고 생성 및 로딩 중 오류: $e');
+      if (mounted) {
+        setState(() {
+          _isBannerAdReady = false;
+          _isAdLoading = false;
+          _adLoadError = null;
+        });
+      }
+    }
+  }
+
+  // 광고 섹션 빌드 메서드
+  Widget _buildAdSection() {
+    return AdSection(
+      isBannerAdReady: _isBannerAdReady,
+      bannerAd: myBanner,
+      isAdLoading: _isAdLoading,
+      adLoadError: _adLoadError,
+      instagramGradientStart: instagramGradientStart,
+      onRetry: _loadBannerAd,
+    );
+  }
 }
