@@ -30,6 +30,9 @@ jobs:
       - name: Build web
         run: flutter build web --release --no-tree-shake-icons
         
+      - name: Install Functions Dependencies
+        run: cd brainhealth && npm install
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
