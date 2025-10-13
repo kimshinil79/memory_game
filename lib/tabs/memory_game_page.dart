@@ -86,6 +86,11 @@ class MemoryGamePage extends StatefulWidget {
     _stateKey.currentState?._addExtraTime();
   }
 
+  // 게임 리셋 메서드
+  void resetGame() {
+    _stateKey.currentState?.initializeGame();
+  }
+
   // 튜토리얼(메모리 가이드) 표시 여부 조회 메서드
   bool isTutorialVisible() {
     return _stateKey.currentState?._showTutorial ?? false;
@@ -172,6 +177,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   int _elapsedTime = 0; // 경과 시간을 저장할 변수 추가
   bool _isTimerPaused = false; // 타이머 일시정지 상태 추적
   DateTime? _pauseTime; // 일시정지된 시간 기록
+  bool _timerPulse = false; // 타이머 펄스 애니메이션 효과
 
   final Color timerNormalColor =
       const Color.fromARGB(255, 84, 113, 230); // 기본 상태일 때 초록색
@@ -415,6 +421,16 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               _elapsedTime =
                   DateTime.now().difference(_gameStartTime!).inSeconds;
             }
+
+            // 펄스 효과 트리거
+            _timerPulse = true;
+            Future.delayed(const Duration(milliseconds: 300), () {
+              if (mounted) {
+                setState(() {
+                  _timerPulse = false;
+                });
+              }
+            });
           } else {
             _timer?.cancel();
             _showTimeUpDialog();
@@ -1512,83 +1528,141 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                         height: 45, // 높이 줄임
                         child: Container(
                           margin: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 4.0),
+                              horizontal: 4.0, vertical: 4.0),
                           child: Row(
                             children: [
-                              // 시간 표시 텍스트
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: _getColorByTimeRatio(
-                                          _remainingTime / _gameTimeLimit)
-                                      .withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
+                              // 타이머 그룹 (플레이어 버튼과 같은 폭)
+                              Expanded(
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(
-                                      Icons.timer,
-                                      size: 16,
-                                      color: _getColorByTimeRatio(
-                                          _remainingTime / _gameTimeLimit),
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '$_remainingTime s',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: _getColorByTimeRatio(
-                                            _remainingTime / _gameTimeLimit),
+                                    // 원형 프로그레스 바 (시간 숫자 포함)
+                                    AnimatedContainer(
+                                      duration: const Duration(milliseconds: 300),
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: _timerPulse ? [
+                                          BoxShadow(
+                                            color: _getColorByTimeRatio(
+                                                    _remainingTime / _gameTimeLimit)
+                                                .withOpacity(0.6),
+                                            blurRadius: 20,
+                                            spreadRadius: 5,
+                                          ),
+                                        ] : [],
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          // 원형 프로그레스
+                                          AnimatedContainer(
+                                            duration: const Duration(milliseconds: 300),
+                                            width: 50,
+                                            height: 50,
+                                            child: CircularProgressIndicator(
+                                              value: _remainingTime / _gameTimeLimit,
+                                              backgroundColor: Colors.grey.shade800,
+                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                _getColorByTimeRatio(
+                                                    _remainingTime / _gameTimeLimit),
+                                              ),
+                                              strokeWidth: _timerPulse ? 5 : 4,
+                                            ),
+                                          ),
+                                          // 시간 숫자
+                                          AnimatedDefaultTextStyle(
+                                            duration: const Duration(milliseconds: 300),
+                                            style: TextStyle(
+                                              color: _getColorByTimeRatio(
+                                                  _remainingTime / _gameTimeLimit),
+                                              fontSize: _timerPulse ? 18 : 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            child: Text('$_remainingTime'),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                    const SizedBox(width: 10),
+                                    // 시간 추가 버튼
+                                    if (widget.isTimeAttackMode)
+                                      Expanded(
+                                        child: ElevatedButton.icon(
+                                          onPressed: _canAddTime &&
+                                                  isGameStarted &&
+                                                  _elapsedTime >= _timeAddMinElapsed
+                                              ? _addExtraTime
+                                              : null,
+                                          icon: const Icon(Icons.timer, size: 14),
+                                          label: const Text('+30s',
+                                              style: TextStyle(fontSize: 12)),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: _canAddTime &&
+                                                    isGameStarted &&
+                                                    _elapsedTime >= _timeAddMinElapsed
+                                                ? instagramGradientStart
+                                                : const Color(0xFF2A2F3A),
+                                            foregroundColor: Colors.white,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            minimumSize: const Size(56, 32),
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(color: instagramGradientEnd, width: 1.2),
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                   ],
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              // 프로그레스 바
+                              // New Game 버튼 (그리드 + 언어 버튼의 합친 폭)
                               Expanded(
-                                child: LinearProgressIndicator(
-                                  value: _remainingTime / _gameTimeLimit,
-                                  backgroundColor: Colors.grey.shade200,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    _getColorByTimeRatio(
-                                        _remainingTime / _gameTimeLimit),
-                                  ),
-                                  minHeight: 8,
-                                  borderRadius: BorderRadius.circular(4),
+                                flex: 2,
+                                child: Consumer<LanguageProvider>(
+                                  builder: (context, languageProvider, child) {
+                                    final translations = languageProvider.getTranslations(languageProvider.uiLanguage);
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [instagramGradientStart, instagramGradientEnd],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          await initializeGame();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.transparent,
+                                          foregroundColor: Colors.white,
+                                          shadowColor: Colors.transparent,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          minimumSize: const Size(56, 32),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            translations['new_game'] ?? 'New',
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              // 시간 추가 버튼
-                              if (widget.isTimeAttackMode)
-                                ElevatedButton.icon(
-                                  onPressed: _canAddTime &&
-                                          isGameStarted &&
-                                          _elapsedTime >= _timeAddMinElapsed
-                                      ? _addExtraTime
-                                      : null,
-                                  icon: const Icon(Icons.add, size: 14),
-                                  label: const Text('+30s',
-                                      style: TextStyle(fontSize: 12)),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: _canAddTime &&
-                                            isGameStarted &&
-                                            _elapsedTime >= _timeAddMinElapsed
-                                        ? instagramGradientStart
-                                        : const Color(0xFF2A2F3A),
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    minimumSize: const Size(56, 32),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: instagramGradientEnd, width: 1.2),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
                             ],
                           ),
                         ),
@@ -2551,11 +2625,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   // 시간 비율에 따른 색상 계산 함수 추가
   Color _getColorByTimeRatio(double ratio) {
-    if (ratio > 0.6) return Colors.green; // 60% 이상: 녹색
-    if (ratio > 0.4) return Colors.blue; // 40% 이상: 파란색
-    if (ratio > 0.25) return Colors.amber; // 25% 이상: 노란색
-    if (ratio > 0.1) return Colors.orange; // 10% 이상: 주황색
-    return Colors.red; // 10% 미만: 빨간색
+    if (ratio > 0.6) return const Color(0xFF00E5FF); // 60% 이상: 네온 시안 (푸른색)
+    if (ratio > 0.4) return const Color(0xFF3B82F6); // 40% 이상: 밝은 파란색
+    if (ratio > 0.25) return const Color(0xFF8B5CF6); // 25% 이상: 밝은 보라색
+    if (ratio > 0.1) return const Color(0xFFD946EF); // 10% 이상: 핑크-보라색
+    return const Color(0xFFFF2D95); // 10% 미만: 네온 핑크 (붉은색)
   }
 
   // 플레이어가 시작 플레이어로 선택되었는지 확인하는 메서드

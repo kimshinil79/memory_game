@@ -1,0 +1,175 @@
+<en-US>
+Reborn in K-pop style!
+New images added!!
+Country ranking comparison feature added!!
+Share links added, improve your brain function with fun!!
+</en-US>
+<ar>
+ولادة جديدة بأسلوب K-pop!
+إضافة صور جديدة!!
+إضافة ميزة مقارنة التصنيفات حسب البلد!!
+إضافة روابط المشاركة، حسّن وظائف دماغك بمتعة!!
+</ar>
+<cs-CZ>
+Znovuzrození ve stylu K-pop!
+Přidány nové obrázky!!
+Přidána funkce porovnání žebříčků podle zemí!!
+Přidány odkazy ke sdílení, zlepšete funkce svého mozku zábavně!!
+</cs-CZ>
+<da-DK>
+Genfødt i K-pop stil!
+Nye billeder tilføjet!!
+Landerangeringsfunktion tilføjet!!
+Delingslinks tilføjet, forbedre din hjernefunktion med sjov!!
+</da-DK>
+<de-DE>
+Wiedergeboren im K-pop-Stil!
+Neue Bilder hinzugefügt!!
+Länder-Ranking-Vergleichsfunktion hinzugefügt!!
+Share-Links hinzugefügt, verbessere deine Gehirnfunktion mit Spaß!!
+</de-DE>
+<es-419>
+¡Renacido al estilo K-pop!
+¡Nuevas imágenes añadidas!!
+¡Función de comparación de rankings por país añadida!!
+¡Enlaces para compartir añadidos, mejora tu función cerebral con diversión!!
+</es-419>
+<es-ES>
+¡Renacido al estilo K-pop!
+¡Nuevas imágenes añadidas!!
+¡Función de comparación de rankings por país añadida!!
+¡Enlaces para compartir añadidos, mejora tu función cerebral con diversión!!
+</es-ES>
+<fi-FI>
+Uudesti syntynyt K-pop-tyyliin!
+Uusia kuvia lisätty!!
+Maiden sijoitusten vertailuominaisuus lisätty!!
+Jakolinkit lisätty, paranna aivotoimintaasi hauskasti!!
+</fi-FI>
+<fr-FR>
+Renaît dans le style K-pop !
+Nouvelles images ajoutées !!
+Fonction de comparaison des classements par pays ajoutée !!
+Liens de partage ajoutés, améliorez votre fonction cérébrale avec plaisir !!
+</fr-FR>
+<hi-IN>
+K-pop शैली में नया जन्म!
+नई छवियां जोड़ी गईं!!
+देश रैंकिंग तुलना सुविधा जोड़ी गई!!
+शेयर लिंक जोड़े गए, मज़े के साथ अपने मस्तिष्क कार्य को बेहतर बनाएं!!
+</hi-IN>
+<hu-HU>
+Újjászületett K-pop stílusban!
+Új képek hozzáadva!!
+Országos rangsor összehasonlítás funkció hozzáadva!!
+Megosztási linkek hozzáadva, javítsd az agyfunkciódat szórakozva!!
+</hu-HU>
+<id>
+Terlahir kembali dengan gaya K-pop!
+Gambar baru ditambahkan!!
+Fitur perbandingan peringkat negara ditambahkan!!
+Link berbagi ditambahkan, tingkatkan fungsi otak Anda dengan menyenangkan!!
+</id>
+<it-IT>
+Rinato in stile K-pop!
+Nuove immagini aggiunte!!
+Funzione di confronto classifiche per paese aggiunta!!
+Link di condivisione aggiunti, migliora la tua funzione cerebrale divertendoti!!
+</it-IT>
+<iw-IL>
+נולד מחדש בסגנון K-pop!
+תמונות חדשות נוספו!!
+נוספה תכונת השוואת דירוגים לפי מדינה!!
+נוספו קישורי שיתוף, שפרו את תפקוד המוח שלכם בכיף!!
+</iw-IL>
+<ja-JP>
+K-popスタイルで新登場!
+新しい画像追加!!
+国別ランキング比較機能追加!!
+共有リンク追加、楽しく脳機能を改善しましょう!!
+</ja-JP>
+<ko-KR>
+K-pop 스타일로 새롭게 탄생!
+새로운 이미지 추가!!
+국가별 순위 비교 기능 추가!!
+공유 링크 추가, 모두 즐겁게 뇌기능을 개선해 보세요!!
+</ko-KR>
+<nl-NL>
+Herboren in K-pop stijl!
+Nieuwe afbeeldingen toegevoegd!!
+Landenvergelijking ranglijst functie toegevoegd!!
+Deellinks toegevoegd, verbeter je hersenfunctie met plezier!!
+</nl-NL>
+<no-NO>
+Gjenfødt i K-pop stil!
+Nye bilder lagt til!!
+Landerangering sammenligningsfunksjon lagt til!!
+Delingslenker lagt til, forbedre hjernefunksjonen din med moro!!
+</no-NO>
+<pl-PL>
+Odrodzony w stylu K-pop!
+Dodano nowe obrazy!!
+Dodano funkcję porównywania rankingów krajowych!!
+Dodano linki do udostępniania, popraw swoją funkcję mózgu z przyjemnością!!
+</pl-PL>
+<pt-BR>
+Renascido no estilo K-pop!
+Novas imagens adicionadas!!
+Recurso de comparação de rankings por país adicionado!!
+Links de compartilhamento adicionados, melhore sua função cerebral com diversão!!
+</pt-BR>
+<ro>
+Renăscut în stilul K-pop!
+Imagini noi adăugate!!
+Funcție de comparare a clasamentelor pe țări adăugată!!
+Link-uri de partajare adăugate, îmbunătățește-ți funcția cerebrală cu distracție!!
+</ro>
+<ru-RU>
+Возрожден в стиле K-pop!
+Добавлены новые изображения!!
+Добавлена функция сравнения рейтингов по странам!!
+Добавлены ссылки для обмена, улучшайте функции мозга с удовольствием!!
+</ru-RU>
+<sk>
+Znovuzrodený v štýle K-pop!
+Pridané nové obrázky!!
+Pridaná funkcia porovnania rebríčkov podľa krajín!!
+Pridané odkazy na zdieľanie, zlepšite funkciu svojho mozgu so zábavou!!
+</sk>
+<sv-SE>
+Återfödd i K-pop stil!
+Nya bilder tillagda!!
+Landjämförelsefunktion för ranking tillagd!!
+Delningslänkar tillagda, förbättra din hjärnfunktion med nöje!!
+</sv-SE>
+<th>
+เกิดใหม่ในสไตล์ K-pop!
+เพิ่มภาพใหม่!!
+เพิ่มฟีเจอร์เปรียบเทียบอันดับตามประเทศ!!
+เพิ่มลิงก์แชร์ ปรับปรุงการทำงานของสมองด้วยความสนุก!!
+</th>
+<tr-TR>
+K-pop tarzında yeniden doğdu!
+Yeni resimler eklendi!!
+Ülke sıralama karşılaştırma özelliği eklendi!!
+Paylaşım bağlantıları eklendi, eğlenerek beyin fonksiyonunuzu geliştirin!!
+</tr-TR>
+<uk>
+Відроджений у стилі K-pop!
+Додано нові зображення!!
+Додано функцію порівняння рейтингів за країнами!!
+Додано посилання для обміну, покращуйте функції мозку з задоволенням!!
+</uk>
+<vi>
+Tái sinh theo phong cách K-pop!
+Đã thêm hình ảnh mới!!
+Đã thêm tính năng so sánh xếp hạng theo quốc gia!!
+Đã thêm liên kết chia sẻ, cải thiện chức năng não bộ một cách vui vẻ!!
+</vi>
+<zh-CN>
+以K-pop风格重生!
+添加新图像!!
+添加国家排名比较功能!!
+添加分享链接，愉快地改善您的大脑功能!!
+</zh-CN>
+

@@ -941,6 +941,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           backgroundColor: const Color(0xFF0B0D13),
           elevation: 0,
           toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
+          titleSpacing: 4.0,
+          leadingWidth: 0,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -1005,9 +1007,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ],
             ],
           ),
-          actions: const [
-            SizedBox(width: 16),
-          ],
+          actions: const [],
         ),
         body: Container(
           color: const Color(0xFF0B0D13),
@@ -1340,22 +1340,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 iconSize: iconSize,
                 fontSize: fontSize,
                 isGradient: false,
-              ),
-            ),
-            SizedBox(width: buttonSpacing),
-
-            // Flip Count 버튼
-            Expanded(
-              child: _buildDynamicControlButton(
-                icon: Icons.flip_rounded,
-                label: '$flipCount',
-                onTap: () {}, // 클릭 불가
-                buttonHeight: buttonHeight,
-                buttonPadding: buttonPadding,
-                borderRadius: borderRadius,
-                iconSize: iconSize,
-                fontSize: fontSize,
-                isGradient: true,
               ),
             ),
             SizedBox(width: buttonSpacing),
