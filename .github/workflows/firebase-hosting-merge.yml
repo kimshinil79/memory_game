@@ -12,17 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.35.4'
           channel: 'stable'
+          cache: true
           
       - name: Install dependencies
         run: flutter pub get
         
       - name: Build web
-        run: flutter build web --release
+        run: flutter build web --release --no-tree-shake-icons
         
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
