@@ -1576,7 +1576,8 @@ class LanguageProvider with ChangeNotifier {
 
       // 폴더블 상태 감지 (화면 비율로 판단)
       final aspectRatio = screenSize.width / screenSize.height;
-      final newFoldedState = aspectRatio < 0.7 || aspectRatio > 1.8;
+      // 상하로 매우 긴 화면이거나, 접힘으로 인해 유효 높이가 낮아 극단적으로 넓은 경우만 폴드로 간주
+      final newFoldedState = aspectRatio < 0.65 || aspectRatio > 2.4;
 
       if (_isFolded != newFoldedState) {
         _isFolded = newFoldedState;

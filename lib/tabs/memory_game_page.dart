@@ -1535,32 +1535,28 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                               Expanded(
                                 child: Row(
                                   children: [
-                                    // 원형 프로그레스 바 (시간 숫자 포함)
-                                    AnimatedContainer(
-                                      duration: const Duration(milliseconds: 300),
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        boxShadow: _timerPulse ? [
-                                          BoxShadow(
-                                            color: _getColorByTimeRatio(
-                                                    _remainingTime / _gameTimeLimit)
-                                                .withOpacity(0.6),
-                                            blurRadius: 20,
-                                            spreadRadius: 5,
-                                          ),
-                                        ] : [],
-                                      ),
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          // 원형 프로그레스
-                                          AnimatedContainer(
-                                            duration: const Duration(milliseconds: 300),
-                                            width: 50,
-                                            height: 50,
-                                            child: CircularProgressIndicator(
+                                    // 원형 프로그레스 바 (시간 숫자 포함) - 정사각형 강제
+                                    SizedBox.square(
+                                      dimension: 50,
+                                      child: AnimatedContainer(
+                                        duration: const Duration(milliseconds: 300),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          boxShadow: _timerPulse ? [
+                                            BoxShadow(
+                                              color: _getColorByTimeRatio(
+                                                      _remainingTime / _gameTimeLimit)
+                                                  .withOpacity(0.6),
+                                              blurRadius: 20,
+                                              spreadRadius: 5,
+                                            ),
+                                          ] : [],
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            // 원형 프로그레스
+                                            CircularProgressIndicator(
                                               value: _remainingTime / _gameTimeLimit,
                                               backgroundColor: Colors.grey.shade800,
                                               valueColor: AlwaysStoppedAnimation<Color>(
@@ -1569,19 +1565,19 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                               ),
                                               strokeWidth: _timerPulse ? 5 : 4,
                                             ),
-                                          ),
-                                          // 시간 숫자
-                                          AnimatedDefaultTextStyle(
-                                            duration: const Duration(milliseconds: 300),
-                                            style: TextStyle(
-                                              color: _getColorByTimeRatio(
-                                                  _remainingTime / _gameTimeLimit),
-                                              fontSize: _timerPulse ? 18 : 14,
-                                              fontWeight: FontWeight.bold,
+                                            // 시간 숫자
+                                            AnimatedDefaultTextStyle(
+                                              duration: const Duration(milliseconds: 300),
+                                              style: TextStyle(
+                                                color: _getColorByTimeRatio(
+                                                    _remainingTime / _gameTimeLimit),
+                                                fontSize: _timerPulse ? 16 : 12,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              child: Text('$_remainingTime'),
                                             ),
-                                            child: Text('$_remainingTime'),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 10),
@@ -1822,17 +1818,19 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                   },
                                 );
                               } else {
-                                // 폴더블폰 펼침: Column과 Row를 사용한 직접 그리드 구성
-                                // spaceEvenly를 사용하므로 간격을 계산에서 제외하고 전체 공간 활용
-                                const double minSpacing = 0.0; // 최소 간격
-                                const double horizontalSpacing = 10.0;
-                                final double tileHeight = availableHeight /
-                                    (gridRows - 0.9); // 전체 높이를 행 수로 나눔
-                                final double tileWidth = tileHeight;
-                                final double containerWidth =
-                                    tileWidth * gridCols +
-                                        (horizontalSpacing *
-                                            (gridCols - 1)); // 전체 너비를 열 수로 나눔
+                                // 폴더블폰 펼침: Column/Row로 직접 그리드 구성 (세로 높이 정확히 맞춤)
+                                const double verticalSpacing = 2.0; // 행 간격(고정)
+                                const double horizontalSpacing = 10.0; // 열 간격
+
+                                // 세로 전체 높이에서 행 간격을 제외하고 타일 높이 산출
+                                final double tileHeight = (availableHeight -
+                                        (verticalSpacing * (gridRows - 1))) /
+                                    gridRows;
+                                final double tileWidth = tileHeight; // 정사각형
+
+                                // 전체 컨테이너 너비(최대 열 수 기준)
+                                final double containerWidth = (tileWidth * gridCols) +
+                                    (horizontalSpacing * (gridCols - 1));
 
                                 // 그리드 행별로 카드들을 그룹화
                                 List<List<int>> cardRowsList = [];
@@ -1850,27 +1848,32 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                                 return Container(
                                   width: containerWidth,
                                   height: availableHeight,
-                                  decoration: const BoxDecoration(
-                                      // 디버그용 테두리 제거
-                                      ),
-                                  padding: const EdgeInsets.all(
-                                      minSpacing * 0.5), // 패딩을 더 줄임
+                                  decoration: const BoxDecoration(),
+                                  // 고정 간격으로 정확히 맞추기 위해 수동 간격 배치
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: cardRowsList.map((rowIndices) {
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: rowIndices.map((index) {
-                                          return SizedBox(
-                                            width: tileWidth,
-                                            height: tileHeight,
-                                            child: buildCard(index),
-                                          );
-                                        }).toList(),
-                                      );
-                                    }).toList(),
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      for (int r = 0; r < cardRowsList.length; r++) ...[
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            for (int c = 0; c < cardRowsList[r].length; c++) ...[
+                                              SizedBox(
+                                                width: tileWidth,
+                                                height: tileHeight,
+                                                child: buildCard(cardRowsList[r][c]),
+                                              ),
+                                              if (c < cardRowsList[r].length - 1)
+                                                SizedBox(width: horizontalSpacing),
+                                            ],
+                                          ],
+                                        ),
+                                        if (r < cardRowsList.length - 1)
+                                          SizedBox(height: verticalSpacing),
+                                      ],
+                                    ],
                                   ),
                                 );
                               }

@@ -580,7 +580,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       // 폴더블 상태 감지 (화면 비율로 판단)
       final aspectRatio = currentSize.width / currentSize.height;
-      final newFoldedState = aspectRatio < 0.7 || aspectRatio > 1.8;
+      // 너무 좁거나(세로 긴 폴드) 너무 넓은 경우(접힘으로 인해 유효 높이가 매우 낮음)만 폴드로 간주
+      // 일반적인 가로 모드(예: 21:9, 19.5:9)는 폴드로 오인하지 않도록 상한을 높임
+      final newFoldedState = aspectRatio < 0.65 || aspectRatio > 2.4;
 
       if (_isFolded != newFoldedState) {
         setState(() {
