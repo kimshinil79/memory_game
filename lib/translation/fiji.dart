@@ -220,26 +220,21 @@ const Map<String, String> fjTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Na i vakarailevu ni bula ni bula',
   'understand_level_means': 'Kila na ka e vuki kina na veivakatauvi!',
-  'rainbow_level_name': '🌈 Na i vakatauvi ni droka ni bose',
-  'rainbow_level_description':
-      'Vinaka sara! Iko na dau meci vinaka sara na vakavou na nomuni bula! Maravu me vaka na droka ni bose.',
-  'rainbow_level_fun_comment': 'Na nomuni bula me vaka na droka ni bose! 🌈✨',
-  'gold_level_name': '🥇 Na i vakatauvi ni kaula',
-  'gold_level_description':
-      'Vinaka levu! Na nomuni bula e rarama me vaka na kaula. Na nomuni vakai meci e vakaraitaka na bula levu.',
-  'gold_level_fun_comment': 'Na bula kaula! Iko e dua na vinaka sara! 🥇🧠',
-  'silver_level_name': '🥈 Na i vakatauvi ni salova',
-  'silver_level_description':
-      'Vinaka sara! Na nomuni bula e rarama me vaka na salova. O cakacaka vinaka sara!',
-  'silver_level_fun_comment': 'Na bula salova! Me vaka ni vinaka! 🥈⭐',
-  'bronze_level_name': '🥉 Na i vakatauvi ni koula',
-  'bronze_level_description': 'Vinaka! Na nomuni bula e vakaukauwa. Toso!',
-  'bronze_level_fun_comment': 'Na bula koula! Na gauna vinaka e na yaco! 🥉💪',
-  'poop_level_name': '💩 Na i vakatauvi ni ka ca',
-  'poop_level_description':
-      'Na nomuni bula e dredre vudi. Ia sega ni vakaloloma! O na vakaukauwa.',
-  'poop_level_fun_comment':
-      'Na bula ca! Ia sega ni vakabauta, o na vakaukauwa! 💩😅',
+  'rainbow_brain_level5': 'Na Bula Droka ni Bose (Level 5)',
+  'rainbow_brain_desc': 'Na nomuni bula e rarama taucoko sara!',
+  'rainbow_brain_fun': 'O sa tu vakarua na droka ni bose e rua - rarama sara!',
+  'gold_brain_level4': 'Na Bula Kaula (Level 4)',
+  'gold_brain_desc': 'Na vakavinavinaka ni bula kei na nanuma vinaka.',
+  'gold_brain_fun': 'Na nanuma me vaka na lewa levu - o raica tiko na kiina nomuni ki!',
+  'silver_brain_level3': 'Na Bula Salova (Level 3)',
+  'silver_brain_desc': 'Na bula bulabula vinaka kei na ka vinaka tale.',
+  'silver_brain_fun': 'Na nomuni bula e moko - vaka na computer ena mataka.',
+  'bronze_brain_level2': 'Na Bula Koula (Level 2)',
+  'bronze_brain_desc': 'Na vakavinavinaka taleitaka - vinakata tale na ka cakacaka!',
+  'bronze_brain_fun': 'Na nomuni bula e moce vudi - gauna ni kaukamea ni bula!',
+  'poop_brain_level1': 'Na Bula Ca (Level 1)',
+  'poop_brain_desc': 'Sa tu tekivu na nomuni lako ni bula bulabula.',
+  'poop_brain_fun': 'Na nomuni bula edaidai me vaka smartphone 1% battery - vinakata charging!',
   'keep_playing_memory_games':
       'Toso na meci ni nanuma me vakavou na nomuni bula!',
   // Ranking tabs

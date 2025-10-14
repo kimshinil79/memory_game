@@ -224,29 +224,21 @@ const Map<String, String> nlTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Hersenniveau Gids',
   'understand_level_means': 'Begrijp wat uw hersenniveau betekent',
-  'rainbow_brain': 'Regenboog Hersenen',
-  'rainbow_brain_description':
-      'Uitstekende cognitieve vaardigheden! Uw hersenen presteren uitstekend op alle gebieden.',
-  'rainbow_brain_fun_comment':
-      'Uw hersenen schitteren in alle kleuren! U bent een waar genie!',
-  'gold_brain': 'Gouden Hersenen',
-  'gold_brain_description':
-      'Uitstekende geheugenprestaties. Uw hersenen werken fantastisch goed!',
-  'gold_brain_fun_comment': 'Uw hersenen zijn puur goud! Blijf stralen!',
-  'silver_brain': 'Zilveren Hersenen',
-  'silver_brain_description':
-      'Goede cognitieve functie. Sterke en stabiele geheugenprestaties.',
-  'silver_brain_fun_comment':
-      'Uw hersenen schitteren als zilver! U bent op de goede weg!',
-  'bronze_brain': 'Bronzen Hersenen',
-  'bronze_brain_description':
-      'Stabiele cognitieve prestaties. Blijf oefenen om het geheugen te verbeteren.',
-  'bronze_brain_fun_comment':
-      'Uw hersenen zijn van brons gemaakt! Ga door, u wordt sterker!',
-  'poop_brain': 'Poep Hersenen',
-  'poop_brain_description':
-      'Heeft meer oefening nodig. Geef niet op, iedereen kan verbeteren!',
-  'poop_brain_fun_comment': 'Zelfs poep kan mest worden! Blijf proberen!',
+  'rainbow_brain_level5': 'Regenboog Hersenen (Niveau 5)',
+  'rainbow_brain_desc': 'Uw hersenen schitteren met kleurrijke glans!',
+  'rainbow_brain_fun': 'U hebt het cognitieve equivalent van een dubbele regenboog bereikt - absoluut verblindend!',
+  'gold_brain_level4': 'Gouden Hersenen (Niveau 4)',
+  'gold_brain_desc': 'Uitstekende cognitieve functie en geheugen.',
+  'gold_brain_fun': 'Bijna bovenmenselijk geheugen - u herinnert zich waarschijnlijk waar u uw sleutels hebt gelaten!',
+  'silver_brain_level3': 'Zilveren Hersenen (Niveau 3)',
+  'silver_brain_desc': 'Goede hersengezondheid met ruimte voor verbetering.',
+  'silver_brain_fun': 'Uw hersenen warmen op - zoals een computer \'s ochtends.',
+  'bronze_brain_level2': 'Bronzen Hersenen (Niveau 2)',
+  'bronze_brain_desc': 'Gemiddelde cognitieve functie - meer spellen nodig!',
+  'bronze_brain_fun': 'Uw hersenen zijn een beetje slaperig - tijd voor mentale koffie!',
+  'poop_brain_level1': 'Poep Hersenen (Niveau 1)',
+  'poop_brain_desc': 'U begint net aan uw hersengezondheidsreis.',
+  'poop_brain_fun': 'Uw hersenen zijn nu als een smartphone met 1% batterij - hebben dringend opladen nodig!',
   'keep_playing_memory_games':
       'Blijf geheugenspellen spelen om uw hersengezondheid te verbeteren!',
   // Ranking tabs

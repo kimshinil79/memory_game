@@ -218,30 +218,21 @@ const Map<String, String> mhTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Kōnnaan jān mouj in lọje',
   'understand_level_means': 'Lale jen koñan lọje eo aṃ',
-  'rainbow_brain': 'Mouj in kulur katak',
-  'rainbow_brain_description':
-      'Ṃejjel eo elap! Mouj eo aṃ ej aorōk melele ippān jeṃaan.',
-  'rainbow_brain_fun_comment':
-      'Mouj eo aṃ ej jerakrakjāālọk ippān kulur kijen! Kwe mejej jukjuk!',
-  'gold_brain': 'Mouj in kuul',
-  'gold_brain_description':
-      'Mejatoto eo elap in kōjmaan. Mouj eo aṃ ej aorōk melele!',
-  'gold_brain_fun_comment': 'Mouj eo aṃ kuul eo melele! Jela jerakrakjāāl!',
-  'silver_brain': 'Mouj in jilba',
-  'silver_brain_description':
-      'Aorōk eo melele in lewa. Mejatoto eo melim ak tōprak.',
-  'silver_brain_fun_comment':
-      'Mouj eo aṃ ej jerakrakjāāl jān jilba! Kwe ilo al eo melele!',
-  'bronze_brain': 'Mouj in puroñ',
-  'bronze_brain_description':
-      'Aorōk eo tōprak in lewa. Kōjjel kōnaan jeṃ mejatoto.',
-  'bronze_brain_fun_comment':
-      'Mouj eo aṃ puroñ eo! Kōjjel, kwe naj melim ko kwojjel!',
-  'poop_brain': 'Mouj in ṃōkaj',
-  'poop_brain_description':
-      'Aikuij kōnaan elap. Jab kom kile, armej kijjien rej kāān mejatoto!',
-  'poop_brain_fun_comment':
-      'Ṃōkaj eo avat ej kāān kōn rej jekdọọn! Kōjjel kōnaan!',
+  'rainbow_brain_level5': 'Mouj in Kulur Katak (Loje 5)',
+  'rainbow_brain_desc': 'Mouj eo aṃ ej jerakrakjāāl ippān kulur melele!',
+  'rainbow_brain_fun': 'Kwonaaj kulur katak ruo - jerakrakjāāl melele!',
+  'gold_brain_level4': 'Mouj in Kuul (Loje 4)',
+  'gold_brain_desc': 'Aorōk melele in lewa ak mejatoto.',
+  'gold_brain_fun': 'Mejatoto melele ko lew - kwe kōjmaan wōt eo an ki!',
+  'silver_brain_level3': 'Mouj in Jilba (Loje 3)',
+  'silver_brain_desc': 'Mouj aorōk melele ippān mejatoto melele.',
+  'silver_brain_fun': 'Mouj eo aṃ ej bwijak - jān komputa ilo jota.',
+  'bronze_brain_level2': 'Mouj in Puroñ (Loje 2)',
+  'bronze_brain_desc': 'Aorōk an jukjuk - aikuij kōnaan elap!',
+  'bronze_brain_fun': 'Mouj eo aṃ ej kile lowaan - jerbal an mouj!',
+  'poop_brain_level1': 'Mouj in Ṃōkaj (Loje 1)',
+  'poop_brain_desc': 'Kwonaaj jeṃman aorōk an mouj.',
+  'poop_brain_fun': 'Mouj eo aṃ jikin ej jān smartphone 1% - aikuij kāān melele!',
   'keep_playing_memory_games': 'Kōjjel konaan kōjmaan en mejatoto kōn mouj!',
   // Ranking tabs
   'total': 'Aolep',

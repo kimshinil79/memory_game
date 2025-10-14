@@ -218,25 +218,21 @@ const Map<String, String> huTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Agy Szint Útmutató',
   'understand_level_means': 'Értsd meg, mit jelent minden szint!',
-  'rainbow_level_name': '🌈 Szivárvány Szint',
-  'rainbow_level_description':
-      'Fantasztikus! Igazi győztes vagy az agyad fejlesztésében! Szép, mint a szivárvány.',
-  'rainbow_level_fun_comment': 'Az agyad színes, mint a szivárvány! 🌈✨',
-  'gold_level_name': '🥇 Arany Szint',
-  'gold_level_description':
-      'Nagyszerű! Az agyad úgy fénylik, mint az arany. A játékban való részvételed nagy agyat mutat.',
-  'gold_level_fun_comment': 'Arany agy! A legjobbak közé tartozol! 🥇🧠',
-  'silver_level_name': '🥈 Ezüst Szint',
-  'silver_level_description':
-      'Nagyon jó! Az agyad úgy fénylik, mint az ezüst. Nagyon jól csinálod!',
-  'silver_level_fun_comment': 'Ezüst agy! Milyen nagyszerű! 🥈⭐',
-  'bronze_level_name': '🥉 Bronz Szint',
-  'bronze_level_description': 'Jó! Az agyad növekszik. Folytasd!',
-  'bronze_level_fun_comment': 'Bronz agy! Jobb idők jönnek! 🥉💪',
-  'poop_level_name': '💩 Kaki Szint',
-  'poop_level_description':
-      'Az agyad egy kicsit álmos. De ne veszítsd el a reményt! Fejlődni fogsz.',
-  'poop_level_fun_comment': 'Kaki agy! De ne izgulj, fejlődni fogsz! 💩😅',
+  'rainbow_brain_level5': 'Szivárvány Agy (5. szint)',
+  'rainbow_brain_desc': 'Az agyad színes ragyogással csillog!',
+  'rainbow_brain_fun': 'Elérted a dupla szivárvány kognitív megfelelőjét - teljesen káprázatos!',
+  'gold_brain_level4': 'Arany Agy (4. szint)',
+  'gold_brain_desc': 'Kiváló kognitív funkció és memória.',
+  'gold_brain_fun': 'Majdnem emberfeletti memória - valószínűleg emlékszel, hova tetted a kulcsokat!',
+  'silver_brain_level3': 'Ezüst Agy (3. szint)',
+  'silver_brain_desc': 'Jó agyi egészség fejlődési lehetőséggel.',
+  'silver_brain_fun': 'Az agyad melegszik - mint egy számítógép reggel.',
+  'bronze_brain_level2': 'Bronz Agy (2. szint)',
+  'bronze_brain_desc': 'Átlagos kognitív funkció - több játékra van szükség!',
+  'bronze_brain_fun': 'Az agyad egy kicsit álmos - ideje egy mentális kávénak!',
+  'poop_brain_level1': 'Kaki Agy (1. szint)',
+  'poop_brain_desc': 'Most kezded az agyi egészség utazását.',
+  'poop_brain_fun': 'Az agyad most olyan, mint egy 1%-os akkumulátorral rendelkező okostelefon - kétségbeesetten töltésre van szüksége!',
   'keep_playing_memory_games':
       'Folytasd a memóriajátékok játszását az agyad fejlesztéséhez!',
   // Ranking tabs

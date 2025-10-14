@@ -229,31 +229,21 @@ const Map<String, String> nyTranslations = {
   'brain_level_guide': 'Malangizo a malo a ubongo',
   'understand_level_means':
       'Mvetsetsani zimene malo a ubongo wanu zikutanthauza',
-  'rainbow_brain': 'Ubongo wa chisonga',
-  'rainbow_brain_description':
-      'Luso lalikulu la ubongo! Ubongo wanu ukugwira ntchito bwino kwambiri m\'magawo onse.',
-  'rainbow_brain_fun_comment':
-      'Ubongo wanu ukuwala ndi mitundu yonse! Ndinu katswiri weniweni!',
-  'gold_brain': 'Ubongo wa golide',
-  'gold_brain_description':
-      'Kukumbuka bwino kwambiri. Ubongo wanu ukugwira ntchito bwino kwambiri!',
-  'gold_brain_fun_comment':
-      'Ubongo wanu ndi golide weniweni! Pitirizani kuwala!',
-  'silver_brain': 'Ubongo wa siliva',
-  'silver_brain_description':
-      'Ntchito yabwino ya ubongo. Kukumbuka kolimba komanso kokhazikika.',
-  'silver_brain_fun_comment':
-      'Ubongo wanu ukuwala ngati siliva! Muli njira yabwino!',
-  'bronze_brain': 'Ubongo wa mkuwa',
-  'bronze_brain_description':
-      'Ntchito ya ubongo yokhazikika. Pitirizani kuchita masewera kuti muwongolere kumbukumbu.',
-  'bronze_brain_fun_comment':
-      'Ubongo wanu ndi wa mkuwa! Pitirizani kuyesetsa, mudzakhala amphamvu kwambiri!',
-  'poop_brain': 'Ubongo wa ndowe',
-  'poop_brain_description':
-      'Mukufunika kuchita masewera ambiri. Musaleke, aliyense angathe kukhoza!',
-  'poop_brain_fun_comment':
-      'Ngakhale ndowe ikhoza kukhala feteleza! Pitirizani kuyesetsa!',
+  'rainbow_brain_level5': 'Ubongo wa Chisonga (Mulingo 5)',
+  'rainbow_brain_desc': 'Ubongo wanu ukuwala ndi kuwala kwamitundu!',
+  'rainbow_brain_fun': 'Mwakwaniritsa kofanana ndi chisonga chawiri - chodabwitsa kwambiri!',
+  'gold_brain_level4': 'Ubongo wa Golide (Mulingo 4)',
+  'gold_brain_desc': 'Ntchito yabwino ya ubongo ndi kukumbuka.',
+  'gold_brain_fun': 'Kukumbuka kofanana ndi munthu woposa - mwina mukukumbukira komwe munasiya makiyi!',
+  'silver_brain_level3': 'Ubongo wa Siliva (Mulingo 3)',
+  'silver_brain_desc': 'Thanzi labwino la ubongo ndi malo okwanira kupititsa patsogolo.',
+  'silver_brain_fun': 'Ubongo wanu ukufunda - ngati kompyuta m\'mawa.',
+  'bronze_brain_level2': 'Ubongo wa Mkuwa (Mulingo 2)',
+  'bronze_brain_desc': 'Ntchito ya ubongo wapakati - mafunika masewera ambiri!',
+  'bronze_brain_fun': 'Ubongo wanu ukugona pang\'ono - nthawi ya khofi ya maganizo!',
+  'poop_brain_level1': 'Ubongo wa Ndowe (Mulingo 1)',
+  'poop_brain_desc': 'Mungoyamba ulendo wa thanzi la ubongo wanu.',
+  'poop_brain_fun': 'Ubongo wanu tsopano uli ngati foni yanzeru yokhala ndi batire 1% - ikufunika kuchaja mwachangu!',
   'keep_playing_memory_games':
       'Pitirizani kusewera masewera a kumbukumbu kuti muwongolere thanzi la ubongo!',
   // Ranking tabs

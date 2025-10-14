@@ -222,30 +222,21 @@ const Map<String, String> mtMTTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Gwida tal-Livelli tal-Moħħ',
   'understand_level_means': 'Ifhem x\'ifisser il-livell tal-moħħ tiegħek',
-  'rainbow_brain': 'Moħħ tar-Regħa',
-  'rainbow_brain_description':
-      'Ħiliet kognittivi eċċellenti! Il-moħħ tiegħek jiffunzjona tajjeb ħafna f\'kull qasam.',
-  'rainbow_brain_fun_comment':
-      'Il-moħħ tiegħek jiddi b\'kull kulur! Int ġenju veru!',
-  'gold_brain': 'Moħħ tad-Deheb',
-  'gold_brain_description':
-      'Prestazzjoni eċċellenti tal-memorja. Il-moħħ tiegħek jaħdem tajjeb ħafna!',
-  'gold_brain_fun_comment': 'Il-moħħ tiegħek huwa deheb pur! Kompli tiddi!',
-  'silver_brain': 'Moħħ tal-Fidda',
-  'silver_brain_description':
-      'Funzjonijiet kognittivi tajbin. Prestazzjoni qawwija u stabbli tal-memorja.',
-  'silver_brain_fun_comment':
-      'Il-moħħ tiegħek jiddi bħall-fidda! Int fuq it-triq it-tajba!',
-  'bronze_brain': 'Moħħ tar-Ram',
-  'bronze_brain_description':
-      'Prestazzjoni kognittiva stabbli. Kompli titmaren biex ittejjeb il-memorja.',
-  'bronze_brain_fun_comment':
-      'Il-moħħ tiegħek huwa magħmul mir-ram! Kompli, ser issir aktar qawwi!',
-  'poop_brain': 'Moħħ tal-Ħażin',
-  'poop_brain_description':
-      'Jeħtieġ aktar taħriġ. Twaqqafsx, kulħadd jista\' jtejjeb!',
-  'poop_brain_fun_comment':
-      'Anke l-ħażin jista\' jsir fertilizzant! Kompli tipprova!',
+  'rainbow_brain_level5': 'Moħħ tar-Regħa (Livell 5)',
+  'rainbow_brain_desc': 'Il-moħħ tiegħek qed jiddi b\'tidwil ikkulurit!',
+  'rainbow_brain_fun': 'Wasalt għall-ekwivalenti konjittiv ta\' regħa doppja - assolutament abbiljanti!',
+  'gold_brain_level4': 'Moħħ tad-Deheb (Livell 4)',
+  'gold_brain_desc': 'Funzjoni konjittiva u memorja eċċellenti.',
+  'gold_brain_fun': 'Memorja kważi supernormali - probabbilment tiftakar fejn ħallejt il-muftieħ!',
+  'silver_brain_level3': 'Moħħ tal-Fidda (Livell 3)',
+  'silver_brain_desc': 'Saħħa tajba tal-moħħ b\'spazju għat-titjib.',
+  'silver_brain_fun': 'Il-moħħ tiegħek qed jisħon - bħal kompjuter filgħodu.',
+  'bronze_brain_level2': 'Moħħ tar-Ram (Livell 2)',
+  'bronze_brain_desc': 'Funzjoni konjittiva medja - jeħtieġ aktar logħob!',
+  'bronze_brain_fun': 'Il-moħħ tiegħek ftit irqajjen - ħin għall-kafè mentali!',
+  'poop_brain_level1': 'Moħħ tal-Ħażin (Livell 1)',
+  'poop_brain_desc': 'Għadek kif bdejtвой il-vjaġġ tas-saħħa tal-moħħ.',
+  'poop_brain_fun': 'Il-moħħ tiegħek issa huwa bħal smartphone b\'1% batterija - jeħtieġ tiċċarġja ħafna!',
   'keep_playing_memory_games':
       'Kompli tilgħab logħob tal-memorja biex ittejjeb is-saħħa tal-moħħ tiegħek!',
   // Ranking tabs

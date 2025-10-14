@@ -225,30 +225,21 @@ const Map<String, String> msTranslations = {
   'brain_level_guide': 'Panduan Tahap Otak',
   'understand_level_means':
       'Fahami apa yang dimaksudkan dengan tahap otak anda',
-  'rainbow_brain': 'Otak Pelangi',
-  'rainbow_brain_description':
-      'Keupayaan kognitif yang luar biasa! Otak anda berfungsi dengan cemerlang di semua bidang.',
-  'rainbow_brain_fun_comment':
-      'Otak anda bersinar dengan semua warna! Anda seorang genius sejati!',
-  'gold_brain': 'Otak Emas',
-  'gold_brain_description':
-      'Prestasi ingatan yang cemerlang. Otak anda berfungsi dengan sangat baik!',
-  'gold_brain_fun_comment': 'Otak anda adalah emas tulen! Terus bersinar!',
-  'silver_brain': 'Otak Perak',
-  'silver_brain_description':
-      'Fungsi kognitif yang baik. Prestasi ingatan yang kuat dan stabil.',
-  'silver_brain_fun_comment':
-      'Otak anda bersinar seperti perak! Anda berada di landasan yang betul!',
-  'bronze_brain': 'Otak Gangsa',
-  'bronze_brain_description':
-      'Prestasi kognitif yang stabil. Terus berlatih untuk meningkatkan ingatan.',
-  'bronze_brain_fun_comment':
-      'Otak anda diperbuat daripada gangsa! Terus usaha, anda akan menjadi lebih kuat!',
-  'poop_brain': 'Otak Tahi',
-  'poop_brain_description':
-      'Memerlukan lebih banyak latihan. Jangan berputus asa, semua orang boleh bertambah baik!',
-  'poop_brain_fun_comment':
-      'Walaupun tahi pun boleh jadi baja! Terus berusaha!',
+  'rainbow_brain_level5': 'Otak Pelangi (Tahap 5)',
+  'rainbow_brain_desc': 'Otak anda bersinar dengan kecemerlangan berwarna-warni!',
+  'rainbow_brain_fun': 'Anda telah mencapai setara kognitif pelangi berganda - benar-benar mempesonakan!',
+  'gold_brain_level4': 'Otak Emas (Tahap 4)',
+  'gold_brain_desc': 'Fungsi kognitif dan ingatan yang cemerlang.',
+  'gold_brain_fun': 'Ingatan hampir luar biasa - anda mungkin ingat di mana anda meletakkan kunci!',
+  'silver_brain_level3': 'Otak Perak (Tahap 3)',
+  'silver_brain_desc': 'Kesihatan otak yang baik dengan ruang untuk penambahbaikan.',
+  'silver_brain_fun': 'Otak anda sedang memanaskan - seperti komputer pada waktu pagi.',
+  'bronze_brain_level2': 'Otak Gangsa (Tahap 2)',
+  'bronze_brain_desc': 'Fungsi kognitif sederhana - lebih banyak permainan diperlukan!',
+  'bronze_brain_fun': 'Otak anda sedikit mengantuk - masa untuk kopi mental!',
+  'poop_brain_level1': 'Otak Tahi (Tahap 1)',
+  'poop_brain_desc': 'Baru sahaja memulakan perjalanan kesihatan otak anda.',
+  'poop_brain_fun': 'Otak anda sekarang seperti telefon pintar dengan 1% bateri - sangat memerlukan pengecasan!',
   'keep_playing_memory_games':
       'Terus main permainan ingatan untuk meningkatkan kesihatan otak anda!',
   // Ranking tabs

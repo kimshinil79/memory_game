@@ -229,29 +229,21 @@ const Map<String, String> muMUTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Brain Level Guide',
   'understand_level_means': 'Understand what your brain level means',
-  'rainbow_brain': 'Rainbow Brain',
-  'rainbow_brain_description':
-      'Outstanding cognitive abilities! Your brain performs excellently across all areas.',
-  'rainbow_brain_fun_comment':
-      'Your brain shines with all colors! You are a true genius!',
-  'gold_brain': 'Gold Brain',
-  'gold_brain_description':
-      'Excellent memory performance. Your brain works amazingly well!',
-  'gold_brain_fun_comment': 'Your brain is pure gold! Keep shining bright!',
-  'silver_brain': 'Silver Brain',
-  'silver_brain_description':
-      'Good cognitive function. Strong and stable memory performance.',
-  'silver_brain_fun_comment':
-      'Your brain shines like silver! You\'re on the right track!',
-  'bronze_brain': 'Bronze Brain',
-  'bronze_brain_description':
-      'Stable cognitive performance. Keep practicing to improve memory.',
-  'bronze_brain_fun_comment':
-      'Your brain is made of bronze! Keep going, you\'ll become stronger!',
-  'poop_brain': 'Poop Brain',
-  'poop_brain_description':
-      'Needs more practice. Don\'t give up, everyone can improve!',
-  'poop_brain_fun_comment': 'Even poop can become fertilizer! Keep trying!',
+  'rainbow_brain_level5': 'Rainbow Brain (Level 5)',
+  'rainbow_brain_desc': 'Your brain is sparkling with colorful brilliance!',
+  'rainbow_brain_fun': 'You\'ve reached the cognitive equivalent of a double rainbow - absolutely dazzling!',
+  'gold_brain_level4': 'Gold Brain (Level 4)',
+  'gold_brain_desc': 'Excellent cognitive function and memory.',
+  'gold_brain_fun': 'Almost superhuman memory - you probably remember where you left your keys!',
+  'silver_brain_level3': 'Silver Brain (Level 3)',
+  'silver_brain_desc': 'Good brain health with room for improvement.',
+  'silver_brain_fun': 'Your brain is warming up - like a computer booting up in the morning.',
+  'bronze_brain_level2': 'Bronze Brain (Level 2)',
+  'bronze_brain_desc': 'Average cognitive function - more games needed!',
+  'bronze_brain_fun': 'Your brain is a bit sleepy - time for some mental coffee!',
+  'poop_brain_level1': 'Poop Brain (Level 1)',
+  'poop_brain_desc': 'Just starting your brain health journey.',
+  'poop_brain_fun': 'Your brain right now is like a smartphone at 1% battery - desperately needs charging!',
   'keep_playing_memory_games':
       'Keep playing memory games to improve your brain health!',
   // Ranking tabs

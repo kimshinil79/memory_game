@@ -274,6 +274,23 @@ const Map<String, String> amTranslations = {
   'solo_play': 'ብቻ ተጫዋች',
   'no_search_results': 'ተጫዋቾች አልተገኙም',      
   'try_different_search': 'የተለየ የፍለግ ቃል ይሞክሩ',
-'by_country': 'በሀገር',
+  'by_country': 'በሀገር',
+
+  // Brain Level Guide
+  'rainbow_brain_level5': 'ቀስተ ደመና አእምሮ (ደረጃ 5)',
+  'rainbow_brain_desc': 'አእምሮዎ በተለያዩ ቀለሞች ብሩህነት ይደምቃል!',
+  'rainbow_brain_fun': 'የማስተዋል እኩልነት የሁለት ቀስተ ደመና - በጣም የሚያስደንቅ!',
+  'gold_brain_level4': 'የወርቅ አእምሮ (ደረጃ 4)',
+  'gold_brain_desc': 'በጣም የሚያምር የማስተዋል ተግባር እና ማህደረ ትውስታ።',
+  'gold_brain_fun': 'ከሰው በላይ የማህደረ ትውስታ - ምናልባት ቁልፎችዎን የት እንዳስቀመጡ ታስታውሳለህ!',
+  'silver_brain_level3': 'የብር አእምሮ (ደረጃ 3)',
+  'silver_brain_desc': 'ጥሩ የአእምሮ ጤና - ለማሻሻል ቦታ አለ።',
+  'silver_brain_fun': 'አእምሮዎ ይሞቃል - እንደ ማሞኚ በጠዋት እንደሚጀምር ኮምፒዩተር።',
+  'bronze_brain_level2': 'የነሐስ አእምሮ (ደረጃ 2)',
+  'bronze_brain_desc': 'አማካይ የማስተዋል ተግባር - ተጨማሪ ጨዋታዎች ያስፈልጋሉ!',
+  'bronze_brain_fun': 'አእምሮዎ ትንሽ አደንቆሮ - የአእምሮ ቡና ጊዜ!',
+  'poop_brain_level1': 'መርሳት አእምሮ (ደረጃ 1)',
+  'poop_brain_desc': 'የአእምሮ ጤና ጉዞዎን አሁን ጀመር።',
+  'poop_brain_fun': 'አእምሮዎ አሁን እንደ 1% ባትሪ ያለ ስማርት ስልክ - በአስቸኳይ መሙያ ያስፈልጋል!',
 
 };

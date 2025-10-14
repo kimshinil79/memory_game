@@ -232,30 +232,21 @@ const Map<String, String> mxMEXTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Guía de Niveles Cerebrales',
   'understand_level_means': 'Entiende qué significa tu nivel cerebral',
-  'rainbow_brain': 'Cerebro Arcoíris',
-  'rainbow_brain_description':
-      '¡Habilidades cognitivas excepcionales! Tu cerebro funciona excelentemente en todas las áreas.',
-  'rainbow_brain_fun_comment':
-      '¡Tu cerebro brilla con todos los colores! ¡Eres un verdadero genio!',
-  'gold_brain': 'Cerebro Dorado',
-  'gold_brain_description':
-      'Rendimiento excelente de la memoria. ¡Tu cerebro funciona increíblemente bien!',
-  'gold_brain_fun_comment': '¡Tu cerebro es oro puro! ¡Sigue brillando!',
-  'silver_brain': 'Cerebro Plateado',
-  'silver_brain_description':
-      'Buena función cognitiva. Rendimiento fuerte y estable de la memoria.',
-  'silver_brain_fun_comment':
-      '¡Tu cerebro brilla como la plata! ¡Estás en el camino correcto!',
-  'bronze_brain': 'Cerebro de Bronce',
-  'bronze_brain_description':
-      'Rendimiento cognitivo estable. Sigue practicando para mejorar la memoria.',
-  'bronze_brain_fun_comment':
-      '¡Tu cerebro está hecho de bronce! ¡Sigue adelante, te volverás más fuerte!',
-  'poop_brain': 'Cerebro Caca',
-  'poop_brain_description':
-      'Necesita más práctica. ¡No te rindas, todos pueden mejorar!',
-  'poop_brain_fun_comment':
-      '¡Incluso la caca puede convertirse en fertilizante! ¡Sigue intentando!',
+  'rainbow_brain_level5': 'Cerebro Arcoíris (Nivel 5)',
+  'rainbow_brain_desc': '¡Tu cerebro brilla con un resplandor colorido!',
+  'rainbow_brain_fun': '¡Has alcanzado el equivalente cognitivo de un doble arcoíris - absolutamente deslumbrante!',
+  'gold_brain_level4': 'Cerebro Dorado (Nivel 4)',
+  'gold_brain_desc': 'Excelente función cognitiva y memoria.',
+  'gold_brain_fun': '¡Memoria casi sobrehumana - probablemente recuerdas dónde dejaste las llaves!',
+  'silver_brain_level3': 'Cerebro Plateado (Nivel 3)',
+  'silver_brain_desc': 'Buena salud cerebral con espacio para mejorar.',
+  'silver_brain_fun': 'Tu cerebro se está calentando - como una computadora en la mañana.',
+  'bronze_brain_level2': 'Cerebro de Bronce (Nivel 2)',
+  'bronze_brain_desc': 'Función cognitiva promedio - ¡se necesitan más juegos!',
+  'bronze_brain_fun': '¡Tu cerebro está un poco dormido - hora del café mental!',
+  'poop_brain_level1': 'Cerebro Caca (Nivel 1)',
+  'poop_brain_desc': 'Apenas comenzando tu viaje de salud cerebral.',
+  'poop_brain_fun': '¡Tu cerebro ahora es como un smartphone con 1% de batería - necesita carga desesperadamente!',
   'keep_playing_memory_games':
       '¡Sigue jugando juegos de memoria para mejorar tu salud cerebral!',
   // Ranking tabs

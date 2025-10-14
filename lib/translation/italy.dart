@@ -215,39 +215,6 @@ const Map<String, String> itTranslations = {
   'new_test': 'Nuovo test',
   'submit': 'Invia',
 
-  // Brain Level Guide texts
-  'brain_level_guide': 'Guida ai Livelli del Cervello',
-  'understand_level_means': 'Capisci cosa significa ogni livello!',
-  'rainbow_level_name': '🌈 Livello Arcobaleno',
-  'rainbow_level_description':
-      'Incredibile! Sei un vero vincitore nel migliorare il tuo cervello! Bellissimo come un arcobaleno.',
-  'rainbow_level_fun_comment':
-      'Il tuo cervello è colorato come un arcobaleno! 🌈✨',
-  'gold_level_name': '🥇 Livello Oro',
-  'gold_level_description':
-      'Fantastico! Il tuo cervello brilla come l\'oro. La tua partecipazione al gioco mostra un grande cervello.',
-  'gold_level_fun_comment': 'Cervello d\'oro! Sei uno dei migliori! 🥇🧠',
-  'silver_level_name': '🥈 Livello Argento',
-  'silver_level_description':
-      'Molto bene! Il tuo cervello brilla come l\'argento. Stai facendo molto bene!',
-  'silver_level_fun_comment': 'Cervello d\'argento! Quanto è bello! 🥈⭐',
-  'bronze_level_name': '🥉 Livello Bronzo',
-  'bronze_level_description':
-      'Bene! Il tuo cervello sta crescendo. Continua così!',
-  'bronze_level_fun_comment':
-      'Cervello di bronzo! Arriveranno tempi migliori! 🥉💪',
-  'poop_level_name': '💩 Livello Cacca',
-  'poop_level_description':
-      'Il tuo cervello è un po\' addormentato. Ma non perdere la speranza! Crescerai.',
-  'poop_level_fun_comment':
-      'Cervello di cacca! Ma non preoccuparti, crescerai! 💩😅',
-  'keep_playing_memory_games':
-      'Continua a giocare ai giochi di memoria per migliorare il tuo cervello!',
-  // Ranking tabs
-  'total': 'Totale',
-  'weekly': 'Settimanale',
-  'monthly': 'Mensile',
-
 
   // Promotional messages
   'promo_message_1': 'Inizia lo sviluppo cerebrale di tuo figlio attraverso il gioco! 🎨 Giochi divertenti che potenziano le abilità di memoria!',
@@ -273,6 +240,26 @@ const Map<String, String> itTranslations = {
   'solo_play': 'Gioco Singolo',
   'no_search_results': 'Nessun giocatore trovato',
   'by_country': 'Per Paese',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Guida ai Livelli del Cervello',
+  'understand_level_means': 'Comprendi cosa significa ogni livello',
+  'rainbow_brain_level5': 'Cervello Arcobaleno (Livello 5)',
+  'rainbow_brain_desc': 'Il tuo cervello scintilla con brillantezza colorata!',
+  'rainbow_brain_fun': 'Hai raggiunto l\'equivalente cognitivo di un doppio arcobaleno - assolutamente abbagliante!',
+  'gold_brain_level4': 'Cervello d\'Oro (Livello 4)',
+  'gold_brain_desc': 'Eccellente funzione cognitiva e memoria.',
+  'gold_brain_fun': 'Memoria quasi sovrumana - probabilmente ricordi dove hai messo le chiavi!',
+  'silver_brain_level3': 'Cervello d\'Argento (Livello 3)',
+  'silver_brain_desc': 'Buona salute cerebrale con margine di miglioramento.',
+  'silver_brain_fun': 'Il tuo cervello si sta scaldando - come un computer al mattino.',
+  'bronze_brain_level2': 'Cervello di Bronzo (Livello 2)',
+  'bronze_brain_desc': 'Funzione cognitiva media - servono più giochi!',
+  'bronze_brain_fun': 'Il tuo cervello è un po\' assonnato - tempo per un caffè mentale!',
+  'poop_brain_level1': 'Cervello Cacca (Livello 1)',
+  'poop_brain_desc': 'Stai iniziando il tuo viaggio verso la salute cerebrale.',
+  'poop_brain_fun': 'Il tuo cervello ora è come uno smartphone con l\'1% di batteria - ha disperatamente bisogno di ricarica!',
+  'keep_playing_memory_games': 'Continua a giocare ai giochi di memoria per aumentare il tuo livello cerebrale!',
 
   'try_different_search': 'Prova con un termine di ricerca diverso',
 

@@ -221,29 +221,21 @@ const Map<String, String> filTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Gabay sa Antas ng Utak',
   'understand_level_means': 'Intindihin ang ibig sabihin ng bawat antas!',
-  'rainbow_level_name': '🌈 Antas ng Bahaghari',
-  'rainbow_level_description':
-      'Napakahusay! Tunay kang nagwagi sa pagpapahusay ng inyong utak! Maganda tulad ng bahaghari.',
-  'rainbow_level_fun_comment':
-      'Ang inyong utak ay kulay-kulay tulad ng bahaghari! 🌈✨',
-  'gold_level_name': '🥇 Gintong Antas',
-  'gold_level_description':
-      'Pambihira! Ang inyong utak ay nagniningning tulad ng ginto. Ang inyong pakikilahok sa laro ay nagpapakita ng malaking utak.',
-  'gold_level_fun_comment': 'Gintong utak! Isa ka sa mga pinakamahusay! 🥇🧠',
-  'silver_level_name': '🥈 Pilak na Antas',
-  'silver_level_description':
-      'Napakahusay! Ang inyong utak ay nagniningning tulad ng pilak. Napakahusay mong ginagawa!',
-  'silver_level_fun_comment': 'Pilak na utak! Napakahusay! 🥈⭐',
-  'bronze_level_name': '🥉 Tansong Antas',
-  'bronze_level_description':
-      'Mahusay! Ang inyong utak ay lumalaki. Magpatuloy!',
-  'bronze_level_fun_comment':
-      'Tansong utak! Mas magagandang panahon ang darating! 🥉💪',
-  'poop_level_name': '💩 Antas ng Dumi',
-  'poop_level_description':
-      'Ang inyong utak ay medyo antok-antok. Pero huwag mawalan ng pag-asa! Lalaki ka.',
-  'poop_level_fun_comment':
-      'Utak na dumi! Pero huwag mag-alala, lalaki ka! 💩😅',
+  'rainbow_brain_level5': 'Bahaghari na Utak (Antas 5)',
+  'rainbow_brain_desc': 'Ang inyong utak ay kumikislap sa makulay na ningning!',
+  'rainbow_brain_fun': 'Narating ninyo ang cognitive equivalent ng dobleng bahaghari - talagang nakakamangha!',
+  'gold_brain_level4': 'Gintong Utak (Antas 4)',
+  'gold_brain_desc': 'Napakahusay na cognitive function at memorya.',
+  'gold_brain_fun': 'Halos superhuman na memorya - malamang naalala ninyo kung saan ninyo iniwan ang susi!',
+  'silver_brain_level3': 'Pilak na Utak (Antas 3)',
+  'silver_brain_desc': 'Magandang kalusugan ng utak na may espasyo para sa pagpapabuti.',
+  'silver_brain_fun': 'Ang inyong utak ay uminit - tulad ng computer sa umaga.',
+  'bronze_brain_level2': 'Tansong Utak (Antas 2)',
+  'bronze_brain_desc': 'Average cognitive function - kailangan ng mas maraming laro!',
+  'bronze_brain_fun': 'Ang inyong utak ay medyo inaantok - oras na para sa mental coffee!',
+  'poop_brain_level1': 'Utak na Dumi (Antas 1)',
+  'poop_brain_desc': 'Nagsisimula pa lang kayo sa inyong kalusugan ng utak journey.',
+  'poop_brain_fun': 'Ang inyong utak ngayon ay parang smartphone na may 1% battery - kailangan ng charging!',
   'keep_playing_memory_games':
       'Magpatuloy sa paglalaro ng mga laro ng memorya para mapahusay ang inyong utak!',
   // Ranking tabs

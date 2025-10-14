@@ -220,30 +220,21 @@ const Map<String, String> lvLVTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Smadzeņu līmeņa ceļvedis',
   'understand_level_means': 'Saprotiet, ko nozīmē jūsu smadzeņu līmenis',
-  'rainbow_brain': 'Varavīksnes smadzenes',
-  'rainbow_brain_description':
-      'Izcili kognitīvie spējas! Jūsu smadzenes darbojas lieliski visās jomās.',
-  'rainbow_brain_fun_comment':
-      'Jūsu smadzenes mirgo ar visām krāsām! Jūs esat īsts talants!',
-  'gold_brain': 'Zelta smadzenes',
-  'gold_brain_description':
-      'Izcila atmiņas veiktspēja. Jūsu smadzenes darbojas lieliski!',
-  'gold_brain_fun_comment': 'Jūsu smadzenes ir tīrs zelts! Turpiniet mirdzēt!',
-  'silver_brain': 'Sudraba smadzenes',
-  'silver_brain_description':
-      'Labas kognitīvās funkcijas. Spēcīga un stabila atmiņas veiktspēja.',
-  'silver_brain_fun_comment':
-      'Jūsu smadzenes mirgo kā sudrabs! Jūs esat uz pareizā ceļa!',
-  'bronze_brain': 'Bronzas smadzenes',
-  'bronze_brain_description':
-      'Pienācīgas atmiņas spējas. Ir vieta uzlabojumiem ar praksi.',
-  'bronze_brain_fun_comment':
-      'Jūsu smadzenēm ir bronzas spēks! Turpiniet trenēties!',
-  'poop_brain': 'Vājas smadzenes',
-  'poop_brain_description':
-      'Nepieciešami uzlabojumi. Neuztraucieties, visi kaut kur sāk!',
-  'poop_brain_fun_comment':
-      'Ir laiks trenēt jūsu smadzenes! Visi esam bijuši šeit!',
+  'rainbow_brain_level5': 'Varavīksnes smadzenes (5. līmenis)',
+  'rainbow_brain_desc': 'Jūsu smadzenes mirgo ar krāsainu spožumu!',
+  'rainbow_brain_fun': 'Jūs esat sasniedzis kognitīvo ekvivalentu dubultai varavīksnei - absolūti apžilbinošs!',
+  'gold_brain_level4': 'Zelta smadzenes (4. līmenis)',
+  'gold_brain_desc': 'Izcila kognitīvā funkcija un atmiņa.',
+  'gold_brain_fun': 'Gandrīz pārcilvēciska atmiņa - jūs, iespējams, atceraties, kur atstājāt atslēgas!',
+  'silver_brain_level3': 'Sudraba smadzenes (3. līmenis)',
+  'silver_brain_desc': 'Laba smadzeņu veselība ar uzlabošanās iespējām.',
+  'silver_brain_fun': 'Jūsu smadzenes iesilst - kā dators no rīta.',
+  'bronze_brain_level2': 'Bronzas smadzenes (2. līmenis)',
+  'bronze_brain_desc': 'Vidēja kognitīvā funkcija - nepieciešamas vairāk spēles!',
+  'bronze_brain_fun': 'Jūsu smadzenes ir nedaudz miegainas - laiks garīgajai kafijai!',
+  'poop_brain_level1': 'Vājas smadzenes (1. līmenis)',
+  'poop_brain_desc': 'Tikko sākat savu smadzeņu veselības ceļojumu.',
+  'poop_brain_fun': 'Jūsu smadzenes tagad ir kā viedtālrunis ar 1% akumulatoru - izmisīgi nepieciešama uzlāde!',
   'keep_playing_memory_games':
       'Turpiniet spēlēt atmiņas spēles, lai uzlabotu savu smadzeņu līmeni!',
   // Ranking tabs

@@ -220,25 +220,21 @@ const Map<String, String> fiTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Aivojen Tasoohjeet',
   'understand_level_means': 'Ymmärrä mitä kukin taso tarkoittaa!',
-  'rainbow_level_name': '🌈 Sateenkaaritaso',
-  'rainbow_level_description':
-      'Upeaa! Olet todellinen voittaja aivojesi parantamisessa! Kaunis kuin sateenkaari.',
-  'rainbow_level_fun_comment': 'Aivosi ovat värikkäät kuin sateenkaari! 🌈✨',
-  'gold_level_name': '🥇 Kultaraso',
-  'gold_level_description':
-      'Fantastista! Aivosi loistavat kuin kulta. Osallistumisesi peliin näyttää suuret aivot.',
-  'gold_level_fun_comment': 'Kultaaivot! Olet yksi parhaista! 🥇🧠',
-  'silver_level_name': '🥈 Hopeatasot',
-  'silver_level_description':
-      'Erittäin hyvä! Aivosi loistavat kuin hopea. Teet erittäin hyvin!',
-  'silver_level_fun_comment': 'Hopeaaivot! Kuinka hyvin! 🥈⭐',
-  'bronze_level_name': '🥉 Pronssitaso',
-  'bronze_level_description': 'Hyvä! Aivosi kasvavat. Jatka!',
-  'bronze_level_fun_comment': 'Pronssiaaivot! Paremmat ajat tulevat! 🥉💪',
-  'poop_level_name': '💩 Kakkatasot',
-  'poop_level_description':
-      'Aivosi ovat vähän unelias. Mutta älä menetä toivoasi! Kasvat.',
-  'poop_level_fun_comment': 'Kakkaaivot! Mutta älä huoli, kasvat! 💩😅',
+  'rainbow_brain_level5': 'Sateenkaari Aivot (Taso 5)',
+  'rainbow_brain_desc': 'Aivosi säihkyvät värikkäällä loistolla!',
+  'rainbow_brain_fun': 'Olet saavuttanut kaksoisateenkaaren kognitiivisen vastaavan - aivan häikäisevä!',
+  'gold_brain_level4': 'Kultaaivot (Taso 4)',
+  'gold_brain_desc': 'Erinomainen kognitiivinen toiminto ja muisti.',
+  'gold_brain_fun': 'Lähes yliinhimillinen muisti - muistat luultavasti missä jätit avaimet!',
+  'silver_brain_level3': 'Hopeaaivot (Taso 3)',
+  'silver_brain_desc': 'Hyvä aivojen terveys parannusvaraa.',
+  'silver_brain_fun': 'Aivosi lämpenevät - kuin tietokone aamulla.',
+  'bronze_brain_level2': 'Pronssiaivot (Taso 2)',
+  'bronze_brain_desc': 'Keskimääräinen kognitiivinen toiminto - lisää pelejä tarvitaan!',
+  'bronze_brain_fun': 'Aivosi ovat vähän unelias - aika henkiselle kahville!',
+  'poop_brain_level1': 'Kakkaaivot (Taso 1)',
+  'poop_brain_desc': 'Vasta aloitat aivojen terveysmatkasi.',
+  'poop_brain_fun': 'Aivosi nyt ovat kuin älypuhelin 1% akulla - tarvitsevat epätoivoisesti latausta!',
   'keep_playing_memory_games':
       'Jatka muistipelien pelaamista aivojesi parantamiseksi!',
   // Ranking tabs

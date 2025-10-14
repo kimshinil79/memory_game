@@ -229,31 +229,21 @@ const Map<String, String> mgTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Torolalana ny ambaratonga atidoha',
   'understand_level_means': 'Fantaro izay midika ny ambaratonga atidohanao',
-  'rainbow_brain': 'Atidoha avoinavoina',
-  'rainbow_brain_description':
-      'Fahaizana ara-tsaina tsy manam-paharoa! Ny atidohanao dia miasa tsara amin\'ny sehatra rehetra.',
-  'rainbow_brain_fun_comment':
-      'Ny atidohanao dia mamiratra amin\'ny loko rehetra! Ianao dia talenta marina!',
-  'gold_brain': 'Atidoha volamena',
-  'gold_brain_description':
-      'Fampisehoana fahatsiarovana tsara indrindra. Ny atidohanao dia miasa tsara be!',
-  'gold_brain_fun_comment':
-      'Ny atidohanao dia volamena madio! Manohy mamiratra!',
-  'silver_brain': 'Atidoha volafotsy',
-  'silver_brain_description':
-      'Asa ara-tsaina tsara. Fampisehoana matanjaka sy tsy miova amin\'ny fahatsiarovana.',
-  'silver_brain_fun_comment':
-      'Ny atidohanao dia mamiratra toy ny volafotsy! Ianao dia eo amin\'ny lalana marina!',
-  'bronze_brain': 'Atidoha varahina',
-  'bronze_brain_description':
-      'Fampisehoana ara-tsaina milamina. Manohy miampirina mba hanatsara ny fahatsiarovana.',
-  'bronze_brain_fun_comment':
-      'Ny atidohanao dia vita amin\'ny varahina! Manohy mihetsika, ho lasa matanjaka kokoa ianao!',
-  'poop_brain': 'Atidoha diky',
-  'poop_brain_description':
-      'Mila fianarana bebe kokoa. Aza miato, ny olona rehetra dia afaka mihatsara!',
-  'poop_brain_fun_comment':
-      'Na ny diky aza dia afaka lasa zezika! Manohy mihetsika!',
+  'rainbow_brain_level5': 'Atidoha Avoinavoina (Ambaratonga 5)',
+  'rainbow_brain_desc': 'Ny atidohanao dia mamiratra amin\'ny famirapiratan-doko!',
+  'rainbow_brain_fun': 'Nahatratra ny fitoviana ara-tsaina amin\'ny avoinavoina roa ianao - mamiratra tokoa!',
+  'gold_brain_level4': 'Atidoha Volamena (Ambaratonga 4)',
+  'gold_brain_desc': 'Asa ara-tsaina sy fahatsiarovana tsara indrindra.',
+  'gold_brain_fun': 'Fahatsiarovana saika mihoatra ny maha-olombelona - angamba mieritreritra ny toerana nametrahanao ny lakile!',
+  'silver_brain_level3': 'Atidoha Volafotsy (Ambaratonga 3)',
+  'silver_brain_desc': 'Fahasalaman\'ny atidoha tsara miaraka amin\'ny toerana hanatsarana.',
+  'silver_brain_fun': 'Ny atidohanao dia manafana - toy ny solosaina maraina.',
+  'bronze_brain_level2': 'Atidoha Varahina (Ambaratonga 2)',
+  'bronze_brain_desc': 'Asa ara-tsaina antonony - mila lalao maro kokoa!',
+  'bronze_brain_fun': 'Ny atidohanao dia kely matory - fotoana ho an\'ny kafe ara-tsaina!',
+  'poop_brain_level1': 'Atidoha Diky (Ambaratonga 1)',
+  'poop_brain_desc': 'Vao manomboka ny dia fahasalamanao.',
+  'poop_brain_fun': 'Ny atidohanao ankehitriny dia toy ny finday manana 1% bateria - mila miampitra mafy!',
   'keep_playing_memory_games':
       'Manohy mitendry lalao fahatsiarovana mba hanatsarana ny fahasalamana atidoha!',
   // Ranking tabs

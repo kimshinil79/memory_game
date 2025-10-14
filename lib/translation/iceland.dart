@@ -239,26 +239,21 @@ const Map<String, String> isISTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Leiðbeiningar um heilastærðir',
   'understand_level_means': 'Skildu hvað hvert stig þýðir!',
-  'rainbow_level_name': '🌈 Regnbogastig',
-  'rainbow_level_description':
-      'Frábært! Þú ert sannur sigurvegari í að bæta heilann þinn! Fallegt eins og regnbogi.',
-  'rainbow_level_fun_comment': 'Heilinn þinn er litríkur eins og regnbogi! 🌈✨',
-  'gold_level_name': '🥇 Gullstig',
-  'gold_level_description':
-      'Fantastískt! Heilinn þinn glitrar eins og gull. Þátttaka þín í leiknum sýnir frábæran heila.',
-  'gold_level_fun_comment': 'Gullheili! Þú ert einn af þeim bestu! 🥇🧠',
-  'silver_level_name': '🥈 Silfurstig',
-  'silver_level_description':
-      'Mjög gott! Heilinn þinn glitrar eins og silfur. Þú ert að gera þetta mjög vel!',
-  'silver_level_fun_comment': 'Silfurheili! Hvað er þetta frábært! 🥈⭐',
-  'bronze_level_name': '🥉 Bronsastig',
-  'bronze_level_description': 'Gott! Heilinn þinn er að vaxa. Haltu áfram!',
-  'bronze_level_fun_comment': 'Bronsaheili! Betri tímar eru að koma! 🥉💪',
-  'poop_level_name': '💩 Skítstig',
-  'poop_level_description':
-      'Heilinn þinn er aðeins þreyttur. En ekki missa vonina! Þú munt vaxa.',
-  'poop_level_fun_comment':
-      'Skítheili! En ekki hafa áhyggjur, þú munt vaxa! 💩😅',
+  'rainbow_brain_level5': 'Regnbogaheili (Stig 5)',
+  'rainbow_brain_desc': 'Heilinn þinn skín með litríkum glans!',
+  'rainbow_brain_fun': 'Þú hefur náð hugrænu jafngildi tvöfalds regnboga - algjörlega töfrandi!',
+  'gold_brain_level4': 'Gullheili (Stig 4)',
+  'gold_brain_desc': 'Frábær hugræn virkni og minni.',
+  'gold_brain_fun': 'Næstum yfirnáttúrulegt minni - þú manst líklega hvar þú skildir lyklana eftir!',
+  'silver_brain_level3': 'Silfurheili (Stig 3)',
+  'silver_brain_desc': 'Góð heilaheilsa með pláss til að bæta.',
+  'silver_brain_fun': 'Heilinn þinn er að hitna - eins og tölva að ræsa á morgnana.',
+  'bronze_brain_level2': 'Bronsaheili (Stig 2)',
+  'bronze_brain_desc': 'Meðal hugræn virkni - þarf fleiri leiki!',
+  'bronze_brain_fun': 'Heilinn þinn er svolítið svefnugur - tími fyrir andlegt kaffi!',
+  'poop_brain_level1': 'Skítheili (Stig 1)',
+  'poop_brain_desc': 'Þú ert rétt að byrja heilaheilsuferðina þína.',
+  'poop_brain_fun': 'Heilinn þinn er núna eins og snjallsími með 1% rafhlöðu - þarf örvæntingarfulla hleðslu!',
   'keep_playing_memory_games':
       'Haltu áfram að spila minnisleiki til að bæta heilann þinn!',
   // Ranking tabs

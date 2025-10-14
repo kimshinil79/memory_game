@@ -215,37 +215,6 @@ const Map<String, String> idTranslations = {
   'new_test': 'Tes Baru',
   'submit': 'Kirim',
 
-  // Brain Level Guide texts
-  'brain_level_guide': 'Panduan Level Otak',
-  'understand_level_means': 'Pahami apa arti setiap level!',
-  'rainbow_level_name': '🌈 Level Pelangi',
-  'rainbow_level_description':
-      'Luar biasa! Anda adalah pemenang sejati dalam meningkatkan otak Anda! Indah seperti pelangi.',
-  'rainbow_level_fun_comment': 'Otak Anda berwarna-warni seperti pelangi! 🌈✨',
-  'gold_level_name': '🥇 Level Emas',
-  'gold_level_description':
-      'Fantastis! Otak Anda bersinar seperti emas. Partisipasi Anda dalam permainan menunjukkan otak yang hebat.',
-  'gold_level_fun_comment': 'Otak emas! Anda salah satu yang terbaik! 🥇🧠',
-  'silver_level_name': '🥈 Level Perak',
-  'silver_level_description':
-      'Sangat bagus! Otak Anda bersinar seperti perak. Anda melakukannya dengan sangat baik!',
-  'silver_level_fun_comment': 'Otak perak! Betapa hebatnya! 🥈⭐',
-  'bronze_level_name': '🥉 Level Perunggu',
-  'bronze_level_description':
-      'Bagus! Otak Anda sedang berkembang. Terus lanjutkan!',
-  'bronze_level_fun_comment':
-      'Otak perunggu! Waktu yang lebih baik akan datang! 🥉💪',
-  'poop_level_name': '💩 Level Kotoran',
-  'poop_level_description':
-      'Otak Anda sedikit mengantuk. Tapi jangan kehilangan harapan! Anda akan berkembang.',
-  'poop_level_fun_comment':
-      'Otak kotoran! Tapi jangan khawatir, Anda akan berkembang! 💩😅',
-  'keep_playing_memory_games':
-      'Terus bermain permainan memori untuk meningkatkan otak Anda!',
-  // Ranking tabs
-  'total': 'Total',
-  'weekly': 'Mingguan',
-  'monthly': 'Bulanan',
 
   // Promotional messages
   'promo_message_1': 'Mulai perkembangan otak anak Anda melalui bermain! 🎨 Permainan seru yang meningkatkan kemampuan memori!',
@@ -267,5 +236,25 @@ const Map<String, String> idTranslations = {
   'no_search_results': 'Tidak ada pemain ditemukan',
   'try_different_search': 'Coba kata kunci pencarian yang berbeda',
 'by_country': 'Berdasarkan Negara',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Panduan Level Otak',
+  'understand_level_means': 'Pahami apa arti setiap level',
+  'rainbow_brain_level5': 'Otak Pelangi (Level 5)',
+  'rainbow_brain_desc': 'Otak Anda berkilau dengan kecemerlangan warna-warni!',
+  'rainbow_brain_fun': 'Anda telah mencapai setara kognitif pelangi ganda - benar-benar memukau!',
+  'gold_brain_level4': 'Otak Emas (Level 4)',
+  'gold_brain_desc': 'Fungsi kognitif dan memori yang sangat baik.',
+  'gold_brain_fun': 'Memori hampir superhuman - Anda mungkin ingat di mana meletakkan kunci!',
+  'silver_brain_level3': 'Otak Perak (Level 3)',
+  'silver_brain_desc': 'Kesehatan otak yang baik dengan ruang untuk perbaikan.',
+  'silver_brain_fun': 'Otak Anda memanas - seperti komputer di pagi hari.',
+  'bronze_brain_level2': 'Otak Perunggu (Level 2)',
+  'bronze_brain_desc': 'Fungsi kognitif rata-rata - lebih banyak permainan diperlukan!',
+  'bronze_brain_fun': 'Otak Anda sedikit mengantuk - waktunya kopi mental!',
+  'poop_brain_level1': 'Otak Kotoran (Level 1)',
+  'poop_brain_desc': 'Baru memulai perjalanan kesehatan otak Anda.',
+  'poop_brain_fun': 'Otak Anda sekarang seperti smartphone dengan baterai 1% - sangat membutuhkan pengisian!',
+  'keep_playing_memory_games': 'Terus bermain permainan memori untuk meningkatkan level otak Anda!',
 
 };

@@ -225,30 +225,21 @@ const Map<String, String> rwRWTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Umuyoboro w\'imiterere y\'ubwonko',
   'understand_level_means': 'Sobanura icyo urwego rw\'ubwonko bwawe bisobanura',
-  'rainbow_brain': 'Ubwonko bw\'indiga',
-  'rainbow_brain_description':
-      'Ubushobozi bw\'ubwonko budasanzwe! Ubwonko bwawe bukora neza cyane mu bice byose.',
-  'rainbow_brain_fun_comment':
-      'Ubwonko bwawe burahava mu mabara yose! Uri umuhanga rwose!',
-  'gold_brain': 'Ubwonko bwa zahabu',
-  'gold_brain_description':
-      'Ibikorwa bidasanzwe by\'ibuka. Ubwonko bwawe bukora neza bitangaje!',
-  'gold_brain_fun_comment': 'Ubwonko bwawe ni zahabu nyayo! Komeza kurahava!',
-  'silver_brain': 'Ubwonko bw\'ifeza',
-  'silver_brain_description':
-      'Imirimo y\'ubwonko myiza. Ibikorwa by\'ibuka bikomeye kandi bihamye.',
-  'silver_brain_fun_comment':
-      'Ubwonko bwawe burahava nk\'ifeza! Uri ku nzira nziza!',
-  'bronze_brain': 'Ubwonko bw\'umuringa',
-  'bronze_brain_description':
-      'Ibikorwa by\'ubwonko bihamye. Komeza kwimenyereza kugira ngo utere imbere ubushobozi bwo kwibuka.',
-  'bronze_brain_fun_comment':
-      'Ubwonko bwawe bukozwe mu muringa! Komeza, uzagira imbaraga nyinshi!',
-  'poop_brain': 'Ubwonko bw\'ubwihemu',
-  'poop_brain_description':
-      'Bikeneye kwimenyereza byinshi. Ntutore ubwoba, abantu bose bashobora gutera imbere!',
-  'poop_brain_fun_comment':
-      'Ni n\'ubwihemu bushobora kuba ifumbire! Komeza ukagerageza!',
+  'rainbow_brain_level5': 'Ubwonko bw\'indiga (Urwego 5)',
+  'rainbow_brain_desc': 'Ubwonko bwawe burahava mu mabara menshi!',
+  'rainbow_brain_fun': 'Wageze ku bwonko bungana n\'indiga ebyiri - burahava rwose!',
+  'gold_brain_level4': 'Ubwonko bwa zahabu (Urwego 4)',
+  'gold_brain_desc': 'Imirimo y\'ubwonko n\'ibuka bidasanzwe.',
+  'gold_brain_fun': 'Ubushobozi bwo kwibuka burenga ubushobozi bw\'umuntu - ushobora kwibuka aho wasigaye urufunguzo!',
+  'silver_brain_level3': 'Ubwonko bw\'ifeza (Urwego 3)',
+  'silver_brain_desc': 'Ubuzima bw\'ubwonko bwiza n\'umwanya wo gutera imbere.',
+  'silver_brain_fun': 'Ubwonko bwawe buratangura gushyushya - nk\'mudasobwa mu gitondo.',
+  'bronze_brain_level2': 'Ubwonko bw\'umuringa (Urwego 2)',
+  'bronze_brain_desc': 'Imirimo y\'ubwonko isanzwe - imikino myinshi irakenewe!',
+  'bronze_brain_fun': 'Ubwonko bwawe burinziriye gato - igihe cy\'ikawa y\'ubwonko!',
+  'poop_brain_level1': 'Ubwonko bw\'ubwihemu (Urwego 1)',
+  'poop_brain_desc': 'Utangiye urugendo rw\'ubuzima bw\'ubwonko.',
+  'poop_brain_fun': 'Ubwonko bwawe ubu bumeze nka terefone igendanwa ifite batiri 1% - bukeneye gushyushya byihuse!',
   'keep_playing_memory_games':
       'Komeza gukina imikino y\'ibuka kugira ngo uteze imbere ubuzima bw\'ubwonko bwawe!',
   // Ranking tabs

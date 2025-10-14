@@ -223,29 +223,21 @@ const Map<String, String> plPLTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Przewodnik po poziomach mózgu',
   'understand_level_means': 'Zrozum, co oznacza poziom twojego mózgu',
-  'rainbow_brain': 'Tęczowy mózg',
-  'rainbow_brain_description':
-      'Wybitne zdolności poznawcze! Twój mózg działa doskonale we wszystkich obszarach.',
-  'rainbow_brain_fun_comment':
-      'Twój mózg świeci wszystkimi kolorami! Jesteś prawdziwym geniuszem!',
-  'gold_brain': 'Złoty mózg',
-  'gold_brain_description':
-      'Doskonała wydajność pamięci. Twój mózg działa niesamowicie dobrze!',
-  'gold_brain_fun_comment': 'Twój mózg to czyste złoto! Świeć dalej jasno!',
-  'silver_brain': 'Srebrny mózg',
-  'silver_brain_description':
-      'Dobra funkcja poznawcza. Silna i stabilna wydajność pamięci.',
-  'silver_brain_fun_comment':
-      'Twój mózg świeci jak srebro! Jesteś na dobrej drodze!',
-  'bronze_brain': 'Brązowy mózg',
-  'bronze_brain_description':
-      'Stabilna wydajność poznawcza. Kontynuuj ćwiczenia, aby poprawić pamięć.',
-  'bronze_brain_fun_comment':
-      'Twój mózg jest z brązu! Kontynuuj, staniesz się silniejszy!',
-  'poop_brain': 'Kupowy mózg',
-  'poop_brain_description':
-      'Potrzeba więcej praktyki. Nie poddawaj się, każdy może się poprawić!',
-  'poop_brain_fun_comment': 'Nawet kupa może stać się nawozem! Próbuj dalej!',
+  'rainbow_brain_level5': 'Tęczowy Mózg (Poziom 5)',
+  'rainbow_brain_desc': 'Twój mózg błyszczy kolorowym blaskiem!',
+  'rainbow_brain_fun': 'Osiągnąłeś kognitywny odpowiednik podwójnej tęczy - absolutnie olśniewający!',
+  'gold_brain_level4': 'Złoty Mózg (Poziom 4)',
+  'gold_brain_desc': 'Doskonała funkcja poznawcza i pamięć.',
+  'gold_brain_fun': 'Niemal nadludzka pamięć - prawdopodobnie pamiętasz, gdzie zostawiłeś klucze!',
+  'silver_brain_level3': 'Srebrny Mózg (Poziom 3)',
+  'silver_brain_desc': 'Dobra zdrowie mózgu z miejscem na poprawę.',
+  'silver_brain_fun': 'Twój mózg się rozgrzewa - jak komputer rano.',
+  'bronze_brain_level2': 'Brązowy Mózg (Poziom 2)',
+  'bronze_brain_desc': 'Przeciętna funkcja poznawcza - potrzeba więcej gier!',
+  'bronze_brain_fun': 'Twój mózg jest trochę senny - czas na mentalną kawę!',
+  'poop_brain_level1': 'Kupowy Mózg (Poziom 1)',
+  'poop_brain_desc': 'Dopiero zaczynasz swoją podróż zdrowia mózgu.',
+  'poop_brain_fun': 'Twój mózg teraz jest jak smartphone z 1% baterii - desperacko potrzebuje ładowania!',
   'keep_playing_memory_games':
       'Kontynuuj granie w gry pamięciowe, aby poprawić zdrowie mózgu!',
   // Ranking tabs

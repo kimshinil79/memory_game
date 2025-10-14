@@ -224,28 +224,21 @@ const Map<String, String> nnNOTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Hjernenivå guide',
   'understand_level_means': 'Forstå kva hjernenivået ditt betyr',
-  'rainbow_brain': 'Regnboge hjerne',
-  'rainbow_brain_description':
-      'Utmerka kognitive evner! Hjernen din presterer utmerkt på alle område.',
-  'rainbow_brain_fun_comment':
-      'Hjernen din skin med alle fargar! Du er eit ekte geni!',
-  'gold_brain': 'Gull hjerne',
-  'gold_brain_description':
-      'Utmerka minneprestasjon. Hjernen din fungerer utruleg bra!',
-  'gold_brain_fun_comment': 'Hjernen din er reint gull! Hald fram å skina!',
-  'silver_brain': 'Sølv hjerne',
-  'silver_brain_description':
-      'God kognitiv funksjon. Sterk og stabil minneprestasjon.',
-  'silver_brain_fun_comment': 'Hjernen din skin som sølv! Du er på rett veg!',
-  'bronze_brain': 'Bronse hjerne',
-  'bronze_brain_description':
-      'Stabil kognitiv prestasjon. Hald fram å øva for å forbetra minnet.',
-  'bronze_brain_fun_comment':
-      'Hjernen din er laga av bronse! Hald fram, du blir sterkare!',
-  'poop_brain': 'Bæsj hjerne',
-  'poop_brain_description':
-      'Treng meir øving. Ikkje gje opp, alle kan forbetra seg!',
-  'poop_brain_fun_comment': 'Sjølv bæsj kan bli gjødsel! Hald fram å prøva!',
+  'rainbow_brain_level5': 'Regnboge Hjerne (Nivå 5)',
+  'rainbow_brain_desc': 'Hjernen din glitrar med fargerik glans!',
+  'rainbow_brain_fun': 'Du har oppnådd den kognitive ekvivalenten av ein dobbel regnboge - heilt blendande!',
+  'gold_brain_level4': 'Gull Hjerne (Nivå 4)',
+  'gold_brain_desc': 'Utmerka kognitiv funksjon og minne.',
+  'gold_brain_fun': 'Nesten overmenneskelig minne - du hugsar sannsynlegvis kvar du la att nøklane!',
+  'silver_brain_level3': 'Sølv Hjerne (Nivå 3)',
+  'silver_brain_desc': 'God hjernehelse med rom for forbetering.',
+  'silver_brain_fun': 'Hjernen din varmar opp - som ein datamaskin om morgonen.',
+  'bronze_brain_level2': 'Bronse Hjerne (Nivå 2)',
+  'bronze_brain_desc': 'Gjennomsnittleg kognitiv funksjon - treng fleire spel!',
+  'bronze_brain_fun': 'Hjernen din er litt søvnig - tid for mental kaffi!',
+  'poop_brain_level1': 'Bæsj Hjerne (Nivå 1)',
+  'poop_brain_desc': 'Berre startar hjernehelsereisa di.',
+  'poop_brain_fun': 'Hjernen din er no som ein smarttelefon med 1% batteri - treng desperat lading!',
   'keep_playing_memory_games':
       'Hald fram å spela minne-spel for å forbetra hjernesundheita!',
   // Ranking tabs

@@ -228,31 +228,21 @@ const Map<String, String> roROTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Ghidul nivelurilor creierului',
   'understand_level_means': 'Înțelege ce înseamnă nivelul creierului tău',
-  'rainbow_brain': 'Creier curcubeu',
-  'rainbow_brain_description':
-      'Abilități cognitive excepționale! Creierul tău funcționează excelent în toate domeniile.',
-  'rainbow_brain_fun_comment':
-      'Creierul tău strălucește cu toate culorile! Ești un adevărat geniu!',
-  'gold_brain': 'Creier de aur',
-  'gold_brain_description':
-      'Performanță excelentă a memoriei. Creierul tău funcționează incredibil de bine!',
-  'gold_brain_fun_comment':
-      'Creierul tău este aur pur! Continuă să strălucești!',
-  'silver_brain': 'Creier de argint',
-  'silver_brain_description':
-      'Funcție cognitivă bună. Performanță puternică și stabilă a memoriei.',
-  'silver_brain_fun_comment':
-      'Creierul tău strălucește ca argintul! Ești pe drumul cel bun!',
-  'bronze_brain': 'Creier de bronz',
-  'bronze_brain_description':
-      'Performanță cognitivă stabilă. Continuă să exersezi pentru a îmbunătăți memoria.',
-  'bronze_brain_fun_comment':
-      'Creierul tău este făcut din bronz! Continuă, vei deveni mai puternic!',
-  'poop_brain': 'Creier de rahat',
-  'poop_brain_description':
-      'Are nevoie de mai multă practică. Nu renunța, toată lumea se poate îmbunătăți!',
-  'poop_brain_fun_comment':
-      'Chiar și rahatul poate deveni îngrășământ! Continuă să încerci!',
+  'rainbow_brain_level5': 'Creier Curcubeu (Nivel 5)',
+  'rainbow_brain_desc': 'Creierul tău strălucește cu strălucire colorată!',
+  'rainbow_brain_fun': 'Ai atins echivalentul cognitiv al unui curcubeu dublu - absolut orbitor!',
+  'gold_brain_level4': 'Creier de Aur (Nivel 4)',
+  'gold_brain_desc': 'Funcție cognitivă și memorie excelente.',
+  'gold_brain_fun': 'Memorie aproape supraomenească - probabil îți amintești unde ai lăsat cheile!',
+  'silver_brain_level3': 'Creier de Argint (Nivel 3)',
+  'silver_brain_desc': 'Sănătate bună a creierului cu spațiu pentru îmbunătățire.',
+  'silver_brain_fun': 'Creierul tău se încălzește - ca un computer dimineața.',
+  'bronze_brain_level2': 'Creier de Bronz (Nivel 2)',
+  'bronze_brain_desc': 'Funcție cognitivă medie - sunt necesare mai multe jocuri!',
+  'bronze_brain_fun': 'Creierul tău este puțin somnoros - e timpul pentru cafea mentală!',
+  'poop_brain_level1': 'Creier de Rahat (Nivel 1)',
+  'poop_brain_desc': 'Tocmai începi călătoria sănătății creierului.',
+  'poop_brain_fun': 'Creierul tău acum este ca un smartphone cu 1% baterie - are nevoie disperată de încărcare!',
   'keep_playing_memory_games':
       'Continuă să joci jocuri de memorie pentru a-ți îmbunătăți sănătatea creierului!',
   // Ranking tabs

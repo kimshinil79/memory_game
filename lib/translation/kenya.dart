@@ -221,30 +221,21 @@ const Map<String, String> swKETranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Mwongozo wa kiwango cha ubongo',
   'understand_level_means': 'Elewa kiwango cha ubongo wako kinamaanisha nini',
-  'rainbow_brain': 'Ubongo wa upinde wa mvua',
-  'rainbow_brain_description':
-      'Uwezo wa kitambuzi mkuu! Ubongo wako unafanya kazi vizuri sana katika maeneo yote.',
-  'rainbow_brain_fun_comment':
-      'Ubongo wako unaangaza kwa rangi zote! Wewe ni mjanja wa kweli!',
-  'gold_brain': 'Ubongo wa dhahabu',
-  'gold_brain_description':
-      'Utendaji bora wa kumbukumbu. Ubongo wako unafanya kazi vizuri!',
-  'gold_brain_fun_comment': 'Ubongo wako ni dhahabu safi! Endelea kung\'aa!',
-  'silver_brain': 'Ubongo wa fedha',
-  'silver_brain_description':
-      'Kazi nzuri za kitambuzi. Utendaji mkuu na thabiti katika kumbukumbu.',
-  'silver_brain_fun_comment':
-      'Ubongo wako unaangaza kama fedha! Uko katika njia sahihi!',
-  'bronze_brain': 'Ubongo wa shaba',
-  'bronze_brain_description':
-      'Uwezo wa kumbukumbu wa wastani. Kuna nafasi ya kuimarika kwa mazoezi.',
-  'bronze_brain_fun_comment':
-      'Ubongo wako una nguvu za shaba! Endelea kujifunza!',
-  'poop_brain': 'Ubongo dhaifu',
-  'poop_brain_description':
-      'Unahitaji kuimarika. Usiwe na wasiwasi, kila mtu huanzia mahali fulani!',
-  'poop_brain_fun_comment':
-      'Ni wakati wa kujifunza ubongo wako! Wote tumekuwa hapa hapo awali!',
+  'rainbow_brain_level5': 'Ubongo wa Upinde wa Mvua (Kiwango 5)',
+  'rainbow_brain_desc': 'Ubongo wako unaangaza kwa mwangaza wa rangi!',
+  'rainbow_brain_fun': 'Umefikia sawa ya kitambuzi ya upinde wa mvua maradufu - unaangaza kabisa!',
+  'gold_brain_level4': 'Ubongo wa Dhahabu (Kiwango 4)',
+  'gold_brain_desc': 'Kazi bora ya kitambuzi na kumbukumbu.',
+  'gold_brain_fun': 'Kumbukumbu karibu ya mtu wa ziada - labda unakumbuka mahali ulipoweka funguo!',
+  'silver_brain_level3': 'Ubongo wa Fedha (Kiwango 3)',
+  'silver_brain_desc': 'Afya nzuri ya ubongo na nafasi ya kuboresha.',
+  'silver_brain_fun': 'Ubongo wako unapata joto - kama kompyuta asubuhini.',
+  'bronze_brain_level2': 'Ubongo wa Shaba (Kiwango 2)',
+  'bronze_brain_desc': 'Kazi ya wastani ya kitambuzi - michezo zaidi inahitajika!',
+  'bronze_brain_fun': 'Ubongo wako una usinzi kidogo - wakati wa kahawa ya akili!',
+  'poop_brain_level1': 'Ubongo Dhaifu (Kiwango 1)',
+  'poop_brain_desc': 'Unaanza tu safari ya afya ya ubongo.',
+  'poop_brain_fun': 'Ubongo wako sasa ni kama simu mahiri yenye betri 1% - inahitaji kuchaji haraka!',
   'keep_playing_memory_games':
       'Endelea kucheza michezo ya kumbukumbu ili kuboresha kiwango cha ubongo wako!',
   // Ranking tabs

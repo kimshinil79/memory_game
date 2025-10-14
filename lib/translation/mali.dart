@@ -223,31 +223,21 @@ const Map<String, String> frMLTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Guide des niveaux cérébraux',
   'understand_level_means': 'Comprenez ce que signifie votre niveau cérébral',
-  'rainbow_brain': 'Cerveau arc-en-ciel',
-  'rainbow_brain_description':
-      'Capacités cognitives exceptionnelles ! Votre cerveau fonctionne excellemment dans tous les domaines.',
-  'rainbow_brain_fun_comment':
-      'Votre cerveau brille de toutes les couleurs ! Vous êtes un vrai génie !',
-  'gold_brain': 'Cerveau doré',
-  'gold_brain_description':
-      'Performance mémoire excellente. Votre cerveau fonctionne incroyablement bien !',
-  'gold_brain_fun_comment':
-      'Votre cerveau est de l\'or pur ! Continuez à briller !',
-  'silver_brain': 'Cerveau argenté',
-  'silver_brain_description':
-      'Bonne fonction cognitive. Performance mémoire forte et stable.',
-  'silver_brain_fun_comment':
-      'Votre cerveau brille comme l\'argent ! Vous êtes sur la bonne voie !',
-  'bronze_brain': 'Cerveau bronze',
-  'bronze_brain_description':
-      'Performance cognitive stable. Continuez à vous entraîner pour améliorer la mémoire.',
-  'bronze_brain_fun_comment':
-      'Votre cerveau est en bronze ! Continuez, vous deviendrez plus fort !',
-  'poop_brain': 'Cerveau caca',
-  'poop_brain_description':
-      'Besoin de plus d\'entraînement. N\'abandonnez pas, tout le monde peut s\'améliorer !',
-  'poop_brain_fun_comment':
-      'Même le caca peut devenir de l\'engrais ! Continuez à essayer !',
+  'rainbow_brain_level5': 'Cerveau Arc-en-ciel (Niveau 5)',
+  'rainbow_brain_desc': 'Votre cerveau brille d\'un éclat coloré!',
+  'rainbow_brain_fun': 'Vous avez atteint l\'équivalent cognitif d\'un double arc-en-ciel - absolument éblouissant!',
+  'gold_brain_level4': 'Cerveau d\'Or (Niveau 4)',
+  'gold_brain_desc': 'Excellente fonction cognitive et mémoire.',
+  'gold_brain_fun': 'Mémoire presque surhumaine - vous vous souvenez probablement où vous avez mis vos clés!',
+  'silver_brain_level3': 'Cerveau d\'Argent (Niveau 3)',
+  'silver_brain_desc': 'Bonne santé cérébrale avec place à l\'amélioration.',
+  'silver_brain_fun': 'Votre cerveau se réchauffe - comme un ordinateur le matin.',
+  'bronze_brain_level2': 'Cerveau de Bronze (Niveau 2)',
+  'bronze_brain_desc': 'Fonction cognitive moyenne - plus de jeux nécessaires!',
+  'bronze_brain_fun': 'Votre cerveau est un peu endormi - temps pour un café mental!',
+  'poop_brain_level1': 'Cerveau Caca (Niveau 1)',
+  'poop_brain_desc': 'Vous commencez votre voyage de santé cérébrale.',
+  'poop_brain_fun': 'Votre cerveau est maintenant comme un smartphone à 1% de batterie - a désespérément besoin de recharge!',
   'keep_playing_memory_games':
       'Continuez à jouer aux jeux de mémoire pour améliorer votre santé cérébrale !',
   // Ranking tabs

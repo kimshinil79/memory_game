@@ -218,36 +218,6 @@ const Map<String, String> deDETranslations = {
   'new_test': 'Neuer Test',
   'submit': 'Absenden',
 
-  // Brain Level Guide texts
-  'brain_level_guide': 'Gehirn-Level-Anleitung',
-  'understand_level_means': 'Verstehen Sie, was jede Stufe bedeutet!',
-  'rainbow_level_name': '🌈 Regenbogen-Level',
-  'rainbow_level_description':
-      'Erstaunlich! Sie sind ein wahrer Gewinner bei der Verbesserung Ihres Gehirns! Schön wie ein Regenbogen.',
-  'rainbow_level_fun_comment': 'Ihr Gehirn ist bunt wie ein Regenbogen! 🌈✨',
-  'gold_level_name': '🥇 Gold-Level',
-  'gold_level_description':
-      'Fantastisch! Ihr Gehirn glänzt wie Gold. Ihre Teilnahme am Spiel zeigt ein großes Gehirn.',
-  'gold_level_fun_comment': 'Goldenes Gehirn! Sie sind einer der Besten! 🥇🧠',
-  'silver_level_name': '🥈 Silber-Level',
-  'silver_level_description':
-      'Sehr gut! Ihr Gehirn glänzt wie Silber. Sie machen es sehr gut!',
-  'silver_level_fun_comment': 'Silbernes Gehirn! Wie großartig! 🥈⭐',
-  'bronze_level_name': '🥉 Bronze-Level',
-  'bronze_level_description': 'Gut! Ihr Gehirn wächst. Machen Sie weiter!',
-  'bronze_level_fun_comment':
-      'Bronze-Gehirn! Bessere Zeiten werden kommen! 🥉💪',
-  'poop_level_name': '💩 Kacke-Level',
-  'poop_level_description':
-      'Ihr Gehirn ist etwas müde. Aber verlieren Sie nicht die Hoffnung! Sie werden wachsen.',
-  'poop_level_fun_comment':
-      'Kacke-Gehirn! Aber machen Sie sich keine Sorgen, Sie werden wachsen! 💩😅',
-  'keep_playing_memory_games':
-      'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn zu verbessern!',
-  // Ranking tabs
-  'total': 'Gesamt',
-  'weekly': 'Wöchentlich',
-  'monthly': 'Monatlich',
 
 
   // Promotional messages
@@ -274,6 +244,26 @@ const Map<String, String> deDETranslations = {
   'solo_play': 'Einzelspieler',
   'no_search_results': 'Keine Spieler gefunden',
   'by_country': 'Nach Land',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Gehirn-Level-Leitfaden',
+  'understand_level_means': 'Verstehen Sie, was jedes Level bedeutet',
+  'rainbow_brain_level5': 'Regenbogen-Gehirn (Level 5)',
+  'rainbow_brain_desc': 'Ihr Gehirn funkelt mit farbenfroher Brillanz!',
+  'rainbow_brain_fun': 'Sie haben das kognitive Äquivalent eines doppelten Regenbogens erreicht - absolut blendend!',
+  'gold_brain_level4': 'Gold-Gehirn (Level 4)',
+  'gold_brain_desc': 'Ausgezeichnete kognitive Funktion und Gedächtnis.',
+  'gold_brain_fun': 'Fast übermenschliches Gedächtnis - Sie erinnern sich wahrscheinlich, wo Sie Ihre Schlüssel gelassen haben!',
+  'silver_brain_level3': 'Silber-Gehirn (Level 3)',
+  'silver_brain_desc': 'Gute Gehirngesundheit mit Raum für Verbesserungen.',
+  'silver_brain_fun': 'Ihr Gehirn wärmt sich auf - wie ein Computer am Morgen.',
+  'bronze_brain_level2': 'Bronze-Gehirn (Level 2)',
+  'bronze_brain_desc': 'Durchschnittliche kognitive Funktion - mehr Spiele nötig!',
+  'bronze_brain_fun': 'Ihr Gehirn ist ein bisschen schläfrig - Zeit für mentalen Kaffee!',
+  'poop_brain_level1': 'Kack-Gehirn (Level 1)',
+  'poop_brain_desc': 'Sie beginnen Ihre Gehirngesundheitsreise.',
+  'poop_brain_fun': 'Ihr Gehirn ist jetzt wie ein Smartphone mit 1% Batterie - braucht dringend Aufladung!',
+  'keep_playing_memory_games': 'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirnlevel zu erhöhen!',
 
   'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
 

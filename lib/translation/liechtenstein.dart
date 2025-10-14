@@ -221,30 +221,21 @@ const Map<String, String> deLITranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Gehirn-Level-Leitfaden',
   'understand_level_means': 'Verstehen Sie, was Ihr Gehirn-Level bedeutet',
-  'rainbow_brain': 'Regenbogen-Gehirn',
-  'rainbow_brain_description':
-      'Hervorragende kognitive Fähigkeiten! Ihr Gehirn funktioniert ausgezeichnet in allen Bereichen.',
-  'rainbow_brain_fun_comment':
-      'Ihr Gehirn leuchtet in allen Farben! Sie sind ein wahres Genie!',
-  'gold_brain': 'Gold-Gehirn',
-  'gold_brain_description':
-      'Excellente Gedächtnisleistung. Ihr Gehirn arbeitet fantastisch!',
-  'gold_brain_fun_comment': 'Ihr Gehirn ist pures Gold! Glänzen Sie weiter!',
-  'silver_brain': 'Silber-Gehirn',
-  'silver_brain_description':
-      'Gute kognitive Funktion. Starke und stabile Gedächtnisleistung.',
-  'silver_brain_fun_comment':
-      'Ihr Gehirn glänzt wie Silber! Sie sind auf dem richtigen Weg!',
-  'bronze_brain': 'Bronze-Gehirn',
-  'bronze_brain_description':
-      'Anständige Gedächtnisfähigkeiten. Es gibt Raum für Verbesserungen mit Übung.',
-  'bronze_brain_fun_comment':
-      'Ihr Gehirn hat Bronze-Stärke! Trainieren Sie weiter!',
-  'poop_brain': 'Schwaches Gehirn',
-  'poop_brain_description':
-      'Braucht Verbesserung. Keine Sorge, jeder fängt irgendwo an!',
-  'poop_brain_fun_comment':
-      'Zeit, Ihr Gehirn zu trainieren! Jeder war schon mal hier!',
+  'rainbow_brain_level5': 'Regenbogen-Gehirn (Level 5)',
+  'rainbow_brain_desc': 'Ihr Gehirn funkelt mit farbenfroher Brillanz!',
+  'rainbow_brain_fun': 'Sie haben das kognitive Äquivalent eines doppelten Regenbogens erreicht - absolut blendend!',
+  'gold_brain_level4': 'Gold-Gehirn (Level 4)',
+  'gold_brain_desc': 'Ausgezeichnete kognitive Funktion und Gedächtnis.',
+  'gold_brain_fun': 'Fast übermenschliches Gedächtnis - Sie erinnern sich wahrscheinlich, wo Sie Ihre Schlüssel gelassen haben!',
+  'silver_brain_level3': 'Silber-Gehirn (Level 3)',
+  'silver_brain_desc': 'Gute Gehirngesundheit mit Raum für Verbesserungen.',
+  'silver_brain_fun': 'Ihr Gehirn wärmt sich auf - wie ein Computer am Morgen.',
+  'bronze_brain_level2': 'Bronze-Gehirn (Level 2)',
+  'bronze_brain_desc': 'Durchschnittliche kognitive Funktion - mehr Spiele nötig!',
+  'bronze_brain_fun': 'Ihr Gehirn ist ein bisschen schläfrig - Zeit für mentalen Kaffee!',
+  'poop_brain_level1': 'Schwaches Gehirn (Level 1)',
+  'poop_brain_desc': 'Sie beginnen Ihre Gehirngesundheitsreise.',
+  'poop_brain_fun': 'Ihr Gehirn ist jetzt wie ein Smartphone mit 1% Batterie - braucht dringend Aufladung!',
   'keep_playing_memory_games':
       'Spielen Sie weiter Gedächtnisspiele, um Ihr Gehirn-Level zu verbessern!',
   // Ranking tabs

@@ -236,29 +236,21 @@ const Map<String, String> htTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Guide des Niveaux du Cerveau',
   'understand_level_means': 'Comprenez ce que signifie chaque niveau !',
-  'rainbow_level_name': '🌈 Niveau Arc-en-ciel',
-  'rainbow_level_description':
-      'Fantastique ! Vous êtes un vrai gagnant en améliorant votre cerveau ! Beau comme un arc-en-ciel.',
-  'rainbow_level_fun_comment':
-      'Votre cerveau est coloré comme un arc-en-ciel ! 🌈✨',
-  'gold_level_name': '🥇 Niveau Or',
-  'gold_level_description':
-      'Magnifique ! Votre cerveau brille comme l\'or. Votre participation au jeu montre un grand cerveau.',
-  'gold_level_fun_comment':
-      'Cerveau d\'or ! Vous êtes l\'un des meilleurs ! 🥇🧠',
-  'silver_level_name': '🥈 Niveau Argent',
-  'silver_level_description':
-      'Très bien ! Votre cerveau brille comme l\'argent. Vous faites très bien !',
-  'silver_level_fun_comment': 'Cerveau d\'argent ! Comme c\'est bien ! 🥈⭐',
-  'bronze_level_name': '🥉 Niveau Bronze',
-  'bronze_level_description': 'Bien ! Votre cerveau grandit. Continuez !',
-  'bronze_level_fun_comment':
-      'Cerveau de bronze ! De meilleurs temps viendront ! 🥉💪',
-  'poop_level_name': '💩 Niveau Caca',
-  'poop_level_description':
-      'Votre cerveau est un peu endormi. Mais ne perdez pas espoir ! Vous grandirez.',
-  'poop_level_fun_comment':
-      'Cerveau de caca ! Mais ne vous inquiétez pas, vous grandirez ! 💩😅',
+  'rainbow_brain_level5': 'Sèvo Lakansyèl (Nivo 5)',
+  'rainbow_brain_desc': 'Sèvo ou ap briye ak bèlte kolore!',
+  'rainbow_brain_fun': 'Ou rive nan ekivalan kognitif doub lakansyèl - vrèman eblwisman!',
+  'gold_brain_level4': 'Sèvo Lò (Nivo 4)',
+  'gold_brain_desc': 'Ekselan fonksyon kognitif ak memwa.',
+  'gold_brain_fun': 'Prèske memwa sipèrimen - ou pwobableman sonje kote ou te kite kle yo!',
+  'silver_brain_level3': 'Sèvo Ajan (Nivo 3)',
+  'silver_brain_desc': 'Bon sante sèvo ak espas pou amelyorasyon.',
+  'silver_brain_fun': 'Sèvo ou ap chofe - tankou yon òdinatè nan maten.',
+  'bronze_brain_level2': 'Sèvo Bwonz (Nivo 2)',
+  'bronze_brain_desc': 'Fonksyon kognitif mwayèn - bezwen plis jwèt!',
+  'bronze_brain_fun': 'Sèvo ou yon ti jan dòmi - tan pou kafe mantal!',
+  'poop_brain_level1': 'Sèvo Kaka (Nivo 1)',
+  'poop_brain_desc': 'Jis kòmanse vwayaj sante sèvo ou.',
+  'poop_brain_fun': 'Sèvo ou kounye a tankou yon smartfòn ak 1% batri - bezwen chaje itijaman!',
   'keep_playing_memory_games':
       'Continuez à jouer aux jeux de mémoire pour améliorer votre cerveau !',
   // Ranking tabs

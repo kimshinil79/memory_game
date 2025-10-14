@@ -216,35 +216,6 @@ const Map<String, String> ltTranslations = {
   'new_test': 'Naujas testas',
   'submit': 'Pateikti',
 
-  // Brain Level Guide texts
-  'brain_level_guide': 'Smegenų lygio vadovas',
-  'understand_level_means': 'Supraskite, ką reiškia jūsų smegenų lygis',
-  'rainbow_brain': 'Vaivorykštės smegenys',
-  'rainbow_brain_description':
-      'Puikūs pažinimo gebėjimai! Jūsų smegenys veikia puikiai visose srityse.',
-  'rainbow_brain_fun_comment':
-      'Jūsų smegenys spindi visomis spalvomis! Jūs tikras genijus!',
-  'gold_brain': 'Auksinės smegenys',
-  'gold_brain_description':
-      'Puikus atminties veikimas. Jūsų smegenys veikia nuostabiai!',
-  'gold_brain_fun_comment': 'Jūsų smegenys - grynas auksas! Toliau spindėkite!',
-  'silver_brain': 'Sidabrinės smegenys',
-  'silver_brain_description':
-      'Gera pažinimo funkcija. Stiprus ir stabilus atminties veikimas.',
-  'silver_brain_fun_comment':
-      'Jūsų smegenys blizga kaip sidabras! Jūs teisingu keliu!',
-  'bronze_brain': 'Bronzinės smegenys',
-  'bronze_brain_description':
-      'Padorūs atminties gebėjimai. Yra vietos pagerinti praktikuojantis.',
-  'bronze_brain_fun_comment':
-      'Jūsų smegenys turi bronzos stiprumą! Tęskite treniruotes!',
-  'poop_brain': 'Silpnos smegenys',
-  'poop_brain_description':
-      'Reikia pagerinti. Nesijaudinkite, visi kažkur pradeda!',
-  'poop_brain_fun_comment':
-      'Laikas treniruoti smegenis! Visi čia kadaise buvome!',
-  'keep_playing_memory_games':
-      'Toliau žaiskite atminties žaidimus, kad pagerėtų jūsų smegenų lygis!',
   // Ranking tabs
   'total': 'Iš viso',
   'weekly': 'Savaitė',
@@ -270,5 +241,25 @@ const Map<String, String> ltTranslations = {
   'no_search_results': 'Žaidėjų nerasta',
   'try_different_search': 'Išbandykite kitą paieškos terminą',
 'by_country': 'Pagal Šalis',
+
+  // Brain Level Guide
+  'brain_level_guide': 'Smegenų Lygio Vadovas',
+  'understand_level_means': 'Supraskite, ką reiškia kiekvienas lygis',
+  'rainbow_brain_level5': 'Vaivorykštės Smegenys (5 lygis)',
+  'rainbow_brain_desc': 'Jūsų smegenys kibirkščiuoja spalvingu spindesiu!',
+  'rainbow_brain_fun': 'Pasiekėte dvigubos vaivorykštės kognityvų ekvivalentą - tiesiog žavus!',
+  'gold_brain_level4': 'Aukso Smegenys (4 lygis)',
+  'gold_brain_desc': 'Puikus kognityvus funkcionavimas ir atmintis.',
+  'gold_brain_fun': 'Beveik peržmogiška atmintis - tikriausiai prisimenate, kur palikote raktus!',
+  'silver_brain_level3': 'Sidabro Smegenys (3 lygis)',
+  'silver_brain_desc': 'Gera smegenų sveikata su tobulėjimo galimybėmis.',
+  'silver_brain_fun': 'Jūsų smegenys įkaista - kaip kompiuteris rytą.',
+  'bronze_brain_level2': 'Bronzos Smegenys (2 lygis)',
+  'bronze_brain_desc': 'Vidutinis kognityvus funkcionavimas - reikia daugiau žaidimų!',
+  'bronze_brain_fun': 'Jūsų smegenys šiek tiek mieguotos - laikas smegenų kavos!',
+  'poop_brain_level1': 'Išmatų Smegenys (1 lygis)',
+  'poop_brain_desc': 'Tik pradedate smegenų sveikatos kelionę.',
+  'poop_brain_fun': 'Jūsų smegenys dabar kaip išmanusis telefonas su 1% baterija - skubiai reikia įkrovimo!',
+  'keep_playing_memory_games': 'Tęskite atminties žaidimus, kad padidintumėte smegenų lygį!',
 
 };

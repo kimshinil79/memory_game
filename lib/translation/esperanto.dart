@@ -240,25 +240,21 @@ const Map<String, String> eoTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Cerebra Nivela Gvidilo',
   'understand_level_means': 'Komprenu kion signifas ĉiu nivelo!',
-  'rainbow_level_name': '🌈 Ĉielarko Nivelo',
-  'rainbow_level_description':
-      'Mirinde! Vi vere estas venkinto per plibonigado de via cerebro! Bela kiel ĉielarko.',
-  'rainbow_level_fun_comment': 'Via cerebro estas kolorita kiel ĉielarko! 🌈✨',
-  'gold_level_name': '🥇 Ora Nivelo',
-  'gold_level_description':
-      'Bonege! Via cerebro brilas kiel oro. Via ĉeesto en ludo montras grandan cerbon.',
-  'gold_level_fun_comment': 'Ora cerebro! Vi estas el la plej bonaj! 🥇🧠',
-  'silver_level_name': '🥈 Arĝenta Nivelo',
-  'silver_level_description':
-      'Ege bone! Via cerebro brilas kiel arĝento. Vi faras tre bone!',
-  'silver_level_fun_comment': 'Arĝenta cerebro! Kiel bone! 🥈⭐',
-  'bronze_level_name': '🥉 Bronza Nivelo',
-  'bronze_level_description': 'Bone! Via cerebro kreskas. Daŭrigu!',
-  'bronze_level_fun_comment': 'Bronza cerebro! Pli bonaj tempoj venos! 🥉💪',
-  'poop_level_name': '💩 Fekaj Nivelo',
-  'poop_level_description':
-      'Via cerebro estas iom dormanta. Sed ne perdu esperon! Vi kreskos.',
-  'poop_level_fun_comment': 'Feka cerebro! Sed ne zorgu, vi kreskos! 💩😅',
+  'rainbow_brain_level5': 'Ĉielarko Cerbo (Nivelo 5)',
+  'rainbow_brain_desc': 'Via cerbo brilas kun kolora brileco!',
+  'rainbow_brain_fun': 'Vi atingis la kognan ekvivalenton de duobla ĉielarko - absolute brilega!',
+  'gold_brain_level4': 'Ora Cerbo (Nivelo 4)',
+  'gold_brain_desc': 'Bonega kogna funkcio kaj memoro.',
+  'gold_brain_fun': 'Preskaŭ superhoma memoro - vi probable memoras kie vi lasis la ŝlosilojn!',
+  'silver_brain_level3': 'Arĝenta Cerbo (Nivelo 3)',
+  'silver_brain_desc': 'Bona cerba sano kun spaco por plibonigo.',
+  'silver_brain_fun': 'Via cerbo varmiĝas - kiel komputilo matene.',
+  'bronze_brain_level2': 'Bronza Cerbo (Nivelo 2)',
+  'bronze_brain_desc': 'Averaĝa kogna funkcio - pli da ludoj bezonataj!',
+  'bronze_brain_fun': 'Via cerbo estas iomete dormema - tempo por mensa kafo!',
+  'poop_brain_level1': 'Feka Cerbo (Nivelo 1)',
+  'poop_brain_desc': 'Ĵus komencas vian cerban sanvojaĝon.',
+  'poop_brain_fun': 'Via cerbo nun estas kiel saĝtelefono kun 1% baterio - desperate bezonas ŝargadon!',
   'keep_playing_memory_games':
       'Daŭre ludu memorludojn por plibonigi vian cerbon!',
   // Ranking tabs

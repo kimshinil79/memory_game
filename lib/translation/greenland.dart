@@ -220,26 +220,21 @@ const Map<String, String> klGLTranslations = {
   // Brain Level Guide texts
   'brain_level_guide': 'Qarasaasit Suliniit Pilluarit',
   'understand_level_means': 'Sulini paasisalugu!',
-  'rainbow_level_name': '🌈 Aasaalluit Sulini',
-  'rainbow_level_description':
-      'Qujanaq! Qarasaasinik anguniarpakkit! Aasaalluit ajorpoq.',
-  'rainbow_level_fun_comment': 'Qarasaasit aasaalluit! 🌈✨',
-  'gold_level_name': '🥇 Kulalik Sulini',
-  'gold_level_description':
-      'Qujanaq! Qarasaasit kulalivakkit. Erinarsuun ilaanni angijuvoq.',
-  'gold_level_fun_comment': 'Kulali qarasaasit! Angijumik! 🥇🧠',
-  'silver_level_name': '🥈 Ulloriarsuk Sulini',
-  'silver_level_description':
-      'Qujanaq! Qarasaasit ulloriarsumik. Piqqusivotit!',
-  'silver_level_fun_comment': 'Ulloriarsumik qarasaasit! Qujanaq! 🥈⭐',
-  'bronze_level_name': '🥉 Kanajuk Sulini',
-  'bronze_level_description': 'Qujanaq! Qarasaasit angijuvoq. Sulini!',
-  'bronze_level_fun_comment': 'Kanajumik qarasaasit! Qujanarsimajuvoq! 🥉💪',
-  'poop_level_name': '💩 Anerniqartoq Sulini',
-  'poop_level_description':
-      'Qarasaasit anerniqarpoq. Kisimiilluunngittaaq! Angijuniaqaakkit.',
-  'poop_level_fun_comment':
-      'Anerniqartumik qarasaasit! Kisimiillutit, angijuniaqaakkit! 💩😅',
+  'rainbow_brain_level5': 'Aasaalluit Qarasaasit (Sulini 5)',
+  'rainbow_brain_desc': 'Qarasaasit qaammatigut qaammavoq!',
+  'rainbow_brain_fun': 'Aasaallu marluk misigisanik suliniarpakkit - qujanarsimajuvoq!',
+  'gold_brain_level4': 'Kulalik Qarasaasit (Sulini 4)',
+  'gold_brain_desc': 'Piqqusaanermik qarasaasinik sulineq.',
+  'gold_brain_fun': 'Inussulissuseq qarasaasit - nalunaaqqutit kiisimiinnaqarpit!',
+  'silver_brain_level3': 'Ulloriarsumik Qarasaasit (Sulini 3)',
+  'silver_brain_desc': 'Qarasaasinik peqqissutissaq piqqussaaq.',
+  'silver_brain_fun': 'Qarasaasit uummavoq - computer-imik unnuaq.',
+  'bronze_brain_level2': 'Kanajumik Qarasaasit (Sulini 2)',
+  'bronze_brain_desc': 'Erinarsunik piqqussaaq - sulinerpaarpakkit!',
+  'bronze_brain_fun': 'Qarasaasit anerniqarpoq - kaffimut qarasaasinik!',
+  'poop_brain_level1': 'Anerniqartoq Qarasaasit (Sulini 1)',
+  'poop_brain_desc': 'Qarasaasinik peqqissutissamut aqqutigalugu.',
+  'poop_brain_fun': 'Qarasaasit ullumi smartphone 1% -imik - ikiortarneqarnissaq!',
   'keep_playing_memory_games':
       'Qarasaasit anguniarpakkinut erinarsunik sulirivit!',
   // Ranking tabs
