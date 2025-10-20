@@ -1904,7 +1904,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     ),
 
                     // 배너 광고 표시
-                    //_buildAdSection(),
+                    _buildAdSection(),
                   ],
                 ),
               ),

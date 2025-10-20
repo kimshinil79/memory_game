@@ -201,24 +201,35 @@ void main() async {
     );
   }
 
+  // Firebase Auth 설정 - 로그인 상태 유지 확인
   try {
-    print('Initializing Firebase app...');
-    await Firebase.initializeApp();
-    print('Firebase app initialized successfully');
-
-    // Firebase Auth 설정 확인
-    try {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      print('Firebase Auth instance ready');
-
-      // Firebase Auth의 언어 코드 설정 (선택사항)
-      auth.setLanguageCode('ko');
-    } catch (authError) {
-      print('Firebase Auth setup error: $authError');
+    FirebaseAuth auth = FirebaseAuth.instance;
+    print('Firebase Auth instance ready');
+    
+    // Flutter Firebase Auth는 기본적으로 로컬에 로그인 상태를 자동 저장합니다
+    // 앱 재시작 시 자동으로 로그인 상태가 복원됩니다
+    
+    // Firebase Auth의 언어 코드 설정 (선택사항)
+    auth.setLanguageCode('ko');
+    
+    // 현재 저장된 로그인 사용자 확인
+    final currentUser = auth.currentUser;
+    if (currentUser != null) {
+      print('✅ 저장된 로그인 사용자 발견: ${currentUser.uid}');
+      print('   이메일: ${currentUser.email}');
+      
+      // 토큰 갱신 확인 (선택사항)
+      try {
+        await currentUser.reload();
+        print('✅ 사용자 토큰 갱신 완료');
+      } catch (e) {
+        print('⚠️ 토큰 갱신 실패 (네트워크 문제일 수 있음): $e');
+      }
+    } else {
+      print('ℹ️ 저장된 로그인 사용자 없음');
     }
-  } catch (e) {
-    print('Firebase initialization error: $e');
-    print('Stack trace: ${StackTrace.current}');
+  } catch (authError) {
+    print('Firebase Auth setup error: $authError');
   }
 
   runApp(
@@ -609,19 +620,28 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 기존 구독이 있으면 취소
     _authSubscription?.cancel();
 
-    // 새로운 구독 설정
+    // 먼저 현재 저장된 사용자 확인 (즉시 로그인 상태 복원)
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      print('🔄 앱 시작 시 저장된 로그인 복원: ${currentUser.uid}');
+      _fetchUserProfile(currentUser);
+    } else {
+      print('ℹ️ 앱 시작 시 저장된 로그인 없음');
+    }
+
+    // authStateChanges 구독 설정 (로그인/로그아웃 감지)
     _authSubscription =
         FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (!mounted) return;
 
       if (user == null) {
-        print('❌ 로그인된 사용자가 없습니다.');
+        print('❌ 로그인 상태 변경: 로그아웃됨');
         setState(() {
           _user = null;
           _nickname = null;
         });
       } else {
-        print('✅ 로그인된 사용자 발견: ${user.uid}');
+        print('✅ 로그인 상태 변경: 로그인됨 (${user.uid})');
         _fetchUserProfile(user);
       }
     });
@@ -635,6 +655,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       // 현재 로그인된 사용자의 문서 이름 출력
       print('🔑 현재 로그인된 사용자 문서 이름: $uid');
+
+      // 토큰 갱신 시도 (네트워크가 있을 때)
+      try {
+        await user.reload();
+        // reload 후 최신 user 정보 가져오기
+        final refreshedUser = FirebaseAuth.instance.currentUser;
+        if (refreshedUser == null) {
+          print('⚠️ 토큰 갱신 후 사용자 정보 없음 - 로그아웃 처리');
+          return;
+        }
+        print('✅ 사용자 토큰 갱신 성공');
+      } catch (reloadError) {
+        print('⚠️ 토큰 갱신 실패 (네트워크 문제일 수 있음): $reloadError');
+        // 토큰 갱신 실패해도 계속 진행 (오프라인일 수 있음)
+      }
 
       DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -666,6 +701,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           }
         }
       } else {
+        print('⚠️ Firestore에 사용자 문서가 없음 (새 사용자일 수 있음)');
         if (mounted) {
           setState(() {
             _user = user;
@@ -678,6 +714,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
       }
     } catch (e) {
+      print('❌ 사용자 프로필 가져오기 실패: $e');
       if (mounted) {
         setState(() {
           _user = user;
