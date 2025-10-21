@@ -653,7 +653,7 @@ class CompletionDialog extends StatelessWidget {
                 ),
               ),
               child: Text(
-                translations['sign_up'] ?? '회원 가입',
+                translations['create_account'] ?? 'Sign Up',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
