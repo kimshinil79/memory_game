@@ -325,8 +325,30 @@ class LanguageProvider with ChangeNotifier {
   };
 
   LanguageProvider() {
-    _loadLanguage();
-    _loadNationality();
+    _initializeLanguages();
+    _setupAuthListener();
+  }
+  
+  // 언어 및 국적 초기화 (순차 실행)
+  Future<void> _initializeLanguages() async {
+    await _loadLanguage(); // 먼저 음성 언어 로드
+    await _loadNationality(); // 그 다음 국적/UI 언어 로드
+  }
+  
+  // Firebase Auth 상태 변화 감지
+  void _setupAuthListener() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+      if (user == null) {
+        // 로그아웃 됨: UI 언어를 음성 언어로 설정
+        _uiLanguage = _currentLanguage;
+        print('LanguageProvider: 로그아웃 감지 - UI 언어를 음성 언어($_currentLanguage)로 변경');
+        _safeNotifyListeners();
+      } else {
+        // 로그인 됨: Firebase에서 국적 가져와서 UI 언어 설정
+        print('LanguageProvider: 로그인 감지 - Firebase에서 국적 정보 가져오기');
+        await getUserCountryFromFirebase();
+      }
+    });
   }
 
   // 안전하게 리스너에게 알림
@@ -430,6 +452,19 @@ class LanguageProvider with ChangeNotifier {
   Future<void> _loadNationality() async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      
+      // 로그인 상태 확인
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      
+      if (currentUser == null) {
+        // 로그인 안 된 상태: 음성 언어를 UI 언어로 사용
+        _uiLanguage = _currentLanguage;
+        print('LanguageProvider: 로그인 안 됨 - UI 언어를 음성 언어($_currentLanguage)로 설정');
+        _safeNotifyListeners();
+        return;
+      }
+      
+      // 로그인 된 상태: 기존 로직 사용
       final savedNationality = prefs.getString('nationality');
       if (savedNationality != null) {
         _nationality = savedNationality;
@@ -521,6 +556,14 @@ class LanguageProvider with ChangeNotifier {
       // 언어 변경 시 로그 출력
       print('LanguageProvider: 언어가 $language로 변경되었습니다.');
 
+      // 로그인 안 된 상태에서는 음성 언어를 따라서 UI 언어도 변경
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        // 로그인 안 된 상태: 음성 언어를 UI 언어로 설정
+        _uiLanguage = language;
+        print('LanguageProvider: 로그인 안 됨 - UI 언어도 $language로 변경');
+      }
+
       _safeNotifyListeners();
     } catch (e) {
       print('Error setting language: $e');
@@ -562,8 +605,10 @@ class LanguageProvider with ChangeNotifier {
       // 현재 사용자 정보 가져오기
       User? currentUser = FirebaseAuth.instance.currentUser;
 
-      // 로그인된 사용자가 없으면 로딩 종료하고 리턴
+      // 로그인된 사용자가 없으면 음성 언어를 UI 언어로 설정하고 종료
       if (currentUser == null) {
+        _uiLanguage = _currentLanguage;
+        print('LanguageProvider: 로그인 안 됨 - UI 언어를 음성 언어($_currentLanguage)로 설정');
         _isLoadingCountry = false;
         _safeNotifyListeners();
         return;
