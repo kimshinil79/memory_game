@@ -265,6 +265,15 @@ const Map<String, String> enZATranslations = {
   'solo_play': 'Ukudlala wedwa',
   'no_search_results': 'Abukho abadlali abatholakele',
   'try_different_search': 'Zama igama lokusesha elinye',
-'by_country': 'Kwa Nchi',
+'by_country': 'By Country',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Gcina amaphuzu akho futhi uncintisane kumarenki omhlaba!',
+  'login_prompt_2': '🧠 Landelela amaphuzu akho empilo yengqondo futhi ubuke intuthuko!',
+  'login_prompt_3': '🏆 Phonsela abangane bakho ngemidlalo yabaningi!',
+  'login_prompt_4': '📊 Hlola izibalo zemidlalo yakho futhi uthuthukise amakhono akho!',
+  'login_prompt_5': '⭐ Bhalisa ukuvula izici eziningi ezimangalisayo!',
+  'login_prompt_6': '🎮 Thuthukisa impilo yengqondo kanye nabangane bakho!',
+  'login_prompt_7': '📈 Setha amarekhodi akho futhi ukhulise amakhono akho!',
 
 };

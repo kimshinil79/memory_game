@@ -272,4 +272,13 @@ const Map<String, String> mgTranslations = {
   'try_different_search': 'Essayez un autre terme de recherche',
 'by_country': 'Par Pays',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Tehirizo ny isanao ary mifaninana amin\'ny laharana eran-tany!',
+  'login_prompt_2': '🧠 Araho ny isa fahasalamana atidoha ary jereo ny fandrosoanao!',
+  'login_prompt_3': '🏆 Mampihatra ny namanao amin\'ny lalao maro miaraka!',
+  'login_prompt_4': '📊 Jereo ny statistika lalao sy hanatsarana ny fahaizanao!',
+  'login_prompt_5': '⭐ Misoratra anarana hanokafana endri-javatra mahagaga!',
+  'login_prompt_6': '🎮 Ampitomboy ny fahasalamana atidoha miaraka amin\'ny namanao!',
+  'login_prompt_7': '📈 Mametraha rekord manokana sy hampitombo ny fahaizanao!',
+
 };

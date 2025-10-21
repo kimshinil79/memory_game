@@ -270,7 +270,15 @@ const Map<String, String> viVNTranslations = {
   'solo_play': 'Chơi đơn',
   'no_search_results': 'Không tìm thấy người chơi',
   'by_country': 'Theo Quốc Gia',
-
   'try_different_search': 'Thử từ khóa tìm kiếm khác',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Lưu điểm số của bạn và cạnh tranh trong bảng xếp hạng toàn cầu!',
+  'login_prompt_2': '🧠 Theo dõi điểm sức khỏe não bộ và xem tiến trình của bạn!',
+  'login_prompt_3': '🏆 Thách thức bạn bè với trò chơi nhiều người chơi!',
+  'login_prompt_4': '📊 Kiểm tra thống kê trò chơi và cải thiện kỹ năng của bạn!',
+  'login_prompt_5': '⭐ Đăng ký để mở khóa thêm nhiều tính năng tuyệt vời!',
+  'login_prompt_6': '🎮 Tăng cường sức khỏe não bộ cùng bạn bè!',
+  'login_prompt_7': '📈 Thiết lập kỷ lục cá nhân và phát triển khả năng của bạn!',
 
 };

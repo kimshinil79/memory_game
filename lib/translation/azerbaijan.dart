@@ -279,8 +279,17 @@ const Map<String, String> azTranslations = {
   'promo_message_8': 'Smartfon asılılığından qaçın! 📵 Mənasız skroll etməyi beyinə faydalı oyunlarla əvəz edin.',
   'promo_message_9': 'Valideynlərin yaddaşını gücləndirin! ✅ Demensiyanın qarşısının alınması üçün əla! Ardıcıl beyin məşqi cavabdır.',
   'promo_message_10': 'Unutqanlıqla vidalaşın! 👋 Əyləncəli yaddaş oyunları ilə gənc beyni qoruyun!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Xallarınızı saxlayın və qlobal reytinqlərdə rəqabət aparın!',
+  'login_prompt_2': '🧠 Beyin sağlamlığı xalınızı izləyin və tərəqqinizi izləyin!',
+  'login_prompt_3': '🏆 Dostlarınıza çoxoyunçu oyunlarla meydan oxuyun!',
+  'login_prompt_4': '📊 Oyun statistikanızı yoxlayın və bacarıqlarınızı təkmilləşdirin!',
+  'login_prompt_5': '⭐ Daha çox əla xüsusiyyətləri açmaq üçün qeydiyyatdan keçin!',
+  'login_prompt_6': '🎮 Dostlarınızla birlikdə beyin sağlamlığını artırın!',
+  'login_prompt_7': '📈 Şəxsi rekordlar qoyun və qabiliyyətlərinizi inkişaf etdirin!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Şəbəkəyə Görə Ən Sürətli',     
   // Player Selection Dialog
   'search_players': 'Oyunçuları axtar...',

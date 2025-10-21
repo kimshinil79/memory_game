@@ -17,6 +17,8 @@ import '../services/memory_game_service.dart';
 import '../widgets/tutorials/memory_game_tutorial_overlay.dart';
 import '../widgets/time_up_dialog.dart';
 import '../widgets/multiplayer_game_complete_dialog.dart';
+import '../widgets/auth/sign_in_dialog.dart';
+import '../widgets/auth/sign_up_dialog.dart';
 import '../widgets/memory_card.dart';
 import '../widgets/item_popup.dart';
 import '../widgets/completion_dialog.dart';
@@ -2405,10 +2407,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
             elapsedTime,
             widget.gridSize);
 
+    // Provider context를 캡처 (다이얼로그 외부의 context)
+    final providerContext = context;
+    
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return CompletionDialog(
           elapsedTime: elapsedTime,
           flipCount: flipCount,
@@ -2424,12 +2429,36 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           streakBonus: streakBonus,
           currentStreak: currentStreak,
           onNewGame: () {
-            Navigator.of(context).pop();
+            Navigator.of(dialogContext).pop();
             initializeGame();
+          },
+          onSignIn: () {
+            // 로그인 다이얼로그 표시 - Provider context 사용
+            _showSignInDialogFromMain(providerContext);
+          },
+          onSignUp: () {
+            // 회원 가입 다이얼로그 표시 - Provider context 사용
+            _showSignUpDialogFromMain(providerContext);
           },
         );
       },
     );
+  }
+
+  // 로그인 다이얼로그 표시 메서드
+  void _showSignInDialogFromMain(BuildContext context) async {
+    // SignInDialog를 직접 import해서 사용
+    final result = await SignInDialog.show(context);
+    if (result != null && result['signUp'] == true) {
+      // 회원가입 다이얼로그 표시
+      SignUpDialog.show(context);
+    }
+  }
+
+  // 회원 가입 다이얼로그 표시 메서드
+  void _showSignUpDialogFromMain(BuildContext context) async {
+    // SignUpDialog를 직접 import해서 사용
+    await SignUpDialog.show(context);
   }
 
   // 점수판 구성 위젯

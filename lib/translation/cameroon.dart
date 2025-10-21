@@ -281,8 +281,17 @@ const Map<String, String> frCMTranslations = {
   'promo_message_8': 'Échappez à la dépendance au smartphone ! 📵 Remplacez le défilement sans but par des jeux stimulants pour le cerveau.',
   'promo_message_9': 'Améliorez la mémoire des parents ! ✅ Pouce levé pour la prévention de la démence ! L\'exercice cérébral cohérent est la réponse.',
   'promo_message_10': 'Dites adieu à l\'oubli ! 👋 Maintenez un cerveau jeune avec des jeux de mémoire amusants !',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Enregistrez vos scores et compétitionnez dans les classements mondiaux !',
+  'login_prompt_2': '🧠 Suivez votre score de santé cérébrale et observez vos progrès !',
+  'login_prompt_3': '🏆 Défiez vos amis avec des jeux multijoueurs !',
+  'login_prompt_4': '📊 Vérifiez vos statistiques de jeu et améliorez vos compétences !',
+  'login_prompt_5': '⭐ Inscrivez-vous pour débloquer plus de fonctionnalités incroyables !',
+  'login_prompt_6': '🎮 Améliorez la santé cérébrale avec vos amis !',
+  'login_prompt_7': '📈 Établissez des records personnels et développez vos capacités !',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Plus Rapides par Grille',     
   // Player Selection Dialog
   'search_players': 'Rechercher des joueurs...',

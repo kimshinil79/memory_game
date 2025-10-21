@@ -293,4 +293,13 @@ const Map<String, String> svSETranslations = {
   'try_different_search': 'Prova en annan sökterm',
 'by_country': 'Efter Land',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Spara dina poäng och tävla i globala rankningar!',
+  'login_prompt_2': '🧠 Spåra ditt hjärnhälsopoäng och se din framsteg!',
+  'login_prompt_3': '🏆 Utmana dina vänner med flerspelarspel!',
+  'login_prompt_4': '📊 Kolla din spelstatistik och förbättra dina färdigheter!',
+  'login_prompt_5': '⭐ Registrera dig för att låsa upp fler fantastiska funktioner!',
+  'login_prompt_6': '🎮 Förbättra hjärnhälsan tillsammans med dina vänner!',
+  'login_prompt_7': '📈 Sätt personliga rekord och utveckla dina förmågor!',
+
 };

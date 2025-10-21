@@ -265,4 +265,13 @@ const Map<String, String> mtMTTranslations = {
   'try_different_search': 'Ipprova terminu ieħor ta\' tfittxija',
 'by_country': 'Per Pajjiż',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Issejvja l-punteġġi tiegħek u kkompeti fil-klassifikazzjonijiet globali!',
+  'login_prompt_2': '🧠 Segwi l-punteġġ tas-saħħa tal-moħħ tiegħek u ara l-progress tiegħek!',
+  'login_prompt_3': '🏆 Sfida l-ħbieb tiegħek b\'logħob multiplejers!',
+  'login_prompt_4': '📊 Iċċekkja l-istatistiċi tal-logħob tiegħek u tjib il-ħiliet tiegħek!',
+  'login_prompt_5': '⭐ Irreġistra biex tiftaħ aktar features straordinarji!',
+  'login_prompt_6': '🎮 Żid is-saħħa tal-moħħ flimkien mal-ħbieb tiegħek!',
+  'login_prompt_7': '📈 Stabbilixxi rekords personali u żid il-abbiltajiet tiegħek!',
+
 };

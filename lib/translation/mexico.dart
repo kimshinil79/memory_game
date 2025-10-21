@@ -275,4 +275,13 @@ const Map<String, String> mxMEXTranslations = {
   'try_different_search': 'Prueba con un término de búsqueda diferente',
 'by_country': 'Por País',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 ¡Guarda tus puntuaciones y compite en rankings globales!',
+  'login_prompt_2': '🧠 ¡Rastrea tu puntuación de salud cerebral y observa tu progreso!',
+  'login_prompt_3': '🏆 ¡Desafía a tus amigos con juegos multijugador!',
+  'login_prompt_4': '📊 ¡Consulta tus estadísticas de juego y mejora tus habilidades!',
+  'login_prompt_5': '⭐ ¡Regístrate para desbloquear más funciones increíbles!',
+  'login_prompt_6': '🎮 ¡Mejora la salud cerebral junto con tus amigos!',
+  'login_prompt_7': '📈 ¡Establece récords personales y desarrolla tus capacidades!',
+
 };

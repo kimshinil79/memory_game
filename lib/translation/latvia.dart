@@ -263,4 +263,13 @@ const Map<String, String> lvLVTranslations = {
   'try_different_search': 'Izmēģiniet citu meklēšanas terminu',
 'by_country': 'Pēc Valstīm',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Saglabājiet savus rezultātus un sacensieties globālajos reitingos!',
+  'login_prompt_2': '🧠 Sekojiet savam smadzeņu veselības rādītājam un vērojiet savu progresu!',
+  'login_prompt_3': '🏆 Izaiciniet savus draugus ar daudzspēlētāju spēlēm!',
+  'login_prompt_4': '📊 Pārbaudiet savu spēļu statistiku un uzlabojiet savas prasmes!',
+  'login_prompt_5': '⭐ Reģistrējieties, lai atbloķētu vairāk brīnišķīgu funkciju!',
+  'login_prompt_6': '🎮 Uzlabojiet smadzeņu veselību kopā ar saviem draugiem!',
+  'login_prompt_7': '📈 Uzstādiet personīgos rekordus un attīstiet savas spējas!',
+
 };

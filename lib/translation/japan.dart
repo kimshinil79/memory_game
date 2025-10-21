@@ -259,4 +259,13 @@ const Map<String, String> jaTranslations = {
 
   'try_different_search': '別の検索語句をお試しください',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 スコアを保存してグローバルランキングで競い合いましょう！',
+  'login_prompt_2': '🧠 脳の健康スコアを追跡して進捗を確認しましょう！',
+  'login_prompt_3': '🏆 マルチプレイヤーゲームで友達に挑戦しましょう！',
+  'login_prompt_4': '📊 ゲーム統計を確認してスキルを向上させましょう！',
+  'login_prompt_5': '⭐ サインアップしてさらに素晴らしい機能をアンロックしましょう！',
+  'login_prompt_6': '🎮 友達と一緒に脳の健康を高めましょう！',
+  'login_prompt_7': '📈 個人記録を設定して能力を伸ばしましょう！',
+
 };

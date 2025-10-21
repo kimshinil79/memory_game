@@ -273,6 +273,15 @@ const Map<String, String> soSOTranslations = {
   'solo_play': 'Ciyaar Kelid',
   'no_search_results': 'Ciyaartoy lama helin',
   'try_different_search': 'Isticmaal erey raadid kale',
-'by_country': 'حسب البلد',
+'by_country': 'Wadanka',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Keydso dhibcahaaga oo ku tartam tartamaha caalamiga ah!',
+  'login_prompt_2': '🧠 La soco dhibcaha caafimaadka maskaxdaada oo daawo horumarka!',
+  'login_prompt_3': '🏆 Ku ciyaar saaxiibadaada ciyaaraha dadka badan!',
+  'login_prompt_4': '📊 Eeg tirakoobka ciyaartaada oo wanaji xirfadahaaga!',
+  'login_prompt_5': '⭐ Isdiiwaangeli si aad u furtid astaamaha yaabka leh ee badan!',
+  'login_prompt_6': '🎮 Wanaaji caafimaadka maskaxda saaxiibadaada!',
+  'login_prompt_7': '📈 Dhig rikoorka gaar ah oo kordhiso awoodahaaga!',
 
 };

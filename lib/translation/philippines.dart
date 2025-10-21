@@ -282,4 +282,13 @@ const Map<String, String> filPHTranslations = {
   'try_different_search': 'Subukan ang ibang termino sa paghahanap',
 'by_country': 'Ayon sa Bansa',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 I-save ang iyong mga score at makipaglaban sa global rankings!',
+  'login_prompt_2': '🧠 Subaybayan ang iyong brain health score at panoorin ang iyong pag-unlad!',
+  'login_prompt_3': '🏆 Hamunin ang iyong mga kaibigan gamit ang multiplayer games!',
+  'login_prompt_4': '📊 Tingnan ang iyong game statistics at pagbutihin ang iyong skills!',
+  'login_prompt_5': '⭐ Mag-sign up para ma-unlock ang mas maraming kahanga-hangang features!',
+  'login_prompt_6': '🎮 Palakasin ang brain health kasama ang iyong mga kaibigan!',
+  'login_prompt_7': '📈 Magtakda ng personal records at palakasin ang iyong kakayahan!',
+
 };

@@ -291,4 +291,13 @@ const Map<String, String> frTDTranslations = {
   'try_different_search': 'Essayez un autre terme de recherche',
 'by_country': 'Par Pays',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Enregistrez vos scores et participez aux classements mondiaux !',
+  'login_prompt_2': '🧠 Suivez votre score de santé cérébrale et regardez vos progrès !',
+  'login_prompt_3': '🏆 Défiez vos amis avec des jeux multijoueurs !',
+  'login_prompt_4': '📊 Consultez vos statistiques de jeu et améliorez vos compétences !',
+  'login_prompt_5': '⭐ Inscrivez-vous pour débloquer des fonctionnalités incroyables !',
+  'login_prompt_6': '🎮 Améliorez la santé cérébrale avec vos amis !',
+  'login_prompt_7': '📈 Établissez des records personnels et développez vos capacités !',
+
 };

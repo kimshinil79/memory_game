@@ -255,8 +255,16 @@ const Map<String, String> nlTranslations = {
   'search_players': 'Zoek spelers...',
   'solo_play': 'Solo Spel',
   'no_search_results': 'Geen spelers gevonden',
-  'by_country': 'Per Land',
-
   'try_different_search': 'Probeer een andere zoekterm',
+'by_country': 'Per Land',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Bewaar je scores en concurreer in wereldwijde ranglijsten!',
+  'login_prompt_2': '🧠 Volg je hersengezondheidsscore en bekijk je voortgang!',
+  'login_prompt_3': '🏆 Daag je vrienden uit met multiplayer-games!',
+  'login_prompt_4': '📊 Bekijk je spelstatistieken en verbeter je vaardigheden!',
+  'login_prompt_5': '⭐ Meld je aan om meer geweldige functies te ontgrendelen!',
+  'login_prompt_6': '🎮 Verbeter hersengezonheid samen met je vrienden!',
+  'login_prompt_7': '📈 Stel persoonlijke records in en ontwikkel je capaciteiten!',
 
 };

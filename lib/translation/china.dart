@@ -259,4 +259,13 @@ const Map<String, String> zhCNTranslations = {
 
   'try_different_search': '请尝试其他搜索词',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 保存您的分数并参与全球排名！',
+  'login_prompt_2': '🧠 跟踪您的大脑健康分数并观察您的进步！',
+  'login_prompt_3': '🏆 通过多人游戏挑战您的朋友！',
+  'login_prompt_4': '📊 查看您的游戏统计数据并提高您的技能！',
+  'login_prompt_5': '⭐ 注册以解锁更多精彩功能！',
+  'login_prompt_6': '🎮 与朋友一起提升大脑健康！',
+  'login_prompt_7': '📈 创建个人记录并发展您的能力！',
+
 };

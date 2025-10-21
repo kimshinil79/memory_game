@@ -268,4 +268,13 @@ const Map<String, String> msTranslations = {
   'try_different_search': 'Cuba kata kunci pencarian yang berbeza',
 'by_country': 'Mengikut Negara',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Simpan skor anda dan bersaing dalam kedudukan global!',
+  'login_prompt_2': '🧠 Jejaki skor kesihatan otak anda dan perhatikan kemajuan anda!',
+  'login_prompt_3': '🏆 Cabari rakan anda dengan permainan multiplayer!',
+  'login_prompt_4': '📊 Semak statistik permainan anda dan tingkatkan kemahiran anda!',
+  'login_prompt_5': '⭐ Daftar untuk membuka lebih banyak ciri yang menakjubkan!',
+  'login_prompt_6': '🎮 Tingkatkan kesihatan otak bersama rakan-rakan anda!',
+  'login_prompt_7': '📈 Tetapkan rekod peribadi dan kembangkan kebolehan anda!',
+
 };

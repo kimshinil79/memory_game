@@ -277,6 +277,15 @@ const Map<String, String> afkTranslations = {
   'promo_message_9': 'Versterk ouers se geheue! ✅ Duim op vir demensie voorkoming! Bestendige breinoefening is die antwoord.',
   'promo_message_10': 'Sê totsiens aan vergeetagtigheid! 👋 Handhaaf /n jong brein met pret geheue speletjies!',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Stoor jou tellings en kompeteer in wêreldwye ranglys!',
+  'login_prompt_2': '🧠 Volg jou breingesondheid telling en sien jou vordering!',
+  'login_prompt_3': '🏆 Daag jou vriende uit met meerspeler speletjies!',
+  'login_prompt_4': '📊 Kyk jou speletjie statistieke en verbeter jou vaardighede!',
+  'login_prompt_5': '⭐ Teken aan om meer wonderlike funksies te ontsluit!',
+  'login_prompt_6': '🎮 Versterk breingesondheid saam met jou vriende!',
+  'login_prompt_7': '📈 Stel persoonlike rekords en groei jou vermoëns!',
+
   // Top Fastest by Grid
 
 

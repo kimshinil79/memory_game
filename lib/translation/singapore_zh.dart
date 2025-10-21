@@ -260,4 +260,13 @@ const Map<String, String> zhSGTranslations = {
   'try_different_search': '請嘗試其他搜索詞',
 'by_country': '按国家',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 保存您的分数并在全球排名中竞争！',
+  'login_prompt_2': '🧠 追踪您的大脑健康分数并观察您的进展！',
+  'login_prompt_3': '🏆 用多人游戏挑战您的朋友！',
+  'login_prompt_4': '📊 查看您的游戏统计数据并提升您的技能！',
+  'login_prompt_5': '⭐ 注册以解锁更多惊人功能！',
+  'login_prompt_6': '🎮 与您的朋友一起提升大脑健康！',
+  'login_prompt_7': '📈 创造个人记录并发展您的能力！',
+
 };

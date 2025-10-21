@@ -283,4 +283,13 @@ const Map<String, String> csTranslations = {
   'try_different_search': 'Zkuste jiný vyhledávací termín',
 'by_country': 'Podle Zemí',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Uložte své skóre a soutěžte v globálních žebříčcích!',
+  'login_prompt_2': '🧠 Sledujte své skóre zdraví mozku a sledujte svůj pokrok!',
+  'login_prompt_3': '🏆 Vyzývejte své přátele v multiplayerových hrách!',
+  'login_prompt_4': '📊 Zkontrolujte své herní statistiky a zlepšete své dovednosti!',
+  'login_prompt_5': '⭐ Zaregistrujte se a odemkněte další úžasné funkce!',
+  'login_prompt_6': '🎮 Posilujte zdraví mozku společně se svými přáteli!',
+  'login_prompt_7': '📈 Nastavte osobní rekordy a rozvíjejte své schopnosti!',
+
 };

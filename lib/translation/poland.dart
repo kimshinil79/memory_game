@@ -264,6 +264,15 @@ const Map<String, String> plPLTranslations = {
   'solo_play': 'Gra solo',
   'no_search_results': 'Nie znaleziono graczy',
   'try_different_search': 'Spróbuj innego terminu wyszukiwania',
-'by_country': 'By Country',
+'by_country': 'Według Kraju',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Zapisz swoje wyniki i rywalizuj w globalnych rankingach!',
+  'login_prompt_2': '🧠 Śledź swój wynik zdrowia mózgu i obserwuj swoje postępy!',
+  'login_prompt_3': '🏆 Rzuć wyzwanie przyjaciołom w grach wieloosobowych!',
+  'login_prompt_4': '📊 Sprawdź statystyki gry i popraw swoje umiejętności!',
+  'login_prompt_5': '⭐ Zarejestruj się, aby odblokować więcej niesamowitych funkcji!',
+  'login_prompt_6': '🎮 Popraw zdrowie mózgu razem z przyjaciółmi!',
+  'login_prompt_7': '📈 Ustanów rekordy osobiste i rozwijaj swoje umiejętności!',
 
 };

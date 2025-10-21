@@ -275,4 +275,13 @@ const Map<String, String> uzUZTranslations = {
   'try_different_search': 'Boshqa qidiruv so\'zini sinab ko\'ring',
 'by_country': 'Davlat Bo\'yicha',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Ballaringizni saqlang va global reytinglarda raqobatlashing!',
+  'login_prompt_2': '🧠 Miya salomatligi ballingizni kuzatib boring va taraqqiyotingizni ko\'ring!',
+  'login_prompt_3': '🏆 Ko\'p o\'yinchilar o\'yinlari bilan do\'stlaringizga qarshi chiqing!',
+  'login_prompt_4': '📊 O\'yin statistikangizni tekshiring va mahoratingizni oshiring!',
+  'login_prompt_5': '⭐ Ko\'proq ajoyib xususiyatlarni ochish uchun ro\'yxatdan o\'ting!',
+  'login_prompt_6': '🎮 Do\'stlaringiz bilan birgalikda miya salomatligini oshiring!',
+  'login_prompt_7': '📈 Shaxsiy rekordlar o\'rnating va qobiliyatlaringizni rivojlantiring!',
+
 };

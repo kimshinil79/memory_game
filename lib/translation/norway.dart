@@ -267,4 +267,13 @@ const Map<String, String> nnNOTranslations = {
   'try_different_search': 'Prøv et annet søkeord',
 'by_country': 'Etter Land',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Lagre poengsummene dine og konkurer i globale rangeringer!',
+  'login_prompt_2': '🧠 Spor hjernehelsepoeng og se fremgangen din!',
+  'login_prompt_3': '🏆 Utfordre vennene dine med flerspillerspill!',
+  'login_prompt_4': '📊 Sjekk spillstatistikken din og forbedre ferdighetene dine!',
+  'login_prompt_5': '⭐ Registrer deg for å låse opp flere fantastiske funksjoner!',
+  'login_prompt_6': '🎮 Øk hjernehelsen sammen med vennene dine!',
+  'login_prompt_7': '📈 Sett personlige rekorder og utvikle evnene dine!',
+
 };

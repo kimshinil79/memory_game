@@ -272,4 +272,13 @@ const Map<String, String> muMUTranslations = {
   'try_different_search': 'Essayez un autre terme de recherche',
 'by_country': 'Par Pays',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Sov zot skore ek konpet dan ranplik global!',
+  'login_prompt_2': '🧠 Swiv zot skore lasanté sèvo ek get zot progrè!',
+  'login_prompt_3': '🏆 Defie zot kamarat avek ze milti-zwé!',
+  'login_prompt_4': '📊 Konsilt zot statistik ze ek amelior zot kompétans!',
+  'login_prompt_5': '⭐ Enskrir pou débloke plis fonksyonalité eksepsyonel!',
+  'login_prompt_6': '🎮 Oğmante lasanté sèvo ansam avek zot kamarat!',
+  'login_prompt_7': '📈 Établir rekor persoñel ek dévelop zot kapasite!',
+
 };

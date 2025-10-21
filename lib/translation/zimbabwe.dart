@@ -269,6 +269,15 @@ const Map<String, String> enZWTranslations = {
   'solo_play': 'Ukudlala wedwa',
   'no_search_results': 'Abukho abadlali abatholakele',
   'try_different_search': 'Zama igama lokusesha elinye',
-'by_country': 'Kwa Nchi',
+'by_country': 'By Country',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Chengetedza zvibodzwa zvako uye ukwikwidzane muzvikamu zvepasi rose!',
+  'login_prompt_2': '🧠 Tevera zvibodzwa zvako zveutano hwepfungwa uye uone kufambira mberi kwako!',
+  'login_prompt_3': '🏆 Onesa shamwari dzako nemitambo yevatambi vakawanda!',
+  'login_prompt_4': '📊 Tarisa manhamba emitambo yako uye uvandudze unyanzvi hwako!',
+  'login_prompt_5': '⭐ Nyoresa kuti uvhure zvimwe zvinhu zvinoshamisa!',
+  'login_prompt_6': '🎮 Simudzira utano hwepfungwa pamwe neshamwari dzako!',
+  'login_prompt_7': '📈 Isa zvinyorwa zvako uye ukure zvigona zvako!',
 
 };

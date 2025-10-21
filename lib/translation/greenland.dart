@@ -263,4 +263,13 @@ const Map<String, String> klGLTranslations = {
   'try_different_search': 'Allaat ujarpaat',
 'by_country': 'Efter Land',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Gem dine scores og konkurrér i globale ranglister!',
+  'login_prompt_2': '🧠 Spor din hjernesundhedsscore og se dine fremskridt!',
+  'login_prompt_3': '🏆 Udfordr dine venner med multiplayer-spil!',
+  'login_prompt_4': '📊 Tjek din spilstatistik og forbedre dine færdigheder!',
+  'login_prompt_5': '⭐ Tilmeld dig for at låse flere fantastiske funktioner op!',
+  'login_prompt_6': '🎮 Boost hjernesundhed sammen med dine venner!',
+  'login_prompt_7': '📈 Sæt personlige rekorder og udvikl dine evner!',
+
 };

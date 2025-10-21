@@ -285,8 +285,17 @@ const Map<String, String> caADTranslations = {
   'promo_message_8': 'Escapeu de l\'addicció al telèfon intel·ligent! 📵 Substituïu el desplaçament sense sentit per jocs que estimulen el cervell.',
   'promo_message_9': 'Milloreu la memòria dels pares! ✅ Polze amunt per a la prevenció de la demència! L\'exercici cerebral constant és la resposta.',
   'promo_message_10': 'Digueu adéu a l\'oblit! 👋 Mantingueu un cervell jove amb jocs de memòria divertits!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Deseu les vostres puntuacions i competiu en classificacions globals!',
+  'login_prompt_2': '🧠 Seguiu la vostra puntuació de salut cerebral i mireu el vostre progrés!',
+  'login_prompt_3': '🏆 Desafieu els vostres amics amb jocs multijugador!',
+  'login_prompt_4': '📊 Comproveu les vostres estadístiques de joc i milloreu les vostres habilitats!',
+  'login_prompt_5': '⭐ Registreu-vos per desbloquejar més funcions increïbles!',
+  'login_prompt_6': '🎮 Milloreu la salut cerebral juntament amb els vostres amics!',
+  'login_prompt_7': '📈 Establiu rècords personals i feu créixer les vostres capacitats!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Més Ràpids per Quadrícula',     
   // Player Selection Dialog
   'search_players': 'Buscar jugadores...',

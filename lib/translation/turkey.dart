@@ -272,8 +272,16 @@ const Map<String, String> trTRTranslations = {
   'search_players': 'Oyuncu ara...',
   'solo_play': 'Tek Oyunculu',
   'no_search_results': 'Oyuncu bulunamadı',
-  'by_country': 'By Country',
-
+  'by_country': 'Ülkeye Göre',
   'try_different_search': 'Farklı bir arama terimi deneyin',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Puanlarınızı kaydedin ve küresel sıralamalarda yarışın!',
+  'login_prompt_2': '🧠 Beyin sağlığı puanınızı takip edin ve ilerlemenizi izleyin!',
+  'login_prompt_3': '🏆 Çok oyunculu oyunlarla arkadaşlarınıza meydan okuyun!',
+  'login_prompt_4': '📊 Oyun istatistiklerinizi kontrol edin ve becerilerinizi geliştirin!',
+  'login_prompt_5': '⭐ Daha fazla harika özelliğin kilidini açmak için kaydolun!',
+  'login_prompt_6': '🎮 Arkadaşlarınızla birlikte beyin sağlığını artırın!',
+  'login_prompt_7': '📈 Kişisel rekorlar koyun ve yeteneklerinizi geliştirin!',
 
 };

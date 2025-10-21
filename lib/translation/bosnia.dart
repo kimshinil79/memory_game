@@ -277,8 +277,17 @@ const Map<String, String> bsBATranslations = {
   'promo_message_8': 'Pobjegnite od ovisnosti o pametnom telefonu! 📵 Zamijenite besciljno skrolovanje igrama koje jačaju mozak.',
   'promo_message_9': 'Poboljšajte pamćenje roditelja! ✅ Palac gore za prevenciju demencije! Dosljedna vježba mozga je odgovor.',
   'promo_message_10': 'Recite zbogom zaboravnosti! 👋 Održite mlad mozak uz zabavne igre pamćenja!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Sačuvajte svoje rezultate i takm ičite se u globalnim rangiranjima!',
+  'login_prompt_2': '🧠 Pratite svoj rezultat zdravlja mozga i pratite svoj napredak!',
+  'login_prompt_3': '🏆 Izazovite svoje prijatelje multiplayer igrama!',
+  'login_prompt_4': '📊 Provjerite svoju statistiku igara i poboljšajte svoje vještine!',
+  'login_prompt_5': '⭐ Prijavite se da otključate više nevjerovatnih funkcija!',
+  'login_prompt_6': '🎮 Poboljšajte zdravlje mozga zajedno sa svojim prijateljima!',
+  'login_prompt_7': '📈 Postavite lične rekorde i razvijajte svoje sposobnosti!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Najbrži po Mreži',     
   // Player Selection Dialog
   'search_players': 'Pretraži igrače...',

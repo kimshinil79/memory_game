@@ -283,4 +283,13 @@ const Map<String, String> eoTranslations = {
   'try_different_search': 'Provu alian serĉan terminon',
 'by_country': 'Laŭ Lando',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Konservu viajn poentojn kaj konkuradu en tutmondaj ranglistoj!',
+  'login_prompt_2': '🧠 Sekvu vian cerban sanpoentan poenton kaj rigardu vian progreson!',
+  'login_prompt_3': '🏆 Defiu viajn amikojn per multludantaj ludoj!',
+  'login_prompt_4': '📊 Kontrolu viajn ludstatistikojn kaj plibonigu viajn kapablojn!',
+  'login_prompt_5': '⭐ Registriĝu por malŝlosi pli bonegajn funkciojn!',
+  'login_prompt_6': '🎮 Plifortigu cerban sanon kune kun viaj amikoj!',
+  'login_prompt_7': '📈 Starigu personajn rekordojn kaj evoluigu viajn kapablojn!',
+
 };

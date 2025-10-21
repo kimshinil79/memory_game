@@ -264,4 +264,13 @@ const Map<String, String> deLUTranslations = {
   'try_different_search': 'Probéiert en anere Sichbegrëff',
 'by_country': 'Par Pays',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Späichert Är Resultater a konkurriert an globale Ranglëschten!',
+  'login_prompt_2': '🧠 Suivéiert Ären Gehirngesondheetscore a kuckt Ären Fortschrëtt!',
+  'login_prompt_3': '🏆 Erausfuerdert Är Frënn mat Mehrspieler-Spiller!',
+  'login_prompt_4': '📊 Kuckt Är Spillstatistiken a verbessert Är Fäegkeeten!',
+  'login_prompt_5': '⭐ Umellen fir méi erstaunlech Funktiounen fräizeschalten!',
+  'login_prompt_6': '🎮 Verbessert d\'Gehirngesondheet zesumme mat Ären Frënn!',
+  'login_prompt_7': '📈 Setzt perséinlech Rekorder a entwéckelt Är Fäegkeeten!',
+
 };

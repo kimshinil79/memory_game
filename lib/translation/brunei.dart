@@ -278,8 +278,17 @@ const Map<String, String> msBNTranslations = {
   'promo_message_8': 'Lari dari ketagihan telefon pintar! 📵 Gantikan skrol tanpa berfikir dengan permainan yang meningkatkan otak.',
   'promo_message_9': 'Tingkatkan memori ibu bapa! ✅ Angkat tangan untuk pencegahan demensia! Senaman otak yang konsisten adalah jawapannya.',
   'promo_message_10': 'Ucapkan selamat tinggal kepada pelupa! 👋 Kekalkan otak muda dengan permainan memori yang menyeronokkan!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Simpan skor anda dan bersaing dalam kedudukan global!',
+  'login_prompt_2': '🧠 Jejaki skor kesihatan otak anda dan lihat kemajuan anda!',
+  'login_prompt_3': '🏆 Cabar rakan anda dengan permainan berbilang pemain!',
+  'login_prompt_4': '📊 Semak statistik permainan anda dan tingkatkan kemahiran anda!',
+  'login_prompt_5': '⭐ Daftar untuk membuka lebih banyak ciri yang menakjubkan!',
+  'login_prompt_6': '🎮 Tingkatkan kesihatan otak bersama rakan anda!',
+  'login_prompt_7': '📈 Tetapkan rekod peribadi dan kembangkan keupayaan anda!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Terpantas Mengikut Grid',     
   // Player Selection Dialog
   'search_players': 'Cari pemain...',

@@ -260,4 +260,13 @@ const Map<String, String> heTranslations = {
   'try_different_search': 'נסה מונח חיפוש אחר',
 'by_country': 'לפי מדינה',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 שמור את הניקוד שלך והתחרה בדירוגים העולמיים!',
+  'login_prompt_2': '🧠 עקוב אחרי ציון בריאות המוח שלך וצפה בהתקדמות!',
+  'login_prompt_3': '🏆 אתגר את חבריך במשחקי ריבוי שחקנים!',
+  'login_prompt_4': '📊 בדוק את הסטטיסטיקות של המשחק שלך ושפר את הכישורים שלך!',
+  'login_prompt_5': '⭐ הירשם כדי לפתוח תכונות מדהימות נוספות!',
+  'login_prompt_6': '🎮 שפר את בריאות המוח יחד עם חבריך!',
+  'login_prompt_7': '📈 קבע שיאים אישיים ופתח את היכולות שלך!',
+
 };

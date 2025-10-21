@@ -282,4 +282,13 @@ const Map<String, String> isISTranslations = {
   'try_different_search': 'Prófaðu annað leitarorð',
 'by_country': 'Eftir Löndum',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Vistaðu stigin þín og kepptu í alþjóðlegum stöðum!',
+  'login_prompt_2': '🧠 Fylgstu með heilaheilsueinkunn þinni og fylgstu með framförum!',
+  'login_prompt_3': '🏆 Skoraðu á vini þína með fjölspilaraleikjum!',
+  'login_prompt_4': '📊 Athugaðu leikjatölfræði þína og bættu færni þína!',
+  'login_prompt_5': '⭐ Skráðu þig til að opna fleiri frábæra eiginleika!',
+  'login_prompt_6': '🎮 Efla heilaheilsu með vinum þínum!',
+  'login_prompt_7': '📈 Settu persónuleg met og þróaðu getu þína!',
+
 };

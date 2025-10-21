@@ -269,4 +269,13 @@ const Map<String, String> enSGTranslations = {
   'try_different_search': 'Try a different search term',
 'by_country': 'By Country',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Save your scores and compete in global rankings!',
+  'login_prompt_2': '🧠 Track your brain health score and watch your progress!',
+  'login_prompt_3': '🏆 Challenge your friends with multiplayer games!',
+  'login_prompt_4': '📊 Check your game statistics and improve your skills!',
+  'login_prompt_5': '⭐ Sign up to unlock more amazing features!',
+  'login_prompt_6': '🎮 Boost brain health together with your friends!',
+  'login_prompt_7': '📈 Set personal records and grow your abilities!',
+
 };

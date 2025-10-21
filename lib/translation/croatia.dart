@@ -288,4 +288,13 @@ const Map<String, String> hrTranslations = {
   'try_different_search': 'Pokušajte s drugim pojmom pretrage',
 'by_country': 'Po Zemljama',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Spremite svoje rezultate i natječite se u globalnim ljestvicama!',
+  'login_prompt_2': '🧠 Pratite svoje rezultate zdravlja mozga i pratite svoj napredak!',
+  'login_prompt_3': '🏆 Izazovite svoje prijatelje igrama za više igrača!',
+  'login_prompt_4': '📊 Provjerite svoju statistiku igre i poboljšajte svoje vještine!',
+  'login_prompt_5': '⭐ Registrirajte se da otključate još nevjerojatnih značajki!',
+  'login_prompt_6': '🎮 Povećajte zdravlje mozga zajedno sa svojim prijateljima!',
+  'login_prompt_7': '📈 Postavite osobne rekorde i razvijajte svoje sposobnosti!',
+
 };

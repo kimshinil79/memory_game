@@ -257,4 +257,13 @@ const Map<String, String> idTranslations = {
   'poop_brain_fun': 'Otak Anda sekarang seperti smartphone dengan baterai 1% - sangat membutuhkan pengisian!',
   'keep_playing_memory_games': 'Terus bermain permainan memori untuk meningkatkan level otak Anda!',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Simpan skor Anda dan bersaing di peringkat global!',
+  'login_prompt_2': '🧠 Lacak skor kesehatan otak Anda dan lihat kemajuan Anda!',
+  'login_prompt_3': '🏆 Tantang teman Anda dengan permainan multipemain!',
+  'login_prompt_4': '📊 Periksa statistik permainan Anda dan tingkatkan keterampilan Anda!',
+  'login_prompt_5': '⭐ Daftar untuk membuka lebih banyak fitur menakjubkan!',
+  'login_prompt_6': '🎮 Tingkatkan kesehatan otak bersama teman-teman Anda!',
+  'login_prompt_7': '📈 Tetapkan rekor pribadi dan kembangkan kemampuan Anda!',
+
 };

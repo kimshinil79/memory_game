@@ -267,4 +267,13 @@ const Map<String, String> skSKTranslations = {
   'try_different_search': 'Skúste iný vyhľadávací termín',
 'by_country': 'Podľa Krajín',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Uložte svoje skóre a súťažte v globálnych rebríčkoch!',
+  'login_prompt_2': '🧠 Sledujte svoje skóre zdravia mozgu a sledujte svoj pokrok!',
+  'login_prompt_3': '🏆 Vyzvite priateľov hrami pre viacerých hráčov!',
+  'login_prompt_4': '📊 Skontrolujte svoje herné štatistiky a zlepšite svoje zručnosti!',
+  'login_prompt_5': '⭐ Zaregistrujte sa a odomknite ďalšie úžasné funkcie!',
+  'login_prompt_6': '🎮 Zlepšte zdravie mozgu spolu s priateľmi!',
+  'login_prompt_7': '📈 Stanovte osobné rekordy a rozvíjajte svoje schopnosti!',
+
 };

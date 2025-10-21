@@ -260,4 +260,13 @@ const Map<String, String> moTranslations = {
   'try_different_search': '請嘗試其他搜索詞',
 'by_country': '按國家',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 保存您嘅分數並喺全球排名中競爭！',
+  'login_prompt_2': '🧠 追蹤您嘅大腦健康分數並觀察您嘅進展！',
+  'login_prompt_3': '🏆 用多人遊戲挑戰您嘅朋友！',
+  'login_prompt_4': '📊 查看您嘅遊戲統計數據並提升您嘅技能！',
+  'login_prompt_5': '⭐ 註冊以解鎖更多驚人功能！',
+  'login_prompt_6': '🎮 與您嘅朋友一起提升大腦健康！',
+  'login_prompt_7': '📈 創造個人記錄並發展您嘅能力！',
+
 };

@@ -260,4 +260,13 @@ const Map<String, String> hkTranslations = {
   'try_different_search': '請嘗試其他搜索詞',
 'by_country': '按國家',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 保存您的分數並參與全球排名!',
+  'login_prompt_2': '🧠 追蹤您的大腦健康分數並觀察您的進步!',
+  'login_prompt_3': '🏆 透過多人遊戲挑戰您的朋友!',
+  'login_prompt_4': '📊 查看您的遊戲統計數據並提高您的技能!',
+  'login_prompt_5': '⭐ 註冊以解鎖更多精彩功能!',
+  'login_prompt_6': '🎮 與朋友一起提升大腦健康!',
+  'login_prompt_7': '📈 創建個人記錄並發展您的能力!',
+
 };

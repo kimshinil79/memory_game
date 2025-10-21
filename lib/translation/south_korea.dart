@@ -268,6 +268,15 @@ const Map<String, String> krTranslations = {
   'promo_message_9': '부모님의 기억력 향상! ✅ 치매 예방에 좋아요! 꾸준한 두뇌 운동이 답입니다.',
   'promo_message_10': '건망증과 작별하세요! 👋 재미있는 메모리 게임으로 젊은 두뇌를 유지하세요!',
   
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 점수를 저장하고 세계 랭킹에 도전해보세요!',
+  'login_prompt_2': '🧠 뇌 건강 점수를 추적하고 발전해보세요!',
+  'login_prompt_3': '🏆 멀티플레이어 게임으로 친구들과 경쟁해보세요!',
+  'login_prompt_4': '📊 게임 통계를 확인하고 실력을 향상시켜보세요!',
+  'login_prompt_5': '⭐ 로그인하고 더 많은 기능을 경험해보세요!',
+  'login_prompt_6': '🎮 친구들과 함께 두뇌 건강을 향상시켜보세요!',
+  'login_prompt_7': '📈 개인 기록을 세우고 성장해보세요!',
+  
   // Top Fastest by Grid
   'top_fastest_by_grid': '그리드별 최고 기록',
   

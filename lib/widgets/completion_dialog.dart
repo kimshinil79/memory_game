@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CompletionDialog extends StatelessWidget {
   final int elapsedTime;
@@ -19,6 +20,8 @@ class CompletionDialog extends StatelessWidget {
   final int basePoints;
   final int streakBonus;
   final int currentStreak;
+  final VoidCallback? onSignIn;
+  final VoidCallback? onSignUp;
 
   const CompletionDialog({
     super.key,
@@ -36,6 +39,8 @@ class CompletionDialog extends StatelessWidget {
     this.basePoints = 0,
     this.streakBonus = 0,
     this.currentStreak = 0,
+    this.onSignIn,
+    this.onSignUp,
   });
 
   // 홍보 메시지 키 리스트
@@ -204,6 +209,12 @@ class CompletionDialog extends StatelessWidget {
 
                     // 홍보성 글과 복사하기 버튼
                     _buildPromotionalSection(),
+                    
+                    // 로그인 독려 메시지 (로그인하지 않은 경우에만 표시)
+                    if (FirebaseAuth.instance.currentUser == null) ...[
+                      const SizedBox(height: 16),
+                      _buildLoginPrompt(context),
+                    ],
                   ],
                 ),
               ),
@@ -545,6 +556,108 @@ class CompletionDialog extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoginPrompt(BuildContext context) {
+    // 재치있는 로그인 독려 메시지들 (translation 키)
+    final loginMessageKeys = [
+      'login_prompt_1',
+      'login_prompt_2',
+      'login_prompt_3',
+      'login_prompt_4',
+      'login_prompt_5',
+      'login_prompt_6',
+      'login_prompt_7',
+    ];
+    
+    final random = Random();
+    final selectedKey = loginMessageKeys[random.nextInt(loginMessageKeys.length)];
+    final selectedMessage = translations[selectedKey] ?? '🎯 Save your scores and compete in global rankings!';
+    
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            instagramGradientStart.withOpacity(0.1),
+            instagramGradientEnd.withOpacity(0.1),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: instagramGradientStart.withOpacity(0.3),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [instagramGradientStart, instagramGradientEnd],
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.login,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  selectedMessage,
+                  style: GoogleFonts.poppins(
+                    fontSize: _getDynamicFontSize(selectedMessage, 13, 11, 15),
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF2D3748),
+                    height: 1.4,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                // 게임 완료 다이얼로그 닫기
+                Navigator.of(context).pop();
+                // 회원 가입 다이얼로그 표시
+                if (onSignUp != null) {
+                  onSignUp!();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: instagramGradientStart,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                translations['sign_up'] ?? '회원 가입',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),

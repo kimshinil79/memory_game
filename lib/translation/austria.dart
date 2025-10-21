@@ -284,8 +284,17 @@ const Map<String, String> deATTranslations = {
   'promo_message_8': 'Entkommen Sie der Smartphone-Sucht! 📵 Ersetzen Sie das gedankenlose Scrollen durch gehirnfördernde Spiele.',
   'promo_message_9': 'Verbessern Sie das Gedächtnis der Eltern! ✅ Daumen hoch für Demenzprävention! Konstantes Gehirntraining ist die Antwort.',
   'promo_message_10': 'Verabschieden Sie sich von Vergesslichkeit! 👋 Behalten Sie ein junges Gehirn mit lustigen Gedächtnisspielen!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Speichern Sie Ihre Ergebnisse und konkurrieren Sie in globalen Rankings!',
+  'login_prompt_2': '🧠 Verfolgen Sie Ihre Gehirngesundheitspunkte und beobachten Sie Ihren Fortschritt!',
+  'login_prompt_3': '🏆 Fordern Sie Ihre Freunde mit Multiplayer-Spielen heraus!',
+  'login_prompt_4': '📊 Überprüfen Sie Ihre Spielstatistiken und verbessern Sie Ihre Fähigkeiten!',
+  'login_prompt_5': '⭐ Registrieren Sie sich, um weitere fantastische Funktionen freizuschalten!',
+  'login_prompt_6': '🎮 Verbessern Sie die Gehirngesundheit zusammen mit Ihren Freunden!',
+  'login_prompt_7': '📈 Stellen Sie persönliche Rekorde auf und erweitern Sie Ihre Fähigkeiten!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Schnellste nach Raster',     
   // Player Selection Dialog
   'search_players': 'Spieler suchen...',

@@ -291,4 +291,13 @@ const Map<String, String> nlTranslations = {
   'try_different_search': 'Probeer een andere zoekterm',
 'by_country': 'Per Land',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Bewaar je scores en concurreer in mondiale ranglijsten!',
+  'login_prompt_2': '🧠 Volg je hersengezondheidscore en zie je vooruitgang!',
+  'login_prompt_3': '🏆 Daag je vrienden uit met multiplayer-spellen!',
+  'login_prompt_4': '📊 Bekijk je spelstatistieken en verbeter je vaardigheden!',
+  'login_prompt_5': '⭐ Meld je aan om meer geweldige functies te ontgrendelen!',
+  'login_prompt_6': '🎮 Versterk hersengezondheid samen met je vrienden!',
+  'login_prompt_7': '📈 Stel persoonlijke records in en ontwikkel je vermogens!',
+
 };

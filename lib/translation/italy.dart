@@ -263,4 +263,13 @@ const Map<String, String> itTranslations = {
 
   'try_different_search': 'Prova con un termine di ricerca diverso',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Salva i tuoi punteggi e competi nelle classifiche globali!',
+  'login_prompt_2': '🧠 Traccia il tuo punteggio di salute cerebrale e guarda i tuoi progressi!',
+  'login_prompt_3': '🏆 Sfida i tuoi amici con giochi multigiocatore!',
+  'login_prompt_4': '📊 Controlla le tue statistiche di gioco e migliora le tue abilità!',
+  'login_prompt_5': '⭐ Iscriviti per sbloccare più funzionalità straordinarie!',
+  'login_prompt_6': '🎮 Potenzia la salute cerebrale insieme ai tuoi amici!',
+  'login_prompt_7': '📈 Stabilisci record personali e sviluppa le tue capacità!',
+
 };

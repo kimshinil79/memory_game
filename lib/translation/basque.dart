@@ -281,8 +281,17 @@ const Map<String, String> euTranslations = {
   'promo_message_8': 'Ihes egin telefono adimendunaren mendekotasunetik! 📵 Ordeztu zentzurik gabeko korritzea garuna sustatzen duten jolasekin.',
   'promo_message_9': 'Hobetu gurasoen memoria! ✅ Hatz lodia gora dementzia prebenitzeko! Garuneko ariketa koherentea da erantzuna.',
   'promo_message_10': 'Agur esan ahazteari! 👋 Mantendu garun gaztea memoria jolas dibertigarriekin!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Gorde zure puntuazioak eta lehiatu mundu mailako sailkapenetan!',
+  'login_prompt_2': '🧠 Jarraitu zure garun osasunaren puntuazioa eta ikusi zure aurrerakada!',
+  'login_prompt_3': '🏆 Erronkatu zure lagunak jokalari anitzeko jolasekin!',
+  'login_prompt_4': '📊 Egiaztatu zure joko estatistikak eta hobetu zure trebetasunak!',
+  'login_prompt_5': '⭐ Erregistratu ezaugarri zoragarri gehiago desblokeatzeko!',
+  'login_prompt_6': '🎮 Bultzatu garunaren osasuna zure lagunekin batera!',
+  'login_prompt_7': '📈 Ezarri errekord pertsonalak eta garatu zure gaitasunak!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Sarearen Arabera Azkarrenak',     
   // Player Selection Dialog
   'search_players': 'Bilatu jokalariak...',

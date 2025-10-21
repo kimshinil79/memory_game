@@ -264,4 +264,13 @@ const Map<String, String> deLITranslations = {
   'try_different_search': 'Versuchen Sie einen anderen Suchbegriff',
 'by_country': 'Nach Land',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Speichern Sie Ihre Ergebnisse und konkurrieren Sie in globalen Ranglisten!',
+  'login_prompt_2': '🧠 Verfolgen Sie Ihren Gehirngesundheitswert und beobachten Sie Ihren Fortschritt!',
+  'login_prompt_3': '🏆 Fordern Sie Ihre Freunde mit Mehrspieler-Spielen heraus!',
+  'login_prompt_4': '📊 Überprüfen Sie Ihre Spielstatistiken und verbessern Sie Ihre Fähigkeiten!',
+  'login_prompt_5': '⭐ Melden Sie sich an, um weitere großartige Funktionen freizuschalten!',
+  'login_prompt_6': '🎮 Verbessern Sie die Gehirngesundheit zusammen mit Ihren Freunden!',
+  'login_prompt_7': '📈 Setzen Sie persönliche Rekorde und entwickeln Sie Ihre Fähigkeiten!',
+
 };

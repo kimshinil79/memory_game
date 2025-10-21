@@ -42,6 +42,9 @@ import 'package:dynamic_color/dynamic_color.dart';
 
 // Constants for SharedPreferences keys
 const String PREF_USER_COUNTRY_CODE = 'user_country_code';
+const String PREF_USER_EMAIL = 'user_email';
+const String PREF_USER_UID = 'user_uid';
+const String PREF_LAST_LOGIN_TIME = 'last_login_time';
 
 // FCM background handler (must be a top-level function)
 @pragma('vm:entry-point')
@@ -201,7 +204,7 @@ void main() async {
     );
   }
 
-  // Firebase Auth 설정 - 로그인 상태 유지 확인
+  // Firebase Auth 설정 - 로그인 상태 유지 강화
   try {
     FirebaseAuth auth = FirebaseAuth.instance;
     print('Firebase Auth instance ready');
@@ -217,13 +220,21 @@ void main() async {
     if (currentUser != null) {
       print('✅ 저장된 로그인 사용자 발견: ${currentUser.uid}');
       print('   이메일: ${currentUser.email}');
+      print('   토큰 만료 시간: ${currentUser.metadata.lastSignInTime}');
       
       // 토큰 갱신 확인 (선택사항)
       try {
         await currentUser.reload();
         print('✅ 사용자 토큰 갱신 완료');
+        
+        // 갱신된 사용자 정보 다시 확인
+        final refreshedUser = FirebaseAuth.instance.currentUser;
+        if (refreshedUser != null) {
+          print('✅ 토큰 갱신 후 사용자 확인: ${refreshedUser.uid}');
+        }
       } catch (e) {
         print('⚠️ 토큰 갱신 실패 (네트워크 문제일 수 있음): $e');
+        // 토큰 갱신 실패해도 로컬에 저장된 사용자 정보는 유지됨
       }
     } else {
       print('ℹ️ 저장된 로그인 사용자 없음');
@@ -627,6 +638,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       _fetchUserProfile(currentUser);
     } else {
       print('ℹ️ 앱 시작 시 저장된 로그인 없음');
+      // Firebase Auth에 사용자가 없어도 SharedPreferences에 백업이 있는지 확인
+      _checkBackupLoginState();
     }
 
     // authStateChanges 구독 설정 (로그인/로그아웃 감지)
@@ -640,11 +653,73 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           _user = null;
           _nickname = null;
         });
+        // 로그아웃 시 백업 정보도 삭제
+        _clearBackupLoginState();
       } else {
         print('✅ 로그인 상태 변경: 로그인됨 (${user.uid})');
         _fetchUserProfile(user);
+        // 로그인 성공 시 백업 정보 저장
+        _saveBackupLoginState(user);
       }
     });
+  }
+
+  // 백업 로그인 상태 확인
+  Future<void> _checkBackupLoginState() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedEmail = prefs.getString(PREF_USER_EMAIL);
+      final savedUid = prefs.getString(PREF_USER_UID);
+      final lastLoginTime = prefs.getInt(PREF_LAST_LOGIN_TIME);
+
+      if (savedEmail != null && savedUid != null && lastLoginTime != null) {
+        // 7일 이내의 로그인 기록이 있는지 확인
+        final daysSinceLogin = (DateTime.now().millisecondsSinceEpoch - lastLoginTime) / (1000 * 60 * 60 * 24);
+        
+        if (daysSinceLogin <= 7) {
+          print('🔄 백업 로그인 상태 발견: $savedEmail (${daysSinceLogin.toStringAsFixed(1)}일 전)');
+          // Firebase Auth 상태를 다시 확인 (토큰이 복원되었을 수 있음)
+          final currentUser = FirebaseAuth.instance.currentUser;
+          if (currentUser != null && currentUser.uid == savedUid) {
+            print('✅ Firebase Auth 상태 복원됨');
+            _fetchUserProfile(currentUser);
+          } else {
+            print('ℹ️ Firebase Auth 상태는 복원되지 않음 (토큰 만료 또는 네트워크 문제)');
+          }
+        } else {
+          print('ℹ️ 백업 로그인 상태가 오래됨 (${daysSinceLogin.toStringAsFixed(1)}일 전) - 삭제');
+          _clearBackupLoginState();
+        }
+      }
+    } catch (e) {
+      print('백업 로그인 상태 확인 중 오류: $e');
+    }
+  }
+
+  // 백업 로그인 상태 저장
+  Future<void> _saveBackupLoginState(User user) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(PREF_USER_EMAIL, user.email ?? '');
+      await prefs.setString(PREF_USER_UID, user.uid);
+      await prefs.setInt(PREF_LAST_LOGIN_TIME, DateTime.now().millisecondsSinceEpoch);
+      print('✅ 백업 로그인 상태 저장됨: ${user.email}');
+    } catch (e) {
+      print('백업 로그인 상태 저장 중 오류: $e');
+    }
+  }
+
+  // 백업 로그인 상태 삭제
+  Future<void> _clearBackupLoginState() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(PREF_USER_EMAIL);
+      await prefs.remove(PREF_USER_UID);
+      await prefs.remove(PREF_LAST_LOGIN_TIME);
+      print('✅ 백업 로그인 상태 삭제됨');
+    } catch (e) {
+      print('백업 로그인 상태 삭제 중 오류: $e');
+    }
   }
 
   Future<void> _fetchUserProfile(User user) async {
@@ -809,6 +884,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       // 3. Firebase 로그아웃 수행
       await FirebaseAuth.instance.signOut();
+
+      // 4. 백업 로그인 상태도 삭제
+      await _clearBackupLoginState();
 
       // Save the last used country code to SharedPreferences
       if (countryCodeToSave != null) {
@@ -979,7 +1057,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         appBar: AppBar(
           backgroundColor: const Color(0xFF0B0D13),
           elevation: 0,
-          toolbarHeight: (_currentIndex == 0 && _user != null) ? 100 : 70,
+          toolbarHeight: (_currentIndex == 0) ? 100 : 70,
           titleSpacing: 4.0,
           leadingWidth: 0,
           flexibleSpace: Container(
@@ -1037,7 +1115,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _buildUserProfileButton(),
                 ],
               ),
-              if (_currentIndex == 0 && _user != null) ...[
+              if (_currentIndex == 0) ...[
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 44,
@@ -1062,25 +1140,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
                 children: pages,
               ),
-            if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
-              Positioned.fill(
-                child: Builder(
-                  builder: (context) {
-                    // 게임 탭(0)에서는 튜토리얼이 켜져 있으면 스크롤 방해하지 않도록 오버레이 비활성화
-                    if (_currentIndex == 0) {
-                      final tutorialVisible =
-                          _memoryGamePage?.isTutorialVisible() ?? false;
-                      if (tutorialVisible) return const SizedBox.shrink();
-                    }
-                    return GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        _showSignInDialog(context);
-                      },
-                    );
-                  },
-                ),
-              ),
+            // 로그인하지 않은 사용자도 게임을 할 수 있도록 오버레이 제거
+            // if (_user == null && (_currentIndex == 0 || _currentIndex == 2))
+            //   Positioned.fill(
+            //     child: Builder(
+            //       builder: (context) {
+            //         // 게임 탭(0)에서는 튜토리얼이 켜져 있으면 스크롤 방해하지 않도록 오버레이 비활성화
+            //         if (_currentIndex == 0) {
+            //           final tutorialVisible =
+            //               _memoryGamePage?.isTutorialVisible() ?? false;
+            //           if (tutorialVisible) return const SizedBox.shrink();
+            //         }
+            //         return GestureDetector(
+            //           behavior: HitTestBehavior.opaque,
+            //           onTap: () {
+            //             _showSignInDialog(context);
+            //           },
+            //         );
+            //       },
+            //     ),
+            //   ),
             ],
           ),
         ),
@@ -1351,16 +1430,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       ? (translations['players'] ?? 'Players')
                       : (translations['player'] ?? 'Player');
 
+                  // 로그인하지 않은 경우 비활성화
+                  final isLoggedIn = _user != null;
+
                   return _buildDynamicControlButton(
                     icon: Icons.group_rounded,
-                    label: '$numberOfPlayers $playerText',
-                    onTap: _showPlayerSelectionDialog,
+                    label: isLoggedIn ? '$numberOfPlayers $playerText' : '1 $playerText',
+                    onTap: isLoggedIn ? _showPlayerSelectionDialog : null,
                     buttonHeight: buttonHeight,
                     buttonPadding: buttonPadding,
                     borderRadius: borderRadius,
                     iconSize: iconSize,
                     fontSize: fontSize,
                     isGradient: false,
+                    isDisabled: !isLoggedIn,
                   );
                 },
               ),
@@ -1379,6 +1462,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 iconSize: iconSize,
                 fontSize: fontSize,
                 isGradient: false,
+                isDisabled: false, // 그리드 크기는 항상 활성화
               ),
             ),
             SizedBox(width: buttonSpacing),
@@ -1404,35 +1488,38 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget _buildDynamicControlButton({
     required IconData icon,
     required String label,
-    required VoidCallback onTap,
+    required VoidCallback? onTap,
     required double buttonHeight,
     required EdgeInsets buttonPadding,
     required double borderRadius,
     required double iconSize,
     required double fontSize,
     required bool isGradient,
+    bool isDisabled = false,
   }) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isDisabled ? null : onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         height: buttonHeight,
         padding: buttonPadding,
         decoration: BoxDecoration(
-          gradient: isGradient 
+          gradient: isGradient && !isDisabled
             ? LinearGradient(
                 colors: [instagramGradientStart, instagramGradientEnd],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               )
             : null,
-          color: isGradient ? null : const Color(0xFF2A2F3A),
+          color: isGradient ? null : (isDisabled ? const Color(0xFF1A1D26) : const Color(0xFF2A2F3A)),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: isGradient ? instagramGradientEnd : const Color(0xFF00E5FF),
+            color: isDisabled 
+              ? const Color(0xFF404040)
+              : (isGradient ? instagramGradientEnd : const Color(0xFF00E5FF)),
             width: 1.5,
           ),
-          boxShadow: [
+          boxShadow: isDisabled ? null : [
             BoxShadow(
               color: isGradient 
                 ? instagramGradientStart.withOpacity(0.3)
@@ -1451,7 +1538,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             Icon(
               icon,
               size: iconSize,
-              color: Colors.white,
+              color: isDisabled ? const Color(0xFF666666) : Colors.white,
             ),
             SizedBox(width: buttonPadding.horizontal * 0.3),
             Flexible(
@@ -1462,7 +1549,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600,
                     fontSize: fontSize,
-                    color: Colors.white,
+                    color: isDisabled ? const Color(0xFF666666) : Colors.white,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -1857,7 +1944,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         _shortPW = null;
       });
 
-      // Clear SharedPreferences
+      // Clear SharedPreferences (백업 로그인 상태 포함)
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
 

@@ -266,6 +266,15 @@ const Map<String, String> rwRWTranslations = {
   'solo_play': 'Gukina wenyine',
   'no_search_results': 'Nta bakinnyi babonye',
   'try_different_search': 'Gerageza ijambo ry\'ushakisha rindi',
-'by_country': 'Kwa Nchi',
+'by_country': 'By Country',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Bika amanota yawe maze uhatane mu marangamutwe y\'isi yose!',
+  'login_prompt_2': '🧠 Kurikirana amanota y\'ubuzima bw\'ubwonko bwawe kandi urebe aho ugeze!',
+  'login_prompt_3': '🏆 Tanga inzitizi inshuti zawe mu mikino y\'abakinnyi benshi!',
+  'login_prompt_4': '📊 Reba imibare y\'umukino wawe kandi uteze imbere ubushobozi bwawe!',
+  'login_prompt_5': '⭐ Iyandikishe kugira ngo ugaragure ibiranga bidasanzwe byinshi!',
+  'login_prompt_6': '🎮 Teza imbere ubuzima bw\'ubwonko hamwe n\'inshuti zawe!',
+  'login_prompt_7': '📈 Shyiraho inyandiko bwite kandi uteze imbere ubushobozi bwawe!',
 
 };

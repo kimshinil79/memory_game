@@ -263,4 +263,13 @@ const Map<String, String> fiTranslations = {
   'try_different_search': 'Kokeile eri hakusanaa',
 'by_country': 'Maan Mukaan',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Tallenna pisteesi ja kilpaile maailmanlaajuisilla rankingeissa!',
+  'login_prompt_2': '🧠 Seuraa aivoterveys-pisteitäsi ja katso edistymistäsi!',
+  'login_prompt_3': '🏆 Haasta ystäväsi moninpelillä!',
+  'login_prompt_4': '📊 Tarkista pelistatistiikkasi ja paranna taitojasi!',
+  'login_prompt_5': '⭐ Rekisteröidy avataksesi lisää upeita ominaisuuksia!',
+  'login_prompt_6': '🎮 Paranna aivoterveyttä yhdessä ystäviesi kanssa!',
+  'login_prompt_7': '📈 Aseta henkilökohtaisia ennätyksiä ja kehitä kykyjäsi!',
+
 };

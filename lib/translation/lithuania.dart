@@ -242,6 +242,15 @@ const Map<String, String> ltTranslations = {
   'try_different_search': 'Išbandykite kitą paieškos terminą',
 'by_country': 'Pagal Šalis',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Išsaugokite savo rezultatus ir varžykitės pasaulinėse reitinguose!',
+  'login_prompt_2': '🧠 Stebėkite savo smegenų sveikatos rezultatą ir stebėkite savo pažangą!',
+  'login_prompt_3': '🏆 Iššūkite savo draugus su daugelio žaidėjų žaidimais!',
+  'login_prompt_4': '📊 Patikrinkite savo žaidimų statistiką ir tobulinkite savo įgūdžius!',
+  'login_prompt_5': '⭐ Užsiregistruokite, kad atrakintumėte daugiau nuostabių funkcijų!',
+  'login_prompt_6': '🎮 Gerinkite smegenų sveikatą kartu su draugais!',
+  'login_prompt_7': '📈 Nustatykite asmeninius rekordus ir plėtokite savo gebėjimus!',
+
   // Brain Level Guide
   'brain_level_guide': 'Smegenų Lygio Vadovas',
   'understand_level_means': 'Supraskite, ką reiškia kiekvienas lygis',

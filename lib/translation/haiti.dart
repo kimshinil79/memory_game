@@ -279,4 +279,13 @@ const Map<String, String> htTranslations = {
   'try_different_search': 'Eseye yon lòt tèm rechèch',
 'by_country': 'Par Pays',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Sove pwen ou yo epi konpete nan klasman mondyal!',
+  'login_prompt_2': '🧠 Swiv pwen sante sèvo ou a epi gade pwogrè ou!',
+  'login_prompt_3': '🏆 Defi zanmi ou yo ak jwèt milti-jwè!',
+  'login_prompt_4': '📊 Tcheke estatistik jwèt ou yo epi amelyore ladrès ou!',
+  'login_prompt_5': '⭐ Enskri pou debloye plis fonksyon etonan!',
+  'login_prompt_6': '🎮 Amelyore sante sèvo ansanm ak zanmi ou yo!',
+  'login_prompt_7': '📈 Etabli rekò pèsonèl epi devlope kapasite ou!',
+
 };

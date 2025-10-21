@@ -282,4 +282,13 @@ const Map<String, String> etTranslations = {
   'try_different_search': 'Proovi teist otsinguterminit',
 'by_country': 'Riigi Järgi',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Salvesta oma tulemused ja võistle globaalsetes edetabelites!',
+  'login_prompt_2': '🧠 Jälgi oma aju tervise skoori ja vaata oma edusamme!',
+  'login_prompt_3': '🏆 Väljakutse oma sõbrad mitmikmängija mängudega!',
+  'login_prompt_4': '📊 Kontrolli oma mängustatistikat ja paranda oma oskusi!',
+  'login_prompt_5': '⭐ Registreeru, et avada rohkem hämmastava funktsioone!',
+  'login_prompt_6': '🎮 Suurenda aju tervist koos oma sõpradega!',
+  'login_prompt_7': '📈 Seo isiklik rekordeid ja arenda oma võimeid!',
+
 };

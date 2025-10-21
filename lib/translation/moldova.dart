@@ -278,4 +278,13 @@ const Map<String, String> mdMDATranslations = {
   'try_different_search': 'Încercați un alt termen de căutare',
 'by_country': 'După Țară',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Salvați-vă scorurile și competiți în clasamente globale!',
+  'login_prompt_2': '🧠 Urmăriți scorul sănătății creierului și observați progresul!',
+  'login_prompt_3': '🏆 Provocați-vă prietenii cu jocuri multiplayer!',
+  'login_prompt_4': '📊 Verificați statisticile jocului și îmbunătățiți-vă abilitățile!',
+  'login_prompt_5': '⭐ Înregistrați-vă pentru a debloca mai multe funcții uimitoare!',
+  'login_prompt_6': '🎮 Îmbunătățiți sănătatea creierului împreună cu prietenii!',
+  'login_prompt_7': '📈 Stabiliți recorduri personale și dezvoltați-vă capacitățile!',
+
 };

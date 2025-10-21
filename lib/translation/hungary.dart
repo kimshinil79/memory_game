@@ -261,4 +261,13 @@ const Map<String, String> huTranslations = {
   'try_different_search': 'Próbáljon másik keresési kifejezést',
 'by_country': 'Ország Szerint',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Mentse el pontjait és versenyezzen a globális ranglistákon!',
+  'login_prompt_2': '🧠 Kövesse nyomon agyi egészségpontszámát és figyelje fejlődését!',
+  'login_prompt_3': '🏆 Hívja ki barátait többjátékos játékokkal!',
+  'login_prompt_4': '📊 Ellenőrizze játékstatisztikáit és javítsa készségeit!',
+  'login_prompt_5': '⭐ Regisztráljon több csodálatos funkció feloldásához!',
+  'login_prompt_6': '🎮 Növelje az agyi egészséget barátaival együtt!',
+  'login_prompt_7': '📈 Állítson fel személyes rekordokat és fejlessze képességeit!',
+
 };

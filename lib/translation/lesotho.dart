@@ -263,4 +263,13 @@ const Map<String, String> stLSTranslations = {
   'try_different_search': 'Zama igama lokusesha elinye',
 'by_country': 'Kwa Nchi',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Boloka lintlha tsa hau le ho bapala ka boemo ba lefatše!',
+  'login_prompt_2': '🧠 Latela lintlha tsa bophelo ba boko ba hau le ho bona tsoelo-pele ea hau!',
+  'login_prompt_3': '🏆 Phehella metsoalle ea hau ka lipapali tsa bapapali ba bangata!',
+  'login_prompt_4': '📊 Sheba lipalo-palo tsa papali ea hau le ho ntlafatsa bokhoni ba hau!',
+  'login_prompt_5': '⭐ Ingodise ho bula likarolo tse ngata tse makatsang!',
+  'login_prompt_6': '🎮 Matlafatsa bophelo ba boko hammoho le metsoalle ea hau!',
+  'login_prompt_7': '📈 Beha lirekoto tsa hau le ho hola bokhoni ba hau!',
+
 };

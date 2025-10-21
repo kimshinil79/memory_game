@@ -291,4 +291,13 @@ const Map<String, String> coTranslations = {
   'try_different_search': 'Pruvà un altru termine di ricerca',
 'by_country': 'Per Paese',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Salvate i vostri punti è cumpete in a classificazione mundiale!',
+  'login_prompt_2': '🧠 Seguitate u vostru puntu di salute cerebrale è guardate i vostri prugressi!',
+  'login_prompt_3': '🏆 Sfida i vostri amichi cù ghjochi multighjucatore!',
+  'login_prompt_4': '📊 Verificate e vostre statistiche di ghjocu è migliurate e vostre cumpetenze!',
+  'login_prompt_5': '⭐ Registratevi per sbluccà funzioni straordinarie!',
+  'login_prompt_6': '🎮 Migliurate a salute cerebrale inseme à i vostri amichi!',
+  'login_prompt_7': '📈 Stabilite record persunali è sviluppate e vostre capacità!',
+
 };

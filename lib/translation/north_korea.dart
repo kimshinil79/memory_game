@@ -252,8 +252,17 @@ const Map<String, String> koKPTranslations = {
   'promo_message_8': '스마트폰 중독에서 벗어나세요! 📵 의미 없는 화면 넘기기를 두뇌 강화 놀이로 바꾸세요.',
   'promo_message_9': '어버이들의 기억력을 높이세요! ✅ 치매 예방에 엄지손가락! 지속적인 두뇌 운동이 해답입니다.',
   'promo_message_10': '건망증에 안녕을 고하세요! 👋 재미있는 기억 놀이로 젊은 두뇌를 유지하세요!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 점수를 저장하고 세계 순위에 도전해보세요!',
+  'login_prompt_2': '🧠 두뇌 건강 점수를 추적하고 발전해보세요!',
+  'login_prompt_3': '🏆 여럿이 하는 놀이로 동무들과 경쟁해보세요!',
+  'login_prompt_4': '📊 놀이 통계를 확인하고 실력을 향상시켜보세요!',
+  'login_prompt_5': '⭐ 가입하고 더 많은 기능을 경험해보세요!',
+  'login_prompt_6': '🎮 동무들과 함께 두뇌 건강을 향상시켜보세요!',
+  'login_prompt_7': '📈 개인 기록을 세우고 성장해보세요!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': '격자별 최고 기록',     
   // Player Selection Dialog
   'search_players': '플레이어 검색...',

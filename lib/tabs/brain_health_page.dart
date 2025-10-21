@@ -7,6 +7,7 @@ import '../providers/brain_health_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 // LoginRequiredDialog 추가
 import '../widgets/auth/sign_in_dialog.dart'; // SignInDialog 추가
 import '../widgets/auth/sign_up_dialog.dart'; // SignUpDialog 추가
@@ -31,10 +32,58 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   bool _doNotShowAgain = false;
   final String _tutorialPrefKey = 'brain_health_tutorial_shown';
 
+  // 로그인 상태 관리
+  User? _currentUser;
+  StreamSubscription<User?>? _authSubscription;
+
   @override
   void initState() {
     super.initState();
     _checkTutorialStatus();
+    _initializeAuth();
+  }
+
+  @override
+  void dispose() {
+    _authSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _initializeAuth() {
+    // 기존 구독이 있으면 취소
+    _authSubscription?.cancel();
+
+    // 먼저 현재 저장된 사용자 확인 (즉시 로그인 상태 복원)
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      print('🔄 Brain Health Page - 저장된 로그인 복원: ${currentUser.uid}');
+      setState(() {
+        _currentUser = currentUser;
+      });
+    } else {
+      print('ℹ️ Brain Health Page - 저장된 로그인 없음');
+      setState(() {
+        _currentUser = null;
+      });
+    }
+
+    // authStateChanges 구독 설정 (로그인/로그아웃 감지)
+    _authSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (!mounted) return;
+
+      if (user == null) {
+        print('❌ Brain Health Page - 로그인 상태 변경: 로그아웃됨');
+        setState(() {
+          _currentUser = null;
+        });
+      } else {
+        print('✅ Brain Health Page - 로그인 상태 변경: 로그인됨 (${user.uid})');
+        setState(() {
+          _currentUser = user;
+        });
+      }
+    });
   }
 
   // 튜토리얼 표시 여부 확인
@@ -92,9 +141,8 @@ class _BrainHealthPageState extends State<BrainHealthPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    // 로그인 상태 확인
-    final user = FirebaseAuth.instance.currentUser;
-    final isLoggedIn = user != null;
+    // 로그인 상태 확인 (동기화된 상태 사용)
+    final isLoggedIn = _currentUser != null;
 
     return Consumer<BrainHealthProvider>(
       builder: (context, brainHealthProvider, child) {

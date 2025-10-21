@@ -283,8 +283,17 @@ const Map<String, String> sqTranslations = {
   'promo_message_8': 'Shpëtoni nga varësia nga smartfoni! 📵 Zëvendësoni lëvizjen pa mend me lojëra që nxisin trurin.',
   'promo_message_9': 'Përmirësoni kujtesën e prindërve! ✅ Gishtat lart për parandalimin e demencës! Ushtrimi i vazhdueshëm i trurit është përgjigja.',
   'promo_message_10': 'Thoni lamtumirë harresës! 👋 Mbani një tru të ri me lojëra argëtuese kujtese!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Ruani rezultatet tuaja dhe konkurroni në renditjet globale!',
+  'login_prompt_2': '🧠 Ndiqni rezultatin e shëndetit të trurit tuaj dhe shikoni përparimin tuaj!',
+  'login_prompt_3': '🏆 Sfidoni miqtë tuaj me lojëra shumëlojtarësh!',
+  'login_prompt_4': '📊 Kontrolloni statistikat e lojës suaj dhe përmirësoni aftësitë tuaja!',
+  'login_prompt_5': '⭐ Regjistrohuni për të zhbllokuar më shumë veçori të mahnitshme!',
+  'login_prompt_6': '🎮 Rritni shëndetin e trurit së bashku me miqtë tuaj!',
+  'login_prompt_7': '📈 Vendosni rekorde personale dhe rritni aftësitë tuaja!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Më të Shpejtat sipas Rrjetit',     
   // Player Selection Dialog
   'search_players': 'Kërko lojtarë...',

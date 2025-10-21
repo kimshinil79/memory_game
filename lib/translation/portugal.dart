@@ -276,7 +276,15 @@ const Map<String, String> ptPTTranslations = {
   'solo_play': 'Jogo Solo',
   'no_search_results': 'Nenhum jogador encontrado',
   'by_country': 'Por País',
-
   'try_different_search': 'Tente um termo de busca diferente',
+
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Salve suas pontuações e compita em rankings globais!',
+  'login_prompt_2': '🧠 Acompanhe sua pontuação de saúde cerebral e observe seu progresso!',
+  'login_prompt_3': '🏆 Desafie seus amigos com jogos multiplayer!',
+  'login_prompt_4': '📊 Verifique suas estatísticas de jogo e melhore suas habilidades!',
+  'login_prompt_5': '⭐ Inscreva-se para desbloquear mais recursos incríveis!',
+  'login_prompt_6': '🎮 Melhore a saúde cerebral junto com seus amigos!',
+  'login_prompt_7': '📈 Estabeleça recordes pessoais e desenvolva suas capacidades!',
 
 };

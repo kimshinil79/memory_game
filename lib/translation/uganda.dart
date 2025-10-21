@@ -273,4 +273,13 @@ const Map<String, String> enUGTranslations = {
   'try_different_search': 'Jaribu neno lingine la utafutaji',
 'by_country': 'Kwa Nchi',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Hifadhi alama zako na shindana katika orodha za kimataifa!',
+  'login_prompt_2': '🧠 Fuatilia alama za afya ya ubongo wako na angalia maendeleo yako!',
+  'login_prompt_3': '🏆 Changamsha marafiki wako kwa michezo ya wachezaji wengi!',
+  'login_prompt_4': '📊 Angalia takwimu za mchezo wako na boresha ujuzi wako!',
+  'login_prompt_5': '⭐ Jisajili kufungua vipengele zaidi vya ajabu!',
+  'login_prompt_6': '🎮 Ongeza afya ya ubongo pamoja na marafiki wako!',
+  'login_prompt_7': '📈 Weka rekodi za kibinafsi na kukuza uwezo wako!',
+
 };

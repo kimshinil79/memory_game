@@ -272,4 +272,13 @@ const Map<String, String> nyTranslations = {
   'try_different_search': 'Zama igama lokusesha elinye',
 'by_country': 'Kwa Nchi',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Sungani maphuzu anu ndikupikisana ndi anthu otsogola padziko lonse!',
+  'login_prompt_2': '🧠 Yang\'anani maphuzu a thanzi la ubongo wanu ndikuwona kupita patsogolo!',
+  'login_prompt_3': '🏆 Nenani anzanu ndi masewera a osewera ambiri!',
+  'login_prompt_4': '📊 Onani zowerengera za masewera anu ndikuwonjezera luso lanu!',
+  'login_prompt_5': '⭐ Lembetsani kuti mutsegule mwayi woposa!',
+  'login_prompt_6': '🎮 Limbikitsani thanzi la ubongo pamodzi ndi abwenzi anu!',
+  'login_prompt_7': '📈 Khazikitsani zolemba zanu ndikukula!',
+
 };

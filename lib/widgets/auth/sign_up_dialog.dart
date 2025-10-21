@@ -334,23 +334,22 @@ class SignUpDialog {
                                       ),
                                       elevation: 0,
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.person_add_rounded,
-                                          size: 22,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          translations['create_account_button'] ?? 'Create Account',
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 0.5,
+                                    child: Center(
+                                      child: Flexible(
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            translations['create_account_button'] ?? 'Create Account',
+                                            style: GoogleFonts.montserrat(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 0.5,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),

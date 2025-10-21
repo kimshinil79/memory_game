@@ -264,4 +264,13 @@ const Map<String, String> swKETranslations = {
   'try_different_search': 'Jaribu neno lingine la utafutaji',
 'by_country': 'Kwa Nchi',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Hifadhi alama zako na shindana katika orodha za dunia!',
+  'login_prompt_2': '🧠 Fuatilia alama yako ya afya ya ubongo na uangalie maendeleo yako!',
+  'login_prompt_3': '🏆 Shinda marafiki zako kwa michezo ya wachezaji wengi!',
+  'login_prompt_4': '📊 Angalia takwimu za mchezo wako na uboresha ujuzi wako!',
+  'login_prompt_5': '⭐ Jiandikishe kufungua vipengele zaidi vya ajabu!',
+  'login_prompt_6': '🎮 Ongeza afya ya ubongo pamoja na marafiki zako!',
+  'login_prompt_7': '📈 Weka rekodi binafsi na kua uwezo wako!',
+
 };

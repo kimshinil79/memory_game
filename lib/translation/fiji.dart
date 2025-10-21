@@ -263,4 +263,13 @@ const Map<String, String> fjTranslations = {
   'try_different_search': 'Try a different search term',
 'by_country': 'Berdasarkan Negara',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Maroroya na nomu ivakatagedegede ka veiqaravi ena veivakatagedegede vakavanua!',
+  'login_prompt_2': '🧠 Vakadeitaka na nomu mona talei ca ivakatagedegede ka raica na nomu ivakatoroicake!',
+  'login_prompt_3': '🏆 Veiqaravi vinaka na nomu itokani ena qito veivakatagedegede!',
+  'login_prompt_4': '📊 Raica na nomu statistics ni qito ka vakatoroicaka na nomu itavi!',
+  'login_prompt_5': '⭐ Vola vei ira me dolava na ivakatagedegede vinaka tale!',
+  'login_prompt_6': '🎮 Vakatoroicaka na mona talei vata kei na nomu itokani!',
+  'login_prompt_7': '📈 Sevea na nomu itavi daulomani ka vakatoroicaka na nomu rawa!',
+
 };

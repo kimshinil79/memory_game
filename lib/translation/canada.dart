@@ -276,8 +276,17 @@ const Map<String, String> enCATranslations = {
   'promo_message_8': 'Escape smartphone addiction! 📵 Replace mindless scrolling with brain-boosting games.',
   'promo_message_9': 'Enhance parents\' memory! ✅ Thumbs up for dementia prevention! Consistent brain exercise is the answer.',
   'promo_message_10': 'Say goodbye to forgetfulness! 👋 Maintain a young brain with fun memory games!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Save your scores and compete in global rankings!',
+  'login_prompt_2': '🧠 Track your brain health score and watch your progress!',
+  'login_prompt_3': '🏆 Challenge your friends with multiplayer games!',
+  'login_prompt_4': '📊 Check your game statistics and improve your skills!',
+  'login_prompt_5': '⭐ Sign up to unlock more amazing features!',
+  'login_prompt_6': '🎮 Boost brain health together with your friends!',
+  'login_prompt_7': '📈 Set personal records and grow your abilities!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Top Fastest by Grid',     
   // Player Selection Dialog
   'search_players': 'Search players...',

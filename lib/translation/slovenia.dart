@@ -268,4 +268,13 @@ const Map<String, String> slSITranslations = {
   'try_different_search': 'Poskusite z drugačnim iskalnim izrazom',
 'by_country': 'Po Državah',
 
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Shranite svoje rezultate in tekmujte v globalnih lestvicah!',
+  'login_prompt_2': '🧠 Spremljajte svoj rezultat možganske zdravja in opazujte napredek!',
+  'login_prompt_3': '🏆 Izzovite prijatelje z večigralskimi igrami!',
+  'login_prompt_4': '📊 Preverite svoje igralne statistike in izboljšajte veščine!',
+  'login_prompt_5': '⭐ Prijavite se, da odklenete več neverjetnih funkcij!',
+  'login_prompt_6': '🎮 Izboljšajte možgansko zdravje skupaj s prijatelji!',
+  'login_prompt_7': '📈 Postavite osebne rekorde in razvijajte sposobnosti!',
+
 };

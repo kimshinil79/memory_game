@@ -283,8 +283,17 @@ const Map<String, String> tnTranslations = {
   'promo_message_8': 'Tshaba kgolagano ya smartphone! 📵 Tlogela go thetsa o sena boikaelelo ka metshameko e e tlhabololang boko.',
   'promo_message_9': 'Godisa go gakologelwa ga batsadi! ✅ Tumiso go thibelo ya bolwetse jwa boko! Boitsholo jwa boko jo bo sa kgaotseng ke karabo.',
   'promo_message_10': 'Reela go lebala! 👋 Boloka boko jo bošwa ka metshameko e e monate ya go gakologelwa!',
+  
+  // Login Prompt Messages (for game completion)
+  'login_prompt_1': '🎯 Boloka dipalo tsa gago o nne le kgaisano mo maemong a lefatshe!',
+  'login_prompt_2': '🧠 Latela palo ya boitekanelo jwa boko jwa gago o bone tswelelopele ya gago!',
+  'login_prompt_3': '🏆 Tlhohonolofatsa ditsala tsa gago ka metshameko ya batshameki ba bantsi!',
+  'login_prompt_4': '📊 Tlhatlhoba dipalopalo tsa metshameko ya gago o tokafatse bokgoni jwa gago!',
+  'login_prompt_5': '⭐ Ngodisa go bulela dikarolo tse dingwe tse di gakgamatsang!',
+  'login_prompt_6': '🎮 Tokafatsa boitekanelo jwa boko mmogo le ditsala tsa gago!',
+  'login_prompt_7': '📈 Beela direkoto tsa gago o godise bokgoni jwa gago!',
+  
   // Top Fastest by Grid
-
   'top_fastest_by_grid': 'Bofefo ka Grid',     
   // Player Selection Dialog
   'search_players': 'Funa abadlali...',
