@@ -1,175 +1,204 @@
 <en-US>
-Reborn in K-pop style!
-New images added!!
-Country ranking comparison feature added!!
-Share links added, improve your brain function with fun!!
+Enhanced login experience with personalized prompts!
+UI language now follows your selected voice language for non-logged users!
+All buttons and messages properly translated to your language!
+Improved language switching for seamless experience!
+Play in your language, boost your brain health globally!
 </en-US>
 <ar>
-ولادة جديدة بأسلوب K-pop!
-إضافة صور جديدة!!
-إضافة ميزة مقارنة التصنيفات حسب البلد!!
-إضافة روابط المشاركة، حسّن وظائف دماغك بمتعة!!
+تجربة تسجيل دخول محسّنة مع رسائل شخصية!
+لغة الواجهة تتبع لغة الصوت المختارة للمستخدمين غير المسجلين!
+جميع الأزرار والرسائل مترجمة بشكل صحيح إلى لغتك!
+تحسين تبديل اللغة لتجربة سلسة!
+العب بلغتك، عزز صحة دماغك عالمياً!
 </ar>
 <cs-CZ>
-Znovuzrození ve stylu K-pop!
-Přidány nové obrázky!!
-Přidána funkce porovnání žebříčků podle zemí!!
-Přidány odkazy ke sdílení, zlepšete funkce svého mozku zábavně!!
+Vylepšený přihlašovací zážitek s personalizovanými výzvami!
+Jazyk UI nyní následuje váš vybraný hlasový jazyk pro nepřihlášené uživatele!
+Všechna tlačítka a zprávy správně přeloženy do vašeho jazyka!
+Vylepšené přepínání jazyků pro bezproblémový zážitek!
+Hrajte ve svém jazyce, posilujte zdraví mozku globálně!
 </cs-CZ>
 <da-DK>
-Genfødt i K-pop stil!
-Nye billeder tilføjet!!
-Landerangeringsfunktion tilføjet!!
-Delingslinks tilføjet, forbedre din hjernefunktion med sjov!!
+Forbedret login-oplevelse med personlige beskeder!
+UI-sprog følger nu dit valgte stemmesprog for ikke-loggede brugere!
+Alle knapper og beskeder korrekt oversat til dit sprog!
+Forbedret sprogskift for problemfri oplevelse!
+Spil på dit sprog, boost din hjernefunktion globalt!
 </da-DK>
 <de-DE>
-Wiedergeboren im K-pop-Stil!
-Neue Bilder hinzugefügt!!
-Länder-Ranking-Vergleichsfunktion hinzugefügt!!
-Share-Links hinzugefügt, verbessere deine Gehirnfunktion mit Spaß!!
+Verbessertes Login-Erlebnis mit personalisierten Aufforderungen!
+UI-Sprache folgt nun Ihrer gewählten Sprachsprache für nicht eingeloggte Benutzer!
+Alle Schaltflächen und Nachrichten korrekt in Ihre Sprache übersetzt!
+Verbesserter Sprachwechsel für nahtloses Erlebnis!
+Spielen Sie in Ihrer Sprache, verbessern Sie Ihre Gehirngesundheit weltweit!
 </de-DE>
 <es-419>
-¡Renacido al estilo K-pop!
-¡Nuevas imágenes añadidas!!
-¡Función de comparación de rankings por país añadida!!
-¡Enlaces para compartir añadidos, mejora tu función cerebral con diversión!!
+¡Experiencia de inicio de sesión mejorada con mensajes personalizados!
+¡El idioma de la UI ahora sigue tu idioma de voz seleccionado para usuarios no registrados!
+¡Todos los botones y mensajes correctamente traducidos a tu idioma!
+¡Cambio de idioma mejorado para una experiencia fluida!
+¡Juega en tu idioma, mejora tu salud cerebral globalmente!
 </es-419>
 <es-ES>
-¡Renacido al estilo K-pop!
-¡Nuevas imágenes añadidas!!
-¡Función de comparación de rankings por país añadida!!
-¡Enlaces para compartir añadidos, mejora tu función cerebral con diversión!!
+¡Experiencia de inicio de sesión mejorada con mensajes personalizados!
+¡El idioma de la UI ahora sigue tu idioma de voz seleccionado para usuarios no registrados!
+¡Todos los botones y mensajes correctamente traducidos a tu idioma!
+¡Cambio de idioma mejorado para una experiencia fluida!
+¡Juega en tu idioma, mejora tu salud cerebral globalmente!
 </es-ES>
 <fi-FI>
-Uudesti syntynyt K-pop-tyyliin!
-Uusia kuvia lisätty!!
-Maiden sijoitusten vertailuominaisuus lisätty!!
-Jakolinkit lisätty, paranna aivotoimintaasi hauskasti!!
+Parannettu kirjautumiskokemus henkilökohtaisilla kehotteet!
+Käyttöliittymän kieli seuraa nyt valittua äänikielitäsi kirjautumattomille käyttäjille!
+Kaikki painikkeet ja viestit käännetty oikein kielellesi!
+Parannettu kielenvaihto saumattomaan kokemukseen!
+Pelaa kielilläsi, paranna aivoterveyttäsi globaalisti!
 </fi-FI>
 <fr-FR>
-Renaît dans le style K-pop !
-Nouvelles images ajoutées !!
-Fonction de comparaison des classements par pays ajoutée !!
-Liens de partage ajoutés, améliorez votre fonction cérébrale avec plaisir !!
+Expérience de connexion améliorée avec messages personnalisés !
+La langue de l'interface suit maintenant votre langue vocale pour les utilisateurs non connectés !
+Tous les boutons et messages correctement traduits dans votre langue !
+Changement de langue amélioré pour une expérience fluide !
+Jouez dans votre langue, améliorez votre santé cérébrale globalement !
 </fr-FR>
 <hi-IN>
-K-pop शैली में नया जन्म!
-नई छवियां जोड़ी गईं!!
-देश रैंकिंग तुलना सुविधा जोड़ी गई!!
-शेयर लिंक जोड़े गए, मज़े के साथ अपने मस्तिष्क कार्य को बेहतर बनाएं!!
+व्यक्तिगत संदेशों के साथ बेहतर लॉगिन अनुभव!
+गैर-लॉगिन उपयोगकर्ताओं के लिए UI भाषा अब आपकी चयनित आवाज भाषा का अनुसरण करती है!
+सभी बटन और संदेश आपकी भाषा में सही ढंग से अनुवादित!
+निर्बाध अनुभव के लिए बेहतर भाषा स्विचिंग!
+अपनी भाषा में खेलें, विश्व स्तर पर अपने मस्तिष्क स्वास्थ्य को बढ़ावा दें!
 </hi-IN>
 <hu-HU>
-Újjászületett K-pop stílusban!
-Új képek hozzáadva!!
-Országos rangsor összehasonlítás funkció hozzáadva!!
-Megosztási linkek hozzáadva, javítsd az agyfunkciódat szórakozva!!
+Továbbfejlesztett bejelentkezési élmény személyre szabott üzenetekkel!
+A felhasználói felület nyelve most követi a kiválasztott hangnyelvét a nem bejelentkezett felhasználók számára!
+Minden gomb és üzenet helyesen lefordítva a nyelvedre!
+Továbbfejlesztett nyelvváltás a zökkenőmentes élményért!
+Játssz a nyelvedén, javítsd az agyi egészségedet globálisan!
 </hu-HU>
 <id>
-Terlahir kembali dengan gaya K-pop!
-Gambar baru ditambahkan!!
-Fitur perbandingan peringkat negara ditambahkan!!
-Link berbagi ditambahkan, tingkatkan fungsi otak Anda dengan menyenangkan!!
+Pengalaman login yang ditingkatkan dengan pesan yang dipersonalisasi!
+Bahasa UI sekarang mengikuti bahasa suara yang Anda pilih untuk pengguna yang tidak login!
+Semua tombol dan pesan diterjemahkan dengan benar ke bahasa Anda!
+Peralihan bahasa yang ditingkatkan untuk pengalaman yang mulus!
+Mainkan dalam bahasa Anda, tingkatkan kesehatan otak Anda secara global!
 </id>
 <it-IT>
-Rinato in stile K-pop!
-Nuove immagini aggiunte!!
-Funzione di confronto classifiche per paese aggiunta!!
-Link di condivisione aggiunti, migliora la tua funzione cerebrale divertendoti!!
+Esperienza di accesso migliorata con messaggi personalizzati!
+La lingua dell'interfaccia ora segue la lingua vocale selezionata per gli utenti non connessi!
+Tutti i pulsanti e messaggi correttamente tradotti nella tua lingua!
+Cambio lingua migliorato per un'esperienza fluida!
+Gioca nella tua lingua, migliora la tua salute cerebrale globalmente!
 </it-IT>
 <iw-IL>
-נולד מחדש בסגנון K-pop!
-תמונות חדשות נוספו!!
-נוספה תכונת השוואת דירוגים לפי מדינה!!
-נוספו קישורי שיתוף, שפרו את תפקוד המוח שלכם בכיף!!
+חוויית התחברות משופרת עם הודעות מותאמות אישית!
+שפת הממשק עוקבת כעת אחר שפת הקול שבחרתם למשתמשים שאינם מחוברים!
+כל הכפתורים וההודעות מתורגמים כראוי לשפה שלכם!
+החלפת שפה משופרת לחוויה חלקה!
+שחקו בשפה שלכם, שפרו את בריאות המוח שלכם גלובלית!
 </iw-IL>
 <ja-JP>
-K-popスタイルで新登場!
-新しい画像追加!!
-国別ランキング比較機能追加!!
-共有リンク追加、楽しく脳機能を改善しましょう!!
+パーソナライズされたプロンプトで強化されたログイン体験！
+ログインしていないユーザーの場合、UI言語が選択した音声言語に従うようになりました！
+すべてのボタンとメッセージがあなたの言語に正しく翻訳されました！
+シームレスな体験のための改善された言語切り替え！
+あなたの言語でプレイして、世界的に脳の健康を向上させましょう！
 </ja-JP>
 <ko-KR>
-K-pop 스타일로 새롭게 탄생!
-새로운 이미지 추가!!
-국가별 순위 비교 기능 추가!!
-공유 링크 추가, 모두 즐겁게 뇌기능을 개선해 보세요!!
+개인화된 메시지로 향상된 로그인 경험!
+로그인하지 않은 사용자의 경우 UI 언어가 선택한 음성 언어를 따라갑니다!
+모든 버튼과 메시지가 사용자의 언어로 올바르게 번역되었습니다!
+원활한 경험을 위한 개선된 언어 전환!
+당신의 언어로 플레이하고 세계적으로 뇌 건강을 향상시키세요!
 </ko-KR>
 <nl-NL>
-Herboren in K-pop stijl!
-Nieuwe afbeeldingen toegevoegd!!
-Landenvergelijking ranglijst functie toegevoegd!!
-Deellinks toegevoegd, verbeter je hersenfunctie met plezier!!
+Verbeterde login-ervaring met gepersonaliseerde prompts!
+UI-taal volgt nu je geselecteerde stemtaal voor niet-ingelogde gebruikers!
+Alle knoppen en berichten correct vertaald naar jouw taal!
+Verbeterde taalomschakeling voor naadloze ervaring!
+Speel in jouw taal, verbeter je hersengezondheid wereldwijd!
 </nl-NL>
 <no-NO>
-Gjenfødt i K-pop stil!
-Nye bilder lagt til!!
-Landerangering sammenligningsfunksjon lagt til!!
-Delingslenker lagt til, forbedre hjernefunksjonen din med moro!!
+Forbedret påloggingsopplevelse med personlige meldinger!
+UI-språk følger nå ditt valgte stemmespråk for ikke-innloggede brukere!
+Alle knapper og meldinger korrekt oversatt til ditt språk!
+Forbedret språkbytte for sømløs opplevelse!
+Spill på ditt språk, boost hjernehelsen din globalt!
 </no-NO>
 <pl-PL>
-Odrodzony w stylu K-pop!
-Dodano nowe obrazy!!
-Dodano funkcję porównywania rankingów krajowych!!
-Dodano linki do udostępniania, popraw swoją funkcję mózgu z przyjemnością!!
+Ulepszone doświadczenie logowania ze spersonalizowanymi monitorami!
+Język interfejsu użytkownika podąża teraz za wybranym językiem głosowym dla niezalogowanych użytkowników!
+Wszystkie przyciski i wiadomości poprawnie przetłumaczone na twój język!
+Ulepszona zmiana języka dla płynnego doświadczenia!
+Graj w swoim języku, popraw zdrowie mózgu globalnie!
 </pl-PL>
 <pt-BR>
-Renascido no estilo K-pop!
-Novas imagens adicionadas!!
-Recurso de comparação de rankings por país adicionado!!
-Links de compartilhamento adicionados, melhore sua função cerebral com diversão!!
+Experiência de login aprimorada com mensagens personalizadas!
+O idioma da UI agora segue seu idioma de voz selecionado para usuários não logados!
+Todos os botões e mensagens corretamente traduzidos para o seu idioma!
+Troca de idioma aprimorada para experiência perfeita!
+Jogue no seu idioma, melhore sua saúde cerebral globalmente!
 </pt-BR>
 <ro>
-Renăscut în stilul K-pop!
-Imagini noi adăugate!!
-Funcție de comparare a clasamentelor pe țări adăugată!!
-Link-uri de partajare adăugate, îmbunătățește-ți funcția cerebrală cu distracție!!
+Experiență de autentificare îmbunătățită cu mesaje personalizate!
+Limba interfeței urmează acum limba vocală selectată pentru utilizatorii neautentificați!
+Toate butoanele și mesajele traduse corect în limba ta!
+Schimbarea limbii îmbunătățită pentru experiență fără probleme!
+Joacă în limba ta, îmbunătățește-ți sănătatea cerebrală la nivel global!
 </ro>
 <ru-RU>
-Возрожден в стиле K-pop!
-Добавлены новые изображения!!
-Добавлена функция сравнения рейтингов по странам!!
-Добавлены ссылки для обмена, улучшайте функции мозга с удовольствием!!
+Улучшенный опыт входа с персонализированными подсказками!
+Язык интерфейса теперь следует за выбранным голосовым языком для пользователей без входа!
+Все кнопки и сообщения правильно переведены на ваш язык!
+Улучшенное переключение языков для беспрепятственного опыта!
+Играйте на своем языке, улучшайте здоровье мозга по всему миру!
 </ru-RU>
 <sk>
-Znovuzrodený v štýle K-pop!
-Pridané nové obrázky!!
-Pridaná funkcia porovnania rebríčkov podľa krajín!!
-Pridané odkazy na zdieľanie, zlepšite funkciu svojho mozgu so zábavou!!
+Vylepšená skúsenosť s prihlásením s personalizovanými výzvami!
+Jazyk používateľského rozhrania teraz sleduje váš vybraný hlasový jazyk pre neprihlásených používateľov!
+Všetky tlačidlá a správy správne preložené do vášho jazyka!
+Vylepšené prepínanie jazykov pre bezproblémový zážitok!
+Hrajte vo svojom jazyku, zlepšite zdravie mozgu globálne!
 </sk>
 <sv-SE>
-Återfödd i K-pop stil!
-Nya bilder tillagda!!
-Landjämförelsefunktion för ranking tillagd!!
-Delningslänkar tillagda, förbättra din hjärnfunktion med nöje!!
+Förbättrad inloggningsupplevelse med personliga meddelanden!
+UI-språket följer nu ditt valda röstspråk för icke-inloggade användare!
+Alla knappar och meddelanden korrekt översatta till ditt språk!
+Förbättrat språkbyte för sömlös upplevelse!
+Spela på ditt språk, förbättra din hjärnhälsa globalt!
 </sv-SE>
 <th>
-เกิดใหม่ในสไตล์ K-pop!
-เพิ่มภาพใหม่!!
-เพิ่มฟีเจอร์เปรียบเทียบอันดับตามประเทศ!!
-เพิ่มลิงก์แชร์ ปรับปรุงการทำงานของสมองด้วยความสนุก!!
+ประสบการณ์การเข้าสู่ระบบที่ดีขึ้นพร้อมข้อความส่วนบุคคล!
+ภาษา UI ตามภาษาเสียงที่คุณเลือกสำหรับผู้ใช้ที่ไม่ได้เข้าสู่ระบบ!
+ปุ่มและข้อความทั้งหมดแปลอย่างถูกต้องเป็นภาษาของคุณ!
+การสลับภาษาที่ดีขึ้นเพื่อประสบการณ์ที่ราบรื่น!
+เล่นในภาษาของคุณ เพิ่มสุขภาพสมองของคุณทั่วโลก!
 </th>
 <tr-TR>
-K-pop tarzında yeniden doğdu!
-Yeni resimler eklendi!!
-Ülke sıralama karşılaştırma özelliği eklendi!!
-Paylaşım bağlantıları eklendi, eğlenerek beyin fonksiyonunuzu geliştirin!!
+Kişiselleştirilmiş bildirimlerle geliştirilmiş giriş deneyimi!
+Giriş yapmamış kullanıcılar için UI dili artık seçtiğiniz ses dilini takip ediyor!
+Tüm düğmeler ve mesajlar dilinize doğru şekilde çevrildi!
+Sorunsuz deneyim için geliştirilmiş dil değiştirme!
+Kendi dilinizde oynayın, beyin sağlığınızı küresel olarak artırın!
 </tr-TR>
 <uk>
-Відроджений у стилі K-pop!
-Додано нові зображення!!
-Додано функцію порівняння рейтингів за країнами!!
-Додано посилання для обміну, покращуйте функції мозку з задоволенням!!
+Покращений досвід входу з персоналізованими підказками!
+Мова інтерфейсу тепер слідує за обраною голосовою мовою для користувачів без входу!
+Усі кнопки та повідомлення правильно перекладені вашою мовою!
+Покращене перемикання мов для безперешкодного досвіду!
+Грайте своєю мовою, покращуйте здоров'я мозку у всьому світі!
 </uk>
 <vi>
-Tái sinh theo phong cách K-pop!
-Đã thêm hình ảnh mới!!
-Đã thêm tính năng so sánh xếp hạng theo quốc gia!!
-Đã thêm liên kết chia sẻ, cải thiện chức năng não bộ một cách vui vẻ!!
+Trải nghiệm đăng nhập được cải thiện với thông báo cá nhân hóa!
+Ngôn ngữ giao diện giờ đây theo ngôn ngữ giọng nói bạn chọn cho người dùng chưa đăng nhập!
+Tất cả các nút và tin nhắn được dịch chính xác sang ngôn ngữ của bạn!
+Chuyển đổi ngôn ngữ được cải thiện để có trải nghiệm liền mạch!
+Chơi bằng ngôn ngữ của bạn, cải thiện sức khỏe não bộ trên toàn cầu!
 </vi>
 <zh-CN>
-以K-pop风格重生!
-添加新图像!!
-添加国家排名比较功能!!
-添加分享链接，愉快地改善您的大脑功能!!
+通过个性化提示增强登录体验！
+未登录用户的UI语言现在跟随您选择的语音语言！
+所有按钮和消息都正确翻译成您的语言！
+改进的语言切换以获得无缝体验！
+用您的语言玩游戏，全球提升您的大脑健康！
 </zh-CN>
 
